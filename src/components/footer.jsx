@@ -4,7 +4,7 @@ export default function Footer() {
       <>
         <footer>
           <div className="footer-section">
-            <img className="fondo" src="/fedevolei.png" alt="lisanvolei" />
+            <img loading="lazy" className="fondo" src="/fedevolei.png" alt="lisanvolei" />
           </div>
           <div className="footer-section organizador">
             <Link to="/documentos-DIAN-RTE-2024" className="link"><h3>Estados financieros</h3></Link>
