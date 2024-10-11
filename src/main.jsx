@@ -6,7 +6,9 @@ import BookView from './routes/bookView/bookView.jsx'
 import ErrorPage from './components/errorPage.jsx'
 import Search from './routes/search/search.jsx'
 import Login from './routes/login/login.jsx'
+import CrearLibro from './routes/crearLibro/CrearLibro.jsx'
 import './index.css'
+import SuccessCreatingBook from './routes/crearLibro/success.jsx'
 
 
 const router = createBrowserRouter([
@@ -16,8 +18,18 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage/>
   },
   {
-    path:"/libros/:elementId",
-    element:<BookView />
+    path:"libros/crear",
+    element: <CrearLibro />
+  },
+  {
+    path:"libros/crear/exito",
+    element: <SuccessCreatingBook />
+  },
+  {
+    
+    path:"libros/:elementId",
+    element:<BookView />,
+        
   },
   {
     path: "/buscar",

@@ -4,7 +4,7 @@ import { reduceText } from "../assets/reduceText";
 import { cambiarEspacioAGuiones } from "../assets/agregarMas";
 
 export default function Header() {
-    const user = false;
+    const user = true;
     /*
         const abrirMenu = () => {
             let menu = document.querySelector(".inhamburger");
@@ -62,70 +62,74 @@ const openExtraInfo = async (str) => {
     // Managing input ref for search and handling search input
     const queryInput = useRef(null);
     const [results, setResults] = useState([]);
+
     
     function handleSearchInput() {
         if (!queryInput.current.value) { 
+            
             setResults([]); 
             return;
         }
-
-        // Example of static results for the search
-        setResults([
-            {
-                name: "Harry Potter y la Cámara Secreta",
-                brand: "Warner Bros",
-                price: 100000,  // en pesos colombianos
-                salePrice: 80000,  // en pesos colombianos
-                image: "https://via.placeholder.com/150",
-                keywords: ["fantasía", "Harry Potter", "J.K. Rowling"],
-                id: "a1b2c3d4-e5f6-7g8h-9i10-j11k12l13m14" // generated id
-            },
-            {
-                name: "Harry Potter y la Cámara Secreta",
-                brand: "Warner Bros",
-                price: 100000,  // en pesos colombianos
-                salePrice: 80000,  // en pesos colombianos
-                image: "https://via.placeholder.com/150",
-                keywords: ["fantasía", "Harry Potter", "J.K. Rowling"],
-                id: "b2c3d4e5-f6g7-h8i9-1011-j12k13l14m15" // generated id
-            },
-            {
-                name: "Harry Potter y la Cámara Secreta",
-                brand: "Warner Bros",
-                price: 100000,  // en pesos colombianos
-                salePrice: 80000,  // en pesos colombianos
-                image: "https://via.placeholder.com/150",
-                keywords: ["fantasía", "Harry Potter", "J.K. Rowling"],
-                id: "c3d4e5f6-g7h8-i910-1112-k13l14m15n16" // generated id
-            },
-            {
-                name: "One Piece Vol. 124",
-                brand: "Shueisha",
-                price: 20000,  // en pesos colombianos
-                salePrice: 18000,  // en pesos colombianos
-                image: "https://images.cdn3.buscalibre.com/fit-in/360x360/7c/7f/7c7f5d38d2494aa32cec08859e76eadf.jpg",
-                keywords: ["manga", "anime", "One Piece"],
-                id: "d4e5f6g7-h8i9-1011-1213-l14m15n16o17" // generated id
-            },
-            {
-                name: "Cien años de soledad",
-                brand: "Editorial Sudamericana",
-                price: 35000,  // en pesos colombianos
-                salePrice: 32000,  // en pesos colombianos
-                image: "https://via.placeholder.com/150",
-                keywords: ["literatura", "Gabriel García Márquez", "realismo mágico"],
-                id: "e5f6g7h8-i910-1112-1314-m15n16o17p18" // generated id
-            },
-            {
-                name: "El nombre del viento",
-                brand: "DAW Books",
-                price: 45000,  // en pesos colombianos
-                salePrice: 40000,  // en pesos colombianos
-                image: "https://via.placeholder.com/150",
-                keywords: ["fantasía", "Patrick Rothfuss", "aventura"],
-                id: "f6g7h8i9-1011-1213-1415-n16o17p18q19" // generated id
-            }
-        ]);
+        setResults([{
+            "titulo": "Harry Potter y la Cámara Secreta",
+            "brand": "Warner Bros",
+            "precio": 100000,
+            "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg"],
+            "keywords": ["fantasía", "Harry Potter", "J.K. Rowling"],
+            "id": "a1b2c3d4-e5f6-7g8h-9i10-j11k12l13m14",
+            "estado" : "Usado",
+            "genero": "Novela",
+            "vendedor": "Ivan Gómez",
+            "edicion": "1"
+        },
+        {
+            "titulo": "Harry Potter y la Cámara Secreta",
+            "brand": "Warner Bros",
+            "precio": 100000,
+            
+            "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg"],
+            "keywords": ["fantasía", "Harry Potter", "J.K. Rowling"],
+            "id": "b2c3d4e5-f6g7-h8i9-1011-j12k13l14m15"
+        },
+        {
+            "titulo": "Harry Potter y la Cámara Secreta",
+            "brand": "Warner Bros",
+            "precio": 100000,
+            "oferta": 80000,
+            "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg"],
+            "keywords": ["fantasía", "Harry Potter", "J.K. Rowling"],
+            "id": "c3d4e5f6-g7h8-i910-1112-k13l14m15n16"
+        },
+        {
+            "titulo": "One Piece Vol. 124",
+            "brand": "Shueisha",
+            "precio": 20000,
+            "oferta": 18000,
+            "images":  ["https://lh3.googleusercontent.com/proxy/XXUB6Ecwi4VLX6huumbKju8YS1aziFa6i0LYOeEvWyWMKRfr3Y9rjNL_R_rLgVTx3oA864aSF5Ir_gAOIPYSDAoJk4mQSHMxDkOnDef5WLbpIJNK5Ci_F3LIkw2HhnhMgcDPPFoEzrU00x3kWYRINeIpKRlQsJfy23OHH08dqiCdJV2kwQ3dP4PHivbwQKnSbFvpFAZeJCsHGNrHornLiNHdgsoOvfsd7xU5hE-SqA"],
+            "keywords": ["manga", "anime", "One Piece"],
+            "id": "d4e5f6g7-h8i9-1011-1213-l14m15n16o17"
+        },
+        {
+            "titulo": "Cien años de soledad",
+            "brand": "Editorial Sudamericana",
+            "precio": 35000,
+            "oferta": 32000,
+            "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/61/8d/618d227e8967274cd9589a549adff52d.jpg"],
+            "keywords": ["literatura", "Gabriel García Márquez", "realismo mágico"],
+            "id": "e5f6g7h8-i910-1112-1314-m15n16o17p18"
+        },
+        {
+            "titulo": "El nombre del viento",
+            "brand": "DAW Books",
+            "precio": 45000,
+            "oferta": 40000,
+            "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/aa/cc/aacc1e2d359a74f3efb144b8ab8f790f.jpg"],
+            "keywords": ["fantasía", "Patrick Rothfuss", "aventura"],
+            "id": "f6g7h8i9-1011-1213-1415-n16o17p18q19",
+            "estado" : "Usado",
+            "genero": "Novela"
+        }])
+        //Set results based on a fetch
     }
 
     // Submits the input value when the search button is clicked
@@ -145,14 +149,20 @@ const openExtraInfo = async (str) => {
     function adjustTopProfile() {
         //50 de AntesHeader + 90 de el header
         let top;
+        
+        if (!profile) return
         if (window.scrollY > 50) {
+            
             top =  90 +"px";
             profileContainer.current.style.top = top
             
-            return top
         }
-        top = 140 - window.scrollY + "px";
-        profileContainer.current.style.top = top;
+        else {
+            
+            top = 140 - window.scrollY + "px";
+            profileContainer.current.style.top = top;
+            
+        }
         return top
     }
   
@@ -220,11 +230,11 @@ const openExtraInfo = async (str) => {
                     <div className="resultsContainer" style={{}}>
                     {results.slice(0,4).map((result, index) => (
                         <div className="result" key={index} onClick={()=> window.location.href = `${window.location.origin}/libros/${result.id}`}>
-                            <img loading="lazy" src={result.image} alt={result.name} className="result-photo" />
+                            <img loading="lazy" src={result.images[0]} alt={result.titulo} className="result-photo" />
                             <div className="result-info">
-                            <h3>{reduceText(result.name,30)}</h3>
+                            <h3>{reduceText(result.titulo,30)}</h3>
                             <a 
-                                href={`${window.location.origin}/buscar?q=${cambiarEspacioAGuiones(result.name)}`} 
+                                href={`${window.location.origin}/buscar?q=${cambiarEspacioAGuiones(result.titulo)}`} 
                                 rel="noopener noreferrer"
                             >
                             <div className="see-more">
@@ -270,6 +280,11 @@ const openExtraInfo = async (str) => {
                 <Link to="/account">
                 <div className="profileElement">
                     <span>Cuenta</span>
+                </div>
+                </Link>
+                <Link to="/libros/crear">
+                <div className="profileElement">
+                    <span>Publicar</span>
                 </div>
                 </Link>
                 <Link to="mislibros">

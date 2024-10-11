@@ -7,7 +7,7 @@
   --using3: #000000; /* Text color */
   --using4: #42376E; /* Accent */
   --using5: #f4f0f0; /* Buttons, divs */
-  --using6: #f4f0f0; /* Extra */
+  --using6: red; /* Errores, acentos */
 
 
   --naranja1: #ffffff; /* Background */
@@ -42,6 +42,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  
+}
+body{
+  transition: all .5s ease-in-out;
 }
 *{
   box-sizing: border-box;
@@ -91,7 +95,8 @@ hr{
 }
 
 svg{
-  color:var(--using3)
+  color:var(--using3);
+  cursor:pointer;
 }
 /*-----------------------------------------------*/
 .errorContainer{
@@ -109,9 +114,9 @@ svg{
 .antesHeader{
   height:50px;
   width:100vw;
-  /*background: linear-gradient(90deg, yellow 50%, blue 75%, red 100%);*/
+  /*background: linear-gradient(90deg, yellow 50%, blue 75%, var(--using6) 100%);*/
   /*background: repeating-linear-gradient(60deg, white 0%, blue 10%, white 20%);*/
-  background: var(--using6);
+  background: var(--using1);
   
   display: flex;
   justify-content: space-between;
@@ -150,7 +155,7 @@ header{
   left:0;
   width:100vw;
   background:  var(--using5);
-  z-index: 10;
+  z-index: 1000;
   height:80px;
   display:flex;
   justify-content: space-between;
@@ -236,9 +241,9 @@ header{
 
 .result-photo {
   height: 100%;
-  aspect-ratio: 1/1;
+  aspect-ratio: 2/3;
   object-fit: cover;
-  border-radius: 50%;
+  border-radius: 5px;
   margin-right: 10px;
 }
 
@@ -252,7 +257,7 @@ header{
 
 .see-more {
   text-decoration: none;
-  color: var(--using3);
+  color: var(--using1);
   background: var(--using4);
   font-weight: 700;
   padding: 5px 10px;
@@ -275,7 +280,8 @@ header{
   background-color: white;
   border-radius: 25px;
   color:var(--using3);
-  border: 2px solid var(--using3);
+  border: 2px solid var(--using2);
+  
 }
 
 .headerDer input{
@@ -289,7 +295,7 @@ header{
   border-radius: 300px 0 0 300px; /* Round corners on the left side */
   font-size: 2.5rem;
   outline: none;
-  width: 300px; /* You can adjust this */
+  width: 200px; /* You can adjust this */
   
   background-color: var(--using1);
   
@@ -300,7 +306,7 @@ header{
   border: none;
   background-color: var(--using4); /* Dark blue color */
   color: var(--using1);
-  padding: 10px;
+  padding: 7.5px;
   padding-left: 30px;
   display: flex;
   justify-content: center;
@@ -566,8 +572,8 @@ a{
 
 ::-webkit-scrollbar{
 
-  width:0.7rem;
- 
+  width:2rem;
+  height: 1.5rem;
 }
 ::-webkit-scrollbar-thumb{
   background-color:var(--using4);
@@ -610,6 +616,10 @@ a{
   width:60%;
   padding: 20px;
   border-radius: 10px;
+  
+}
+.IntroDiv h2{
+  font-size: 3rem;
 }
 .boton{
   margin: 20px auto;
@@ -690,7 +700,9 @@ a{
 
 .precioSections h2{
   font-size: 2.5rem;
+  color: var(--using6);
 }
+
 /* Resto de los estilos */
 .sectionsContainer .sectionElement .percentageElement{
   width:100%;
@@ -748,19 +760,70 @@ a{
 }
 
 
-.keywordWrapper{
+/*--------------------------------SECTIONS HORIZONTAL-------------------*/
+
+.cardContainer{
+  width:100%;
+  max-width: 100%;
+  height: auto;
+  border: 2px solid var(--using2);
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: '20px';
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.cardContainer .infoContainer *{
+  color: var(--using3);
+  margin-bottom: 2px ;
+
+}
+
+.cardContainer .imageContainer{
+  height:175px;
+  aspect-ratio: 2/3;
+  object-fit: cover;
+
+}
+.cardContainer .imageContainer img{
+  height:100%;
+  
+}
+.cardContainer .infoContainer .productName{
+  font-size: 3rem;
+}
+.cardContainer .infoContainer .ratings .ratingsStars{
+  margin-right: 5px;
+}
+.cardContainer .accent{
+color: var(--using6);
+  font-weight: 800;
+}
+.cardContainer .infoContainer{
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding:10px;
+  justify-content: space-between;
+  align-items: start;
+  flex-direction: column;
+  width:100%;
+  padding: 10px;
 }
 
-.keywordWrapper .keywordElement{
-  padding: 0 10px;
-  background: #ffffff60;
-  border-radius: 20px;
+.cardContainer .addToCartButton{
+  
+  background-color: var(--using4);
+  border: 1px solid var(--using2);
+  color: var(--using1);
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
 }
-
+.cardContainer .addToCartButton:hover{
+  transform: scale(1.05);
+}
 /*----------------------------------SIDE INFO------------------------*/
 
 .sideInfo{
@@ -861,6 +924,7 @@ footer {
   place-items: center;
   padding: 10px 50px;
   color:var(--using3);
+  border-top: 2px solid var(--using2);
 }
 @media only screen and (max-width:834px) {
   footer{
@@ -1139,7 +1203,7 @@ form{
 .error{
   margin-top: 20px;
   width:80%;
-  background-color: red;
+  background-color: var(--using6);
   padding: 10px;
   color:white;
   border-radius: 5px;
@@ -1186,30 +1250,14 @@ form{
   flex-wrap:wrap;
   padding:20px 50px;
 }
-.misFiltros div{
-  background: rgba(0, 0, 0, 0.2);
-  padding: 10px;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  text-align: left;
-  width: min(15vw, auto);
-  cursor: pointer;
-  height:100%;
-  transition: all .2s ease-in-out;
-  margin:10px;
-}
+
 
 .misFiltros .aplicarFiltros{
   background: var(--using4);
   color:var(--using1);
   
 }
-.misFiltros div:not(.aplicarFiltros):hover{
-  
-  background: rgba(0, 0, 0, 0.1);
-}
+
 .misFiltros .aplicarFiltros:hover{
   transform: scale(1.05);
 }
@@ -1221,16 +1269,19 @@ form{
   grid-template-columns: 1fr 4fr;
   place-items: start;
 }
+.noMargen{
+  margin: 10px 0 0 0;
+}
 .resultadosContainer .masFiltros{
   width:100%;
   position: sticky;
-  top: 90px;
+  top: 80px;
   left:0;
   background: var(--using5);
-  height: calc(100vh - 110px);
-  border: 2px solid var(--using2);
-  
-  border-radius: 0 5px 5px 0;
+  height: calc(100vh - 80px);
+  border-right: 2px solid var(--using2);
+  overflow-x: hidden;
+
   padding:20px;
   text-align: left;
   margin-bottom: 30px;
@@ -1362,6 +1413,7 @@ form{
   justify-content:space-between;
   align-items:center;
   
+  
 }
 .select svg{
   position: absolute;
@@ -1376,9 +1428,10 @@ form{
   justify-content: center;
 }
 .selected {
-  padding: 10px;
+  padding: 5px;
   width: 200px; /* Ensure it matches the width of .select */
- 
+  border: 1px solid var(--using2);
+  border-radius:5px;
 }
 .optionsContainer {
   width: 200px; /* Ensure it matches the width of .select */
@@ -1397,7 +1450,7 @@ form{
   max-height: 150px;
   overflow-y: auto;
   overflow-x:hidden;
-  z-index: 10;
+  z-index: 2;
 }
 .option {
   padding: 10px;
@@ -1409,4 +1462,430 @@ form{
 }
 .option:last-child {
   border-bottom: none;
+}
+
+
+/*--------------------------CREAR LIBRO---------------------------------*/
+.crearLibroDiv div, .crearLibroDiv h2{
+  margin: 20px auto;
+}
+.crearLibroDiv{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.warning{
+  width: max(30vw, 400px);
+  border-radius: 5px;
+  padding: 10px;
+  background: var(--using6);
+  
+  color: var(--using1);
+  font-weight: 400;
+}
+.warning span{
+  font-weight: 1000;
+}
+
+.info{
+  width: max(30vw, 400px);
+  border-radius: 5px;
+  padding: 10px;
+  background: var(--using4);
+  
+  color: var(--using1);
+  font-weight: 400;
+}
+.info span{
+  font-weight: 1000;
+}
+
+.fileUploaderContainer {
+  text-align: center;
+  width: max(450px, 60vw);
+  margin: 20px auto;
+  border-radius: 8px;
+  position: relative;
+}
+.fileUploaderContainer .fileDropZone{
+  width:100%;
+  border: 2px dashed var(--using2);
+  border-radius: 5px;
+}
+.fileUploaderContainer .fileDropZone *{
+  margin:5px 0;
+}
+
+.fileDropZone {
+  padding: 30px 0;
+}
+
+.fileButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.selectButton {
+  background-color: var(--using4);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  
+  transition: all .2s ease-in-out;
+}
+
+.selectButton:hover {
+  transform: scale(1.05);
+}
+
+.limit {
+  color: #777;
+}
+
+.uploadHint {
+color: var(--using6);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.fileError {
+  margin-top: 20px;
+  font-size: 12px;
+  color: #555;
+}
+
+.inputCrear{
+  width: max(450px, 60vw);
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+  margin: auto;
+}
+.inputCrear label, .inputCrear label{
+  font-size: 4rem;
+}
+
+.inputCrear input, .inputCrear textarea{
+  width:100%;
+  padding:5px;
+  margin: 5px 0;
+  background: var(--using1);
+  border: 2px solid var(--using2);
+  border-radius: 5px;
+  font-size: 2.5rem;
+  font-family: inherit;
+  color:var(--using3)
+}
+.crearLibroDiv input[type="submit"], .atras{
+  width: max(20vw, 200px);
+  padding: 10px;
+  background: var(--using4);
+  color:var(--using1);
+  border:none;
+  border-radius: 10px;
+  font-size: 3rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  margin: 20px 0;
+}
+.center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width:max(450px, 60vw);
+}
+.center *{
+  margin: 10px;
+}
+
+.fileUploaded{
+  width: max(450px, 60vw);
+  overflow-x: scroll;
+  overflow-y: hidden;
+  height: 200px;
+  padding: 5px;
+  
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  border: 2px solid var(--using2);
+  border-radius: 5px;
+}
+.fileUploaded div{
+  height: 100%;
+  aspect-ratio: 2/3;
+  border: 1px solid var(--using2);
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+  position: relative;
+}
+.fileUploaded div img{
+  height:100%;
+
+}
+.fileUploaded div svg{
+  width: 30px;
+  height: 30px;
+  
+  color: var(--using3)
+}
+.uploadHint{
+  margin-top: -10px;
+}
+.letraAcento{
+  color: var(--using6);
+}
+.fileUploaded div .delete{
+  width:40px;
+  height:40px;
+  border: 2px solid black;
+  position: absolute;
+  padding: 5px;
+  
+  inset: 50% 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 300px;
+  background-color: var(--using1);
+  filter: opacity(0);
+  transition: all .1s ease-in-out;
+}
+.fileUploaded div:hover .delete{
+  filter: opacity(0.8);
+  cursor: pointer;
+}
+.dropdownBackground{
+  width:120vw;
+  height: 120vh;
+  position: fixed;
+  top: 50vh;
+  left: 50vw;
+  margin: 0;
+  transform: translate(-50%, -50%);
+  background: var(--using3);
+  z-index: 1001;
+  filter:opacity(0.4);
+}
+.dropdown{
+  position: fixed;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  background: var(--using1);
+  width: max(30vw, 400px);
+  height:calc(100vh - 80px);
+  border-radius: 5px;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  z-index: 10001;
+  box-shadow: 0 4px 6px var(--using3);
+}
+.dropdown .flex{
+  font-size: 2.5rem;
+  width: 100%;
+  margin-bottom: 0;
+  text-align: left;
+}
+.dropdown img{
+  width: 80%;
+  
+}
+
+.body-dimmed{
+  opacity: 0.4;
+}
+/*-------------------------FIN DE FASE 1*/
+/*-------------------------FASE 2---------------------*/
+.fase2 .cajones {
+  width: max(400px, 50vw);
+  height: min(200px);
+  display: flex;
+  flex-direction: column;
+  gap: 0; /* Elimina cualquier espacio entre los elementos */
+  border: 1px solid var(--using2);
+  border-radius: 5px;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.fase2 *::-webkit-scrollbar {
+  width: 1rem;
+  cursor:default;
+}
+.fase2 .cajones *{
+  margin: 0 auto;
+  padding: 0;
+  cursor: pointer;
+}.fase2 .cajones .cajon {
+  width: 100%;
+  height: auto;
+  padding-left: 10px; /* Mantiene el margen desde la izquierda */
+  display: flex;
+  justify-content: flex-start; /* Alinea el contenido a la izquierda horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  border-bottom: 2px solid var(--using2);
+  
+  overflow-y: hidden;
+  overflow-x: hidden;
+  font-size: 3rem;
+  gap: 10px; /* Añade un espacio de 10px entre los spans */
+}
+
+.fase2 .cajones .cajon span{
+  margin-right: 10px; /* Alternativa: margen derecho para separar los spans */
+  color: var(--using2)
+}
+
+
+.cajonWrapper {
+  width: 100%;
+
+}
+
+.cajonesExtra {
+  width: 100%;
+  height: 0;
+  
+  margin-left: 10px;
+  overflow: hidden;
+  transition: all .3s ease-in-out;
+}
+
+.cajonCategoria {
+  width: 100%;
+  height: 20px;
+  border-bottom: 1px solid var(--using2);
+  text-align: center;
+ 
+}
+
+.step-wizard{
+  width: max(400px, 60vw);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:40px;
+  margin: 0 auto;
+}
+/*.stepLabels{
+  width:100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}*/
+.step-item{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 2px solid var(--using2);
+  background: var(--using1);
+  width:30px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+}
+
+.active{
+  background: var(--using4);
+  color: var(--using1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.step-line{
+  width:40%;
+  background: var(--using2);
+  height: 2px;
+}
+
+.inputCrear > .keywordWrapper{
+  margin: 0;
+  
+}
+
+.keywordWrapper{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height:auto;
+  padding: 0;
+  margin: 0;
+
+}
+
+.keywordWrapper .keyword{
+  padding: 2px 10px;
+  background: var(--using4);
+  color: var(--using1);
+  border-radius: 20px;
+  margin: 2px 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.keywordWrapper .keyword svg{
+  color: var(--using1);
+  height:80%;
+  aspect-ratio: 1/1;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+/*-------------------------------------SUCCESS CREATING BOOK------------------------*/
+
+.success-container {
+  position: fixed;
+  inset: 50% 50%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  border: 2px solid var(--using2); 
+  height: auto; /* Ocupa toda la altura de la ventana */
+  background-color: #f0f8ff; /* Color de fondo suave */
+  color: var(--using3); /* Color del texto */
+  text-align: center; /* Centrar texto */
+  font-family: inherit; /* Fuente general */
+}
+
+.success-container h2 {
+  font-size: 3rem; /* Tamaño de la fuente del título */
+  margin-bottom: 1rem; /* Espacio inferior */
+}
+
+.success-container p {
+  font-size: 1.2rem; /* Tamaño de la fuente del mensaje */
+  margin-bottom: 2rem; /* Espacio inferior */
+}
+
+.back-button {
+  padding: 10px 20px; /* Espaciado del botón */
+  
+  color: white; /* Color del texto del botón */
+  background-color: var(--using4); /* Color de fondo del botón */
+  border: none;
+  border-radius: 5px; /* Bordes redondeados */
+  cursor: pointer; /* Cambiar el cursor al pasar el mouse */
+  transition: background-color 0.3s; /* Transición de color */
+}
+
+.back-button:hover {
+  background-color: #45a049; /* Color de fondo al pasar el mouse */
 }

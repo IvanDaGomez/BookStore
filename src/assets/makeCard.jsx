@@ -1,13 +1,13 @@
 import { reduceText } from "./reduceText"
 
-export const makeCard = (element, index) => {
+const makeCard = (element, index) => {
     return (
         
             <div className="sectionElement" key={index} onClick={()=>window.location.href = `${window.location.origin}/libros/${element.id}`}>
                 
                 <div className="imageElementContainer"  style={{backgroundImage: `url(${element.images[0]})`}}>
-                {(element.salePrice) ? <div className="percentageElement">
-                    { Math.ceil(((1 - element.salePrice / element.precio) * 100).toFixed(2) / 5) * 5 + '% de descuento'}
+                {(element.oferta) ? <div className="percentageElement">
+                    { Math.ceil(((1 - element.oferta / element.precio) * 100).toFixed(2) / 5) * 5 + '% de descuento'}
                 </div>:<div style={{padding:"calc(10px + 1rem)"}}></div>}
                     <div className="moreInfoElement">
                             <div className="fastInfoElement">
@@ -25,9 +25,15 @@ export const makeCard = (element, index) => {
                     </div>
                 </div>
                 <div style={{padding:"5px 0"}}>
-                <h2>{reduceText(element.name,33)}</h2>
-                <h3>{reduceText(element.brand, 30)}{(element.genero) ? " | " + reduceText(element.genero,15): <></>}{(element.estado) ? " | " + element.estado: <></>}</h3>
-                <div className="precioSections">{(element.salePrice) ? <><h3 style={{display:"inline", marginRight:"10px"}}><s>${element.precio.toLocaleString('es-CO')}</s></h3><h2 style={{display:"inline"}}>${element.salePrice.toLocaleString('es-CO')}</h2></>: <><h2>${element.precio.toLocaleString('es-CO')}</h2></>}
+                <h2>{reduceText(element.titulo,33)}</h2>
+                <h3>
+                  {[element.brand && reduceText(element.brand, 30), 
+                    element.genero && reduceText(element.genero, 15), 
+                    element.estado]
+                    .filter(Boolean) // Filtra los elementos que no son null/undefined/false
+                    .join(" | ")}
+                </h3>
+                <div className="precioSections">{(element.oferta) ? <><h3 style={{display:"inline", marginRight:"10px"}}><s>${element.precio.toLocaleString('es-CO')}</s></h3><h2 style={{display:"inline"}}>${element.oferta.toLocaleString('es-CO')}</h2></>: <><h2>${element.precio.toLocaleString('es-CO')}</h2></>}
                 </div>
 
                 </div>
@@ -35,3 +41,59 @@ export const makeCard = (element, index) => {
 
     )
 }
+
+const makeOneFrCard = (element, index) => {
+    return (
+      <div key={index} className="cardContainer" >
+        
+        {/* Imagen de los auriculares */}
+        <div className="imageContainer" style={{ textAlign: 'center' }}>
+          <img
+            src={element.images[0]}
+            alt={element.titulo}
+            
+          />
+        </div>
+  
+        {/* Nombre del producto */}
+        <div className="infoContainer">
+        <h2 className="productName" >
+          {reduceText(element.titulo, 50)}
+        </h2>
+  
+        {/* Estrellas de rating y número de reseñas */}
+        <div className="ratings">
+          <span className="ratingsStars accent">★★★★☆</span>
+          <span className="ratingsNumber">3,356</span>
+        </div>
+  
+        {/* Precio y oferta */}
+        <div>
+        <div className="precioSections">{(element.oferta) ? <><h2 style={{display:"inline"}}>${element.oferta.toLocaleString('es-CO')}</h2><h3 style={{display:"inline", marginLeft:"10px"}}><s>${element.precio.toLocaleString('es-CO')}</s></h3></>: <><h2>${element.precio.toLocaleString('es-CO')}</h2></>}
+        </div>
+        </div>
+  
+        <div className="details">
+          <h2>{element.brand}</h2>
+          <h2>{element.estado}</h2>
+          <h2>{element.categoria}</h2>
+        </div>
+
+
+        <div className="soldBy" style={{ fontSize: '14px', color: '#555' }}>
+          Vendido por <span className="accent">{element.vendedor}</span>
+        </div>
+  
+        {/* Botón de agregar al carrito */}
+        <button
+          className="addToCartButton"
+          
+        >
+          Agregar al carrito
+        </button>
+
+        </div>
+      </div>
+    );
+  };
+export { makeCard, makeOneFrCard };

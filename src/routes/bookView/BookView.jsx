@@ -33,7 +33,7 @@ export default function BookView(){
             name: "Harry Potter y la Cámara Secreta",
             brand: "Warner Bros",
             price: 100000,  // en pesos colombianos
-            salePrice: 80000,  // en pesos colombianos
+            oferta: 80000,  // en pesos colombianos
             images: ["https://images.cdn3.buscalibre.com/fit-in/360x360/7c/7f/7c7f5d38d2494aa32cec08859e76eadf.jpg", "https://images.cdn3.buscalibre.com/fit-in/360x360/7c/7f/7c7f5d38d2494aa32cec08859e76eadf.jpg"],
             keywords: ["fantasía", "Harry Potter", "J.K. Rowling"],
             id: "a1b2c3d4-e5f6-7g8h-9i10-j11k12l13m14" // generated UUID
@@ -51,7 +51,7 @@ export default function BookView(){
                 <div className="imagesVariable" ref={imagesVariable}>
                     {libro && libro.images && libro.images.map((image, index) => (
                         <div className="imageElement" key={index}>
-                            <img loading="lazy" src={image} alt={libro.name} title={libro.name} />
+                            <img loading="lazy" src={image} alt={libro.titulo} title={libro.titulo} />
                         </div>
                     ))}
                 </div>

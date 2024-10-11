@@ -107,12 +107,12 @@ export default function Login() {
     >
       <div className="login-form">
         <h1>{isRegister ? 'Crea una cuenta!' : 'Bienvenido de vuelta!'}</h1>
-        <h2 style={{ fontWeight: '300' }}>
+        <h2 >
           {isRegister
             ? 'Un paso hacia el futuro que deseas. ¡Atrévete!'
             : 'Leer es el primer paso hacia un mundo lleno de posibilidades. ¿Te atreves a comenzar?'}
         </h2>
-        <h2>{isRegister ? 'Registro' : 'Inicio de Sesión'}</h2>
+        <h2 style={{fontSize:"3rem"}}>{isRegister ? 'Registro' : 'Inicio de Sesión'}</h2>
 
         <form onSubmit={handleSubmit} noValidate>
         {isRegister && (<div className="input-group">
