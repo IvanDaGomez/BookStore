@@ -1,24 +1,28 @@
 [
     {
         "titulo": "Harry Potter y la Cámara Secreta",
-        "brand": "Warner Bros",
+        "autor": "Warner Bros",
         "precio": 100000,
-        "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg"],
+        "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg", "https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg", "https://images.cdn3.buscalibre.com/fit-in/360x360/61/8d/618d227e8967274cd9589a549adff52d.jpg" ],
         "keywords": ["fantasía", "Harry Potter", "J.K. Rowling"],
         "id": "a1b2c3d4-e5f6-7g8h-9i10-j11k12l13m14",
+        "descripcion": "Esta es la descripción",
         "estado" : "Usado",
         "genero": "Novela",
         "vendedor": "Ivan Gómez",
+        "idVendedor" : "a1b2c3d4-e5f6-7g8h-9i10-j11k12l13321",
         "edicion": "1",
         "idioma": "Español",
         "ubicacion": "Bucaramanga",
         "tapa":"Dura",
         "edad":"Jóvenes",
-        "fechaPublicacion": "22-09-2023"
+        "fechaPublicacion": "2024-10-01",
+        "disponibilidad" : "Disponible"
+
     },
     {
         "titulo": "Harry Potter y la Cámara Secreta",
-        "brand": "Warner Bros",
+        "autor": "Warner Bros",
         "precio": 100000,
         
         "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg"],
@@ -27,7 +31,7 @@
     },
     {
         "titulo": "Harry Potter y la Cámara Secreta",
-        "brand": "Warner Bros",
+        "autor": "Warner Bros",
         "precio": 100000,
         "oferta": 80000,
         "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg"],
@@ -36,7 +40,7 @@
     },
     {
         "titulo": "One Piece Vol. 124",
-        "brand": "Shueisha",
+        "autor": "Shueisha",
         "precio": 20000,
         "oferta": 18000,
         "images":  ["https://lh3.googleusercontent.com/proxy/XXUB6Ecwi4VLX6huumbKju8YS1aziFa6i0LYOeEvWyWMKRfr3Y9rjNL_R_rLgVTx3oA864aSF5Ir_gAOIPYSDAoJk4mQSHMxDkOnDef5WLbpIJNK5Ci_F3LIkw2HhnhMgcDPPFoEzrU00x3kWYRINeIpKRlQsJfy23OHH08dqiCdJV2kwQ3dP4PHivbwQKnSbFvpFAZeJCsHGNrHornLiNHdgsoOvfsd7xU5hE-SqA"],
@@ -45,7 +49,7 @@
     },
     {
         "titulo": "Cien años de soledad",
-        "brand": "Editorial Sudamericana",
+        "autor": "Editorial Sudamericana",
         "precio": 35000,
         "oferta": 32000,
         "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/61/8d/618d227e8967274cd9589a549adff52d.jpg"],
@@ -54,7 +58,7 @@
     },
     {
         "titulo": "El nombre del viento",
-        "brand": "DAW Books",
+        "autor": "DAW Books",
         "precio": 45000,
         "oferta": 40000,
         "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/aa/cc/aacc1e2d359a74f3efb144b8ab8f790f.jpg"],
@@ -65,7 +69,7 @@
     },
     {
         "titulo": "Cien años de soledad",
-        "brand": "Editorial Sudamericana",
+        "autor": "Editorial Sudamericana",
         "precio": 35000,
         "oferta": 32000,
         "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/61/8d/618d227e8967274cd9589a549adff52d.jpg"],
@@ -76,7 +80,7 @@
     },
     {
         "titulo": "El nombre del viento",
-        "brand": "DAW Books",
+        "autor": "DAW Books",
         "precio": 45000,
         
         "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/aa/cc/aacc1e2d359a74f3efb144b8ab8f790f.jpg"],
@@ -87,7 +91,7 @@
     },
     {
         "titulo": "Harry Potter y la Cámara Secreta",
-        "brand": "Warner Bros",
+        "autor": "Warner Bros",
         "precio": 100000,
         "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg"],
         "keywords": ["fantasía", "Harry Potter", "J.K. Rowling"],
@@ -95,7 +99,7 @@
     },
     {
         "titulo": "Harry Potter y la Cámara Secreta",
-        "brand": "Warner Bros",
+        "autor": "Warner Bros",
         "precio": 100000,
         
         "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg"],
@@ -104,7 +108,7 @@
     },
     {
         "titulo": "Harry Potter y la Cámara Secreta",
-        "brand": "Warner Bros",
+        "autor": "Warner Bros",
         "precio": 100000,
         "oferta": 80000,
         "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg"],
@@ -113,7 +117,7 @@
     },
     {
         "titulo": "One Piece Vol. 124",
-        "brand": "Shueisha",
+        "autor": "Shueisha",
         "precio": 20000,
         "oferta": 18000,
         "images":  ["https://lh3.googleusercontent.com/proxy/XXUB6Ecwi4VLX6huumbKju8YS1aziFa6i0LYOeEvWyWMKRfr3Y9rjNL_R_rLgVTx3oA864aSF5Ir_gAOIPYSDAoJk4mQSHMxDkOnDef5WLbpIJNK5Ci_F3LIkw2HhnhMgcDPPFoEzrU00x3kWYRINeIpKRlQsJfy23OHH08dqiCdJV2kwQ3dP4PHivbwQKnSbFvpFAZeJCsHGNrHornLiNHdgsoOvfsd7xU5hE-SqA"],
@@ -122,7 +126,7 @@
     },
     {
         "titulo": "Cien años de soledad",
-        "brand": "Editorial Sudamericana",
+        "autor": "Editorial Sudamericana",
         "precio": 35000,
         "oferta": 32000,
         "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/61/8d/618d227e8967274cd9589a549adff52d.jpg"],
@@ -131,7 +135,7 @@
     },
     {
         "titulo": "El nombre del viento",
-        "brand": "DAW Books",
+        "autor": "DAW Books",
         "precio": 45000,
         "oferta": 40000,
         "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/aa/cc/aacc1e2d359a74f3efb144b8ab8f790f.jpg"],
@@ -142,7 +146,7 @@
     },
     {
         "titulo": "Cien años de soledad",
-        "brand": "Editorial Sudamericana",
+        "autor": "Editorial Sudamericana",
         "precio": 35000,
         "oferta": 32000,
         "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/61/8d/618d227e8967274cd9589a549adff52d.jpg"],
@@ -153,7 +157,7 @@
     },
     {
         "titulo": "El nombre del viento",
-        "brand": "DAW Books",
+        "autor": "DAW Books",
         "precio": 45000,
         
         "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/aa/cc/aacc1e2d359a74f3efb144b8ab8f790f.jpg"],
@@ -164,7 +168,7 @@
     },
     {
         "titulo": "Harry Potter y la Cámara Secreta",
-        "brand": "Warner Bros",
+        "autor": "Warner Bros",
         "precio": 100000,
         "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg"],
         "keywords": ["fantasía", "Harry Potter", "J.K. Rowling"],
@@ -172,7 +176,7 @@
     },
     {
         "titulo": "Harry Potter y la Cámara Secreta",
-        "brand": "Warner Bros",
+        "autor": "Warner Bros",
         "precio": 100000,
         
         "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg"],
@@ -181,7 +185,7 @@
     },
     {
         "titulo": "Harry Potter y la Cámara Secreta",
-        "brand": "Warner Bros",
+        "autor": "Warner Bros",
         "precio": 100000,
         "oferta": 80000,
         "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg"],
@@ -190,7 +194,7 @@
     },
     {
         "titulo": "One Piece Vol. 124",
-        "brand": "Shueisha",
+        "autor": "Shueisha",
         "precio": 20000,
         "oferta": 18000,
         "images":  ["https://lh3.googleusercontent.com/proxy/XXUB6Ecwi4VLX6huumbKju8YS1aziFa6i0LYOeEvWyWMKRfr3Y9rjNL_R_rLgVTx3oA864aSF5Ir_gAOIPYSDAoJk4mQSHMxDkOnDef5WLbpIJNK5Ci_F3LIkw2HhnhMgcDPPFoEzrU00x3kWYRINeIpKRlQsJfy23OHH08dqiCdJV2kwQ3dP4PHivbwQKnSbFvpFAZeJCsHGNrHornLiNHdgsoOvfsd7xU5hE-SqA"],
@@ -199,7 +203,7 @@
     },
     {
         "titulo": "Cien años de soledad",
-        "brand": "Editorial Sudamericana",
+        "autor": "Editorial Sudamericana",
         "precio": 35000,
         "oferta": 32000,
         "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/61/8d/618d227e8967274cd9589a549adff52d.jpg"],
@@ -208,7 +212,7 @@
     },
     {
         "titulo": "El nombre del viento",
-        "brand": "DAW Books",
+        "autor": "DAW Books",
         "precio": 45000,
         "oferta": 40000,
         "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/aa/cc/aacc1e2d359a74f3efb144b8ab8f790f.jpg"],
@@ -219,7 +223,7 @@
     },
     {
         "titulo": "Cien años de soledad",
-        "brand": "Editorial Sudamericana",
+        "autor": "Editorial Sudamericana",
         "precio": 35000,
         "oferta": 32000,
         "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/61/8d/618d227e8967274cd9589a549adff52d.jpg"],
@@ -230,7 +234,7 @@
     },
     {
         "titulo": "El nombre del viento",
-        "brand": "DAW Books",
+        "autor": "DAW Books",
         "precio": 45000,
         
         "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/aa/cc/aacc1e2d359a74f3efb144b8ab8f790f.jpg"],
@@ -241,7 +245,7 @@
     },
     {
         "titulo": "Harry Potter y la Cámara Secreta",
-        "brand": "Warner Bros",
+        "autor": "Warner Bros",
         "precio": 100000,
         "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg"],
         "keywords": ["fantasía", "Harry Potter", "J.K. Rowling"],
@@ -249,7 +253,7 @@
     },
     {
         "titulo": "Harry Potter y la Cámara Secreta",
-        "brand": "Warner Bros",
+        "autor": "Warner Bros",
         "precio": 100000,
         
         "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg"],
@@ -258,7 +262,7 @@
     },
     {
         "titulo": "Harry Potter y la Cámara Secreta",
-        "brand": "Warner Bros",
+        "autor": "Warner Bros",
         "precio": 100000,
         "oferta": 80000,
         "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg"],
@@ -267,7 +271,7 @@
     },
     {
         "titulo": "One Piece Vol. 124",
-        "brand": "Shueisha",
+        "autor": "Shueisha",
         "precio": 20000,
         "oferta": 18000,
         "images":  ["https://lh3.googleusercontent.com/proxy/XXUB6Ecwi4VLX6huumbKju8YS1aziFa6i0LYOeEvWyWMKRfr3Y9rjNL_R_rLgVTx3oA864aSF5Ir_gAOIPYSDAoJk4mQSHMxDkOnDef5WLbpIJNK5Ci_F3LIkw2HhnhMgcDPPFoEzrU00x3kWYRINeIpKRlQsJfy23OHH08dqiCdJV2kwQ3dP4PHivbwQKnSbFvpFAZeJCsHGNrHornLiNHdgsoOvfsd7xU5hE-SqA"],
@@ -276,7 +280,7 @@
     },
     {
         "titulo": "Cien años de soledad",
-        "brand": "Editorial Sudamericana",
+        "autor": "Editorial Sudamericana",
         "precio": 35000,
         "oferta": 32000,
         "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/61/8d/618d227e8967274cd9589a549adff52d.jpg"],
@@ -285,7 +289,7 @@
     },
     {
         "titulo": "El nombre del viento",
-        "brand": "DAW Books",
+        "autor": "DAW Books",
         "precio": 45000,
         "oferta": 40000,
         "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/aa/cc/aacc1e2d359a74f3efb144b8ab8f790f.jpg"],
@@ -296,7 +300,7 @@
     },
     {
         "titulo": "Cien años de soledad",
-        "brand": "Editorial Sudamericana",
+        "autor": "Editorial Sudamericana",
         "precio": 35000,
         "oferta": 32000,
         "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/61/8d/618d227e8967274cd9589a549adff52d.jpg"],
@@ -307,7 +311,7 @@
     },
     {
         "titulo": "El nombre del viento",
-        "brand": "DAW Books",
+        "autor": "DAW Books",
         "precio": 45000,
         
         "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/aa/cc/aacc1e2d359a74f3efb144b8ab8f790f.jpg"],
@@ -318,7 +322,7 @@
     },
     {
         "titulo": "Harry Potter y la Cámara Secreta",
-        "brand": "Warner Bros",
+        "autor": "Warner Bros",
         "precio": 100000,
         "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg"],
         "keywords": ["fantasía", "Harry Potter", "J.K. Rowling"],
@@ -326,7 +330,7 @@
     },
     {
         "titulo": "Harry Potter y la Cámara Secreta",
-        "brand": "Warner Bros",
+        "autor": "Warner Bros",
         "precio": 100000,
         
         "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg"],
@@ -335,7 +339,7 @@
     },
     {
         "titulo": "Harry Potter y la Cámara Secreta",
-        "brand": "Warner Bros",
+        "autor": "Warner Bros",
         "precio": 100000,
         "oferta": 80000,
         "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg"],
@@ -344,7 +348,7 @@
     },
     {
         "titulo": "One Piece Vol. 124",
-        "brand": "Shueisha",
+        "autor": "Shueisha",
         "precio": 20000,
         "oferta": 18000,
         "images":  ["https://lh3.googleusercontent.com/proxy/XXUB6Ecwi4VLX6huumbKju8YS1aziFa6i0LYOeEvWyWMKRfr3Y9rjNL_R_rLgVTx3oA864aSF5Ir_gAOIPYSDAoJk4mQSHMxDkOnDef5WLbpIJNK5Ci_F3LIkw2HhnhMgcDPPFoEzrU00x3kWYRINeIpKRlQsJfy23OHH08dqiCdJV2kwQ3dP4PHivbwQKnSbFvpFAZeJCsHGNrHornLiNHdgsoOvfsd7xU5hE-SqA"],
@@ -353,7 +357,7 @@
     },
     {
         "titulo": "Cien años de soledad",
-        "brand": "Editorial Sudamericana",
+        "autor": "Editorial Sudamericana",
         "precio": 35000,
         "oferta": 32000,
         "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/61/8d/618d227e8967274cd9589a549adff52d.jpg"],
@@ -362,7 +366,7 @@
     },
     {
         "titulo": "El nombre del viento",
-        "brand": "DAW Books",
+        "autor": "DAW Books",
         "precio": 45000,
         "oferta": 40000,
         "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/aa/cc/aacc1e2d359a74f3efb144b8ab8f790f.jpg"],
@@ -373,7 +377,7 @@
     },
     {
         "titulo": "Cien años de soledad",
-        "brand": "Editorial Sudamericana",
+        "autor": "Editorial Sudamericana",
         "precio": 35000,
         "oferta": 32000,
         "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/61/8d/618d227e8967274cd9589a549adff52d.jpg"],
@@ -384,7 +388,7 @@
     },
     {
         "titulo": "El nombre del viento",
-        "brand": "DAW Books",
+        "autor": "DAW Books",
         "precio": 45000,
         
         "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/aa/cc/aacc1e2d359a74f3efb144b8ab8f790f.jpg"],
@@ -395,7 +399,7 @@
     },
     {
         "titulo": "Harry Potter y la Cámara Secreta",
-        "brand": "Warner Bros",
+        "autor": "Warner Bros",
         "precio": 100000,
         "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg"],
         "keywords": ["fantasía", "Harry Potter", "J.K. Rowling"],
@@ -403,7 +407,7 @@
     },
     {
         "titulo": "Harry Potter y la Cámara Secreta",
-        "brand": "Warner Bros",
+        "autor": "Warner Bros",
         "precio": 100000,
         
         "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg"],
@@ -412,7 +416,7 @@
     },
     {
         "titulo": "Harry Potter y la Cámara Secreta",
-        "brand": "Warner Bros",
+        "autor": "Warner Bros",
         "precio": 100000,
         "oferta": 80000,
         "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg"],
@@ -421,16 +425,16 @@
     },
     {
         "titulo": "One Piece Vol. 124",
-        "brand": "Shueisha",
+        "autor": "Shueisha",
         "precio": 20000,
         "oferta": 18000,
         "images":  ["https://lh3.googleusercontent.com/proxy/XXUB6Ecwi4VLX6huumbKju8YS1aziFa6i0LYOeEvWyWMKRfr3Y9rjNL_R_rLgVTx3oA864aSF5Ir_gAOIPYSDAoJk4mQSHMxDkOnDef5WLbpIJNK5Ci_F3LIkw2HhnhMgcDPPFoEzrU00x3kWYRINeIpKRlQsJfy23OHH08dqiCdJV2kwQ3dP4PHivbwQKnSbFvpFAZeJCsHGNrHornLiNHdgsoOvfsd7xU5hE-SqA"],
         "keywords": ["manga", "anime", "One Piece"],
-        "id": "d4e5f6g7-h8i9-1011-1213-l14m15n16o17"
+        "id": "d4e5f6g7-h8i9-1011-1213-l14m153d4a7"
     },
     {
         "titulo": "Cien años de soledad",
-        "brand": "Editorial Sudamericana",
+        "autor": "Editorial Sudamericana",
         "precio": 35000,
         "oferta": 32000,
         "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/61/8d/618d227e8967274cd9589a549adff52d.jpg"],
@@ -439,7 +443,7 @@
     },
     {
         "titulo": "El nombre del viento",
-        "brand": "DAW Books",
+        "autor": "DAW Books",
         "precio": 45000,
         "oferta": 40000,
         "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/aa/cc/aacc1e2d359a74f3efb144b8ab8f790f.jpg"],
@@ -450,7 +454,7 @@
     },
     {
         "titulo": "Cien años de soledad",
-        "brand": "Editorial Sudamericana",
+        "autor": "Editorial Sudamericana",
         "precio": 35000,
         "oferta": 32000,
         "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/61/8d/618d227e8967274cd9589a549adff52d.jpg"],
@@ -461,7 +465,7 @@
     },
     {
         "titulo": "El nombre del viento",
-        "brand": "DAW Books",
+        "autor": "DAW Books",
         "precio": 45000,
         
         "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/aa/cc/aacc1e2d359a74f3efb144b8ab8f790f.jpg"],

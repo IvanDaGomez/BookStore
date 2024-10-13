@@ -20,7 +20,7 @@ export default function useBotonSelect({ formas, results , setResults, ancho, ca
 
   // Icono para desplegar el menú de selección de ordenación
   const arrowDown = (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={30} height={30} color={"#fff"} fill={"none"}>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#fff"} fill={"none"}>
       <path d="M18 9.00005C18 9.00005 13.5811 15 12 15C10.4188 15 6 9 6 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );

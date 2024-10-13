@@ -27,7 +27,7 @@ const makeCard = (element, index) => {
                 <div style={{padding:"5px 0"}}>
                 <h2>{reduceText(element.titulo,33)}</h2>
                 <h3>
-                  {[element.brand && reduceText(element.brand, 30), 
+                  {[element.autor && reduceText(element.autor, 30), 
                     element.genero && reduceText(element.genero, 15), 
                     element.estado]
                     .filter(Boolean) // Filtra los elementos que no son null/undefined/false
@@ -44,7 +44,7 @@ const makeCard = (element, index) => {
 
 const makeOneFrCard = (element, index) => {
     return (
-      <div key={index} className="cardContainer" >
+      <div key={index} className="cardContainer" onClick={()=>window.location.href = `${window.location.origin}/libros/${element.id}`} >
         
         {/* Imagen de los auriculares */}
         <div className="imageContainer" style={{ textAlign: 'center' }}>
@@ -61,11 +61,11 @@ const makeOneFrCard = (element, index) => {
           {reduceText(element.titulo, 50)}
         </h2>
   
-        {/* Estrellas de rating y número de reseñas */}
+        {/* Estrellas de rating y número de reseñas 
         <div className="ratings">
           <span className="ratingsStars accent">★★★★☆</span>
           <span className="ratingsNumber">3,356</span>
-        </div>
+        </div>*/}
   
         {/* Precio y oferta */}
         <div>
@@ -74,7 +74,7 @@ const makeOneFrCard = (element, index) => {
         </div>
   
         <div className="details">
-          <h2>{element.brand}</h2>
+          <h2>{element.autor}</h2>
           <h2>{element.estado}</h2>
           <h2>{element.categoria}</h2>
         </div>
@@ -89,7 +89,7 @@ const makeOneFrCard = (element, index) => {
           className="addToCartButton"
           
         >
-          Agregar al carrito
+          Agregar a favoritos
         </button>
 
         </div>

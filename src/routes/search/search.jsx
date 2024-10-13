@@ -7,6 +7,7 @@ import { useEffect, useState, useRef } from "react"
 import { cambiarEspacioAGuiones, cambiarGuionesAEspacio } from "../../assets/agregarMas"
 import { makeCard, makeOneFrCard } from "../../assets/makeCard.jsx"
 import useBotonSelect from "../../assets/botonSelect.jsx"
+import DoubleSlider from "../../components/DoubleSlider.jsx"
 export default function Search(){
 
     
@@ -64,6 +65,8 @@ export default function Search(){
     const renderizarResultados = () => {
         return results.slice((currentPage - 1) * 24, currentPage * 24)
     }
+
+
 
     useEffect(() => {
     const updateGrid = () => {
@@ -292,30 +295,6 @@ const ordenarFormas = {
     formas: tapa, 
     ...configuracionFiltros("15vw")
   }
-  const resultadosContainer = useRef();
-
-  useEffect(()=>{
-    const sectionElements = resultadosContainer.current.querySelectorAll(".sectionElement");
-        
-    if (window.getComputedStyle(resultadosContainer.current).gridTemplateColumns.split(" ").length === 1) {
-
-        sectionElements.forEach(element => {
-        
-          element.style.flexDirection = "row";
-          element.style.justifyContent = "start"
-          const imageContainer = element.querySelector(".imageElementContainer")
-          imageContainer.style.height = "100%"
-          imageContainer.style.width = "auto"
-        });
-        
-
-      }
-    else{
-        sectionElements.forEach(element => {
-            element.style.flexDirection = "column";
-          });
-    }
-  },[grid]);
     return(
         <>
         <Header />
@@ -328,7 +307,7 @@ const ordenarFormas = {
       <div>{useBotonSelect(categoriaProps)}</div>
       <div>{useBotonSelect(estadoProps)}</div>
       <div>{useBotonSelect(ubicacionProps)}</div>
-      <div className="precio" ><h6>Precio</h6>0$-10.000%</div>
+      <div><DoubleSlider min={0} max={1000000} width={"15vw"}/></div>
       <div>{useBotonSelect(edadProps)}</div>
       <div>{useBotonSelect(tapaProps)}</div>
       <div>{useBotonSelect(fechaPublicacionProps)}</div>
@@ -363,7 +342,7 @@ const ordenarFormas = {
                                 <span onClick={aumentarPagina} style={{filter: (currentPage === pageCount) ?"opacity(0.2)":"none"}}>{" >"}</span>
                             </p>
                         </div>
-                <div className="resultados sectionsContainer" style={{ display: 'grid', gridTemplateColumns: grid }} ref={resultadosContainer}>
+                <div className="resultados sectionsContainer" style={{ display: 'grid', gridTemplateColumns: grid }}>
                 
                     {renderizarResultados().map((element, index)=> (grid.split(" ").length !==1) ? makeCard(element, index) : makeOneFrCard(element, index) )}
                 {optionalSpace}

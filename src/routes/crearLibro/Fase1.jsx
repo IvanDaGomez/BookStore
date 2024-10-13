@@ -211,7 +211,7 @@ export default function Fase1({ form, setForm, setFase, fase }) {
               </div>
               
               <div className="fileError">
-                {selectedFiles.length === 0 && <p>Debes subir mínimo una foto.</p>}
+                {selectedFiles.length === 0 && <><p>Debes subir mínimo una foto.</p><p>Recuerda publicar fotos reales.</p></>}
               </div>
             </>
           ) : (

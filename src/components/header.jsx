@@ -37,7 +37,7 @@ export default function Header() {
     */
     
     // This state manages an array of information
-    const [arrayInfo, setArrayInfo] = useState(null);
+    const [arrayInfo, setArrayInfo] = useState([]);
 
 // Fetches extra information when hovering over a menu item
 const openExtraInfo = async (str) => {
@@ -51,6 +51,7 @@ const openExtraInfo = async (str) => {
         
         if (info[str] !== undefined) {
             setArrayInfo(info[str]);
+            
         } else {
             console.warn(`Key "${str}" not found in the fetched data.`);
         }
@@ -72,7 +73,7 @@ const openExtraInfo = async (str) => {
         }
         setResults([{
             "titulo": "Harry Potter y la Cámara Secreta",
-            "brand": "Warner Bros",
+            "autor": "Warner Bros",
             "precio": 100000,
             "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg"],
             "keywords": ["fantasía", "Harry Potter", "J.K. Rowling"],
@@ -84,7 +85,7 @@ const openExtraInfo = async (str) => {
         },
         {
             "titulo": "Harry Potter y la Cámara Secreta",
-            "brand": "Warner Bros",
+            "autor": "Warner Bros",
             "precio": 100000,
             
             "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg"],
@@ -93,7 +94,7 @@ const openExtraInfo = async (str) => {
         },
         {
             "titulo": "Harry Potter y la Cámara Secreta",
-            "brand": "Warner Bros",
+            "autor": "Warner Bros",
             "precio": 100000,
             "oferta": 80000,
             "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg"],
@@ -102,7 +103,7 @@ const openExtraInfo = async (str) => {
         },
         {
             "titulo": "One Piece Vol. 124",
-            "brand": "Shueisha",
+            "autor": "Shueisha",
             "precio": 20000,
             "oferta": 18000,
             "images":  ["https://lh3.googleusercontent.com/proxy/XXUB6Ecwi4VLX6huumbKju8YS1aziFa6i0LYOeEvWyWMKRfr3Y9rjNL_R_rLgVTx3oA864aSF5Ir_gAOIPYSDAoJk4mQSHMxDkOnDef5WLbpIJNK5Ci_F3LIkw2HhnhMgcDPPFoEzrU00x3kWYRINeIpKRlQsJfy23OHH08dqiCdJV2kwQ3dP4PHivbwQKnSbFvpFAZeJCsHGNrHornLiNHdgsoOvfsd7xU5hE-SqA"],
@@ -111,7 +112,7 @@ const openExtraInfo = async (str) => {
         },
         {
             "titulo": "Cien años de soledad",
-            "brand": "Editorial Sudamericana",
+            "autor": "Editorial Sudamericana",
             "precio": 35000,
             "oferta": 32000,
             "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/61/8d/618d227e8967274cd9589a549adff52d.jpg"],
@@ -120,7 +121,7 @@ const openExtraInfo = async (str) => {
         },
         {
             "titulo": "El nombre del viento",
-            "brand": "DAW Books",
+            "autor": "DAW Books",
             "precio": 45000,
             "oferta": 40000,
             "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/aa/cc/aacc1e2d359a74f3efb144b8ab8f790f.jpg"],
@@ -143,7 +144,7 @@ const openExtraInfo = async (str) => {
     const [profile, setProfile] = useState(false)
 
 
-    const profileContainer = useRef(null);
+    const profileContainer = useRef([]);
 
     // Function to adjust the `top` position of profileContainer
     function adjustTopProfile() {
@@ -179,6 +180,7 @@ const openExtraInfo = async (str) => {
       return () => {
         window.removeEventListener('scroll', handleScroll);
       };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [profile]);
 
     const openProfile = () => {
@@ -263,11 +265,7 @@ const openExtraInfo = async (str) => {
                     </svg>
                     </div>
                 </div>
-               
-                {/* Conditional rendering for arrayInfo */}
-
-
-            </header>
+           </header>
             {profile && <>
             <div className="profileContainer" onMouseLeave={()=>{setProfile(!profile)}}  ref={profileContainer}>
                 {(!user) ? <>
@@ -277,14 +275,14 @@ const openExtraInfo = async (str) => {
                 </div>
                 </Link>
                 </>:<>
-                <Link to="/account">
+                <Link to="/cuenta">
                 <div className="profileElement">
                     <span>Cuenta</span>
                 </div>
                 </Link>
                 <Link to="/libros/crear">
                 <div className="profileElement">
-                    <span>Publicar</span>
+                    <span>Publica tu libro</span>
                 </div>
                 </Link>
                 <Link to="mislibros">
@@ -295,34 +293,32 @@ const openExtraInfo = async (str) => {
                 </>}
             </div>
             </>}
-            {(window.innerWidth >= 1280 && arrayInfo) ? (
-            <div className="extraInfoContainer" onMouseLeave={() => setArrayInfo(null)} >
-            
-                <>
+            {(window.innerWidth >= 700 && Object.keys(arrayInfo).length !== 0) ? (
+            <div className="extraInfoContainer" onMouseLeave={() => setArrayInfo([])} >
                 <div className="recomendaciones">
                     <h2>Recomendaciones</h2>
                     <hr/>
-                    {arrayInfo["recomendaciones"].map((element, index) => (<Link key={index} to={`/buscar?q=${cambiarEspacioAGuiones(element)}`}><p>{element}</p></Link>))}
+                    {arrayInfo.recomendaciones.map((element, index) => (<Link key={index} to={`/buscar?q=${cambiarEspacioAGuiones(element)}`}><p>{element}</p></Link>))}
                 </div>
                 <div className="mas-vendidos">
                 <h2>Más vendidos</h2>
                 <hr/>
-                    {arrayInfo["mas-vendidos"].map((element, index) => (<Link key={index} to={`/buscar?q=${cambiarEspacioAGuiones(element)}`}><p>{element}</p></Link>))}
+                    {arrayInfo.masVendidos.map((element, index) => (<Link key={index} to={`/buscar?q=${cambiarEspacioAGuiones(element)}`}><p>{element}</p></Link>))}
                 </div>
                 <div className="generos">
                     <h2>Géneros</h2>
                     <hr/>
-                    {arrayInfo["generos"].map((element, index) => (<Link key={index} to={`/buscar?q=${cambiarEspacioAGuiones(element)}`}><p>{element}</p></Link>))}
+                    {arrayInfo.buscadoRecientemente.map((element, index) => (<Link key={index} to={`/buscar?q=${cambiarEspacioAGuiones(element)}`}><p>{element}</p></Link>))}
                 </div>
                 <div className="mas-buscados">
                     <h2>Más Buscados</h2>
                     <hr/>
-                    {arrayInfo["mas-buscados"].map((element, index) => (<Link key={index} to={`/buscar?q=${cambiarEspacioAGuiones(element)}`}><p>{element}</p></Link>))}
+                    {arrayInfo.masBuscados.map((element, index) => (<Link key={index} to={`/buscar?q=${cambiarEspacioAGuiones(element)}`}><p>{element}</p></Link>))}
                 </div>
-                </>
+                {console.log("mostrando")}
            
             </div>
-            ) : null}
+            ) : <></>}
             {/*<div className="inhamburger" onMouseLeave={abrirMenu}>
                  Hamburger menu content 
 

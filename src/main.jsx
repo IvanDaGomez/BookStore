@@ -8,7 +8,7 @@ import Search from './routes/search/search.jsx'
 import Login from './routes/login/login.jsx'
 import CrearLibro from './routes/crearLibro/CrearLibro.jsx'
 import './index.css'
-import SuccessCreatingBook from './routes/crearLibro/success.jsx'
+
 
 
 const router = createBrowserRouter([
@@ -23,11 +23,11 @@ const router = createBrowserRouter([
   },
   {
     path:"libros/crear/exito",
-    element: <SuccessCreatingBook />
+    element: <App notification="success" />
   },
   {
     
-    path:"libros/:elementId",
+    path:"libros/:bookId",
     element:<BookView />,
         
   },

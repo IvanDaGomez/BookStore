@@ -35,8 +35,17 @@ export default function Fase3({ form, setForm, fase, setFase }){
         keywords: keywords,
         oferta: cleanOferta // Guardar sin formatear
       });
-      setFase(1)
+      
+      
+      
+      //const timeNow = new Date();
+      //const user = Cookies.get("user")
+      /*setForm({...form,
+        "fechaPublicacion": new Date().toISOString(),
+        "vendedor": user
+      })*/
       setForm({})
+      setFase(1)
       localStorage.removeItem("form");
       localStorage.removeItem("fase");
       window.location.href = `${window.location.origin}/libros/crear/exito`
