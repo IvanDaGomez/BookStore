@@ -144,52 +144,68 @@ const openExtraInfo = async (str) => {
     const [profile, setProfile] = useState(false)
 
 
-    const profileContainer = useRef([]);
+    const profileContainer = useRef(null);
 
-    // Function to adjust the `top` position of profileContainer
-    function adjustTopProfile() {
-        //50 de AntesHeader + 90 de el header
+    // Esta funcion de la nada dejó de functionar, la dejo por aqui por si vuelve a funcionar
+    /*function adjustTopProfile() {
+        //50 de AntesHeader + 90 del header
         let top;
-        
-        if (!profile) return
-        if (window.scrollY > 50) {
-            
-            top =  90 +"px";
-            profileContainer.current.style.top = top
-            
+        if(!profile ) return
+        if (window.scrollY < 50) {
+            top = 140 - window.scrollY + "px";
+            profileContainer.current.style.top = "50px";
+            return top;
+
         }
         else {
-            
-            top = 140 - window.scrollY + "px";
+            top = 90 + "px";
             profileContainer.current.style.top = top;
-            
+            return top;
         }
-        return top
+    }*/
+    //Funcion que si funciona (por ahora)
+        // Function to adjust the `top` position of profileContainer
+    function adjustTopProfile() {
+        //50 de AntesHeader + 90 del header
+        let top;
+        let scroll = window.scrollY
+        if(!profile || !profileContainer.current) return
+        if (scroll < 50) {
+            top = 140 - scroll;
+
+        }
+        else {
+            top = 90;
+        }
+        top = top + scroll + "px"
+        profileContainer.current.style.top = top;
     }
-  
+
     // useEffect to listen for the scroll event
     useEffect(() => {
-      const handleScroll = () => {  
-        adjustTopProfile();
-      };
-      
-      if (profile) adjustTopProfile()
-      window.addEventListener('scroll', handleScroll);
-      
-      // Clean up event listener on component unmount
-      return () => {
-        window.removeEventListener('scroll', handleScroll);
-      };
+        const handleScroll = () => {
+            adjustTopProfile();
+        };
+        console.log(window.scrollY)
+        if (profile) adjustTopProfile();
+        window.addEventListener('scroll', handleScroll);
+    
+        // Clean up event listener on component unmount
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [profile]);
-
+    
     const openProfile = () => {
-        
-        setProfile(!profile)
-        if(profile){
-            adjustTopProfile()
-        }
-    }
+        setProfile(prevProfile => {
+            const newProfileState = !prevProfile;
+            if (newProfileState) {
+                adjustTopProfile(); // Ajusta la posición si el perfil se va a mostrar
+            }
+            return newProfileState;
+        });
+    };
     return (
         <>
             <div className="antesHeader" style={{ color: "#000000" }}>

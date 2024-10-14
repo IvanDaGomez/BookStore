@@ -7,6 +7,7 @@ import ErrorPage from './components/errorPage.jsx'
 import Search from './routes/search/search.jsx'
 import Login from './routes/login/login.jsx'
 import CrearLibro from './routes/crearLibro/CrearLibro.jsx'
+import Account from './routes/cuenta/account.jsx'
 import './index.css'
 
 
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />
+  },
+  {
+    path: "/cuenta",
+    element: <Account />
   }
 ])
 createRoot(document.getElementById('root')).render(
