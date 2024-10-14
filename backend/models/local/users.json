@@ -1,0 +1,21 @@
+[
+  {
+    "nombre": "Ivan Gomez",
+    "librosIds": [],
+    "correo": "ivandavidgomezsilva@hotmail.com",
+    "contraseña": "Idgs2603",
+    "rol": "usuario",
+    "fechaRegistro": "2024-10-14",
+    "estadoCuenta": "activo",
+    "direccionEnvio": {
+      "calle": "123 Avenida Central",
+      "ciudad": "Bucaramanga",
+      "pais": "Colombia",
+      "codigoPostal": "12345"
+    },
+    "fotoPerfil": "url/a/la/foto/perfil.jpg",
+    "id": "828394a6-d070-443a-aa64-569a8b1c6b2c",
+    "creadoEn": "2024-10-14T22:44:58.039Z",
+    "actualizadoEn": "2024-10-14T22:44:58.039Z"
+  }
+]

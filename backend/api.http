@@ -1,0 +1,22 @@
+GET http://localhost:3030/api/users
+
+###
+POST http://localhost:3030/api/users
+Content-Type: application/json
+
+{
+    "nombre": "Ivan Gomez",
+    "librosIds": [],
+    "correo": "ivandavidgomezsilva@hotmail.com",
+    "contraseña": "Idgs2603",
+    "rol": "usuario",
+    "fechaRegistro": "2024-10-14",
+    "estadoCuenta": "activo",
+    "direccionEnvio": {
+    "calle": "123 Avenida Central",
+    "ciudad": "Bucaramanga",
+    "pais": "Colombia",
+    "codigoPostal": "12345"
+    },
+    "fotoPerfil": "url/a/la/foto/perfil.jpg"
+}
