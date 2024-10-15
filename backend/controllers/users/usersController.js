@@ -30,14 +30,54 @@ export class UsersController {
     }
   }
 
+  static async getUserByQuery (req, res) {
+    try {
+      const { q } = req.query // Obtener el valor del parámetro de consulta 'q'
+
+      if (!q) {
+        return res.status(400).json({ error: 'Query parameter "q" is required' })
+      }
+
+      const users = await UsersModel.getUserByQuery(q) // Asegurarse de implementar este método en UsersModel
+      if (users.length === 0) {
+        return res.status(404).json({ error: 'No users found' })
+      }
+
+      res.json(users)
+    } catch (err) {
+      console.error('Error reading users by query:', err)
+      res.status(500).json({ error: 'Error reading users' })
+    }
+  }
+
+  static async getUserByEmail (req, res) {
+    try {
+      const { e } = req.query // Obtener el valor del parámetro de consulta 'e'
+
+      if (!e) {
+        return res.status(400).json({ error: 'Query parameter "e" is required' })
+      }
+
+      const user = await UsersModel.getUserByEmail(e) // Asegúrate de implementar este método en UsersModel
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' })
+      }
+
+      res.json(user)
+    } catch (err) {
+      console.error('Error reading user by email:', err)
+      res.status(500).json({ error: 'Error reading user' })
+    }
+  }
+
   static async createUser (req, res) {
     const data = req.body
 
     // Validación
-    //const validated = validateUser(data)
-    //if (!validated.success) {
-    //  return res.status(400).json({ error: validated.error })
-    //}
+    const validated = validateUser(data)
+    if (!validated.success) {
+      return res.status(400).json({ error: validated.error })
+    }
 
     data.id = crypto.randomUUID()
 
@@ -78,16 +118,34 @@ export class UsersController {
     try {
       const { userId } = req.params
       const data = req.body
-      console.log(data)
+
       // Validar datos
       const validated = validatePartialUser(data)
       if (!validated.success) {
-        return res.status(400).json({ error: 'Error Validating user' })
+        return res.status(400).json({ error: 'Error Validating user', details: validated.error.errors })
       }
 
-      data.updatedIn = Date.now()
+      // Comprobar si el correo ya está en uso
+      if (data.correo) {
+        const existingUser = await UsersModel.findUserByEmail(data.correo)
+        if (existingUser && existingUser.id !== userId) {
+          return res.status(409).json({ error: 'Email is already in use' })
+        }
+      }
+
+      // Filtrar los campos permitidos
+      const allowedFields = ['nombre', 'correo', 'direccionEnvio', 'fotoPerfil', 'contraseña']
+      const filteredData = {}
+      Object.keys(data).forEach(key => {
+        if (allowedFields.includes(key)) {
+          filteredData[key] = data[key]
+        }
+      })
+
+      filteredData.actualizadoEn = Date.now()
+
       // Actualizar usuario
-      const user = await UsersModel.updateUser(userId, data)
+      const user = await UsersModel.updateUser(userId, filteredData)
       if (!user) {
         return res.status(404).json({ error: 'User not found or not updated' })
       }
@@ -95,7 +153,7 @@ export class UsersController {
       res.status(200).json(user)
     } catch (err) {
       console.error('Error updating user:', err)
-      res.status(500).json({ error: err })
+      res.status(500).json({ error: 'Internal server error' })
     }
   }
 }

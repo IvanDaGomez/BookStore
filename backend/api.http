@@ -1,5 +1,13 @@
 GET http://localhost:3030/api/users
 
+
+###
+GET http://localhost:3030/api/users/92c3a9f7-387a-485f-a695-6d3317be21cf
+
+
+###
+
+GET http://localhost:3030/api/users/correo?e=ivandavidgomezsilva@hotmail.com
 ###
 POST http://localhost:3030/api/users
 Content-Type: application/json
@@ -18,5 +26,19 @@ Content-Type: application/json
     "pais": "Colombia",
     "codigoPostal": "12345"
     },
-    "fotoPerfil": "url/a/la/foto/perfil.jpg"
+    "fotoPerfil": "https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg"
 }
+
+###
+
+PATCH http://localhost:3030/api/users/58e6e94a-24bd-4013-8e40-0cf23b707669
+Content-Type: application/json
+
+{
+    "nombre": "Mateus Gomez"
+    
+}
+
+###
+
+DELETE http://localhost:3030/api/users/58e6e94a-24bd-4013-8e40-0cf23b707669

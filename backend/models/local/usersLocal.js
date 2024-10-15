@@ -25,6 +25,25 @@ class UsersModel {
     }
   }
 
+  // Pendiente desarrollar, una buena query para buscar varios patrones
+  static async getUserByQuery (query) {
+
+  }
+
+  static async getUserByEmail (email) {
+    try {
+      const users = await this.getAllUsers()
+      const user = users.find(user => user.correo === email)
+      if (!user) {
+        return null // Si no se encuentra el usuario, retorna null
+      }
+      return user
+    } catch (err) {
+      console.error('Error reading user:', err)
+      throw new Error(err)
+    }
+  }
+
   static async createUser (data) {
     try {
       const users = await this.getAllUsers()
@@ -60,7 +79,7 @@ class UsersModel {
 
       // Hacer el path hacia aqui
       // const filePath = pat h.join()
-      await fs.writeFile('./users.json', JSON.stringify(users, null, 2))
+      await fs.writeFile('./models/local/users.json', JSON.stringify(users, null, 2))
 
       return users[userIndex] // Retorna el usuario actualizado
     } catch (err) {
@@ -77,7 +96,7 @@ class UsersModel {
         return null // Si no se encuentra el usuario, retorna null
       }
       users.splice(userIndex, 1)
-      await fs.writeFile('./users.json', JSON.stringify(users, null, 2))
+      await fs.writeFile('./models/local/users.json', JSON.stringify(users, null, 2))
       return { message: 'User deleted successfully' } // Mensaje de éxito
     } catch (err) {
       console.error('Error deleting user:', err)
