@@ -1,0 +1,359 @@
+[
+  {
+    "nombre": "Monica Silva",
+    "librosIds": [],
+    "correo": "monitatinet@hotmail.com",
+    "contraseña": "$2b$10$elN3Zb5LVkjwX4C/QPm3oue4kuwSXqhxnvwjK5D3FZ5oVep5/x52q",
+    "rol": "usuario",
+    "fechaRegistro": "2024-10-17T16:32:07.668Z",
+    "estadoCuenta": "activo",
+    "fotoPerfil": "",
+    "actualizadoEn": "2024-10-17T16:32:07.669Z",
+    "direccionEnvio": {
+      "calle": "",
+      "ciudad": "",
+      "pais": "",
+      "codigoPostal": ""
+    }
+  },
+  {
+    "nombre": "Monica Silva",
+    "librosIds": [],
+    "correo": "monitatinet@yopmail.com",
+    "contraseña": "$2b$10$.R5WVijfXF4HSSyuaVxNnuQjRghCjnlew3O70tL1T.GP3gsB0/8Eq",
+    "rol": "usuario",
+    "fechaRegistro": "2024-10-17T16:32:44.966Z",
+    "estadoCuenta": "activo",
+    "fotoPerfil": "",
+    "actualizadoEn": "2024-10-17T16:32:44.966Z",
+    "direccionEnvio": {
+      "calle": "",
+      "ciudad": "",
+      "pais": "",
+      "codigoPostal": ""
+    }
+  },
+  {
+    "nombre": "Monica Silva",
+    "librosIds": [],
+    "correo": "monitatinet@yacmail.com",
+    "contraseña": "$2b$10$pjqhaU3bdAsMFeDU.qi9qubcntuTv.uRLz0ocfXokxbPDWjXa3zUS",
+    "rol": "usuario",
+    "fechaRegistro": "2024-10-17T16:33:24.403Z",
+    "estadoCuenta": "activo",
+    "fotoPerfil": "",
+    "actualizadoEn": "2024-10-17T16:33:24.408Z",
+    "direccionEnvio": {
+      "calle": "",
+      "ciudad": "",
+      "pais": "",
+      "codigoPostal": ""
+    }
+  },
+  {
+    "nombre": "Ivan",
+    "librosIds": [],
+    "correo": "ivandavidgomezsilva@hotmail.com",
+    "contraseña": "$2b$10$CNzKZWM07LACRdLJCmCVC..n9ss3NsbcK0SG.I39T9XZlSAtglWjq",
+    "rol": "usuario",
+    "fechaRegistro": "2024-10-17T17:32:56.430Z",
+    "estadoCuenta": "activo",
+    "fotoPerfil": "",
+    "actualizadoEn": "2024-10-17T17:32:56.430Z",
+    "direccionEnvio": {
+      "calle": "",
+      "ciudad": "",
+      "pais": "",
+      "codigoPostal": ""
+    }
+  },
+  {
+    "nombre": "Ivan Gomez",
+    "librosIds": [],
+    "correo": "ivandavidgomezsilva@mail.com",
+    "contraseña": "$2b$10$0cEEwbpfMJDM28NbRXYh0eIr/zQgAF.aNcfRaUCKUPxesRvaYCNQu",
+    "rol": "usuario",
+    "fechaRegistro": "2024-10-17T17:38:21.018Z",
+    "estadoCuenta": "activo",
+    "fotoPerfil": "",
+    "actualizadoEn": "2024-10-17T17:38:21.018Z",
+    "direccionEnvio": {
+      "calle": "",
+      "ciudad": "",
+      "pais": "",
+      "codigoPostal": ""
+    }
+  },
+  {
+    "nombre": "Ivan Gomez",
+    "librosIds": [],
+    "correo": "ivandavidgomezsilva@gmail.com",
+    "contraseña": "$2b$10$2spuNU0qr9acaihKBWTuKe13luBMlRxxnb3dhS/mVLyk9xZjdGBlC",
+    "rol": "usuario",
+    "fechaRegistro": "2024-10-17T17:46:27.214Z",
+    "estadoCuenta": "activo",
+    "fotoPerfil": "",
+    "actualizadoEn": "2024-10-17T17:46:27.214Z",
+    "direccionEnvio": {
+      "calle": "",
+      "ciudad": "",
+      "pais": "",
+      "codigoPostal": ""
+    }
+  },
+  {
+    "nombre": "Daniel Lopes",
+    "librosIds": [],
+    "correo": "daniel.lopez@hotmail.com",
+    "contraseña": "$2b$10$KfIfZYkzd4qFDpCpYu9um.vysW5X9dBfdDpR0/7/xaf7LaXp4dEZa",
+    "rol": "usuario",
+    "fechaRegistro": "2024-10-17T19:33:52.307Z",
+    "estadoCuenta": "activo",
+    "fotoPerfil": "",
+    "actualizadoEn": "2024-10-17T19:33:52.307Z",
+    "direccionEnvio": {
+      "calle": "",
+      "ciudad": "",
+      "pais": "",
+      "codigoPostal": ""
+    }
+  },
+  {
+    "nombre": "Ivan Gomez",
+    "librosIds": [],
+    "correo": "ivandavidgomez@hotmail.com",
+    "contraseña": "$2b$10$BqrNZLrnVy4RVFXovlqtkehfauaAd74S.PDc7r.fMGtSTCED83eWK",
+    "rol": "usuario",
+    "fechaRegistro": "2024-10-17T19:38:28.859Z",
+    "estadoCuenta": "activo",
+    "fotoPerfil": "",
+    "actualizadoEn": "2024-10-17T19:38:28.859Z",
+    "direccionEnvio": {
+      "calle": "",
+      "ciudad": "",
+      "pais": "",
+      "codigoPostal": ""
+    }
+  },
+  {
+    "nombre": "Ivan Gomez",
+    "librosIds": [],
+    "correo": "ivandavidgomz@hotmail.com",
+    "contraseña": "$2b$10$0sbBrWAeoV1w.u7qz.xmoeu.0LrUezeSV2EH8W5/gfmqHSaJ.UnDe",
+    "rol": "usuario",
+    "fechaRegistro": "2024-10-17T19:40:10.076Z",
+    "estadoCuenta": "activo",
+    "fotoPerfil": "",
+    "actualizadoEn": "2024-10-17T19:40:10.077Z",
+    "direccionEnvio": {
+      "calle": "",
+      "ciudad": "",
+      "pais": "",
+      "codigoPostal": ""
+    }
+  },
+  {
+    "nombre": "Ivan Gomez",
+    "librosIds": [],
+    "correo": "ivandavidgomesz@hotmail.com",
+    "contraseña": "$2b$10$yMfIe6pTQripVpgZSs712uQIbLSkkgXdE0HqTQCrrW0dIopu0lSRm",
+    "rol": "usuario",
+    "fechaRegistro": "2024-10-17T19:49:43.127Z",
+    "estadoCuenta": "activo",
+    "fotoPerfil": "",
+    "actualizadoEn": "2024-10-17T19:49:43.127Z",
+    "direccionEnvio": {
+      "calle": "",
+      "ciudad": "",
+      "pais": "",
+      "codigoPostal": ""
+    }
+  },
+  {
+    "nombre": "jsidijh",
+    "librosIds": [],
+    "correo": "ivandavidgozsilva@hotmail.com",
+    "contraseña": "$2b$10$uJBV2zBoYBcpjXP7bOHjku6lgmotfshXDEx3qDdEerRREFPIwACTS",
+    "rol": "usuario",
+    "fechaRegistro": "2024-10-17T19:56:00.905Z",
+    "estadoCuenta": "activo",
+    "fotoPerfil": "",
+    "actualizadoEn": "2024-10-17T19:56:00.905Z",
+    "direccionEnvio": {
+      "calle": "",
+      "ciudad": "",
+      "pais": "",
+      "codigoPostal": ""
+    }
+  },
+  {
+    "nombre": "as",
+    "librosIds": [],
+    "correo": "monitatinetu9@hotmail.com",
+    "contraseña": "$2b$10$hNDy1yantj92DLzckP3pM.IMtMNa6fZtF./lua4rMjXVj2kBKI9Bi",
+    "rol": "usuario",
+    "fechaRegistro": "2024-10-17T19:57:24.264Z",
+    "estadoCuenta": "activo",
+    "fotoPerfil": "",
+    "actualizadoEn": "2024-10-17T19:57:24.264Z",
+    "direccionEnvio": {
+      "calle": "",
+      "ciudad": "",
+      "pais": "",
+      "codigoPostal": ""
+    }
+  },
+  {
+    "nombre": "wazaaa",
+    "librosIds": [],
+    "correo": "alvaroivangomez1@hotmail.com",
+    "contraseña": "$2b$10$WEjC7Auo92FOEX6ULtpP/.LJv3mB4I/4T8h/NsYlv47hLmk0L.2pu",
+    "rol": "usuario",
+    "fechaRegistro": "2024-10-17T19:58:44.747Z",
+    "estadoCuenta": "activo",
+    "fotoPerfil": "",
+    "actualizadoEn": "2024-10-17T19:58:44.747Z",
+    "direccionEnvio": {
+      "calle": "",
+      "ciudad": "",
+      "pais": "",
+      "codigoPostal": ""
+    }
+  },
+  {
+    "nombre": "aaaa",
+    "librosIds": [],
+    "correo": "adiwo@hotmail.com",
+    "contraseña": "$2b$10$M0hAWDc7Yoe8d3.hEror5.fOevndJ984LQI8.YdQaLFCVeZgJrdtC",
+    "rol": "usuario",
+    "fechaRegistro": "2024-10-17T20:07:58.467Z",
+    "estadoCuenta": "activo",
+    "fotoPerfil": "",
+    "actualizadoEn": "2024-10-17T20:07:58.467Z",
+    "direccionEnvio": {
+      "calle": "",
+      "ciudad": "",
+      "pais": "",
+      "codigoPostal": ""
+    }
+  },
+  {
+    "nombre": "Ivan Gomez",
+    "librosIds": [],
+    "correo": "98quwak1i@hotmail.com",
+    "contraseña": "$2b$10$ufBM1r4H/LzWJdcBewn/x.yr7E9HYc1NErQJffarxy/qGEOmFM4yu",
+    "rol": "usuario",
+    "fechaRegistro": "2024-10-17T20:36:42.709Z",
+    "estadoCuenta": "activo",
+    "fotoPerfil": "",
+    "actualizadoEn": "2024-10-17T20:36:42.709Z",
+    "direccionEnvio": {
+      "calle": "",
+      "ciudad": "",
+      "pais": "",
+      "codigoPostal": ""
+    }
+  },
+  {
+    "nombre": "a",
+    "librosIds": [],
+    "correo": "Ivdjw@gotmaol.com",
+    "contraseña": "$2b$10$GmWgdXq9xWveIzgFo5zF9.MXm8QC07fgowvQFBfFFoCYZb6dsnS3W",
+    "rol": "usuario",
+    "fechaRegistro": "2024-10-17T20:52:27.897Z",
+    "estadoCuenta": "activo",
+    "fotoPerfil": "",
+    "actualizadoEn": "2024-10-17T20:52:27.897Z",
+    "direccionEnvio": {
+      "calle": "",
+      "ciudad": "",
+      "pais": "",
+      "codigoPostal": ""
+    }
+  },
+  {
+    "nombre": "aaa",
+    "librosIds": [],
+    "correo": "aihdb@xn--hotma-sta.com",
+    "contraseña": "$2b$10$B54WIHCZKEf6mfTk2u1gEeucakuaoil8YWqHxdU06JM1YrXU7uPzC",
+    "rol": "usuario",
+    "fechaRegistro": "2024-10-17T20:54:53.025Z",
+    "estadoCuenta": "activo",
+    "fotoPerfil": "",
+    "actualizadoEn": "2024-10-17T20:54:53.025Z",
+    "direccionEnvio": {
+      "calle": "",
+      "ciudad": "",
+      "pais": "",
+      "codigoPostal": ""
+    }
+  },
+  {
+    "nombre": "aaa",
+    "librosIds": [],
+    "correo": "aihdb@xn--hotma-sta.com",
+    "contraseña": "$2b$10$wN/8OuE1So7fYcjtoXjxn.qIwF6nuIOZJcpxsA4MTyyfRvPm5lXyy",
+    "rol": "usuario",
+    "fechaRegistro": "2024-10-17T20:56:25.051Z",
+    "estadoCuenta": "activo",
+    "fotoPerfil": "",
+    "actualizadoEn": "2024-10-17T20:56:25.051Z",
+    "direccionEnvio": {
+      "calle": "",
+      "ciudad": "",
+      "pais": "",
+      "codigoPostal": ""
+    }
+  },
+  {
+    "nombre": "aaa",
+    "librosIds": [],
+    "correo": "aihdb@hotmea.com",
+    "contraseña": "$2b$10$nG76ff2maiwXXyLH/nFUE.PWsCNaqzdhpl.mpgDEdpDliOkhUcgM2",
+    "rol": "usuario",
+    "fechaRegistro": "2024-10-17T20:57:19.249Z",
+    "estadoCuenta": "activo",
+    "fotoPerfil": "",
+    "actualizadoEn": "2024-10-17T20:57:19.249Z",
+    "direccionEnvio": {
+      "calle": "",
+      "ciudad": "",
+      "pais": "",
+      "codigoPostal": ""
+    }
+  },
+  {
+    "nombre": "aaa",
+    "librosIds": [],
+    "correo": "aihdb@hotaaea.com",
+    "contraseña": "$2b$10$mjFCH1tRb5kBnHoJqOz7bO9DDEP3R2UkD8OsuLWI.M/jyvLGMJcUq",
+    "rol": "usuario",
+    "fechaRegistro": "2024-10-17T20:57:40.161Z",
+    "estadoCuenta": "activo",
+    "fotoPerfil": "",
+    "actualizadoEn": "2024-10-17T20:57:40.161Z",
+    "direccionEnvio": {
+      "calle": "",
+      "ciudad": "",
+      "pais": "",
+      "codigoPostal": ""
+    }
+  },
+  {
+    "nombre": "aaa",
+    "librosIds": [],
+    "correo": "aihdb@ataaea.com",
+    "contraseña": "$2b$10$mz8nb1O3ZIudgkjHoF4aCu0KJM/c.Z3lssR.g3gkCp6oYRxFa/.U6",
+    "rol": "usuario",
+    "fechaRegistro": "2024-10-17T20:59:45.361Z",
+    "estadoCuenta": "activo",
+    "fotoPerfil": "",
+    "actualizadoEn": "2024-10-17T20:59:45.361Z",
+    "direccionEnvio": {
+      "calle": "",
+      "ciudad": "",
+      "pais": "",
+      "codigoPostal": ""
+    }
+  }
+]

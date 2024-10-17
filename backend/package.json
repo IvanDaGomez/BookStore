@@ -11,8 +11,12 @@
   "author": "Ivan Gomez",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
+    "db-local": "^3.1.0",
     "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
     "zod": "^3.23.8"
   },
   "devDependencies": {

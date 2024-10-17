@@ -64,8 +64,12 @@ export default function Fase1({ form, setForm, setFase, fase }) {
       setErrors(fallos);
       return;
     }
-
+    
     setErrors([]);
+
+    //enviar al formulario solo la url de la imagen
+    setCroppedImages(croppedImages.map(image => image.url))
+
     setForm({
       ...form,
       titulo: titulo.value,

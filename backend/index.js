@@ -1,25 +1,54 @@
 import express from 'express'
 import cors from 'cors'
 import { usersRouter } from './routes/users/usersRouter.js'
-
+import { SECRET_KEY } from './assets/config.js'
+import cookieParser from 'cookie-parser'
+import jwt from 'jsonwebtoken'
 const app = express()
 
 const PORT = process.env.PORT ?? 3030
+// Lista de orígenes permitidos
+const whitelist = [
+  `http://localhost:${PORT}`,
+  `https://localhost:${PORT}`,
+  'http://localhost:3000',
+  'https://localhost:3000',
+  'http://localhost:5173',
+  'localhost:5173'
+]
 
-const whitelist = [`http://localhost:${PORT}`, `https://localhost:${PORT}`, 'https://localhost:3000', 'http://localhost:3000']
+// Configuración de CORS
 const corsOptions = {
   origin: function (origin, callback) {
-    // Permite solicitudes con 'undefined' origin (como las de Postman)
+    // Permitir solicitudes con 'undefined' origin (como las de Postman)
     if (!origin || whitelist.indexOf(origin) !== -1) {
       callback(null, true)
     } else {
       callback(new Error('Not allowed by CORS'))
     }
-  }
+  },
+  credentials: true // Habilitar el envío de credenciales (cookies)
 }
 
 // Habilitar CORS con las opciones definidas
 app.use(cors(corsOptions))
+
+app.use(cookieParser())
+app.use((req, res, next) => {
+  const token = req.cookies.access_token
+  req.session = { user: null }
+
+  try {
+    const info = jwt.verify(token, SECRET_KEY)
+    req.session.user = info
+  } catch {}
+  next()
+})
+app.use((req, res, next) => {
+  console.log(`Request URL: ${req.url}, Method: ${req.method}`)
+
+  next()
+})
 // habilitar req.body
 app.use(express.urlencoded({ extended: true }))
 

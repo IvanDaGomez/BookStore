@@ -38,11 +38,12 @@ export default function Fase3({ form, setForm, fase, setFase }){
       
       
       
-      //const timeNow = new Date();
-      //const user = Cookies.get("user")
+      const timeNow = new Date();
+      const user = Cookies.get("user")
       /*setForm({...form,
-        "fechaPublicacion": new Date().toISOString(),
+        "fechaPublicacion": timeNow,
         "vendedor": user
+        "actualizadoEn" : timeNow
       })*/
       setForm({})
       setFase(1)

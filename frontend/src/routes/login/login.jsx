@@ -56,47 +56,59 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const formData = {
-      email,
-      password,
-      confirmPassword
+        name,
+        email,
+        password,
+        confirmPassword,
     };
-  
+
     const validated = validateErrors(formData);
     if (!validated) return;
-  
-    const url = isRegister ? '/api/users' : `/api/users?mail=${email}`;
-  
-    try {
-      const response = await fetch(url, {
-        method: isRegister ? 'POST' : 'GET', // Cambia según la acción
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: isRegister ? JSON.stringify(formData) : null, // Solo envía el cuerpo si es un registro
-      });
-  
-      if (!response.ok) {
-        throw new Error('Error en la respuesta del servidor'); // Manejo de errores
-      }
-      window.location.href = window.location.origin
-      const data = await response.json(); // Aquí obtienes la respuesta del servidor
-  
-      // Verifica si el token o usuario están en la respuesta
-      if (data.token) {
-        // Guardar el token como cookie o en localStorage
-        document.cookie = `token=${data.token}; path=/`; // Ejemplo de guardado en cookie
-        window.location.href = '/inicio'; // Redirigir a la página de inicio
-      } else {
-        console.error('No se recibió el token', data);
-      }
-    } catch (error) {
-      console.error('Error al enviar la solicitud:', error);
-    }
-  };
-  
 
+    const domain = 'http://localhost:3030';
+    const url = isRegister ? `${domain}/api/users` : `${domain}/api/users/login`;
+
+    // Preparar los datos para enviar
+    const sendData = {
+        correo: email,
+        contraseña: password,
+        ...(isRegister && { nombre: name }),
+    };
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST' ,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(sendData),
+            credentials: 'include'
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            // Actualizar el estado de errores usando setErrors
+            setErrors((prevErrors) => [...prevErrors, data.error || 'Error en la respuesta del servidor']);
+            return; // Salir de la función si hay un error
+        }
+        
+        // Si la respuesta es exitosa, puedes manejar la respuesta aquí
+        // En teoría el token se guarda en la cookie desde el backend
+        // Si la respuesta es exitosa, puedes manejar la respuesta aquí
+       
+        window.location.href = "/"
+        
+    } catch (error) {
+        console.error('Error al enviar la solicitud:', error);
+        // También puedes agregar el error de catch a los errores
+        setErrors((prevErrors) => [...prevErrors, 'Error de conexión: ' + error.message]);
+    }
+};
+
+  
   return (
     <div
       className="login-container"

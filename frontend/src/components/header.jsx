@@ -2,9 +2,33 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from 'react-router-dom';
 import { reduceText } from "../assets/reduceText";
 import { cambiarEspacioAGuiones } from "../assets/agregarMas";
-
+//import useFetchUser from "../assets/useFetchUser";
 export default function Header() {
-    const user = true;
+    //const user = useFetchUser('http://localhost:3030/api/users/userSession')
+    const [user, setUser] = useState(null);
+
+useEffect(() => {
+    async function fetchUser() {
+        try {
+            const response = await fetch('http://localhost:3030/api/users/userSession', {
+                method: 'POST',
+                credentials: 'include',  // Asegúrate de enviar las cookies
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                setUser(data); // Establece el usuario en el estado
+            } else {
+                console.error('Failed to fetch user data:', response);
+            }
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        }
+    };
+
+    fetchUser(); // Llama a la función para obtener el usuario
+}, []); // Dependencias vacías para ejecutar solo una vez al montar el componente
+
     /*
         const abrirMenu = () => {
             let menu = document.querySelector(".inhamburger");
@@ -306,6 +330,15 @@ const openExtraInfo = async (str) => {
                     Mis Libros
                 </div>
                 </Link>
+                <div className="profileElement" onClick={()=>{
+                    fetch('http://localhost:3030/api/users/logout',{
+                        method: 'POST',
+                        credentials: 'include'
+                    })
+                    window.location.reload();
+                }}>
+                    Cerrar Sesión
+                </div>
                 </>}
             </div>
             </>}

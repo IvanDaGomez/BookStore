@@ -1,10 +1,45 @@
 import fs from 'node:fs/promises'
-
+import bcrypt from 'bcrypt'
+import { SALT_ROUNDS } from '../../assets/config.js'
 class UsersModel {
   static async getAllUsers () {
     try {
-      const data = await fs.readFile('./models/local/users.json', 'utf-8')
-      return JSON.parse(data)
+      const data = await fs.readFile('./models/users.json', 'utf-8')
+      const users = JSON.parse(data)
+
+      return users
+      // Return only non-sensitive information
+      /* return users.map(user => ({
+        _id: user._id,
+        nombre: user.nombre,
+        rol: user.rol,
+        fotoPerfil: user.fotoPerfil, // Example of public info
+        librosIds: user.librosIds,
+        estadoCuenta: user.estadoCuenta,
+        creadoEn: user.creadoEn
+        // Avoid exposing sensitive fields like password, email, etc.
+      })) */
+    } catch (err) {
+      console.error('Error reading users:', err)
+      throw new Error(err)
+    }
+  }
+
+  static async getAllUsersSafe () {
+    try {
+      const data = await fs.readFile('./models/users.json', 'utf-8')
+      const users = JSON.parse(data)
+
+      return users.map(user => ({
+        _id: user._id,
+        nombre: user.nombre,
+        rol: user.rol,
+        fotoPerfil: user.fotoPerfil, // Example of public info
+        librosIds: user.librosIds,
+        estadoCuenta: user.estadoCuenta,
+        creadoEn: user.creadoEn
+        // Avoid exposing sensitive fields like password, email, etc.
+      }))
     } catch (err) {
       console.error('Error reading users:', err)
       throw new Error(err)
@@ -14,11 +49,22 @@ class UsersModel {
   static async getUserById (id) {
     try {
       const users = await this.getAllUsers()
-      const user = users.find(user => user.id === id)
+      const user = users.find(user => user._id === id)
       if (!user) {
-        return null // Si no se encuentra el usuario, retorna null
+        return null
       }
-      return user
+
+      // Return user with limited public information
+      return {
+        _id: user._id,
+        nombre: user.nombre,
+        rol: user.rol,
+        fotoPerfil: user.fotoPerfil, // Example of public info
+        librosIds: user.librosIds,
+        estadoCuenta: user.estadoCuenta,
+        creadoEn: user.creadoEn
+        // Avoid exposing sensitive fields like password, email, etc.
+      }
     } catch (err) {
       console.error('Error reading user:', err)
       throw new Error(err)
@@ -30,14 +76,54 @@ class UsersModel {
 
   }
 
-  static async getUserByEmail (email) {
+  static async login (correo, contraseña) {
     try {
       const users = await this.getAllUsers()
-      const user = users.find(user => user.correo === email)
+      const user = users.find(usuario => usuario.correo === correo)
       if (!user) {
-        return null // Si no se encuentra el usuario, retorna null
+        return 'No encontrado'
       }
-      return user
+      const validated = await bcrypt.compare(contraseña, user.contraseña)
+      // Validar que la contraseña sea
+      if (!validated) {
+        return 'Contraseña no coincide'
+      }
+
+      // Return user info, but avoid password or sensitive data
+      return {
+        _id: user._id,
+        nombre: user.nombre,
+        rol: user.rol,
+        fotoPerfil: user.fotoPerfil, // Example of public info
+        librosIds: user.librosIds,
+        estadoCuenta: user.estadoCuenta,
+        creadoEn: user.creadoEn
+        // Avoid exposing sensitive fields like password, email, etc.
+      }
+    } catch (err) {
+      console.error('Error reading user:', err)
+      throw new Error(err)
+    }
+  }
+
+  static async getUserByEmail (correo) {
+    try {
+      const users = await this.getAllUsers()
+      const user = users.find(usuario => usuario.correo === correo)
+      if (!user) {
+        return 'No encontrado'
+      }
+      // Return user info, but avoid password or sensitive data
+      return {
+        _id: user._id,
+        nombre: user.nombre,
+        rol: user.rol,
+        fotoPerfil: user.fotoPerfil, // Example of public info
+        librosIds: user.librosIds,
+        estadoCuenta: user.estadoCuenta,
+        creadoEn: user.creadoEn
+        // Avoid exposing sensitive fields like password, email, etc.
+      }
     } catch (err) {
       console.error('Error reading user:', err)
       throw new Error(err)
@@ -47,9 +133,40 @@ class UsersModel {
   static async createUser (data) {
     try {
       const users = await this.getAllUsers()
-      users.push(data)
-      await fs.writeFile('./models/local/users.json', JSON.stringify(users, null, 2))
-      return data // Retorna el usuario creado
+
+      // Crear valores por defecto
+      const newUser = {
+        nombre: data.nombre, // Nombre proporcionado
+        librosIds: data.librosIds || [], // Asignar librosIds o array vacío por defecto
+        correo: data.correo, // Correo proporcionado
+        contraseña: data.contraseña, // Contraseña (asegúrate de encriptarla antes de guardarla)
+        rol: data.rol || 'usuario', // Rol por defecto 'usuario'
+        fechaRegistro: new Date().toISOString(), // Fecha actual (solo la fecha)
+        estadoCuenta: data.estadoCuenta || 'activo', // Estado por defecto 'activo'
+        fotoPerfil: data.fotoPerfil || '', // URL por defecto
+        _id: data.id, // Generar un ID único para el usuario
+        actualizadoEn: new Date().toISOString(), // Fecha y hora de actualización
+        direccionEnvio: data.direccionEnvio || { // Asignar dirección de envío o objeto vacío
+          calle: '',
+          ciudad: '',
+          pais: '',
+          codigoPostal: ''
+        }
+      }
+
+      newUser.contraseña = await bcrypt.hash(newUser.contraseña, SALT_ROUNDS)
+      users.push(newUser)
+      await fs.writeFile('./models/users.json', JSON.stringify(users, null, 2))
+      return {
+        _id: newUser._id,
+        nombre: newUser.nombre,
+        rol: newUser.rol,
+        fotoPerfil: newUser.fotoPerfil, // Example of public info
+        librosIds: newUser.librosIds,
+        estadoCuenta: newUser.estadoCuenta,
+        creadoEn: newUser.creadoEn
+        // Avoid exposing sensitive fields like password, email, etc.
+      }
     } catch (err) {
       console.error('Error creating user:', err)
       throw new Error('Error creating user')
@@ -58,30 +175,35 @@ class UsersModel {
 
   static async updateUser (id, data) {
     try {
-      console.log(data)
       const users = await this.getAllUsers()
 
-      const userIndex = users.findIndex(user => user.id === id)
+      const userIndex = users.findIndex(user => user._id === id)
       if (userIndex === -1) {
         return null // Si no se encuentra el usuario, retorna null
       }
-      /* Logica de correo repetido
-            if(data.mail){
-                if (users[userIndex].includes(data.mail))
-                const emailRepeated = users.splice(userIndex, 1).some(user => user.mail === data.mail);
-                if (emailRepeated) {
-                    throw new Error("Email is already in use");
-                }
-            } */
-
+      if (data.mail) {
+        const emailRepeated = users.splice(userIndex, 1).some(user => user.mail === data.mail)
+        if (emailRepeated) {
+          throw new Error('Email is already in use')
+        }
+      }
       // Actualiza los datos del usuario
       Object.assign(users[userIndex], data)
 
       // Hacer el path hacia aqui
       // const filePath = pat h.join()
-      await fs.writeFile('./models/local/users.json', JSON.stringify(users, null, 2))
+      await fs.writeFile('./models/users.json', JSON.stringify(users, null, 2))
 
-      return users[userIndex] // Retorna el usuario actualizado
+      return {
+        _id: users[userIndex]._id,
+        nombre: users[userIndex].nombre,
+        rol: users[userIndex].rol,
+        fotoPerfil: users[userIndex].fotoPerfil, // Example of public info
+        librosIds: users[userIndex].librosIds,
+        estadoCuenta: users[userIndex].estadoCuenta,
+        creadoEn: users[userIndex].creadoEn
+        // Avoid exposing sensitive fields like password, email, etc.
+      }
     } catch (err) {
       console.error('Error updating user:', err)
       throw new Error(err)
@@ -91,12 +213,12 @@ class UsersModel {
   static async deleteUser (id) {
     try {
       const users = await this.getAllUsers()
-      const userIndex = users.findIndex(user => user.id === id)
+      const userIndex = users.findIndex(user => user._id === id)
       if (userIndex === -1) {
         return null // Si no se encuentra el usuario, retorna null
       }
       users.splice(userIndex, 1)
-      await fs.writeFile('./models/local/users.json', JSON.stringify(users, null, 2))
+      await fs.writeFile('./models/users.json', JSON.stringify(users, null, 2))
       return { message: 'User deleted successfully' } // Mensaje de éxito
     } catch (err) {
       console.error('Error deleting user:', err)

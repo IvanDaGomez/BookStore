@@ -2,43 +2,45 @@ GET http://localhost:3030/api/users
 
 
 ###
-GET http://localhost:3030/api/users/92c3a9f7-387a-485f-a695-6d3317be21cf
+GET http://localhost:3030/api/users/4dd85bb2-2eab-4b1d-b243-0d3af692c831
 
 
 ###
 
-GET http://localhost:3030/api/users/correo?e=ivandavidgomezsilva@hotmail.com
+GET http://localhost:3030/api/users/correo
+Content-Type: application/json
+
+{
+    "correo": "ivandavidgomezsilva@hotmail.com",
+    "contraseña": "Idgs2603"
+}
+
+
 ###
 POST http://localhost:3030/api/users
 Content-Type: application/json
 
 {
-    "nombre": "Ivan Gomez",
-    "librosIds": [],
-    "correo": "ivandavidgomezsilva@hotmail.com",
-    "contraseña": "Idgs2603",
-    "rol": "usuario",
-    "fechaRegistro": "2024-10-14",
-    "estadoCuenta": "activo",
-    "direccionEnvio": {
-    "calle": "123 Avenida Central",
-    "ciudad": "Bucaramanga",
-    "pais": "Colombia",
-    "codigoPostal": "12345"
-    },
-    "fotoPerfil": "https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg"
+    "nombre": "Monica Silva",
+    "correo": "monitatinet@yacmail.com",
+    "contraseña": "Idgs2603"
 }
 
 ###
 
-PATCH http://localhost:3030/api/users/58e6e94a-24bd-4013-8e40-0cf23b707669
+PATCH http://localhost:3030/api/users/0a369bd9-e2c8-406f-9aed-18dec6d4efbf
 Content-Type: application/json
 
 {
-    "nombre": "Mateus Gomez"
+    "direccionEnvio": {
+        "calle": "14",
+        "ciudad": "Bucaramanga",
+        "pais": "Colombia",
+        "codigoPostal": "680004"
+    }
     
 }
 
 ###
 
-DELETE http://localhost:3030/api/users/58e6e94a-24bd-4013-8e40-0cf23b707669
+DELETE http://localhost:3030/api/users/6bcb7b9b-b22c-4a66-a4a3-c90beb84ec25
