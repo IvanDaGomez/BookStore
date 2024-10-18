@@ -17,8 +17,6 @@ Language: Spanish
 - **Backend**: Node.js, Express.js
 - **Database**: MongoDB (NoSQL), Turso (SQL Lite)
 - **Authentication**: JSON Web Tokens (JWT)
-- **Storage**: Cloudinary for image uploads
-- **State Management**: Context API (or Redux if applicable)
 
 ## Images
 ![Captura de pantalla 2024-10-14 132712](https://github.com/user-attachments/assets/8714274e-ad2b-4622-a518-99eb4fcbfeda)
