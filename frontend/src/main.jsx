@@ -23,8 +23,8 @@ const router = createBrowserRouter([
     element: <CrearLibro />
   },
   {
-    path:"libros/crear/exito",
-    element: <App notification="success" />
+    path:"popUp/:info",
+    element: <App />
   },
   {
     

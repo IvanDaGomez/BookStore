@@ -91,71 +91,43 @@ const openExtraInfo = async (str) => {
     
     function handleSearchInput() {
         if (!queryInput.current.value) { 
-            
             setResults([]); 
             return;
         }
-        setResults([{
-            "titulo": "Harry Potter y la Cámara Secreta",
-            "autor": "Warner Bros",
-            "precio": 100000,
-            "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg"],
-            "keywords": ["fantasía", "Harry Potter", "J.K. Rowling"],
-            "id": "a1b2c3d4-e5f6-7g8h-9i10-j11k12l13m14",
-            "estado" : "Usado",
-            "genero": "Novela",
-            "vendedor": "Ivan Gómez",
-            "edicion": "1"
-        },
-        {
-            "titulo": "Harry Potter y la Cámara Secreta",
-            "autor": "Warner Bros",
-            "precio": 100000,
-            
-            "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg"],
-            "keywords": ["fantasía", "Harry Potter", "J.K. Rowling"],
-            "id": "b2c3d4e5-f6g7-h8i9-1011-j12k13l14m15"
-        },
-        {
-            "titulo": "Harry Potter y la Cámara Secreta",
-            "autor": "Warner Bros",
-            "precio": 100000,
-            "oferta": 80000,
-            "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg"],
-            "keywords": ["fantasía", "Harry Potter", "J.K. Rowling"],
-            "id": "c3d4e5f6-g7h8-i910-1112-k13l14m15n16"
-        },
-        {
-            "titulo": "One Piece Vol. 124",
-            "autor": "Shueisha",
-            "precio": 20000,
-            "oferta": 18000,
-            "images":  ["https://lh3.googleusercontent.com/proxy/XXUB6Ecwi4VLX6huumbKju8YS1aziFa6i0LYOeEvWyWMKRfr3Y9rjNL_R_rLgVTx3oA864aSF5Ir_gAOIPYSDAoJk4mQSHMxDkOnDef5WLbpIJNK5Ci_F3LIkw2HhnhMgcDPPFoEzrU00x3kWYRINeIpKRlQsJfy23OHH08dqiCdJV2kwQ3dP4PHivbwQKnSbFvpFAZeJCsHGNrHornLiNHdgsoOvfsd7xU5hE-SqA"],
-            "keywords": ["manga", "anime", "One Piece"],
-            "id": "d4e5f6g7-h8i9-1011-1213-l14m15n16o17"
-        },
-        {
-            "titulo": "Cien años de soledad",
-            "autor": "Editorial Sudamericana",
-            "precio": 35000,
-            "oferta": 32000,
-            "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/61/8d/618d227e8967274cd9589a549adff52d.jpg"],
-            "keywords": ["literatura", "Gabriel García Márquez", "realismo mágico"],
-            "id": "e5f6g7h8-i910-1112-1314-m15n16o17p18"
-        },
-        {
-            "titulo": "El nombre del viento",
-            "autor": "DAW Books",
-            "precio": 45000,
-            "oferta": 40000,
-            "images":  ["https://images.cdn3.buscalibre.com/fit-in/360x360/aa/cc/aacc1e2d359a74f3efb144b8ab8f790f.jpg"],
-            "keywords": ["fantasía", "Patrick Rothfuss", "aventura"],
-            "id": "f6g7h8i9-1011-1213-1415-n16o17p18q19",
-            "estado" : "Usado",
-            "genero": "Novela"
-        }])
-        //Set results based on a fetch
+    
+        // Función para obtener los resultados de búsqueda
+        async function fetchResults() {
+            try {
+                // Verificamos que la query no esté vacía o sea solo espacios
+                if (queryInput.current.value && queryInput.current.value.trim()) {
+                    const response = await fetch(`http://localhost:3030/api/books/query?q=${queryInput.current.value}`, {
+                        method: 'GET',
+                        credentials: 'include',  // Enviar las cookies
+                    });
+    
+                    if (response.ok) {
+                        const data = await response.json();
+                        return data; // Retorna los datos obtenidos
+                    } else {
+                        console.error('Failed to fetch book data:', response.statusText);
+                        return []; // Retorna un array vacío en caso de error
+                    }
+                }
+            } catch (error) {
+                console.error('Error fetching book data:', error);
+                return []; // Retorna un array vacío en caso de error
+            }
+        }
+    
+        // Llama a la función para obtener los resultados
+        fetchResults().then(bookResults => {
+            // Convertir `bookResults` a un array antes de aplicar `slice`
+            if (Array.isArray(bookResults)) {
+                setResults(bookResults.slice(0, 5)); // Obtener los primeros 5 resultados
+            }
+        });
     }
+    
 
     // Submits the input value when the search button is clicked
     function submitInputValue() {
@@ -210,7 +182,6 @@ const openExtraInfo = async (str) => {
         const handleScroll = () => {
             adjustTopProfile();
         };
-        console.log(window.scrollY)
         if (profile) adjustTopProfile();
         window.addEventListener('scroll', handleScroll);
     
@@ -364,7 +335,7 @@ const openExtraInfo = async (str) => {
                     <hr/>
                     {arrayInfo.masBuscados.map((element, index) => (<Link key={index} to={`/buscar?q=${cambiarEspacioAGuiones(element)}`}><p>{element}</p></Link>))}
                 </div>
-                {console.log("mostrando")}
+                
            
             </div>
             ) : <></>}

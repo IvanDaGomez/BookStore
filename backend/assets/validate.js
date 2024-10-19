@@ -16,7 +16,7 @@ import { z } from 'zod'
     },
     "fotoPerfil": "url/a/la/foto/perfil.jpg",
   } */
-const schema = z.object({
+const userSchema = z.object({
   nombre: z.string()
     .min(1, 'El nombre es requerido')
     .max(100, 'El nombre debe tener menos de 100 caracteres'),
@@ -51,9 +51,39 @@ const schema = z.object({
 })
 
 function validateUser (data) {
-  return schema.safeParse(data)
+  return userSchema.safeParse(data)
 }
 function validatePartialUser (data) {
-  return schema.partial().safeParse(data)
+  return userSchema.partial().safeParse(data)
 }
-export { validateUser, validatePartialUser }
+
+const bookSchema = z.object({
+  titulo: z.string(), // Validates that 'titulo' is a string
+  autor: z.string(), // Validates that 'autor' is a string
+  precio: z.number(), // Validates that 'precio' is a number
+  oferta: z.number(),
+  images: z.array(z.instanceof(File)).optional(), // .nonempty('Debes subir al menos una imagen'),
+  keywords: z.array(z.string()).optional(), // Validates that 'keywords' is an array of strings
+  descripcion: z.string(), // Validates that 'descripcion' is a string
+  estado: z.enum([' ', 'Nuevo', 'Usado', 'Reacondicionado']), // Validates that 'estado' is either 'Nuevo' or 'Usado'
+  genero: z.string(), // Validates that 'genero' is a string
+  vendedor: z.string(), // Validates that 'vendedor' is a string
+  idVendedor: z.string(), // Validates that 'idVendedor' is a UUID string
+  formato: z.string(),
+  edicion: z.string().optional(), // Validates that 'edicion' is a string
+  idioma: z.string().optional(), // Validates that 'idioma' is a string
+  ubicacion: z.string(), // Validates that 'ubicacion' is a string
+  tapa: z.enum([' ', 'Dura', 'Blanda', 'Semi-Dura']).optional(), // Validates that 'tapa' is either 'Dura' or 'Blanda'
+  edad: z.string().optional(), // Validates that 'edad' is a string
+  fechaPublicacion: z.string(), // Validates that 'fechaPublicacion' is a date string in YYYY-MM-DD format
+  actualizadoEn: z.string(),
+  disponibilidad: z.enum([' ', 'Disponible', 'No Disponible']) // Validates that 'disponibilidad' is either 'Disponible' or 'No Disponible'
+})
+function validateBook (data) {
+  console.log(data)
+  return bookSchema.safeParse(data)
+}
+function validatePartialBook (data) {
+  return bookSchema.partial().safeParse(data)
+}
+export { validateUser, validatePartialUser, validateBook, validatePartialBook }

@@ -1,6 +1,5 @@
 const validarPublicar1 = ({ titulo = '', descripcion = '', archivos = [] } = {}) => {
   let errors = [];
-  console.log(titulo, descripcion, archivos);
 
   // Validación de archivos (campo requerido, menos de 10 archivos y solo imágenes)
   if (archivos.length === 0) {
@@ -59,12 +58,12 @@ const validarPublicar3 = ({ precio = '', keywords = [], autor = '', oferta = '' 
   if (!precio) {
 
     errors.push("El precio es requerido");
-    console.log(parseInt(precio, 10))
+    
   }
   if (precio <= 999){
     errors.push("Introduce un precio válido");
   }
-  console.log(oferta, precio)
+  
     // Validación de precio (campo requerido)
   if (oferta >= precio) {
     errors.push("El precio de oferta debe ser menor al precio original");

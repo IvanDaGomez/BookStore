@@ -22,7 +22,7 @@ Content-Type: application/json
 
 {
     "nombre": "Monica Silva",
-    "correo": "monitatinet@yacmail.com",
+    "correo": "monitatinet@cmail.com",
     "contraseña": "Idgs2603"
 }
 

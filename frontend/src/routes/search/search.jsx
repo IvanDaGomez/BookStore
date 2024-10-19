@@ -19,30 +19,34 @@ export default function Search(){
         if (!query) window.location.href = window.location.origin
     },[query])
 
-    const [results, setResults] = useState([])
-    const fetchResults = async () => {
-        try {
-            const response = await fetch("/results.json");
-            if (!response.ok) {
-                throw new Error("Network response was not ok");
-            }
-            
-            const info = await response.json(); 
-            
-            if (info !== undefined) {
-                setResults(info);
-            } 
-            else {
-                //Decir que no se ha podido encontrar ninguna coincidencia
-            }
-        } catch (error) {
-            console.error("Fetch error:", error);
-        }
-    };
-    useEffect(()=>{
-        fetchResults()
-    },[])
+    const [results, setResults] = useState([]);
 
+    // Fetch de la query
+    useEffect(() => {
+      async function fetchResults() {
+        try {
+          // Verificamos que la query no esté vacía o sea solo espacios
+          if (query && query.trim()) {
+            const response = await fetch(`http://localhost:3030/api/books/query?q=${query}`, {
+              method: 'GET',
+              credentials: 'include',  // Enviar las cookies
+            });
+    
+            if (response.ok) {
+              const data = await response.json();
+              setResults(data); // Establece los resultados en el estado
+            } else {
+              console.error('Failed to fetch book data:', response.statusText);
+            }
+          }
+        } catch (error) {
+          console.error('Error fetching book data:', error);
+        }
+      }
+    
+      fetchResults(); // Llama a la función para obtener los resultados
+    }, [query]); // Ejecuta cada vez que 'query' cambie
+    
 
     const [currentPage, setCurrentPage] = useState(1);
     const [grid, setGrid] = useState(localStorage.getItem("grid")|| "1fr 1fr 1fr 1fr");
@@ -300,6 +304,7 @@ const ordenarFormas = {
         <Header />
         <div><h1>Resultados: </h1><h1>{query}</h1></div>
         <hr className="noMargen"/>
+        
         <div className="resultadosContainer">
         
     <div className="masFiltros">

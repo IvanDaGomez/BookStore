@@ -1,8 +1,9 @@
-import { UsersModel } from '../../models/local/usersLocal.js'
+import { UsersModel } from '../../models/users/local/usersLocal.js'
 import crypto from 'node:crypto'
 import { validateUser, validatePartialUser } from '../../assets/validate.js'
 import { SECRET_KEY } from '../../assets/config.js'
 import jwt from 'jsonwebtoken'
+import { cambiarGuionesAEspacio } from '../../../frontend/src/assets/agregarMas.js'
 
 export class UsersController {
   static async getAllUsers (req, res) {
@@ -47,8 +48,8 @@ export class UsersController {
 
   static async getUserByQuery (req, res) {
     try {
-      const { q } = req.query // Obtener el valor del parámetro de consulta 'q'
-
+      let { q } = req.query // Obtener el valor del parámetro de consulta 'q'
+      q = cambiarGuionesAEspacio(q)
       if (!q) {
         return res.status(400).json({ error: 'Query parameter "q" is required' })
       }

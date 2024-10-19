@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises'
 import bcrypt from 'bcrypt'
-import { SALT_ROUNDS } from '../../assets/config.js'
+import { SALT_ROUNDS } from '../../../assets/config.js'
 class UsersModel {
   static async getAllUsers () {
     try {
@@ -73,7 +73,86 @@ class UsersModel {
 
   // Pendiente desarrollar, una buena query para buscar varios patrones
   static async getUserByQuery (query) {
+    const users = await this.getAllUsers()
 
+    // Calcula la distancia de Levenshtein entre dos strings
+    const levenshteinDistance = (a, b) => {
+      const matrix = Array.from({ length: a.length + 1 }, () =>
+        Array(b.length + 1).fill(0)
+      )
+
+      for (let i = 0; i <= a.length; i++) matrix[i][0] = i
+      for (let j = 0; j <= b.length; j++) matrix[0][j] = j
+
+      for (let i = 1; i <= a.length; i++) {
+        for (let j = 1; j <= b.length; j++) {
+          const cost = a[i - 1] === b[j - 1] ? 0 : 1
+          matrix[i][j] = Math.min(
+            matrix[i - 1][j] + 1,
+            matrix[i][j - 1] + 1,
+            matrix[i - 1][j - 1] + cost
+          )
+        }
+      }
+
+      return matrix[a.length][b.length]
+    }
+
+    // Funcion para calcular el nivel de coincidencia entre la query y los resultados
+    const calculateMatchScore = (user, queryWords) => {
+      let score = 0
+      const tolerance = 2 // Máxima distancia de Levenshtein permitida para considerar una coincidencia
+
+      for (const value of Object.values(user)) {
+        if (typeof value === 'string') {
+          const valueWords = value.split(' ')
+          for (const queryWord of queryWords) {
+            valueWords.forEach(word => {
+              const distance = levenshteinDistance(word.toLowerCase(), queryWord.toLowerCase())
+              if (distance <= tolerance) {
+                score += 1 // Incrementa el score si la distancia está dentro del umbral de tolerancia
+              }
+            })
+          }
+        } else if (Array.isArray(value)) {
+          value.forEach(item => {
+            if (typeof item === 'string') {
+              const itemWords = item.split(' ')
+              for (const queryWord of queryWords) {
+                itemWords.forEach(word => {
+                  const distance = levenshteinDistance(word.toLowerCase(), queryWord.toLowerCase())
+                  if (distance <= tolerance) {
+                    score += 1
+                  }
+                })
+              }
+            }
+          })
+        }
+      }
+
+      return score
+    }
+
+    // Dividimos la query en palabras
+    const queryWords = query.split(' ')
+
+    // Recorremos todos los libros y calculamos el puntaje de coincidencia
+    const usersWithScores = users.map(user => {
+      const score = calculateMatchScore(user, queryWords)
+
+      // Validamos si el score es suficiente, por ejemplo si es menor a 2 no lo devolvemos
+
+      if (score < queryWords.length * 0.7) return null // Si el score es menor al umbral, devolvemos null para descartarlo
+
+      return { user, score } // Devolvemos el libro junto con su puntaje si pasa la validación
+    }).filter(item => item !== null) // Filtramos los resultados nulos
+
+    // Ordenamos los libros por el puntaje en orden descendente
+    usersWithScores.sort((a, b) => b.score - a.score)
+
+    // Devolvemos los libros ordenados, pero solo los datos del libro
+    return usersWithScores.map(item => item.user)
   }
 
   static async login (correo, contraseña) {
@@ -144,7 +223,7 @@ class UsersModel {
         fechaRegistro: new Date().toISOString(), // Fecha actual (solo la fecha)
         estadoCuenta: data.estadoCuenta || 'activo', // Estado por defecto 'activo'
         fotoPerfil: data.fotoPerfil || '', // URL por defecto
-        _id: data.id, // Generar un ID único para el usuario
+        _id: data._id, // Generar un ID único para el usuario
         actualizadoEn: new Date().toISOString(), // Fecha y hora de actualización
         direccionEnvio: data.direccionEnvio || { // Asignar dirección de envío o objeto vacío
           calle: '',

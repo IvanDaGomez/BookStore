@@ -8,99 +8,55 @@ export default function Fase3({ form, setForm, fase, setFase }){
     const [keywords, setKeywords] = useState([])
     async function handleSubmit(e) {
       e.preventDefault();
-  
+    
       const { autor, precio, oferta } = e.target;
-      
+    
       // Remover el formato de precio y oferta (eliminar "$" y los puntos)
-      const cleanPrecio = parseInt(precio.value.replace(/\./g, "").replace("$", ""), 10); // Mantiene solo números y el punto decimal
-      const cleanOferta = parseInt(oferta.value.replace(/\./g, "").replace("$", ""), 10); // Similar al precio
-  
+      const cleanPrecio = parseInt(precio.value.replace(/\./g, "").replace("$", ""), 10);
+      const cleanOferta = oferta.value ? parseInt(oferta.value.replace(/\./g, "").replace("$", ""), 10) : undefined; // Asegúrate de que esté definido
+    
       const fallos = validarPublicar3({
         autor: autor.value,
-        precio: cleanPrecio, // Usamos el valor sin formatear
+        precio: cleanPrecio,
         keywords: keywords,
         oferta: cleanOferta // Usamos el valor sin formatear
       }) || [];
-  
+    
       if (fallos.length !== 0) {
         setErrors(fallos);
         return;
       }
-  
+    
       setErrors([]);
       setForm({
         ...form,
         autor: autor.value,
-        precio: cleanPrecio, // Guardar sin formatear
+        precio: cleanPrecio,
         keywords: keywords,
         oferta: cleanOferta // Guardar sin formatear
-      });
+      })
+      setFase(4)
+    
       
-      
-      
-      const timeNow = new Date();
-      const user = Cookies.get("user")
-      /*setForm({...form,
-        "fechaPublicacion": timeNow,
-        "vendedor": user
-        "actualizadoEn" : timeNow
-      })*/
-      setForm({})
-      setFase(1)
-      localStorage.removeItem("form");
-      localStorage.removeItem("fase");
-      window.location.href = `${window.location.origin}/libros/crear/exito`
-      // Luego de hacer setForm, puedes enviar los datos a la API:
-      const enviarForm = async () => {
+    }
+    
 
-
-        try {
-          const response = await fetch('https://api.tuservidor.com/endpoint', {
-            method: 'POST',  // Especificas que es una solicitud POST
-            headers: {
-              'Content-Type': 'application/json'  // Asegura que la API interprete los datos como JSON
-            },
-            body: JSON.stringify(form)  // Convierte el objeto form a JSON antes de enviarlo
-          });
-
-          if (!response.ok) {
-            throw new Error(`Error en la solicitud: ${response.status}`);
-          }
-
-          /*localStorage.removeItem("form");
-          localStorage.removeItem("fase");
-          window.location.href = `${window.location.origin}/libros/crear/exito`*/
-          
-        } catch (error) {
-          console.error("Error al enviar los datos:", error);  // Maneja cualquier error que ocurra
-        }
-      };
-      
-      //enviarForm()
-
-  }
-  useEffect(()=>{
-    console.log(form);
-  },[form])
-  
     /*handleAtras();*/
 
     //Icono de $ y formateo a 1.000 
 
     //Muestra solo "$" si no hay valor
     const formatPrecio = (e) => {
-        let value = e.target.value.replace(/[^0-9]/g, ""); // Eliminar caracteres que no sean números
-      
-        if (value) {
-          // Convertir a número y formatear
-          let formattedValue = parseFloat(value).toLocaleString("es");
-          e.target.value = "$ " + formattedValue; // Actualizar con el símbolo de $
-        } else {
-          e.target.value = "$"; // Mostrar solo el símbolo $ si no hay valor
-        }
-        
-      };
-
+      let value = e.target.value.replace(/[^0-9]/g, ""); // Eliminar caracteres que no sean números
+    
+      if (value) {
+        // Convertir a número y formatear
+        let formattedValue = parseFloat(value).toLocaleString("es");
+        e.target.value = "$ " + formattedValue; // Actualizar con el símbolo de $
+      } else {
+        e.target.value = "$"; // Mostrar solo el símbolo $ si no hay valor
+      }
+    };
     
     function setKeyword(event){
         if (event.key !== "Enter") return
@@ -209,10 +165,10 @@ export default function Fase3({ form, setForm, fase, setFase }){
 
         {errors.length !== 0 && <div className="error">{errors[0]}</div>}
             <div className="center">
-          <button className="atras" onClick={() =>setFase(fase - 1)}>
+          <button className="atras" onClick={() =>setFase(2)}>
             Atrás
           </button>
-          <input type="submit" value="Continuar" onSubmit={handleSubmit}/>
+          <input type="submit" value="Enviar"/>
         </div>
             </form>
         </div>

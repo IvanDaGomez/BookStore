@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import { validarPublicar1 } from "../../assets/validarPublicar";
+import { Form } from "react-router-dom";
 
 export default function Fase1({ form, setForm, setFase, fase }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -53,6 +54,7 @@ export default function Fase1({ form, setForm, setFase, fase }) {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    
     const { titulo, descripcion } = e.target;
     const fallos = validarPublicar1({
       titulo: titulo.value,
@@ -67,16 +69,14 @@ export default function Fase1({ form, setForm, setFase, fase }) {
     
     setErrors([]);
 
-    //enviar al formulario solo la url de la imagen
-    setCroppedImages(croppedImages.map(image => image.url))
 
     setForm({
       ...form,
       titulo: titulo.value,
       descripcion: descripcion.value,
-      images: croppedImages,
+      images: croppedImages.map(image => image.url),
     });
-
+    
     setFase(fase + 1);
   };
   
@@ -123,7 +123,7 @@ export default function Fase1({ form, setForm, setFase, fase }) {
           canvas.height = height;
 
           ctx.drawImage(img, sx, sy, sw, sh, 0, 0, width, height);
-
+          // La URL no es permanente
           canvas.toBlob(
             (blob) => {
               if (blob) {

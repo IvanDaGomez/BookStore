@@ -51,23 +51,6 @@
     }
   },
   {
-    "nombre": "Ivan",
-    "librosIds": [],
-    "correo": "ivandavidgomezsilva@hotmail.com",
-    "contraseña": "$2b$10$CNzKZWM07LACRdLJCmCVC..n9ss3NsbcK0SG.I39T9XZlSAtglWjq",
-    "rol": "usuario",
-    "fechaRegistro": "2024-10-17T17:32:56.430Z",
-    "estadoCuenta": "activo",
-    "fotoPerfil": "",
-    "actualizadoEn": "2024-10-17T17:32:56.430Z",
-    "direccionEnvio": {
-      "calle": "",
-      "ciudad": "",
-      "pais": "",
-      "codigoPostal": ""
-    }
-  },
-  {
     "nombre": "Ivan Gomez",
     "librosIds": [],
     "correo": "ivandavidgomezsilva@mail.com",
@@ -349,6 +332,65 @@
     "estadoCuenta": "activo",
     "fotoPerfil": "",
     "actualizadoEn": "2024-10-17T20:59:45.361Z",
+    "direccionEnvio": {
+      "calle": "",
+      "ciudad": "",
+      "pais": "",
+      "codigoPostal": ""
+    }
+  },
+  {
+    "nombre": "Monica Silva",
+    "librosIds": [],
+    "correo": "monitatinet@acmail.com",
+    "contraseña": "$2b$10$eBTUT/0uBxHBwADkSmDQRugc/n7JuzGe9WJ09DV7HgEPfdouLK2y.",
+    "rol": "usuario",
+    "fechaRegistro": "2024-10-19T03:31:19.389Z",
+    "estadoCuenta": "activo",
+    "fotoPerfil": "",
+    "actualizadoEn": "2024-10-19T03:31:19.389Z",
+    "direccionEnvio": {
+      "calle": "",
+      "ciudad": "",
+      "pais": "",
+      "codigoPostal": ""
+    }
+  },
+  {
+    "nombre": "Monica Silva",
+    "librosIds": [],
+    "correo": "monitatinet@cmail.com",
+    "contraseña": "$2b$10$YsqIGK64A9EOuE/BkMwZNOMdj65KixEwVLmDtsQAvoNbcn..TkWCm",
+    "rol": "usuario",
+    "fechaRegistro": "2024-10-19T03:32:01.746Z",
+    "estadoCuenta": "activo",
+    "fotoPerfil": "",
+    "_id": "f58804d4-61be-4c29-a88c-377b04f0b84f",
+    "actualizadoEn": "2024-10-19T03:32:01.746Z",
+    "direccionEnvio": {
+      "calle": "",
+      "ciudad": "",
+      "pais": "",
+      "codigoPostal": ""
+    }
+  },
+  {
+    "nombre": "Ivan Gomez",
+    "librosIds": [
+      "1b4b59e0-43bd-44f1-8743-7cdd3e7c020a",
+      "a0c97e7f-d228-4521-a60b-7f3e18d895fa",
+      "36be97c2-62c3-4b88-9a8c-5878c00793e2",
+      "b1d6cdfe-0b74-4b9f-9423-f71bb7261b59",
+      "a79afb54-e569-446b-9ee9-5f1eec084674"
+    ],
+    "correo": "ivandavidgomezsilva@hotmail.com",
+    "contraseña": "$2b$10$GBhSJNI4VAVLHrCUk/rGf.9jSkl/LYCZ8rs0cKoIYJUpLWMOVZHHi",
+    "rol": "usuario",
+    "fechaRegistro": "2024-10-19T04:01:39.552Z",
+    "estadoCuenta": "activo",
+    "fotoPerfil": "",
+    "_id": "85f91812-c326-41a9-a946-c091d66661bb",
+    "actualizadoEn": "2024-10-19T04:01:39.552Z",
     "direccionEnvio": {
       "calle": "",
       "ciudad": "",

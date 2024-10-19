@@ -3,23 +3,24 @@
 import UseCajones from "../../assets/useCajones";
 import { useState } from "react";
 import { useEffect } from "react";
-
+import titleCase from "../../assets/toTitleCase";
 export default function Fase2({ form, setForm, fase, setFase }) {
   const [errors, setErrors] = useState([]);
 
+
   // Lista de categorías sin asterisco
   const categorias = {
-    "Estado": ["Nuevo", "Usado", "Reacondicionado", "Como nuevo", "Con detalles"],
-    "Genero": ["Novela", "Ciencia ficción", "Fantasía", "Misterio", "Biografía", "Romance", "Terror", "Histórica", "Poesía"],
-    "Formato": ["Físico", "Digital", "AudioLibro"],
-    "Edicion": ["1ra Edición", "2da Edición", "Edición Especial", "Edición de Coleccionista", "Reimpresión"],
-    "Idioma": ["Español", "Inglés"],
-    "Tapa": ["Dura", "Blanda", "Semi-Dura", "Edición de bolsillo"],
-    "Edad": ["Niños (0-5)", "Infantil (6-12)", "Adolescente (13-17)", "Adulto", "Mayores de 65"],
+    "estado": ["Nuevo", "Usado", "Reacondicionado", "Como nuevo", "Con detalles"],
+    "genero": ["Novela", "Ciencia ficción", "Fantasía", "Misterio", "Biografía", "Romance", "Terror", "Histórica", "Poesía"],
+    "formato": ["Físico", "Digital", "AudioLibro"],
+    "edicion": ["1ra Edición", "2da Edición", "Edición Especial", "Edición de Coleccionista", "Reimpresión"],
+    "idioma": ["Español", "Inglés"],
+    "tapa": ["Dura", "Blanda", "Semi-Dura", "Edición de bolsillo"],
+    "edad": ["Niños (0-5)", "Infantil (6-12)", "Adolescente (13-17)", "Adulto", "Mayores de 65"],
   };
 
   // Lista de categorías que son requeridas
-  const categoriasRequeridas = ["Estado", "Genero", "Formato"];
+  const categoriasRequeridas = ["estado", "genero", "formato"];
 
   const [categoriaSelected, setCategoriaSelected] = useState(
     Object.keys(categorias).reduce((acc, key) => {
@@ -27,12 +28,12 @@ export default function Fase2({ form, setForm, fase, setFase }) {
       return acc;
     }, {})
   );
-  
+
   const handleAtras = () => {
         // Update form data
         setForm({
           ...form,
-          ...categoriaSelected,
+          ...categoriaSelected
         });
         
         // Proceed to the next phase
@@ -105,7 +106,7 @@ export default function Fase2({ form, setForm, fase, setFase }) {
           {Object.keys(categorias).map((categoria, index) => (
             <div className="cajonWrapper" key={index}>
               <div className="cajon" onClick={() => toggleCajon(index)}>
-                {categoria}
+                {titleCase(categoria)}
                 {categoriaSelected[categoria] === "" && categoriasRequeridas.includes(categoria) ? <span>Requerido</span> : <span>{categoriaSelected[categoria]}</span>}
               </div>
               <div
