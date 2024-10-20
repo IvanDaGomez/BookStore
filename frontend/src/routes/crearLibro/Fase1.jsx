@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import { validarPublicar1 } from "../../assets/validarPublicar";
-import { Form } from "react-router-dom";
 
 export default function Fase1({ form, setForm, setFase, fase }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
@@ -55,9 +54,10 @@ export default function Fase1({ form, setForm, setFase, fase }) {
     e.preventDefault();
 
     
-    const { titulo, descripcion } = e.target;
+    const { autor, titulo, descripcion } = e.target;
     const fallos = validarPublicar1({
       titulo: titulo.value,
+      autor: autor.value,
       descripcion: descripcion.value,
       archivos: croppedImages,
     }) || [];
@@ -73,8 +73,9 @@ export default function Fase1({ form, setForm, setFase, fase }) {
     setForm({
       ...form,
       titulo: titulo.value,
+      autor: autor.value,
       descripcion: descripcion.value,
-      images: croppedImages.map(image => image.url),
+      images: croppedImages,
     });
     
     setFase(fase + 1);
@@ -83,9 +84,10 @@ export default function Fase1({ form, setForm, setFase, fase }) {
   useEffect(() => {
     document.querySelector("#titulo").value = form.titulo || "";
     document.querySelector("#descripcion").value = form.descripcion || "";
+    document.querySelector("#autor").value = form.autor || "";
     setSelectedFiles(form.images || []);
     setCroppedImages(form.images || []);
-  }, [form.titulo, form.descripcion, form.images]);
+  }, [form.titulo, form.descripcion, form.images, form.autor]);
 
   // Función para recortar la imagen con aspect ratio 2/3
   const cropImageToAspectRatio = (file) => {
@@ -144,6 +146,11 @@ export default function Fase1({ form, setForm, setFase, fase }) {
 
   const [dropdown, setDropdown] = useState(false);
 
+  useEffect(()=>{
+    window.scrollTo(0, 0);
+    document.documentElement.style.overflowY = dropdown ? 'hidden': 'scroll'
+
+  },[dropdown])
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
@@ -159,7 +166,12 @@ export default function Fase1({ form, setForm, setFase, fase }) {
         <div className="dropdown" >
             <div className="flex">
             Recomendaciones para subir un libro
-            <svg xmlns="http://www.w3.org/2000/svg" onClick={()=>setDropdown(!dropdown)}viewBox="0 0 24 24" width={24} height={24} color={"#000000"} fill={"none"}>
+            <svg xmlns="http://www.w3.org/2000/svg" onClick={()=>{
+              
+              
+              setDropdown(!dropdown)
+              
+              }}viewBox="0 0 24 24" width={24} height={24} color={"#000000"} fill={"none"}>
                 <path d="M19.0005 4.99988L5.00049 18.9999M5.00049 4.99988L19.0005 18.9999" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
             </div>
@@ -234,13 +246,13 @@ export default function Fase1({ form, setForm, setFase, fase }) {
                     <img src={(src.url) ? src.url : src} alt={`Cropped Preview ${index}`} />
                   </div>
                 ))}
-                <div onClick={() => document.getElementById("fileInput").click()}>
+                {croppedImages.length !== 5 && <div onClick={() => document.getElementById("fileInput").click()}>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#000000"} fill={"none"}>
                     <path d="M12 8V16M16 12L8 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                     <path d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z" stroke="currentColor" strokeWidth="1.5" />
                 </svg>
-                </div>
-              </div>
+                </div>}
+              </div> 
             </>
           )}
         </div>
@@ -258,14 +270,25 @@ export default function Fase1({ form, setForm, setFase, fase }) {
           />
         </div>
         <div className="inputCrear">
+          <label htmlFor="autor">Autor *</label>
+          <input
+            id="autor"
+            type="text"
+            name="autor"
+            placeholder="Autor de tu libro"
+            required
+            
+            
+          />
+        </div>
+        <div className="inputCrear">
           <label htmlFor="descripcion">Descripción *</label>
           <textarea
             id="descripcion"
-            maxLength="400"
+            maxLength="2000"
             placeholder="Cuéntanos más de tu libro..."
             name="descripcion"
             required
-            
             rows="4"
           ></textarea>
         </div>

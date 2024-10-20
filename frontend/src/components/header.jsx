@@ -242,8 +242,8 @@ const openExtraInfo = async (str) => {
                     </div>
                     <div className="resultsContainer" style={{}}>
                     {results.slice(0,4).map((result, index) => (
-                        <div className="result" key={index} onClick={()=> window.location.href = `${window.location.origin}/libros/${result.id}`}>
-                            <img loading="lazy" src={result.images[0]} alt={result.titulo} className="result-photo" />
+                        <div className="result" key={index} onClick={()=> window.location.href = `${window.location.origin}/libros/${result._id}`}>
+                            <img loading="lazy" src={`http://localhost:3030/uploads/${result.images[0]}`} alt={result.titulo} className="result-photo" />
                             <div className="result-info">
                             <h3>{reduceText(result.titulo,30)}</h3>
                             <a 

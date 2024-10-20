@@ -50,11 +50,16 @@ app.use((req, res, next) => {
 
   next()
 })
+
 // habilitar req.body
 app.use(express.urlencoded({ extended: true }))
 
 // Habilitar respuestas solo en json
 app.use(express.json())
+
+// Archivos para uploads y optimizados
+app.use('/uploads', express.static('uploads'))
+app.use('/optimized', express.static('optimized'))
 
 app.use('/api/users', usersRouter)
 app.use('/api/books', booksRouter)

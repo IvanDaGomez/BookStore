@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { makeCard } from "../assets/makeCard";
+import { cambiarEspacioAGuiones } from "../assets/agregarMas";
 // eslint-disable-next-line react/prop-types
 export default function Sections({ filter, backgroundColor }){
     /*const [elementSections, setElementSections] = useState()
@@ -15,7 +16,11 @@ export default function Sections({ filter, backgroundColor }){
     const [elementSections, setElementSections] = useState([])
     const fetchResults = async () => {
         try {
-            const response = await fetch("/results.json");
+            
+            const response = await fetch(`http://localhost:3030/api/books/query?q=${cambiarEspacioAGuiones(filter)}`, {
+                method: 'GET',
+                credentials: 'include'
+            });
             if (!response.ok) {
                 throw new Error("Network response was not ok");
             }

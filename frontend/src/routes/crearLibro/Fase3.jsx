@@ -9,14 +9,14 @@ export default function Fase3({ form, setForm, fase, setFase }){
     async function handleSubmit(e) {
       e.preventDefault();
     
-      const { autor, precio, oferta } = e.target;
+      const { precio, oferta } = e.target;
     
       // Remover el formato de precio y oferta (eliminar "$" y los puntos)
       const cleanPrecio = parseInt(precio.value.replace(/\./g, "").replace("$", ""), 10);
       const cleanOferta = oferta.value ? parseInt(oferta.value.replace(/\./g, "").replace("$", ""), 10) : undefined; // Asegúrate de que esté definido
     
       const fallos = validarPublicar3({
-        autor: autor.value,
+       
         precio: cleanPrecio,
         keywords: keywords,
         oferta: cleanOferta // Usamos el valor sin formatear
@@ -30,7 +30,7 @@ export default function Fase3({ form, setForm, fase, setFase }){
       setErrors([]);
       setForm({
         ...form,
-        autor: autor.value,
+        
         precio: cleanPrecio,
         keywords: keywords,
         oferta: cleanOferta // Guardar sin formatear
@@ -62,7 +62,8 @@ export default function Fase3({ form, setForm, fase, setFase }){
         if (event.key !== "Enter") return
  
         event.preventDefault();
-        if (event.target.value){
+        // Si hay 4 palabras clave me deja añadir una más
+        if (event.target.value && keywords.length <= 4){
             
            setKeywords([...keywords, event.target.value])
            event.target.value = ""
@@ -93,25 +94,14 @@ export default function Fase3({ form, setForm, fase, setFase }){
           ofertaElement.value = "$ 0";  // Valor por defecto si form.oferta no es válido
         }
       
-        document.querySelector("#autor").value = form.autor || "";
+        
         setKeywords(form.keywords || []);
-      }, [form.precio, form.autor, form.keywords, form.oferta]);
+      }, [form.precio, form.keywords, form.oferta]);
     return(<>
         <div className="fase3">
             <form action="" onSubmit={handleSubmit} noValidate>
 
-            <div className="inputCrear">
-          <label htmlFor="autor">Autor *</label>
-          <input
-            id="autor"
-            type="text"
-            name="autor"
-            placeholder="Autor de tu libro"
-            required
-            onKeyDown={handleKeyPress}
-            
-          />
-        </div>
+
         <div className="inputCrear">
           <label htmlFor="keywords">Palabras clave (hasta 5)</label>
           <input
