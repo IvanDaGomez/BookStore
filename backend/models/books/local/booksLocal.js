@@ -1,5 +1,5 @@
 import fs from 'node:fs/promises'
-import { levenshteinDistance } from '../../../assets/levenshteinDistance.js'
+
 /* {
     "titulo": "Harry Potter y la Cámara Secreta",
     "autor": "Warner Bros",
@@ -54,10 +54,33 @@ class BooksModel {
   static async getBookByQuery (query) {
     const books = await this.getAllBooks()
 
-    // Función para calcular el nivel de coincidencia entre la query y los resultados
+    // Calcula la distancia de Levenshtein entre dos strings
+    const levenshteinDistance = (a, b) => {
+      const matrix = Array.from({ length: a.length + 1 }, () =>
+        Array(b.length + 1).fill(0)
+      )
+
+      for (let i = 0; i <= a.length; i++) matrix[i][0] = i
+      for (let j = 0; j <= b.length; j++) matrix[0][j] = j
+
+      for (let i = 1; i <= a.length; i++) {
+        for (let j = 1; j <= b.length; j++) {
+          const cost = a[i - 1] === b[j - 1] ? 0 : 1
+          matrix[i][j] = Math.min(
+            matrix[i - 1][j] + 1,
+            matrix[i][j - 1] + 1,
+            matrix[i - 1][j - 1] + cost
+          )
+        }
+      }
+
+      return matrix[a.length][b.length]
+    }
+
+    // Funcion para calcular el nivel de coincidencia entre la query y los resultados
     const calculateMatchScore = (book, queryWords) => {
       let score = 0
-      const tolerance = 2 // Ajusta este valor para más o menos tolerancia
+      const tolerance = 2 // Máxima distancia de Levenshtein permitida para considerar una coincidencia
 
       for (const value of Object.values(book)) {
         if (typeof value === 'string') {
@@ -97,12 +120,12 @@ class BooksModel {
     const booksWithScores = books.map(book => {
       const score = calculateMatchScore(book, queryWords)
 
-      // Ajusta aquí el umbral de coincidencia deseado
-      if (score < queryWords.length * 0.5) return null // Más estricto: cambia a 0.7 o menos tolerante: cambia a 0.3
+      // Validamos si el score es suficiente, por ejemplo si es menor a 2 no lo devolvemos
+
+      if (score < queryWords.length * 0.7) return null // Si el score es menor al umbral, devolvemos null para descartarlo
 
       return { book, score } // Devolvemos el libro junto con su puntaje si pasa la validación
-    })
-      .filter(item => item !== null) // Filtramos los resultados nulos
+    }).filter(item => item !== null) // Filtramos los resultados nulos
 
     // Ordenamos los libros por el puntaje en orden descendente
     booksWithScores.sort((a, b) => b.score - a.score)
@@ -120,8 +143,7 @@ class BooksModel {
         titulo: data.titulo || '',
         autor: data.autor || '',
         precio: data.precio || 0,
-        oferta: data.oferta || null,
-        images: data.images || [],
+        images: data.imagenes || [],
         keywords: data.keywords || [],
         _id: data._id,
         descripcion: data.descripcion || '',
@@ -139,7 +161,6 @@ class BooksModel {
         tapa: data.tapa || '',
         edad: data.edad || '',
         fechaPublicacion: data.fechaPublicacion || new Date().toISOString(),
-        actualizadoEn: data.actualizadoEn || new Date().toISOString(),
         disponibilidad: data.disponibilidad || 'Disponible'
 
       }

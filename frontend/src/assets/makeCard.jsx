@@ -3,9 +3,9 @@ import { reduceText } from "./reduceText"
 const makeCard = (element, index) => {
     return (
         
-            <div className="sectionElement" key={index} onClick={()=>window.location.href = `${window.location.origin}/libros/${element._id}`}>
+            <div className="sectionElement" key={index} onClick={()=>window.location.href = `${window.location.origin}/libros/${element.id}`}>
                 
-                <div className="imageElementContainer"  style={{backgroundImage: `url(http://localhost:3030/uploads/${element.images[0]})`}}>
+                <div className="imageElementContainer"  style={{backgroundImage: `url(${element.images[0]})`}}>
                 {(element.oferta) ? <div className="percentageElement">
                     { Math.ceil(((1 - element.oferta / element.precio) * 100).toFixed(2) / 5) * 5 + '% de descuento'}
                 </div>:<div style={{padding:"calc(10px + 1rem)"}}></div>}
@@ -44,12 +44,12 @@ const makeCard = (element, index) => {
 
 const makeOneFrCard = (element, index) => {
     return (
-      <div key={index} className="cardContainer" onClick={()=>window.location.href = `${window.location.origin}/libros/${element._id}`} >
+      <div key={index} className="cardContainer" onClick={()=>window.location.href = `${window.location.origin}/libros/${element.id}`} >
         
         {/* Imagen de los auriculares */}
         <div className="imageContainer" style={{ textAlign: 'center' }}>
           <img
-            src={`http://localhost:3030/uploads/${element.images[0]}`}
+            src={element.images[0]}
             alt={element.titulo}
             
           />

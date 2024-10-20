@@ -8,7 +8,8 @@ GET http://localhost:3030/api/books/3df96bd0-c058-472e-9cc9-c41279d2fa19
 
 ###
 
-GET http://localhost:3030/api/books/query?q=localhost:3030/api/books/query?q=harry-potter
+GET http://localhost:3030/api/books/query?q=dhs
+
 ###
 POST http://localhost:3030/api/books
 Content-Type: application/json

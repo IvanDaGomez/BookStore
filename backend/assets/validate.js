@@ -62,10 +62,10 @@ const bookSchema = z.object({
   autor: z.string(), // Validates that 'autor' is a string
   precio: z.number(), // Validates that 'precio' is a number
   oferta: z.number(),
-  // Imagenes ya validadas
+  images: z.array(z.instanceof(File)).optional(), // .nonempty('Debes subir al menos una imagen'),
   keywords: z.array(z.string()).optional(), // Validates that 'keywords' is an array of strings
   descripcion: z.string(), // Validates that 'descripcion' is a string
-  estado: z.string(), // Validates that 'estado' is either 'Nuevo' or 'Usado'
+  estado: z.enum([' ', 'Nuevo', 'Usado', 'Reacondicionado']), // Validates that 'estado' is either 'Nuevo' or 'Usado'
   genero: z.string(), // Validates that 'genero' is a string
   vendedor: z.string(), // Validates that 'vendedor' is a string
   idVendedor: z.string(), // Validates that 'idVendedor' is a UUID string
@@ -73,11 +73,11 @@ const bookSchema = z.object({
   edicion: z.string().optional(), // Validates that 'edicion' is a string
   idioma: z.string().optional(), // Validates that 'idioma' is a string
   ubicacion: z.string(), // Validates that 'ubicacion' is a string
-  tapa: z.string().optional(), // Validates that 'tapa' is either 'Dura' or 'Blanda'
+  tapa: z.enum([' ', 'Dura', 'Blanda', 'Semi-Dura']).optional(), // Validates that 'tapa' is either 'Dura' or 'Blanda'
   edad: z.string().optional(), // Validates that 'edad' is a string
   fechaPublicacion: z.string(), // Validates that 'fechaPublicacion' is a date string in YYYY-MM-DD format
   actualizadoEn: z.string(),
-  disponibilidad: z.enum(['Disponible', 'No Disponible']).optional() // Validates that 'disponibilidad' is either 'Disponible' or 'No Disponible'
+  disponibilidad: z.enum([' ', 'Disponible', 'No Disponible']) // Validates that 'disponibilidad' is either 'Disponible' or 'No Disponible'
 })
 function validateBook (data) {
   console.log(data)

@@ -579,24 +579,6 @@ a{
 
 }
 
-/*------------------------------------Evitar el cambio autorrellenar de los inputs*/
-
-/* Quitar el cambio de estilo por autofill en Chrome, Edge y Opera */
-input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0px 1000px var(--using1) inset !important; /* Forzar el fondo */
-  color: var(--using3) !important; /* Forzar color de texto */
-}
-
-/* Para Firefox */
-input:autofill {
-  box-shadow: 0 0 0px 1000px var(--using1) inset; /* Fondo blanco */
-  -webkit-text-fill-color: var(--using3) !important; /* Texto negro */
-}
-
-/* Opcional: Quitar bordes de sombra que pueda añadir el autofill */
-input:-internal-autofill-selected {
-  appearance: none;
-}
 
 /*-----------------------------------Página Principal--------------------------------------------*/
 
@@ -1909,8 +1891,8 @@ color: var(--using6);
   width:120vw;
   height: 120vh;
   position: fixed;
-  top: 50lvh;
-  left: 50lvw;
+  top: 50vh;
+  left: 50vw;
   margin: 0;
   transform: translate(-50%, -50%);
   background: var(--using3);
@@ -1918,7 +1900,7 @@ color: var(--using6);
   filter:opacity(0.4);
 }
 .dropdown{
-  position: absolute;
+  position: fixed;
   top: 50vh;
   left: 50vw;
   transform: translate(-50%, -50%);
@@ -1931,7 +1913,7 @@ color: var(--using6);
   justify-content: space-between;
   align-items: center;
   flex-direction: column;
-  z-index: 1001;
+  z-index: 10001;
   box-shadow: 0 4px 6px var(--using3);
 }
 .dropdown .flex{
@@ -1952,7 +1934,7 @@ color: var(--using6);
 /*-------------------------FASE 2---------------------*/
 .fase2 .cajones {
   width: max(400px, 50vw);
-  height: auto;
+  height: min(200px);
   display: flex;
   flex-direction: column;
   gap: 0; /* Elimina cualquier espacio entre los elementos */
@@ -2092,7 +2074,7 @@ color: var(--using6);
 
 .success-container {
   position: fixed;
-  inset: 50vh 50vw;
+  inset: 50% 50%;
   transform: translate(-50%,-50%);
   z-index: 1200;
   display: flex;

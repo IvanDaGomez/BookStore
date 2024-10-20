@@ -1,8 +1,6 @@
 import fs from 'node:fs/promises'
 import bcrypt from 'bcrypt'
 import { SALT_ROUNDS } from '../../../assets/config.js'
-import { levenshteinDistance } from '../../../assets/levenshteinDistance.js'
-
 class UsersModel {
   static async getAllUsers () {
     try {
@@ -76,6 +74,29 @@ class UsersModel {
   // Pendiente desarrollar, una buena query para buscar varios patrones
   static async getUserByQuery (query) {
     const users = await this.getAllUsers()
+
+    // Calcula la distancia de Levenshtein entre dos strings
+    const levenshteinDistance = (a, b) => {
+      const matrix = Array.from({ length: a.length + 1 }, () =>
+        Array(b.length + 1).fill(0)
+      )
+
+      for (let i = 0; i <= a.length; i++) matrix[i][0] = i
+      for (let j = 0; j <= b.length; j++) matrix[0][j] = j
+
+      for (let i = 1; i <= a.length; i++) {
+        for (let j = 1; j <= b.length; j++) {
+          const cost = a[i - 1] === b[j - 1] ? 0 : 1
+          matrix[i][j] = Math.min(
+            matrix[i - 1][j] + 1,
+            matrix[i][j - 1] + 1,
+            matrix[i - 1][j - 1] + cost
+          )
+        }
+      }
+
+      return matrix[a.length][b.length]
+    }
 
     // Funcion para calcular el nivel de coincidencia entre la query y los resultados
     const calculateMatchScore = (user, queryWords) => {

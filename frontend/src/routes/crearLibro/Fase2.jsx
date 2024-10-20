@@ -4,19 +4,18 @@ import UseCajones from "../../assets/useCajones";
 import { useState } from "react";
 import { useEffect } from "react";
 import titleCase from "../../assets/toTitleCase";
-import { generos, idiomas } from "./categorias";
 export default function Fase2({ form, setForm, fase, setFase }) {
   const [errors, setErrors] = useState([]);
 
 
   // Lista de categorías sin asterisco
   const categorias = {
-    "estado": ["Nuevo", "Usado", "Reacondicionado", "Con detalles"],
-    "genero": generos.sort((a,b) => a.localeCompare(b)),
+    "estado": ["Nuevo", "Usado", "Reacondicionado", "Como nuevo", "Con detalles"],
+    "genero": ["Novela", "Ciencia ficción", "Fantasía", "Misterio", "Biografía", "Romance", "Terror", "Histórica", "Poesía"],
     "formato": ["Físico", "Digital", "AudioLibro"],
-    "edicion": ["1ra Edición", "2da Edición", "Edición Especial", "Edición de Coleccionista", "Reimpresión", "Edición Limitada"],
-    "idioma": idiomas.sort((a,b) => a.localeCompare(b)),
-    "tapa": ["Dura", "Blanda", "Semi-Dura", "Edición de bolsillo", "Sin tapa"],
+    "edicion": ["1ra Edición", "2da Edición", "Edición Especial", "Edición de Coleccionista", "Reimpresión"],
+    "idioma": ["Español", "Inglés"],
+    "tapa": ["Dura", "Blanda", "Semi-Dura", "Edición de bolsillo"],
     "edad": ["Niños (0-5)", "Infantil (6-12)", "Adolescente (13-17)", "Adulto", "Mayores de 65"],
   };
 
@@ -25,7 +24,7 @@ export default function Fase2({ form, setForm, fase, setFase }) {
 
   const [categoriaSelected, setCategoriaSelected] = useState(
     Object.keys(categorias).reduce((acc, key) => {
-      acc[key] = categoriasRequeridas.includes(key) ? " " : ""; // Valor inicial vacío solo para campos requeridos
+      acc[key] = categoriasRequeridas.includes(key) ? "" : " "; // Valor inicial vacío solo para campos requeridos
       return acc;
     }, {})
   );
@@ -66,7 +65,7 @@ export default function Fase2({ form, setForm, fase, setFase }) {
 
     // Validation: Check if required fields are filled
     const noLlenados = categoriasRequeridas.filter(
-      (categoria) => categoriaSelected[categoria] === " "
+      (categoria) => categoriaSelected[categoria] === ""
     );
 
     if (noLlenados.length !== 0) {
@@ -106,13 +105,9 @@ export default function Fase2({ form, setForm, fase, setFase }) {
         <div className="cajones">
           {Object.keys(categorias).map((categoria, index) => (
             <div className="cajonWrapper" key={index}>
-
-              {/*Desarrollar*/}
-              {/*<input type="text" />*/}
-
               <div className="cajon" onClick={() => toggleCajon(index)}>
                 {titleCase(categoria)}
-                {categoriaSelected[categoria] === " " && categoriasRequeridas.includes(categoria) ? <span>Requerido</span> : <span>{categoriaSelected[categoria]}</span>}
+                {categoriaSelected[categoria] === "" && categoriasRequeridas.includes(categoria) ? <span>Requerido</span> : <span>{categoriaSelected[categoria]}</span>}
               </div>
               <div
                 className="cajonesExtra"

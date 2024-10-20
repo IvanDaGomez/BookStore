@@ -72,30 +72,11 @@ export default function CrearLibro() {
         const enviarForm = async () => {
             const formData = new FormData(); // Crear una nueva instancia de FormData
 
-            async function urlToBlob(blobUrl) {
-              const response = await fetch(blobUrl);
-              const blob = await response.blob();
-              return blob;
+            for (let i = 0; i < document.querySelector('input[type="file"][multiple]').files.length; i++) {
+                formData.append('images', document.querySelector('input[type="file"][multiple]').files[i]); // Asegúrate de que el nombre coincida con el campo en tu backend
             }
-        
-            const blobPromises = form.images.map(image => urlToBlob(image.url));
 
-            // Esperar a que todas las promesas se resuelvan
-            const blobs = await Promise.all(blobPromises);
-        // Iterar sobre las imágenes en formato Blob y agregarlas al FormData
-        blobs.forEach((blob, index) => {
-            // Añadir cada imagen como archivo al FormData, dándole un nombre único
-            formData.append('images', blob, `image-${index}.png`); 
-        });
-
-        // Añadir los demás campos del formulario al FormData
-        for (let [key, value] of Object.entries(form)) {
-            if (key !== 'images') {
-                formData.append(key, value);
-            }
-        }
-
-            const timeNow = new Date().toISOString();
+            const timeNow = new Date();
             // Agregar campos adicionales al FormData
             formData.append("fechaPublicacion", `${timeNow}`);
             formData.append("actualizadoEn", `${timeNow}`);
@@ -104,9 +85,8 @@ export default function CrearLibro() {
             formData.append("disponibilidad", "Disponible");
             formData.append("ubicacion", 'Buscar');
 
+            console.log('FormData:', [...formData.entries()]); // Muestra todos los campos y sus valores
             
-            setFase(3)
-
             
             try {
                 const URL = 'http://localhost:3030/api/books';
@@ -122,7 +102,7 @@ export default function CrearLibro() {
 
                 const data = await response.json();
                 if (data.error) {
-                    console.error(data.error);
+                    console.log(data.error);
                     return;
                 }
 
@@ -131,7 +111,7 @@ export default function CrearLibro() {
                 setFase(1);
                 localStorage.removeItem("fase");
 
-                window.location.href = `/popUp/exitoCreandoLibro`;
+                window.location.href = `/popUp/exito`;
 
             } catch (error) {
                 console.error("Error al enviar los datos:", error);

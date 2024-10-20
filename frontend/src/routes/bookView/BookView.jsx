@@ -15,23 +15,16 @@ export default function BookView() {
 
     useEffect(() => {
         async function fetchLibro(id) {
-            const url = `http://localhost:3030/api/books/${id}`
             try {
-                const response = await fetch(url, {
-                    method: 'GET',
-                    credentials: "include"
-                });
+                const response = await fetch("/results.json");
                 if (!response.ok) {
                     setLibro({});
                     throw new Error("Network response was not ok");
                 }
-                const book = await response.json();
-                
+                const books = await response.json();
+                const book = books.find((element) => element.id === id);
                 setLibro(book || {}); // Asegurar que el libro existe o dejar vacío
-                const imageUrl = book.images[0]
-                ? `http://localhost:3030/uploads/${book.images[0]}` // Ruta completa hacia las imagenes
-                : "";
-                setActualImage(imageUrl);
+                setActualImage(book.images[0] || "");
             } catch (error) {
                 setLibro({});
                 console.error("Error fetching book data:", error);
@@ -119,25 +112,12 @@ export default function BookView() {
             <div className="libroContenedor">
                 <div className="imagesContainer">
                     <div className="imagesVariable">
-                    {libro.images && 
-                        libro.images.map((image, index) => (
-                            <div 
-                                className="imageElement" 
-                                key={index} 
-                                onClick={() => {
-                                    // Construir la URL completa para cada imagen
-                                    const imageUrl = image ? `http://localhost:3030/uploads/${image}` : "";
-                                    setActualImage(imageUrl); // Establecer la URL de la imagen actual
-                                }}
-                            >
-                                <img 
-                                    loading="lazy" 
-                                    src={`http://localhost:3030/uploads/${image}`} // Usar la URL completa para mostrar la imagen
-                                    alt={libro.title} 
-                                    title={libro.title} 
-                                />
-                            </div>
-                        ))}
+                        {libro.images &&
+                            libro.images.map((image, index) => (
+                                <div className="imageElement" key={index} onClick={() => setActualImage(image)}>
+                                    <img loading="lazy" src={image} alt={libro.titulo} title={libro.titulo} />
+                                </div>
+                            ))}
                     </div>
 
                     <div

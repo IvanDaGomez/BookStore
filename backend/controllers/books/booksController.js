@@ -3,7 +3,8 @@ import crypto from 'node:crypto'
 import { validateBook, validatePartialBook } from '../../assets/validate.js'
 import { UsersModel } from '../../models/users/local/usersLocal.js'
 import { cambiarGuionesAEspacio } from '../../../frontend/src/assets/agregarMas.js'
-import { helperImg } from '../../assets/helperImg.js'
+import fs from 'node:fs'
+import path from 'node:path'
 /* {
         "titulo": "Harry Potter y la Cámara Secreta",
         "autor": "Warner Bros",
@@ -78,34 +79,19 @@ export class BooksController {
   static async createBook (req, res) {
     const data = req.body
 
-    if (data.oferta) data.oferta = parseInt(data.oferta)
-    data.precio = parseInt(data.precio)
-    // Manejo de keywords
-    if (data.keywords && typeof data.keywords === 'string') {
-      data.keywords = data.keywords.split(',').map(keyword => keyword.trim()).filter(keyword => keyword)
-    } else {
-      data.keywords = [] // Or handle as needed if no keywords are provided
+    // Validar y convertir precios
+    data.precio = isNaN(parseInt(data.precio)) ? null : parseInt(data.precio)
+    data.oferta = isNaN(parseInt(data.oferta)) ? null : parseInt(data.oferta)
+
+    // Asegúrate de que las keywords se manejen correctamente
+    data.keywords = data.keywords.split(',').map(keyword => keyword.trim()).filter(keyword => keyword)
+    if (data.keywords.length === 0) {
+      data.keywords = []
     }
 
-    // Imagenes
-    // Diferentes tamaños
-    data.images = req.files.map(file => `${file.filename}`)
-
-    // En un futuro para imagenes de distintos tamaños
-
-    /* console.log(req.files)
-    // Usar Promise.all para esperar a que todas las imágenes sean procesadas
-    await Promise.all(req.files.map(file => {
-      return Promise.all([
-        helperImg(`${file.filePath}/${file.filename}`, `small-${file.filename}`, '20'),
-        helperImg(file.path, `medium-${file.filename}`, '200'),
-        helperImg(file.path, `large-${file.filename}`, '500'),
-        helperImg(file.path, `extraLarge-${file.filename}`, '1000')
-      ])
-    })) */
-
-    // Validación
+    // Validar los datos antes de guardarlos
     const validated = validateBook(data)
+    console.log('Datos enviados:', data)
     if (!validated.success) {
       console.log('Error de validación:', validated.error)
       return res.status(400).json({ error: validated.error })
@@ -114,66 +100,16 @@ export class BooksController {
     // Asignar un ID único al libro
     data._id = crypto.randomUUID()
 
-    // Agregar el ID del libro al usuario
-    const user = await UsersModel.getUserById(data.idVendedor)
-    if (!user) {
-      return res.status(404).json({ error: 'Usuario no encontrado' })
-    }
-
-    const updated = await UsersModel.updateUser(user._id, {
-      librosIds: [...user.librosIds, data._id]
-    })
-
-    if (!updated) {
-      return res.status(404).json({ error: 'Usuario no actualizado' })
-    }
-
-    const time = new Date()
-    data.creadoEn = time
-    data.actualizadoEn = time
-
-    // Crear el libro en la base de datos
+    // Guardar el libro en la base de datos
     const book = await BooksModel.createBook(data)
-    if (typeof book === 'string' && book.startsWith('Error')) {
-      return res.status(500).json({ error: book })
-    }
+    console.log('Archivos recibidos:', req.files)
+
     if (!book) {
       return res.status(500).json({ error: 'Error creando libro' })
     }
 
-    // Si todo es exitoso, devolver el libro creado
     res.send({ book })
   }
-  /*
-  static async uploadImage (req, res) {
-    try {
-      // Example: validate image size/type in booksController
-      if (!req.file.mimetype.startsWith('image/')) {
-        return res.status(400).json({ error: 'Invalid file type.' })
-      }
-      if (req.file.size > 5 * 1024 * 1024) { // 5MB
-        return res.status(400).json({ error: 'File too large.' })
-      }
-      if (!req.file) {
-        return res.status(400).json({ error: 'No se ha subido ningún archivo' })
-      }
-
-      // La imagen fue subida correctamente
-      const imageUrl = `/uploads/${req.file.filename}` // Ruta relativa del archivo
-
-      // Aquí podrías guardar la URL en tu base de datos, si lo necesitas
-      // Por ejemplo: await Book.updateOne({ _id: req.bookId }, { image: imageUrl });
-
-      res.status(200).json({
-        message: 'Imagen subida con éxito',
-        imageUrl // Devuelve la URL de la imagen
-      })
-    } catch (err) {
-      console.error('Error al subir la imagen:', err)
-      res.status(500).json({ error: 'Error al subir la imagen' })
-    }
-  };
-*/
 
   static async deleteBook (req, res) {
     try {
