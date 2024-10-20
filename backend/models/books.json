@@ -294,5 +294,35 @@
     "fechaPublicacion": "2024-10-20T20:00:42.968Z",
     "actualizadoEn": "2024-10-20T20:00:43.116Z",
     "disponibilidad": "Disponible"
+  },
+  {
+    "titulo": "IA más allá de los algoritmos",
+    "autor": "Victor Muñoz, Maria Paula Mujica",
+    "precio": 100000,
+    "oferta": 80000,
+    "images": [
+      "1729455364862-791453802.png"
+    ],
+    "keywords": [
+      "Inteligencia Artifical",
+      "Ética",
+      "Sociedad",
+      "Tecnología",
+      "Futuro"
+    ],
+    "_id": "3c37ef91-d1bb-4c19-ad47-85b9fb147474",
+    "descripcion": "\"IA Más Allá de los Algoritmos\" es un libro que explora las implicaciones éticas, sociales y filosóficas de la inteligencia artificial (IA). El autor, Víctor Muñoz, ofrece un análisis profundo de cómo la IA no solo afecta a la tecnología, sino también a la vida cotidiana y a las decisiones humanas. A través de casos de estudio y reflexiones críticas, se invita al lector a pensar en el futuro de la IA y su impacto en la sociedad.",
+    "estado": "Nuevo",
+    "genero": "Tecnología",
+    "vendedor": "Alvaro Gómez",
+    "idVendedor": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
+    "edicion": "",
+    "idioma": "",
+    "ubicacion": "Buscar",
+    "tapa": "",
+    "edad": "",
+    "fechaPublicacion": "2024-10-20T20:16:04.711Z",
+    "actualizadoEn": "2024-10-20T20:16:04.908Z",
+    "disponibilidad": "Disponible"
   }
 ]

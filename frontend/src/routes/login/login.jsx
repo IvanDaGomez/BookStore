@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import getLocation from '../../assets/getLocation';
 
 export default function Login() {
   const mobileSep = window.innerWidth < 1280
@@ -69,12 +70,17 @@ export default function Login() {
 
     const domain = 'http://localhost:3030';
     const url = isRegister ? `${domain}/api/users` : `${domain}/api/users/login`;
-
+    const { pais, ciudad, departamento } = await getLocation()
     // Preparar los datos para enviar
     const sendData = {
         correo: email,
         contraseña: password,
         ...(isRegister && { nombre: name }),
+        direccionEnvio:{
+          ciudad,
+          pais, 
+          departamento
+        }
     };
 
     try {

@@ -59,6 +59,7 @@ h1{
 }
 h2{
   font-size: 1.7rem;
+  text-align: left;
 }
 div{
   font-size: 2rem;
@@ -714,8 +715,10 @@ input:-internal-autofill-selected {
 
 }
 
+
 .precioSections h2{
   font-size: 2.5rem;
+  text-align: left;
   color: var(--using6);
 }
 
@@ -1513,6 +1516,7 @@ input[type="number"]::-webkit-inner-spin-button {
   pointer-events: none;
   -webkit-appearance: none;
   -moz-appearance: none;
+  appearance: none;
 }
 input[type="range"]::-webkit-slider-thumb{
   

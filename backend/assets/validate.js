@@ -39,12 +39,14 @@ const userSchema = z.object({
     calle: z.string().default(''),
     ciudad: z.string().default(''),
     pais: z.string().default(''),
+    departamento: z.string().default(''),
     codigoPostal: z.string().default('')
   }).default({ // Objeto de dirección predeterminado vacío
     calle: '',
     ciudad: '',
     pais: '',
-    codigoPostal: ''
+    codigoPostal: '',
+    departamento: ''
   }),
 
   fotoPerfil: z.string().url('La foto de perfil debe ser una URL válida').default('https://default-profile.com/default.jpg') // URL por defecto para la foto de perfil

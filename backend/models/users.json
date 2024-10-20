@@ -49,7 +49,8 @@
       "3cd4d6ad-df7c-4e0f-beb9-394de48ce33d",
       "88c87f69-4b49-4633-bfba-cd3d29b1a21d",
       "ac6773d2-9166-4840-b5cd-995a49b19031",
-      "1f097f12-ce06-4068-a0a1-f37647d38c6a"
+      "1f097f12-ce06-4068-a0a1-f37647d38c6a",
+      "3c37ef91-d1bb-4c19-ad47-85b9fb147474"
     ],
     "correo": "alvaroivangomez1@hotmail.com",
     "contraseña": "$2b$10$4POHtpVhJ7UiMNroCfmnteLOOpAm2gqI7yy3Cco8ubz61YoPy/WYy",
@@ -64,6 +65,23 @@
       "ciudad": "",
       "pais": "",
       "codigoPostal": ""
+    }
+  },
+  {
+    "nombre": "Ivan David Gomez",
+    "librosIds": [],
+    "correo": "ivandavidgomezsilva@gmail.com",
+    "contraseña": "$2b$10$qv9ej6wDYcmw75zmWGjmtep4XVJxyNZh8uRDOsvdbMfNoW5xhXUQq",
+    "rol": "usuario",
+    "fechaRegistro": "2024-10-20T21:47:37.859Z",
+    "estadoCuenta": "activo",
+    "fotoPerfil": "",
+    "_id": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "actualizadoEn": "2024-10-20T21:47:37.859Z",
+    "direccionEnvio": {
+      "ciudad": "Floridablanca",
+      "pais": "Colombia",
+      "departamento": "Santander"
     }
   }
 ]

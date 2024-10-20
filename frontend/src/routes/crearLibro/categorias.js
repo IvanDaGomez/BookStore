@@ -41,6 +41,7 @@ const generos = [
     "Gastronomía",
     "Cocina",
     "Ciencias políticas",
+    "Tecnología",
     "Narrativa gráfica",
     "Graphic novel",
     "Ciencia ficción distópica",

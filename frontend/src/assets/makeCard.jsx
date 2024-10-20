@@ -33,7 +33,7 @@ const makeCard = (element, index) => {
                     .filter(Boolean) // Filtra los elementos que no son null/undefined/false
                     .join(" | ")}
                 </h3>
-                <div className="precioSections">{(element.oferta) ? <><h3 style={{display:"inline", marginRight:"10px"}}><s>${element.precio.toLocaleString('es-CO')}</s></h3><h2 style={{display:"inline"}}>${element.oferta.toLocaleString('es-CO')}</h2></>: <><h2>${element.precio.toLocaleString('es-CO')}</h2></>}
+                <div className="precioSections">{(element.oferta) ? <><h3 style={{display:"inline", marginRight:"10px"}}><s>${element.precio.toLocaleString('es-CO')}</s></h3><h2 style={{display:"inline"}}>${element.oferta.toLocaleString('es-CO')}</h2></>: <><h2 style={{textAlign:"center"}}>${element.precio.toLocaleString('es-CO')}</h2></>}
                 </div>
 
                 </div>
@@ -75,7 +75,7 @@ const makeOneFrCard = (element, index) => {
   
         <div className="details">
           <h2>{element.autor}</h2>
-          <h2>{element.estado}</h2>
+          <h2 style={{textAlign:'left'}}>{element.estado}</h2>
           <h2>{element.categoria}</h2>
         </div>
 

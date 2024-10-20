@@ -54,60 +54,61 @@ class BooksModel {
   static async getBookByQuery (query) {
     const books = await this.getAllBooks()
 
-    // Función para calcular el nivel de coincidencia entre la query y los resultados
+    function changeToArray (element) {
+      if (typeof element === 'string' && element.trim() !== '') {
+        return element.split(' ').filter(Boolean)
+      }
+      return element || [] // Devuelve un array vacío si el elemento es nulo o indefinido
+    }
+
     const calculateMatchScore = (book, queryWords) => {
       let score = 0
-      const tolerance = 2 // Ajusta este valor para más o menos tolerancia
+      const tolerance = 2 // Tolerancia de letras equivocadas
 
-      for (const value of Object.values(book)) {
-        if (typeof value === 'string') {
-          const valueWords = value.split(' ')
-          for (const queryWord of queryWords) {
-            valueWords.forEach(word => {
-              const distance = levenshteinDistance(word.toLowerCase(), queryWord.toLowerCase())
-              if (distance <= tolerance) {
-                score += 1 // Incrementa el score si la distancia está dentro del umbral de tolerancia
-              }
-            })
-          }
-        } else if (Array.isArray(value)) {
-          value.forEach(item => {
-            if (typeof item === 'string') {
-              const itemWords = item.split(' ')
-              for (const queryWord of queryWords) {
-                itemWords.forEach(word => {
-                  const distance = levenshteinDistance(word.toLowerCase(), queryWord.toLowerCase())
-                  if (distance <= tolerance) {
-                    score += 1
-                  }
-                })
-              }
-            }
+      const queryWordsArray = changeToArray(queryWords)
+      const valueElements = Object.values(book)
+      const stringValueWords = []
+
+      valueElements.forEach((element) => {
+        if (typeof element === 'string') {
+          stringValueWords.push(...changeToArray(element))
+        } else if (Array.isArray(element)) {
+          element.forEach((word) => {
+            stringValueWords.push(...changeToArray(word))
           })
         }
+      })
+
+      const matchedWords = new Set() // Usamos un Set para evitar duplicados
+
+      for (const queryWord of queryWordsArray) {
+        stringValueWords.forEach(word => {
+          const distance = levenshteinDistance(word.toLowerCase(), queryWord.toLowerCase())
+          if (distance <= tolerance && !matchedWords.has(word)) {
+            score += 1 // Incrementa el score si la distancia está dentro del umbral de tolerancia
+            matchedWords.add(word) // Agrega la palabra al Set
+          }
+        })
       }
 
       return score
     }
 
-    // Dividimos la query en palabras
-    const queryWords = query.split(' ')
+    const queryWords = changeToArray(query)
 
-    // Recorremos todos los libros y calculamos el puntaje de coincidencia
     const booksWithScores = books.map(book => {
       const score = calculateMatchScore(book, queryWords)
 
-      // Ajusta aquí el umbral de coincidencia deseado
-      if (score < queryWords.length * 0.5) return null // Más estricto: cambia a 0.7 o menos tolerante: cambia a 0.3
+      // Umbral de coincidencia deseado
+      if (score < queryWords.length * 0.7) return null
 
       return { book, score } // Devolvemos el libro junto con su puntaje si pasa la validación
-    })
-      .filter(item => item !== null) // Filtramos los resultados nulos
+    }).filter(item => item !== null) // Filtramos los resultados nulos
 
     // Ordenamos los libros por el puntaje en orden descendente
     booksWithScores.sort((a, b) => b.score - a.score)
 
-    // Devolvemos los libros ordenados, pero solo los datos del libro
+    // Solo los datos del libro, no del puntaje
     return booksWithScores.map(item => item.book)
   }
 
