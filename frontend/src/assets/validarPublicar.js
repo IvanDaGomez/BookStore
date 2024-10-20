@@ -1,4 +1,4 @@
-const validarPublicar1 = ({ titulo = '', descripcion = '', archivos = [] } = {}) => {
+const validarPublicar1 = ({ titulo = '', autor = '', descripcion = '', archivos = [] } = {}) => {
   let errors = [];
 
   // Validación de archivos (campo requerido, menos de 10 archivos y solo imágenes)
@@ -27,6 +27,10 @@ const validarPublicar1 = ({ titulo = '', descripcion = '', archivos = [] } = {})
   }
 
   // Validación de descripción (campo requerido y longitud mínima)
+  if (!autor || typeof autor !== 'string') {
+    errors.push("El autor es requerido");
+  }
+  // Validación de descripción (campo requerido y longitud mínima)
   if (!descripcion || typeof descripcion !== 'string' || descripcion.length < 10) {
     errors.push("La descripción es requerida y debe tener al menos 10 caracteres.");
   }
@@ -34,13 +38,10 @@ const validarPublicar1 = ({ titulo = '', descripcion = '', archivos = [] } = {})
   return errors;
 };
 
-const validarPublicar3 = ({ precio = '', keywords = [], autor = '', oferta = '' } = {}) => {
+const validarPublicar3 = ({ precio = '', keywords = [], oferta = '' } = {}) => {
   let errors = [];
 
-    // Validación de descripción (campo requerido y longitud mínima)
-  if (!autor || typeof autor !== 'string') {
-    errors.push("El autor es requerido");
-  }
+
 
 
   if(keywords.length !== 0){
@@ -48,8 +49,8 @@ const validarPublicar3 = ({ precio = '', keywords = [], autor = '', oferta = '' 
       if (typeof keyword !== 'string'){
         errors.push(`La palabra "${keyword}" debe ser cadena de texto `)
       }
-      if (keyword.length > 20){
-        errors.push(`Cada palabra clave no puede tener más de 20 caracteres`)
+      if (keyword.length > 30){
+        errors.push(`Cada palabra clave no puede tener más de 30 caracteres`)
       }
     })
   }
