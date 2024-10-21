@@ -5,12 +5,14 @@ import Fase1 from "./Fase1";
 import Fase2 from "./Fase2";
 import Fase3 from "./Fase3";
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import UseStep from "../../components/UseStep";
 
 
 export default function CrearLibro() {
       //const user = useFetchUser('http://localhost:3030/api/users/userSession')
       const [user, setUser] = useState();
+      
       useEffect(() => {
           async function fetchUser() {
               try {
@@ -66,7 +68,73 @@ export default function CrearLibro() {
     
   }, [fase, form]);
 
+  const [searchParams] = useSearchParams(); // Get the search parameters
+
+  // Extract values for 'vendedor' and 'libro'
+  const vendedor = searchParams.get('vendedor'); // Retrieves the value of 'vendedor'
+  const libro = searchParams.get('libro');       // Retrieves the value of 'libro'
+  const actualizar = vendedor && libro && user && vendedor === user._id && user.librosIds.includes(libro)
+  // Fetch book data if libroId is present
+  useEffect(() => {
+    const fetchBook = async () => {
+      if (actualizar) {
+        try {
+          const response = await fetch(`http://localhost:3030/api/books/${libro}`, {
+            method: 'GET',
+            credentials: 'include',
+          });
+  
+          if (!response.ok) {
+            window.location.href = "/libros/crear";
+            return; // Exit the function if the response isn't OK
+          }
+  
+          const data = await response.json();
+  
+          // Fetch image blobs in parallel
+          const imageBlobs = await Promise.all(
+            data.images.map(async (image) => {
+              const imageResponse = await fetch(`http://localhost:3030/uploads/${image}`);
+              if (!imageResponse.ok) {
+                throw new Error(`Failed to fetch image at ${image}`);
+              }
+              const blob = await imageResponse.blob();
+              return { url: URL.createObjectURL(blob), type: 'image/png' }; // Create a URL for the blob
+            })
+          );
+  
+          // Update the form state with the data and image blobs
+          setForm({ 
+        titulo: data.titulo,
+        autor: data.autor,
+        precio: data.precio,
+        oferta: data.oferta,
+        keywords: data.keywords,
+        descripcion: data.descripcion,
+        estado: data.estado,
+        genero: data.genero,
+        edicion: data.edicion,
+        idioma: data.idioma,
+        tapa: data.tapa,
+        edad: data.edad,
+        images: imageBlobs,
+        formato: data.formato});
+            
+        } catch (error) {
+          console.error('Error fetching book data:', error);
+        }
+      }else{
+        setForm({})
+      }
+    };
+  
+    fetchBook();
+  }, [libro, actualizar]);
+  
+
   const steps = ["Imágenes y Titulo", "Categorías", "Precio"];
+
+   
   useEffect(() => {
     if (fase === 4 && user && user._id && user.nombre) {
         const enviarForm = async () => {
@@ -103,21 +171,21 @@ export default function CrearLibro() {
             formData.append("vendedor", user.nombre);
             formData.append("disponibilidad", "Disponible");
             formData.append("ubicacion", 'Buscar');
-
             
-            setFase(3)
-
-            
+            for (let pair of formData.entries()) {
+              console.log(pair[0] + ': ' + pair[1]); // Logs key-value pairs
+            }
             try {
-                const URL = 'http://localhost:3030/api/books';
+                
+              const URL = (!actualizar) ? 'http://localhost:3030/api/books': `http://localhost:3030/api/books/${libro}` ;
                 const response = await fetch(URL, {
-                    method: 'POST',
+                    method: (!actualizar) ? 'POST': 'PUT',
                     body: formData,  // Enviar el FormData directamente
                     credentials: 'include'
                 });
 
                 if (!response.ok) {
-                    throw new Error(`Error en la solicitud: ${response.status}`);
+                    throw new Error('Error en la solicitud: ' + response.status);
                 }
 
                 const data = await response.json();
@@ -125,7 +193,7 @@ export default function CrearLibro() {
                     console.error(data.error);
                     return;
                 }
-
+                
                 setForm({}); // Restablecer el formulario
                 localStorage.removeItem("form");
                 setFase(1);
@@ -138,9 +206,11 @@ export default function CrearLibro() {
             }
         };
 
-        enviarForm();
+        if (fase === 4) enviarForm();
     }
-}, [fase, form, user]);
+}, [fase, form, user, actualizar, libro]);
+
+
 
 
   return (

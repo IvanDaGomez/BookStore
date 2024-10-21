@@ -13,7 +13,7 @@ const getLocation = async () => {
                 const latitude = position.coords.latitude;
                 const longitude = position.coords.longitude;
 
-                console.log(`Latitud: ${latitude}, Longitud: ${longitude}`);
+                
 
                 // Llamada a la API de Geocodificación Inversa
                 try {

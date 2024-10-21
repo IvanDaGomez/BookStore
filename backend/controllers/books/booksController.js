@@ -195,6 +195,17 @@ export class BooksController {
       const { bookId } = req.params
       const data = req.body
 
+      if (data.oferta) data.oferta = parseInt(data.oferta)
+      data.precio = parseInt(data.precio)
+      // Manejo de keywords
+      if (data.keywords && typeof data.keywords === 'string') {
+        data.keywords = data.keywords.split(',').map(keyword => keyword.trim()).filter(keyword => keyword)
+      } else {
+        data.keywords = [] // Or handle as needed if no keywords are provided
+      }
+      // Imagenes
+      // Diferentes tamaños
+      if (req.files) data.images = req.files.map(file => `${file.filename}`)
       // Validar datos
       const validated = validatePartialBook(data)
       if (!validated.success) {
@@ -225,7 +236,7 @@ export class BooksController {
       res.status(200).json(book)
     } catch (err) {
       console.error('Error updating book:', err)
-      res.status(500).json({ error: 'Internal server error' })
+      res.status(500).json({ error: err })
     }
   }
 }
