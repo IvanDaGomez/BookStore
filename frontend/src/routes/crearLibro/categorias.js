@@ -35,6 +35,7 @@ const generos = [
     "Ficción literaria",
     "Relato corto",
     "Ficción de aventuras",
+    "Amor",
     "Ficción familiar",
     "Filosofía",
     "Salud",

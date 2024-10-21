@@ -7,6 +7,8 @@ import ErrorPage from './components/errorPage.jsx'
 import Search from './routes/search/search.jsx'
 import Login from './routes/login/login.jsx'
 import CrearLibro from './routes/crearLibro/CrearLibro.jsx'
+import Usuario from './routes/usuarios/Usuario.jsx'
+
 import Account from './routes/cuenta/account.jsx'
 import './index.css'
 
@@ -40,9 +42,10 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />
   },
+  
   {
-    path: "/cuenta",
-    element: <Account />
+    path: "/usuarios/:idVendedor",
+    element:  <Usuario />
   }
 ])
 createRoot(document.getElementById('root')).render(

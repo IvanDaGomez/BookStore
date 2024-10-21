@@ -122,7 +122,6 @@ export class UsersController {
     data.creadoEn = time
     data.actualizadoEn = time
     // Crear usuario
-    console.log(data)
     const user = await UsersModel.createUser(data)
     if (!user) {
       return res.status(500).json({ error: 'Error creando usuario' })
@@ -132,7 +131,7 @@ export class UsersController {
       user,
       SECRET_KEY,
       {
-        expiresIn: '1h'
+        expiresIn: '3h'
       }
     )
 

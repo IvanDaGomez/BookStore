@@ -1,5 +1,5 @@
 import { reduceText } from "./reduceText"
-
+import { Link } from "react-router-dom";
 const makeCard = (element, index) => {
     return (
         
@@ -80,8 +80,8 @@ const makeOneFrCard = (element, index) => {
         </div>
 
 
-        <div className="soldBy" style={{ fontSize: '14px', color: '#555' }}>
-          Vendido por <span className="accent">{element.vendedor}</span>
+        <div className="soldBy" style={{ fontSize: '14px', color: '#555' }} >
+          Vendido por <Link to={`/usuarios/${element.idVendedor}`}><span className="accent">{element.vendedor}</span></Link>
         </div>
   
         {/* Botón de agregar al carrito */}

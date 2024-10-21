@@ -128,6 +128,7 @@ class BooksModel {
         descripcion: data.descripcion || '',
         estado: data.estado || 'Nuevo',
         genero: data.genero || '',
+        formato: data.formato || '',
         vendedor: data.vendedor || '',
         idVendedor: data.idVendedor,
         edicion: data.edicion,

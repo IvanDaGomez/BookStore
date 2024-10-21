@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 :root {
 
   --using1: #ffffff; /* Background */
@@ -167,7 +168,11 @@ header{
   text-align: center;
   color:var(--using3);
 }
-
+header .flex-between{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .headerIzq,.headerCen, .headerDer{
   display:flex;
   flex-wrap: nowrap;
@@ -607,12 +612,14 @@ input:-internal-autofill-selected {
   display: flex;
   justify-content: center;
   align-items: center;
+ 
   flex-direction: column;
-  padding-right: 30vw;
-  background-image: url("https://bdc2020.o0bc.com/wp-content/uploads/2021/12/AdobeStock_242762094-61b2260261960-768x432.jpeg");
+  padding-right: 60vw;
+  background-image: url("https://media.licdn.com/dms/image/D4D12AQHq-oOr4PPy2A/article-cover_image-shrink_720_1280/0/1690310679740?e=2147483647&v=beta&t=msoRNGVOBTfh14MDOSQSUt8JaOq9ik5yrumCTwMQaKY");
   background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
+  background-position: right;
+  background-color: black;
+  background-size: 80%;
   position: relative;
   isolation: isolate;
   color:var(--using1);
@@ -628,9 +635,14 @@ input:-internal-autofill-selected {
   background: linear-gradient(to right, #000 30%, transparent 100%);
   z-index: -1;
 }
+
+.IntroDiv *{
+  text-align: center;
+}
 .IntroDiv div{
+  text-align: center;
   background: #00000060;
-  width:60%;
+  width:max(60%, 250px);
   padding: 20px;
   border-radius: 10px;
   
@@ -693,7 +705,7 @@ input:-internal-autofill-selected {
   color:var(--using1);
 }
 
-.sectionsContainer .sectionElement{
+.sectionElement{
   width:100%;
   border: 1px solid var(--using2);
   border-radius: 5px;
@@ -710,7 +722,7 @@ input:-internal-autofill-selected {
 }
 
 /* Asegúrate de que la sección de contenido crezca para llenar el espacio */
-.sectionsContainer .sectionElement .contentElement {
+.sectionElement .contentElement {
   flex-grow: 1;
 
 }
@@ -723,7 +735,7 @@ input:-internal-autofill-selected {
 }
 
 /* Resto de los estilos */
-.sectionsContainer .sectionElement .percentageElement{
+.sectionElement .percentageElement{
   width:100%;
   padding:1px 0;
   background: var(--using4);
@@ -731,7 +743,7 @@ input:-internal-autofill-selected {
   filter: opacity(0.9);
 }
 
-.sectionsContainer .sectionElement .imageElementContainer{
+.sectionElement .imageElementContainer{
   
   width:80%;
 
@@ -750,7 +762,7 @@ input:-internal-autofill-selected {
   
 }
 
-.sectionsContainer .sectionElement .imageElementContainer .moreInfoElement{
+.sectionElement .imageElementContainer .moreInfoElement{
   width:100%;
   display: flex;
   justify-content: space-around;
@@ -763,15 +775,15 @@ input:-internal-autofill-selected {
   color:var(--using3)
 }
 
-.sectionsContainer .sectionElement .imageElementContainer .moreInfoElement svg{
+.sectionElement .imageElementContainer .moreInfoElement svg{
   color: var(--using1)
 }
-.sectionsContainer .sectionElement:hover .imageElementContainer .moreInfoElement{
+.sectionElement:hover .imageElementContainer .moreInfoElement{
   transform: translateY(0);
   
 }
 
-.sectionsContainer .sectionElement .imageElementContainer .fastInfoElement{
+.sectionElement .imageElementContainer .fastInfoElement{
   background: var(--using4);
   border-radius: 5px;
   padding: 5px;
@@ -1196,7 +1208,7 @@ footer {
   font-size: 2.5rem;
   cursor: pointer;
 }
-.libroContenedor .comprarContainer .botonInverso{
+.botonInverso{
   border: 2px solid var(--using4);
   color: var(--using4);
   background: var(--using1);
@@ -2132,4 +2144,71 @@ color: var(--using6);
 
 .back-button:hover {
   background-color: #45a049; /* Color de fondo al pasar el mouse */
+}
+
+
+/*----------------------------------------Usuario----------------------------*/
+
+
+/* UserCard.css */
+.card-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px auto;
+  padding: 20px;
+  width:max(400px, 70vw);
+  border: 1px solid var(--using4);
+  box-shadow: 0 0 8px var(--using4);
+  border-radius: 10px;
+}
+
+.profile-image {
+  height: 200px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.card-info {
+  flex: 1;
+}
+.compartir{
+  padding:10px;
+  border-radius: 5px;
+  border: 2px solid var(--using4);
+  font-size: 3rem;
+  font-weight: 600;
+  width:200px;
+  margin:10px;
+  cursor: pointer;
+}
+.compartir.normal{
+  color: var(--using1);
+  background: var(--using4);
+}
+.name {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.card-info p {
+  margin: 5px 0;
+  color: #555;
+}
+
+
+.postsContainer{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  place-items: center;
+  gap: 20px;
+  margin: 20px auto;
+  padding: 20px;
+  width:max(400px, 70vw);
+  border: 1px solid var(--using4);
+  box-shadow: 0 0 8px var(--using4);
+  border-radius: 10px;
 }

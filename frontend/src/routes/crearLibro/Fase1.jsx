@@ -5,8 +5,7 @@ import { validarPublicar1 } from "../../assets/validarPublicar";
 export default function Fase1({ form, setForm, setFase, fase }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [croppedImages, setCroppedImages] = useState([]);
-  const [errors, setErrors] = useState([]);
-
+  const [errors, setErrors] = useState([])
   //---------------------------------------------FUNCION PARA ELIMINAR UNA IMAGEN EN LA LISTA
   const handleDeleteImage = (index) => {
     // Filtra los archivos y las imágenes recortadas por índice

@@ -1,5 +1,6 @@
 import { useParams } from "react-router";
 import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import Header from "../../components/header";
 import SideInfo from "../../components/sideInfo";
 import Footer from "../../components/footer";
@@ -206,7 +207,7 @@ export default function BookView() {
                     </> : <></>}
                     <button className="botonInverso">Agregar a favoritos</button>
                     <h3>Vendido por:</h3>
-                    <span>{libro.vendedor}</span>
+                    <Link to={`/usuarios/${libro.idVendedor}`}><span>{libro.vendedor}</span></Link>
                     <hr />
                     <div className="separarConFoto">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={16} height={16} color={"#000000"} fill={"none"}>

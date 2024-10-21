@@ -21,6 +21,9 @@ function App() {
       case 'noUser':
         setNotification('No user')
         break;
+      case 'userNotFound':
+        setNotification('User not found');
+        break;
       default:
         setNotification('');
         break;
@@ -53,6 +56,21 @@ function App() {
           <Link to="/login">
             <button className="back-button">Iniciar Sesión</button>
           </Link>
+          <Link to="/">
+            <button className="back-button">Volver a Inicio</button>
+          </Link>
+          </div>
+        </div>
+        </>)
+    }
+    if (notification === 'User not found'){
+      return(<>
+        <div className="dropdownBackground"></div>
+        <div className="success-container">
+          <h2>No se ha encontrado el usuario</h2>
+          
+          <div>
+
           <Link to="/">
             <button className="back-button">Volver a Inicio</button>
           </Link>

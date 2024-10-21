@@ -17,7 +17,7 @@ useEffect(() => {
 
             if (response.ok) {
                 const data = await response.json();
-                setUser(data); // Establece el usuario en el estado
+                setUser(data.user); // Establece el usuario en el estado
             } else {
                 console.error('Failed to fetch user data:', response);
             }
@@ -204,12 +204,13 @@ const openExtraInfo = async (str) => {
     return (
         <>
             <div className="antesHeader" style={{ color: "#000000" }}>
-                <h1>Descubre nuestras ofertas</h1>
+                {/*<h1>Descubre nuestras ofertas</h1>*/}
             </div>
             <header>
-                <div>
+                <div className="flex-between">
                 <div className="headerIzq">
                     <Link to="/"><img loading="lazy" src="/logo.png" alt="" /></Link>
+                   <h1 style={{fontFamily: 'Gentium Book Plus', color:"#"}} >  Meridian</h1>
                 </div>
 
                 <div className="indice headerCen desaparecer">
@@ -286,7 +287,8 @@ const openExtraInfo = async (str) => {
                 </div>
                 </Link>
                 </>:<>
-                <Link to="/cuenta">
+                
+                <Link to={`/usuarios/${user._id}`}>
                 <div className="profileElement">
                     <span>Cuenta</span>
                 </div>
