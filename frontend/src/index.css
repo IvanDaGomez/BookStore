@@ -100,6 +100,7 @@ svg{
   color:var(--using3);
   cursor:pointer;
 }
+
 /*-----------------------------------------------*/
 .errorContainer{
   height: 100vh;
@@ -712,15 +713,18 @@ input:-internal-autofill-selected {
   display: flex;
   flex-direction: column;
   justify-content: start; /* Para distribuir el contenido */
+  
   align-items: center;
   height: 100%; /* Ajusta este valor según sea necesario */
   background: var(--using5);
   cursor: pointer;
   color:var(--using3);
-  padding-block: 5px;
+  padding: 5px;
   
 }
-
+.sectionElement *{
+  text-align: center;
+}
 /* Asegúrate de que la sección de contenido crezca para llenar el espacio */
 .sectionElement .contentElement {
   flex-grow: 1;
@@ -2201,6 +2205,7 @@ color: var(--using6);
 
 
 .postsContainer{
+  
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   place-items: center;
@@ -2211,4 +2216,15 @@ color: var(--using6);
   border: 1px solid var(--using4);
   box-shadow: 0 0 8px var(--using4);
   border-radius: 10px;
+}
+
+.eliminar{
+  border: 2px solid ;
+  background: white;
+  border: 3px solid red;
+  color: red;
+}
+.eliminar:hover{
+  color:white;
+  background: red;
 }

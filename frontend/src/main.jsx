@@ -9,8 +9,8 @@ import Login from './routes/login/login.jsx'
 import CrearLibro from './routes/crearLibro/CrearLibro.jsx'
 import Usuario from './routes/usuarios/Usuario.jsx'
 
-import Account from './routes/cuenta/account.jsx'
 import './index.css'
+import EditarUsuario from './routes/usuarios/editarUsuario.jsx'
 
 
 
@@ -42,10 +42,13 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />
   },
-  
   {
     path: "/usuarios/:idVendedor",
     element:  <Usuario />
+  },
+  {
+    path: '/usuarios/editarUsuario',
+    element: <EditarUsuario/>
   }
 ])
 createRoot(document.getElementById('root')).render(

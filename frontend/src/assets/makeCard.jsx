@@ -2,8 +2,8 @@ import { reduceText } from "./reduceText"
 import { Link } from "react-router-dom";
 const makeCard = (element, index) => {
     return (
-        
-            <div className="sectionElement" key={index} onClick={()=>window.location.href = `${window.location.origin}/libros/${element._id}`}>
+      <Link style={{width:'100%', height:'100%'}} to={`${window.location.origin}/libros/${element._id}`}>
+            <div className="sectionElement" key={index}>
                 
                 <div className="imageElementContainer"  style={{backgroundImage: `url(http://localhost:3030/uploads/${element.images[0]})`}}>
                 {(element.oferta) ? <div className="percentageElement">
@@ -38,13 +38,14 @@ const makeCard = (element, index) => {
 
                 </div>
             </div>
-
+            </Link>
     )
 }
 
 const makeOneFrCard = (element, index) => {
     return (
-      <div key={index} className="cardContainer" onClick={()=>window.location.href = `${window.location.origin}/libros/${element._id}`} >
+      <Link style={{width:'100%', height:'100%'}} to={`${window.location.origin}/libros/${element._id}`}>
+      <div key={index} className="cardContainer" >
         
         {/* Imagen de los auriculares */}
         <div className="imageContainer" style={{ textAlign: 'center' }}>
@@ -94,6 +95,48 @@ const makeOneFrCard = (element, index) => {
 
         </div>
       </div>
+      </Link>
     );
   };
-export { makeCard, makeOneFrCard };
+  const makeUpdateCard = (element, index) => {
+    
+    return (
+            <Link style={{width:'100%', height:'100%'}} to={`${window.location.origin}/libros/${element._id}`}>
+            <div className="sectionElement" key={index}>
+                
+                <div className="imageElementContainer"  style={{backgroundImage: `url(http://localhost:3030/uploads/${element.images[0]})`}}>
+                {(element.oferta) ? <div className="percentageElement">
+                    { Math.ceil(((1 - element.oferta / element.precio) * 100).toFixed(2) / 5) * 5 + '% de descuento'}
+                </div>:<div style={{padding:"calc(10px + 1rem)"}}></div>}
+                    <div className="moreInfoElement">
+                            <Link to={`/libros/crear?vendedor=${element.idVendedor}&libro=${element._id}`}>
+                            <div className="fastInfoElement">
+                                <span>Editar</span>
+                            </div>
+                            </Link> 
+                            <Link to={`/usuarios/${element.idVendedor}?eliminar=y&libro=${element._id}`}>
+                            <div className="fastInfoElement eliminar" style={{ background: 'white', border: '3px solid red', color: 'red'}}>
+                                <span style={{fontWeight:'800'}}>Eliminar</span>
+                            </div>
+                            </Link>
+                    </div>
+                </div>
+                <div style={{padding:"5px"}}>
+                <h2 style={{textAlign: 'center'}}>{reduceText(element.titulo,33)}</h2>
+                <h3>
+                  {[element.autor && reduceText(element.autor, 30), 
+                    element.genero && reduceText(element.genero, 15), 
+                    element.estado]
+                    .filter(Boolean) // Filtra los elementos que no son null/undefined/false
+                    .join(" | ")}
+                </h3>
+                <div className="precioSections">{(element.oferta) ? <><h3 style={{display:"inline", marginRight:"10px"}}><s>${element.precio.toLocaleString('es-CO')}</s></h3><h2 style={{display:"inline"}}>${element.oferta.toLocaleString('es-CO')}</h2></>: <><h2 style={{textAlign:"center"}}>${element.precio.toLocaleString('es-CO')}</h2></>}
+                </div>
+
+                </div>
+            </div>
+            </Link>
+
+    )
+}
+export { makeCard, makeOneFrCard, makeUpdateCard };

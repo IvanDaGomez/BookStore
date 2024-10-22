@@ -4,27 +4,7 @@ import { validateBook, validatePartialBook } from '../../assets/validate.js'
 import { UsersModel } from '../../models/users/local/usersLocal.js'
 import { cambiarGuionesAEspacio } from '../../../frontend/src/assets/agregarMas.js'
 import { helperImg } from '../../assets/helperImg.js'
-/* {
-        "titulo": "Harry Potter y la Cámara Secreta",
-        "autor": "Warner Bros",
-        "precio": 100000,
-        "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg", "https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg", "https://images.cdn3.buscalibre.com/fit-in/360x360/61/8d/618d227e8967274cd9589a549adff52d.jpg" ],
-        "keywords": ["fantasía", "Harry Potter", "J.K. Rowling"],
-        "id": "a1b2c3d4-e5f6-7g8h-9i10-j11k12l13m14",
-        "descripcion": "Esta es la descripción",
-        "estado" : "Usado",
-        "genero": "Novela",
-        "vendedor": "Ivan Gómez",
-        "idVendedor" : "a1b2c3d4-e5f6-7g8h-9i10-j11k12l13321",
-        "edicion": "1",
-        "idioma": "Español",
-        "ubicacion": "Bucaramanga",
-        "tapa":"Dura",
-        "edad":"Jóvenes",
-        "fechaPublicacion": "2024-10-01",
-        "disponibilidad" : "Disponible"
 
-    } */
 export class BooksController {
   static async getAllBooks (req, res) {
     try {
@@ -144,36 +124,6 @@ export class BooksController {
     // Si todo es exitoso, devolver el libro creado
     res.send({ book })
   }
-  /*
-  static async uploadImage (req, res) {
-    try {
-      // Example: validate image size/type in booksController
-      if (!req.file.mimetype.startsWith('image/')) {
-        return res.status(400).json({ error: 'Invalid file type.' })
-      }
-      if (req.file.size > 5 * 1024 * 1024) { // 5MB
-        return res.status(400).json({ error: 'File too large.' })
-      }
-      if (!req.file) {
-        return res.status(400).json({ error: 'No se ha subido ningún archivo' })
-      }
-
-      // La imagen fue subida correctamente
-      const imageUrl = `/uploads/${req.file.filename}` // Ruta relativa del archivo
-
-      // Aquí podrías guardar la URL en tu base de datos, si lo necesitas
-      // Por ejemplo: await Book.updateOne({ _id: req.bookId }, { image: imageUrl });
-
-      res.status(200).json({
-        message: 'Imagen subida con éxito',
-        imageUrl // Devuelve la URL de la imagen
-      })
-    } catch (err) {
-      console.error('Error al subir la imagen:', err)
-      res.status(500).json({ error: 'Error al subir la imagen' })
-    }
-  };
-*/
 
   static async deleteBook (req, res) {
     try {
@@ -214,9 +164,9 @@ export class BooksController {
 
       // Filtrar los campos permitidos
       const allowedFields = [
-        'titulo', 'autor', 'precio', 'images', 'keywords', 'descripcion',
+        'titulo', 'autor', 'precio', 'oferta', 'formato', 'images', 'keywords', 'descripcion',
         'estado', 'genero', 'vendedor', 'idVendedor', 'edicion', 'idioma',
-        'ubicacion', 'tapa', 'edad', 'fechaPublicacion', 'disponibilidad'
+        'ubicacion', 'tapa', 'edad', 'fechaPublicacion', 'actualizadoEn', 'disponibilidad'
       ]
       const filteredData = {}
       Object.keys(data).forEach(key => {

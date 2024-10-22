@@ -31,8 +31,7 @@ function App() {
   }, [info]);
 
   const renderNotification = () => {
-    if (notification === 'success') {
-      document.documentElement.style.overflowY = 'hidden'
+    if (notification === 'success'){ 
       return (<>
         <div className="dropdownBackground"></div>
         <div className="success-container">

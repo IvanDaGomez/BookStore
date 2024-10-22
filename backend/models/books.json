@@ -26,42 +26,12 @@
     "disponibilidad": "Disponible"
   },
   {
-    "titulo": "En agosto nos vemos",
-    "autor": "Gabriel García Márquez",
-    "precio": 80000,
-    "oferta": 70000,
-    "images": [
-      "1729451384120-570596259.png"
-    ],
-    "keywords": [
-      "Nostalgia",
-      "Amor",
-      "Recuerdos",
-      "Regreso",
-      "Relaciones"
-    ],
-    "_id": "5376d15f-5ffc-42ea-a65f-18af3be5be86",
-    "descripcion": "En agosto nos vemos es una novela corta y conmovedora que narra la historia de un hombre que regresa a su ciudad natal después de un largo tiempo. A través de una serie de recuerdos y encuentros, el protagonista reflexiona sobre su pasado, las decisiones que ha tomado y las relaciones que ha dejado atrás. La obra está impregnada de la magia y el realismo característicos de García Márquez, donde el amor y la nostalgia se entrelazan en un viaje emocional. Con su prosa lírica, el autor invita a los lectores a explorar la complejidad de las relaciones humanas y el paso del tiempo.",
-    "estado": "Usado",
-    "genero": "Realismo mágico",
-    "vendedor": "Ivan David Gomez Silva",
-    "idVendedor": "857857d1-afdd-411d-b41a-be427d1ff186",
-    "edicion": "",
-    "idioma": "Español",
-    "ubicacion": "Buscar",
-    "tapa": "Blanda",
-    "edad": "",
-    "fechaPublicacion": "2024-10-20T19:09:43.941Z",
-    "actualizadoEn": "2024-10-20T19:09:44.187Z",
-    "disponibilidad": "Disponible"
-  },
-  {
     "titulo": "El libro de Bill",
     "autor": "Alex Hirsch",
     "precio": 100000,
-    "oferta": 80000,
+    "oferta": 90000,
     "images": [
-      "1729451748086-928636345.png"
+      "1729539129828-894296334.png"
     ],
     "keywords": [
       "Bill Cipher",
@@ -81,9 +51,10 @@
     "ubicacion": "Buscar",
     "tapa": "",
     "edad": "",
-    "fechaPublicacion": "2024-10-20T19:15:47.890Z",
-    "actualizadoEn": "2024-10-20T19:15:48.230Z",
-    "disponibilidad": "Disponible"
+    "fechaPublicacion": "2024-10-21T19:32:09.751Z",
+    "actualizadoEn": "2024-10-21T19:32:09.848Z",
+    "disponibilidad": "Disponible",
+    "formato": "Físico"
   },
   {
     "titulo": "Recupera tu mente, reconquista tu vida",
@@ -405,7 +376,7 @@
     "precio": 70000,
     "oferta": 60000,
     "images": [
-      "1729468735606-964504171.png"
+      "1729624471016-684878733.png"
     ],
     "keywords": [
       "Colonizacion",
@@ -413,7 +384,7 @@
       "Colon"
     ],
     "_id": "78c534c0-2fa8-40d0-b72a-c5ee34d0a883",
-    "descripcion": "Este libro me habilita todo lo que pueda",
+    "descripcion": "Este libro me habilita todo lo que pueda hacer.",
     "estado": "Nuevo",
     "genero": "Autoayuda",
     "vendedor": "Ivan David Gomez Silva",
@@ -423,9 +394,10 @@
     "ubicacion": "Buscar",
     "tapa": "Dura",
     "edad": "Adulto",
-    "fechaPublicacion": "2024-10-20T23:58:55.585Z",
-    "actualizadoEn": "2024-10-20T23:58:55.642Z",
-    "disponibilidad": "Disponible"
+    "fechaPublicacion": "2024-10-22T19:14:30.992Z",
+    "actualizadoEn": "2024-10-22T19:14:31.032Z",
+    "disponibilidad": "Disponible",
+    "formato": "undefined"
   },
   {
     "titulo": "El experimento: Amor Verdadero",

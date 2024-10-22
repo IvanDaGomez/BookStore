@@ -93,11 +93,10 @@ export default function Login() {
             credentials: 'include'
         });
 
-        const data = await response.json();
 
         if (!response.ok) {
             // Actualizar el estado de errores usando setErrors
-            setErrors((prevErrors) => [...prevErrors, data.error || 'Error en la respuesta del servidor']);
+            setErrors((prevErrors) => [...prevErrors, 'Error en el servidor: Intenta de Nuevo']);
             return; // Salir de la función si hay un error
         }
         

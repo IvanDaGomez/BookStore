@@ -288,7 +288,7 @@ const openExtraInfo = async (str) => {
                 </Link>
                 </>:<>
                 
-                <Link to={`/usuarios/${user._id}`}>
+                <Link to={'/account'}>
                 <div className="profileElement">
                     <span>Cuenta</span>
                 </div>
@@ -298,7 +298,7 @@ const openExtraInfo = async (str) => {
                     <span>Publica tu libro</span>
                 </div>
                 </Link>
-                <Link to="mislibros">
+                <Link to={`/usuarios/${user._id}`}>
                 <div className="profileElement">
                     Mis Libros
                 </div>

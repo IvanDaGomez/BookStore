@@ -225,7 +225,7 @@ export default function CrearLibro() {
         <div className="info">
           No todos los campos son requeridos, pero ten en cuenta que entre más completa esté tu publicación más rápido podrá venderse.
         </div>
-        <h1>Publica tu libro</h1>
+        <h1>{actualizar ? <>Actualiza</>:<>Publica</>} tu libro</h1>
 
         <UseStep currentStep={fase} titulos={steps}  />
         {fase === 1 ? (
