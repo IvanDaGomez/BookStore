@@ -89,6 +89,14 @@
       "ciudad": "Floridablanca",
       "pais": "Colombia",
       "departamento": "Santander"
-    }
+    },
+    "facturacion": [{
+      "tipo": "tarjeta",
+      "tarjeta": "",
+      "fechaExpiracion": "",
+      "nombreTarjeta": "",
+      "codigoSeguridad": ""
+    }]
+
   }
 ]

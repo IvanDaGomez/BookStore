@@ -3,6 +3,19 @@ import bcrypt from 'bcrypt'
 import { SALT_ROUNDS } from '../../../assets/config.js'
 import { levenshteinDistance } from '../../../assets/levenshteinDistance.js'
 
+function userObject (name) {
+  return {
+    _id: name._id,
+    nombre: name.nombre,
+    rol: name.rol,
+    fotoPerfil: name.fotoPerfil, // Example of public info
+    librosIds: name.librosIds,
+    estadoCuenta: name.estadoCuenta,
+    creadoEn: name.creadoEn,
+    bio: name.bio || ''
+    // Avoid exposing sensitive fields like password, email, etc.
+  }
+}
 class UsersModel {
   static async getAllUsers () {
     try {
@@ -32,16 +45,7 @@ class UsersModel {
       const data = await fs.readFile('./models/users.json', 'utf-8')
       const users = JSON.parse(data)
 
-      return users.map(user => ({
-        _id: user._id,
-        nombre: user.nombre,
-        rol: user.rol,
-        fotoPerfil: user.fotoPerfil, // Example of public info
-        librosIds: user.librosIds,
-        estadoCuenta: user.estadoCuenta,
-        creadoEn: user.creadoEn
-        // Avoid exposing sensitive fields like password, email, etc.
-      }))
+      return users.map(user => userObject(user))
     } catch (err) {
       console.error('Error reading users:', err)
       throw new Error(err)
@@ -57,16 +61,7 @@ class UsersModel {
       }
 
       // Return user with limited public information
-      return {
-        _id: user._id,
-        nombre: user.nombre,
-        rol: user.rol,
-        fotoPerfil: user.fotoPerfil, // Example of public info
-        librosIds: user.librosIds,
-        estadoCuenta: user.estadoCuenta,
-        creadoEn: user.creadoEn
-        // Avoid exposing sensitive fields like password, email, etc.
-      }
+      return userObject(user)
     } catch (err) {
       console.error('Error reading user:', err)
       throw new Error(err)
@@ -148,16 +143,7 @@ class UsersModel {
       }
 
       // Return user info, but avoid password or sensitive data
-      return {
-        _id: user._id,
-        nombre: user.nombre,
-        rol: user.rol,
-        fotoPerfil: user.fotoPerfil, // Example of public info
-        librosIds: user.librosIds,
-        estadoCuenta: user.estadoCuenta,
-        creadoEn: user.creadoEn
-        // Avoid exposing sensitive fields like password, email, etc.
-      }
+      return userObject(user)
     } catch (err) {
       console.error('Error reading user:', err)
       throw new Error(err)
@@ -172,16 +158,7 @@ class UsersModel {
         return 'No encontrado'
       }
       // Return user info, but avoid password or sensitive data
-      return {
-        _id: user._id,
-        nombre: user.nombre,
-        rol: user.rol,
-        fotoPerfil: user.fotoPerfil, // Example of public info
-        librosIds: user.librosIds,
-        estadoCuenta: user.estadoCuenta,
-        creadoEn: user.creadoEn
-        // Avoid exposing sensitive fields like password, email, etc.
-      }
+      return userObject(user)
     } catch (err) {
       console.error('Error reading user:', err)
       throw new Error(err)
@@ -215,16 +192,7 @@ class UsersModel {
       newUser.contraseña = await bcrypt.hash(newUser.contraseña, SALT_ROUNDS)
       users.push(newUser)
       await fs.writeFile('./models/users.json', JSON.stringify(users, null, 2))
-      return {
-        _id: newUser._id,
-        nombre: newUser.nombre,
-        rol: newUser.rol,
-        fotoPerfil: newUser.fotoPerfil, // Example of public info
-        librosIds: newUser.librosIds,
-        estadoCuenta: newUser.estadoCuenta,
-        creadoEn: newUser.creadoEn
-        // Avoid exposing sensitive fields like password, email, etc.
-      }
+      return userObject(newUser)
     } catch (err) {
       console.error('Error creating user:', err)
       throw new Error('Error creating user')
@@ -252,16 +220,7 @@ class UsersModel {
       // const filePath = pat h.join()
       await fs.writeFile('./models/users.json', JSON.stringify(users, null, 2))
 
-      return {
-        _id: users[userIndex]._id,
-        nombre: users[userIndex].nombre,
-        rol: users[userIndex].rol,
-        fotoPerfil: users[userIndex].fotoPerfil, // Example of public info
-        librosIds: users[userIndex].librosIds,
-        estadoCuenta: users[userIndex].estadoCuenta,
-        creadoEn: users[userIndex].creadoEn
-        // Avoid exposing sensitive fields like password, email, etc.
-      }
+      return userObject(users[userIndex])
     } catch (err) {
       console.error('Error updating user:', err)
       throw new Error(err)

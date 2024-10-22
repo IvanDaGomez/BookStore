@@ -101,6 +101,23 @@ svg{
   cursor:pointer;
 }
 
+button{
+  
+  padding: 10px;
+  background: var(--using4);
+  color:var(--using1);
+  border:none;
+  border-radius: 10px;
+  font-size: 3rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  margin: 20px 0;
+  
+}
+button:hover{
+  background: #380050;
+}
 /*-----------------------------------------------*/
 .errorContainer{
   height: 100vh;
@@ -2227,4 +2244,39 @@ color: var(--using6);
 .eliminar:hover{
   color:white;
   background: red;
+}
+
+
+/*-----------------------------------Editar usuario----------------------------*/
+
+.editarUsuario{
+  width: max(60vw, 400px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: auto;
+  padding: 20px 0;
+}
+.editarUsuario .editarFotoContainer{
+  width: 100px;
+  aspect-ratio: 1 / 1;
+  border: 4px solid var(--using3);
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+}
+.editarUsuario div.editarFotoContainer img{
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+.editarUsuario div.editarFotoContainer .editarChiquito{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 5px;
+  aspect-ratio: 1/1;
+  background: white;
+  border: 1px solid var(--using3);
+  z-index: 100;
 }

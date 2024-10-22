@@ -128,11 +128,38 @@ export class BooksController {
   static async deleteBook (req, res) {
     try {
       const { bookId } = req.params
+
+      // Fetch the book details to find the seller (idVendedor)
+      const book = await UsersModel.getBookById(bookId)
+      if (!book) {
+        return res.status(404).json({ error: 'Book not found' })
+      }
+
+      // Fetch the user associated with the book
+      const user = await UsersModel.getUserById(book.idVendedor)
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' })
+      }
+
+      // Remove the bookId from the user's librosIds array
+      const updatedLibrosIds = user.librosIds.filter(id => id !== bookId)
+
+      // Update the user with the new librosIds
+      const updatedUser = await UsersModel.updateUser(user._id, {
+        librosIds: updatedLibrosIds
+      })
+
+      if (!updatedUser) {
+        return res.status(404).json({ error: 'User not updated' })
+      }
+
+      // Delete the book from the database
       const result = await BooksModel.deleteBook(bookId)
       if (!result) {
         return res.status(404).json({ error: 'Book not found' })
       }
-      res.json(result)
+
+      res.json({ message: 'Book deleted successfully', result })
     } catch (err) {
       console.error('Error deleting book:', err)
       res.status(500).json({ error: 'Error deleting book' })

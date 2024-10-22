@@ -1,4 +1,7 @@
 import { useState, useEffect } from "react";
+import Header from "../../components/header";
+import SideInfo from "../../components/sideInfo";
+import Footer from "../../components/footer";
 export default function EditarUsuario(){
     const [user, setUser] = useState(null);
 
@@ -25,11 +28,77 @@ export default function EditarUsuario(){
     }, []); // Dependencias vacías para ejecutar solo una vez al montar el componente
     
 
+    const [fotoPerfil, setFotoPerfil] = useState()
+
+    useEffect(() => {
+        if (user){
+        document.querySelector("#nombre").value = user.nombre || "";
+        //document.querySelector("#bio").value = user.bio || "";
+        //document.querySelector("#estadoCuenta").value = user.estadoCuenta || "";
+        setFotoPerfil(user.fotoPerfil && user.fotoPerfil.trim() !== ''
+            ? `http://localhost:3030/uploads/${user.fotoPerfil}`
+            : 'http://localhost:3030/uploads/default.jpg')
+        }
+      }, [user]);
     return(<>
-    
+    <Header/>
     {user &&<>
-        {user.nombre}
+        <form action="">
+        <div className="editarUsuario">
+            <div>
+            <div className="editarFotoContainer">
+            <img
+                        src={fotoPerfil}
+                        alt="Profile"
+                        
+                    />
+                
+            </div>
+            <button>Editar</button>
+            </div>
+            <div className="inputCrear">
+          <label htmlFor="autor">Nombre *</label>
+          <input
+            id="nombre"
+            type="text"
+            name="nombre"
+            placeholder="Tu nombre"
+            required
+            
+            
+          />
+        </div>
+        <div className="inputCrear">
+          <label htmlFor="autor">Bio *</label>
+          <input
+            id="nombre"
+            type="text"
+            name="nombre"
+            placeholder="Tu nombre"
+            required
+            
+            
+          />
+        </div>
+        <div className="inputCrear">
+          <label htmlFor="autor">Nombre *</label>
+          <input
+            id="nombre"
+            type="text"
+            name="nombre"
+            placeholder="Tu nombre"
+            required
+            
+            
+          />
+        </div>
+        <button type="submit">Enviar</button>
+        </div>
+        
+        </form>
     </>
     }
+    <SideInfo/>
+    <Footer />
     </>)
 }
