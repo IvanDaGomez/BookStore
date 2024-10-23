@@ -46,6 +46,20 @@ export class UsersController {
     }
   }
 
+  static async getEmailById (req, res) {
+    try {
+      const { userId } = req.params
+      const user = await UsersModel.getEmailById(userId)
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' })
+      }
+      res.json(user)
+    } catch (err) {
+      console.error('Error reading user:', err)
+      res.status(500).json({ error: 'Error reading user' })
+    }
+  }
+
   static async getUserByQuery (req, res) {
     try {
       let { q } = req.query // Obtener el valor del parámetro de consulta 'q'
@@ -168,7 +182,7 @@ export class UsersController {
     try {
       const { userId } = req.params
       const data = req.body
-
+      
       // Validar datos
       const validated = validatePartialUser(data)
       if (!validated.success) {

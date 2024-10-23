@@ -71,4 +71,35 @@ const validarPublicar3 = ({ precio = '', keywords = [], oferta = '' } = {}) => {
   }
   return errors;
 };
-export { validarPublicar1, validarPublicar3 }
+
+function validarActualizarUsuario({ nombre, bio, correo, anteriorContraseña, nuevaContraseña }) {
+  const errores = [];
+
+  // Validate 'nombre' (optional, but with a length check)
+  if (nombre && nombre.length < 3) {
+      errores.push("El nombre debe tener al menos 3 caracteres.");
+  }
+
+  // Validate 'bio' (optional, max length check)
+  if (bio && bio.length > 250) {
+      errores.push("La bio no puede exceder 250 caracteres.");
+  }
+
+  // Validate 'correo' (optional, but must be valid if provided)
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (correo && !emailRegex.test(correo)) {
+      errores.push("El correo no es válido.");
+  }
+
+  // Validate 'anteriorContraseña' and 'nuevaContraseña'
+  if ((anteriorContraseña && !nuevaContraseña) || (!anteriorContraseña && nuevaContraseña)) {
+      errores.push("Debe proporcionar tanto la contraseña anterior como la nueva.");
+  } else if (nuevaContraseña && nuevaContraseña.length < 8) {
+      errores.push("La nueva contraseña debe tener al menos 8 caracteres.");
+  }
+
+  // Return errors (if any), or null if no errors
+  return errores.length > 0 ? errores : null;
+}
+
+export { validarPublicar1, validarPublicar3, validarActualizarUsuario }

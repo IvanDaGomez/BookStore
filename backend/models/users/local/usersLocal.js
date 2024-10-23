@@ -68,6 +68,22 @@ class UsersModel {
     }
   }
 
+  static async getEmailById (id) {
+    try {
+      const users = await this.getAllUsers()
+      const user = users.find(user => user._id === id)
+      if (!user) {
+        return null
+      }
+
+      // Return user with limited public information
+      return { correo: user.correo }
+    } catch (err) {
+      console.error('Error reading user:', err)
+      throw new Error(err)
+    }
+  }
+
   // Pendiente desarrollar, una buena query para buscar varios patrones
   static async getUserByQuery (query) {
     const users = await this.getAllUsers()

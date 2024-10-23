@@ -14,7 +14,7 @@
     "estadoCuenta": "activo",
     "fotoPerfil": "",
     "_id": "857857d1-afdd-411d-b41a-be427d1ff186",
-    "actualizadoEn": "2024-10-20T18:37:31.276Z",
+    "actualizadoEn": "2024-10-23T11:57:28.652Z",
     "direccionEnvio": {
       "calle": "",
       "ciudad": "",
@@ -90,13 +90,32 @@
       "pais": "Colombia",
       "departamento": "Santander"
     },
-    "facturacion": [{
-      "tipo": "tarjeta",
-      "tarjeta": "",
-      "fechaExpiracion": "",
-      "nombreTarjeta": "",
-      "codigoSeguridad": ""
-    }]
-
+    "facturacion": [
+      {
+        "tipo": "tarjeta",
+        "tarjeta": "",
+        "fechaExpiracion": "",
+        "nombreTarjeta": "",
+        "codigoSeguridad": ""
+      }
+    ]
+  },
+  {
+    "nombre": "Monica Silva",
+    "librosIds": [],
+    "correo": "monitatinet@cmail.com",
+    "contraseña": "$2b$10$Iz9CG4F/Kg6gJxW0Muj0LOFAyKE1ti4ufcfeXUL1KCSOdhgN15Ugq",
+    "rol": "usuario",
+    "fechaRegistro": "2024-10-23T10:39:20.154Z",
+    "estadoCuenta": "activo",
+    "fotoPerfil": "",
+    "_id": "bda285c8-e1fe-4b88-a310-e8c48ebc73d9",
+    "actualizadoEn": "2024-10-23T10:39:20.155Z",
+    "direccionEnvio": {
+      "calle": "",
+      "ciudad": "",
+      "pais": "",
+      "codigoPostal": ""
+    }
   }
 ]
