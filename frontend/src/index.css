@@ -1259,6 +1259,32 @@ footer {
   background-repeat: no-repeat;
   margin-top: 10px;
 }
+
+.extraBookViewContainer{
+  width: max(80vw, 480px);
+  margin: auto;
+  
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.extraBookViewContainer h2{
+  font-size: 3rem;
+}
+.extraBookViewContainer .comments, .extraBookViewContainer .related, .extraBookViewContainer .description{
+  border: 1px solid var(--using2);
+  width:100%;
+  padding: 10px;
+  text-align: left;
+}
+.extraBookViewContainer .description{
+  height:150px;
+  overflow-y: scroll;
+
+}
+
 /*---------------------------------------------LOGIN--------------------------------------------------------*/
 
 .login-container {

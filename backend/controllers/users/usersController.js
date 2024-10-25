@@ -107,9 +107,9 @@ export class UsersController {
           httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
           sameSite: 'strict',
-          maxAge: 1000 * 60 * 60 // 1 hora
+          maxAge: 1000 * 60 * 60 * 3 // 3 horas
         })
-        .send({ user, token })
+        .send({ user })
     } catch (err) {
       console.error('Error reading user by email:', err)
       res.status(500).json({ error: 'Error reading user' })
@@ -159,7 +159,7 @@ export class UsersController {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict',
-        maxAge: 1000 * 60 * 60
+        maxAge: 1000 * 60 * 60 * 3 // 3 Horas
       })
       .send({ user })
   }
@@ -182,7 +182,7 @@ export class UsersController {
     try {
       const { userId } = req.params
       const data = req.body
-      
+
       // Validar datos
       const validated = validatePartialUser(data)
       if (!validated.success) {
@@ -192,13 +192,14 @@ export class UsersController {
       // Comprobar si el correo ya está en uso
       if (data.correo) {
         const existingUser = await UsersModel.getUserByEmail(data.correo)
-        if (existingUser && existingUser.id !== userId) {
-          return res.status(409).json({ error: 'Email is already in use' })
+
+        if (existingUser && existingUser._id !== userId) {
+          return res.status(409).json({ error: 'El correo ya está en uso' })
         }
       }
 
       // Filtrar los campos permitidos
-      const allowedFields = ['nombre', 'correo', 'direccionEnvio', 'fotoPerfil', 'contraseña']
+      const allowedFields = ['nombre', 'correo', 'direccionEnvio', 'fotoPerfil', 'contraseña', 'bio']
       const filteredData = {}
       Object.keys(data).forEach(key => {
         if (allowedFields.includes(key)) {
@@ -214,7 +215,27 @@ export class UsersController {
         res.status(404).json({ error: 'User not found or not updated' })
       }
 
-      res.status(200).json(user)
+      // Generar un nuevo token con los datos actualizados
+      const newToken = jwt.sign(
+        user,
+        SECRET_KEY,
+        { expiresIn: '3h' } // Tiempo de expiración del token
+      )
+
+      if (!newToken) {
+        return res.status(500).json({ error: 'Error al generar el token' })
+      }
+
+      // Enviar el nuevo token en la cookie
+      res
+        .clearCookie('access_token')
+        .cookie('access_token', newToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'strict',
+          maxAge: 1000 * 60 * 60 * 3 // 3 horas
+        })
+        .json(user)
     } catch (err) {
       console.error('Error updating user:', err)
       res.status(500).json({ error: 'Internal server error' })

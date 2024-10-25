@@ -192,8 +192,6 @@ export default function BookView() {
                             <p key={index}>{item}</p>
                         ))}
 
-                    <h2>Descripción:</h2>
-                    <p>{libro.descripcion}</p>
                 </div>
 
                 <div className="comprarContainer">
@@ -221,14 +219,25 @@ export default function BookView() {
                     </div>
                     <hr />
                     <div className="informacionDelVendedor">
-                    <h2>Productos del vendedor: </h2>
+                    <h2>Productos de {libro.vendedor}: </h2>
                 </div>
                 </div>
 
             </div>
-
-            <div className="comments"></div>
-            <div className="related"></div>
+            <div className="extraBookViewContainer">
+            <div className="description">
+                
+                <h2>Descripción</h2>
+                <p>{libro.descripcion}</p>
+            </div>
+            <div className="comments">
+                <h2>Comentarios</h2>
+            </div>
+            <div className="related">
+                <h2>Productos Relacionados</h2>
+                <div className="leftScrollContainer">{/*relatedProducts.map()*/}</div>
+            </div>
+            </div>
             <SideInfo />
             <Footer />
         </>

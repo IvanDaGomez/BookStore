@@ -219,16 +219,22 @@ class UsersModel {
     try {
       const users = await this.getAllUsers()
 
-      const userIndex = users.findIndex(user => user._id === id)
+      const userIndex = users.findIndex(user => user._id.toString() === id.toString())
       if (userIndex === -1) {
         return null // Si no se encuentra el usuario, retorna null
       }
-      if (data.mail) {
-        const emailRepeated = users.splice(userIndex, 1).some(user => user.mail === data.mail)
+      if (data.correo) {
+        const emailRepeated = users
+          .filter(user => user._id.toString() !== id.toString())
+          .some(user => user.correo === data.correo)
         if (emailRepeated) {
-          throw new Error('Email is already in use')
+          throw new Error('El correo ya está en uso')
         }
       }
+      if (data.contraseña) {
+        data.contraseña = await bcrypt.hash(data.contraseña, SALT_ROUNDS)
+      }
+      console.log(data)
       // Actualiza los datos del usuario
       Object.assign(users[userIndex], data)
 
@@ -238,7 +244,7 @@ class UsersModel {
 
       return userObject(users[userIndex])
     } catch (err) {
-      console.error('Error updating user:', err)
+      console.error('Error:', err)
       throw new Error(err)
     }
   }

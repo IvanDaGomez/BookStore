@@ -91,7 +91,7 @@ export default function Usuario() {
                             if (response.ok) {
                                 return response.json();
                             } else {
-                                console.log('Book not found');
+                                console.log('Libro no encontrado');
                                 return null;
                             }
                         })

@@ -4,6 +4,7 @@ import SideInfo from "../../components/sideInfo";
 import Footer from "../../components/footer";
 import useBotonSelect from "../../assets/botonSelect";
 import { validarActualizarUsuario } from "../../assets/validarPublicar";
+import titleCase from "../../assets/toTitleCase";
 
 export default function EditarUsuario() {
     const [user, setUser] = useState(null);
@@ -23,16 +24,13 @@ export default function EditarUsuario() {
                     method: 'POST',
                     credentials: 'include',
                 });
-
+                
                 if (response.ok) {
                     const data = await response.json();
+                    
+                    setForm()
                     setUser(data.user);
-                    setEstadoCuenta(data.user.estadoCuenta);
-                    setForm({
-                        nombre: data.user.nombre,
-                        bio: data.user.bio,
-                        estadoCuenta: data.user.estadoCuenta,
-                    });
+                    setEstadoCuenta(titleCase(data.user.estadoCuenta));
                 } else {
                     window.location.href = '/popUp/noUser';
                 }
@@ -57,7 +55,7 @@ export default function EditarUsuario() {
                 if (response.ok) {
                     const data = await response.json();
                     setCorreo(data.correo);
-                    setForm({ ...form, correo: data.correo });
+                    
                 }
             } catch (error) {
                 console.error('Error fetching user email:', error);
@@ -77,6 +75,7 @@ export default function EditarUsuario() {
                     ? `http://localhost:3030/uploads/${user.fotoPerfil}`
                     : 'http://localhost:3030/uploads/default.jpg'
             );
+
         }
     }, [user, correo]);
 
@@ -140,6 +139,8 @@ export default function EditarUsuario() {
         setErrors([]);
 
         const formData = new FormData();
+        setForm({ ...form, contraseña: (nuevaContraseña) ? nuevaContraseña: '' })
+
         if (newImage) {
             formData.append('images', newImage, newImage.name); // Append new image
         }
@@ -149,9 +150,7 @@ export default function EditarUsuario() {
         }
 
         formData.append("actualizadoEn", new Date().toISOString());
-        for (let pair of formData.entries()) {
-          console.log(pair[0] + ': ' + pair[1]); // Logs key-value pairs
-        }
+
         try {
             const URL = `http://localhost:3030/api/users/${user._id}`;
             const response = await fetch(URL, {
@@ -160,12 +159,9 @@ export default function EditarUsuario() {
                 credentials: 'include',
             });
 
-            if (!response.ok) {
-                throw new Error('Error en la solicitud: ' + response.status);
-            }
-
             const data = await response.json();
             if (data.error) {
+                setErrors([...errors, data.error])
                 console.error(data.error);
                 return;
             }
@@ -184,8 +180,10 @@ export default function EditarUsuario() {
                     <div className="editarUsuario">
                         <div className="editarFotoContainer">
                             <img src={fotoPerfil} alt="Profile" />
-                            <input type="file" name="fotoPerfil" />
+                            <input id='inputFotoPerfil'type="file" name="fotoPerfil" />
+
                         </div>
+                        <button onClick={()=> document.querySelector('.inputFotoPerfil').click() }>Cambiar Foto</button>
                         <div className="inputCrear">
                             <label htmlFor="nombre">Nombre</label>
                             <input id="nombre" type="text" name="nombre" placeholder="Tu nombre" />
