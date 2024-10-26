@@ -56,7 +56,7 @@ export default function Usuario() {
     useEffect(() => {
         async function fetchResults() {
             try {
-                if (idVendedor && user) {
+                if (idVendedor) {
                     const response = await fetch(`http://localhost:3030/api/users/${idVendedor}`, {
                         method: 'GET',
                         credentials: 'include',
@@ -66,8 +66,10 @@ export default function Usuario() {
                     }
                     const data = await response.json();
                     setUsuario(data);
-                    if (data._id === user._id) {
-                        setPermisos(true);
+                    if (user){
+                        if (data._id === user._id) {
+                            setPermisos(true);
+                        }
                     }
                 }
             } catch (error) {

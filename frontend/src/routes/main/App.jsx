@@ -7,12 +7,17 @@ import Sections from '../sections.jsx'
 import './App.css'
 import { useState } from 'react'
 import { useEffect } from 'react'
+import { Carousel } from '../../components/photoCarrousel.jsx'
+
 
 // eslint-disable-next-line react/prop-types
 function App() {
   const [notification, setNotification] = useState('');
   const { info } = useParams();
   
+  useEffect(()=>{
+    window.scrollTo(0,0)
+  },[])
   useEffect(() => {
     switch (info) {
       case 'exitoCreandoLibro':
@@ -102,18 +107,34 @@ function App() {
     return null; // En caso de no haber notificación
   };
 
+
+  const slides = [
+      {
+        "src": "/slide1.jpg",
+        "alt": "Image 1 for carousel"
+      },
+      {
+        "src": "/slide2.png",
+        "alt": "Image 2 for carousel"
+      },
+      {
+        "src": "https://picsum.photos/seed/img3/600/400",
+        "alt": "Image 3 for carousel"
+      }
+    ]
   return (
     <>
       {renderNotification()}
       <Header />
       
-      <div className="IntroDiv">
+      <Carousel data={slides}/>
+      {/*<div className="IntroDiv">
         <div>
           <h2>El mejor lugar para vender y comprar tus libros favoritos</h2>
           <p>Nutre tu conocimiento con los libros que quieras</p>
           <Link to="/search" style={{width:"auto"}}><button className='boton'>Comienza Ahora</button></Link>
         </div>      
-      </div>
+      </div>*/}
       <Sections filter={"Nuevo"} backgroundColor={"#00ff00"}/>
       <Sections filter={"Para ti"} />
       <SideInfo/>

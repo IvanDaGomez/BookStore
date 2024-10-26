@@ -11,6 +11,7 @@ import Usuario from './routes/usuarios/Usuario.jsx'
 
 import './index.css'
 import EditarUsuario from './routes/usuarios/editarUsuario.jsx'
+import Checkout from './routes/checkout/checkout.jsx'
 
 
 
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
   {
     path: '/usuarios/editarUsuario',
     element: <EditarUsuario/>
+  },
+  {
+    path: '/checkout/:libroId',
+    element: <Checkout />
   }
 ])
 createRoot(document.getElementById('root')).render(

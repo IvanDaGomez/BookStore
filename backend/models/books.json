@@ -33,13 +33,7 @@
     "images": [
       "1729539129828-894296334.png"
     ],
-    "keywords": [
-      "Bill Cipher",
-      "Gravity Falls",
-      "Aventura",
-      "Misterio",
-      "Ilustración"
-    ],
+    "keywords": [],
     "_id": "31d52487-f746-4951-bf11-7b41febea0a9",
     "descripcion": "El libro de Bill es una fascinante obra que se sumerge en el mundo de Bill Cipher, el enigmático y carismático villano de la popular serie de televisión Gravity Falls. A través de ilustraciones vibrantes y un estilo narrativo envolvente, Alex Hirsch nos presenta la historia de Bill y sus aventuras, así como su intrincada personalidad. Con un tono lleno de humor oscuro y giros inesperados, el libro explora los temas de la amistad, la traición y el poder, ofreciendo a los fanáticos de la serie una mirada única a la mente de uno de sus personajes más intrigantes. La obra combina elementos de fantasía y misterio, haciéndola accesible tanto para jóvenes como para adultos.",
     "estado": "Reacondicionado",
@@ -52,9 +46,15 @@
     "tapa": "",
     "edad": "",
     "fechaPublicacion": "2024-10-21T19:32:09.751Z",
-    "actualizadoEn": "2024-10-21T19:32:09.848Z",
+    "actualizadoEn": "2024-10-26T18:05:09.322Z",
     "disponibilidad": "Disponible",
-    "formato": "Físico"
+    "formato": "Físico",
+    "mensajes": [
+      [
+        "¿Cuál es el costo del producto?",
+        ""
+      ]
+    ]
   },
   {
     "titulo": "Recupera tu mente, reconquista tu vida",
@@ -64,13 +64,7 @@
     "images": [
       "1729452261759-326590439.png"
     ],
-    "keywords": [
-      "Concentración",
-      "Gestión Emocional",
-      "Adicciones digitales",
-      "Ansiedad y estrés",
-      "Dopamina"
-    ],
+    "keywords": [],
     "_id": "3f7ab023-15e7-4626-8890-a71f4f2e221c",
     "descripcion": "Este libro aborda los retos de vivir en una sociedad hiperconectada, donde la gratificación inmediata y las distracciones constantes han debilitado nuestra capacidad de concentración y gestión emocional. Marian Rojas Estapé, desde su perspectiva como psiquiatra, ofrece herramientas para rescatar la atención perdida, comprender mejor las emociones y recuperar el control de la vida. El libro explora temas como el impacto de las pantallas, las adicciones digitales, la dopamina y los efectos del estrés y la ansiedad, con el objetivo de ayudar al lector a encontrar un equilibrio mental y emocional.",
     "estado": "Nuevo",
@@ -83,8 +77,14 @@
     "tapa": "Sin tapa",
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:24:21.509Z",
-    "actualizadoEn": "2024-10-20T19:24:21.833Z",
-    "disponibilidad": "Disponible"
+    "actualizadoEn": "2024-10-26T23:06:24.758Z",
+    "disponibilidad": "Disponible",
+    "mensajes": [
+      [
+        "¿En qué estado se encuentra el producto?",
+        ""
+      ]
+    ]
   },
   {
     "titulo": "Deja de ser tú",
@@ -94,9 +94,7 @@
     "images": [
       "1729452808628-497173399.png"
     ],
-    "keywords": [
-      "Cambio de hábitos"
-    ],
+    "keywords": [],
     "_id": "9f8eae32-d2c3-4739-87e5-4c95dc1a665c",
     "descripcion": "Deja de ser tú: La mente crea la realidad de Joe Dispenza explora cómo nuestras creencias y pensamientos condicionan nuestra vida. A través de una combinación de física cuántica, neurociencia, biología y genética, el autor ofrece herramientas para reprogramar el cerebro y alcanzar un estado superior de conciencia. Dispenza sugiere que es posible romper patrones mentales negativos y transformar la realidad personal mediante la meditación y la autosuperación, logrando prosperidad y bienestar emocional.",
     "estado": "Nuevo",
@@ -109,8 +107,14 @@
     "tapa": "Dura",
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:33:28.373Z",
-    "actualizadoEn": "2024-10-20T19:33:28.701Z",
-    "disponibilidad": "Disponible"
+    "actualizadoEn": "2024-10-26T17:18:29.662Z",
+    "disponibilidad": "Disponible",
+    "mensajes": [
+      [
+        "¿Cómo puedo hacer una devolución?",
+        ""
+      ]
+    ]
   },
   {
     "titulo": "La vegetariana",

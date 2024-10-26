@@ -209,10 +209,12 @@ const openExtraInfo = async (str) => {
             </div>
             <header>
                 <div className="flex-between">
+                <Link to="/">
                 <div className="headerIzq">
-                    <Link to="/"><img loading="lazy" src="/logo.png" alt="" /></Link>
+                    <img loading="lazy" src="/logo.png" alt="" />
                    <h1 style={{fontFamily: 'Gentium Book Plus', color:"#"}} >  Meridian</h1>
                 </div>
+                </Link>
 
                 <div className="indice headerCen desaparecer">
                     <Link to="/"><p>Inicio</p></Link>
@@ -308,6 +310,11 @@ const openExtraInfo = async (str) => {
                 <Link to={`/usuarios/${user._id}`}>
                 <div className="profileElement">
                     Mis Libros
+                </div>
+                </Link>
+                <Link to="/mensajes">
+                <div className="profileElement">
+                    <span>Mis mensajes</span>
                 </div>
                 </Link>
                 <div className="profileElement" onClick={()=>{

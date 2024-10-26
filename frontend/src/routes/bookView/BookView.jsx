@@ -7,7 +7,7 @@ import Footer from "../../components/footer";
 import ErrorPage from "../../components/errorPage";
 import { makeCard, makeSmallCard } from "../../assets/makeCard";
 import { cambiarEspacioAGuiones } from "../../assets/agregarMas";
-import { toast, ToastContainer } from "react-toastify"
+//import { toast, ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function BookView() {
@@ -216,7 +216,7 @@ export default function BookView() {
                     return; // Salir de la función si hay un error
                 }
                 
-                window.alert('libro enviado exitosamente')
+                window.alert('Pregunta enviada exitosamente')
                 
             } catch (error) {
                 console.error('Error al enviar la solicitud:', error);
@@ -384,17 +384,17 @@ export default function BookView() {
                 <h2>Descripción</h2>
                 <p>{libro.descripcion}</p>
             </div>
-            <div className="related">
-                <h2>Productos Relacionados</h2>
-                
-                {librosRelacionados && libro && (
-                    <div className="leftScrollContainer">
-                        {librosRelacionados.filter(element=> element._id !== libro._id).map((element, index) => makeCard(element, index))}
-                    </div>
-                    )}
-            </div>
-            </div>
+
             
+                {(librosRelacionados.filter(element=> element._id !== libro._id).length !==0  && libro) ? (
+                    <div className="related">
+                        <h2>Productos Relacionados</h2>
+                        <div className="leftScrollContainer">
+                        {librosRelacionados.filter(element=> element._id !== libro._id).map((element, index) => makeCard(element, index))}
+                        </div>
+                    </div>
+            ): <></>}
+            </div>
 
             <SideInfo />
             <Footer />

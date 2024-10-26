@@ -34,7 +34,7 @@
   font-family: "Manrope","Kanit", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: bold;
-  font-size: 0.4rem;
+  font-size: calc(3px + 0.25vw);
   color-scheme: light dark;
   color: var(--using3);
 
@@ -200,7 +200,9 @@ header .flex-between{
   text-align: center;
 
 }
-
+.headerIzq{
+  cursor: pointer;
+}
 .headerIzq img{
   height:50px;
   filter: drop-shadow(0 0 5px white);
@@ -707,6 +709,75 @@ input:-internal-autofill-selected {
   }
 }
 
+/*----------------------------------Carrusel del fotos--------------------------*/
+
+.carousel {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(100vw - 40px);
+  margin: auto;
+  aspect-ratio: 4/1;
+  border-bottom: 2px solid var(--using3);
+  box-shadow: 0px 0px 7px #666;
+  background: white;
+  overflow: hidden;
+}
+
+.slide {
+  height: 100%;  
+}
+
+.slide-hidden {
+  display: none;
+}
+
+.arrow {
+  position: absolute;
+  filter: drop-shadow(0px 0px 5px #555);
+  width: 30px;
+  height: 30px;
+  color: white;
+  transition: all .2s ease-in-out;
+}
+.arrow:hover{
+  transform: scale(1.1);
+}
+.arrow:hover {
+  cursor: pointer;
+}
+
+.arrow-left {
+  left: 1rem;
+}
+
+.arrow-right {
+  right: 1rem;
+}
+
+.indicators {
+  display: flex;
+  position: absolute;
+  bottom: 1rem;
+}
+
+.indicator {
+  all: unset;
+  background-color: white;
+  
+  height: 15px;
+  width: 15px;
+  border-radius: 50%;
+
+  box-shadow: 0px 0px 5px #555;
+  margin: 0 0.2rem;
+  cursor: pointer;
+}
+
+.indicator-inactive {
+  background-color: grey;
+}
 
 /*----------------------------------SECTIONS-FILTERS------------------*/
 .sectionsContainer{
@@ -967,130 +1038,128 @@ color: var(--using6);
 
 
 
+/* Footer.css */
 
-footer {
-  width: 100vw;
-  height: auto;
-  background: var(--using5);
+.footer {
+  background-color: var(--using4);
+  padding: 20px 40px;
+  color: var(--using1);
+}
+.footer *{
+  color: var(--using1);
+}
+.footer-content {
   display: grid;
-  grid-template-columns: 20% 1fr 30%;
-  place-items: center;
-  padding: 10px 50px;
-  color:var(--using3);
-  border-top: 2px solid var(--using2);
-}
-@media only screen and (max-width:834px) {
-  footer{
-    grid-template-columns: 1fr;
-  }
-  .footer-section img{
-    width:200px;
-  }
-  .intro{
-    grid-template-columns: 1fr;
-  }
-  .crazyImg{
-    width:80%;
-  }
-}
-
-.lastFooter {
-  width: 100vw;
-  height: 40px;
-  background: var(--using3);
-  display: flex;
-  justify-content: space-between;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
   align-items: center;
-}
-
-.lastFooter div {
-  display: inline-flex;
-  width: 100px;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
 .footer-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
- 
+  flex: 1;
+  margin: 0 15px;
+  width: 100%;
+  text-align: center;
+  height: 100%;
 }
-
-.footer-section h3 {
-  margin-bottom: 10px;
-  
+.footer-section h1{
+  font-size: 8rem;
+  font-family: 'Gentium Book Plus';
 }
-.footer-section img{
-  width:100%;
-  filter: drop-shadow(5px 0 0 white) drop-shadow(-5px 0 0 white) drop-shadow(0 5px 0 white) drop-shadow(0 -5px 0 white);
-}
-.footer-section p, .footer-section ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+.footer-section h2 {
+  font-size: 3rem;
+  color: #4a90e2;
+  margin: auto;
   text-align: center;
 }
 
-.footer-section ul li {
-  margin: 5px 0;
-}
-
-.imgFooter{
-  color: var(--using3);
-  width:10vw;
-}
-.imagesGrid{
-
-  width:100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin:10px;
-}
-
-.social{
-  color:var(--using3);
-  width:20px;
-  height:20px;
-  
-}
-
-.socialContainer{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 5px;
-  width:40px;
-  height:40px;
+.inputFooter{
+  all: unset;
+  border: 1px solid var(--using3);
+  background: white;
+  color: black;
+  border-radius: 10px;
+  width: 300px;
+  font-size: 2.5rem;
+  padding: 10px;
   border-radius: 5px;
-  transition: all 200ms ease-in-out;
 }
-.socialContainer:hover .social{
-  color:var(--using1);
+.brand p{
+  font-size: 3rem;
 }
-.instagram:hover{
-  background: linear-gradient(180deg, #515BD4,#8134AF,#DD2A7B);
-  transform: scale(1.2);
-  cursor: pointer;
-}
-
-.facebook:hover{
-  background: #4267B2;
-  transform: scale(1.2);
-  cursor: pointer;
-}
-.X:hover{
-  background: black;
-  
-  transform: scale(1.2);
-  cursor: pointer;
+.app-buttons {
+  width: 80%;
+  display: flex;
+  gap: 10px;
+  margin: 10px auto 0 auto;
 }
 
-.youtube:hover{
-  background:  #c4302b;
-  transform: scale(1.2);
+.app-button {
+  background-color: black;
+  color: white;
+  border: none;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  gap: 5px;
   cursor: pointer;
+  border-radius: 5px;
 }
+.app-button *:not(p){
+  height: 36px;
+}
+.app-button:hover {
+  background-color: gray;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.footer-section ul li {
+  margin: 5px auto;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+  border-top: 1px solid #ccc;
+}
+
+
+.newsletter button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-left: 10px;
+}
+
+.social-icons * {
+  color: #4a90e2;
+  font-size: 20px;
+  margin: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 3px;
+  transition: all .3s ease-in-out;
+}
+
+.social-icons *:hover {
+  background: white;
+  color: var(--using4);
+}
+.soci
+
 
 
 /*-----------------------------CONTENEDOR DE LOS LIBROS-------------------------*/
@@ -1305,7 +1374,7 @@ footer {
 .comments button{
   width: auto;
   margin: 0 10px 10px 0;
- 
+ padding: 5px;
 }
 .comments .ask-section{
   width: 100%;
