@@ -35,14 +35,17 @@ export class BooksController {
 
   static async getBookByQuery (req, res) {
     try {
-      let { q } = req.query // Obtener el valor del parámetro de consulta 'q'
+      let { q, l } = req.query // Obtener el valor del parámetro de consulta 'q'
       q = cambiarGuionesAEspacio(q)
 
       if (!q) {
         return res.status(400).json({ error: 'Query parameter "q" es requerido' })
       }
+      if (!l) {
+        l = 24
+      }
 
-      const books = await BooksModel.getBookByQuery(q) // Asegurarse de implementar este método en BooksModel
+      const books = await BooksModel.getBookByQuery(q, l) // Asegurarse de implementar este método en BooksModel
       if (books.length === 0) {
         return res.status(404).json({ error: 'No se encontraron libros' })
       }
@@ -167,34 +170,69 @@ export class BooksController {
   }
 
   static async updateBook (req, res) {
-    // Las imagenes pasarlas a algo permanente
     try {
       const { bookId } = req.params
       const data = req.body
 
+      // Obtener el libro existente para obtener los mensajes actuales
+      const existingBook = await BooksModel.getBookById(bookId)
+      if (!existingBook) {
+        return res.status(404).json({ error: 'Book not found' })
+      }
+
+      // Asegúrate de que los precios y ofertas sean números
       if (data.oferta) data.oferta = parseInt(data.oferta)
-      data.precio = parseInt(data.precio)
+      if (data.precio) data.precio = parseInt(data.precio)
+
       // Manejo de keywords
       if (data.keywords && typeof data.keywords === 'string') {
         data.keywords = data.keywords.split(',').map(keyword => keyword.trim()).filter(keyword => keyword)
       } else {
-        data.keywords = [] // Or handle as needed if no keywords are provided
+        data.keywords = [] // Manejo de caso si no se proporcionan keywords
       }
-      // Imagenes
-      // Diferentes tamaños
-      if (req.files) data.images = req.files.map(file => `${file.filename}`)
+
+      // Imágenes
+      if (req.files) {
+        data.images = req.files.map(file => `${file.filename}`)
+      }
+
       // Validar datos
       const validated = validatePartialBook(data)
       if (!validated.success) {
         return res.status(400).json({ error: 'Error Validating book', details: validated.error.errors })
       }
+      // Manejo del mensaje
+      if (data.mensaje && data.tipo) {
+        // Inicializa el array de mensajes si no existe
+        const messagesArray = existingBook.mensajes || []
 
+        if (data.tipo === 'pregunta') {
+          // Verifica si la pregunta ya existe
+          const questionIndex = messagesArray.findIndex(item => item[0] === data.mensaje)
+
+          if (questionIndex === -1) { // Si no se encuentra, se puede agregar
+            messagesArray.push([data.mensaje, ''])
+          }
+        } else if (data.tipo === 'respuesta' && data.pregunta) {
+          // Busca la pregunta correspondiente
+          const questionIndex = messagesArray.findIndex(
+            item => item[0] === data.pregunta // Verificamos si el mensaje.pregunta coincide con el mensaje
+          )
+          if (questionIndex !== -1) {
+            // Si encontramos la pregunta, agregamos la respuesta
+            messagesArray[questionIndex][1].push(data.mensaje)
+          }
+        }
+
+        data.mensajes = messagesArray // Actualiza los mensajes en los datos
+      }
       // Filtrar los campos permitidos
       const allowedFields = [
         'titulo', 'autor', 'precio', 'oferta', 'formato', 'images', 'keywords', 'descripcion',
         'estado', 'genero', 'vendedor', 'idVendedor', 'edicion', 'idioma',
-        'ubicacion', 'tapa', 'edad', 'fechaPublicacion', 'actualizadoEn', 'disponibilidad'
+        'ubicacion', 'tapa', 'edad', 'fechaPublicacion', 'actualizadoEn', 'disponibilidad', 'mensajes'
       ]
+
       const filteredData = {}
       Object.keys(data).forEach(key => {
         if (allowedFields.includes(key)) {
@@ -207,13 +245,13 @@ export class BooksController {
       // Actualizar libro
       const book = await BooksModel.updateBook(bookId, filteredData)
       if (!book) {
-        res.status(404).json({ error: 'Book not found or not updated' })
+        return res.status(404).json({ error: 'Book not found or not updated' })
       }
 
       res.status(200).json(book)
     } catch (err) {
       console.error('Error updating book:', err)
-      res.status(500).json({ error: err })
+      res.status(500).json({ error: err.message })
     }
   }
 }

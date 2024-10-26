@@ -210,17 +210,19 @@ header .flex-between{
   width:50vw;
   
 }
+
 .headerCen *{
   cursor: pointer;
 }
 
-.indice a{
+.indice p{
   text-decoration: none;
+  font-size: 2.2rem;
   color:inherit;
   transition: all 100ms ease-in-out;
   
 }
-.indice a:hover{
+.indice p:hover{
   text-decoration: underline;
   transform: scale(1.1);
 }
@@ -371,12 +373,10 @@ header .flex-between{
   background-color: var(--using4); /* Slightly darker blue on hover */
   cursor: pointer;
 }
-.profile{
+.profile, .heart, .notification{
   margin: 0 10px;
 }
-.heart{
-  margin: 0 20px;
-}
+
 .profileContainer {
   position: fixed;
   left: calc(100vw - 170px);
@@ -1104,7 +1104,7 @@ footer {
 
 .libroContenedor{
   width:max(80vw, 480px);
-  height:max(auto, 1000px);
+  height:auto;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap:10px;
@@ -1112,6 +1112,7 @@ footer {
   padding: 10px;
   border-radius: 5px;
 }
+
 .libroContenedor .imagesContainer{
   width:100%;
   height:auto;
@@ -1193,7 +1194,8 @@ footer {
   border-radius: 5px;
   text-align: left;
   padding: 20px;
-  
+  overflow: hidden; /* Prevents content from overflowing */
+  min-width: 0;     /* Allow columns to shrink properly */
 }
 .libroContenedor .comprarContainer h3{
   font-size: 2.5rem;
@@ -1234,6 +1236,10 @@ footer {
   color: var(--using4);
   background: var(--using1);
 }
+.botonInverso:hover{
+  color: var(--using1);
+  background: #380050;
+}
 .actualImageContainer {
   position: relative;
 }
@@ -1270,6 +1276,10 @@ footer {
   align-items: center;
   flex-direction: column;
 }
+.extraBookViewContainer div{
+  margin: 10px 0;
+  border-radius: 10px;
+}
 .extraBookViewContainer h2{
   font-size: 3rem;
 }
@@ -1284,7 +1294,124 @@ footer {
   overflow-y: scroll;
 
 }
+.comments .separar{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
+  gap:10px;
+  overflow: hidden; /* Prevents content from overflowing */
+  min-width: 0;     /* Allow columns to shrink properly */
+}
+.comments button{
+  width: auto;
+  margin: 0 10px 10px 0;
+ 
+}
+.comments .ask-section{
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: auto;
+}
 
+.comments .ask-section textarea{
+   all: unset;
+   font-size: 3rem;
+   border-radius: 10px;
+   background: var(--using1);
+   border: 1px solid var(--using2);
+   padding: 7px;
+   width: 100%;
+
+  margin-right: 20px;
+}
+.comments .comentarios{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  overflow-y: scroll;
+}
+
+
+.mensajeContainer {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  
+}
+
+.mensaje {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.respuesta {
+  font-size: 14px;
+  color: #555;
+  margin-top: 0;
+  border-top: 1px dashed #ddd;
+  padding-top: 5px;
+}
+
+.smallCardContainer{
+  height: 200px; /* Height de sectionElement+margin*/
+  width: auto;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 10px;
+}
+.smallCardContainer .sectionElement{
+  margin: 10px;
+  height: 180px;
+  width: 120px;
+  
+}
+.smallCardContainer .sectionElement .percentageElement{
+  width: auto;
+  margin: 0;
+  padding: 3px;
+}
+.smallCardContainer .sectionElement .imageElementContainer{
+  
+  aspect-ratio: 2 / 3;
+  align-items: start;
+}
+.smallCardContainer .sectionElement h2{
+  font-size: 2rem;
+
+}
+
+.related .leftScrollContainer{
+  width: auto;
+  height: 350px;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.related .leftScrollContainer .sectionElement{
+  height: 330px;
+  width: 200px;
+  margin: 10px;
+  padding: 5px;
+} 
+.related .leftScrollContainer .sectionElement .imageContainer{
+  width:100%;
+  background-repeat: no-repeat
+}
 /*---------------------------------------------LOGIN--------------------------------------------------------*/
 
 .login-container {

@@ -2,10 +2,10 @@ import { reduceText } from "./reduceText"
 import { Link } from "react-router-dom";
 const makeCard = (element, index) => {
     return (
-      <Link style={{width:'100%', height:'100%'}} to={`${window.location.origin}/libros/${element._id}`}>
-            <div className="sectionElement" key={index}>
+      <Link key={index} style={{width:'100%', height:'100%'}} to={`${window.location.origin}/libros/${element._id}`}>
+            <div className="sectionElement" >
                 
-                <div className="imageElementContainer"  style={{backgroundImage: `url(http://localhost:3030/uploads/${element.images[0]})`}}>
+                <div className="imageElementContainer"  style={{backgroundImage: `url(http://localhost:3030/uploads/${element.images[0]})`, backgroundRepeat: 'no-repeat'}}>
                 {(element.oferta) ? <div className="percentageElement">
                     { Math.ceil(((1 - element.oferta / element.precio) * 100).toFixed(2) / 5) * 5 + '% de descuento'}
                 </div>:<div style={{padding:"calc(10px + 1rem)"}}></div>}
@@ -44,8 +44,8 @@ const makeCard = (element, index) => {
 
 const makeOneFrCard = (element, index) => {
     return (
-      <Link style={{width:'100%', height:'100%'}} to={`${window.location.origin}/libros/${element._id}`}>
-      <div key={index} className="cardContainer" >
+      <Link key={index} style={{width:'100%', height:'100%'}} to={`${window.location.origin}/libros/${element._id}`}>
+      <div className="cardContainer" >
         
         {/* Imagen de los auriculares */}
         <div className="imageContainer" style={{ textAlign: 'center' }}>
@@ -101,10 +101,10 @@ const makeOneFrCard = (element, index) => {
   const makeUpdateCard = (element, index) => {
     
     return (
-            <Link style={{width:'100%', height:'100%'}} to={`${window.location.origin}/libros/${element._id}`}>
-            <div className="sectionElement" key={index}>
+            <Link key={index} style={{width:'100%', height:'100%'}} to={`${window.location.origin}/libros/${element._id}`}>
+            <div className="sectionElement" >
                 
-                <div className="imageElementContainer"  style={{backgroundImage: `url(http://localhost:3030/uploads/${element.images[0]})`}}>
+                <div className="imageElementContainer"  style={{backgroundImage: `url(http://localhost:3030/uploads/${element.images[0]})`, backgroundRepeat: 'no-repeat'}}>
                 {(element.oferta) ? <div className="percentageElement">
                     { Math.ceil(((1 - element.oferta / element.precio) * 100).toFixed(2) / 5) * 5 + '% de descuento'}
                 </div>:<div style={{padding:"calc(10px + 1rem)"}}></div>}
@@ -139,4 +139,26 @@ const makeOneFrCard = (element, index) => {
 
     )
 }
-export { makeCard, makeOneFrCard, makeUpdateCard };
+
+const makeSmallCard = (element, index) => {
+  return(<>
+  <Link key={index} style={{width:'100%', height:'100%'}} to={`${window.location.origin}/libros/${element._id}`}>
+            <div className="sectionElement" >
+                
+                <div className="imageElementContainer"  style={{backgroundImage: `url(http://localhost:3030/uploads/${element.images[0]})`, backgroundRepeat: 'no-repeat'}}>
+                {(element.oferta) ? <div className="percentageElement">
+                    { Math.ceil(((1 - element.oferta / element.precio) * 100).toFixed(2) / 5) * 5 + '%'}
+                </div>:<div style={{padding:"calc(10px + 1rem)"}}></div>}
+                </div>
+                
+                <h2>{reduceText(element.titulo,33)}</h2>
+                
+                <div className="precioSections">{(element.oferta) ? <><h2>${element.oferta.toLocaleString('es-CO')}</h2></>: <><h2>${element.precio.toLocaleString('es-CO')}</h2></>}
+                </div>
+
+                
+            </div>
+            </Link>
+  </>)
+}
+export { makeCard, makeOneFrCard, makeUpdateCard, makeSmallCard };

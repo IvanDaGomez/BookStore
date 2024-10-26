@@ -1,14 +1,14 @@
 {
     "Libros": {
-        "recomendaciones": ["Cien años de soledad - Gabriel García Márquez", "1984 - George Orwell", "El amor en los tiempos del cólera - Gabriel García Márquez", "El gran Gatsby - F. Scott Fitzgerald"],
-        "masVendidos": ["Don Quijote de la Mancha - Miguel de Cervantes", "Harry Potter y la piedra filosofal - J.K. Rowling", "El código Da Vinci - Dan Brown", "Los juegos del hambre - Suzanne Collins"],
-        "masBuscados": ["Sapiens: De animales a dioses - Yuval Noah Harari", "El hombre en busca de sentido - Viktor Frankl", "El alquimista - Paulo Coelho", "La sombra del viento - Carlos Ruiz Zafón"],
-        "buscadoRecientemente": ["Ficción", "No ficción", "Ciencia ficción", "Fantasía"]
+        "recomendaciones": ["Cien años de soledad", "1984", "El amor en los tiempos del cólera", "El gran Gatsby"],
+        "masVendidos": ["Don Quijote", "Harry Potter 1", "El código Da Vinci", "Los juegos del hambre"],
+        "masBuscados": ["Sapiens", "El hombre en busca de sentido", "El alquimista", "La sombra del viento"],
+        "buscadoRecientemente": ["Ficción", "No ficción", "Sci-fi", "Fantasía"]
     },
     "Autores": {
-        "recomendaciones": ["Gabriel García Márquez", "George Orwell", "Isabel Allende", "Haruki Murakami"],
-        "masVendidos": ["J.K. Rowling", "Stephen King", "Dan Brown", "James Patterson"],
-        "masBuscados": ["Yuval Noah Harari", "Viktor Frankl", "Paulo Coelho", "Carlos Ruiz Zafón"],
-        "buscadoRecientemente": ["Literatura clásica", "Ciencia ficción", "Fantasía", "Autoayuda"]
+        "recomendaciones": ["García Márquez", "Orwell", "Isabel Allende", "Murakami"],
+        "masVendidos": ["J.K. Rowling", "Stephen King", "Dan Brown", "Patterson"],
+        "masBuscados": ["Yuval Noah Harari", "Viktor Frankl", "Paulo Coelho", "Ruiz Zafón"],
+        "buscadoRecientemente": ["Clásicos", "Sci-fi", "Fantasía", "Autoayuda"]
     }
 }

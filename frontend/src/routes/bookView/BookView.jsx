@@ -5,6 +5,10 @@ import Header from "../../components/header";
 import SideInfo from "../../components/sideInfo";
 import Footer from "../../components/footer";
 import ErrorPage from "../../components/errorPage";
+import { makeCard, makeSmallCard } from "../../assets/makeCard";
+import { cambiarEspacioAGuiones } from "../../assets/agregarMas";
+import { toast, ToastContainer } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function BookView() {
     const { bookId } = useParams();
@@ -12,8 +16,14 @@ export default function BookView() {
     const [loading, setLoading] = useState(true); // Estado de carga
     const [actualImage, setActualImage] = useState("");
     const [isZoomed, setIsZoomed] = useState(false);
+    const [librosRelacionadosVendedor, setLibrosRelacionadosVendedor] = useState([])
+    const [librosRelacionados, setLibrosRelacionados] = useState([])
     const actualImageRef = useRef(null);
 
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+      }, []);
     useEffect(() => {
         async function fetchLibro(id) {
             const url = `http://localhost:3030/api/books/${id}`
@@ -23,11 +33,9 @@ export default function BookView() {
                     credentials: "include"
                 });
                 if (!response.ok) {
-                    setLibro({});
-                    throw new Error("Network response was not ok");
+                    window.location.href = '/popUp/libroNoEncontrado'
                 }
                 const book = await response.json();
-                
                 setLibro(book || {}); // Asegurar que el libro existe o dejar vacío
                 const imageUrl = book.images[0]
                 ? `http://localhost:3030/uploads/${book.images[0]}` // Ruta completa hacia las imagenes
@@ -44,6 +52,59 @@ export default function BookView() {
         fetchLibro(bookId);
     }, [bookId]);
 
+    useEffect(()=>{
+        async function fetchLibroRelacionadoVendedor() {
+            let libros = []
+            if (libro) {
+                
+                const urlUsers = 'http://localhost:3030/api/users/'
+                const data = await fetch(urlUsers + libro.idVendedor).then(res=> res.json())
+                if (data.error){
+                    console.error(data.error)
+                    return
+                }
+
+                const librosIds = data.librosIds
+
+                // Conseguir los libros del usuario
+                const urlLibros = 'http://localhost:3030/api/books/'
+                for (let i=0; i < librosIds.length; i++){
+                    const data = await fetch(urlLibros + librosIds[i]).then(res=>res.json())
+                    if (data.error){
+                        console.error(data.error)
+                        continue
+                    }
+                    
+                    libros.push(data)
+                }
+                               
+                setLibrosRelacionadosVendedor(libros)
+            }
+        }
+        fetchLibroRelacionadoVendedor()
+
+    },[libro])
+    useEffect(()=>{
+        async function fetchLibroRelacionado() {
+            if (libro) {
+                
+                // Conseguir los libros del usuario
+                const urlLibros = `http://localhost:3030/api/books/query?q=${cambiarEspacioAGuiones(libro.titulo)}&l=12`
+                
+                const data = await fetch(urlLibros).then(res=>res.json())
+                
+                if (data.error){
+                    console.error(data.error)
+                    return;
+                }
+                
+                setLibrosRelacionados(data)
+            }
+        }
+        fetchLibroRelacionado()
+        
+
+    },[libro])
     if (loading) {
         return (
             <>
@@ -113,6 +174,56 @@ export default function BookView() {
     return Math.abs(Math.round(diff));
     }
 
+    function handleSetPregunta(str) {
+        const inputPregunta = document.querySelector('.inputPregunta');
+        
+        if (str === 'costo') {
+            inputPregunta.value = '¿Cuál es el costo del producto?';
+        } else if (str === 'devolucion') {
+            inputPregunta.value = '¿Cómo puedo hacer una devolución?';
+        } else if (str === 'metodoPago') {
+            inputPregunta.value = '¿Qué métodos de pago aceptan?';
+        } else if (str === 'estadoProducto') {
+            inputPregunta.value = '¿En qué estado se encuentra el producto?'
+        }
+    }
+    async function handleSubmitPregunta() {
+        const inputPregunta = document.querySelector('.inputPregunta');
+
+        if (!inputPregunta.value){
+            return;
+        }
+        if (libro){
+            const url = `http://localhost:3030/api/books/${libro._id}`;
+                    
+            try {
+                const response = await fetch(url, {
+                    method: 'PUT' ,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        mensaje: inputPregunta.value,
+                        tipo: 'pregunta'
+                        
+                    }),
+                    credentials: 'include'
+                });
+        
+        
+                if (!response.ok) {
+                    // Actualizar el estado de errores usando setErrors
+                    return; // Salir de la función si hay un error
+                }
+                
+                window.alert('libro enviado exitosamente')
+                
+            } catch (error) {
+                console.error('Error al enviar la solicitud:', error);
+                // También puedes agregar el error de catch a los errore
+            }
+        }
+    }
     return (
         <>
             <Header />
@@ -220,24 +331,71 @@ export default function BookView() {
                     <hr />
                     <div className="informacionDelVendedor">
                     <h2>Productos de {libro.vendedor}: </h2>
+                    
+                    {librosRelacionadosVendedor && libro && (
+                    <div className="smallCardContainer">
+                        {librosRelacionadosVendedor
+                        .filter(element=> element._id !== libro._id)
+                        .map((element, index) => makeSmallCard(element, index))}
+                    </div>
+                    )}
                 </div>
                 </div>
 
             </div>
             <div className="extraBookViewContainer">
+            
+            <div className="comments">
+                <div className="separar">
+                <h2>Pregúntale al vendedor</h2>
+                <h2>Preguntas realizadas</h2>
+                </div>
+                <div className="separar">
+                <div>
+                <div className="question-buttons">
+                    <button className='botonInverso' onClick={()=>handleSetPregunta('costo')}>Costo y tiempo de envío</button>
+                    <button className='botonInverso'onClick={()=>handleSetPregunta('devolucion')}>Devoluciones gratis</button>
+                    <button className='botonInverso'onClick={()=>handleSetPregunta('metodoPago')}>Medios de pago</button>
+                    <button className='botonInverso'onClick={()=>handleSetPregunta('estadoProducto')}>Estado del producto</button>
+                </div>
+               
+                <div className="ask-section">
+                    <textarea type="text" className="inputPregunta" placeholder="Escribe tu pregunta..." rows='2'/>
+                    <button onClick={handleSubmitPregunta}className="ask-button">Preguntar</button>
+                </div>
+                </div>
+                <div className="comentarios">
+                    {/*Mensaje
+                        [mensaje, respuesta]
+                    */}
+                    {libro && libro.mensajes && libro.mensajes.filter(mensaje=> mensaje[0] && mensaje[1]).length !== 0 ? libro.mensajes.filter(mensaje=> mensaje[0] && mensaje[1]).slice(0, 3).map((element, index) => (
+                        <div className="mensajeContainer" key={index}>
+                            <p className="mensaje">{element[0]}</p>
+                            <p className="respuesta">{element[1]}</p>
+                        </div>
+                    )): <div className="mensajeContainer">
+                        <p>No hay preguntas sobre este libro</p>
+                    </div> }
+                </div>
+                </div>
+                </div>
             <div className="description">
                 
                 <h2>Descripción</h2>
                 <p>{libro.descripcion}</p>
             </div>
-            <div className="comments">
-                <h2>Comentarios</h2>
-            </div>
             <div className="related">
                 <h2>Productos Relacionados</h2>
-                <div className="leftScrollContainer">{/*relatedProducts.map()*/}</div>
+                
+                {librosRelacionados && libro && (
+                    <div className="leftScrollContainer">
+                        {librosRelacionados.filter(element=> element._id !== libro._id).map((element, index) => makeCard(element, index))}
+                    </div>
+                    )}
             </div>
             </div>
+            
+
             <SideInfo />
             <Footer />
         </>

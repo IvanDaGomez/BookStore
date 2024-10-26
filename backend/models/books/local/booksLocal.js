@@ -51,9 +51,8 @@ class BooksModel {
   }
 
   // Pendiente desarrollar, una buena query para buscar varios patrones
-  static async getBookByQuery (query) {
+  static async getBookByQuery (query, l) {
     const books = await this.getAllBooks()
-
     function changeToArray (element) {
       if (typeof element === 'string' && element.trim() !== '') {
         return element.split(' ').filter(Boolean)
@@ -103,7 +102,7 @@ class BooksModel {
       if (score < queryWords.length * 0.7) return null
 
       return { book, score } // Devolvemos el libro junto con su puntaje si pasa la validación
-    }).filter(item => item !== null) // Filtramos los resultados nulos
+    }).filter(item => item !== null).slice(0, l)
 
     // Ordenamos los libros por el puntaje en orden descendente
     booksWithScores.sort((a, b) => b.score - a.score)
@@ -142,7 +141,8 @@ class BooksModel {
         edad: data.edad || '',
         fechaPublicacion: data.fechaPublicacion || new Date().toISOString(),
         actualizadoEn: data.actualizadoEn || new Date().toISOString(),
-        disponibilidad: data.disponibilidad || 'Disponible'
+        disponibilidad: data.disponibilidad || 'Disponible',
+        mensajes: data.mensajes || []
 
       }
 

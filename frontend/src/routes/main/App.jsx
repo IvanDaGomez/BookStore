@@ -24,7 +24,12 @@ function App() {
       case 'userNotFound':
         setNotification('User not found');
         break;
+      case 'libroNoEncontrado':
+        setNotification('Libro no encontrado');
+        break;
+
       default:
+        
         setNotification('');
         break;
     }
@@ -72,6 +77,22 @@ function App() {
 
           <Link to="/">
             <button className="back-button">Volver a Inicio</button>
+          </Link>
+          </div>
+        </div>
+        </>)
+    }
+    if (notification === 'Libro no encontrado'){
+      return (<>
+        <div className="dropdownBackground"></div>
+        <div className="success-container">
+          <h2>No se encontró el libro</h2>
+          
+          <div>
+
+
+          <Link to="/">
+            <button className="back-button">Volver</button>
           </Link>
           </div>
         </div>
