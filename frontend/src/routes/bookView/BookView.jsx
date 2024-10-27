@@ -23,7 +23,7 @@ export default function BookView() {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-      }, []);
+      }, [bookId]);
     useEffect(() => {
         async function fetchLibro(id) {
             const url = `http://localhost:3030/api/books/${id}`
@@ -312,7 +312,7 @@ export default function BookView() {
                     {(libro.disponibilidad == "Disponible") ? <>
                     <h3>Disponible</h3>
                     
-                    <button >Comprar ahora</button>
+                    {libro && <Link to={`/checkout/${libro._id}`}><button >Comprar ahora</button></Link>}
                     </> : <></>}
                     <button className="botonInverso">Agregar a favoritos</button>
                     <h3>Vendido por:</h3>

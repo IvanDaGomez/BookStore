@@ -16,6 +16,8 @@ export default function SideInfo(){
     }
 
     return(
+        <>
+        {/* 
         <div className="sideInfo" ref={sideInfo}>
             <div className="centrar">
                 <svg className="sideInfoAbrir" style={{transform: (lateralVisible)? "none" : "rotate(180deg)"}} onClick={handleSideInfo} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={40} height={40} color={"#000000"} fill={"none"}>
@@ -23,7 +25,7 @@ export default function SideInfo(){
                 </svg>
             </div>
             <div className="sideReferences">
-            {/*Elementos uno por uno en divs*/}
+            
         
                 
             <a href="https://www.facebook.com/VoleiColombia" target="_blank">
@@ -62,6 +64,7 @@ export default function SideInfo(){
 
             </div>
             </div>
-        
+            */}
+            </>
     )
 }

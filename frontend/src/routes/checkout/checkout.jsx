@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import Fase1 from './Fase1';
-import Fase2 from './Fase2';
-import Fase3 from './Fase3';
-import Fase4 from './Fase4';
+import Fase1 from './fase1';
+import Fase2 from './fase2';
+import Fase3 from './fase3';
+import Fase4 from './fase4';
 import UseStep from '../../components/UseStep';
 import Header from '../../components/header';
 import Footer from '../../components/footer';

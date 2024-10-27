@@ -222,13 +222,7 @@
     "images": [
       "1729454260508-386087744.png"
     ],
-    "keywords": [
-      "Sopas",
-      "Recetas colombianas",
-      "Tradición",
-      "Cultura gastronómica",
-      "Cocina de autor"
-    ],
+    "keywords": [],
     "_id": "ac6773d2-9166-4840-b5cd-995a49b19031",
     "descripcion": "\"100 sopas colombianas\" de Ana Belén Charry es un libro que busca rescatar la tradición culinaria del país a través de una selección de recetas emblemáticas de sopas. La autora, conocida como la \"#antropochef\", viaja por distintas regiones de Colombia para recopilar saberes y sabores transmitidos de forma oral por generaciones. Con esta obra, Charry no solo ofrece recetas, sino también una conexión con la historia y la cultura del país, evocando ese sabor acogedor típico de las abuelas.",
     "estado": "Nuevo",
@@ -241,8 +235,18 @@
     "tapa": "",
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:57:40.347Z",
-    "actualizadoEn": "2024-10-20T19:57:40.561Z",
-    "disponibilidad": "Disponible"
+    "actualizadoEn": "2024-10-27T05:17:45.540Z",
+    "disponibilidad": "Disponible",
+    "mensajes": [
+      [
+        "¿En qué estado se encuentra el producto?",
+        "El producto está en perfecto estado"
+      ],
+      [
+        "¿Cómo puedo hacer una devolución?",
+        "Solo contáctame y hablamos"
+      ]
+    ]
   },
   {
     "titulo": "Globalismo",
@@ -388,7 +392,7 @@
     "precio": 70000,
     "oferta": 60000,
     "images": [
-      "1729624471016-684878733.png"
+      "1729985622956-64165033.png"
     ],
     "keywords": [
       "Colonizacion",
@@ -396,7 +400,7 @@
       "Colon"
     ],
     "_id": "78c534c0-2fa8-40d0-b72a-c5ee34d0a883",
-    "descripcion": "Este libro me habilita todo lo que pueda hacer.",
+    "descripcion": "Este libro me habilita todo lo que pueda hacer. Además tengo pendiente algo más",
     "estado": "Nuevo",
     "genero": "Autoayuda",
     "vendedor": "Ivan David Gomez Silva",
@@ -406,8 +410,8 @@
     "ubicacion": "Buscar",
     "tapa": "Dura",
     "edad": "Adulto",
-    "fechaPublicacion": "2024-10-22T19:14:30.992Z",
-    "actualizadoEn": "2024-10-22T19:14:31.032Z",
+    "fechaPublicacion": "2024-10-26T23:33:42.929Z",
+    "actualizadoEn": "2024-10-26T23:33:42.981Z",
     "disponibilidad": "Disponible",
     "formato": "undefined"
   },

@@ -103,7 +103,7 @@ svg{
 
 button{
   
-  padding: 10px;
+  padding: 5px;
   background: var(--using4);
   color:var(--using1);
   border:none;
@@ -1124,7 +1124,9 @@ color: var(--using6);
 .footer-section ul li {
   margin: 5px auto;
 }
-
+.footer-section ul li:hover{
+  text-decoration: underline;
+}
 .footer-bottom {
   display: flex;
   justify-content: space-between;
@@ -1145,7 +1147,7 @@ color: var(--using6);
 }
 
 .social-icons * {
-  color: #4a90e2;
+  color: white;
   font-size: 20px;
   margin: 10px;
   border-radius: 5px;
@@ -1154,11 +1156,7 @@ color: var(--using6);
   transition: all .3s ease-in-out;
 }
 
-.social-icons *:hover {
-  background: white;
-  color: var(--using4);
-}
-.soci
+
 
 
 
@@ -1289,8 +1287,6 @@ color: var(--using6);
   all: unset;
   width: 100%;
   height: 30px;
-  background: var(--using4);
-  color: var(--using1);
   margin: 10px auto;
   display: flex;
   justify-content: center;
@@ -1300,7 +1296,11 @@ color: var(--using6);
   font-size: 2.5rem;
   cursor: pointer;
 }
-.botonInverso{
+.libroContenedor .comprarContainer button:not(.botonInverso){
+  background: var(--using4);
+  color: var(--using1);
+}
+.libroContenedor .comprarContainer  .botonInverso, .botonInverso{
   border: 2px solid var(--using4);
   color: var(--using4);
   background: var(--using1);
@@ -1375,6 +1375,7 @@ color: var(--using6);
   width: auto;
   margin: 0 10px 10px 0;
  padding: 5px;
+ font-size: 2.5rem;
 }
 .comments .ask-section{
   width: 100%;
@@ -1386,7 +1387,7 @@ color: var(--using6);
 
 .comments .ask-section textarea{
    all: unset;
-   font-size: 3rem;
+   font-size: 2.5rem;
    border-radius: 10px;
    background: var(--using1);
    border: 1px solid var(--using2);

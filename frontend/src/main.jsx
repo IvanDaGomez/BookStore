@@ -8,7 +8,8 @@ import Search from './routes/search/search.jsx'
 import Login from './routes/login/login.jsx'
 import CrearLibro from './routes/crearLibro/CrearLibro.jsx'
 import Usuario from './routes/usuarios/Usuario.jsx'
-
+import Favorites from './routes/favorites/favorites.jsx'
+import Mensajes from './routes/mensajes/mensajes.jsx'
 import './index.css'
 import EditarUsuario from './routes/usuarios/editarUsuario.jsx'
 import Checkout from './routes/checkout/checkout.jsx'
@@ -54,6 +55,14 @@ const router = createBrowserRouter([
   {
     path: '/checkout/:libroId',
     element: <Checkout />
+  },
+  {
+    path: '/favoritos',
+    element: <Favorites />
+  },
+  {
+    path: '/mensajes',
+    element: <Mensajes/>
   }
 ])
 createRoot(document.getElementById('root')).render(
