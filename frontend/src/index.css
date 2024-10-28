@@ -53,7 +53,7 @@ html, body {
   overflow-y: auto !important;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch; /* Mejora en iOS */
-  
+
 }
 body{
   transition: all .5s ease-in-out;
@@ -893,6 +893,17 @@ input:-internal-autofill-selected {
   color: var(--using1);
 }
 
+.favoritos {
+  
+  fill: none;
+
+}
+
+.favoritos.favoritoActivo {
+  fill: red ;
+  
+}
+
 
 /*--------------------------------SECTIONS HORIZONTAL-------------------*/
 
@@ -1371,7 +1382,7 @@ color: var(--using6);
 }
 .extraBookViewContainer .description{
   height:150px;
-  overflow-y: scroll;
+  overflow-y: auto;
 
 }
 .comments .separar{
@@ -1414,7 +1425,7 @@ color: var(--using6);
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 
@@ -1446,7 +1457,7 @@ color: var(--using6);
 .smallCardContainer{
   height: 200px; /* Height de sectionElement+margin*/
   width: auto;
-  overflow-x: scroll;
+  overflow-x: auto;
   overflow-y: hidden;
   display: flex;
   justify-content: flex-start;
@@ -1478,7 +1489,7 @@ color: var(--using6);
   width: auto;
   height: 350px;
   overflow-y: hidden;
-  overflow-x: scroll;
+  overflow-x: auto;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -1526,7 +1537,7 @@ color: var(--using6);
   align-items: center;
   justify-content: space-evenly;
   flex-direction: column;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 form{
@@ -1745,6 +1756,7 @@ form{
   text-align: center;
   border: 1px solid #999;
   -moz-appearance: textfield;
+  appearance: textfield;
 }
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
@@ -2121,7 +2133,7 @@ color: var(--using6);
 
 .fileUploaded{
   width: max(450px, 60vw);
-  overflow-x: scroll;
+  overflow-x: auto;
   overflow-y: hidden;
   height: 200px;
   padding: 5px;
@@ -2388,7 +2400,8 @@ color: var(--using6);
 
 
 .back-button {
-  padding: 10px 20px; /* Espaciado del botón */
+  padding: 10px ; /* Espaciado del botón */
+  font-size: 2rem;
   margin: 10px;
   color: white; /* Color del texto del botón */
   background-color: var(--using4); /* Color de fondo del botón */
@@ -2410,7 +2423,7 @@ color: var(--using6);
 .card-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-evenly;
   margin: 20px auto;
   padding: 20px;
   width:max(400px, 70vw);
@@ -2427,9 +2440,6 @@ color: var(--using6);
   margin-right: 20px;
 }
 
-.card-info {
-  flex: 1;
-}
 .compartir{
   padding:10px;
   border-radius: 5px;
@@ -2469,6 +2479,7 @@ color: var(--using6);
   box-shadow: 0 0 8px var(--using4);
   border-radius: 10px;
 }
+
 
 .eliminar{
   border: 2px solid ;
@@ -2514,4 +2525,20 @@ color: var(--using6);
   background: white;
   border: 1px solid var(--using3);
   z-index: 100;
+}
+
+/*---------------------------------FAVORITOS--------------------------*/
+
+.favoritosContainer{
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 20px auto;
+  padding: 20px;
+  width:max(400px, 70vw);
+  border: 1px solid var(--using4);
+  box-shadow: 0 0 8px var(--using4);
+  border-radius: 10px;
 }

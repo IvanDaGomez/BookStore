@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import SideInfo from "../../components/sideInfo";
+import { ToastContainer } from "react-toastify";
+import { makeCard, makeSmallCard } from "../../assets/makeCard";
 export default function Favorites(){
 
     const [user, setUser] = useState(null);
@@ -28,11 +30,48 @@ useEffect(() => {
     fetchUser(); // Llama a la función para obtener el usuario
 }, []); // Dependencias vacías para ejecutar solo una vez al montar el componente
 
+const [librosFavoritos, setLibrosFavoritos] = useState([]);
+
+useEffect(() => {
+    async function fetchLibrosFavoritos() {
+        if (!user || !user.favoritos) return;
+
+        try {
+            const url = 'http://localhost:3030/api/books/';
+
+            // Ejecutamos todas las peticiones en paralelo
+            const promises = user.favoritos.map((favorito) =>
+                fetch(url + favorito).then((res) => res.json())
+            );
+
+            // Esperamos a que todas las promesas se resuelvan
+            const results = await Promise.all(promises);
+
+            
+            setLibrosFavoritos(results);
+        } catch (error) {
+            console.error('Error en el servidor:', error);
+        }
+    }
+
+    fetchLibrosFavoritos();
+}, [user]); // Se ejecuta cada vez que cambia el usuario
+
     return(<>
     <Header/>
     <div className="favoritesContainer">
-        Mis favoritos
+        <h1>Mis favoritos</h1>
+        <div className="postsContainer">
+                    {librosFavoritos.map((libro, index) => (makeSmallCard(libro, index)))}
+                </div>
     </div>
+    <ToastContainer position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            pauseOnHover={false}
+            closeOnClick
+            theme="light"
+            />
     <Footer/>
     <SideInfo />
     </>)
