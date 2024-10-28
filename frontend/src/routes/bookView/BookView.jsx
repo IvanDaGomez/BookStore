@@ -7,7 +7,8 @@ import Footer from "../../components/footer";
 import ErrorPage from "../../components/errorPage";
 import { makeCard, makeSmallCard } from "../../assets/makeCard";
 import { cambiarEspacioAGuiones } from "../../assets/agregarMas";
-//import { toast, ToastContainer } from "react-toastify"
+import { toast, ToastContainer } from "react-toastify"
+
 import 'react-toastify/dist/ReactToastify.css';
 import { handleFavoritos } from "../../assets/handleFavoritos";
 
@@ -166,7 +167,7 @@ useEffect(() => {
         const rect = actualImageRef.current.getBoundingClientRect();
         const imagenDentro = actualImageRef.current.querySelector("img");
 
-        // Obtener el tamaño original y zoom
+        // Obtener el tamaño original y zoomf
         const originalWidth = imagenDentro.offsetWidth;
         const originalHeight = imagenDentro.offsetHeight;
         const imgWidth = originalWidth * amountOfZoom;
@@ -214,6 +215,7 @@ useEffect(() => {
             inputPregunta.value = '¿En qué estado se encuentra el producto?'
         }
     }
+
     async function handleSubmitPregunta() {
         const inputPregunta = document.querySelector('.inputPregunta');
 
@@ -242,8 +244,8 @@ useEffect(() => {
                     // Actualizar el estado de errores usando setErrors
                     return; // Salir de la función si hay un error
                 }
-                
-                window.alert('Pregunta enviada exitosamente')
+                inputPregunta.value = ''
+                toast('Pregunta enviada exitosamente')
                 
             } catch (error) {
                 console.error('Error al enviar la solicitud:', error);
@@ -388,7 +390,7 @@ useEffect(() => {
                
                 <div className="ask-section">
                     <textarea type="text" className="inputPregunta" placeholder="Escribe tu pregunta..." rows='2'/>
-                    <button onClick={handleSubmitPregunta}className="ask-button">Preguntar</button>
+                    <button onClick={handleSubmitPregunta} className="ask-button">Preguntar</button>
                 </div>
                 </div>
                 <div className="comentarios">
@@ -422,7 +424,15 @@ useEffect(() => {
                     </div>
             ): <></>}
             </div>
-
+            <ToastContainer position="bottom-center"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+draggable
+theme="light"
+/>
             <SideInfo />
             <Footer />
         </>

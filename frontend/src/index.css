@@ -37,17 +37,21 @@
   font-size: calc(3px + 0.25vw);
   color-scheme: light dark;
   color: var(--using3);
-
+  overflow: auto;
   background-color: var(--using1);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
   content-visibility: auto;
 }
 html {
   -webkit-text-size-adjust: 100%; /* Prevents scaling */
   text-size-adjust: 100%;          /* For other browsers */
+}
+html, body {
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch; /* Mejora en iOS */
 }
 body{
   transition: all .5s ease-in-out;

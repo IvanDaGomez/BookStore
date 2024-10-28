@@ -8,7 +8,7 @@ import './App.css'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import { Carousel } from '../../components/photoCarrousel.jsx'
-
+import { ToastContainer } from "react-toastify"
 
 // eslint-disable-next-line react/prop-types
 function App() {
@@ -140,6 +140,15 @@ function App() {
       <SideInfo/>
       {/*<ChatBot/>*/}
       <Footer/>
+      <ToastContainer position="bottom-center"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+draggable
+theme="light"
+/>
     </>
   )
 }
