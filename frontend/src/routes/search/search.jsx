@@ -8,8 +8,31 @@ import { cambiarEspacioAGuiones, cambiarGuionesAEspacio } from "../../assets/agr
 import { makeCard, makeOneFrCard } from "../../assets/makeCard.jsx"
 import useBotonSelect from "../../assets/botonSelect.jsx"
 import DoubleSlider from "../../components/DoubleSlider.jsx"
+import { ToastContainer } from "react-toastify"
 export default function Search(){
 
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+      async function fetchUser() {
+          
+          try {
+              const response = await fetch('http://localhost:3030/api/users/userSession', {
+                  method: 'POST',
+                  credentials: 'include',  // Asegúrate de enviar las cookies
+              });
+              if (response.ok) {
+                  const data = await response.json();
+                  setUser(data.user); // Establece el usuario en el estado
+              }
+              
+          } catch (error) {
+              console.error('Error fetching user data:', error);
+          }
+      };
+  
+      fetchUser(); // Llama a la función para obtener el usuario
+  }, []); // Dependencias vacías para ejecutar solo una vez al montar el componente
     
     const [params, setParams] = useSearchParams()
     const query = cambiarGuionesAEspacio(params.get("q"))
@@ -349,7 +372,7 @@ const ordenarFormas = {
                         </div>
                 <div className="resultados sectionsContainer" style={{ display: 'grid', gridTemplateColumns: grid }}>
                 
-                    {renderizarResultados().map((element, index)=> (grid.split(" ").length !==1) ? makeCard(element, index) : makeOneFrCard(element, index) )}
+                    {renderizarResultados().map((element, index)=> (grid.split(" ").length !==1) ? makeCard(element, index, user._id) : makeOneFrCard(element, index, user._id) )}
                 {optionalSpace}
                 </div>
                 <div className="numberPages separador" style={{display: (pageCount === 1)  ? "none":"flex"}}>
@@ -363,6 +386,13 @@ const ordenarFormas = {
                 </div>
             </div>
         </div>
+        <ToastContainer position="top-center"
+      autoClose={5000}
+      hideProgressBar={false}
+      pauseOnHover={false}
+      closeOnClick
+      theme="light"
+      />
         <SideInfo />
         <Footer />
         </>

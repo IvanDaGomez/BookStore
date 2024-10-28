@@ -245,7 +245,7 @@ useEffect(() => {
                     return; // Salir de la función si hay un error
                 }
                 inputPregunta.value = ''
-                toast('Pregunta enviada exitosamente')
+                toast.success('Pregunta enviada exitosamente')
                 
             } catch (error) {
                 console.error('Error al enviar la solicitud:', error);
@@ -424,15 +424,13 @@ useEffect(() => {
                     </div>
             ): <></>}
             </div>
-            <ToastContainer position="bottom-center"
-autoClose={5000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-draggable
-theme="light"
-/>
+            <ToastContainer position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            pauseOnHover={false}
+            closeOnClick
+            theme="light"
+            />
             <SideInfo />
             <Footer />
         </>

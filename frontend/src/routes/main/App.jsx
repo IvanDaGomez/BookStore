@@ -140,15 +140,13 @@ function App() {
       <SideInfo/>
       {/*<ChatBot/>*/}
       <Footer/>
-      <ToastContainer position="bottom-center"
-autoClose={5000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-draggable
-theme="light"
-/>
+      <ToastContainer position="top-center"
+      autoClose={5000}
+      hideProgressBar={false}
+      pauseOnHover={false}
+      closeOnClick
+      theme="light"
+      />
     </>
   )
 }

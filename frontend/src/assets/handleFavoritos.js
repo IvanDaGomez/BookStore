@@ -1,12 +1,13 @@
 import { toast } from "react-toastify"
 
 const handleFavoritos = (event, id, userId) => {
+    event.preventDefault()
     event.stopPropagation()
     
     async function updateFavorites(){
       if (!id) return
       if (!userId) {
-        toast('Necesitas iniciar sesión')
+        toast.error('Necesitas iniciar sesión')
         return
       }
       const url = 'http://localhost:3030/api/users/' + userId
@@ -29,7 +30,7 @@ const handleFavoritos = (event, id, userId) => {
         }
         // pendiente
         // document.querySelector('.favorites').style.fill = 'red'
-        toast('Agregado a favoritos exitosamente')
+        toast.success('Agregado a favoritos exitosamente')
       } catch {
         console.error('Error agregando a favoritos')
       }

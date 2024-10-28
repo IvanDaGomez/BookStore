@@ -47,14 +47,18 @@
 html {
   -webkit-text-size-adjust: 100%; /* Prevents scaling */
   text-size-adjust: 100%;          /* For other browsers */
+  height: 100% !important;
 }
 html, body {
-  height: 100%;
-  overflow: auto;
+  overflow-y: auto !important;
+  overflow-x: hidden;
   -webkit-overflow-scrolling: touch; /* Mejora en iOS */
+  
 }
 body{
   transition: all .5s ease-in-out;
+  height: 100%;
+  
 }
 *{
   box-sizing: border-box;
@@ -248,33 +252,23 @@ header .flex-between{
   width: 100%;
   transform:translateY(20px);
   z-index: 1000;
+  
 }
 .headerDer .resultsContainer .result{
   width: 100%;
-  height: max(auto, 50px);
   background-color: var(--using5);
   color: var(--using3);
-  border-bottom: 2px solid var(--using2);
   cursor: pointer;
   z-index: 1000;
-  
-}
-
-.result:first-of-type{
-  border-radius: 25px 25px 0 0;
-}
-.result:last-of-type{
-  border-radius: 0 0 25px 25px;
-}
-.result {
   display: flex;
   align-items: center;
   padding: 10px;
   height:90px;
-  border: 3px solid var(--using2);
-  
+  border: 1px solid var(--using2);
 }
-
+.result:not(.result:first-of-type){
+  border-top: none;
+}
 .result-photo {
   height: 100%;
   aspect-ratio: 2/3;
@@ -285,20 +279,28 @@ header .flex-between{
 
 .result-info {
   width:100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  align-items: left;
+  
+}
+
+.result-info h2{
+  font-size: 2.5rem;
+  text-align: left;
 }
 
 .see-more {
   text-decoration: none;
+  width: 80px;
+  margin-left: auto;
   color: var(--using1);
   background: var(--using4);
   font-weight: 700;
   padding: 5px 10px;
-  margin-top: 5px;
-  
+  font-size: 1.5rem;
   border-radius: 15px;
   transition: all .2s ease-in-out;
 
@@ -342,8 +344,9 @@ header .flex-between{
   border: none;
   background-color: var(--using4); /* Dark blue color */
   color: var(--using1);
-  padding: 7.5px;
+  padding: 9.5px;
   padding-left: 30px;
+  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -396,8 +399,8 @@ header .flex-between{
   background-color: var(--using1);
   cursor: pointer;
   z-index: 100;
-  border-radius: 25px;
-  border: 3px solid var(--using2);
+  border-radius: 10px;
+  border: 2px solid var(--using2);
   
 }
 
@@ -603,13 +606,13 @@ a{
 
 
 ::-webkit-scrollbar{
-
+  background: var(--using2);
   width:2rem;
   height: 1.5rem;
 }
 ::-webkit-scrollbar-thumb{
   background-color:var(--using4);
-  border-radius: 20px;
+  
 
 }
 
@@ -1697,8 +1700,9 @@ form{
   background: var(--using5);
   height: calc(100vh - 80px);
   border-right: 2px solid var(--using2);
+  border-bottom: 2px solid var(--using2);
   overflow-x: hidden;
-
+  overflow-y: auto;
   padding:20px;
   text-align: left;
   margin-bottom: 30px;
@@ -1706,7 +1710,7 @@ form{
   justify-content:space-between;
   align-items:start;
   flex-direction:column;
-  overflow-y: scroll;
+
 }
 
 .masFiltros *{

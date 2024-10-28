@@ -14,7 +14,7 @@
     "estadoCuenta": "activo",
     "fotoPerfil": "",
     "_id": "857857d1-afdd-411d-b41a-be427d1ff186",
-    "actualizadoEn": "2024-10-28T04:49:19.218Z",
+    "actualizadoEn": "2024-10-28T05:59:49.589Z",
     "direccionEnvio": {
       "calle": "",
       "ciudad": "",
@@ -24,7 +24,9 @@
     "favoritos": [
       "3cd4d6ad-df7c-4e0f-beb9-394de48ce33d",
       "88c87f69-4b49-4633-bfba-cd3d29b1a21d",
-      "3f7ab023-15e7-4626-8890-a71f4f2e221c"
+      "3f7ab023-15e7-4626-8890-a71f4f2e221c",
+      "3c37ef91-d1bb-4c19-ad47-85b9fb147474",
+      "31d52487-f746-4951-bf11-7b41febea0a9"
     ]
   },
   {

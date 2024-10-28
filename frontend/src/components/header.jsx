@@ -15,11 +15,11 @@ useEffect(() => {
                 method: 'POST',
                 credentials: 'include',  // Asegúrate de enviar las cookies
             });
-
             if (response.ok) {
                 const data = await response.json();
                 setUser(data.user); // Establece el usuario en el estado
             }
+            
         } catch (error) {
             console.error('Error fetching user data:', error);
         }
@@ -244,7 +244,7 @@ const openExtraInfo = async (str) => {
                     onKeyDown={(event)=> (event.key==="Enter") ? submitInputValue() : <></>}
                     /> 
                     <button type="submit" className="icon" onClick={submitInputValue}>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} fill={"none"}>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={20} height={20} fill={"none"}>
                             <path d="M17.5 17.5L22 22" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                             <path d="M20 11C20 6.02944 15.9706 2 11 2C6.02944 2 2 6.02944 2 11C2 15.9706 6.02944 20 11 20C15.9706 20 20 15.9706 20 11Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
                         </svg>
@@ -253,17 +253,19 @@ const openExtraInfo = async (str) => {
                     </div>
                     <div className="resultsContainer" style={{}}>
                     {results.slice(0,4).map((result, index) => (
-                        <div className="result" key={index} onClick={()=> window.location.href = `${window.location.origin}/libros/${result._id}`}>
+                        <div className="result" key={index} onClick={()=> window.location.href = `/libros/${result._id}`}>
                             <img loading="lazy" src={`http://localhost:3030/uploads/${result.images[0]}`} alt={result.titulo} className="result-photo" />
                             <div className="result-info">
-                            <h3>{reduceText(result.titulo,30)}</h3>
+                            <div>
+                                <h2>{reduceText(result.titulo,50)}</h2>
+                            </div>
                             <a 
                                 href={`${window.location.origin}/buscar?q=${cambiarEspacioAGuiones(result.titulo)}`} 
                                 rel="noopener noreferrer"
                             >
                             <div className="see-more">
 
-                                Ver más
+                                Similares
                             
                             </div>
                             </a>

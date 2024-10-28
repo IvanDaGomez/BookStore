@@ -209,11 +209,19 @@
     "tapa": "",
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:54:25.204Z",
-    "actualizadoEn": "2024-10-28T04:49:52.887Z",
+    "actualizadoEn": "2024-10-28T05:04:59.958Z",
     "disponibilidad": "Disponible",
     "mensajes": [
       [
         "¿En qué estado se encuentra el producto?",
+        ""
+      ],
+      [
+        "¿Qué métodos de pago aceptan?",
+        ""
+      ],
+      [
+        "¿Cómo puedo hacer una devolución?",
         ""
       ]
     ]
