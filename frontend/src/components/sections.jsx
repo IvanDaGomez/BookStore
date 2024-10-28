@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { makeCard } from "../assets/makeCard";
 import { cambiarEspacioAGuiones } from "../assets/agregarMas";
+
 // eslint-disable-next-line react/prop-types
 export default function Sections({ filter, backgroundColor }){
     /*const [elementSections, setElementSections] = useState()
@@ -13,6 +14,29 @@ export default function Sections({ filter, backgroundColor }){
         }
         fetchData()
     }, [filter])*/
+    const [user, setUser] = useState(null);
+
+useEffect(() => {
+    async function fetchUser() {
+        
+        try {
+            const response = await fetch('http://localhost:3030/api/users/userSession', {
+                method: 'POST',
+                credentials: 'include',  // Asegúrate de enviar las cookies
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                setUser(data.user); // Establece el usuario en el estado
+            }
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        }
+    };
+
+    fetchUser(); // Llama a la función para obtener el usuario
+}, []); // Dependencias vacías para ejecutar solo una vez al montar el componente
+
     const [elementSections, setElementSections] = useState([])
     const fetchResults = async () => {
         try {
@@ -47,7 +71,7 @@ export default function Sections({ filter, backgroundColor }){
         <h1 style={{margin:"0 40px", textAlign:"left"}}>{filter}</h1>
         <div className="sectionsContainer">
             
-            {elementSections.slice(0,6).map((element, index) => makeCard(element, index))}
+            {user && elementSections.slice(0,6).map((element, index) => makeCard(element, index, user._id))}
         </div>
         </div>
         </>)

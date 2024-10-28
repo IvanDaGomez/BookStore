@@ -43,4 +43,15 @@ Content-Type: application/json
 
 ###
 
+PATCH http://localhost:3030/api/users/857857d1-afdd-411d-b41a-be427d1ff186
+Content-Type: application/json
+
+{
+    "favoritos": "ac6773d2-9166-4840-b5cd-995a49b19031",
+    "accion": "eliminar"
+    
+}
+
+###
+
 DELETE http://localhost:3030/api/users/6bcb7b9b-b22c-4a66-a4a3-c90beb84ec25

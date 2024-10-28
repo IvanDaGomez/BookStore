@@ -10,12 +10,12 @@ export class UsersController {
     try {
       const users = await UsersModel.getAllUsers()
       if (!users) {
-        res.status(500).json({ error: 'Cannot read users' })
+        res.status(500).json({ error: 'Error al leer usuarios' })
       }
       res.json(users)
     } catch (err) {
       console.error('Error reading users:', err)
-      res.status(500).json({ error: 'Error reading users' })
+      res.status(500).json({ error: 'Error leyendo usuarios' })
     }
   }
 
@@ -182,11 +182,41 @@ export class UsersController {
     try {
       const { userId } = req.params
       const data = req.body
+      console.log(data)
 
       // Validar datos
       const validated = validatePartialUser(data)
       if (!validated.success) {
         return res.status(400).json({ error: 'Error Validating user', details: validated.error.errors })
+      }
+
+      if (data.favoritos && data.accion) {
+        const user = await UsersModel.getUserById(userId)
+
+        if (!user) {
+          return res.status(404).json({ error: 'No se encontró el usuario' })
+        }
+
+        let updatedFavorites = user.favoritos || []
+
+        if (data.accion === 'agregar') {
+          // Ensure data.favoritos is treated as a string
+          const favoritoId = String(data.favoritos)
+
+          // Add only if it's not already in the array
+          if (!updatedFavorites.includes(favoritoId)) {
+            updatedFavorites = [...updatedFavorites, favoritoId]
+          }
+          data.favoritos = updatedFavorites
+        } else if (data.accion === 'eliminar') {
+          // Ensure data.favoritos is treated as a string
+          const favoritoId = String(data.favoritos)
+
+          // Remove the item from the favorites array
+          updatedFavorites = updatedFavorites.filter(fav => fav !== favoritoId)
+
+          data.favoritos = updatedFavorites
+        }
       }
 
       // Comprobar si el correo ya está en uso
@@ -199,7 +229,7 @@ export class UsersController {
       }
 
       // Filtrar los campos permitidos
-      const allowedFields = ['nombre', 'correo', 'direccionEnvio', 'fotoPerfil', 'contraseña', 'bio']
+      const allowedFields = ['nombre', 'correo', 'direccionEnvio', 'fotoPerfil', 'contraseña', 'bio', 'favoritos']
       const filteredData = {}
       Object.keys(data).forEach(key => {
         if (allowedFields.includes(key)) {

@@ -80,7 +80,10 @@ const bookSchema = z.object({
   fechaPublicacion: z.string(), // Validates that 'fechaPublicacion' is a date string in YYYY-MM-DD format
   actualizadoEn: z.string(),
   disponibilidad: z.enum(['Disponible', 'No Disponible']).optional(), // Validates that 'disponibilidad' is either 'Disponible' or 'No Disponible'
-  mensajes: z.array().optional()
+  mensajes: z.array().optional(),
+  mensaje: z.string().optional(),
+  tipo: z.string().optional(),
+  pregunta: z.string().optional()
 })
 function validateBook (data) {
   console.log(data)

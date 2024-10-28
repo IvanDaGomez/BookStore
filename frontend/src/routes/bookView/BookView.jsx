@@ -9,6 +9,7 @@ import { makeCard, makeSmallCard } from "../../assets/makeCard";
 import { cambiarEspacioAGuiones } from "../../assets/agregarMas";
 //import { toast, ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
+import { handleFavoritos } from "../../assets/handleFavoritos";
 
 export default function BookView() {
     const { bookId } = useParams();
@@ -19,7 +20,33 @@ export default function BookView() {
     const [librosRelacionadosVendedor, setLibrosRelacionadosVendedor] = useState([])
     const [librosRelacionados, setLibrosRelacionados] = useState([])
     const actualImageRef = useRef(null);
+    const [user, setUser] = useState(null);
 
+useEffect(() => {
+    async function fetchUser() {
+        
+        try {
+            const response = await fetch('http://localhost:3030/api/users/userSession', {
+                method: 'POST',
+                credentials: 'include',  // Asegúrate de enviar las cookies
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                setUser(data.user); // Establece el usuario en el estado
+            }
+            else {
+                setUser({
+                    _id: ''
+                })
+            }
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+        }
+    };
+
+    fetchUser(); // Llama a la función para obtener el usuario
+}, []); // Dependencias vacías para ejecutar solo una vez al montar el componente
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -314,7 +341,7 @@ export default function BookView() {
                     
                     {libro && <Link to={`/checkout/${libro._id}`}><button >Comprar ahora</button></Link>}
                     </> : <></>}
-                    <button className="botonInverso">Agregar a favoritos</button>
+                    {libro && <button onClick={(event) => handleFavoritos(event, libro._id, user._id )} className="botonInverso">Agregar a favoritos</button>}
                     <h3>Vendido por:</h3>
                     <Link to={`/usuarios/${libro.idVendedor}`}><span>{libro.vendedor}</span></Link>
                     <hr />

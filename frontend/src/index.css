@@ -45,6 +45,10 @@
   overflow-x: hidden;
   content-visibility: auto;
 }
+html {
+  -webkit-text-size-adjust: 100%; /* Prevents scaling */
+  text-size-adjust: 100%;          /* For other browsers */
+}
 body{
   transition: all .5s ease-in-out;
 }

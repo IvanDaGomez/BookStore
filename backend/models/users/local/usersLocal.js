@@ -12,7 +12,8 @@ function userObject (name) {
     librosIds: name.librosIds,
     estadoCuenta: name.estadoCuenta,
     creadoEn: name.creadoEn,
-    bio: name.bio || ''
+    bio: name.bio || '',
+    favoritos: name.favoritos || []
     // Avoid exposing sensitive fields like password, email, etc.
   }
 }
