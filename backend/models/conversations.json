@@ -7,5 +7,14 @@
     ],
     "messages": [],
     "createdIn": "2024-10-31T16:04:14.930Z"
+  },
+  {
+    "_id": "afd647d7-3b09-495e-9f6e-0421c16b28d6",
+    "users": [
+      "857857d1-afdd-411d-b41a-be427d1ff186",
+      "1816d212-7dc5-4d74-bb9d-e0d97bf60d27"
+    ],
+    "messages": [],
+    "createdIn": "2024-10-31T20:57:39.700Z"
   }
 ]

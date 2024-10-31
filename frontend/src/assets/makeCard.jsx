@@ -4,8 +4,8 @@ import { handleFavoritos } from "./handleFavoritos";
 
 const makeCard = (element, index, userId) => {
     return (
-      <Link key={index} to={`${window.location.origin}/libros/${element._id}`}>
-            <div className="sectionElement" >
+      
+            <div className="sectionElement" key={index} onClick={()=> window.location.href = `/libros/${element._id}`}>
                 
                 <div className="imageElementContainer"  style={{backgroundImage: `url(http://localhost:3030/uploads/${element.images[0]})`, backgroundRepeat: 'no-repeat'}}>
                 {(element.oferta) ? <div className="percentageElement">
@@ -44,7 +44,7 @@ const makeCard = (element, index, userId) => {
 
                 </div>
             </div>
-            </Link>
+            
     )
 }
 

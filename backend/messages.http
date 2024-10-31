@@ -2,7 +2,7 @@ GET http://localhost:3030/api/messages
 
 
 ###
-GET http://localhost:3030/api/messages/c71d24cd-92e7-415c-9be4-59041d98492a
+GET http://localhost:3030/api/messages/5c10bea7-28e4-469e-a762-3c380f0096ee
 
 
 
@@ -31,7 +31,7 @@ GET http://localhost:3030/api/conversations
 
 
 ###
-GET http://localhost:3030/api/conversations/4e22d65d-48b7-485f-a017-c3d296ddefae
+GET http://localhost:3030/api/conversations/afd647d7-3b09-495e-9f6e-0421c16b28d6
 
 
 

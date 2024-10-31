@@ -15,6 +15,33 @@ export class ConversationsController {
     }
   }
 
+  static async getConversationsByUser (req, res) {
+    try {
+      // Step 1: Extract userId from request params
+      const { userId } = req.params
+
+      // Step 2: Fetch user by ID to get conversationsIds
+      const user = await UsersModel.getUserById(userId)
+      if (!user || !user.conversationsIds) {
+        return res.status(404).json({ error: 'Usuario o conversaciones no encontradas' })
+      }
+
+      // Step 3: Retrieve conversations based on the conversationsIds array
+      const conversations = await ConversationsModel.getConversationsByUser(user.conversationsIds)
+
+      // Step 4: Check if conversations were found
+      if (!conversations || conversations.length === 0) {
+        return res.status(404).json({ error: 'No se encontraron conversaciones' })
+      }
+
+      // Step 5: Send conversations back as JSON
+      res.json(conversations)
+    } catch (err) {
+      console.error('Error al leer la conversación:', err)
+      res.status(500).json({ error: 'Error al leer la conversación' })
+    }
+  }
+
   static async getConversationById (req, res) {
     try {
       const { conversationId } = req.params

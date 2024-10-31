@@ -5,7 +5,8 @@ const messagesRouter = Router()
 
 // Rutas de mensajes
 messagesRouter.get('/', MessagesController.getAllMessages) // Obtener todos los mensajes
-messagesRouter.get('/:messageId', MessagesController.getMessageById) // Obtener un mensaje específico
+messagesRouter.get('/messageByConversation/:conversationId', MessagesController.getAllMessagesByConversation)
+messagesRouter.get('/messageById/:messageId', MessagesController.getMessageById) // Obtener un mensaje específico
 messagesRouter.post('/', MessagesController.sendMessage) // Enviar un nuevo mensaje
 messagesRouter.delete('/:messageId', MessagesController.deleteMessage) // Eliminar un mensaje específico
 // Marcar un mensaje como leído

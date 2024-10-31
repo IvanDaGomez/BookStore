@@ -16,6 +16,20 @@ export class MessagesController {
     }
   }
 
+  static async getAllMessagesByConversation (req, res) {
+    try {
+      const { conversationId } = req.params
+      const message = await MessagesModel.getAllMessagesByConversation(conversationId)
+      if (!message) {
+        return res.status(404).json({ error: 'Conversación no encontrada' })
+      }
+      res.json(message)
+    } catch (err) {
+      console.error('Error al leer la conversación:', err)
+      res.status(500).json({ error: 'Error al leer la conversación' })
+    }
+  }
+
   static async getMessageById (req, res) {
     try {
       const { messageId } = req.params

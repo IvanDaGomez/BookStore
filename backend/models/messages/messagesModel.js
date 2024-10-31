@@ -24,6 +24,22 @@ class MessagesModel {
     }
   }
 
+  static async getAllMessagesByConversation (id) {
+    try {
+      const messages = await this.getAllMessages()
+      const message = messages.find(message => message.conversationId === id)
+      if (!message) {
+        return null
+      }
+
+      // Return message with limited public information
+      return messageObject(message)
+    } catch (err) {
+      console.error('Error reading message:', err)
+      throw new Error(err)
+    }
+  }
+
   static async getMessageById (id) {
     try {
       const messages = await this.getAllMessages()

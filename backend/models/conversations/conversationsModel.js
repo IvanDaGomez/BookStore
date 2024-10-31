@@ -31,6 +31,23 @@ export class ConversationsModel {
     }
   }
 
+  static async getConversationsByUser (conversationsIds) {
+    try {
+      // Load all conversations from the JSON file
+      const allConversations = await this.getAllConversations()
+
+      // Filter conversations based on the provided conversationsIds
+      const userConversations = allConversations.filter(conversation =>
+        conversationsIds.includes(conversation._id)
+      )
+
+      return userConversations
+    } catch (err) {
+      console.error('Error fetching conversations for user:', err)
+      throw new Error('Error fetching conversations')
+    }
+  }
+
   static async getConversationById (id) {
     try {
       const conversations = await this.getAllConversations()
