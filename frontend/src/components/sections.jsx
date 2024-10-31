@@ -69,6 +69,7 @@ useEffect(() => {
     
         // Aplicar la clase "favoritoActivo" después de renderizar las tarjetas
     useEffect(() => {
+        
         if (user && user.favoritos) {
             user.favoritos.forEach((favoritoId) => {
                 const favorites = document.querySelectorAll(`.favorito-${favoritoId}`);

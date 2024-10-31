@@ -18,50 +18,50 @@ import Checkout from './routes/checkout/checkout.jsx'
 
 const router = createBrowserRouter([
   {
-    path:"/", // Main path
+    path:"/",
     element: <App/>,
     errorElement: <ErrorPage/>
   },
   {
-    path:"libros/crear", // Post  book
+    path:"libros/crear",
     element: <CrearLibro />
   },
   {
-    path:"popUp/:info", // Notifications
+    path:"popUp/:info",
     element: <App/>
   },
   {
     
-    path:"libros/:bookId", // Specific Book
+    path:"libros/:bookId",
     element:<BookView />,
         
   },
   {
-    path: "/buscar", // Search book with filters
+    path: "/buscar",
     element:<Search />
   },
   {
-    path: "/login", // Login and Signup
+    path: "/login",
     element: <Login />
   },
   {
-    path: "/usuarios/:idVendedor", // Specific user UI
+    path: "/usuarios/:idVendedor",
     element:  <Usuario />
   },
   {
-    path: '/usuarios/editarUsuario', // Update user
+    path: '/usuarios/editarUsuario',
     element: <EditarUsuario/>
   },
   {
-    path: '/checkout/:bookId', //Checkout
+    path: '/checkout/:bookId',
     element: <Checkout />
   },
   {
-    path: '/favoritos', // My favorites
+    path: '/favoritos',
     element: <Favorites />
   },
   {
-    path: '/mensajes', // Messages
+    path: '/mensajes',
     element: <Mensajes/>
   }
 ])

@@ -1,21 +1,6 @@
 import { z } from 'zod'
 // PENDIENTE EL PATCH
 
-/*  {
-    "nombre": "Ivan Gomez",
-    "librosIds": [],
-    "correo": "ivandavidgomezsilva@hotmail.com",
-    "contraseña": "Idgs2603",
-    "rol": "usuario",
-    "estadoCuenta": "activo",
-    "direccionEnvio": {
-      "calle": "123 Avenida Central",
-      "ciudad": "Bucaramanga",
-      "pais": "Colombia",
-      "codigoPostal": "12345"
-    },
-    "fotoPerfil": "url/a/la/foto/perfil.jpg",
-  } */
 const userSchema = z.object({
   nombre: z.string()
     .min(1, 'El nombre es requerido')
@@ -92,4 +77,23 @@ function validateBook (data) {
 function validatePartialBook (data) {
   return bookSchema.partial().safeParse(data)
 }
-export { validateUser, validatePartialUser, validateBook, validatePartialBook }
+
+const messageSchema = z.object({
+  userId: z.string(),
+  conversationId: z.string(),
+  message: z.string(),
+  read: z.boolean().default(false)
+})
+
+function validateMessage (data) {
+  console.log(data)
+  return messageSchema.safeParse(data)
+}
+function validatePartialMessage (data) {
+  return messageSchema.partial().safeParse(data)
+}
+export {
+  validateUser, validatePartialUser,
+  validateBook, validatePartialBook,
+  validateMessage, validatePartialMessage
+}

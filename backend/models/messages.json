@@ -1,0 +1,58 @@
+[
+  {
+    "_id": "c71d24cd-92e7-415c-9be4-59041d98492a",
+    "userId": "33",
+    "message": "Hola soy miguel",
+    "conversationId": "7291939",
+    "createdIn": "2024-10-31T01:15:01.322Z",
+    "read": true
+  },
+  {
+    "_id": "cbb3bb64-1925-43ef-a2fd-0de4395085d8",
+    "userId": "33",
+    "message": "Hola soy miguel",
+    "conversationId": "7291939",
+    "createdIn": "2024-10-31T01:15:01.322Z",
+    "read": false
+  },
+  {
+    "_id": "2bd45ca6-c189-42be-8477-edee4502640d",
+    "userId": "33",
+    "message": "Hola soy miguel",
+    "conversationId": "7291939",
+    "createdIn": "2024-10-31T01:15:01.322Z",
+    "read": false
+  },
+  {
+    "_id": "71c3b9a5-e38a-40eb-9e1f-6e11ff2dc2c3",
+    "userId": "33",
+    "message": "Hola soy miguel",
+    "conversationId": "7291939",
+    "createdIn": "2024-10-31T01:15:01.320Z",
+    "read": false
+  },
+  {
+    "_id": "7aa5fc96-6d60-4ffc-b37c-d0a8dcf09f5d",
+    "userId": "33",
+    "message": "Hola soy miguel",
+    "conversationId": "7291939",
+    "createdIn": "2024-10-31T15:54:17.834Z",
+    "read": false
+  },
+  {
+    "_id": "62d4ad24-bea3-4bda-9084-3319e3d5bea3",
+    "userId": "33",
+    "message": "Hola soy miguel",
+    "conversationId": "7291939",
+    "createdIn": "2024-10-31T15:54:45.761Z",
+    "read": false
+  },
+  {
+    "_id": "d287faa9-535c-4d52-9535-ebbce8c10ed2",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "message": "Hola soy miguel",
+    "conversationId": "5c10bea7-28e4-469e-a762-3c380f0096ee",
+    "createdIn": "2024-10-31T16:13:07.180Z",
+    "read": false
+  }
+]

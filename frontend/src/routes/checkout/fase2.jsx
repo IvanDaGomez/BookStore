@@ -8,11 +8,13 @@ function Fase2({ form, setForm, setFase }) {
   
     return (
       <div>
-        <h2>Información de Entrega</h2>
-        <input name="address" placeholder="Dirección" onChange={handleChange} />
-        <input name="city" placeholder="Ciudad" onChange={handleChange} />
-        <button onClick={() => setFase(1)}>Atrás</button>
-        <button onClick={handleNext}>Siguiente</button>
+        <div className="checkoutContainer">
+          <input name="city" placeholder="Ciudad" onChange={handleChange} />
+          <div>
+            <button onClick={() => setFase(1)}>Atrás</button>
+            <button onClick={handleNext}>Siguiente</button>
+          </div>
+        </div>
       </div>
     );
   }

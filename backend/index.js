@@ -2,6 +2,9 @@ import express from 'express'
 import cors from 'cors'
 import { usersRouter } from './routes/users/usersRouter.js'
 import { booksRouter } from './routes/books/booksRouter.js'
+import { messagesRouter } from './routes/messages/messagesRouter.js'
+import { conversationsRouter } from './routes/conversations/conversationsRouter.js'
+// import { messagesRouter } from './routes/messages/messagesRouter.js'
 import { SECRET_KEY } from './assets/config.js'
 import cookieParser from 'cookie-parser'
 import jwt from 'jsonwebtoken'
@@ -63,8 +66,8 @@ app.use('/optimized', express.static('optimized'))
 
 app.use('/api/users', usersRouter)
 app.use('/api/books', booksRouter)
-// app.use("/api/books", booksRouter)
-
+app.use('/api/messages', messagesRouter)
+app.use('/api/conversations', conversationsRouter)
 app.listen(PORT, () => {
   console.log('Server is listening on http://localhost:' + PORT)
 })

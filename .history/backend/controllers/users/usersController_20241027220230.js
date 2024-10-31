@@ -23,12 +23,12 @@ export class UsersController {
     try {
       const users = await UsersModel.getAllUsersSafe()
       if (!users) {
-        res.status(500).json({ error: 'Error leyendo usuarios' })
+        res.status(500).json({ error: 'Cannot read users' })
       }
       res.json(users)
     } catch (err) {
-      console.error('Error leyendo usuarios:', err)
-      res.status(500).json({ error: 'Error leyendo usuarios' })
+      console.error('Error reading users:', err)
+      res.status(500).json({ error: 'Error reading users' })
     }
   }
 
@@ -37,12 +37,12 @@ export class UsersController {
       const { userId } = req.params
       const user = await UsersModel.getUserById(userId)
       if (!user) {
-        return res.status(404).json({ error: 'Usuario no encontrado' })
+        return res.status(404).json({ error: 'User not found' })
       }
       res.json(user)
     } catch (err) {
-      console.error('Error leyendo usuario:', err)
-      res.status(500).json({ error: 'Error leyendo usuario' })
+      console.error('Error reading user:', err)
+      res.status(500).json({ error: 'Error reading user' })
     }
   }
 
@@ -51,12 +51,12 @@ export class UsersController {
       const { userId } = req.params
       const user = await UsersModel.getEmailById(userId)
       if (!user) {
-        return res.status(404).json({ error: 'Usuario no encontrado' })
+        return res.status(404).json({ error: 'User not found' })
       }
       res.json(user)
     } catch (err) {
-      console.error('Error leyendo usuario:', err)
-      res.status(500).json({ error: 'Error leyendo usuario' })
+      console.error('Error reading user:', err)
+      res.status(500).json({ error: 'Error reading user' })
     }
   }
 
@@ -65,18 +65,18 @@ export class UsersController {
       let { q } = req.query // Obtener el valor del parámetro de consulta 'q'
       q = cambiarGuionesAEspacio(q)
       if (!q) {
-        return res.status(400).json({ error: 'El query parameter "q" es requerido' })
+        return res.status(400).json({ error: 'Query parameter "q" is required' })
       }
 
       const users = await UsersModel.getUserByQuery(q) // Asegurarse de implementar este método en UsersModel
       if (users.length === 0) {
-        return res.status(404).json({ error: 'No se encontraron usuarios' })
+        return res.status(404).json({ error: 'No users found' })
       }
 
       res.json(users)
     } catch (err) {
-      console.error('Error leyendo usuarios por query:', err)
-      res.status(500).json({ error: 'Error leyendo usuarios' })
+      console.error('Error reading users by query:', err)
+      res.status(500).json({ error: 'Error reading users' })
     }
   }
 
@@ -84,7 +84,7 @@ export class UsersController {
     try {
       const { correo, contraseña } = req.body // Obtener el valor del parámetro de consulta 'e'
       if (!correo || !contraseña) {
-        return res.status(400).json({ error: 'Algunos espacios están en blanco' })
+        return res.status(400).json({ error: 'Some spaces are in blank' })
       }
 
       const user = await UsersModel.login(correo, contraseña) // Asegúrate de implementar este método en UsersModel
@@ -111,8 +111,8 @@ export class UsersController {
         })
         .send({ user })
     } catch (err) {
-      console.error('Error leyendo usuario por correo:', err)
-      res.status(500).json({ error: 'Error leyendo usuario' })
+      console.error('Error reading user by email:', err)
+      res.status(500).json({ error: 'Error reading user' })
     }
   }
 
@@ -169,12 +169,12 @@ export class UsersController {
       const { userId } = req.params
       const result = await UsersModel.deleteUser(userId)
       if (!result) {
-        return res.status(404).json({ error: 'Usuario no encontrado' })
+        return res.status(404).json({ error: 'User not found' })
       }
       res.json(result)
     } catch (err) {
-      console.error('Error eliminando usuario:', err)
-      res.status(500).json({ error: 'Error eliminando usuario' })
+      console.error('Error deleting user:', err)
+      res.status(500).json({ error: 'Error deleting user' })
     }
   }
 
@@ -187,7 +187,7 @@ export class UsersController {
       // Validar datos
       const validated = validatePartialUser(data)
       if (!validated.success) {
-        return res.status(400).json({ error: 'Error validando usuario', details: validated.error.errors })
+        return res.status(400).json({ error: 'Error Validating user', details: validated.error.errors })
       }
 
       if (data.favoritos && data.accion) {
@@ -242,7 +242,7 @@ export class UsersController {
       // Actualizar usuario
       const user = await UsersModel.updateUser(userId, filteredData)
       if (!user) {
-        res.status(404).json({ error: 'Usuario no encontrado o no actualizado' })
+        res.status(404).json({ error: 'User not found or not updated' })
       }
 
       // Generar un nuevo token con los datos actualizados
@@ -267,8 +267,8 @@ export class UsersController {
         })
         .json(user)
     } catch (err) {
-      console.error('Error actualizando usuario:', err)
-      res.status(500).json({ error: 'Error del servidor' })
+      console.error('Error updating user:', err)
+      res.status(500).json({ error: 'Internal server error' })
     }
   }
 

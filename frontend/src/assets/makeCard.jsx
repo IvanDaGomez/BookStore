@@ -123,8 +123,8 @@ const makeOneFrCard = (element, index, userId) => {
                             </div>
                             </Link> 
                             <Link to={`/usuarios/${element.idVendedor}?eliminar=y&libro=${element._id}`}>
-                            <div className="fastInfoElement eliminar" style={{ background: 'white', border: '3px solid red', color: 'red'}}>
-                                <span style={{fontWeight:'800'}}>Eliminar</span>
+                            <div className="fastInfoElement eliminar" style={{background:'var(--using6)'}}>
+                                <span >Eliminar</span>
                             </div>
                             </Link>
                     </div>

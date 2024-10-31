@@ -124,12 +124,13 @@ button{
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
-  margin: 20px 0;
+  margin: 20px 10px;
   
 }
 button:hover{
   background: #380050;
 }
+
 /*-----------------------------------------------*/
 .errorContainer{
   height: 100vh;
@@ -322,10 +323,6 @@ header .flex-between{
   
 }
 
-.headerDer input{
-  color:var(--using3);
-  
-}
 .search {
   border: none;
   padding: 10px;
@@ -900,10 +897,13 @@ input:-internal-autofill-selected {
 }
 
 .favoritos.favoritoActivo {
-  fill: red ;
+  fill: var(--using6) ;
   
 }
 
+.favoritos.favoritoActivo path{
+  stroke: none;
+}
 
 /*--------------------------------SECTIONS HORIZONTAL-------------------*/
 
@@ -2482,14 +2482,15 @@ color: var(--using6);
 
 
 .eliminar{
-  border: 2px solid ;
-  background: white;
-  border: 3px solid red;
-  color: red;
+  background: red;
+  border: 1px solid red;
+}
+.eliminar span{
+  color: white;
 }
 .eliminar:hover{
-  color:white;
-  background: red;
+  color:red;
+  background: white;
 }
 
 
@@ -2531,6 +2532,21 @@ color: var(--using6);
 
 .favoritosContainer{
   
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 20px auto;
+  padding: 20px;
+  width:max(400px, 70vw);
+  border: 1px solid var(--using4);
+  box-shadow: 0 0 8px var(--using4);
+  border-radius: 10px;
+}
+
+/*--------------------------------------CHECKOUT----------------------------------------------*/
+
+.checkoutContainer{
   display: flex;
   justify-content: center;
   align-items: center;

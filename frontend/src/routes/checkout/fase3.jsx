@@ -7,7 +7,6 @@ function Fase3({ form, setForm, setFase }) {
   
     return (
       <div>
-        <h2>Información de Pago</h2>
         <input name="cardName" placeholder="Nombre en la Tarjeta" onChange={handleChange} />
         <input name="cardNumber" placeholder="Número de Tarjeta" onChange={handleChange} />
         <button onClick={() => setFase(2)}>Atrás</button>

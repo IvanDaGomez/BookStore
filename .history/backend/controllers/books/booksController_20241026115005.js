@@ -10,12 +10,12 @@ export class BooksController {
     try {
       const books = await BooksModel.getAllBooks()
       if (!books) {
-        res.status(500).json({ error: 'Error al leer libros' })
+        res.status(500).json({ error: 'Cannot read books' })
       }
       res.json(books)
     } catch (err) {
-      console.error('Error al leer libros:', err)
-      res.status(500).json({ error: 'Error al leer libros' })
+      console.error('Error reading books:', err)
+      res.status(500).json({ error: 'Error reading books' })
     }
   }
 
@@ -24,12 +24,12 @@ export class BooksController {
       const { bookId } = req.params
       const book = await BooksModel.getBookById(bookId)
       if (!book) {
-        return res.status(404).json({ error: 'Libro no encontrado' })
+        return res.status(404).json({ error: 'Book not found' })
       }
       res.json(book)
     } catch (err) {
-      console.error('Error al leer el libro:', err)
-      res.status(500).json({ error: 'Error al leer el libro' })
+      console.error('Error reading book:', err)
+      res.status(500).json({ error: 'Error reading book' })
     }
   }
 
@@ -39,7 +39,7 @@ export class BooksController {
       q = cambiarGuionesAEspacio(q)
 
       if (!q) {
-        return res.status(400).json({ error: 'El parámetro de consulta "q" es requerido' })
+        return res.status(400).json({ error: 'Query parameter "q" es requerido' })
       }
       if (!l) {
         l = 24
@@ -52,12 +52,12 @@ export class BooksController {
 
       res.json(books)
     } catch (err) {
-      console.error('Error al leer libros por consulta:', err)
-      res.status(500).json({ error: 'Error al leer libros' })
+      console.error('Error leyendo libros por query:', err)
+      res.status(500).json({ error: 'Error leyendo libros' })
     }
   }
 
-  // Filtrar libros
+  // Filter books
   static async createBook (req, res) {
     const data = req.body
 
@@ -67,14 +67,14 @@ export class BooksController {
     if (data.keywords && typeof data.keywords === 'string') {
       data.keywords = data.keywords.split(',').map(keyword => keyword.trim()).filter(keyword => keyword)
     } else {
-      data.keywords = [] // O manejar como sea necesario si no se proporcionan keywords
+      data.keywords = [] // Or handle as needed if no keywords are provided
     }
 
-    // Imágenes
+    // Imagenes
     // Diferentes tamaños
     data.images = req.files.map(file => `${file.filename}`)
 
-    // En un futuro para imágenes de distintos tamaños
+    // En un futuro para imagenes de distintos tamaños
 
     /* console.log(req.files)
     // Usar Promise.all para esperar a que todas las imágenes sean procesadas
@@ -121,7 +121,7 @@ export class BooksController {
       return res.status(500).json({ error: book })
     }
     if (!book) {
-      return res.status(500).json({ error: 'Error al crear libro' })
+      return res.status(500).json({ error: 'Error creando libro' })
     }
 
     // Si todo es exitoso, devolver el libro creado
@@ -132,40 +132,40 @@ export class BooksController {
     try {
       const { bookId } = req.params
 
-      // Obtener los detalles del libro para encontrar al vendedor (idVendedor)
+      // Fetch the book details to find the seller (idVendedor)
       const book = await UsersModel.getBookById(bookId)
       if (!book) {
-        return res.status(404).json({ error: 'Libro no encontrado' })
+        return res.status(404).json({ error: 'Book not found' })
       }
 
-      // Obtener el usuario asociado con el libro
+      // Fetch the user associated with the book
       const user = await UsersModel.getUserById(book.idVendedor)
       if (!user) {
-        return res.status(404).json({ error: 'Usuario no encontrado' })
+        return res.status(404).json({ error: 'User not found' })
       }
 
-      // Eliminar el bookId del array librosIds del usuario
+      // Remove the bookId from the user's librosIds array
       const updatedLibrosIds = user.librosIds.filter(id => id !== bookId)
 
-      // Actualizar el usuario con los nuevos librosIds
+      // Update the user with the new librosIds
       const updatedUser = await UsersModel.updateUser(user._id, {
         librosIds: updatedLibrosIds
       })
 
       if (!updatedUser) {
-        return res.status(404).json({ error: 'Usuario no actualizado' })
+        return res.status(404).json({ error: 'User not updated' })
       }
 
-      // Eliminar el libro de la base de datos
+      // Delete the book from the database
       const result = await BooksModel.deleteBook(bookId)
       if (!result) {
-        return res.status(404).json({ error: 'Libro no encontrado' })
+        return res.status(404).json({ error: 'Book not found' })
       }
 
-      res.json({ message: 'Libro eliminado con éxito', result })
+      res.json({ message: 'Book deleted successfully', result })
     } catch (err) {
-      console.error('Error al eliminar el libro:', err)
-      res.status(500).json({ error: 'Error al eliminar el libro' })
+      console.error('Error deleting book:', err)
+      res.status(500).json({ error: 'Error deleting book' })
     }
   }
 
@@ -177,7 +177,7 @@ export class BooksController {
       // Obtener el libro existente para obtener los mensajes actuales
       const existingBook = await BooksModel.getBookById(bookId)
       if (!existingBook) {
-        return res.status(404).json({ error: 'Libro no encontrado' })
+        return res.status(404).json({ error: 'Book not found' })
       }
 
       // Asegúrate de que los precios y ofertas sean números
@@ -199,7 +199,7 @@ export class BooksController {
       // Validar datos
       const validated = validatePartialBook(data)
       if (!validated.success) {
-        return res.status(400).json({ error: 'Error al validar libro', details: validated.error.errors })
+        return res.status(400).json({ error: 'Error Validating book', details: validated.error.errors })
       }
       // Manejo del mensaje
       if (data.mensaje && data.tipo) {
@@ -245,12 +245,12 @@ export class BooksController {
       // Actualizar libro
       const book = await BooksModel.updateBook(bookId, filteredData)
       if (!book) {
-        return res.status(404).json({ error: 'Libro no encontrado o no actualizado' })
+        return res.status(404).json({ error: 'Book not found or not updated' })
       }
 
       res.status(200).json(book)
     } catch (err) {
-      console.error('Error al actualizar el libro:', err)
+      console.error('Error updating book:', err)
       res.status(500).json({ error: err.message })
     }
   }

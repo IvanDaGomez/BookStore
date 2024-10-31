@@ -13,7 +13,8 @@ function userObject (name) {
     estadoCuenta: name.estadoCuenta,
     creadoEn: name.creadoEn,
     bio: name.bio || '',
-    favoritos: name.favoritos || []
+    favoritos: name.favoritos || [],
+    conversationsIds: name.conversationsIds || []
     // Avoid exposing sensitive fields like password, email, etc.
   }
 }
@@ -224,7 +225,7 @@ class UsersModel {
       if (userIndex === -1) {
         return null // Si no se encuentra el usuario, retorna null
       }
-      if (data.correo) {
+      if (data.correo !== undefined && data.correo) {
         const emailRepeated = users
           .filter(user => user._id.toString() !== id.toString())
           .some(user => user.correo === data.correo)

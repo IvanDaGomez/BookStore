@@ -13,7 +13,7 @@ const handleFavoritos = (event, id, userId) => {
 
     const url = `http://localhost:3030/api/users/${userId}`;
     // Selecciona el <path> dentro del SVG usando su className único
-    const favoritoIconPath = document.querySelector(`.favorito-${id}`);
+    const favoritoIconPath = document.querySelectorAll(`.favorito-${id}`);
     try {
       const response = await fetch(url, {
         method: 'PATCH',
@@ -34,16 +34,32 @@ const handleFavoritos = (event, id, userId) => {
         return;
       }
 
-
-      if (favoritoIconPath.classList.contains('favoritoActivo')) {
+      
+      if (favoritoIconPath[0].classList.contains('favoritoActivo')) {
+        
         favoritoIconPath.classList.remove('favoritoActivo');
         toast.success('Eliminado de favoritos exitosamente');
       }
       else{
-        favoritoIconPath.classList.add('favoritoActivo');
+        favoritoIconPath[0].classList.add('favoritoActivo');
         toast.success('Agregado a favoritos exitosamente');
       }
-
+      /*let action;
+    console.log(favoritoIconPath)
+      favoritoIconPath.forEach((favoritoId) => {
+        if (favoritoId.classList.contains('favoritoActivo')) {
+        
+          favoritoId.classList.remove('favoritoActivo');
+          action = 'Eliminado de favoritos exitosamente'
+          
+        }
+        else{
+          favoritoId.classList.add('favoritoActivo');
+          action ='Agregado a favoritos exitosamente'
+        }
+      })
+      toast.success(action);
+ */
       
     } catch (err) {
       console.error('Error agregando a favoritos:', err);

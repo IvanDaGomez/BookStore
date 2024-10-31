@@ -51,7 +51,8 @@ useEffect(() => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
-      }, [bookId]);
+    }, [bookId]);
+    
     useEffect(() => {
         async function fetchLibro(id) {
             const url = `http://localhost:3030/api/books/${id}`
@@ -340,10 +341,12 @@ useEffect(() => {
                     <hr />
                     {(libro.disponibilidad == "Disponible") ? <>
                     <h3>Disponible</h3>
+                    {console.log(user)}
+                    {(libro && user && !user.librosIds.includes(libro._id)) ? <><Link to={`/checkout/${libro._id}`}><button >Comprar ahora</button></Link>
+                    <button onClick={(event) => handleFavoritos(event, libro._id, user._id )} className="botonInverso">Agregar a favoritos</button></>
+                    :<><h2 style={{color:'var(--using4)'}}>Este libro es tuyo</h2></>}
+                    </> : <>{libro.disponibilidad}</>}
                     
-                    {libro && <Link to={`/checkout/${libro._id}`}><button >Comprar ahora</button></Link>}
-                    </> : <></>}
-                    {libro && <button onClick={(event) => handleFavoritos(event, libro._id, user._id )} className="botonInverso">Agregar a favoritos</button>}
                     <h3>Vendido por:</h3>
                     <Link to={`/usuarios/${libro.idVendedor}`}><span>{libro.vendedor}</span></Link>
                     <hr />
@@ -361,11 +364,11 @@ useEffect(() => {
                     <div className="informacionDelVendedor">
                     <h2>Productos de {libro.vendedor}: </h2>
                     
-                    {librosRelacionadosVendedor && libro && (
+                    {librosRelacionadosVendedor && libro && user && (
                     <div className="smallCardContainer">
                         {librosRelacionadosVendedor
                         .filter(element=> element._id !== libro._id)
-                        .map((element, index) => makeSmallCard(element, index))}
+                        .map((element, index) => makeSmallCard(element, index, user._id))}
                     </div>
                     )}
                 </div>
@@ -415,11 +418,11 @@ useEffect(() => {
             </div>
 
             
-                {(librosRelacionados.filter(element=> element._id !== libro._id).length !==0  && libro) ? (
+                {(librosRelacionados.filter(element=> element._id !== libro._id).length !==0  && libro && user) ? (
                     <div className="related">
                         <h2>Productos Relacionados</h2>
                         <div className="leftScrollContainer">
-                        {librosRelacionados.filter(element=> element._id !== libro._id).map((element, index) => makeCard(element, index))}
+                        {librosRelacionados.filter(element=> element._id !== libro._id).map((element, index) => makeCard(element, index, user._id))}
                         </div>
                     </div>
             ): <></>}
