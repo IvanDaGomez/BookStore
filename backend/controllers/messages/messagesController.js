@@ -49,6 +49,7 @@ export class MessagesController {
     const data = req.body
 
     // Validación
+    console.log(data)
     const validated = validateMessage(data)
     if (!validated.success) {
       console.log('Error de validación:', validated.error)

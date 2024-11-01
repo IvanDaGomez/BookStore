@@ -46,6 +46,20 @@ export class UsersController {
     }
   }
 
+  static async getPhotoAndNameUser (req, res) {
+    try {
+      const { userId } = req.params
+      const user = await UsersModel.getPhotoAndNameUser(userId)
+      if (!user) {
+        return res.status(404).json({ error: 'Usuario no encontrado' })
+      }
+      res.json(user)
+    } catch (err) {
+      console.error('Error leyendo usuario:', err)
+      res.status(500).json({ error: 'Error leyendo usuario' })
+    }
+  }
+
   static async getEmailById (req, res) {
     try {
       const { userId } = req.params

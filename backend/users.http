@@ -2,7 +2,7 @@ GET http://localhost:3030/api/users
 
 
 ###
-GET http://localhost:3030/api/users/c/bda285c8-e1fe-4b88-a310-e8c48ebc73d9
+GET http://localhost:3030/api/users/bda285c8-e1fe-4b88-a310-e8c48ebc73d9/photoAndName
 
 
 ###

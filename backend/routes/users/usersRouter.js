@@ -5,6 +5,7 @@ const usersRouter = Router()
 
 usersRouter.get('/', UsersController.getAllUsersSafe) // R
 // usersRouter.get('/safe', UsersController.getAllUsersSafe) // R
+usersRouter.get('/:userId/photoAndName', UsersController.getPhotoAndNameUser) // R
 usersRouter.post('/', UsersController.createUser) // C
 usersRouter.post('/login', UsersController.login)
 usersRouter.post('/logout', UsersController.logout)

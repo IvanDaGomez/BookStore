@@ -2632,14 +2632,38 @@ color: var(--using6);
   width: 100%;
   height: auto;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   flex-direction: column;
+  overflow: hidden;
 }
 .messagesViewContainer{
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  overflow-y: auto;
 }
+.myMessage{
+  margin-left: auto;
+  margin-block: 2px;
+  margin-right: 2px;
+  padding: 5px;
+  border: 1px solid var(--using2);
+  background-color: var(--using4);
+  color: var(--using1);
+}
+.otherMessage{
+  margin-right: auto;
+  padding: 5px;
+  border: 1px solid var(--using2);
+  margin-block: 2px;
+  margin-left: 2px;
+  
+}
+
 
 .messageInputContainer{
   height: 50px;

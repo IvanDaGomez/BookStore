@@ -70,6 +70,26 @@ class UsersModel {
     }
   }
 
+  static async getPhotoAndNameUser (id) {
+    try {
+      const users = await this.getAllUsers()
+      const user = users.find(user => user._id === id)
+      if (!user) {
+        return null
+      }
+
+      // Return user with limited public information
+      return {
+        _id: user._id,
+        fotoPerfil: user.fotoPerfil,
+        nombre: user.nombre
+      }
+    } catch (err) {
+      console.error('Error reading user:', err)
+      throw new Error(err)
+    }
+  }
+
   static async getEmailById (id) {
     try {
       const users = await this.getAllUsers()

@@ -2,7 +2,7 @@ GET http://localhost:3030/api/messages
 
 
 ###
-GET http://localhost:3030/api/messages/5c10bea7-28e4-469e-a762-3c380f0096ee
+GET http://localhost:3030/api/messages/messageByConversation/afd647d7-3b09-495e-9f6e-0421c16b28d6
 
 
 
@@ -11,9 +11,9 @@ POST http://localhost:3030/api/messages
 Content-Type: application/json
 
 {
-    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "userId": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
     "message": "Hola soy miguel",
-    "conversationId": "5c10bea7-28e4-469e-a762-3c380f0096ee"
+    "conversationId": "afd647d7-3b09-495e-9f6e-0421c16b28d6"
 }
 
 ###
