@@ -1,6 +1,10 @@
-export function reduceText(texto, maxTexto){
+function reduceText(texto, maxTexto){
     if (texto.length <= maxTexto) return texto;
     let recortado = texto.substring(0,maxTexto);
     return texto.substring(0, recortado.lastIndexOf(" "))+ "..."
     
 }
+function reduceTextByFirstWord(texto){
+    return texto.split(' ')[0]
+}
+export { reduceText, reduceTextByFirstWord }

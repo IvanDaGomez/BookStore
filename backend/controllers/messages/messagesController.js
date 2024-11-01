@@ -49,7 +49,6 @@ export class MessagesController {
     const data = req.body
 
     // Validación
-    console.log(data)
     const validated = validateMessage(data)
     if (!validated.success) {
       console.log('Error de validación:', validated.error)
@@ -63,7 +62,7 @@ export class MessagesController {
 
     // Necesario actualizar la conversación en la que el mensaje se envía
     const conversation = await ConversationsModel.getConversationById(data.conversationId)
-    console.log(conversation)
+
     if (!conversation) {
       return res.status(404).json({ error: 'No se encontró la conversación' })
     }
@@ -74,7 +73,8 @@ export class MessagesController {
 
     // Validar el userId
     try {
-      conversation.messages = [...(conversation.messages ?? []), [data._id, data.userId, data.message]]
+      conversation.lastMessage = data
+      console.log(conversation)
       const changed = await ConversationsModel.updateConversation(conversation._id, conversation)
       if (!changed) {
         return res.status(500).json({ error: 'Error al actualizar las conversaciones del usuario' })
@@ -115,6 +115,7 @@ export class MessagesController {
 
       try {
         // Assign conversation ID to user's conversationsIds
+        // Watch pout for the last message
         conversation.messages = conversation.messages.filter(messageArray => messageArray[0] !== message._id)
         const changed = await ConversationsModel.updateConversation(conversation._id, conversation)
         if (!changed) {

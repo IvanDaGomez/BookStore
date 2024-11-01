@@ -71,6 +71,8 @@ export class ConversationsController {
     const time = new Date()
     data.createdIn = time
 
+    const conversations = await ConversationsModel.getAllConversations()
+    if (conversations.some(conversation => JSON.stringify(conversation.users) === JSON.stringify(data.users))) return res.json({ error: 'Conversación ya agregada' })
     // Iterate through users with a for...of loop for async handling
     for (const userId of data.users) {
       const user = await UsersModel.getUserById(userId)
@@ -92,19 +94,21 @@ export class ConversationsController {
       }
     }
 
-    console.log(data)
-
+    try {
     // Create conversation in the database
-    const conversation = await ConversationsModel.createConversation(data)
-    if (typeof conversation === 'string' && conversation.startsWith('Error')) {
-      return res.status(500).json({ error: conversation })
-    }
-    if (!conversation) {
-      return res.status(500).json({ error: 'Error al crear mensaje' })
-    }
+      const conversation = await ConversationsModel.createConversation(data)
+      if (typeof conversation === 'string' && conversation.startsWith('Error')) {
+        return res.status(500).json({ error: conversation })
+      }
+      if (conversation.error) {
+        return res.json({ error: conversation.error })
+      }
 
-    // Send the created conversation if successful
-    res.send({ conversation })
+      // Send the created conversation if successful
+      res.send({ conversation })
+    } catch (error) {
+      res.status(500).json({ error })
+    }
   }
 
   static async deleteConversation (req, res) {

@@ -170,7 +170,7 @@ export default function Usuario() {
                         <div>
                             {!permisos ? (
                                 <>
-                                    <button className="compartir normal">Enviar mensaje</button>
+                                    <Link to={`/mensajes?n=${usuario._id}`}><button className="compartir normal">Enviar mensaje</button></Link>
                                     <button className="compartir botonInverso">Compartir</button>
                                 </>
                             ) : (

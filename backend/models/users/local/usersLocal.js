@@ -23,7 +23,7 @@ class UsersModel {
     try {
       const data = await fs.readFile('./models/users.json', 'utf-8')
       const users = JSON.parse(data)
-
+      console.log(data)
       return users
       // Return only non-sensitive information
       /* return users.map(user => ({
@@ -86,7 +86,7 @@ class UsersModel {
       }
     } catch (err) {
       console.error('Error reading user:', err)
-      throw new Error(err)
+      return { error: 'Error reading user' }
     }
   }
 

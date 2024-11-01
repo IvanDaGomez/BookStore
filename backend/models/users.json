@@ -32,8 +32,25 @@
       "9f8eae32-d2c3-4739-87e5-4c95dc1a665c"
     ],
     "conversationsIds": [
-      "5c10bea7-28e4-469e-a762-3c380f0096ee",
-      "afd647d7-3b09-495e-9f6e-0421c16b28d6"
+      "8fb7a01f-c2c3-40c9-8bdc-b8e20d033467",
+      "c0900dec-2ce3-472c-b10f-cc3708ed221e",
+      "6639b5f5-18ef-49cb-bfd5-4dcee3cccaff",
+      "f7a14cc2-250c-4da5-9e7b-c8435e669e90",
+      "d9894159-f7a2-46b7-9247-8d1d71f83afc",
+      "3c2e96c3-b414-42b9-bad7-54c0b3025b76",
+      "bc7d06a5-d306-439c-976b-fa515b1f43d1",
+      "a2e4823e-28f9-4a00-8107-9e73db16f8e0",
+      "9dd65891-9c7a-4cde-b6dc-1deb5dbec807",
+      "cd88b181-5626-43e5-80a6-a5d42c5e0293",
+      "576cb1ed-eadc-4f5d-9234-e13de1bf05fc",
+      "11ce1f8d-0240-468c-889c-aeeba5ddc7ca",
+      "29206148-5c80-44fd-8cc7-258843b47c88",
+      "31fdc8a3-7f18-40b1-8df0-1d899ceed51d",
+      "1ebb28b8-31c4-4038-b0f8-596b1981436c",
+      "4cf0876b-5858-4fdc-a68e-13adef5213e0",
+      "dc85b627-8742-48ab-9c07-f8c3dedc18f6",
+      "1545414f-10eb-4795-9c36-2d20f3c7c4dc",
+      "fa868d42-882e-430b-b234-c9554874c8b6"
     ],
     "bio": ""
   },
@@ -60,7 +77,13 @@
       "pais": "",
       "codigoPostal": ""
     },
-    "conversationsIds": []
+    "conversationsIds": [
+      "4f300a7c-ebc3-40ce-8a1a-c0df7c1679ad",
+      "3c2e96c3-b414-42b9-bad7-54c0b3025b76",
+      "91a2fbb9-10d8-48f2-b5e2-172d76519d4c"
+    ],
+    "bio": "",
+    "favoritos": []
   },
   {
     "nombre": "Alvaro Gómez",
@@ -86,8 +109,10 @@
       "codigoPostal": ""
     },
     "conversationsIds": [
-      "5c10bea7-28e4-469e-a762-3c380f0096ee",
-      "afd647d7-3b09-495e-9f6e-0421c16b28d6"
+      "c0900dec-2ce3-472c-b10f-cc3708ed221e",
+      "a5740fc8-13b5-452c-a2d2-67abe53dc807",
+      "29206148-5c80-44fd-8cc7-258843b47c88",
+      "4cf0876b-5858-4fdc-a68e-13adef5213e0"
     ],
     "bio": "",
     "favoritos": []
@@ -121,7 +146,11 @@
         "codigoSeguridad": ""
       }
     ],
-    "conversationsIds": []
+    "conversationsIds": [
+      "f7a14cc2-250c-4da5-9e7b-c8435e669e90"
+    ],
+    "bio": "",
+    "favoritos": []
   },
   {
     "nombre": "Monica Silva",
@@ -131,7 +160,7 @@
     "rol": "usuario",
     "fechaRegistro": "2024-10-23T10:39:20.154Z",
     "estadoCuenta": "activo",
-    "fotoPerfil": "",
+    "fotoPerfil": "1729453883736-303865584.png",
     "_id": "bda285c8-e1fe-4b88-a310-e8c48ebc73d9",
     "actualizadoEn": "2024-10-23T10:39:20.155Z",
     "direccionEnvio": {
@@ -140,6 +169,8 @@
       "pais": "",
       "codigoPostal": ""
     },
-    "conversationsIds": []
+    "conversationsIds": [],
+    "bio": "",
+    "favoritos": []
   }
 ]

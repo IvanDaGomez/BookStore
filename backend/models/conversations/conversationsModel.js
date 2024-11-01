@@ -5,7 +5,8 @@ const conversationObject = (data) => {
     _id: data._id || '',
     users: data.users || [],
     messages: data.messages || [],
-    createdIn: data.createdIn || new Date().toISOString()
+    createdIn: data.createdIn || new Date().toISOString(),
+    lastMessage: data.lastMessage || {}
   }
 }
 
@@ -13,7 +14,6 @@ export class ConversationsModel {
   static async getAllConversations (l = 0) {
     try {
       const data = await fs.readFile('./models/conversations.json', 'utf-8')
-      console.log(data)
 
       // Handle empty file case
       let conversations = []
@@ -67,7 +67,6 @@ export class ConversationsModel {
   static async createConversation (data) {
     try {
       const conversations = await this.getAllConversations()
-
       // Crear valores por defecto
       const newConversation = conversationObject(data)
 
