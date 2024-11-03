@@ -2590,7 +2590,7 @@ color: var(--using6);
   margin-right: 5px;
 }
 
-.messagesContainerPc{
+.messagesContainer{
   width: max(400px, 70vw);
   height: calc(100vh - 180px);
   border: 1px solid var(--using2);

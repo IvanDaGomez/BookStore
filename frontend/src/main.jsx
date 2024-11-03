@@ -62,7 +62,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/mensajes', // Messages
-    element: <Mensajes/>
+    element: <Mensajes initialStatus={'mensajes'}/>
+  },
+  {
+    path: '/notificaciones',
+    element: <Mensajes initialStatus={'notificaciones'}/>
   }
 ])
 createRoot(document.getElementById('root')).render(

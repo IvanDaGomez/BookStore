@@ -6,5 +6,13 @@
     "conversationId": "49771105-55f6-4299-b18e-7500a26ed708",
     "createdIn": "2024-11-02T19:52:04.700Z",
     "read": false
+  },
+  {
+    "_id": "75f0bcc4-0743-463d-a606-895d5ce73d70",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "message": "Como va todo",
+    "conversationId": "49771105-55f6-4299-b18e-7500a26ed708",
+    "createdIn": "2024-11-03T01:25:13.080Z",
+    "read": false
   }
 ]
