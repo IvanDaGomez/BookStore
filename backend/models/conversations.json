@@ -1,29 +1,19 @@
 [
   {
-    "_id": "4cf0876b-5858-4fdc-a68e-13adef5213e0",
+    "_id": "49771105-55f6-4299-b18e-7500a26ed708",
     "users": [
       "857857d1-afdd-411d-b41a-be427d1ff186",
       "1816d212-7dc5-4d74-bb9d-e0d97bf60d27"
     ],
     "messages": [],
-    "createdIn": "2024-11-01T17:18:28.781Z",
+    "createdIn": "2024-11-02T19:51:58.367Z",
     "lastMessage": {
       "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
-      "conversationId": "4cf0876b-5858-4fdc-a68e-13adef5213e0",
-      "message": "Hola",
+      "conversationId": "49771105-55f6-4299-b18e-7500a26ed708",
+      "message": "Hola Alvaro",
       "read": false,
-      "_id": "58e36ac9-6ca4-4847-a8ab-eb41d6d29299",
-      "createdIn": "2024-11-01T17:18:33.501Z"
+      "_id": "3f3a9769-87a1-4cdc-8326-5b2b21f615fc",
+      "createdIn": "2024-11-02T19:52:04.700Z"
     }
-  },
-  {
-    "_id": "91a2fbb9-10d8-48f2-b5e2-172d76519d4c",
-    "users": [
-      "857857d1-afdd-411d-b41a-be427d1ff186",
-      "834a9dda-5cf5-4438-9499-eed4b8ec3e45"
-    ],
-    "messages": [],
-    "createdIn": "2024-11-01T17:19:16.555Z",
-    "lastMessage": {}
   }
 ]

@@ -60,42 +60,23 @@ export class ConversationsController {
   static async createConversation (req, res) {
     const data = req.body
 
-    // Validation
+    // Validation: Ensure exactly two users
     if (data.users.length !== 2) {
       return res.json({ error: 'Es necesario dos usuarios' })
     }
-    console.log(data)
 
     // Assign a unique ID and timestamp
     data._id = crypto.randomUUID()
-    const time = new Date()
-    data.createdIn = time
+    data.createdIn = new Date()
 
+    // Check if conversation already exists
     const conversations = await ConversationsModel.getAllConversations()
-    if (conversations.some(conversation => JSON.stringify(conversation.users) === JSON.stringify(data.users))) return res.json({ error: 'Conversación ya agregada' })
-    // Iterate through users with a for...of loop for async handling
-    for (const userId of data.users) {
-      const user = await UsersModel.getUserById(userId)
-      if (!user) {
-        return res.json({ error: 'No se encontró el usuario' })
-      }
-
-      try {
-        // Assign conversation ID to user's conversationsIds
-        user.conversationsIds = [...(user.conversationsIds ?? []), data._id]
-
-        const changed = await UsersModel.updateUser(user._id, user)
-        if (!changed) {
-          return res.status(500).json({ error: 'Error al actualizar las conversaciones del usuario' })
-        }
-      } catch (err) {
-        console.error("Error updating user's conversation IDs:", err)
-        return res.status(500).json({ error: 'Error al actualizar las conversaciones del usuario' })
-      }
+    if (conversations.some(conversation => JSON.stringify(conversation.users) === JSON.stringify(data.users))) {
+      return res.json({ error: 'Conversación ya agregada' })
     }
 
     try {
-    // Create conversation in the database
+      // Create conversation in the database first
       const conversation = await ConversationsModel.createConversation(data)
       if (typeof conversation === 'string' && conversation.startsWith('Error')) {
         return res.status(500).json({ error: conversation })
@@ -104,10 +85,28 @@ export class ConversationsController {
         return res.json({ error: conversation.error })
       }
 
-      // Send the created conversation if successful
+      // Only update users' conversation IDs after successful creation
+      for (const userId of data.users) {
+        const user = await UsersModel.getUserById(userId)
+        if (!user) {
+          return res.json({ error: 'No se encontró el usuario' })
+        }
+
+        // Assign conversation ID to user's conversationsIds
+        user.conversationsIds = [...(user.conversationsIds ?? []), data._id]
+        const changed = await UsersModel.updateUser(user._id, user)
+
+        if (!changed) {
+          return res.status(500).json({ error: 'Error al actualizar las conversaciones del usuario' })
+        }
+      }
+
+      // Send the created conversation if everything is successful
       res.send({ conversation })
     } catch (error) {
-      res.status(500).json({ error })
+      // Catch any errors from the database operations and respond with a 500 status
+      console.error("Error creating conversation or updating users' conversation IDs:", error)
+      res.status(500).json({ error: 'Error al crear la conversación o actualizar usuarios' })
     }
   }
 

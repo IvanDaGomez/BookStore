@@ -22,23 +22,14 @@ class UsersModel {
   static async getAllUsers () {
     try {
       const data = await fs.readFile('./models/users.json', 'utf-8')
+      if (!data) {
+        throw new Error('User data is empty or missing.')
+      }
       const users = JSON.parse(data)
-      console.log(data)
       return users
-      // Return only non-sensitive information
-      /* return users.map(user => ({
-        _id: user._id,
-        nombre: user.nombre,
-        rol: user.rol,
-        fotoPerfil: user.fotoPerfil, // Example of public info
-        librosIds: user.librosIds,
-        estadoCuenta: user.estadoCuenta,
-        creadoEn: user.creadoEn
-        // Avoid exposing sensitive fields like password, email, etc.
-      })) */
     } catch (err) {
       console.error('Error reading users:', err)
-      throw new Error(err)
+      throw err
     }
   }
 

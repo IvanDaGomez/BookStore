@@ -10,6 +10,7 @@ export default function Mensajes() {
     const [user, setUser] = useState({});
     const [mensajes, setMensajes] = useState([]);
     const [conversaciones, setConversaciones] = useState([]);
+    const [filteredConversations, setFilteredConversations] = useState([])
     const [activeConversation, setActiveConversation] = useState(null);
     const [activeUser, setActiveUser] = useState({})
     const [reducedUsers, setReducedUsers] = useState([]);
@@ -18,54 +19,16 @@ export default function Mensajes() {
     const [urlSearchParams] = useSearchParams()
     const newConversationId = urlSearchParams.get('n');
 
-    
-    // Nueva Conversación ----
-    useEffect(()=>{
-        async function fetchNewConversation(){
-            if (!user && newConversationId !== '') return
-            const url = `http://localhost:3030/api/conversations`
-            const response = await fetch(url,{
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json', // Set JSON header
-                },
-                body: JSON.stringify({
-                    users: [user._id, newConversationId]
-                }),
-                credentials: 'include',
-            })
-            if (!response.ok){
-                return
-            }
-            const data = await response.json()
-            if (data.error){
-                return
-            }
-            setConversaciones([...conversaciones, data.conversation])
-            setActiveConversation(data.conversation)
-        }
-        fetchNewConversation()
-    },[newConversationId, user])
-    // Create a reference for scrolling
-    const chatContainerRef = useRef(null);
+    function findUserByConversation(conversation){
+        const otherUserId = conversation.users.find(u => u !== user._id);
+            if (!otherUserId) return {};
+            
+            // Find the user object for the other user in reducedUsers
+            const userMatch = reducedUsers.find(reducedUser => reducedUser._id === otherUserId);
 
-    useEffect(() => {
-        const storedActiveConversation = localStorage.getItem('activeConversation');
-        
-        if (storedActiveConversation) {
-            const parsedConversation = JSON.parse(storedActiveConversation);
-            setActiveConversation(parsedConversation);
-        }
-    }, []);
-
-    useEffect(() => {
-        localStorage.setItem('activeConversation', JSON.stringify(activeConversation))
-        
-        if (reducedUsers && activeConversation){
-            setActiveUser(reducedUsers.find(reducedUser => reducedUser._id === activeConversation.users.find(activeUser => activeUser !== user._id)))
-        }
-    }, [activeConversation, reducedUsers, user._id]);
-
+            return userMatch || {}
+    }
+    // Fetch del usuario primero que todo
     useEffect(() => {
         async function fetchUser() {
             try {
@@ -88,6 +51,31 @@ export default function Mensajes() {
         fetchUser();
     }, []);
 
+
+    // Create a reference for scrolling
+    const chatContainerRef = useRef(null);
+
+    useEffect(() => {
+        const storedActiveConversation = localStorage.getItem('activeConversation');
+        
+        if (storedActiveConversation) {
+            const parsedConversation = JSON.parse(storedActiveConversation);
+            setActiveConversation(parsedConversation);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (reducedUsers.length && activeConversation) {
+            const otherUserId = activeConversation.users.find(u => u !== user._id);
+            const userMatch = reducedUsers.find(u => u._id === otherUserId);
+            if (userMatch) {
+                setActiveUser(userMatch);
+            }
+        }
+    }, [reducedUsers, activeConversation, user._id]);
+
+
+
     useEffect(() => {
         async function fetchConversations() {
             if (!user || !user._id) return;
@@ -99,6 +87,7 @@ export default function Mensajes() {
                     return;
                 }
                 setConversaciones(conversations);
+                setFilteredConversations(conversations);
             } catch (error) {
                 console.error('Error fetching conversations:', error);
                 toast.error('Error fetching conversations');
@@ -108,36 +97,86 @@ export default function Mensajes() {
     }, [user, newConversationId]);
 
     useEffect(() => {
-        async function fetchPhotoAndNameUsers() {
-            if (!user || !conversaciones.length) return;
-
-            const fetchedUsers = [];
-            for (let conversacion of conversaciones) {
-                const userConversationId = conversacion.users.find(c => c !== user._id);
-                
-                if (!userConversationId) continue;
-
-                try {
-                    const url = `http://localhost:3030/api/users/${userConversationId}/photoAndName`;
-                    const response = await fetch(url);
-                    const userData = await response.json();
-
-                    if (userData.error) {
-                        toast.error(userData.error);
-                        return;
-                    }
-
-                    fetchedUsers.push(userData);
-                } catch (error) {
-                    console.error('Error fetching user data:', error);
-                    toast.error('Error fetching user data');
+        let isLoading = false
+        async function fetchNewConversation() {
+            if (isLoading) return
+            // Ensure user, user._id, and newConversationId are defined
+            
+            if (!user || !user._id || !newConversationId || !conversaciones) return;
+            
+            // Check if the conversation already exists to avoid redundant requests
+            if (conversaciones.some(c => c._id === newConversationId)) return;
+            
+            
+            const body = JSON.stringify({ users: [user._id, newConversationId] })
+            isLoading = true
+            try {
+                const url = `http://localhost:3030/api/conversations`;
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body,
+                    credentials: 'include',
+                });
+    
+                if (!response.ok) {
+                    console.error("Error in response while creating a new conversation");
+                    return
                 }
+                const data = await response.json();
+                if (data.error){
+                    return
+                }
+                
+                setConversaciones((prev) => [...(prev || []), data.conversation]);
+                window.location.reload()
+            } catch (error) {
+                console.error('Error creating a new conversation:', error);
+                toast.error('Error creating a new conversation');
             }
-            setReducedUsers(fetchedUsers);
         }
     
-        fetchPhotoAndNameUsers();
-    }, [user, conversaciones]);
+        fetchNewConversation();
+    }, [user, newConversationId, conversaciones]);
+
+    useEffect(()=>{
+        if (conversaciones && user && newConversationId && 
+            activeConversation && 
+            findUserByConversation(activeConversation)._id === newConversationId){
+
+            setActiveConversation(conversaciones.find(conversacion => conversacion.users.find(u => u !== user._id) === newConversationId))
+
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[newConversationId, conversaciones, user, activeConversation])
+useEffect(() => {
+    async function fetchPhotoAndNameUsers() {
+        if (!user._id || !conversaciones.length) return;
+
+        try {
+            const fetchedUsers = await Promise.all(conversaciones.map(async conversacion => {
+                const userConversationId = conversacion.users.find(id => id !== user._id);
+                if (!userConversationId) return null;
+
+                const response = await fetch(`http://localhost:3030/api/users/${userConversationId}/photoAndName`);
+                if (response.ok) {
+                    return await response.json();
+                } else {
+                    console.error(`Failed to fetch data for user ${userConversationId}`);
+                    return null;
+                }
+            }));
+
+            setReducedUsers(fetchedUsers.filter(userData => userData));
+        } catch (error) {
+            console.error('Error fetching user data:', error);
+            toast.error('Error fetching user data');
+        }
+    }
+
+    fetchPhotoAndNameUsers();
+}, [user._id, conversaciones]);
+
     
     useEffect(() => {
         async function fetchMessages() {
@@ -160,13 +199,14 @@ export default function Mensajes() {
         fetchMessages();
     }, [activeConversation]);
 
-    async function handleSubmitMessage() {
+    async function handleSubmitMessage(e) {
+        e.preventDefault();
         const messageInput = document.querySelector('.messageInput');
         const value = messageInput.value.trim(); // Trim whitespace
         const url = `http://localhost:3030/api/messages`;
-
+    
         if (!(value && activeConversation && user)) return; // Validate inputs
-
+    
         try {
             const response = await fetch(url, {
                 method: 'POST',
@@ -181,45 +221,51 @@ export default function Mensajes() {
                 }),
                 credentials: 'include',
             });
-
+    
             if (!response.ok) {
                 toast.error('Error en la respuesta');
                 return;
             }
         
             const responseData = await response.json(); // Parse JSON response
-            setMensajes((prevMensajes) => [...prevMensajes, responseData.message])
             
-            // Actualiza solo la conversación activa
+            // Add the new message to messages state
+            setMensajes((prevMensajes) => [...prevMensajes, responseData.message]);
+    
+            // Update conversations and activeConversation lastMessage
             setConversaciones((prevConversaciones) => {
                 return prevConversaciones.map((conversacion) => {
                     if (conversacion._id === activeConversation._id) {
                         return {
                             ...conversacion,
-                            lastMessage: responseData.message, // Actualiza el lastMessage
+                            lastMessage: responseData.message, // Update lastMessage
                         };
                     }
-                    return conversacion; // Devuelve la conversación sin cambios
+                    return conversacion; // Return the conversation without changes
                 });
             });
-
-            
-            // Set active conversation last message
-            messageInput.value = ''; // Clear input
-            
-
-
+    
+            // Set active conversation last message, ensure it's correctly set
+            setActiveConversation(prevActiveConversation => ({
+                ...prevActiveConversation,
+                lastMessage: responseData.message
+            }));
+    
+            // Clear input field
+            messageInput.value = '';
+    
         } catch (error) {
             console.error('Error sending message:', error);
             toast.error('Error al enviar el mensaje');
         }
     }
+    
     // Scroll to the bottom after adding the message
     useEffect(() => {
-        if (mensajes){
-            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight
+        if (chatContainerRef.current && mensajes.length > 0) {
+            chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
         }
-    },[mensajes])
+    }, [mensajes]);
 
     function formatDate(createdIn) {
         if (!createdIn) return ''
@@ -242,6 +288,25 @@ export default function Mensajes() {
             return `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
         }
     }
+
+    function filterConversations(e) {
+        const searchTerm = e.target.value.toLowerCase(); // Normalize the search term for case-insensitive comparison
+    
+        // Filter conversations where the name of the other user contains the search term
+        const filtered = conversaciones.filter(conversation => {
+            // Find the other user's ID
+            const otherUserId = conversation.users.find(u => u !== user._id);
+            if (!otherUserId) return null;
+            
+            // Find the user object for the other user in reducedUsers
+            const userMatch = reducedUsers.find(reducedUser => reducedUser._id === otherUserId);
+
+            return userMatch.nombre.toLowerCase().includes(searchTerm);
+        });
+    
+        // Update the state with the filtered conversations
+        setFilteredConversations(filtered);
+    }
     return (
         <>
             <Header />
@@ -263,33 +328,33 @@ export default function Mensajes() {
                             <span>Mensajes</span>
                         </div>
                     </div>
-                    {console.log(activeConversation)}
                     <div className="messagesContainerPc">
                         <div className="conversationsContainer">
-                {conversaciones
+                            <input type="text" className="conversationsFilter" onChange={(event)=>filterConversations(event)} placeholder="Buscar"/>
+                {filteredConversations
                     .sort((a, b) => {
                         const dateA = a.lastMessage?.createdIn ? new Date(a.lastMessage.createdIn) : 0;
                         const dateB = b.lastMessage?.createdIn ? new Date(b.lastMessage.createdIn) : 0;
                         return dateB - dateA; // Sort in descending order by last message date
                     })
-                    .map((conversation, index) => (
+                    .map((conversation) => (
                         <div
                             key={conversation._id}
                             className={`conversationSpecific ${activeConversation && activeConversation._id === conversation._id ? 'active' : ''}`}
                             onClick={() => setActiveConversation(conversation)}
                         >
                             <img
-                                src={reducedUsers[index]?.fotoPerfil ? `http://localhost:3030/uploads/${reducedUsers[index]?.fotoPerfil}` : "http://localhost:3030/uploads/default.jpg"}
-                                alt={`${reducedUsers[index]?.name || 'User'}'s avatar`}
+                                src={findUserByConversation(conversation).fotoPerfil ? `http://localhost:3030/uploads/${findUserByConversation(conversation).fotoPerfil}` : "http://localhost:3030/uploads/default.jpg"}
+                                alt={`${findUserByConversation(conversation).name || 'User'}'s avatar`}
                             />
                             <div className="conversationSpecificTitleAndMessage">
-                            <h2>{reducedUsers[index]?.nombre || 'Unknown User'}</h2>
+                            <h2>{findUserByConversation(conversation).nombre || ''}</h2>
                             <span>
                             {user && reducedUsers && conversation && conversation.lastMessage && conversation.lastMessage.message ? (
                                 <>
                                     {conversation.lastMessage.userId === user._id 
                                     ? 'Tu: ' 
-                                    : `${reduceTextByFirstWord(reducedUsers[index]?.nombre || '')}: `}
+                                    : `${reduceTextByFirstWord(findUserByConversation(conversation).nombre || '')}: `}
                                     {reduceText(conversation.lastMessage.message, 20)}
                                 </>
                                 ) : null} 
@@ -320,14 +385,14 @@ export default function Mensajes() {
                             {activeConversation ? (
                                 <>
                                     <div className="messageInputContainer">
-                                        <input type="text" className="messageInput" onKeyDown={(event) => event.key === 'Enter' ? handleSubmitMessage() : ''} />
-                                        <div className="send" onClick={handleSubmitMessage}>
+                                        <input type="text" className="messageInput" onKeyDown={(event) => event.key === 'Enter' ? handleSubmitMessage(event) : ''} />
+                                        <div className="send" onClick={(event) => handleSubmitMessage(event)}>
                                             <img src='/sendMessage.svg' alt="Send Message" />
                                         </div>
                                     </div>
                                 </>
                             ) : (
-                                <>No hay nada que mostrar</>
+                                <></>
                             )}
                         </div>
                     </div>

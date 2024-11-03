@@ -74,7 +74,6 @@ export class MessagesController {
     // Validar el userId
     try {
       conversation.lastMessage = data
-      console.log(conversation)
       const changed = await ConversationsModel.updateConversation(conversation._id, conversation)
       if (!changed) {
         return res.status(500).json({ error: 'Error al actualizar las conversaciones del usuario' })
