@@ -154,10 +154,10 @@ export default function Fase3({ form, setForm, fase, setFase, meanPrice }){
             onKeyDown={handleKeyPress}
           />
         </div>
-        <h2>El precio promedio de este libro en internet es de: $ {meanPrice} pesos</h2>
+        {meanPrice && <label>El precio promedio de este libro en internet es de: $ {meanPrice} pesos</label>}
         {errors.length !== 0 && <div className="error">{errors[0]}</div>}
             <div className="center">
-          <button className="atras" onClick={() =>setFase(2)}>
+          <button className="atras" onClick={() =>setFase(fase - 1)}>
             Atrás
           </button>
           <input type="submit" value="Enviar"/>
