@@ -341,8 +341,8 @@ useEffect(() => {
                     <hr />
                     {(libro.disponibilidad == "Disponible") ? <>
                     <h3>Disponible</h3>
-                    {console.log(user)}
-                    {(libro && user && !user.librosIds.includes(libro._id)) ? <><Link to={`/checkout/${libro._id}`}><button >Comprar ahora</button></Link>
+                    
+                    {((libro && user && user.librosIds) && !user?.librosIds.includes(libro._id)) ? <><Link to={`/checkout/${libro._id}`}><button >Comprar ahora</button></Link>
                     <button onClick={(event) => handleFavoritos(event, libro._id, user._id )} className="botonInverso">Agregar a favoritos</button></>
                     :<><h2 style={{color:'var(--using4)'}}>Este libro es tuyo</h2></>}
                     </> : <>{libro.disponibilidad}</>}

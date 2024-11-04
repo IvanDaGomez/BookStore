@@ -1069,7 +1069,7 @@ color: var(--using6);
 
 .footer {
   background-color: var(--using4);
-  padding: 20px 40px;
+  padding: 5rem 5rem;
   color: var(--using1);
 }
 .footer *{
@@ -2099,7 +2099,7 @@ color: var(--using6);
   margin: auto;
 }
 .inputCrear label, .inputCrear label{
-  font-size: 4rem;
+  font-size: 3rem;
 }
 
 .inputCrear input, .inputCrear textarea{
@@ -2109,7 +2109,7 @@ color: var(--using6);
   background: var(--using1);
   border: 2px solid var(--using2);
   border-radius: 5px;
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-family: inherit;
   color:var(--using3)
 }
@@ -2323,7 +2323,8 @@ color: var(--using6);
   flex-direction: column;
   border: 2px solid var(--using2);
   background: var(--using1);
-  width:30px;
+  width:50px;
+  font-size: 2rem;
   aspect-ratio: 1/1;
   border-radius: 50%;
 }
@@ -2564,6 +2565,79 @@ color: var(--using6);
   border-radius: 10px;
 }
 
+.checkoutContainer .inputCrear{
+  width: 100%;
+}
+.checkoutContainer .inputCrear div{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.checkoutContainer .inputCrear #extension{
+  width: 80px;
+  height: calc(2rem + 15px);
+  max-height: 200px;
+  background: var(--using1);
+  color: var(--using3);
+  border: 2px solid var(--using2);
+  border-radius: 5px;
+  font-size: 2rem;
+  font-family: inherit;
+  margin: 1px;
+}
+.paymentMethodsContainer{
+  width: auto;
+  margin-right: auto;
+  text-align: left;
+}
+.paymentMethods {
+  margin: 10px 0;
+  width: 500px;
+  height: auto; /* Allow the container to fit its contents */
+  display: flex;
+  gap: 10px; /* Add consistent spacing between items */
+  padding: 2px; /* Add some padding inside the container */
+  align-items: center; /* Vertically align items in the center */
+  text-align: center;
+
+}
+.paymentMethodsLabel{
+  font-size: 3rem;
+
+}
+
+.paymentMethods div {
+  width: 100px; /* Adjust width to make items smaller */
+  height: 80px; /* Let height be dynamic based on content */
+  padding: 5px 10px; /* Add padding for inner spacing */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 2px solid var(--using2);
+  border-radius: 8px; /* Rounded corners for a smoother look */
+  cursor: pointer;
+}
+.paymentMethods div.activePaymenthMethod{
+  border: 2px solid var(--using3);
+}
+.paymentMethods div img {
+  width: 40px; /* Adjust width to make images smaller */
+  height: auto; /* Ensure image maintains aspect ratio */
+  margin-bottom: 5px; /* Add some space below the image */
+}
+.gridTarjeta{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
+}
+.gridTarjeta .tarjetaContainer, .gridTarjeta .tarjetaLlenar{
+  width: 100%;
+  
+}
 /*--------------------------------------MESSAGES----------------------------------------*/
 
 .sectionMessagesContainer{
@@ -2578,13 +2652,16 @@ color: var(--using6);
   border: 1px solid var(--using2);
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  border-bottom: 1px solid white;
   padding: 5px 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-right: 5px;
   cursor: pointer;
+}
+.sectionMessageActive, .sectionMessageActive svg{
+  color: var(--using1);
+  background: var(--using4);
 }
 .sectionMessage svg{
   margin-right: 5px;

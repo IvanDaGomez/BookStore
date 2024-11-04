@@ -1,11 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import { validarPublicar3 } from "../../assets/validarPublicar";
-export default function Fase3({ form, setForm, fase, setFase }){
+
+export default function Fase3({ form, setForm, fase, setFase, meanPrice }){
 
 
     const [errors, setErrors] = useState([]);
     const [keywords, setKeywords] = useState([])
+
     async function handleSubmit(e) {
       e.preventDefault();
     
@@ -152,7 +154,7 @@ export default function Fase3({ form, setForm, fase, setFase }){
             onKeyDown={handleKeyPress}
           />
         </div>
-
+        <h2>El precio promedio de este libro en internet es de: $ {meanPrice} pesos</h2>
         {errors.length !== 0 && <div className="error">{errors[0]}</div>}
             <div className="center">
           <button className="atras" onClick={() =>setFase(2)}>

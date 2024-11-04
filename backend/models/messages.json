@@ -14,5 +14,13 @@
     "conversationId": "49771105-55f6-4299-b18e-7500a26ed708",
     "createdIn": "2024-11-03T01:25:13.080Z",
     "read": false
+  },
+  {
+    "_id": "4b0fd016-37e0-4ee9-be3f-8e42eb69a14f",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "message": "Hola",
+    "conversationId": "cb9b4163-5992-484a-8792-a532436d24b3",
+    "createdIn": "2024-11-04T01:42:49.353Z",
+    "read": false
   }
 ]

@@ -1,5 +1,7 @@
 GET http://localhost:3030/api/books
 
+###
+GET http://localhost:3030/api/books/search/como-hacer-que-te-pasen-cosas-buenas?
 
 ###
 GET http://localhost:3030/api/books/3df96bd0-c058-472e-9cc9-c41279d2fa19

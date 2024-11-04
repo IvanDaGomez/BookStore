@@ -15,5 +15,22 @@
       "_id": "75f0bcc4-0743-463d-a606-895d5ce73d70",
       "createdIn": "2024-11-03T01:25:13.080Z"
     }
+  },
+  {
+    "_id": "cb9b4163-5992-484a-8792-a532436d24b3",
+    "users": [
+      "857857d1-afdd-411d-b41a-be427d1ff186",
+      "834a9dda-5cf5-4438-9499-eed4b8ec3e45"
+    ],
+    "messages": [],
+    "createdIn": "2024-11-04T01:42:40.235Z",
+    "lastMessage": {
+      "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+      "conversationId": "cb9b4163-5992-484a-8792-a532436d24b3",
+      "message": "Hola",
+      "read": false,
+      "_id": "4b0fd016-37e0-4ee9-be3f-8e42eb69a14f",
+      "createdIn": "2024-11-04T01:42:49.353Z"
+    }
   }
 ]

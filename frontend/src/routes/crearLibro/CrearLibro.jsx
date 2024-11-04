@@ -5,6 +5,7 @@ import Fase1 from "./Fase1";
 import Fase2 from "./Fase2";
 import Fase3 from "./Fase3";
 import { useState, useEffect } from "react";
+import { average } from "../../assets/average";
 import { useSearchParams } from "react-router-dom";
 import UseStep from "../../components/UseStep";
 
@@ -172,9 +173,6 @@ export default function CrearLibro() {
             formData.append("disponibilidad", "Disponible");
             formData.append("ubicacion", 'Buscar');
             
-            for (let pair of formData.entries()) {
-              console.log(pair[0] + ': ' + pair[1]); // Logs key-value pairs
-            }
             try {
                 
               const URL = (!actualizar) ? 'http://localhost:3030/api/books': `http://localhost:3030/api/books/${libro}` ;
@@ -211,7 +209,37 @@ export default function CrearLibro() {
 }, [fase, form, user, actualizar, libro]);
 
 
+const [meanPrice, setMeanPrice] = useState(null)
+// Fetch by title and look the price on the internet
+useEffect(() => {
+  
+  async function fetchPrice() {
+    if (form.titulo) {
+      try {
+        
 
+      const url = `http://localhost:3030/api/books/search/${form.titulo}`
+      const response = await fetch(url)
+
+      if (!response.ok){
+        return
+      }
+
+      const data = await response.json()
+      
+      const prices = await Promise.all(data.map(info => Number(info.price)));
+      setMeanPrice(average(prices))
+      
+
+    } catch {
+        return
+    }
+    }
+
+  }
+  
+  fetchPrice()
+},[form.titulo])
 
   return (
     <>
@@ -233,7 +261,7 @@ export default function CrearLibro() {
         ) : fase === 2 ? (
           <Fase2 form={form} setForm={setForm} fase={fase} setFase={setFase} />
         ) : (
-          <Fase3 form={form} setForm={setForm} fase={fase} setFase={setFase} />
+          <Fase3 form={form} setForm={setForm} fase={fase} setFase={setFase} meanPrice={meanPrice}/>
         )}
       </div>
       <Footer />

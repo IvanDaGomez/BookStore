@@ -11,9 +11,30 @@ import { useParams } from 'react-router';
 import { useEffect } from 'react';
 function Checkout() {
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  const [user, setUser] = useState(null)
+
+      // Fetch del usuario primero que todo
+      useEffect(() => {
+        async function fetchUser() {
+            try {
+                const response = await fetch('http://localhost:3030/api/users/userSession', {
+                    method: 'POST',
+                    credentials: 'include',
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    setUser(data.user);
+                } else {
+                    window.location.href = 'popUp/noUser';
+                }
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+                window.location.href = 'popUp/noUser';
+            }
+        }
+        fetchUser();
+    }, []);
 
   const { bookId } = useParams()
   // Fetch book
@@ -50,13 +71,15 @@ function Checkout() {
     pago: {},
     confirmacion: {},
   });
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [fase]);
   const renderFase = () => {
     switch (fase) {
       case 1:
         return <Fase1 form={form} setForm={setForm} setFase={setFase}  libro={libro}/>;
       case 2:
-        return <Fase2 form={form} setForm={setForm} setFase={setFase} />;
+        return <Fase2 form={form} setForm={setForm} setFase={setFase} user={user}/>;
       case 3:
         return <Fase3 form={form} setForm={setForm} setFase={setFase} />;
       case 4:
@@ -66,7 +89,7 @@ function Checkout() {
     }
   };
 
-  const steps = ['Información del producto', 'Envío', 'Pago', 'Confirmación']
+  const steps = ['Información del producto', 'Tu datos de envío', 'Pago', 'Confirmación']
   return (
     <>
     <Header />

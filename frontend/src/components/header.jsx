@@ -227,7 +227,7 @@ const openExtraInfo = async (str) => {
                     <Link to="/"><p>Inicio</p></Link>
                     <p  onMouseOver={() => openExtraInfo("Libros")} >Libros</p>
                     <p onMouseOver={() => openExtraInfo("Autores")} >Autores</p>
-                    <p>Contacto</p>
+                    
                 </div>
                 </div>
                 <div style={{display:"flex", justifyContent:"center"}}>

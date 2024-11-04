@@ -3,6 +3,8 @@ import crypto from 'node:crypto'
 import { validateBook, validatePartialBook } from '../../assets/validate.js'
 import { UsersModel } from '../../models/users/local/usersLocal.js'
 import { cambiarGuionesAEspacio } from '../../../frontend/src/assets/agregarMas.js'
+import { chromium } from 'playwright'
+import { scrapingFunctions } from '../../assets/scrappingConfig.js'
 import { helperImg } from '../../assets/helperImg.js'
 
 export class BooksController {
@@ -252,6 +254,29 @@ export class BooksController {
     } catch (err) {
       console.error('Error al actualizar el libro:', err)
       res.status(500).json({ error: err.message })
+    }
+  }
+
+  static async searchByBookTitle (req, res) {
+    const { bookTitle } = req.params
+    const browser = await chromium.launch({ headless: true })
+    const context = await browser.newContext()
+    const page = await context.newPage()
+
+    try {
+      let results = []
+
+      // Use a for-loop to iterate over each scraping function
+      for (const scrapeFunction of scrapingFunctions) {
+        const result = await scrapeFunction(page, bookTitle)
+        results = [...results, ...result]
+      }
+
+      await browser.close()
+      res.json(results)
+    } catch (error) {
+      await browser.close()
+      res.status(500).json({ error: error.message })
     }
   }
 }

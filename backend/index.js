@@ -68,6 +68,8 @@ app.use('/api/users', usersRouter)
 app.use('/api/books', booksRouter)
 app.use('/api/messages', messagesRouter)
 app.use('/api/conversations', conversationsRouter)
+// app.use('/api/notifications', notificationsRouter)
+
 app.listen(PORT, () => {
   console.log('Server is listening on http://localhost:' + PORT)
 })
