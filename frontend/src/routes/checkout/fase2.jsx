@@ -37,9 +37,7 @@ function Fase2({ form, setForm, setFase, user }) {
           {/*Flag API no sirve <img src={`https://flagsapi.com/${option.isoCode}/flat/64.png`} alt="" /> */}
           <select name="extension" id="extension">
             {options.map((option, index)=>(
-              <>
               <option key={index} name={option.code}>+ {option.code}</option>
-              </>
             ))}
             
           </select>

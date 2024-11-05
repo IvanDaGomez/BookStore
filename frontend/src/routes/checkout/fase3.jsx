@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useRef, useState } from "react";
 import { getCardBrand } from "../../assets/getCardBrand";
+import PaymentBrick from "./paymentBrick";
 
 /* eslint-disable react/prop-types */
-function Fase3({ form, setForm, setFase }) {
+function Fase3({ form, setForm, setFase, libro, preferenceId }) {
 
   const [paymentMethod, setPaymentMethod] = useState('Tarjeta de crédito');
   const [brand, setBrand] = useState(null);
@@ -15,7 +17,8 @@ function Fase3({ form, setForm, setFase }) {
   };
   useEffect(()=>{
     setForm({...form, payment: {...form.payment, paymentMethod}})
-  },[paymentMethod, form, setForm])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[paymentMethod])
   
   const renderBrand = () => {
     const number = cardNumber.current.value;
@@ -117,18 +120,19 @@ function Fase3({ form, setForm, setFase }) {
     }));
   };
 
-  useEffect(()=>{
+  /*useEffect(()=>{
     document.querySelector('#UIcardExpiryDate').value = document.querySelector('#expiryDate').value
     document.querySelector('#UIcardNumber').value = document.querySelector('#cardNumber').value
     document.querySelector('#UIcardName').value = document.querySelector('#cardName').value
-  },[])
+  },[])*/
 
   return (
     <div className="checkoutContainer">
             <div className="paymentMethodsContainer">
-        <label className="paymentMethodsLabel">Método de pago</label>
-        <div className="paymentMethods">
-          {/* Payment methods selection */}
+        
+        {preferenceId && <PaymentBrick libro={libro} preferenceId={preferenceId}/>}
+        {/*<div className="paymentMethods">
+          
           <div
             className={`${paymentMethod === 'Tarjeta de crédito' ? 'activePaymentMethod' : ''}`}
             onClick={() => setPaymentMethod('Tarjeta de crédito')}
@@ -167,7 +171,6 @@ function Fase3({ form, setForm, setFase }) {
         </div>
       </div>
 
-      {/* General input for all methods */}
       <div className="inputCrear">
         <label htmlFor="idNumber">Nombre *</label>
         <input
@@ -191,7 +194,6 @@ function Fase3({ form, setForm, setFase }) {
         />
       </div>
 
-      {/* Specific fields for credit/debit cards */}
       {(paymentMethod === 'Tarjeta de crédito' || paymentMethod === 'Tarjeta de débito') && (
         <div className="gridTarjeta">
           <div className="tarjetaContainer">
@@ -263,7 +265,6 @@ function Fase3({ form, setForm, setFase }) {
           
         </div>
       )}
-                  {/* Campos específicos para PSE */}
                   {paymentMethod === 'pse' && (
                 <>
                     <div className="inputCrear">
@@ -292,7 +293,6 @@ function Fase3({ form, setForm, setFase }) {
                 </>
             )}
 
-            {/* Campos específicos para Mercado Pago */}
             {paymentMethod === 'Mercado Pago' && (
                 <div className="inputCrear">
                     <label htmlFor="email">Correo electrónico *</label>
@@ -307,8 +307,8 @@ function Fase3({ form, setForm, setFase }) {
                 </div>
             )}
       <div>
+        */}
         <button type="button" onClick={() => setFase(2)}>Atrás</button>
-        <button type="button" onClick={handleNext}>Finalizar</button>
       </div>
     </div>
   );

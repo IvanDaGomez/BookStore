@@ -75,3 +75,13 @@ Content-Type: application/json
 ###
 
 DELETE http://localhost:3030/api/books/3df96bd0-c058-472e-9cc9-c41279d2fa19
+
+###
+
+POST http://localhost:3030/api/books/getPreferenceId
+Content-Type: application/json
+
+{
+    "title": "yo no soy así",
+    "price": 50000
+}

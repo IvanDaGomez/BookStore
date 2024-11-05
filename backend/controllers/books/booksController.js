@@ -5,8 +5,9 @@ import { UsersModel } from '../../models/users/local/usersLocal.js'
 import { cambiarGuionesAEspacio } from '../../../frontend/src/assets/agregarMas.js'
 import { chromium } from 'playwright'
 import { scrapingFunctions } from '../../assets/scrappingConfig.js'
-import { helperImg } from '../../assets/helperImg.js'
-
+// import { helperImg } from '../../assets/helperImg.js'
+import { Preference, MercadoPagoConfig } from 'mercadopago'
+import { ACCESS_TOKEN } from '../../assets/config.js'
 export class BooksController {
   static async getAllBooks (req, res) {
     try {
@@ -277,6 +278,42 @@ export class BooksController {
     } catch (error) {
       await browser.close()
       res.status(500).json({ error: error.message })
+    }
+  }
+
+  static async getPreferenceId (req, res) {
+    const client = new MercadoPagoConfig({
+      accessToken: ACCESS_TOKEN
+    })
+
+    try {
+      const body = {
+        items: [
+          {
+            title: req.body.title,
+            quantity: 1,
+            unit_price: Number(req.body.price),
+            currency_id: 'COP'
+          }
+
+        ]/* ,
+        back_urls: {
+          success: 'localhost/popUp/successBuying',
+          failure: 'localhost/popUp/failureBuying',
+          pending: 'localhost/popUp/pendingBuying'
+        } */
+        // auto_return: 'approved'
+      }
+      const preference = new Preference(client)
+      const result = await preference.create({ body })
+      res.json({
+        id: result.id
+      })
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({
+        error: 'Error al crear la preferencia'
+      })
     }
   }
 }
