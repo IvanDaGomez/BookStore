@@ -67,9 +67,9 @@ function Checkout() {
   const [form, setForm] = useState({
     // Estado para almacenar los datos del formulario
     _id: bookId,
-    envío: {},
-    pago: {},
-    confirmacion: {},
+    address: {},
+    payment: {},
+    confirmation: {},
   });
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -82,13 +82,30 @@ function Checkout() {
         return <Fase2 form={form} setForm={setForm} setFase={setFase} user={user}/>;
       case 3:
         return <Fase3 form={form} setForm={setForm} setFase={setFase} />;
-      case 4:
-        return <Fase4 form={form} setForm={setForm} setFase={setFase} />;
+      case 5:
+        return <Fase4 form={form} setForm={setForm} setFase={setFase} user={user}/>;
       default:
         return <Fase1 form={form} setForm={setForm} setFase={setFase} />;
     }
   };
+  useEffect(() => {
+    async function pay() {
+      if (fase !== 4) return;
 
+      try {
+        const url = 'http://localhost:3030/books/payment'
+        const response = await fetch(url,{
+          
+        })
+        
+        setFase(5)
+      } catch (error) {
+        console.error('Error en el pago:', error);
+      }
+    }
+
+    pay();
+  }, [fase, form.payment.paymentMethod]);
   const steps = ['Información del producto', 'Tu datos de envío', 'Pago', 'Confirmación']
   return (
     <>

@@ -1,8 +1,10 @@
-function Fase4({ form, setFase }) {
+/* eslint-disable react/prop-types */
+import { Link } from "react-router-dom";
+function Fase4({ user }) {
     return (
-      <div>
-        <p>Gracias por tu compra, {form.delivery.address}!</p>
-        <button onClick={() => setFase(1)}>Volver al Inicio</button>
+      <div className="checkoutContainer">
+        <h1><small>Gracias por tu compra, {user.nombre}!</small></h1>
+        <Link to='/'><button>Volver al Inicio</button></Link>
       </div>
     );
   }

@@ -12,8 +12,9 @@ const handleFavoritos = (event, id, userId) => {
     }
 
     const url = `http://localhost:3030/api/users/${userId}`;
-    // Selecciona el <path> dentro del SVG usando su className único
+    // Select the <path> inside the SVG using its unique className
     const favoritoIconPath = document.querySelectorAll(`.favorito-${id}`);
+    
     try {
       const response = await fetch(url, {
         method: 'PATCH',
@@ -22,7 +23,7 @@ const handleFavoritos = (event, id, userId) => {
         },
         body: JSON.stringify({
           favoritos: id,
-          accion: (favoritoIconPath.classList.contains('favoritoActivo')) ? 'eliminar' : 'agregar'
+          accion: (favoritoIconPath.length > 0 && favoritoIconPath[0].classList.contains('favoritoActivo')) ? 'eliminar' : 'agregar'
         }),
         credentials: 'include'
       });
@@ -33,34 +34,19 @@ const handleFavoritos = (event, id, userId) => {
         toast.error('Hubo un problema al agregar a favoritos');
         return;
       }
+      
+      if (favoritoIconPath.length > 0) {
+        if (favoritoIconPath[0].classList.contains('favoritoActivo')) {
+          favoritoIconPath[0].classList.remove('favoritoActivo');
+          toast.success('Eliminado de favoritos exitosamente');
+        } else {
+          favoritoIconPath[0].classList.add('favoritoActivo');
+          toast.success('Agregado a favoritos exitosamente');
+          return
+        }
+      }
+      toast.success('Agregado a favoritos exitosamente');
 
-      
-      if (favoritoIconPath[0].classList.contains('favoritoActivo')) {
-        
-        favoritoIconPath.classList.remove('favoritoActivo');
-        toast.success('Eliminado de favoritos exitosamente');
-      }
-      else{
-        favoritoIconPath[0].classList.add('favoritoActivo');
-        toast.success('Agregado a favoritos exitosamente');
-      }
-      /*let action;
-    console.log(favoritoIconPath)
-      favoritoIconPath.forEach((favoritoId) => {
-        if (favoritoId.classList.contains('favoritoActivo')) {
-        
-          favoritoId.classList.remove('favoritoActivo');
-          action = 'Eliminado de favoritos exitosamente'
-          
-        }
-        else{
-          favoritoId.classList.add('favoritoActivo');
-          action ='Agregado a favoritos exitosamente'
-        }
-      })
-      toast.success(action);
- */
-      
     } catch (err) {
       console.error('Error agregando a favoritos:', err);
       toast.error('Error al agregar a favoritos');

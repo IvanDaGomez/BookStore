@@ -2323,7 +2323,7 @@ color: var(--using6);
   flex-direction: column;
   border: 2px solid var(--using2);
   background: var(--using1);
-  width:50px;
+  width:40px;
   font-size: 2rem;
   aspect-ratio: 1/1;
   border-radius: 50%;
@@ -2559,7 +2559,7 @@ color: var(--using6);
   flex-direction: column;
   margin: 20px auto;
   padding: 20px;
-  width:max(400px, 70vw);
+  width:max(450px, 70vw);
   border: 1px solid var(--using4);
   box-shadow: 0 0 8px var(--using4);
   border-radius: 10px;
@@ -2620,7 +2620,7 @@ color: var(--using6);
   border-radius: 8px; /* Rounded corners for a smoother look */
   cursor: pointer;
 }
-.paymentMethods div.activePaymenthMethod{
+.paymentMethods div.activePaymentMethod{
   border: 2px solid var(--using3);
 }
 .paymentMethods div img {
@@ -2633,10 +2633,45 @@ color: var(--using6);
   display: grid;
   grid-template-columns: 1fr 1fr;
   place-items: center;
+  gap:20px;
 }
 .gridTarjeta .tarjetaContainer, .gridTarjeta .tarjetaLlenar{
   width: 100%;
   
+}
+.gridTarjeta .tarjetaContainer{
+  margin: 20px;
+  padding: 20px;
+  width: 100%;
+  aspect-ratio: 1.586;
+
+  background: var(--using4);
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+.gridTarjeta .tarjetaContainer div{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  color:var(--using1);
+  align-items: center;
+}
+.gridTarjeta .tarjetaContainer div img{
+  height: 30px;
+}
+.gridTarjeta .tarjetaContainer div span{
+  font-size: 2.5rem;
+}
+.gridTarjeta .tarjetaContainer #UIcardExpiryDate{
+  font-size: 3rem;
+}
+.gridTarjeta .tarjetaContainer #UIcardNumber{
+  margin: auto;
+  font-size: 5.5rem;
+  font-weight: 400;
 }
 /*--------------------------------------MESSAGES----------------------------------------*/
 
