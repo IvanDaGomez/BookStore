@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Fase1 from './fase1';
 import Fase2 from './fase2';
 import Fase3 from './fase3';
-import Fase4 from './fase4';
+
 import UseStep from '../../components/UseStep';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
@@ -116,8 +116,6 @@ function Checkout() {
         return <Fase2 form={form} setForm={setForm} setFase={setFase} user={user}/>;
       case 3:
         return <Fase3 form={form} setForm={setForm} setFase={setFase} libro={libro} preferenceId={preferenceId}/>;
-      case 5:
-        return <Fase4 form={form} setForm={setForm} setFase={setFase} user={user}/>;
       default:
         return <Fase1 form={form} setForm={setForm} setFase={setFase} />;
     }
@@ -126,7 +124,7 @@ function Checkout() {
 
 
 
-  const steps = ['Información del producto', 'Tu datos de envío', 'Pago', 'Confirmación']
+  const steps = ['Información del producto', 'Tu datos de envío', 'Pago']
   return (
     <>
     <Header />

@@ -6,7 +6,7 @@ import { cambiarGuionesAEspacio } from '../../../frontend/src/assets/agregarMas.
 import { chromium } from 'playwright'
 import { scrapingFunctions } from '../../assets/scrappingConfig.js'
 // import { helperImg } from '../../assets/helperImg.js'
-import { Preference, MercadoPagoConfig } from 'mercadopago'
+import { Preference, MercadoPagoConfig, Payment } from 'mercadopago'
 import { ACCESS_TOKEN } from '../../assets/config.js'
 export class BooksController {
   static async getAllBooks (req, res) {
@@ -315,5 +315,22 @@ export class BooksController {
         error: 'Error al crear la preferencia'
       })
     }
+  }
+
+  static async processPayment (req, res) {
+    const client = new MercadoPagoConfig({ accessToken: ACCESS_TOKEN, options: { timeout: 5000 } })
+
+    const payment = new Payment(client)
+
+    payment.create({
+      body: {
+        transaction_amount: 100,
+        description: '<DESCRIPTION>',
+        payment_method_id: '<PAYMENT_METHOD_ID>',
+        payer: {
+          email: '<EMAIL>'
+        }
+      }
+    }).then(console.log).catch(console.log)
   }
 }

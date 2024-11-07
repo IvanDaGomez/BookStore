@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { initMercadoPago, Payment } from '@mercadopago/sdk-react';
+import { calculateComission } from '../../assets/calculateComission';
 
 function PaymentBrick({ libro, preferenceId }) {
 
@@ -22,6 +23,7 @@ function PaymentBrick({ libro, preferenceId }) {
                     const initialization = {
                         amount: libro.oferta ? libro.oferta : libro.precio,
                         preferenceId,
+                        marketplace: true,
                     };
 
                     const customization = {
@@ -31,7 +33,7 @@ function PaymentBrick({ libro, preferenceId }) {
                             creditCard: "all",
                             debitCard: "all",
                             mercadoPago: "all",
-                        },
+                        }
                     };
 
                     await bricksBuilder.create("payment", "paymentBrick_container", {
@@ -56,11 +58,12 @@ function PaymentBrick({ libro, preferenceId }) {
         // Calculate commission and seller's amount
         const totalAmount = libro.oferta || libro.precio;
         // 5% mas 4000 pesos
-        const commissionAmount = totalAmount * 0.05 + 4000;
+        const commissionAmount = calculateComission(totalAmount)
         const sellerAmount = totalAmount - commissionAmount;
 
         return new Promise((resolve, reject) => {
-            fetch("/process_payment", {
+            const url = 'http://localhost:3030/api/books/process_payment'
+            fetch(url, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -108,6 +111,7 @@ function PaymentBrick({ libro, preferenceId }) {
                     initialization={{
                         amount: libro.oferta ? libro.oferta : libro.precio,
                         preferenceId,
+                        marketplace: true,
                     }}
                     customization={{
                         paymentMethods: {
@@ -116,6 +120,7 @@ function PaymentBrick({ libro, preferenceId }) {
                             creditCard: "all",
                             debitCard: "all",
                             mercadoPago: "all",
+                            atm: "all"
                         },
                     }}
                     onSubmit={onSubmit}
