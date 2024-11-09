@@ -1,0 +1,20 @@
+[
+  {
+    "_id": "9a167ca8-bfc7-41a2-80b3-ce5c170b9898",
+    "theme": "light",
+    "type": "newMessage",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-11-09T15:48:13.701Z",
+    "read": false
+  },
+  {
+    "_id": "2269e9d5-30ec-4953-b356-2b2efb4dce8d",
+    "theme": "light",
+    "type": "newMessage",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-11-09T15:55:03.856Z",
+    "read": false
+  }
+]

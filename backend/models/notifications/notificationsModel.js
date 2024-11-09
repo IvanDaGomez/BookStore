@@ -17,7 +17,8 @@ const notificationObject = (data) => {
     type: data.type || '',
     userId: data.userId || '',
     input: data.input || '',
-    createdIn: data.createdIn || new Date().toISOString()
+    createdIn: data.createdIn || new Date().toISOString(),
+    read: data.read || false
   }
 }
 
@@ -42,14 +43,14 @@ export class NotificationsModel {
     }
   }
 
-  static async getNotificationsByUser (notificationsIds) {
+  static async getAllNotificationsByUserId (userId) {
     try {
       // Load all notifications from the JSON file
       const allNotifications = await this.getAllNotifications()
       // For
       // Filter notifications based on the provided notificationsIds
       const userNotifications = allNotifications.filter(notification =>
-        notificationsIds.includes(notification._id)
+        notification.userId === userId
       )
       return userNotifications
     } catch (err) {
@@ -61,12 +62,12 @@ export class NotificationsModel {
   static async getNotificationById (id) {
     try {
       const notifications = await this.getAllNotifications()
+
       const notification = notifications.find(notification => notification._id === id)
+
       if (!notification) {
         return null
       }
-
-      // Return notification with limited public information
       return notificationObject(notification)
     } catch (err) {
       console.error('Error reading notification:', err)

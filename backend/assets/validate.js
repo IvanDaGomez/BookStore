@@ -92,8 +92,22 @@ function validateMessage (data) {
 function validatePartialMessage (data) {
   return messageSchema.partial().safeParse(data)
 }
+const notificationSchema = z.object({
+  theme: z.string().default('light'),
+  type: z.string(), // .enum(['']),
+  userId: z.string(),
+  input: z.string().optional()
+})
+
+function validateNotification (data) {
+  return notificationSchema.safeParse(data)
+}
+function validatePartialNotification (data) {
+  return notificationSchema.partial().safeParse(data)
+}
 export {
   validateUser, validatePartialUser,
   validateBook, validatePartialBook,
-  validateMessage, validatePartialMessage
+  validateMessage, validatePartialMessage,
+  validateNotification, validatePartialNotification
 }

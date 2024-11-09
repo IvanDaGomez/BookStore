@@ -14,7 +14,8 @@ function userObject (name) {
     creadoEn: name.creadoEn,
     bio: name.bio || '',
     favoritos: name.favoritos || [],
-    conversationsIds: name.conversationsIds || []
+    conversationsIds: name.conversationsIds || [],
+    notificationsIds: name.notificationsIds || []
     // Avoid exposing sensitive fields like password, email, etc.
   }
 }

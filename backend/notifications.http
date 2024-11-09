@@ -1,4 +1,24 @@
-GET http:
+GET http://localhost:3030/api/notifications
+
+
+###
+GET http://localhost:3030/api/notifications/9a167ca8-bfc7-41a2-80b3-ce5c170b9898
+
+
+###
+GET http://localhost:3030/api/notifications/getNotificationsByUser/857857d1-afdd-411d-b41a-be427d1ff186
+
 
 ###
 POST http://localhost:3030/api/notifications
+Content-Type: application/json
+
+{
+    "theme": "light",
+    "type": "newMessage",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186"
+}
+
+###
+
+DELETE http://localhost:3030/api/notifications/bbdeb33b-caee-439c-99e7-476bf6e26e88
