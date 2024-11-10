@@ -105,6 +105,8 @@ export class NotificationsController {
       return res.status(500).json({ error: 'Error al crear notificacion' })
     }
 
+    // Eliminar notificaciones de un cierto tiempo para mejorar rendimiento
+
     // Si todo es exitoso, devolver el notificacion creado
     res.send(notification)
   }

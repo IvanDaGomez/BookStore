@@ -418,7 +418,29 @@ header .flex-between{
 .profileElement svg{
   margin-right: 5px;
 }
-
+.notificationsContainer{
+  position: fixed;
+  left: calc(100vw - 270px); /*-Width -padding*/
+  width: 250px;
+  height: auto;
+  color: var(--using3);
+  background-color: var(--using1);
+  z-index: 101;
+  border-radius: 10px;
+  border: 2px solid var(--using2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.notificationElement{
+  padding: 5px;
+  width: 100%;
+  border-bottom: 2px solid var(--using2);
+}
+.notificationElement:last-of-type{
+  border-bottom: none;
+}
 header svg{
   transition: all 200ms ease-in-out;
   color:var(--using3);

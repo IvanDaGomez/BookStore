@@ -93,12 +93,19 @@ function validatePartialMessage (data) {
   return messageSchema.partial().safeParse(data)
 }
 const notificationSchema = z.object({
-  theme: z.string().default('light'),
-  type: z.string(), // .enum(['']),
-  userId: z.string(),
-  input: z.string().optional()
-})
+  theme: z.enum(['light', 'dark']).default('light'), // Limits theme to specific options
+  type: z.enum(['newMessage', 'bookPublished', 'bookSold', 'orderShipped', 'reviewReceived']), // Define valid types
+  userId: z.string().min(1, 'userId is required'), // Require non-empty string
+  title: z.string().optional(),
+  priority: z.enum(['low', 'normal', 'high']).optional(), // Allows optional priority levels
+  message: z.string().optional(),
+  createdIn: z.string().optional().default(new Date().toISOString()), // Default to current ISO date if not provided
+  read: z.boolean().default(false),
+  actionUrl: z.string().url().optional(), // Requires valid URL if provided
+  expiresAt: z.string().optional().default(new Date().toISOString()), // Default to current ISO date if not provided
+  photo: z.string().url().optional() // Requires valid URL if provided
 
+})
 function validateNotification (data) {
   return notificationSchema.safeParse(data)
 }

@@ -65,7 +65,7 @@ const router = createBrowserRouter([
     element: <Mensajes initialStatus={'mensajes'}/>
   },
   {
-    path: '/notificaciones',
+    path: '/notificaciones/:notificationId',
     element: <Mensajes initialStatus={'notificaciones'}/>
   }
 ])

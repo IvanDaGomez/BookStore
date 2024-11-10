@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from 'react-router-dom';
 import { reduceText } from "../assets/reduceText";
 import { cambiarEspacioAGuiones } from "../assets/agregarMas";
+import { formatNotificationMessage } from "../assets/formatNotificationMessage";
 //import useFetchUser from "../assets/useFetchUser";
 export default function Header() {
     //const user = useFetchUser('http://localhost:3030/api/users/userSession')
@@ -30,6 +31,31 @@ useEffect(() => {
 
 
 // Fetch notificaciones
+
+    const [notifications, setNotifications] = useState(null)
+    const [notificationOpen, setNotificationOpen] = useState(false)
+    useEffect(()=>{
+        async function fetchNotifications() {
+            if (!user) return 
+            const url = 'http://localhost:3030/api/notifications/getNotificationsByUser/' + user._id
+
+            const response = await fetch(url)
+
+            if (!response.ok) {
+                console.error(response)
+                return
+            }
+            
+            const data = await response.json()
+
+            if (data.error) {
+                console.error(data.error)
+                return
+            }
+            setNotifications(data)
+        }
+        fetchNotifications()
+    },[user])
 
     /*
         const abrirMenu = () => {
@@ -79,7 +105,7 @@ const openExtraInfo = async (str) => {
             setArrayInfo(info[str]);
             
         } else {
-            console.warn(`Key "${str}" not found in the fetched data.`);
+            console.warn(`Key "${str}" no se encontró.`);
         }
     } catch (error) {
         console.error("Fetch error:", error);
@@ -134,7 +160,7 @@ const openExtraInfo = async (str) => {
     // Submits the input value when the search button is clicked
     function submitInputValue() {
         if (!queryInput.current.value) return;
-        window.location.href = `${window.location.origin}/buscar?q=${cambiarEspacioAGuiones(queryInput.current.value)}`;
+        window.location.href = `/buscar?q=${cambiarEspacioAGuiones(queryInput.current.value)}`;
         queryInput.current.value = "";
     }
 
@@ -219,7 +245,7 @@ const openExtraInfo = async (str) => {
                 <Link to="/">
                 <div className="headerIzq">
                     <img loading="lazy" src="/logo.png" alt="" />
-                   <h1 style={{fontFamily: 'Gentium Book Plus', color:"#"}} >  Meridian</h1>
+                   <h1 style={{fontFamily: 'Gentium Book Plus'}} >  Meridian</h1>
                 </div>
                 </Link>
 
@@ -251,7 +277,7 @@ const openExtraInfo = async (str) => {
                     
                     </button>
                     </div>
-                    <div className="resultsContainer" style={{}}>
+                    <div className="resultsContainer" >
                     {results.slice(0,4).map((result, index) => (
                         <div className="result" key={index} onClick={()=> window.location.href = `/libros/${result._id}`}>
                             <img loading="lazy" src={`http://localhost:3030/uploads/${result.images[0]}`} alt={result.titulo} className="result-photo" />
@@ -263,11 +289,7 @@ const openExtraInfo = async (str) => {
                                 to={`/${window.location.origin}/buscar?q=${cambiarEspacioAGuiones(result.titulo)}`} 
                                 rel="noopener noreferrer"
                             >
-                            <div className="see-more">
-
-                                Similares
-                            
-                            </div>
+                            <div className="see-more">Similares</div>
                             </Link>
                             </div>
                         </div>
@@ -278,7 +300,10 @@ const openExtraInfo = async (str) => {
                     
                     
                 </div>
-                    {user && <div className="notification">
+                { notifications && console.log(notifications)}
+                    {user && <div className="notification" onClick={()=>{
+                        setNotificationOpen(!notificationOpen)
+                    }}>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#000000"} fill={"none"}>
                             <path d="M2.52992 14.394C2.31727 15.7471 3.268 16.6862 4.43205 17.1542C8.89481 18.9486 15.1052 18.9486 19.5679 17.1542C20.732 16.6862 21.6827 15.7471 21.4701 14.394C21.3394 13.5625 20.6932 12.8701 20.2144 12.194C19.5873 11.2975 19.525 10.3197 19.5249 9.27941C19.5249 5.2591 16.1559 2 12 2C7.84413 2 4.47513 5.2591 4.47513 9.27941C4.47503 10.3197 4.41272 11.2975 3.78561 12.194C3.30684 12.8701 2.66061 13.5625 2.52992 14.394Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                             <path d="M9 21C9.79613 21.6219 10.8475 22 12 22C13.1525 22 14.2039 21.6219 15 21" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -309,7 +334,7 @@ const openExtraInfo = async (str) => {
                 </Link>
                 </>:<>
                 
-                <Link to={'/account'}>
+                <Link to='/account'>
                 <div className="profileElement">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={20} height={20} color={"#000000"} fill={"none"}>
                         <path d="M6.57757 15.4816C5.1628 16.324 1.45336 18.0441 3.71266 20.1966C4.81631 21.248 6.04549 22 7.59087 22H16.4091C17.9545 22 19.1837 21.248 20.2873 20.1966C22.5466 18.0441 18.8372 16.324 17.4224 15.4816C14.1048 13.5061 9.89519 13.5061 6.57757 15.4816Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -392,6 +417,15 @@ const openExtraInfo = async (str) => {
            
             </div>
             ) : <></>}
+            {(notifications && user && notificationOpen) && <div className="notificationsContainer">
+                {notifications.map((notification, index) => (
+                    <Link to={`/notificaciones/${notification._id}`} key={index}>
+                        <div className="notificationElement">
+                            {formatNotificationMessage(notification)}
+                        </div>
+                    </Link>
+                ))}
+            </div>}
             {/*<div className="inhamburger" onMouseLeave={abrirMenu}>
                  Hamburger menu content 
 
