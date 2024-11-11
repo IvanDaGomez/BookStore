@@ -4,7 +4,7 @@ import Header from "../../components/header";
 import SideInfo from "../../components/sideInfo";
 import Footer from "../../components/footer";
 import { toast, ToastContainer } from "react-toastify";
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { reduceText, reduceTextByFirstWord } from "../../assets/reduceText";
 import { formatDate } from "../../assets/formatDate";
 export default function Mensajes({ initialStatus }) {
@@ -294,6 +294,13 @@ useEffect(() => {
     }
 
 //----------------------------------------LÓGICA DE NOTIFICACIONES------------------------------------//
+    const { notificationId } = useParams()
+
+    useEffect(()=>{
+        if (notificationId) {
+            // fetchNotification(notificationId)
+        }
+    },[notificationId])
     return (
         <>
             <Header />

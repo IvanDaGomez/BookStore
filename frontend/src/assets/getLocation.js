@@ -1,3 +1,4 @@
+import axios from "axios";
 const getLocation = async () => {
     // Verifica si la API de Geolocalización está disponible
     if (!navigator.geolocation) {
@@ -36,8 +37,8 @@ async function getLocationFromCoordinates(lat, lon) {
     const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`;
 
     try {
-        const response = await fetch(url);
-        const data = await response.json();
+        const response = await axios.get(url);
+        const data = response.data;
 
         // Acceder a la información de la ubicación
         const pais = data.address.country;

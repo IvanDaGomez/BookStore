@@ -23,7 +23,11 @@ const notificationObject = (data) => {
     read: data.read || false,
     actionUrl: data.actionUrl || '',
     expiresAt: data.expiresAt || new Date().toISOString(),
-    photo: data.photo || ''
+    metadata: data.metadata || {
+      photo: '',
+      bookTitle: '',
+      bookId: ''
+    }
   }
 }
 

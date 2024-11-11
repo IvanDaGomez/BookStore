@@ -426,21 +426,26 @@ header .flex-between{
   color: var(--using3);
   background-color: var(--using1);
   z-index: 101;
-  border-radius: 10px;
-  border: 2px solid var(--using2);
   display: flex;
-  justify-content: center;
-  align-items: center;
+
   flex-direction: column;
 }
 .notificationElement{
   padding: 5px;
   width: 100%;
-  border-bottom: 2px solid var(--using2);
+  border: 2px solid var(--using2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.notificationElement:last-of-type{
-  border-bottom: none;
+
+.notificationElement span{
+  width: 100%;
+  font-size: 1.5rem;
+  padding-left: auto;
+
 }
+
 header svg{
   transition: all 200ms ease-in-out;
   color:var(--using3);

@@ -8,35 +8,27 @@ import { useState, useEffect } from "react";
 import { average } from "../../assets/average";
 import { useSearchParams } from "react-router-dom";
 import UseStep from "../../components/UseStep";
-
+import axios from "axios";
 
 export default function CrearLibro() {
       //const user = useFetchUser('http://localhost:3030/api/users/userSession')
       const [user, setUser] = useState();
       
       useEffect(() => {
-          async function fetchUser() {
-              try {
-                  const response = await fetch('http://localhost:3030/api/users/userSession', {
-                      method: 'POST',
-                      credentials: 'include',  // Asegúrate de enviar las cookies
-                  });
-                  if (response.ok) {
-                      const data = await response.json();
-                      setUser(data.user); // Establece el usuario en el estado
-                  } else {
-
-                      window.location.href = '/popUp/noUser'
-                  }
-              } catch (error) {
-                  console.error('Error fetching user data:', error);
-              }
-          };
-      
-          fetchUser(); // Llama a la función para obtener el usuario
-
-      }, []); // Dependencias vacías para ejecutar solo una vez al montar el componente
-      
+        async function fetchUser() {
+            try {
+                const url = 'http://localhost:3030/api/users/userSession'
+                const response = await axios.post(url, null, {
+                    withCredentials: true
+                })
+                setUser(response.data.user);
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+                window.location.href = '/popUp/noUser'
+            }
+        };
+        fetchUser();
+    }, []);
   const [form, setForm] = useState({});
   const [fase, setFase] = useState();
   // Recuperar datos de localStorage en el primer render
@@ -80,7 +72,8 @@ export default function CrearLibro() {
     const fetchBook = async () => {
       if (actualizar) {
         try {
-          const response = await fetch(`http://localhost:3030/api/books/${libro}`, {
+          const url = `http://localhost:3030/api/books/${libro}`
+          const response = await fetch(url, {
             method: 'GET',
             credentials: 'include',
           });
@@ -219,18 +212,10 @@ useEffect(() => {
         
 
       const url = `http://localhost:3030/api/books/search/${form.titulo}`
-      const response = await fetch(url)
+      const response = await axios.get(url)
 
-      if (!response.ok){
-        return
-      }
-
-      const data = await response.json()
-      
-      const prices = await Promise.all(data.map(info => Number(info.price)));
+      const prices = await Promise.all(response.data.map(info => Number(info.price)));
       setMeanPrice(average(prices))
-      
-
     } catch {
         return
     }

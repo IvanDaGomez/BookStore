@@ -3,31 +3,26 @@ import { Link } from 'react-router-dom';
 import { reduceText } from "../assets/reduceText";
 import { cambiarEspacioAGuiones } from "../assets/agregarMas";
 import { formatNotificationMessage } from "../assets/formatNotificationMessage";
+import axios from 'axios'
 //import useFetchUser from "../assets/useFetchUser";
 export default function Header() {
     //const user = useFetchUser('http://localhost:3030/api/users/userSession')
     const [user, setUser] = useState(null);
 
-useEffect(() => {
-    async function fetchUser() {
-        
-        try {
-            const response = await fetch('http://localhost:3030/api/users/userSession', {
-                method: 'POST',
-                credentials: 'include',  // Asegúrate de enviar las cookies
-            });
-            if (response.ok) {
-                const data = await response.json();
-                setUser(data.user); // Establece el usuario en el estado
+    useEffect(() => {
+        async function fetchUser() {
+            try {
+                const url = 'http://localhost:3030/api/users/userSession'
+                const response = await axios.post(url, null, {
+                    withCredentials: true
+                })
+                setUser(response.data.user);
+            } catch (error) {
+                console.error('Error fetching user data:', error);
             }
-            
-        } catch (error) {
-            console.error('Error fetching user data:', error);
-        }
-    };
-
-    fetchUser(); // Llama a la función para obtener el usuario
-}, []); // Dependencias vacías para ejecutar solo una vez al montar el componente
+        };
+        fetchUser(); // Llama a la función para obtener el usuario
+    }, []); // Dependencias vacías para ejecutar solo una vez al montar el componente
 
 
 // Fetch notificaciones
@@ -38,21 +33,8 @@ useEffect(() => {
         async function fetchNotifications() {
             if (!user) return 
             const url = 'http://localhost:3030/api/notifications/getNotificationsByUser/' + user._id
-
-            const response = await fetch(url)
-
-            if (!response.ok) {
-                console.error(response)
-                return
-            }
-            
-            const data = await response.json()
-
-            if (data.error) {
-                console.error(data.error)
-                return
-            }
-            setNotifications(data)
+            const response = await axios.get(url)
+            setNotifications(response.data)
         }
         fetchNotifications()
     },[user])
@@ -128,18 +110,9 @@ const openExtraInfo = async (str) => {
             try {
                 // Verificamos que la query no esté vacía o sea solo espacios
                 if (queryInput.current.value && queryInput.current.value.trim()) {
-                    const response = await fetch(`http://localhost:3030/api/books/query?q=${queryInput.current.value}`, {
-                        method: 'GET',
-                        credentials: 'include',  // Enviar las cookies
-                    });
-    
-                    if (response.ok) {
-                        const data = await response.json();
-                        return data; // Retorna los datos obtenidos
-                    } else {
-                        console.error('Failed to fetch book data:', response.statusText);
-                        return []; // Retorna un array vacío en caso de error
-                    }
+                    const url = `http://localhost:3030/api/books/query?q=${queryInput.current.value}`
+                    const response = await axios.get(url, {withCredentials: true});
+                    return response.data
                 }
             } catch (error) {
                 console.error('Error fetching book data:', error);
@@ -191,24 +164,6 @@ const openExtraInfo = async (str) => {
         }
         return top
     }
-    //Funcion que funciona por el overflow
-        // Function to adjust the `top` position of profileContainer
-    /*function adjustTopProfile() {
-        //50 de AntesHeader + 90 del header
-        let top;
-        let scroll = window.scrollY
-        if(!profile || !profileContainer.current) return
-        if (scroll < 50) {
-            top = 140 - scroll;
-
-        }
-        else {
-            top = 90;
-        }
-        top = top + scroll + "px"
-        profileContainer.current.style.top = top;
-    }*/
-
      // useEffect to listen for the scroll event
      useEffect(() => {
         console.log(window.scrollY)
@@ -376,10 +331,7 @@ const openExtraInfo = async (str) => {
                 </div>
                 </Link>
                 <div className="profileElement" onClick={()=>{
-                    fetch('http://localhost:3030/api/users/logout',{
-                        method: 'POST',
-                        credentials: 'include'
-                    })
+                    axios.post('http://localhost:3030/api/users/logout', null, {withCredentials: true})
                     window.location.reload();
                 }}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={20} height={20} color={"#000000"} fill={"none"}>

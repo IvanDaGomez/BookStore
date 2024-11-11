@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Fase1 from './fase1';
 import Fase2 from './fase2';
 import Fase3 from './fase3';
-
+import axios from 'axios';
 import UseStep from '../../components/UseStep';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
@@ -18,22 +18,16 @@ function Checkout() {
       useEffect(() => {
         async function fetchUser() {
             try {
-                const response = await fetch('http://localhost:3030/api/users/userSession', {
-                    method: 'POST',
-                    credentials: 'include',
-                });
-                
-                if (response.ok) {
-                    const data = await response.json();
-                    setUser(data.user);
-                } else {
-                    window.location.href = '/popUp/noUser';
-                }
+                const url = 'http://localhost:3030/api/users/userSession'
+                const response = await axios.post(url, null, {
+                    withCredentials: true
+                })
+                setUser(response.data.user);
             } catch (error) {
                 console.error('Error fetching user data:', error);
-                window.location.href = '/popUp/noUser';
+                window.location.href = '/popUp/noUser'
             }
-        }
+        };
         fetchUser();
     }, []);
 
@@ -47,19 +41,13 @@ function Checkout() {
         async function fetchLibro(id) {
             const url = `http://localhost:3030/api/books/${id}`
             try {
-                const response = await fetch(url, {
-                    method: 'GET',
-                    credentials: "include"
-                });
-                if (!response.ok) {
-                    window.location.href = '/popUp/libroNoEncontrado'
-                }
-                const book = await response.json();
-                setLibro(book || {}); // Asegurar que el libro existe o dejar vacío
+                const response = await axios.get(url, {withCredentials: true});
+                
+                setLibro(response.data); // Asegurar que el libro existe o dejar vacío
                 
             } catch (error) {
-                setLibro({});
                 console.error("Error fetching book data:", error);
+                window.location.href = '/popUp/libroNoEncontrado'
             }
         }
 
@@ -81,22 +69,14 @@ function Checkout() {
     const fetchPreferenceId = async () => {
         if (libro) {
             try {
-                const response = await fetch('http://localhost:3030/api/books/getPreferenceId', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        ...libro,
-                        title: libro.titulo,
-                        price: libro.oferta ? libro.oferta : libro.precio,
-                    }),
-                    credentials: 'include',
-                });
-                const data = await response.json();
-                if (data.error) {
-                    console.error(data.error);
-                } else {
-                    setPreferenceId(data.id);
-                }
+              const url = 'http://localhost:3030/api/books/getPreferenceId'
+              const body = JSON.stringify({
+                ...libro,
+                title: libro.titulo,
+                price: libro.oferta ? libro.oferta : libro.precio,
+              })
+                const response = await axios.post(url, body,{withCredentials: true});
+                setPreferenceId(response.data.preferenceId)
             } catch (error) {
                 console.error('Error fetching preference ID:', error);
             }
