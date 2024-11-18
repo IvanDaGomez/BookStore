@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { makeCard } from "../assets/makeCard";
 import { cambiarEspacioAGuiones } from "../assets/agregarMas";
-
+import axios from "axios";
 // eslint-disable-next-line react/prop-types
 export default function Sections({ filter, backgroundColor }){
     /*const [elementSections, setElementSections] = useState()
@@ -16,48 +16,30 @@ export default function Sections({ filter, backgroundColor }){
     }, [filter])*/
     const [user, setUser] = useState({});
 
-useEffect(() => {
-    async function fetchUser() {
-        
-        try {
-            const response = await fetch('http://localhost:3030/api/users/userSession', {
-                method: 'POST',
-                credentials: 'include',  // Asegúrate de enviar las cookies
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                setUser(data.user); // Establece el usuario en el estado
+    useEffect(() => {
+        async function fetchUser() {
+            try {
+                const url = 'http://localhost:3030/api/users/userSession'
+                const response = await axios.post(url, null, {
+                    withCredentials: true
+                })
+                
+                setUser(response.data.user);
+            } catch (error) {
+                console.error('Error fetching user data:', error);
             }
-
-        } catch (error) {
-            console.error('Error fetching user data:', error);
-        }
-    };
-
-    fetchUser(); // Llama a la función para obtener el usuario
-}, []); // Dependencias vacías para ejecutar solo una vez al montar el componente
+        };
+        fetchUser(); // Llama a la función para obtener el usuario
+    }, []); // Dependencias vacías para ejecutar solo una vez al montar el componente
 
 
     const [libros, setLibros] = useState([])
     useEffect(()=>{
         const fetchResults = async () => {
             try {
-                
-                const response = await fetch(`http://localhost:3030/api/books/query?q=${cambiarEspacioAGuiones(filter)}&l=6`, {
-                    method: 'GET',
-                    credentials: 'include'
-                });
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                
-                const info = await response.json(); 
-                
-                
-                if (info !== undefined) {
-                    setLibros(info);
-                }
+                const url = `http://localhost:3030/api/books/query?q=${cambiarEspacioAGuiones(filter)}&l=6`
+                const response = await axios.get(url, { withCredentials: true });
+                setLibros(response.data)
             } catch (error) {
                 console.error("Fetch error:", error);
             }

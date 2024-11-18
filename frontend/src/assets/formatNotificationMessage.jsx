@@ -8,7 +8,7 @@ export function formatNotificationMessage(notification) {
             return (
                 <>  
                     <h2>Tienes un nuevo mensaje!</h2>
-                    <span>{formattedDate}</span>  
+                    <span>{formattedDate}</span>
                 </>
             );
         case 'newQuestion':
@@ -21,24 +21,24 @@ export function formatNotificationMessage(notification) {
         case 'bookPublished':
             return (
                 <>
+                    <h2> A new book titled &quot;<strong>{notification.metadata.bookTitle}</strong>&quot; has been published!</h2>
                     <span>{formattedDate}:</span>
-                    <span> A new book titled &quot;<strong>{notification.bookTitle}</strong>&quot; has been published!</span>
                 </>
             );
 
         case 'bookSold':
             return (
                 <>
+                    <h2> Your book &quot;<strong>{notification.metadata.bookTitle}</strong>&quot; was sold to {notification.buyerName}.</h2>
                     <span>{formattedDate}:</span>
-                    <span> Your book &quot;<strong>{notification.bookTitle}</strong>&quot; was sold to {notification.buyerName}.</span>
                 </>
             );
 
         case 'orderShipped':
             return (
                 <>
+                    <h2> Your order for &quot;<strong>{notification.metadata.bookTitle}</strong>&quot; has been shipped!</h2>
                     <span>{formattedDate}:</span>
-                    <span> Your order for &quot;<strong>{notification.bookTitle}</strong>&quot; has been shipped!</span>
                 </>
             );
 
@@ -46,7 +46,7 @@ export function formatNotificationMessage(notification) {
             return (
                 <>
                     <span>{formattedDate}:</span>
-                    <span> You received a new review on &quot;<strong>{notification.bookTitle}</strong>&quot;: &quot;{notification.reviewSnippet}&quot;.</span>
+                    <h2> You received a new review on &quot;<strong>{notification.metadata.bookTitle}</strong>&quot;: &quot;{notification.reviewSnippet}&quot;.</h2>
                 </>
             );
 
@@ -54,7 +54,7 @@ export function formatNotificationMessage(notification) {
             return (
                 <>
                     <span>{formattedDate}:</span>
-                    <span> You have a new notification.</span>
+                    <span> Tienes una nueva notificación.</span>
                 </>
             );
     }

@@ -8,7 +8,7 @@ import ErrorPage from "../../components/errorPage";
 import { makeCard, makeSmallCard } from "../../assets/makeCard";
 import { cambiarEspacioAGuiones } from "../../assets/agregarMas";
 import { toast, ToastContainer } from "react-toastify"
-
+import axios from "axios";
 import 'react-toastify/dist/ReactToastify.css';
 import { handleFavoritos } from "../../assets/handleFavoritos";
 
@@ -23,31 +23,21 @@ export default function BookView() {
     const actualImageRef = useRef(null);
     const [user, setUser] = useState(null);
 
-useEffect(() => {
-    async function fetchUser() {
-        
-        try {
-            const response = await fetch('http://localhost:3030/api/users/userSession', {
-                method: 'POST',
-                credentials: 'include',  // Asegúrate de enviar las cookies
-            });
 
-            if (response.ok) {
-                const data = await response.json();
-                setUser(data.user); // Establece el usuario en el estado
-            }
-            else {
-                setUser({
-                    _id: ''
+    useEffect(() => {
+        async function fetchUser() {
+            try {
+                const url = 'http://localhost:3030/api/users/userSession'
+                const response = await axios.post(url, null, {
+                    withCredentials: true
                 })
+                setUser(response.data.user);
+            } catch (error) {
+                console.error('Error fetching user data:', error);
             }
-        } catch (error) {
-            console.error('Error fetching user data:', error);
-        }
-    };
-
-    fetchUser(); // Llama a la función para obtener el usuario
-}, []); // Dependencias vacías para ejecutar solo una vez al montar el componente
+        };
+        fetchUser();
+    }, []);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -57,14 +47,8 @@ useEffect(() => {
         async function fetchLibro(id) {
             const url = `http://localhost:3030/api/books/${id}`
             try {
-                const response = await fetch(url, {
-                    method: 'GET',
-                    credentials: "include"
-                });
-                if (!response.ok) {
-                    window.location.href = '/popUp/libroNoEncontrado'
-                }
-                const book = await response.json();
+                const response = await axios.get(url, { withCredentials: true });
+                const book = response.data
                 setLibro(book || {}); // Asegurar que el libro existe o dejar vacío
                 const imageUrl = book.images[0]
                 ? `http://localhost:3030/uploads/${book.images[0]}` // Ruta completa hacia las imagenes
@@ -86,25 +70,15 @@ useEffect(() => {
             let libros = []
             if (libro) {
                 
-                const urlUsers = 'http://localhost:3030/api/users/'
-                const data = await fetch(urlUsers + libro.idVendedor).then(res=> res.json())
-                if (data.error){
-                    console.error(data.error)
-                    return
-                }
-
-                const librosIds = data.librosIds
+                const url = 'http://localhost:3030/api/users/' + libro.idVendedor
+                const response = await axios.get(url)
+                const librosIds = response.data.librosIds
 
                 // Conseguir los libros del usuario
                 const urlLibros = 'http://localhost:3030/api/books/'
                 for (let i=0; i < librosIds.length; i++){
-                    const data = await fetch(urlLibros + librosIds[i]).then(res=>res.json())
-                    if (data.error){
-                        console.error(data.error)
-                        continue
-                    }
-                    
-                    libros.push(data)
+                    const response = await axios.get(urlLibros + librosIds[i])
+                    libros.push(response.data)
                 }
                                
                 setLibrosRelacionadosVendedor(libros)
@@ -120,14 +94,9 @@ useEffect(() => {
                 // Conseguir los libros del usuario
                 const urlLibros = `http://localhost:3030/api/books/query?q=${cambiarEspacioAGuiones(libro.titulo)}&l=12`
                 
-                const data = await fetch(urlLibros).then(res=>res.json())
-                
-                if (data.error){
-                    console.error(data.error)
-                    return;
-                }
-                
-                setLibrosRelacionados(data)
+                const response = await axios.get(urlLibros)
+
+                setLibrosRelacionados(response.data)
             }
         }
         fetchLibroRelacionado()
@@ -227,18 +196,11 @@ useEffect(() => {
             const url = `http://localhost:3030/api/books/${libro._id}`;
                     
             try {
-                const response = await fetch(url, {
-                    method: 'PUT' ,
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        mensaje: inputPregunta.value,
-                        tipo: 'pregunta'
-                        
+                const response = await axios.put(url, JSON.stringify({
+                    mensaje: inputPregunta.value,
+                    tipo: 'pregunta'
                     }),
-                    credentials: 'include'
-                });
+                    {withCredentials: true});
         
         
                 if (!response.ok) {
