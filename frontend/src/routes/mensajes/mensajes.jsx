@@ -295,6 +295,15 @@ useEffect(() => {
         setFilteredConversations(filtered);
     }
 
+//----------------------------------------LÓGICA DE NOTIFICACIONES------------------------------------//
+    const { notificationId } = useParams()
+
+    useEffect(()=>{
+        if (notificationId) {
+            // fetchNotification(notificationId)
+        }
+    },[notificationId])
+
     return (
         <>
             <Header />
