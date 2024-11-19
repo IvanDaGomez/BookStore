@@ -95,6 +95,7 @@ export class NotificationsController {
 
     const time = new Date()
     data.createdIn = time
+    data.expiresAt = time.setDate(time.getDate() + 30)
     data.read = false
     // Crear el notificacion en la base de datos
     const notification = await NotificationsModel.createNotification(data)
@@ -104,8 +105,6 @@ export class NotificationsController {
     if (!notification) {
       return res.status(500).json({ error: 'Error al crear notificacion' })
     }
-
-    // Eliminar notificaciones de un cierto tiempo para mejorar rendimiento
 
     // Si todo es exitoso, devolver el notificacion creado
     res.send(notification)

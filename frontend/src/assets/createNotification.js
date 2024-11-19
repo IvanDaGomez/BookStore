@@ -1,10 +1,25 @@
-import axios from "axios"
-export async function createNotification(userId, notification) {
-    if (!userId) {
-        console.error('UserID or notification is required')
+async function createNotification(notification) {
+
+    const url = 'http://localhost:3030/api/notifications/'
+    console.log(JSON.stringify(notification))
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(notification),
+        credentials: "include"
+    })
+    if (!response.ok) {
+        console.log('Error creando notificación')
         return
     }
-    const url = 'http://localhost:3030/api/notifications/' + userId
-    const response = await axios.post(url, notification, { withCredentials: true})
-    return response.data
+    const data = await response.json()
+    if (data.error) {
+        console.log(data.error)
+        return
+    }
+    return data
 }
+
+export { createNotification }

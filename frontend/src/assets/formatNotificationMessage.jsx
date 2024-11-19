@@ -1,70 +1,11 @@
 import { formatDate } from "./formatDate"
-
+import { toast } from "react-toastify";
 function formatNotificationMessage(notification) {
-    const formattedDate = formatDate(notification.createdIn);
-
-    switch (notification.type) {
-        case 'newMessage':
-            return (
-                <>  
-                    <h2>Tienes un nuevo mensaje!</h2>
-                    <span>{formattedDate}</span>
-                </>
-            );
-        case 'newQuestion':
-            return (
-                <>  
-                    <h2>Tienes una nueva pregunta!</h2>
-                    <span>{formattedDate}</span>  
-                </>
-            );
-        case 'bookPublished':
-            return (
-                <>
-                    <h2> A new book titled &quot;<strong>{notification.metadata.bookTitle}</strong>&quot; has been published!</h2>
-                    <span>{formattedDate}:</span>
-                </>
-            );
-
-        case 'bookSold':
-            return (
-                <>
-                    <h2> Your book &quot;<strong>{notification.metadata.bookTitle}</strong>&quot; was sold to {notification.buyerName}.</h2>
-                    <span>{formattedDate}:</span>
-                </>
-            );
-
-        case 'orderShipped':
-            return (
-                <>
-                    <h2> Your order for &quot;<strong>{notification.metadata.bookTitle}</strong>&quot; has been shipped!</h2>
-                    <span>{formattedDate}:</span>
-                </>
-            );
-
-        case 'reviewReceived':
-            return (
-                <>
-                    <span>{formattedDate}:</span>
-                    <h2> You received a new review on &quot;<strong>{notification.metadata.bookTitle}</strong>&quot;: &quot;{notification.reviewSnippet}&quot;.</h2>
-                </>
-            );
-
-        default:
-            return (
-                <>
-                    <span>{formattedDate}:</span>
-                    <span> Tienes una nueva notificación.</span>
-                </>
-            );
-    }
-}
-
-function formatNotificationMessageBig(notification) {
-    const { type, title, createdIn, metadata, actionUrl, read } = notification;
+    const { type, title, createdIn, metadata} = notification;
 
     const typeMessages = {
         newMessage: "Tienes un nuevo mensaje!",
+        newQuestion: "Tienes una nueva pregunta!",
         bookPublished: "Tu libro ha sido publicado!",
         bookSold: `Tu libro "${metadata.bookTitle}" ha sido vendido!`,
         orderShipped: "Tu pedido ha sido entregado!",
@@ -80,28 +21,122 @@ function formatNotificationMessageBig(notification) {
     };
 
     const formattedDate = formatDate(createdIn);
+    return (<>
+        {typeIcons[type] || "🔔"}
+        <span>{typeMessages[type] || title}</span>
+        <span>{formattedDate}</span>
+    </>)
+}
 
+function formatNotificationMessageBig(notification) {
+    const { type, createdIn, metadata, actionUrl, read, input, _id } = notification;
+
+
+    const typeIcons = {
+        newMessage: "📩",
+        bookPublished: "📘",
+        bookSold: "💸",
+        orderShipped: "📦",
+        reviewReceived: "⭐"
+    };
+
+    const formattedDate = formatDate(Date(createdIn));
+
+    async function handleSubmitAnswer() {
+        const inputPregunta = document.querySelector('.answerQuestion');
+
+        if (!inputPregunta.value){
+            return;
+        }
+        if (metadata){
+            const url = `http://localhost:3030/api/books/${metadata.bookId}`;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        mensaje: inputPregunta.value,
+                        tipo: 'respuesta',
+                        pregunta: input
+                    }),
+                    credentials: "include"
+
+                    })
+        
+        
+                if (!response.ok) {
+                    // Actualizar el estado de errores usando setErrors
+                    return; // Salir de la función si hay un error
+                }
+                const data = await response.json()
+                if (data.error) {
+                    toast.error('Error')
+                    return
+                }
+
+                // Enviar notificación de vuelta al usuario
+                const deleteUrl = `http://localhost:3030/api/notifications/${_id}`
+                const deleted = await fetch(deleteUrl, {
+                    method: 'DELETE',
+                    credentials: 'include'
+                })
+                if (!deleted.ok) {
+                    toast.error('No se pudo eliminar la notificación')
+                    return
+                }
+                toast.success('Pregunta enviada exitosamente')
+                inputPregunta.value = ''
+            } catch (error) {
+                console.error('Error al enviar la solicitud:', error);
+                // También puedes agregar el error de catch a los errore
+            }
+
+
+        }
+    }
     return (
         <div className={`notification-item ${read ? 'read' : 'unread'}`}>
-            <div className="notification-icon">
-                {typeIcons[type] || "🔔"}
-            </div>
             <div className="notification-content">
-                <h4 className="notification-title">{typeMessages[type] || title}</h4>
                 {metadata.photo && (
+                    <>
                     <img
-                        src={metadata.photo}
+                        src={'http://localhost:3030/uploads/' + metadata.photo}
                         alt="Notification"
                         className="notification-photo"
                     />
+                    <div>
+                    <h2>{metadata.bookTitle}</h2>
+                    </div>  
+                    </>
                 )}
-                <p className="notification-date">{formattedDate}</p>
-                {actionUrl && (
+                </div>
+                
+                {input && <><div className="input">
+                    {input}
+                    </div>
+                <div className="sendAnswer">
+                <input type="text" className="answerQuestion" placeholder="Responder"/>
+                <div className="send" onClick={(event) => handleSubmitAnswer(event)}>
+                    <img src='/sendMessage.svg' alt="Send Message" />
+                </div>
+                </div>
+                </>
+                }
+                    <div className="downNotification">
+                        {typeIcons[type] || "🔔"}
+                        {actionUrl && (
                     <a href={actionUrl} className="notification-link">
-                        Ver detalles
-                    </a>
-                )}
-            </div>
+                        Ver el libro
+                    </a>)}
+                    <span>{formattedDate}</span>
+                
+                    </div>
+                
+                
+            
         </div>
     );
 }

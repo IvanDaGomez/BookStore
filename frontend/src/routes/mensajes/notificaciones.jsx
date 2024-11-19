@@ -88,17 +88,29 @@ export default function Notificaciones() {
         setFilteredNotifications(filtered);
     }
 
-    function handleSubmitNotification() {
-
-    }
     
     const typeMessages = {
         newMessage: "Tienes un nuevo mensaje!",
+        newQuestion: "Tienes una nueva pregunta!",
         bookPublished: "Tu libro ha sido publicado!",
         bookSold: `Tu libro "${activeNotification && activeNotification.metadata.bookTitle}" ha sido vendido!`,
         orderShipped: "Tu pedido ha sido entregado!",
         reviewReceived: `Tienes una nueva reseña de "${activeNotification && activeNotification.metadata.bookTitle}"!`
     };
+    // Mark every notification as read
+
+    useEffect(()=>{
+        async function fetchReadNotification(){
+            if (!notifications || !activeNotification) return
+            const url = 'http://localhost:3030/api/notifications/' + activeNotification._id + '/read'
+            const read = await fetch(url)
+            if (!read.ok) {
+                console.log('Error marcando notificación como leida')
+                return
+            }
+        }
+        fetchReadNotification()
+    },[notifications, activeNotification])
     return (
         <>
         <Header />
@@ -148,7 +160,8 @@ export default function Notificaciones() {
 
                             </h2>
                             </div>
-                            <span>{formatDate(notification.createdIn) || ''}</span>
+                            
+                            <span>{formatDate(new Date(notification.createdIn)) || ''}</span>
                         </div>
                     ))}
             </div>
@@ -156,22 +169,11 @@ export default function Notificaciones() {
                 {/*Specific information for each notification */}
                 {activeNotification &&
                             <div className="messagesViewContainer" >
-                                <div className="otherMessage">{formatNotificationMessageBig(activeNotification)}</div>                             
+                                <div className="otherMessage" style={{padding: '5px'}}>{formatNotificationMessageBig(activeNotification)}</div>                             
                             </div>
                 }
-{/*----------------------------------------CONTENEDOR DE ENVIAR MENSAJE----------------------------------------------- */}
-                            {activeNotification && ['newMessage','newQuestion'].includes(activeNotification.type) ? (
-                                <>
-                                    <div className="messageInputContainer">
-                                        <input type="text" className="messageInput" onKeyDown={(event) => event.key === 'Enter' ? handleSubmitNotification(event) : ''} />
-                                        <div className="send" onClick={(event) => handleSubmitNotification(event)}>
-                                            <img src='/sendMessage.svg' alt="Send Message" />
-                                        </div>
-                                    </div>
-                                </>
-                            ) : (
-                                <></>
-                            )}
+
+                            
                     
                     
             </div>

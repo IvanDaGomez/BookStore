@@ -11,7 +11,7 @@ import { toast, ToastContainer } from "react-toastify"
 import axios from "axios";
 import 'react-toastify/dist/ReactToastify.css';
 import { handleFavoritos } from "../../assets/handleFavoritos";
-
+import { createNotification } from "../../assets/createNotification";
 export default function BookView() {
     const { bookId } = useParams();
     const [libro, setLibro] = useState(null); // Inicialmente null
@@ -192,28 +192,62 @@ export default function BookView() {
         if (!inputPregunta.value){
             return;
         }
+        if (!user) {
+            toast.error('Necesitas iniciar sesión para hacer preguntas')
+            return
+        }
         if (libro){
             const url = `http://localhost:3030/api/books/${libro._id}`;
-                    
+
             try {
-                const response = await axios.put(url, JSON.stringify({
-                    mensaje: inputPregunta.value,
-                    tipo: 'pregunta'
+                const response = await fetch(url, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        mensaje: inputPregunta.value,
+                        tipo: 'pregunta',
+                        senderId: user._id
                     }),
-                    {withCredentials: true});
+                    credentials: "include"
+
+                    })
         
         
                 if (!response.ok) {
                     // Actualizar el estado de errores usando setErrors
                     return; // Salir de la función si hay un error
                 }
-                inputPregunta.value = ''
-                toast.success('Pregunta enviada exitosamente')
+                const data = await response.json()
+                if (data.error) {
+                    toast.error('Error')
+                    return
+                }
                 
+                const notificationToSend = {
+                    title: 'Tienes una nueva pregunta',
+                    priority: 'normal',
+                    type: 'newQuestion',
+                    userId: libro.idVendedor,
+                    input: inputPregunta.value,
+                    actionUrl: window.location.href,
+                    metadata: {
+                        photo: libro.images[0],
+                        bookTitle: libro.titulo,
+                        bookId: libro._id
+                    }
+                }
+                console.log(notificationToSend)
+                createNotification(notificationToSend)
+                toast.success('Pregunta enviada exitosamente')
+                inputPregunta.value = ''
             } catch (error) {
                 console.error('Error al enviar la solicitud:', error);
                 // También puedes agregar el error de catch a los errore
             }
+
+
         }
     }
     return (
@@ -298,11 +332,8 @@ export default function BookView() {
                 </div>
 
                 <div className="comprarContainer">
-                    <h2>Envío a nivel nacional</h2>
-                    
-                    <hr />
                     {(libro.disponibilidad == "Disponible") ? <>
-                    <h3>Disponible</h3>
+                    <h3 style={{color: '#228B22'}}>Disponible</h3>
                     
                     {((libro && user && user.librosIds) && !user?.librosIds.includes(libro._id)) ? <><Link to={`/checkout/${libro._id}`}><button >Comprar ahora</button></Link>
                     <button onClick={(event) => handleFavoritos(event, libro._id, user._id )} className="botonInverso">Agregar a favoritos</button></>
@@ -313,15 +344,18 @@ export default function BookView() {
                     <Link to={`/usuarios/${libro.idVendedor}`}><span>{libro.vendedor}</span></Link>
                     <hr />
                     <div className="separarConFoto">
+                    
+                    <div>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={16} height={16} color={"#000000"} fill={"none"}>
                         <path d="M8.12901 11.1313L12.128 6.1907C12.4408 5.80431 13.027 6.0448 13.027 6.55951V10.3836C13.027 10.6919 13.2569 10.9419 13.5405 10.9419H15.4855C15.9274 10.9419 16.1629 11.5083 15.871 11.8689L11.872 16.8095C11.5592 17.1959 10.973 16.9554 10.973 16.4407V12.6167C10.973 12.3083 10.7431 12.0584 10.4595 12.0584H8.51449C8.07264 12.0584 7.83711 11.4919 8.12901 11.1313Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         <path d="M21 11.1835V8.28041C21 6.64041 21 5.82041 20.5959 5.28541C20.1918 4.75042 19.2781 4.49068 17.4507 3.97122C16.2022 3.61632 15.1016 3.18875 14.2223 2.79841C13.0234 2.26622 12.424 2.00012 12 2.00012C11.576 2.00012 10.9766 2.26622 9.77771 2.79841C8.89839 3.18875 7.79784 3.61632 6.54933 3.97122C4.72193 4.49068 3.80822 4.75042 3.40411 5.28541C3 5.82041 3 6.64041 3 8.28041V11.1835C3 16.8086 8.06277 20.1836 10.594 21.5195C11.2011 21.8399 11.5046 22.0001 12 22.0001C12.4954 22.0001 12.7989 21.8399 13.406 21.5195C15.9372 20.1836 21 16.8086 21 11.1835Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                     </svg>
-                    <div>
-                    <span style={{fontSize:"2rem"}}>Compra protegida, </span>recibe el producto que 
-                    esperabas o te devolvemos tu dinero.
+                    <span style={{color: '#228B22', fontSize:"2rem", textAlign:'center'}}>Compra protegida</span>
                     </div>
+                    <span style={{fontSize:"2rem"}}>- Recibe el producto que 
+                    esperabas o te devolvemos tu dinero.</span>
                     </div>
+                    <span style={{fontSize:"2rem"}}>- Envío a nivel nacional</span>
                     <hr />
                     <div className="informacionDelVendedor">
                     <h2>Productos de {libro.vendedor}: </h2>

@@ -164,11 +164,10 @@ export default function CrearLibro() {
             formData.append("idVendedor", user._id);
             formData.append("vendedor", user.nombre);
             formData.append("disponibilidad", "Disponible");
-            formData.append("ubicacion", 'Buscar');
             
             try {
                 
-              const URL = (!actualizar) ? 'http://localhost:3030/api/books': `http://localhost:3030/api/books/${libro}` ;
+              const URL = (!actualizar) ? 'http://localhost:3030/api/books/review': `http://localhost:3030/api/books/review/${libro}` ;
                 const response = await fetch(URL, {
                     method: (!actualizar) ? 'POST': 'PUT',
                     body: formData,  // Enviar el FormData directamente

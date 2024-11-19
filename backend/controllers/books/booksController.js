@@ -136,7 +136,7 @@ export class BooksController {
       const { bookId } = req.params
 
       // Obtener los detalles del libro para encontrar al vendedor (idVendedor)
-      const book = await UsersModel.getBookById(bookId)
+      const book = await BooksModel.getBookById(bookId)
       if (!book) {
         return res.status(404).json({ error: 'Libro no encontrado' })
       }
@@ -176,7 +176,6 @@ export class BooksController {
     try {
       const { bookId } = req.params
       const data = req.body
-
       // Obtener el libro existente para obtener los mensajes actuales
       const existingBook = await BooksModel.getBookById(bookId)
       if (!existingBook) {
@@ -190,15 +189,13 @@ export class BooksController {
       // Manejo de keywords
       if (data.keywords && typeof data.keywords === 'string') {
         data.keywords = data.keywords.split(',').map(keyword => keyword.trim()).filter(keyword => keyword)
-      } else {
-        data.keywords = [] // Manejo de caso si no se proporcionan keywords
       }
 
       // Imágenes
       if (req.files) {
         data.images = req.files.map(file => `${file.filename}`)
       }
-
+      console.log(data)
       // Validar datos
       const validated = validatePartialBook(data)
       if (!validated.success) {
@@ -208,13 +205,13 @@ export class BooksController {
       if (data.mensaje && data.tipo) {
         // Inicializa el array de mensajes si no existe
         const messagesArray = existingBook.mensajes || []
-
+        console.log('entro')
         if (data.tipo === 'pregunta') {
           // Verifica si la pregunta ya existe
           const questionIndex = messagesArray.findIndex(item => item[0] === data.mensaje)
 
           if (questionIndex === -1) { // Si no se encuentra, se puede agregar
-            messagesArray.push([data.mensaje, ''])
+            messagesArray.push([data.mensaje, '', data.senderId])
           }
         } else if (data.tipo === 'respuesta' && data.pregunta) {
           // Busca la pregunta correspondiente
@@ -223,7 +220,7 @@ export class BooksController {
           )
           if (questionIndex !== -1) {
             // Si encontramos la pregunta, agregamos la respuesta
-            messagesArray[questionIndex][1].push(data.mensaje)
+            messagesArray[questionIndex][1] = data.mensaje
           }
         }
 
@@ -250,7 +247,6 @@ export class BooksController {
       if (!book) {
         return res.status(404).json({ error: 'Libro no encontrado o no actualizado' })
       }
-
       res.status(200).json(book)
     } catch (err) {
       console.error('Error al actualizar el libro:', err)

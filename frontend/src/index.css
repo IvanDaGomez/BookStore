@@ -382,6 +382,7 @@ header .flex-between{
 .notification{
   position: relative;
   isolation: isolate;
+  cursor: pointer;
 }
 .notification .notificationIconCount{
   width: 15px;
@@ -428,20 +429,20 @@ header .flex-between{
 }
 .notificationsContainer{
   position: fixed;
-  left: calc(100vw - 270px); /*-Width -padding*/
+  left: calc(100vw - 270px + 1rem); /*-Width -padding*/
   width: 250px;
   height: auto;
   color: var(--using3);
   background-color: var(--using1);
   z-index: 101;
   display: flex;
-
+  border: 2px solid var(--using2);
   flex-direction: column;
 }
 .notificationElement{
   padding: 5px;
   width: 100%;
-  border: 2px solid var(--using2);
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -1293,7 +1294,7 @@ color: var(--using6);
 
 .libroContenedor h1{
   font-size: 4rem;
-  
+  line-height: 4rem;
 }
 .libroContenedor h2{
   font-size: 3rem;
@@ -1337,10 +1338,15 @@ color: var(--using6);
 
 }
 .libroContenedor .infoContainer .separarConFoto{
-  display: flex;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  
+}
+.libroContenedor .infoContainer .separarConFoto div{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .libroContenedor .comprarContainer span:hover{
   text-decoration: underline;
@@ -2906,41 +2912,83 @@ color: var(--using6);
 
 .notification-item {
   display: flex;
-  align-items: center;
-  border: 1px solid #ccc;
-  padding: 10px;
+  align-items: start;
+  width: max(200px, 20vw);
+  flex-direction: column;
+
+  padding: 5px;
+  padding-bottom: 2px;
   margin: 5px 0;
   border-radius: 5px;
-  background-color: #f9f9f9;
+  background: white;
 }
 
-.notification-item.unread {
-  background-color: #eef6ff;
-  font-weight: bold;
-}
 
-.notification-icon {
-  font-size: 24px;
-  margin-right: 10px;
+.notification-item input{
+  background: white;
+  width: 100%;
+  border: 1px solid var(--using2);
+  color: var(--using3);
+  padding: 5px 3px 5px 10px;
+  margin: 6px 0;
 }
-
-.notification-content {
-  flex: 1;
+.notification-item .input{
+  margin-top: 6px;
+  font-weight: 500;
 }
-
-.notification-title {
+.notification-item .sendAnswer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.notification-item .sendAnswer .send{
+  
+  height: calc(26px);
+  width: 25px;
+  background: var(--using4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px;
   margin: 0;
-  font-size: 16px;
+  cursor: pointer;
+}
+.notification-item .sendAnswer .send img{
+  height: 100%;
+}
+.notification-content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  
+}
+.notification-content div{
+  width: 100%;
+  text-align: center;
+  padding-left: 8px;
+}
+.notification-content div h2{
+  text-align:start;
+  font-weight: 500;
+  font-size: 2.5rem;
+}
+.notification-content img{
+  aspect-ratio: 2 / 3;
+  height: 70px;
 }
 
-.notification-photo {
-  width: 50px;
-  height: 50px;
-  object-fit: cover;
-  border-radius: 5px;
-  margin-top: 5px;
+.downNotification{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-
+.downNotification span{
+  color: var(--using2);
+  font-size: 2rem;
+}
 .notification-date {
   font-size: 12px;
   color: #888;
