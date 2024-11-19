@@ -8,6 +8,7 @@ import { scrapingFunctions } from '../../assets/scrappingConfig.js'
 // import { helperImg } from '../../assets/helperImg.js'
 import { Preference, MercadoPagoConfig, Payment } from 'mercadopago'
 import { ACCESS_TOKEN } from '../../assets/config.js'
+import fetch from 'node-fetch'
 export class BooksController {
   static async getAllBooks (req, res) {
     try {
@@ -127,6 +128,31 @@ export class BooksController {
       return res.status(500).json({ error: 'Error al crear libro' })
     }
 
+    // Crear notificación
+    const notificationUrl = 'http://localhost:3030/api/notifications/'
+    const response = await fetch(notificationUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+
+        title: 'Tu libro ha sido publicado con éxito',
+        priority: 'high',
+        type: 'bookPublished',
+        userId: data.idVendedor,
+        read: false,
+        actionUrl: `http://localhost:5173/libros/${data._id}`,
+        metadata: data.metadata || {
+          photo: data.images[0],
+          bookTitle: data.titulo,
+          bookId: data._id
+        }
+      })
+    })
+    if (!response.ok) {
+      return res.send({ error: 'Error creando notificación' })
+    }
     // Si todo es exitoso, devolver el libro creado
     res.send({ book })
   }
@@ -328,5 +354,77 @@ export class BooksController {
         }
       }
     }).then(console.log).catch(console.log)
+  }
+
+  static async getAllReviewBooks (req, res) {
+    try {
+      const books = await BooksModel.getAllReviewBooks()
+      if (!books) {
+        res.status(500).json({ error: 'Error al leer libros' })
+      }
+      res.json(books)
+    } catch (err) {
+      console.error('Error al leer libros:', err)
+      res.status(500).json({ error: 'Error al leer libros' })
+    }
+  }
+
+  // Filtrar libros
+  static async createReviewBook (req, res) {
+    const data = req.body
+
+    if (data.oferta) data.oferta = parseInt(data.oferta)
+    data.precio = parseInt(data.precio)
+    // Manejo de keywords
+    if (data.keywords && typeof data.keywords === 'string') {
+      data.keywords = data.keywords.split(',').map(keyword => keyword.trim()).filter(keyword => keyword)
+    } else {
+      data.keywords = [] // O manejar como sea necesario si no se proporcionan keywords
+    }
+
+    // Imágenes
+    // Diferentes tamaños
+    data.images = req.files.map(file => `${file.filename}`)
+
+    // Validación
+    const validated = validateBook(data)
+    if (!validated.success) {
+      console.log('Error de validación:', validated.error)
+      return res.status(400).json({ error: validated.error })
+    }
+
+    // Asignar un ID único al libro
+    data._id = crypto.randomUUID()
+    const time = new Date()
+    data.creadoEn = time
+    data.actualizadoEn = time
+
+    // Crear el libro en la base de datos
+    const book = await BooksModel.createReviewBook(data)
+    if (typeof book === 'string' && book.startsWith('Error')) {
+      return res.status(500).json({ error: book })
+    }
+    if (!book) {
+      return res.status(500).json({ error: 'Error al crear libro' })
+    }
+
+    // Si todo es exitoso, devolver el libro creado
+    res.send({ book })
+  }
+
+  static async deleteReviewBook (req, res) {
+    try {
+      const { bookId } = req.params
+      // Eliminar el libro de la base de datos
+      const result = await BooksModel.deleteReviewBook(bookId)
+      if (!result) {
+        return res.status(404).json({ error: 'Libro no encontrado' })
+      }
+
+      res.json({ message: 'Libro revisión eliminado con éxito', result })
+    } catch (err) {
+      console.error('Error al eliminar el libro:', err)
+      res.status(500).json({ error: 'Error al eliminar el libro' })
+    }
   }
 }

@@ -71,10 +71,10 @@ export default function Notificaciones() {
     const { notificationId } = useParams()
 
     useEffect(()=>{
-        if (notificationId) {
-            // fetchNotification(notificationId)
+        if (notificationId && notifications) {
+            setActiveNotification(notifications.find(notification=> notification._id === notificationId))
         }
-    },[notificationId])
+    },[notificationId, notifications])
 
     function filterNotifications(e) {
         const searchTerm = e.target.value.toLowerCase(); // Normalize the search term for case-insensitive comparison
@@ -87,7 +87,6 @@ export default function Notificaciones() {
         // Update the state with the filtered conversations
         setFilteredNotifications(filtered);
     }
-
     
     const typeMessages = {
         newMessage: "Tienes un nuevo mensaje!",
@@ -142,7 +141,7 @@ export default function Notificaciones() {
 
 {/*----------------------------------------CADA CONVERSACIÓN----------------------------------------------- */}
                 {filteredNotifications && filteredNotifications
-                    .reverse()
+                    
                     .map((notification) => (
                         <div
                             key={notification._id}
@@ -154,16 +153,16 @@ export default function Notificaciones() {
                             <h2>
                             {notification.type ? (
                                 <>
-                                    {reduceText(typeMessages[notification.type], 40)}
+                                    {reduceText(typeMessages[notification.type] || notification.title, 40)}
                                 </>
                                 ) : null} 
 
                             </h2>
                             </div>
                             
-                            <span>{formatDate(new Date(notification.createdIn)) || ''}</span>
+                            <span>{formatDate(notification.createdIn) || ''}</span>
                         </div>
-                    ))}
+                    )).reverse()}
             </div>
             <div className="chat">
                 {/*Specific information for each notification */}

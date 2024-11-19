@@ -40,7 +40,7 @@ function formatNotificationMessageBig(notification) {
         reviewReceived: "⭐"
     };
 
-    const formattedDate = formatDate(Date(createdIn));
+    const formattedDate = formatDate(createdIn);
 
     async function handleSubmitAnswer() {
         const inputPregunta = document.querySelector('.answerQuestion');
@@ -99,6 +99,7 @@ function formatNotificationMessageBig(notification) {
     }
     return (
         <div className={`notification-item ${read ? 'read' : 'unread'}`}>
+            <h2 style={{fontSize:'3rem', marginBottom:"5px"}}>{notification.title}</h2>
             <div className="notification-content">
                 {metadata.photo && (
                     <>
@@ -113,10 +114,10 @@ function formatNotificationMessageBig(notification) {
                     </>
                 )}
                 </div>
-                
-                {input && <><div className="input">
-                    {input}
-                    </div>
+                {input && <div className="input">
+                    Razón: {input}
+                    </div>}
+                {["newQuestion"].includes(type) && <>
                 <div className="sendAnswer">
                 <input type="text" className="answerQuestion" placeholder="Responder"/>
                 <div className="send" onClick={(event) => handleSubmitAnswer(event)}>
@@ -127,7 +128,7 @@ function formatNotificationMessageBig(notification) {
                 }
                     <div className="downNotification">
                         {typeIcons[type] || "🔔"}
-                        {actionUrl && (
+                        {actionUrl && !["bookRejected"].includes(type) && (
                     <a href={actionUrl} className="notification-link">
                         Ver el libro
                     </a>)}

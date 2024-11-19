@@ -14,6 +14,7 @@ import './index.css'
 import EditarUsuario from './routes/usuarios/editarUsuario.jsx'
 import Checkout from './routes/checkout/checkout.jsx'
 import Notificaciones from './routes/mensajes/notificaciones.jsx'
+import ProtectedReviewBook from './routes/protectedReviewBook/protectedReviewBook.jsx'
 
 
 
@@ -73,8 +74,16 @@ const router = createBrowserRouter([
   {
     path: '/notificaciones/:notificationId',
     element: <Notificaciones/>
+  },
+  {
+    path: '/protected/review',
+    element: <ProtectedReviewBook />
   }
-])
+], {
+  future: {
+    v7_relativeSplatPath: true,
+  },
+})
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <RouterProvider router={router} />

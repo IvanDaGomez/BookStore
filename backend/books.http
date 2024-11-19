@@ -74,7 +74,7 @@ Content-Type: application/json
 }
 ###
 
-DELETE http://localhost:3030/api/books/3df96bd0-c058-472e-9cc9-c41279d2fa19
+DELETE http://localhost:3030/api/books/review/335bf807-091a-44da-9c92-d29899e29e66
 
 ###
 
@@ -84,4 +84,31 @@ Content-Type: application/json
 {
     "title": "yo no soy así",
     "price": 50000
+}
+
+
+###
+
+POST http://localhost:3030/api/books/review
+Content-Type: application/json
+
+{
+    "titulo": "Harry Potter y la Cámara Secreta",
+    "autor": "Warner Bros",
+    "precio": 100000,
+    "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg", "https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg", "https://images.cdn3.buscalibre.com/fit-in/360x360/61/8d/618d227e8967274cd9589a549adff52d.jpg" ],
+    "keywords": ["fantasía", "Harry Potter", "J.K. Rowling"],
+    "descripcion": "Esta es la descripción",
+    "estado" : "Usado",
+    "genero": "Novela",
+    "vendedor": "Ivan Gómez",
+    "idVendedor" : "31b2c3d4-e5f6-7g8h-9i10-j11k-12l1-3321",
+    "edicion": "1",
+    "idioma": "Español",
+    "ubicacion": "Bucaramanga",
+    "tapa":"Dura",
+    "edad":"Jóvenes",
+    "fechaPublicacion": "2024-10-01",
+    "disponibilidad" : "Disponible"
+
 }

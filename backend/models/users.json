@@ -8,7 +8,7 @@
     ],
     "correo": "ivandavidgomezsilva@hotmail.com",
     "contraseña": "$2b$10$CAuCoxBvkDkpnib9jXTRvOb7P1KMDC0NqPEhvBMaYaZRtNR45DFrq",
-    "rol": "usuario",
+    "rol": "admin",
     "fechaRegistro": "2024-10-20T18:37:31.276Z",
     "estadoCuenta": "activo",
     "fotoPerfil": "",
@@ -35,7 +35,10 @@
     "notificationsIds": [
       "9a167ca8-bfc7-41a2-80b3-ce5c170b9898",
       "2269e9d5-30ec-4953-b356-2b2efb4dce8d",
-      "96e8abbd-d635-4b17-8558-009998a4d8ee"
+      "96e8abbd-d635-4b17-8558-009998a4d8ee",
+      "7c327464-9603-440c-bfb3-d3fad0f6f11a",
+      "00bcbf97-e636-4dc7-b3b4-a3734ebd83cd",
+      "72b85251-4397-4852-999f-f9e82bd17177"
     ]
   },
   {
@@ -117,7 +120,7 @@
     ],
     "correo": "ivandavidgomezsilva@gmail.com",
     "contraseña": "$2b$10$qv9ej6wDYcmw75zmWGjmtep4XVJxyNZh8uRDOsvdbMfNoW5xhXUQq",
-    "rol": "usuario",
+    "rol": "admin",
     "fechaRegistro": "2024-10-20T21:47:37.859Z",
     "estadoCuenta": "activo",
     "fotoPerfil": "",

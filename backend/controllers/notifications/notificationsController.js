@@ -1,6 +1,7 @@
 import { NotificationsModel } from '../../models/notifications/notificationsModel.js'
 import { UsersModel } from '../../models/users/local/usersLocal.js'
 import { validateNotification } from '../../assets/validate.js'
+
 export class NotificationsController {
   static async getAllNotifications (req, res) {
     try {
@@ -57,11 +58,11 @@ export class NotificationsController {
       }
       const notification = await NotificationsModel.markNotificationAsRead(notificationId)
       if (!notification) {
-        return res.ststus(404).json({ error: 'No se encontró la notificación' })
+        return res.status(404).json({ error: 'No se encontró la notificación' })
       }
       res.json(notification)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       res.json({ error })
     }
   }

@@ -1337,17 +1337,26 @@ color: var(--using6);
   font-size: 2.5rem;
 
 }
-.libroContenedor .infoContainer .separarConFoto{
+.separarConFoto{
+  width: 100%;
   display: inline-flex;
   justify-content: center;
-  align-items: center;
-  
+  align-items: start ;
+  flex-direction: column;
+  font-size: 2rem;
 }
-.libroContenedor .infoContainer .separarConFoto div{
+.separarConFoto div{
+  height: 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
+.separarConFoto svg, .separarConFoto img{
+  width: 20px;
+  margin-right: 4px;
+
+}
+
 .libroContenedor .comprarContainer span:hover{
   text-decoration: underline;
 }
@@ -1465,7 +1474,8 @@ color: var(--using6);
   margin-right: 20px;
 }
 .comments .comentarios{
-  height: 100%;
+  height: 180px;
+  overflow-y: auto;
   width: 100%;
   display: flex;
   justify-content: flex-start;
@@ -1545,9 +1555,10 @@ color: var(--using6);
   width: 200px;
   margin: 10px;
   padding: 5px;
+  justify-content: space-between;
 } 
 .related .leftScrollContainer .sectionElement .imageContainer{
-  width:100%;
+  width:auto;
   background-repeat: no-repeat
 }
 /*---------------------------------------------LOGIN--------------------------------------------------------*/
@@ -2933,8 +2944,10 @@ color: var(--using6);
   margin: 6px 0;
 }
 .notification-item .input{
-  margin-top: 6px;
+  width: 100%;
+  margin-block: 6px;
   font-weight: 500;
+  border: 1px solid var(--using2);
 }
 .notification-item .sendAnswer{
   display: flex;
@@ -3001,4 +3014,60 @@ color: var(--using6);
 
 .notification-link:hover {
   text-decoration: underline;
+}
+
+/*---------------------------------------------BOOK REVIEW-----------------------------------*/
+
+
+.book-review{
+  width: max(300px, 60vw);
+  border-radius: 5px;
+  border: 2px solid var(--using2);
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.book-review h2{
+  font-size: 4rem;
+}
+.book-review p{
+  font-size: 2rem;
+}
+.book-review .imageWrapper{
+  width: 60%;
+  position: relative;
+  isolation: isolate;
+}
+.book-review .imageWrapper img{
+  width: 100%;
+}
+.book-review .imageWrapper .beforeButton, .book-review .imageWrapper .afterButton{
+  position: absolute;
+  top: 50%;
+  background: var(--using2);
+  color: #000;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.book-review .imageWrapper .beforeButton{
+  left:0;
+}
+
+.book-review .imageWrapper .afterButton{
+  right:0;
+}
+
+.book-review input{
+  width: 80%;
+  background: white;
+  color: black;
+  padding: 5px;
+  padding-left: 10px;
+  margin: 5px;
 }

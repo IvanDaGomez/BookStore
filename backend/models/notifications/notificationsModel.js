@@ -136,4 +136,21 @@ export class NotificationsModel {
       throw new Error(err)
     }
   }
+
+  static async markNotificationAsRead (id) {
+    const notifications = await this.getAllNotifications()
+    if (!notifications) return null
+
+    const notificationIndex = notifications.findIndex(notification => notification._id === id)
+    if (notificationIndex === -1) {
+      return null // Si no se encuentra la conversación, retorna null
+    }
+
+    // Actualiza los datos de la conversación
+    notifications[notificationIndex].read = true
+
+    // Hacer el path hacia aqui
+    // const filePath = pat h.join()
+    await fs.writeFile('./models/notifications.json', JSON.stringify(notifications, null, 2))
+  }
 }

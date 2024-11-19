@@ -1,1 +1,56 @@
-[]
+[
+  {
+    "_id": "7c327464-9603-440c-bfb3-d3fad0f6f11a",
+    "theme": "",
+    "title": "Tu libro ha sido publicado con éxito",
+    "priority": "normal",
+    "type": "bookPublished",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-19T19:00:09.859Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/83e6519f-ca04-4ff3-9ec7-08d9dedd94b5",
+    "expiresAt": 1734634809859,
+    "metadata": {
+      "photo": "1732042682787-311512716.png",
+      "bookTitle": "Como hacer que te pasen cosas buenas?",
+      "bookId": "83e6519f-ca04-4ff3-9ec7-08d9dedd94b5"
+    }
+  },
+  {
+    "_id": "00bcbf97-e636-4dc7-b3b4-a3734ebd83cd",
+    "theme": "",
+    "title": "Tu libro ha sido publicado con éxito",
+    "priority": "normal",
+    "type": "bookPublished",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-19T19:00:20.844Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/37c7bde3-147a-4d6a-851c-069a52343fb3",
+    "expiresAt": 1734634820844,
+    "metadata": {
+      "photo": "1732042744731-70173028.png",
+      "bookTitle": "El libro de Bill",
+      "bookId": "37c7bde3-147a-4d6a-851c-069a52343fb3"
+    }
+  },
+  {
+    "_id": "72b85251-4397-4852-999f-f9e82bd17177",
+    "theme": "",
+    "title": "Tu libro ha sido rechazado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "Wtf esto",
+    "createdIn": "2024-12-19T19:06:31.546Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/24db8bd2-52fa-4cbd-8d33-2cd99bcad5f3",
+    "expiresAt": 1734635191546,
+    "metadata": {
+      "photo": "1732042963918-737295573.png",
+      "bookTitle": "Como hacer que te pasen cosas buenas?",
+      "bookId": "24db8bd2-52fa-4cbd-8d33-2cd99bcad5f3"
+    }
+  }
+]

@@ -197,6 +197,79 @@ class BooksModel {
       throw new Error('Error deleting book')
     }
   }
+
+  static async getAllReviewBooks () {
+    try {
+      const data = await fs.readFile('./models/booksBackStage.json', 'utf-8')
+      const books = JSON.parse(data)
+
+      return books
+    } catch (err) {
+      console.error('Error reading books:', err)
+      throw new Error(err)
+    }
+  }
+
+  static async createReviewBook (data) {
+    try {
+      const books = await this.getAllReviewBooks()
+
+      // Crear valores por defecto
+      const newBook = {
+        titulo: data.titulo || '',
+        autor: data.autor || '',
+        precio: data.precio || 0,
+        oferta: data.oferta || null,
+        images: data.images || [],
+        keywords: data.keywords || [],
+        _id: data._id,
+        descripcion: data.descripcion || '',
+        estado: data.estado || 'Nuevo',
+        genero: data.genero || '',
+        formato: data.formato || '',
+        vendedor: data.vendedor || '',
+        idVendedor: data.idVendedor,
+        edicion: data.edicion,
+        idioma: data.idioma,
+        ubicacion: data.ubicacion || {
+          ciudad: '',
+          departamento: '',
+          pais: ''
+        },
+        tapa: data.tapa || '',
+        edad: data.edad || '',
+        fechaPublicacion: data.fechaPublicacion || new Date().toISOString(),
+        actualizadoEn: data.actualizadoEn || new Date().toISOString(),
+        disponibilidad: data.disponibilidad || 'Disponible',
+        mensajes: data.mensajes || []
+
+      }
+
+      books.push(newBook)
+      await fs.writeFile('./models/booksBackStage.json', JSON.stringify(books, null, 2))
+      return newBook
+    } catch (err) {
+      return err
+    }
+  }
+
+  static async deleteReviewBook (id) {
+    try {
+      const books = await this.getAllReviewBooks()
+      const bookIndex = books.findIndex(book => book._id === id)
+
+      if (bookIndex === -1) {
+        return null // Si no se encuentra el usuario, retorna null
+      }
+
+      books.splice(bookIndex, 1)
+      await fs.writeFile('./models/booksBackStage.json', JSON.stringify(books, null, 2))
+      return { message: 'Book deleted successfully' } // Mensaje de éxito
+    } catch (err) {
+      console.error('Error deleting book:', err)
+      throw new Error('Error deleting book')
+    }
+  }
 }
 
 export { BooksModel }

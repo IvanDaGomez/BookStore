@@ -3,8 +3,8 @@ export default function ErrorPage(){
     return(
         <>
         <div className="errorContainer">
-            <h1>Oops, looks like you&apos;re lost</h1>
-            <Link to="/"><p>Click here to return Home</p></Link>
+            <h1>Oops, parece que andas perdido</h1>
+            <Link to="/"><p>Volver a inicio</p></Link>
         </div>
         </>
     )

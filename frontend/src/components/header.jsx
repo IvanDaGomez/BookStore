@@ -381,7 +381,7 @@ const openExtraInfo = async (str) => {
                             {formatNotificationMessage(notification)}
                         </div>
                     </Link>
-                ))}
+                )).reverse()}
             </div>}
             {/*<div className="inhamburger" onMouseLeave={abrirMenu}>
                  Hamburger menu content 

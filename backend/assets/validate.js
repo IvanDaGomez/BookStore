@@ -59,7 +59,6 @@ const bookSchema = z.object({
   formato: z.string(),
   edicion: z.string().optional(), // Validates that 'edicion' is a string
   idioma: z.string().optional(), // Validates that 'idioma' is a string
-  ubicacion: z.string(), // Validates that 'ubicacion' is a string
   tapa: z.string().optional(), // Validates that 'tapa' is either 'Dura' or 'Blanda'
   edad: z.string().optional(), // Validates that 'edad' is a string
   fechaPublicacion: z.string(), // Validates that 'fechaPublicacion' is a date string in YYYY-MM-DD format
@@ -94,7 +93,7 @@ function validatePartialMessage (data) {
 }
 const notificationSchema = z.object({
   theme: z.enum(['light', 'dark']).default('light'), // Limits theme to specific options
-  type: z.enum(['newMessage', 'bookPublished', 'newQuestion', 'bookSold', 'orderShipped', 'reviewReceived']), // Define valid types
+  type: z.enum(['newMessage', 'bookPublished', 'bookRejected', 'newQuestion', 'bookSold', 'orderShipped', 'reviewReceived']), // Define valid types
   userId: z.string().min(1, 'userId is required'), // Require non-empty string
   title: z.string().optional(),
   priority: z.enum(['low', 'normal', 'high']).optional(), // Allows optional priority levels
