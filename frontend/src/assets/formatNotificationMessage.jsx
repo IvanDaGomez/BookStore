@@ -1,6 +1,6 @@
 import { formatDate } from "./formatDate"
 
-export function formatNotificationMessage(notification) {
+function formatNotificationMessage(notification) {
     const formattedDate = formatDate(notification.createdIn);
 
     switch (notification.type) {
@@ -59,3 +59,52 @@ export function formatNotificationMessage(notification) {
             );
     }
 }
+
+function formatNotificationMessageBig(notification) {
+    const { type, title, createdIn, metadata, actionUrl, read } = notification;
+
+    const typeMessages = {
+        newMessage: "Tienes un nuevo mensaje!",
+        bookPublished: "Tu libro ha sido publicado!",
+        bookSold: `Tu libro "${metadata.bookTitle}" ha sido vendido!`,
+        orderShipped: "Tu pedido ha sido entregado!",
+        reviewReceived: `Tienes una nueva reseña de "${metadata.bookTitle}"!`
+    };
+
+    const typeIcons = {
+        newMessage: "📩",
+        bookPublished: "📘",
+        bookSold: "💸",
+        orderShipped: "📦",
+        reviewReceived: "⭐"
+    };
+
+    const formattedDate = formatDate(createdIn);
+
+    return (
+        <div className={`notification-item ${read ? 'read' : 'unread'}`}>
+            <div className="notification-icon">
+                {typeIcons[type] || "🔔"}
+            </div>
+            <div className="notification-content">
+                <h4 className="notification-title">{typeMessages[type] || title}</h4>
+                {metadata.photo && (
+                    <img
+                        src={metadata.photo}
+                        alt="Notification"
+                        className="notification-photo"
+                    />
+                )}
+                <p className="notification-date">{formattedDate}</p>
+                {actionUrl && (
+                    <a href={actionUrl} className="notification-link">
+                        Ver detalles
+                    </a>
+                )}
+            </div>
+        </div>
+    );
+}
+
+
+export {formatNotificationMessage, formatNotificationMessageBig}

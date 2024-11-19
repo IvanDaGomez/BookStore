@@ -13,6 +13,7 @@ import Mensajes from './routes/mensajes/mensajes.jsx'
 import './index.css'
 import EditarUsuario from './routes/usuarios/editarUsuario.jsx'
 import Checkout from './routes/checkout/checkout.jsx'
+import Notificaciones from './routes/mensajes/notificaciones.jsx'
 
 
 
@@ -62,11 +63,16 @@ const router = createBrowserRouter([
   },
   {
     path: '/mensajes', // Messages
-    element: <Mensajes initialStatus={'mensajes'}/>
+    element: <Mensajes/>
+  },
+  
+  {
+    path: '/notificaciones',
+    element: <Notificaciones/>
   },
   {
     path: '/notificaciones/:notificationId',
-    element: <Mensajes initialStatus={'notificaciones'}/>
+    element: <Notificaciones/>
   }
 ])
 createRoot(document.getElementById('root')).render(

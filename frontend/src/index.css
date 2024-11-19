@@ -147,18 +147,7 @@ input{
   
 }
 /*----------------------------------------ENCABEZADO--------------------------------------------------*/
-.antesHeader{
-  height:50px;
-  width:100vw;
-  /*background: linear-gradient(90deg, yellow 50%, blue 75%, var(--using6) 100%);*/
-  /*background: repeating-linear-gradient(60deg, white 0%, blue 10%, white 20%);*/
-  background: var(--using1);
-  
-  display: flex;
-  justify-content: space-between;
-  align-items:center;
-  padding:20px;
-}
+
 .antesIzq,.antesDer, .antesCen{
   height:80%;
   display: flex;
@@ -390,6 +379,25 @@ header .flex-between{
   margin: 0 10px;
 }
 
+.notification{
+  position: relative;
+  isolation: isolate;
+}
+.notification .notificationIconCount{
+  width: 15px;
+  height: 15px;
+  aspect-ratio: 1 / 1;
+  background-color: red;
+  position: absolute;
+  font-size: 10px;
+  top: 10px;
+  right: 0px;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .profileContainer {
   position: fixed;
   left: calc(100vw - 170px);
@@ -2783,6 +2791,7 @@ color: var(--using6);
   align-items: start;
   flex-direction: column;
   width: 100%;
+  padding: 0 5px;
 }
 .conversationSpecificTitleAndMessage h2{
   font-size: 2rem;
@@ -2892,4 +2901,56 @@ color: var(--using6);
   transform: translateX(1px);
   color: white;
 
+}
+/*--------------------------------------------------NOTIFICATIONS---------------------------------------*/
+
+.notification-item {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.notification-item.unread {
+  background-color: #eef6ff;
+  font-weight: bold;
+}
+
+.notification-icon {
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.notification-content {
+  flex: 1;
+}
+
+.notification-title {
+  margin: 0;
+  font-size: 16px;
+}
+
+.notification-photo {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+.notification-date {
+  font-size: 12px;
+  color: #888;
+}
+
+.notification-link {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.notification-link:hover {
+  text-decoration: underline;
 }
