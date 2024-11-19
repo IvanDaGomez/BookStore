@@ -48,7 +48,7 @@ const bookSchema = z.object({
   titulo: z.string(), // Validates that 'titulo' is a string
   autor: z.string(), // Validates that 'autor' is a string
   precio: z.number(), // Validates that 'precio' is a number
-  oferta: z.number(),
+  oferta: z.number().optional(),
   // Imagenes ya validadas
   keywords: z.array(z.string()).optional(), // Validates that 'keywords' is an array of strings
   descripcion: z.string(), // Validates that 'descripcion' is a string

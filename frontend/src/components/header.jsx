@@ -374,8 +374,10 @@ const openExtraInfo = async (str) => {
            
             </div>
             ) : <></>}
-            {(notifications && user && notificationOpen) && <div className="notificationsContainer">
-                {notifications.map((notification, index) => (
+            {(notifications && user && notificationOpen) && <div className="notificationsContainer" onMouseLeave={()=>
+                setNotificationOpen(!notificationOpen)
+            }>
+                {notifications.slice(0, 4).map((notification, index) => (
                     <Link to={`/notificaciones/${notification._id}`} key={index}>
                         <div className="notificationElement">
                             {formatNotificationMessage(notification)}

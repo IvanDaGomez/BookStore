@@ -52,5 +52,41 @@
       "bookTitle": "Como hacer que te pasen cosas buenas?",
       "bookId": "24db8bd2-52fa-4cbd-8d33-2cd99bcad5f3"
     }
+  },
+  {
+    "_id": "e6668766-2fdf-45c8-abb1-99a056e4bf61",
+    "theme": "",
+    "title": "Tu libro ha sido publicado con éxito",
+    "priority": "high",
+    "type": "bookPublished",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-19T19:40:05.129Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/83779148-3ff5-40fa-bf0b-647f69498762",
+    "expiresAt": 1734637205129,
+    "metadata": {
+      "photo": "1732044829576-621722895.png",
+      "bookTitle": "El manual de ingenieria",
+      "bookId": "83779148-3ff5-40fa-bf0b-647f69498762"
+    }
+  },
+  {
+    "_id": "42e240c4-9b3b-48d3-b5a8-e3c296a32fbe",
+    "theme": "",
+    "title": "Tu currentBook ha sido publicado con éxito",
+    "priority": "normal",
+    "type": "bookPublished",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-19T19:40:05.225Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/3e9c5a4d-a271-4e70-937f-0a668b430a16",
+    "expiresAt": 1734637205225,
+    "metadata": {
+      "photo": "1732044829576-621722895.png",
+      "bookTitle": "El manual de ingenieria",
+      "bookId": "3e9c5a4d-a271-4e70-937f-0a668b430a16"
+    }
   }
 ]

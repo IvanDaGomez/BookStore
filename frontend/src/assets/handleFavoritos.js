@@ -39,13 +39,14 @@ const handleFavoritos = (event, id, userId) => {
         if (favoritoIconPath[0].classList.contains('favoritoActivo')) {
           favoritoIconPath[0].classList.remove('favoritoActivo');
           toast.success('Eliminado de favoritos exitosamente');
+        
         } else {
           favoritoIconPath[0].classList.add('favoritoActivo');
           toast.success('Agregado a favoritos exitosamente');
-          return
+          
         }
       }
-      toast.success('Agregado a favoritos exitosamente');
+
 
     } catch (err) {
       console.error('Error agregando a favoritos:', err);

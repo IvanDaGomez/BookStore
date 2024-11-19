@@ -77,23 +77,25 @@ export default function ProtectedReviewBook(){
     async function handleAccept(book) {
         if (!book) return;
         // Add book to the system
-        const url = `http://localhost:3030/api/books/${book._id}`;
+        const body = {
+            ...book,
+            oferta: book.oferta !== null ? book.oferta: 0
+        }
+        const url = `http://localhost:3030/api/books`;
         const response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(book), // Aquí puedes incluir cualquier dato adicional necesario
-        }).catch((error) => {
-            console.error('Error aprobando el currentBook:', error);
-        });
+            body: JSON.stringify(body), // Aquí puedes incluir cualquier dato adicional necesario
+        })
         if (!response.ok) {
             console.log('Error aceptando')
             return
         }
         removeBookFromBackStage(book._id)
         const notificationToSend = {
-            title: 'Tu currentBook ha sido publicado con éxito',
+            title: 'Tu libro ha sido publicado con éxito',
             priority: 'normal',
             type: 'bookPublished',
             userId: book.idVendedor,
@@ -112,7 +114,7 @@ export default function ProtectedReviewBook(){
         if (!book) return;
         removeBookFromBackStage(book._id)
         const notificationToSend = {
-            title: 'Tu currentBook ha sido rechazado',
+            title: 'Tu libro ha sido rechazado',
             priority: 'normal',
             input: document.querySelector('.reason').value,
             type: 'bookRejected',

@@ -4,7 +4,8 @@
     "librosIds": [
       "5376d15f-5ffc-42ea-a65f-18af3be5be86",
       "31d52487-f746-4951-bf11-7b41febea0a9",
-      "78c534c0-2fa8-40d0-b72a-c5ee34d0a883"
+      "78c534c0-2fa8-40d0-b72a-c5ee34d0a883",
+      "83779148-3ff5-40fa-bf0b-647f69498762"
     ],
     "correo": "ivandavidgomezsilva@hotmail.com",
     "contraseña": "$2b$10$CAuCoxBvkDkpnib9jXTRvOb7P1KMDC0NqPEhvBMaYaZRtNR45DFrq",
@@ -13,7 +14,7 @@
     "estadoCuenta": "activo",
     "fotoPerfil": "",
     "_id": "857857d1-afdd-411d-b41a-be427d1ff186",
-    "actualizadoEn": "2024-11-18T17:20:14.268Z",
+    "actualizadoEn": "2024-11-19T19:42:58.696Z",
     "direccionEnvio": {
       "calle": "",
       "ciudad": "",
@@ -24,8 +25,7 @@
       "3c37ef91-d1bb-4c19-ad47-85b9fb147474",
       "31d52487-f746-4951-bf11-7b41febea0a9",
       "ac6773d2-9166-4840-b5cd-995a49b19031",
-      "33e5e785-cb74-4f4a-9211-25f341b089b4",
-      "88c87f69-4b49-4633-bfba-cd3d29b1a21d"
+      "33e5e785-cb74-4f4a-9211-25f341b089b4"
     ],
     "conversationsIds": [
       "49771105-55f6-4299-b18e-7500a26ed708",
@@ -38,7 +38,9 @@
       "96e8abbd-d635-4b17-8558-009998a4d8ee",
       "7c327464-9603-440c-bfb3-d3fad0f6f11a",
       "00bcbf97-e636-4dc7-b3b4-a3734ebd83cd",
-      "72b85251-4397-4852-999f-f9e82bd17177"
+      "72b85251-4397-4852-999f-f9e82bd17177",
+      "e6668766-2fdf-45c8-abb1-99a056e4bf61",
+      "42e240c4-9b3b-48d3-b5a8-e3c296a32fbe"
     ]
   },
   {

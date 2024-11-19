@@ -76,7 +76,7 @@ export class BooksController {
 
     // Imágenes
     // Diferentes tamaños
-    data.images = req.files.map(file => `${file.filename}`)
+    if (req.files) data.images = req.files.map(file => `${file.filename}`)
 
     // En un futuro para imágenes de distintos tamaños
 
