@@ -63,28 +63,46 @@ function Checkout() {
     confirmation: {},
   });
 
-  // Fetch preferenceId only when `libro` changes
   useEffect(() => {
-    // Wrap in an async function to avoid directly calling async in useEffect
+    // Fetch preferenceId only when `libro` changes
     const fetchPreferenceId = async () => {
-        if (libro) {
-            try {
-              const url = 'http://localhost:3030/api/books/getPreferenceId'
-              const body = JSON.stringify({
-                ...libro,
-                title: libro.titulo,
-                price: libro.oferta ? libro.oferta : libro.precio,
-              })
-                const response = await axios.post(url, body,{withCredentials: true});
-                setPreferenceId(response.data.preferenceId)
-            } catch (error) {
-                console.error('Error fetching preference ID:', error);
-            }
+      if (libro) {
+        try {
+          const url = 'http://localhost:3030/api/books/getPreferenceId';
+  
+          // Prepare the payload
+          const body = {
+            ...libro,
+            title: libro.titulo,
+            price: libro.oferta !== null ? libro.oferta : libro.precio,
+          };
+  
+          // Make the API call
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body),
+            credentials: 'include', // Include credentials if necessary
+          });
+  
+          // Parse the response JSON
+          if (response.ok) {
+            const data = await response.json();
+            setPreferenceId(data.id); // Assuming response includes `preferenceId`
+          } else {
+            console.error('Error fetching preference ID:', response.statusText);
+          }
+        } catch (error) {
+          console.error('Error fetching preference ID:', error);
         }
+      }
     };
-
+  
     fetchPreferenceId();
-}, [libro]);
+  }, [libro]); // Dependency array ensures this runs when `libro` changes
+  
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [fase]);

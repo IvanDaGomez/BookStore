@@ -27,6 +27,13 @@ export default function Mensajes() {
     const [urlSearchParams] = useSearchParams()
     const newConversationId = urlSearchParams.get('n');
 
+    useEffect(()=>{
+        if (newConversationId && conversaciones && reducedUsers) {
+            console.log(conversaciones.map(conversacion=> findUserByConversation(conversacion)._id))
+            setActiveConversation(conversaciones.find(conversacion=> findUserByConversation(conversacion)._id === newConversationId))
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[newConversationId, conversaciones, reducedUsers])
     function findUserByConversation(conversation){
         const otherUserId = conversation.users.find(u => u !== user._id);
             if (!otherUserId) return {};

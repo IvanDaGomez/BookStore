@@ -9,7 +9,6 @@ function Fase3({ form, setForm, setFase, libro, preferenceId }) {
   const [paymentMethod, setPaymentMethod] = useState('Tarjeta de crédito');
   const [brand, setBrand] = useState(null);
   const cardNumber = useRef(null);
-
   const handleNext = () => setFase(4); // Avanzar a la fase de confirmación
   
   const handleChange = (e) => {

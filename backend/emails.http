@@ -1,0 +1,13 @@
+GET http://localhost:3030/api/emails
+
+
+###
+GET http://localhost:3030/api/emails/afd647d7-3b09-495e-9f6e-0421c16b28d6
+
+### 
+POST http://localhost:3030/api/emails
+Content-Type: application/json
+
+{
+    "email": "ivandavidgomezsilva@gmail.com"
+}

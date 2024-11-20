@@ -5,10 +5,11 @@ import { booksRouter } from './routes/books/booksRouter.js'
 import { messagesRouter } from './routes/messages/messagesRouter.js'
 import { conversationsRouter } from './routes/conversations/conversationsRouter.js'
 import { notificationsRouter } from './routes/notifications/notificationsRouter.js'
-
+import { emailsRouter } from './routes/email/emailRouter.js'
 import { SECRET_KEY } from './assets/config.js'
 import cookieParser from 'cookie-parser'
 import jwt from 'jsonwebtoken'
+
 const app = express()
 
 const PORT = process.env.PORT ?? 3030
@@ -70,7 +71,7 @@ app.use('/api/books', booksRouter)
 app.use('/api/messages', messagesRouter)
 app.use('/api/conversations', conversationsRouter)
 app.use('/api/notifications', notificationsRouter)
-
+app.use('/api/emails', emailsRouter)
 app.listen(PORT, () => {
   console.log('Server is listening on http://localhost:' + PORT)
 })

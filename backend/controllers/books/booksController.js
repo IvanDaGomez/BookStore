@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { BooksModel } from '../../models/books/local/booksLocal.js'
 import crypto from 'node:crypto'
 import { validateBook, validatePartialBook } from '../../assets/validate.js'
@@ -340,20 +341,54 @@ export class BooksController {
   }
 
   static async processPayment (req, res) {
-    const client = new MercadoPagoConfig({ accessToken: ACCESS_TOKEN, options: { timeout: 5000 } })
+    try {
+      const {
+        transaction_amount,
+        description,
+        token,
+        payment_method_id,
+        payer,
+        application_fee // Marketplace commission
+      } = req.body
 
-    const payment = new Payment(client)
-
-    payment.create({
-      body: {
-        transaction_amount: 100,
-        description: '<DESCRIPTION>',
-        payment_method_id: '<PAYMENT_METHOD_ID>',
-        payer: {
-          email: '<EMAIL>'
-        }
+      if (!token) {
+        return res.status(400).json({
+          status: 'error',
+          message: 'Token is required for payment processing'
+        })
       }
-    }).then(console.log).catch(console.log)
+
+      const client = new MercadoPagoConfig({
+        accessToken: ACCESS_TOKEN, // Your platform's access token
+        options: { timeout: 5000 }
+      })
+
+      const payment = new Payment(client)
+
+      const response = await payment.create({
+        body: {
+          transaction_amount,
+          description,
+          token, // Required for payment processing
+          payment_method_id,
+          payer,
+          application_fee
+        }
+      })
+
+      res.status(200).json({
+        status: 'success',
+        message: 'Payment processed successfully',
+        data: response.body
+      })
+    } catch (error) {
+      console.error('Error processing payment:', error)
+      res.status(500).json({
+        status: 'error',
+        message: 'Payment processing failed',
+        error: error.message
+      })
+    }
   }
 
   static async getAllReviewBooks (req, res) {

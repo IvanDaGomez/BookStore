@@ -158,7 +158,7 @@ export default function Fase1({ form, setForm, setFase, fase }) {
   };
   return (
     <>
-      <form action="" onSubmit={handleSubmit} noValidate>
+      <form onSubmit={handleSubmit} noValidate>
         
         {dropdown && <>
         <div className="dropdownBackground"></div>

@@ -55,45 +55,45 @@ function PaymentBrick({ libro, preferenceId }) {
     }, [preferenceId, libro]); // Ensure `renderPaymentBrick` only depends on `preferenceId` and `libro` values
 
     const onSubmit = async ({ formData }) => {
-        // Calculate commission and seller's amount
         const totalAmount = libro.oferta || libro.precio;
-        // 5% mas 4000 pesos
-        const commissionAmount = calculateComission(totalAmount)
-        const sellerAmount = totalAmount - commissionAmount;
-
-        return new Promise((resolve, reject) => {
-            const url = 'http://localhost:3030/api/books/process_payment'
-            fetch(url, {
+        const commissionAmount = calculateComission(totalAmount);
+    
+        // Ensure the token is included
+        const { token, payment_method_id, payer } = formData;
+    
+        try {
+            const response = await fetch('http://localhost:3030/api/books/process_payment', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    ...formData,
-                    amount: totalAmount,
-                    marketplace: {
-                        receiverId: libro.idVendedor,  // The seller's MercadoPago ID
-                        applicationFee: commissionAmount,  // Commission for your app
+                    transaction_amount: totalAmount,
+                    description: `Purchase of ${libro.title}`,
+                    token, // The generated card/payment token
+                    payment_method_id, // The selected payment method
+                    payer: {
+                        email: payer.email,
                     },
-                    // Amount that goes to the seller after your commission
-                    collector_id: libro.idVendedor,
-                    transaction_amount: sellerAmount,
+                    application_fee: commissionAmount, // Your platform's commission
                 }),
-            })
-                .then((response) => response.json())
-                .then((response) => {
-                    if (response.status === "success") {
-                        resolve();
-                    } else {
-                        reject(new Error("Payment failed"));
-                    }
-                })
-                .catch((error) => {
-                    console.error("Error during payment:", error);
-                    reject(error);
-                });
-        });
+            });
+    
+            const result = await response.json();
+            if (result.status === "success") {
+                alert("Payment successful!");
+            } else {
+                throw new Error(result.message || "Payment failed");
+            }
+        } catch (error) {
+            console.error("Payment error:", error);
+            alert("Payment error occurred, please try again.");
+        }
     };
+    
+    
+    
+    
 
     const onError = (error) => {
         console.error("Payment Brick Error:", error);
