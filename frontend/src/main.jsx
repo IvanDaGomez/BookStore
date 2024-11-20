@@ -15,6 +15,13 @@ import EditarUsuario from './routes/usuarios/editarUsuario.jsx'
 import Checkout from './routes/checkout/checkout.jsx'
 import Notificaciones from './routes/mensajes/notificaciones.jsx'
 import ProtectedReviewBook from './routes/protectedReviewBook/protectedReviewBook.jsx'
+import TerminosYCondiciones from './routes/extraFooterInfo/terminos.jsx'
+import SobreNosotros from './routes/extraFooterInfo/sobreNosotros.jsx'
+import PoliticaPrivacidad from './routes/extraFooterInfo/politicaPrivacidad.jsx'
+import AvisoPrivacidad from './routes/extraFooterInfo/avisoPrivacidad.jsx'
+import Contacto from './routes/extraFooterInfo/contacto.jsx'
+import PoliticaDatosPersonales from './routes/extraFooterInfo/politicaDatosPersonales.jsx'
+import UsoDeCookies from './routes/extraFooterInfo/usoCookies.jsx'
 
 
 
@@ -78,6 +85,38 @@ const router = createBrowserRouter([
   {
     path: '/protected/review',
     element: <ProtectedReviewBook />
+  },
+  {
+    path:'/terminos-y-condiciones',
+    element: <TerminosYCondiciones />
+  },
+  {
+    path:'/sobre-nosotros',
+    element: <SobreNosotros />
+  },
+  {
+    path:'/politica-privacidad',
+    element: <PoliticaPrivacidad />
+  },
+  {
+    path:'/aviso-de-privacidad',
+    element: <AvisoPrivacidad />
+  },
+  {
+    path:'/contacto',
+    element: <Contacto />
+  },
+  {
+    path:'/politica-de-datos-personales',
+    element: <PoliticaDatosPersonales />
+  },
+  {
+    path:'/sobre-nosotros',
+    element: <SobreNosotros/>
+  },
+  {
+    path:'/uso-cookies',
+    element: <UsoDeCookies />
   }
 ], {
   future: {

@@ -401,7 +401,7 @@
     "tapa": "Dura",
     "edad": "Adulto",
     "fechaPublicacion": "2024-10-26T23:33:42.929Z",
-    "actualizadoEn": "2024-11-19T18:29:33.910Z",
+    "actualizadoEn": "2024-11-20T14:40:10.361Z",
     "disponibilidad": "Disponible",
     "formato": "undefined",
     "mensajes": [
@@ -411,12 +411,22 @@
       ],
       [
         "¿En qué estado se encuentra el producto?",
-        "Está completamente nuevo",
+        "En perfecto estado",
         "857857d1-afdd-411d-b41a-be427d1ff186"
       ],
       [
         "¿Cómo puedo hacer una devolución?",
         "Solo tienes que contactarte con nosotros",
+        "857857d1-afdd-411d-b41a-be427d1ff186"
+      ],
+      [
+        "¿Cuál es el costo del producto?",
+        "El producto tiene un costo de 50000 pesos",
+        "857857d1-afdd-411d-b41a-be427d1ff186"
+      ],
+      [
+        "Otra vez tu?",
+        "",
         "857857d1-afdd-411d-b41a-be427d1ff186"
       ]
     ]

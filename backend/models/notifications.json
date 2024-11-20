@@ -88,5 +88,23 @@
       "bookTitle": "El manual de ingenieria",
       "bookId": "3e9c5a4d-a271-4e70-937f-0a668b430a16"
     }
+  },
+  {
+    "_id": "42fca53e-8b5a-45ff-87ae-b92583073bcc",
+    "theme": "",
+    "title": "Tienes una nueva pregunta",
+    "priority": "normal",
+    "type": "newQuestion",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "Otra vez tu?",
+    "createdIn": "2024-12-20T14:40:10.417Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/78c534c0-2fa8-40d0-b72a-c5ee34d0a883",
+    "expiresAt": 1734705610417,
+    "metadata": {
+      "photo": "1729985622956-64165033.png",
+      "bookTitle": "El encuentro de cuatro imperios",
+      "bookId": "78c534c0-2fa8-40d0-b72a-c5ee34d0a883"
+    }
   }
 ]

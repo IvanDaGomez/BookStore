@@ -53,21 +53,21 @@ const Footer = () => {
       <div className="footer-section know-more">
         <h2>Nosotros</h2>
         <ul>
-          <li><a href="/about-us">Sobre Nosotros</a></li>
-          <li><a href="/privacy-policy">Política de Privacidad</a></li>
-          <li><a href="/terms-of-service">Términos de Servicio</a></li>
+          <li><a href="/sobre-nosotros">Sobre Nosotros</a></li>
+          <li><a href="/politica-privacidad">Política de Privacidad</a></li>
+          <li><a href="/terminos-y-condiciones">Términos de Servicio</a></li>
           <li><a href="/faq">Preguntas Frecuentes</a></li>
-          <li><a href="/contact">Contáctanos</a></li>
+          <li><a href="/contacto">Contáctanos</a></li>
         </ul>
       </div>
 
       <div className="footer-section legal">
         <h2>Legal</h2>
         <ul>
-          <li><a href="/terms-and-conditions">Términos y Condiciones</a></li>
-          <li><a href="/privacy-notice">Aviso de Privacidad</a></li>
-          <li><a href="/cookie-policy">Uso de Cookies</a></li>
-          <li><a href="/personal-data-policy">Política de Datos Personales</a></li>
+          <li><a href="/terminos-y-condiciones">Términos y Condiciones</a></li>
+          <li><a href="/aviso-de-privacidad">Aviso de Privacidad</a></li>
+          <li><a href="/uso-cookies">Uso de Cookies</a></li>
+          <li><a href="/politica-de-datos-personales">Política de Datos Personales</a></li>
         </ul>
       </div>
       </div>

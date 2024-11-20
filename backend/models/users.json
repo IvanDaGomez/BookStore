@@ -14,7 +14,7 @@
     "estadoCuenta": "activo",
     "fotoPerfil": "",
     "_id": "857857d1-afdd-411d-b41a-be427d1ff186",
-    "actualizadoEn": "2024-11-19T19:42:58.696Z",
+    "actualizadoEn": "2024-11-20T14:31:25.419Z",
     "direccionEnvio": {
       "calle": "",
       "ciudad": "",
@@ -25,7 +25,8 @@
       "3c37ef91-d1bb-4c19-ad47-85b9fb147474",
       "31d52487-f746-4951-bf11-7b41febea0a9",
       "ac6773d2-9166-4840-b5cd-995a49b19031",
-      "33e5e785-cb74-4f4a-9211-25f341b089b4"
+      "33e5e785-cb74-4f4a-9211-25f341b089b4",
+      "3f7ab023-15e7-4626-8890-a71f4f2e221c"
     ],
     "conversationsIds": [
       "49771105-55f6-4299-b18e-7500a26ed708",
@@ -40,7 +41,8 @@
       "00bcbf97-e636-4dc7-b3b4-a3734ebd83cd",
       "72b85251-4397-4852-999f-f9e82bd17177",
       "e6668766-2fdf-45c8-abb1-99a056e4bf61",
-      "42e240c4-9b3b-48d3-b5a8-e3c296a32fbe"
+      "42e240c4-9b3b-48d3-b5a8-e3c296a32fbe",
+      "42fca53e-8b5a-45ff-87ae-b92583073bcc"
     ]
   },
   {

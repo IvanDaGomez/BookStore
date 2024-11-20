@@ -115,7 +115,7 @@ function formatNotificationMessageBig(notification) {
                 )}
                 </div>
                 {input && <div className="input">
-                    Razón: {input}
+                    {type === 'bookRejected' && <>Razón: </>}{input}
                     </div>}
                 {["newQuestion"].includes(type) && <>
                 <div className="sendAnswer">

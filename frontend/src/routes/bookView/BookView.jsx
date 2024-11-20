@@ -404,7 +404,8 @@ export default function BookView() {
                     {/*Mensaje
                         [mensaje, respuesta]
                     */}
-                    {libro && libro.mensajes && libro.mensajes.filter(mensaje=> mensaje[0] && mensaje[1]).length !== 0 ? libro.mensajes.filter(mensaje=> mensaje[0] && mensaje[1]).slice(0, 3).map((element, index) => (
+
+                    {libro && libro.mensajes && libro.mensajes.filter(mensaje=> mensaje[0] && mensaje[1]).length !== 0 ? libro.mensajes.filter(mensaje=> mensaje[0] && mensaje[1]).map((element, index) => (
                         <div className="mensajeContainer" key={index}>
                             <p className="mensaje">{element[0]}</p>
                             <p className="respuesta">{element[1]}</p>

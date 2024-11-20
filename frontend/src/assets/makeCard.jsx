@@ -51,7 +51,7 @@ const makeCard = (element, index, userId) => {
 const makeOneFrCard = (element, index, userId) => {
   
     return (
-      <Link key={index} style={{width:'100%', height:'100%'}} to={`${window.location.origin}/libros/${element._id}`}>
+      <Link key={index} to={`/libros/${element._id}`}>
       <div className="cardContainer" >
         
         {/* Imagen de los auriculares */}
