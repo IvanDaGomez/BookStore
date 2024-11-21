@@ -6,9 +6,11 @@ export default function TerminosYCondiciones() {
     return (
         <>
             <Header />
-            <main>
-                <h1>Términos y Condiciones de Uso - Meridian</h1>
-                <p><strong>Fecha de la última revisión:</strong> 20 de noviembre de 2024</p>
+            <div className="extraFooterInfoContainer">
+                <h1>Términos y Condiciones de Uso</h1>
+                <h1><big>Meridian</big></h1>
+                
+                
                 <div className="extraFooterInfoContainer">
                     <section>
                         <h2>1. Introducción</h2>
@@ -96,8 +98,9 @@ export default function TerminosYCondiciones() {
                             Para dudas o soporte, puedes escribirnos a <a href="mailto:soporte@meridian.com">soporte@meridian.com</a>.
                         </p>
                     </section>
+                    <p><strong>Fecha de la última revisión:</strong> 20 de noviembre de 2024</p>
                 </div>
-            </main>
+            </div>
             <SideInfo />
             <Footer />
         </>

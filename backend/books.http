@@ -114,7 +114,7 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:3030/api/books/review/31d52487-f746-4951-bf11-7b41febea0a9
+PUT http://localhost:3030/api/books/review/78c534c0-2fa8-40d0-b72a-c5ee34d0a883
 Content-Type: application/json
 
 {
@@ -132,4 +132,14 @@ Content-Type: application/json
     "fechaPublicacion": "2024-10-20T18:55:15.234Z",
     "actualizadoEn": "2024-10-21T16:09:23.476Z",
     "disponibilidad": "Disponible"
+}
+
+###
+
+POST http://localhost:3030/api/books/generateDescription
+Content-Type: application/json
+
+{
+    "titulo": "Harry Potter y la Cámara Secreta",
+    "autor": "Warner Bros"
 }

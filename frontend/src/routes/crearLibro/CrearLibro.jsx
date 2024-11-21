@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import { average } from "../../assets/average";
 import { useSearchParams } from "react-router-dom";
 import UseStep from "../../components/UseStep";
+import { ToastContainer } from "react-toastify";
 import axios from "axios";
 
 export default function CrearLibro() {
@@ -112,7 +113,8 @@ export default function CrearLibro() {
         tapa: data.tapa,
         edad: data.edad,
         images: imageBlobs,
-        formato: data.formato});
+        formato: data.formato
+      });
             
         } catch (error) {
           console.error('Error fetching book data:', error);
@@ -174,9 +176,6 @@ export default function CrearLibro() {
                     credentials: 'include'
                 });
 
-                if (!response.ok) {
-                    throw new Error('Error en la solicitud: ' + response.status);
-                }
 
                 const data = await response.json();
                 if (data.error) {
@@ -238,7 +237,7 @@ useEffect(() => {
           No todos los campos son requeridos, pero ten en cuenta que entre más completa esté tu publicación más rápido podrá venderse.
         </div>
         <h1>{actualizar ? <>Actualiza</>:<>Publica</>} tu libro</h1>
-
+    {console.log(form)}
         <UseStep currentStep={fase} titulos={steps}  />
         {fase === 1 ? (
           <Fase1 form={form} setForm={setForm} fase={fase} setFase={setFase} />
@@ -250,6 +249,13 @@ useEffect(() => {
       </div>
       <Footer />
       <SideInfo />
+      <ToastContainer position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            pauseOnHover={false}
+            closeOnClick
+            theme="light"
+            />
     </>
   );
 }

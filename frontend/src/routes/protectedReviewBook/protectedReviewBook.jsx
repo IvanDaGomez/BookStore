@@ -35,7 +35,15 @@ export default function ProtectedReviewBook(){
 
     const [books, setBooks] = useState(null)
     const [currentBook, setCurrentBook] = useState(null) 
-    const [actualImage, setActualImage] = useState(null)
+    const [actualImageLeft, setActualImageLeft] = useState('0')
+
+    function nextImage(){
+        setActualImageLeft()
+    }
+    function beforeImage(){
+        setActualImageLeft('')
+    }
+
     useEffect(()=>{
         async function fetchBackStageBooks() {
             if (!user) return
@@ -52,7 +60,6 @@ export default function ProtectedReviewBook(){
             }
             setBooks(data)
             setCurrentBook(data[0])
-            setActualImage(data[0].images[0])
         }
         fetchBackStageBooks()
     },[user])
@@ -90,8 +97,9 @@ export default function ProtectedReviewBook(){
             },
             body: JSON.stringify(body), // Aquí puedes incluir cualquier dato adicional necesario
         })
-        if (!response.ok) {
-            console.log('Error aceptando')
+        const data = await response.json()
+        if (data.error) {
+            console.error(data.error)
             return
         }
         removeBookFromBackStage(book._id)
@@ -116,7 +124,7 @@ export default function ProtectedReviewBook(){
         if (!book) return;
         removeBookFromBackStage(book._id)
         const notificationToSend = {
-            title: 'Tu libro ha sido rechazado',
+            title: book.method === 'PUT' ? 'Tu libro no ha podido ser actualizado' : 'Tu libro ha sido rechazado',
             priority: 'normal',
             input: document.querySelector('.reason').value,
             type: 'bookRejected',
@@ -137,7 +145,6 @@ export default function ProtectedReviewBook(){
     
         if (nextIndex < books.length) {
             setCurrentBook(books[nextIndex]);
-            setActualImage(books[nextIndex].images?.[0] || null);
         } else {
             setCurrentBook(null);
             setBooks([]);
@@ -152,6 +159,7 @@ export default function ProtectedReviewBook(){
     {books && (books.length > 0) && currentBook ? (
                 <div className="book-review">
                     <h2>{currentBook.titulo}</h2>
+                    <p>Descripción: {currentBook.descripcion}</p>
 {currentBook && [
                         currentBook.autor && `Autor: ${currentBook.autor}`,
                         currentBook.genero && `Género: ${currentBook.genero}`,
@@ -180,11 +188,15 @@ export default function ProtectedReviewBook(){
                     ))}
                     </div>
                     <div className="imageWrapper">
-                    <img
-                        src={`http://localhost:3030/uploads/${actualImage && actualImage || "default.png"}`}
-                        alt="Portada del currentBook"   
+                    {currentBook.images.map((image, index)=> (
+                        <img
+                        key={index}
+                        src={`http://localhost:3030/uploads/${image && image || "default.png"}`}
+                        alt="Portada del libro"   
                     />
-                    {(currentBook.images.length > 1) && 
+                    ))}
+                    
+                    {/*{(currentBook.images.length > 1) && 
                     <>
                     <div className="beforeButton">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={20} height={20} color={"#ffffff"} fill={"none"}>
@@ -197,7 +209,7 @@ export default function ProtectedReviewBook(){
     <path d="M9.00005 6C9.00005 6 15 10.4189 15 12C15 13.5812 9 18 9 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
 </svg>
                     </div>
-                    </>}
+                    </>}*/}
                     </div>
                     <div className="actions">
                         <button style={{background: 'red'}} onClick={() => handleReject(currentBook)}>

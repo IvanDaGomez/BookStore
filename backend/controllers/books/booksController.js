@@ -208,7 +208,7 @@ export class BooksController {
       if (!existingBook) {
         return res.status(404).json({ error: 'Libro no encontrado' })
       }
-
+      console.log('Paso')
       // Asegúrate de que los precios y ofertas sean números
       if (data.oferta) data.oferta = parseInt(data.oferta)
       if (data.precio) data.precio = parseInt(data.precio)
@@ -222,17 +222,17 @@ export class BooksController {
       if (req.files) {
         data.images = req.files.map(file => `${file.filename}`)
       }
-      console.log(data)
       // Validar datos
       const validated = validatePartialBook(data)
       if (!validated.success) {
-        return res.status(400).json({ error: 'Error al validar libro', details: validated.error.errors })
+        return res.status(400).json({ error: validated.error.errors })
       }
+      console.log('Validado')
       // Manejo del mensaje
       if (data.mensaje && data.tipo) {
         // Inicializa el array de mensajes si no existe
         const messagesArray = existingBook.mensajes || []
-        console.log('entro')
+
         if (data.tipo === 'pregunta') {
           // Verifica si la pregunta ya existe
           const questionIndex = messagesArray.findIndex(item => item[0] === data.mensaje)
@@ -274,6 +274,7 @@ export class BooksController {
       if (!book) {
         return res.status(404).json({ error: 'Libro no encontrado o no actualizado' })
       }
+      console.log('Actualizado')
       res.status(200).json(book)
     } catch (err) {
       console.error('Error al actualizar el libro:', err)
@@ -463,6 +464,7 @@ export class BooksController {
       const data = req.body
       // Obtener el libro existente para obtener los mensajes actuales
       const existingBook = await BooksModel.getBookById(bookId)
+      console.log(existingBook)
       if (!existingBook) {
         return res.status(404).json({ error: 'Libro no encontrado' })
       }
@@ -475,7 +477,7 @@ export class BooksController {
       if (data.keywords && typeof data.keywords === 'string') {
         data.keywords = data.keywords.split(',').map(keyword => keyword.trim()).filter(keyword => keyword)
       }
-
+      if (data.keywords === '') data.keywords = []
       // Imágenes
       if (req.files) {
         data.images = req.files.map(file => `${file.filename}`)
@@ -484,8 +486,10 @@ export class BooksController {
       // Validar datos
       const validated = validatePartialBook(data)
       if (!validated.success) {
-        return res.status(400).json({ error: 'Error al validar libro', details: validated.error.errors })
+        console.log(validated)
+        return res.status(400).json({ error: validated.error.errors })
       }
+      console.log('Pasó validación')
       // Filtrar los campos permitidos
       const allowedFields = [
         'titulo', 'autor', 'precio', 'oferta', 'formato', 'images', 'keywords', 'descripcion',

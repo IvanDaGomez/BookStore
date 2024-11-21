@@ -178,5 +178,131 @@
       "bookTitle": "El libro de Bill",
       "bookId": "31d52487-f746-4951-bf11-7b41febea0a9"
     }
+  },
+  {
+    "_id": "681f0234-c0e1-4c34-a3ea-6ed0aaa5a647",
+    "theme": "",
+    "title": "Tu libro ha sido rechazado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-21T16:45:38.627Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/78c534c0-2fa8-40d0-b72a-c5ee34d0a883",
+    "expiresAt": 1734799538627,
+    "metadata": {
+      "photo": "1729985622956-64165033.png",
+      "bookTitle": "Como hacer que te pasen cosas buenas?",
+      "bookId": "78c534c0-2fa8-40d0-b72a-c5ee34d0a883"
+    }
+  },
+  {
+    "_id": "b4597593-f606-446f-8ae3-8ab9c6ff3ec8",
+    "theme": "",
+    "title": "Tu libro ha sido rechazado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "La descripción no es adecuada",
+    "createdIn": "2024-12-21T16:58:19.862Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/78c534c0-2fa8-40d0-b72a-c5ee34d0a883",
+    "expiresAt": 1734800299862,
+    "metadata": {
+      "photo": "1732208220741-713296445.png",
+      "bookTitle": "El encuentro de cuatro imperios",
+      "bookId": "78c534c0-2fa8-40d0-b72a-c5ee34d0a883"
+    }
+  },
+  {
+    "_id": "5627eb22-451d-474e-b685-5495e05279e7",
+    "theme": "",
+    "title": "Tu libro ha sido rechazado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-21T17:01:32.197Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/78c534c0-2fa8-40d0-b72a-c5ee34d0a883",
+    "expiresAt": 1734800492197,
+    "metadata": {
+      "photo": "1732208471202-388520855.png",
+      "bookTitle": "El encuentro de cuatro imperios",
+      "bookId": "78c534c0-2fa8-40d0-b72a-c5ee34d0a883"
+    }
+  },
+  {
+    "_id": "905912cd-6e01-488e-a174-e8c972302259",
+    "theme": "",
+    "title": "Tu libro ha sido actualizado con éxito",
+    "priority": "normal",
+    "type": "bookUpdated",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-21T17:11:28.959Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/78c534c0-2fa8-40d0-b72a-c5ee34d0a883",
+    "expiresAt": 1734801088959,
+    "metadata": {
+      "photo": "1732208516538-903136277.png",
+      "bookTitle": "El encuentro de cuatro imperios",
+      "bookId": "78c534c0-2fa8-40d0-b72a-c5ee34d0a883"
+    }
+  },
+  {
+    "_id": "676129eb-309e-4a4a-9a7a-dd131642970f",
+    "theme": "",
+    "title": "Tu libro ha sido actualizado con éxito",
+    "priority": "normal",
+    "type": "bookUpdated",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-21T17:12:40.868Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/78c534c0-2fa8-40d0-b72a-c5ee34d0a883",
+    "expiresAt": 1734801160868,
+    "metadata": {
+      "photo": "1732209147073-845415586.png",
+      "bookTitle": "El encuentro de cuatro imperios",
+      "bookId": "78c534c0-2fa8-40d0-b72a-c5ee34d0a883"
+    }
+  },
+  {
+    "_id": "ea794540-6667-4fd4-97c1-f5c9255c6bab",
+    "theme": "",
+    "title": "Tu libro ha sido actualizado con éxito",
+    "priority": "normal",
+    "type": "bookUpdated",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-21T17:22:30.556Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/78c534c0-2fa8-40d0-b72a-c5ee34d0a883",
+    "expiresAt": 1734801750556,
+    "metadata": {
+      "photo": "1732209737801-866528806.png",
+      "bookTitle": "El encuentro de cuatro imperios",
+      "bookId": "78c534c0-2fa8-40d0-b72a-c5ee34d0a883"
+    }
+  },
+  {
+    "_id": "c5744af3-e0c0-4660-8c69-c6866d2ce1e1",
+    "theme": "",
+    "title": "Tu libro ha sido rechazado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "Las fotos no tienen consistencia",
+    "createdIn": "2024-12-21T17:27:32.543Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/78c534c0-2fa8-40d0-b72a-c5ee34d0a883",
+    "expiresAt": 1734802052543,
+    "metadata": {
+      "photo": "1732209785368-618688248.png",
+      "bookTitle": "El encuentro de cuatro imperios",
+      "bookId": "78c534c0-2fa8-40d0-b72a-c5ee34d0a883"
+    }
   }
 ]

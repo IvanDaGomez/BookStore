@@ -64,13 +64,12 @@ const bookSchema = z.object({
   fechaPublicacion: z.string(), // Validates that 'fechaPublicacion' is a date string in YYYY-MM-DD format
   actualizadoEn: z.string(),
   disponibilidad: z.enum(['Disponible', 'No Disponible']).optional(), // Validates that 'disponibilidad' is either 'Disponible' or 'No Disponible'
-  mensajes: z.array(z.tuple([z.string(), z.string()])).optional(), // Define nested arrays
+  mensajes: z.array(z.tuple([z.string(), z.string(), z.string()])).optional(), // Define nested arrays
   mensaje: z.string().optional(),
   tipo: z.string().optional(),
   pregunta: z.string().optional()
 })
 function validateBook (data) {
-  console.log(data)
   return bookSchema.safeParse(data)
 }
 function validatePartialBook (data) {

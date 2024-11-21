@@ -29,11 +29,13 @@
     "mensajes": [
       [
         "¿Cuál es el costo del producto?",
+        "",
         ""
       ],
       [
         "Tienes un mensaje",
-        "|15"
+        "|15",
+        ""
       ]
     ]
   },
@@ -63,10 +65,12 @@
     "mensajes": [
       [
         "¿En qué estado se encuentra el producto?",
+        "",
         ""
       ],
       [
         "¿Qué métodos de pago aceptan?",
+        "",
         ""
       ]
     ]
@@ -97,6 +101,7 @@
     "mensajes": [
       [
         "¿Cómo puedo hacer una devolución?",
+        "",
         ""
       ]
     ]
@@ -153,21 +158,7 @@
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:51:23.575Z",
     "actualizadoEn": "2024-10-26T16:59:19.373Z",
-    "disponibilidad": "Disponible",
-    "mensajes": [
-      [
-        "¿En qué estado se encuentra el producto?",
-        ""
-      ],
-      [
-        "¿Cuál es el costo del producto?",
-        ""
-      ],
-      [
-        "¿Qué métodos de pago aceptan?",
-        ""
-      ]
-    ]
+    "disponibilidad": "Disponible"
   },
   {
     "titulo": "Acaba con la inflamación en 7 días",
@@ -192,24 +183,7 @@
     "fechaPublicacion": "2024-10-20T19:54:25.204Z",
     "actualizadoEn": "2024-11-19T12:42:04.904Z",
     "disponibilidad": "Disponible",
-    "mensajes": [
-      [
-        "¿En qué estado se encuentra el producto?",
-        ""
-      ],
-      [
-        "¿Qué métodos de pago aceptan?",
-        ""
-      ],
-      [
-        "¿Cómo puedo hacer una devolución?",
-        ""
-      ],
-      [
-        "Holaa",
-        ""
-      ]
-    ]
+    "mensajes": []
   },
   {
     "titulo": "100 sopas colombianas",
@@ -234,16 +208,7 @@
     "fechaPublicacion": "2024-10-20T19:57:40.347Z",
     "actualizadoEn": "2024-10-27T05:17:45.540Z",
     "disponibilidad": "Disponible",
-    "mensajes": [
-      [
-        "¿En qué estado se encuentra el producto?",
-        "El producto está en perfecto estado"
-      ],
-      [
-        "¿Cómo puedo hacer una devolución?",
-        "Solo contáctame y hablamos"
-      ]
-    ]
+    "mensajes": []
   },
   {
     "titulo": "Globalismo",
@@ -389,11 +354,13 @@
     "precio": 70000,
     "oferta": 60000,
     "images": [
-      "1729985622956-64165033.png"
+      "1732209737801-866528806.png"
     ],
-    "keywords": [],
+    "keywords": [
+      "Premio Booker Internacional"
+    ],
     "_id": "78c534c0-2fa8-40d0-b72a-c5ee34d0a883",
-    "descripcion": "Este libro me habilita todo lo que pueda hacer. Además tengo pendiente algo más",
+    "descripcion": "\"El encuentro de cuatro imperios\" es una obra literaria de Javier Fernandez Aguado que narra la fascinante historia de cuatro poderosos imperios que chocan en un épico enfrentamiento por el dominio del mundo. Con una trama llena de intrigas, alianzas y traiciones, esta novela transporta al lector a un universo de conflictos bélicos y políticos donde cada movimiento estratégico puede cambiar el rumbo de la historia. Aguado crea un relato apasionante que explora las ambiciones de los líderes, las pasiones de los personajes y las consecuencias de sus decisiones en un escenario de guerra y poder. Una obra imperdible para los amantes de la ficción histórica y la intriga política.",
     "estado": "Nuevo",
     "genero": "Autoayuda",
     "vendedor": "Ivan David Gomez Silva",
@@ -403,14 +370,15 @@
     "ubicacion": "Buscar",
     "tapa": "Dura",
     "edad": "Adulto",
-    "fechaPublicacion": "2024-10-26T23:33:42.929Z",
-    "actualizadoEn": "2024-11-20T14:40:10.361Z",
+    "fechaPublicacion": "2024-11-21T17:22:17.651Z",
+    "actualizadoEn": "2024-11-21T17:22:30.509Z",
     "disponibilidad": "Disponible",
-    "formato": "undefined",
+    "formato": "Físico",
     "mensajes": [
       [
         "Ojalá que me puedan responder a esto",
-        "Yo te respondo"
+        "Yo te respondo",
+        "857857d1-afdd-411d-b41a-be427d1ff186"
       ],
       [
         "¿En qué estado se encuentra el producto?",

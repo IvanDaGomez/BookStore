@@ -8,7 +8,6 @@ export default function PoliticaPrivacidad() {
         <Header />
         <div className="extraFooterInfoContainer">
             <h1>Política de Privacidad</h1>
-            <p><strong>Fecha de última actualización:</strong> 20 de noviembre de 2024</p>
 
             <h2>1. Introducción</h2>
             <p>
@@ -75,7 +74,7 @@ export default function PoliticaPrivacidad() {
                 estar informado sobre cómo protegemos tu información.
             </p>
 
-            <p><strong>Fecha de entrada en vigor:</strong> 20 de noviembre de 2024</p>
+            <p className="actualizacionFecha"><strong>Fecha de última actualización:</strong> 20 de noviembre de 2024</p>
         </div>
         <Footer />
         <SideInfo />

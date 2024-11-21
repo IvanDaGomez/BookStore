@@ -1,12 +1,14 @@
 import { Router } from 'express'
 import { BooksController } from '../../controllers/books/booksController.js'
 import { upload } from '../../assets/config.js'
+import { generateResponse } from '../../controllers/separated/generateResponse.js'
 const booksRouter = Router()
 
 booksRouter.get('/', BooksController.getAllBooks) // R
 booksRouter.get('/review', BooksController.getAllReviewBooks)
 // booksRouter.get('/safe', BooksController.getAllBooksSafe) // R
 booksRouter.post('/', upload.array('images', 5), BooksController.createBook)
+booksRouter.post('/review', upload.array('images', 5), BooksController.createReviewBook)
 
 booksRouter.get('/query', BooksController.getBookByQuery)
 booksRouter.get('/search/:bookTitle', BooksController.searchByBookTitle)
@@ -19,6 +21,5 @@ booksRouter.delete('/:bookId', BooksController.deleteBook)
 booksRouter.post('/process_payment', BooksController.processPayment)
 booksRouter.post('/getPreferenceId', BooksController.getPreferenceId)
 
-booksRouter.post('/review', upload.array('images', 5), BooksController.createReviewBook)
-
+booksRouter.post('/generateDescription', generateResponse)
 export { booksRouter }

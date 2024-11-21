@@ -25,7 +25,7 @@ function formatNotificationMessage(notification) {
     const formattedDate = formatDate(createdIn);
     return (<>
         {typeIcons[type] || "🔔"}
-        <span>{typeMessages[type] || title}</span>
+        <span>{title || typeMessages[type] }</span>
         <span>{formattedDate}</span>
     </>)
 }

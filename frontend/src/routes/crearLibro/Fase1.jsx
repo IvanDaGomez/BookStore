@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import { validarPublicar1 } from "../../assets/validarPublicar";
-
+import { toast } from "react-toastify";
 export default function Fase1({ form, setForm, setFase, fase }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [croppedImages, setCroppedImages] = useState([]);
@@ -156,6 +156,43 @@ export default function Fase1({ form, setForm, setFase, fase }) {
       event.preventDefault(); // Previene el envío del formulario
     }
   };
+
+  async function generateAutomaticDescription(e) {
+    e.preventDefault()
+    const titulo = document.querySelector('#titulo').value
+    const autor = document.querySelector('#autor').value
+    if (!titulo || !autor) {
+      toast.error('Es necesario ingresar el título y autor del libro')
+      return
+    }
+    const url = 'http://localhost:3030/api/books/generateDescription'
+    const body = {
+      titulo,
+      autor
+    } 
+
+    document.querySelector('#descripcion').value = 'Creando descripción...'
+
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    })
+    if (!response.ok) {
+      console.error('Error en la respuesta')
+      return
+    }
+    const data = await response.json()
+
+    if(data.error) {
+      console.error('Error:', data.error)
+      return
+    }
+    document.querySelector('#descripcion').value = data.description
+  }
   return (
     <>
       <form onSubmit={handleSubmit} noValidate>
@@ -262,6 +299,7 @@ export default function Fase1({ form, setForm, setFase, fase }) {
             id="titulo"
             type="text"
             name="titulo"
+            
             placeholder="Título de tu libro"
             required
             
@@ -281,14 +319,17 @@ export default function Fase1({ form, setForm, setFase, fase }) {
           />
         </div>
         <div className="inputCrear">
-          <label htmlFor="descripcion">Descripción *</label>
+          <div>
+            <label htmlFor="descripcion">Descripción * </label>
+            <button className="automaticDescription" onClick={generateAutomaticDescription}>Generar automáticamente</button>
+          </div>
           <textarea
             id="descripcion"
             maxLength="2000"
             placeholder="Cuéntanos más de tu libro..."
             name="descripcion"
             required
-            rows="4"
+            rows="6"
           ></textarea>
         </div>
         {errors.length !== 0 && <div className="error">{errors[0]}</div>}
