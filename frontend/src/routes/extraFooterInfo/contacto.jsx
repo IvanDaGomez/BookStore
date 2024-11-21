@@ -101,9 +101,10 @@ export default function Contacto() {
                                 consulta según su naturaleza y contactarte si es necesario, y enviarte comunicaciones comerciales 
                                 sobre nuestros servicios, promociones y novedades. Puedes ejercer tus derechos, así como retirar 
                                 el consentimiento en cualquier 
-                                momento en protecciondedatos@gotrendier.com.co. 
+                                momento en protecciondedatos@meridian.com.co. 
                                 Más información en nuestro <a href="/aviso-de-privacidad">Aviso de Privacidad</a></h2>
                             <button className="boton"type="submit">Enviar</button>
+                            
                         </form>
                     </div>
                     <div className="contactInfo">

@@ -16,12 +16,12 @@ const Footer = () => {
     })
 
     const data = await response.json()
-    console.log(data)
     if (data.error) {
       toast.success(data.error)
       return
     }
     toast.success('Correo enviado exitosamente')
+    document.querySelector('.inputFooter').value = ''
   }
   return (
     <footer className="footer">

@@ -366,14 +366,17 @@ export default function BookView() {
                     </div>
                     <hr />
                     <div className="informacionDelVendedor">
-                    <h2>Productos de {libro.vendedor}: </h2>
+                    
                     
                     {librosRelacionadosVendedor && libro && user && (
+                    <>
+                    <h2>Productos de {libro.vendedor}: </h2>
                     <div className="smallCardContainer">
                         {librosRelacionadosVendedor
                         .filter(element=> element._id !== libro._id)
                         .map((element, index) => makeSmallCard(element, index, user._id))}
                     </div>
+                    </>
                     )}
                 </div>
                 </div>

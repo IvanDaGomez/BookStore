@@ -7,6 +7,7 @@ function formatNotificationMessage(notification) {
         newMessage: "Tienes un nuevo mensaje!",
         newQuestion: "Tienes una nueva pregunta!",
         bookPublished: "Tu libro ha sido publicado!",
+        bookUpdated: 'Tu libro ha sido actualizado con éxito!',
         bookSold: `Tu libro "${metadata.bookTitle}" ha sido vendido!`,
         orderShipped: "Tu pedido ha sido entregado!",
         reviewReceived: `Tienes una nueva reseña de "${metadata.bookTitle}"!`
@@ -15,6 +16,7 @@ function formatNotificationMessage(notification) {
     const typeIcons = {
         newMessage: "📩",
         bookPublished: "📘",
+        bookUpdated: "📘",
         bookSold: "💸",
         orderShipped: "📦",
         reviewReceived: "⭐"

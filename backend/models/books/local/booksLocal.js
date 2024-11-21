@@ -162,12 +162,7 @@ class BooksModel {
       if (bookIndex === -1) {
         return null // Si no se encuentra el usuario, retorna null
       }
-      if (data.mail) {
-        const emailRepeated = books.splice(bookIndex, 1).some(book => book.mail === data.mail)
-        if (emailRepeated) {
-          throw new Error('Email is already in use')
-        }
-      }
+
       // Actualiza los datos del usuario
       Object.assign(books[bookIndex], data)
 
@@ -268,6 +263,26 @@ class BooksModel {
     } catch (err) {
       console.error('Error deleting book:', err)
       throw new Error('Error deleting book')
+    }
+  }
+
+  static async updateReviewBook (id, data) {
+    try {
+      const book = await this.getBookById(id)
+
+      const reviewBooks = await this.getAllReviewBooks()
+
+      // Actualiza los datos del usuario
+      Object.assign(book, data)
+      reviewBooks.push(book)
+      // Hacer el path hacia aqui
+      // const filePath = pat h.join()
+      await fs.writeFile('./models/booksBackStage.json', JSON.stringify(reviewBooks, null, 2))
+
+      return book
+    } catch (err) {
+      console.error('Error updating book:', err)
+      throw new Error(err)
     }
   }
 }

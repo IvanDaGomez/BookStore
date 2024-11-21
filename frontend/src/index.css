@@ -2771,6 +2771,7 @@ color: var(--using6);
   align-items: center;
   flex-direction: column;
   border-right: 1px solid var(--using2);
+  overflow-y:auto;
 }
 .conversationsFilter{
   width: calc(100% - 10px);/*Margin *2*/
@@ -2946,6 +2947,7 @@ color: var(--using6);
 .notification-item .input{
   width: 100%;
   border-radius: 5px;
+  padding: 3px;
   margin-block: 6px;
   font-weight: 500;
   border: 1px solid var(--using2);
@@ -3300,14 +3302,14 @@ color: var(--using6);
     width: 0;
   }
 }
-.separar{
+.contactContainer .separar{
   width:300px;
   margin:10px auto;
   display:grid;
   grid-template-columns: 20% 1fr;
   place-items: center;
 }
-.separar svg{
+.contactContainer .separar svg{
   grid-row: 1/3;
 }
 

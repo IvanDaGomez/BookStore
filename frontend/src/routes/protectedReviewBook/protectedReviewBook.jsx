@@ -77,13 +77,14 @@ export default function ProtectedReviewBook(){
     async function handleAccept(book) {
         if (!book) return;
         // Add book to the system
+        const url = book.method === 'PUT' ? `http://localhost:3030/api/books/${book._id}` :`http://localhost:3030/api/books`;
         const body = {
             ...book,
             oferta: book.oferta !== null ? book.oferta: 0
         }
-        const url = `http://localhost:3030/api/books`;
+        
         const response = await fetch(url, {
-            method: 'POST',
+            method: (book.method === 'PUT') ? 'PUT': 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -95,9 +96,10 @@ export default function ProtectedReviewBook(){
         }
         removeBookFromBackStage(book._id)
         const notificationToSend = {
-            title: 'Tu libro ha sido publicado con éxito',
+            title: (book.method === 'PUT') ? 'Tu libro ha sido actualizado con éxito':
+            'Tu libro ha sido publicado con éxito',
             priority: 'normal',
-            type: 'bookPublished',
+            type: (book.method === 'PUT') ? 'bookUpdated' :'bookPublished',
             userId: book.idVendedor,
             actionUrl: window.location.origin + `/libros/${book._id}`,
             metadata: {
@@ -170,7 +172,13 @@ export default function ProtectedReviewBook(){
                         .map((item, index) => (
                             <p key={index}>{item}</p>
                         ))}
-
+                        <div className="keywordWrapper" style={{margin:"5px auto", width:'auto'}}>
+                    Palabras clave: {currentBook.keywords.map((keyword, index)=>(
+                        <div className="keyword" key={index}>
+                            {keyword}
+                        </div>
+                    ))}
+                    </div>
                     <div className="imageWrapper">
                     <img
                         src={`http://localhost:3030/uploads/${actualImage && actualImage || "default.png"}`}

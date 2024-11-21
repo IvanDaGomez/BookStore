@@ -64,7 +64,7 @@ const bookSchema = z.object({
   fechaPublicacion: z.string(), // Validates that 'fechaPublicacion' is a date string in YYYY-MM-DD format
   actualizadoEn: z.string(),
   disponibilidad: z.enum(['Disponible', 'No Disponible']).optional(), // Validates that 'disponibilidad' is either 'Disponible' or 'No Disponible'
-  mensajes: z.array().optional(),
+  mensajes: z.array(z.tuple([z.string(), z.string()])).optional(), // Define nested arrays
   mensaje: z.string().optional(),
   tipo: z.string().optional(),
   pregunta: z.string().optional()
@@ -93,7 +93,7 @@ function validatePartialMessage (data) {
 }
 const notificationSchema = z.object({
   theme: z.enum(['light', 'dark']).default('light'), // Limits theme to specific options
-  type: z.enum(['newMessage', 'bookPublished', 'bookRejected', 'newQuestion', 'bookSold', 'orderShipped', 'reviewReceived']), // Define valid types
+  type: z.enum(['newMessage', 'bookUpdated', 'bookPublished', 'bookRejected', 'newQuestion', 'bookSold', 'orderShipped', 'reviewReceived']), // Define valid types
   userId: z.string().min(1, 'userId is required'), // Require non-empty string
   title: z.string().optional(),
   priority: z.enum(['low', 'normal', 'high']).optional(), // Allows optional priority levels

@@ -38,7 +38,7 @@ Content-Type: application/json
 
 ###
 
-PATCH http://localhost:3030/api/books/33e5e785-cb74-4f4a-9211-25f341b089b4
+PUT http://localhost:3030/api/books/33e5e785-cb74-4f4a-9211-25f341b089b4
 Content-Type: application/json
 
 {
@@ -111,4 +111,25 @@ Content-Type: application/json
     "fechaPublicacion": "2024-10-01",
     "disponibilidad" : "Disponible"
 
+}
+
+###
+PUT http://localhost:3030/api/books/review/31d52487-f746-4951-bf11-7b41febea0a9
+Content-Type: application/json
+
+{
+    "titulo": "Como hacer que te pasen cosas buenas?",
+    "estado": "Usado",
+    "genero": "Autoayuda",
+    "vendedor": "Ivan David Gomez Silva",
+    "idVendedor": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "edicion": "",
+    "idioma": "Español",
+    "ubicacion": "Buscar",
+    "tapa": "Dura",
+    "edad": "",
+    "formato": "Fisico",
+    "fechaPublicacion": "2024-10-20T18:55:15.234Z",
+    "actualizadoEn": "2024-10-21T16:09:23.476Z",
+    "disponibilidad": "Disponible"
 }

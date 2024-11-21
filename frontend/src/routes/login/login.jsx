@@ -98,8 +98,13 @@ export default function Login() {
         // Si la respuesta es exitosa, puedes manejar la respuesta aquí
         // En teoría el token se guarda en la cookie desde el backend
         // Si la respuesta es exitosa, puedes manejar la respuesta aquí
-       
-        window.location.href = "/"
+
+        // Si no hay una pagina anterior, redirigir a inicio, si si redirigir a la pagina que estaba
+        if (!document.referrer || !document.referrer.includes(window.location.hostname)){
+          window.location.href = '/'
+          return
+        }
+        window.history.back()
         
     } catch (error) {
         console.error('Error al enviar la solicitud:', error);

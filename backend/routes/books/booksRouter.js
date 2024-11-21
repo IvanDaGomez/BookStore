@@ -11,6 +11,7 @@ booksRouter.post('/', upload.array('images', 5), BooksController.createBook)
 booksRouter.get('/query', BooksController.getBookByQuery)
 booksRouter.get('/search/:bookTitle', BooksController.searchByBookTitle)
 booksRouter.get('/:bookId', BooksController.getBookById) // R
+booksRouter.put('/review/:bookId', upload.array('images', 5), BooksController.updateReviewBook) // U
 booksRouter.put('/:bookId', upload.array('images', 5), BooksController.updateBook) // U
 
 booksRouter.delete('/review/:bookId', BooksController.deleteReviewBook)

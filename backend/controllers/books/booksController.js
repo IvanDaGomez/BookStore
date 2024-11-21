@@ -428,12 +428,6 @@ export class BooksController {
       return res.status(400).json({ error: validated.error })
     }
 
-    // Asignar un ID único al libro
-    data._id = crypto.randomUUID()
-    const time = new Date()
-    data.creadoEn = time
-    data.actualizadoEn = time
-
     // Crear el libro en la base de datos
     const book = await BooksModel.createReviewBook(data)
     if (typeof book === 'string' && book.startsWith('Error')) {
@@ -460,6 +454,63 @@ export class BooksController {
     } catch (err) {
       console.error('Error al eliminar el libro:', err)
       res.status(500).json({ error: 'Error al eliminar el libro' })
+    }
+  }
+
+  static async updateReviewBook (req, res) {
+    try {
+      const { bookId } = req.params
+      const data = req.body
+      // Obtener el libro existente para obtener los mensajes actuales
+      const existingBook = await BooksModel.getBookById(bookId)
+      if (!existingBook) {
+        return res.status(404).json({ error: 'Libro no encontrado' })
+      }
+
+      // Asegúrate de que los precios y ofertas sean números
+      if (data.oferta) data.oferta = parseInt(data.oferta)
+      if (data.precio) data.precio = parseInt(data.precio)
+
+      // Manejo de keywords
+      if (data.keywords && typeof data.keywords === 'string') {
+        data.keywords = data.keywords.split(',').map(keyword => keyword.trim()).filter(keyword => keyword)
+      }
+
+      // Imágenes
+      if (req.files) {
+        data.images = req.files.map(file => `${file.filename}`)
+      }
+
+      // Validar datos
+      const validated = validatePartialBook(data)
+      if (!validated.success) {
+        return res.status(400).json({ error: 'Error al validar libro', details: validated.error.errors })
+      }
+      // Filtrar los campos permitidos
+      const allowedFields = [
+        'titulo', 'autor', 'precio', 'oferta', 'formato', 'images', 'keywords', 'descripcion',
+        'estado', 'genero', 'vendedor', 'idVendedor', 'edicion', 'idioma',
+        'ubicacion', 'tapa', 'edad', 'fechaPublicacion', 'actualizadoEn', 'disponibilidad', 'mensajes'
+      ]
+
+      const filteredData = {}
+      Object.keys(data).forEach(key => {
+        if (allowedFields.includes(key)) {
+          filteredData[key] = data[key]
+        }
+      })
+
+      filteredData.actualizadoEn = new Date()
+      filteredData.method = 'PUT'
+      // Actualizar libro
+      const book = await BooksModel.updateReviewBook(bookId, filteredData)
+      if (!book) {
+        return res.status(404).json({ error: 'Libro no encontrado o no actualizado' })
+      }
+      res.status(200).json(book)
+    } catch (err) {
+      console.error('Error al actualizar el libro:', err)
+      res.status(500).json({ error: err.message })
     }
   }
 }

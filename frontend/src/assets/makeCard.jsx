@@ -113,9 +113,8 @@ const makeOneFrCard = (element, index, userId) => {
             <div className="sectionElement" >
                 
                 <div className="imageElementContainer"  style={{backgroundImage: `url(http://localhost:3030/uploads/${element.images[0]})`, backgroundRepeat: 'no-repeat'}}>
-                {(element.oferta) ? <div className="percentageElement">
-                    { Math.ceil(((1 - element.oferta / element.precio) * 100).toFixed(2) / 5) * 5 + '% de descuento'}
-                </div>:<div style={{padding:"calc(10px + 1rem)"}}></div>}
+                <div></div>
+                
                     <div className="moreInfoElement">
                             <Link to={`/libros/crear?vendedor=${element.idVendedor}&libro=${element._id}`}>
                             <div className="fastInfoElement">

@@ -5,9 +5,12 @@
     "precio": 100000,
     "oferta": 90000,
     "images": [
-      "1729539129828-894296334.png"
+      "1732197120267-615755189.png"
     ],
-    "keywords": [],
+    "keywords": [
+      "El libro de bill",
+      "Gravity Falls"
+    ],
     "_id": "31d52487-f746-4951-bf11-7b41febea0a9",
     "descripcion": "El libro de Bill es una fascinante obra que se sumerge en el mundo de Bill Cipher, el enigmático y carismático villano de la popular serie de televisión Gravity Falls. A través de ilustraciones vibrantes y un estilo narrativo envolvente, Alex Hirsch nos presenta la historia de Bill y sus aventuras, así como su intrincada personalidad. Con un tono lleno de humor oscuro y giros inesperados, el libro explora los temas de la amistad, la traición y el poder, ofreciendo a los fanáticos de la serie una mirada única a la mente de uno de sus personajes más intrigantes. La obra combina elementos de fantasía y misterio, haciéndola accesible tanto para jóvenes como para adultos.",
     "estado": "Reacondicionado",
@@ -19,8 +22,8 @@
     "ubicacion": "Buscar",
     "tapa": "",
     "edad": "",
-    "fechaPublicacion": "2024-10-21T19:32:09.751Z",
-    "actualizadoEn": "2024-11-19T14:13:06.636Z",
+    "fechaPublicacion": "2024-11-21T13:52:00.234Z",
+    "actualizadoEn": "2024-11-21T13:52:15.871Z",
     "disponibilidad": "Disponible",
     "formato": "Físico",
     "mensajes": [
