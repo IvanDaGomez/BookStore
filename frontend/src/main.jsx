@@ -2,7 +2,6 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './routes/main/App.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import BookView from './routes/bookView/bookView.jsx'
 import ErrorPage from './components/errorPage.jsx'
 import Search from './routes/search/search.jsx'
 import Login from './routes/login/login.jsx'
@@ -10,6 +9,7 @@ import CrearLibro from './routes/crearLibro/CrearLibro.jsx'
 import Usuario from './routes/usuarios/Usuario.jsx'
 import Favorites from './routes/favorites/favorites.jsx'
 import Mensajes from './routes/mensajes/mensajes.jsx'
+import BookView from './routes/bookView/bookView.jsx'
 import './index.css'
 import EditarUsuario from './routes/usuarios/editarUsuario.jsx'
 import Checkout from './routes/checkout/checkout.jsx'
@@ -22,6 +22,7 @@ import AvisoPrivacidad from './routes/extraFooterInfo/avisoPrivacidad.jsx'
 import Contacto from './routes/extraFooterInfo/contacto.jsx'
 import PoliticaDatosPersonales from './routes/extraFooterInfo/politicaDatosPersonales.jsx'
 import UsoDeCookies from './routes/extraFooterInfo/usoCookies.jsx'
+import Cuenta from './routes/cuenta/cuenta.jsx'
 
 
 
@@ -117,6 +118,10 @@ const router = createBrowserRouter([
   {
     path:'/uso-cookies',
     element: <UsoDeCookies />
+  },
+  {
+    path: '/cuenta',
+    element: <Cuenta />
   }
 ], {
   future: {

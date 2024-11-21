@@ -62,7 +62,7 @@ useEffect(() => {
     <div className="favoritesContainer">
         <h1>Mis favoritos</h1>
         <div className="postsContainer">
-                    {librosFavoritos && librosFavoritos.map((libro, index) => (makeSmallCard(libro, index)))}
+                    {(user && librosFavoritos) && librosFavoritos.map((libro, index) => makeCard(libro, index, user._id))}
                 </div>
     </div>
     <ToastContainer position="top-center"

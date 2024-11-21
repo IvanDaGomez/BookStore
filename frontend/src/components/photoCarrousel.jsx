@@ -25,7 +25,11 @@ export const Carousel = ({ data }) => {
   }, [slide]); // Only re-run if data changes
   return (
     <div className="carousel">
-      <BsArrowLeftCircleFill onClick={prevSlide} className="arrow arrow-left" />
+      <div className="arrow arrow-left" onClick={prevSlide} >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={32} height={32} color={"#808080"} fill={"none"}>
+    <path d="M15 6C15 6 9.00001 10.4189 9 12C8.99999 13.5812 15 18 15 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+</svg>
+      </div>
       {data.map((item, idx) => {
         return (
           <img
@@ -36,10 +40,11 @@ export const Carousel = ({ data }) => {
           />
         );
       })}
-      <BsArrowRightCircleFill
-        onClick={nextSlide}
-        className="arrow arrow-right"
-      />
+      <div className="arrow arrow-right" onClick={nextSlide} style={{transform: (document.body.scrollHeight > document.body.clientHeight) ? 'translateX(-2rem)': 'none'}}>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={32} height={32} color={"#8e8894"} fill={"none"}>
+        <path d="M9.00005 6C9.00005 6 15 10.4189 15 12C15 13.5812 9 18 9 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      </svg></div>
+
       <span className="indicators">
         {data.map((_, idx) => {
           return (
