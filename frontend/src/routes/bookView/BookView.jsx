@@ -368,13 +368,14 @@ export default function BookView() {
                     <div className="informacionDelVendedor">
                     
                     
-                    {librosRelacionadosVendedor && libro && user && (
+                    {librosRelacionadosVendedor && libro && (
                     <>
                     <h2>Productos de {libro.vendedor}: </h2>
                     <div className="smallCardContainer">
                         {librosRelacionadosVendedor
                         .filter(element=> element._id !== libro._id)
-                        .map((element, index) => makeSmallCard(element, index, user._id))}
+                        .map((element, index) => 
+                        user ? makeSmallCard(element, index, user._id): makeSmallCard(element, index))}
                     </div>
                     </>
                     )}
@@ -426,11 +427,13 @@ export default function BookView() {
             </div>
 
             
-                {(librosRelacionados.filter(element=> element._id !== libro._id).length !==0  && libro && user) ? (
+                {(librosRelacionados.filter(element=> element._id !== libro._id).length !==0  && libro ) ? (
                     <div className="related">
                         <h2>Productos Relacionados</h2>
                         <div className="leftScrollContainer">
-                        {librosRelacionados.filter(element=> element._id !== libro._id).map((element, index) => makeCard(element, index, user._id))}
+                        {librosRelacionados.filter(element=> element._id !== libro._id)
+                        .map((element, index) => 
+                        user ? makeCard(element, index, user._id) : makeCard(element, index))}
                         </div>
                     </div>
             ): <></>}

@@ -1564,7 +1564,7 @@ color: var(--using6);
   display: grid;
   grid-template-columns: 2fr 1fr;
   place-items: center;
-  gap: 20px;
+  gap: 5px;
   background-size: cover;
   background-repeat: no-repeat;
   background-color: #f8f8f8;
@@ -1575,7 +1575,7 @@ color: var(--using6);
 
 .login-form {
   background-color: var(--using1);
-  padding: 20px 40px;
+  padding: 10px 40px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   width: 80%;
@@ -1594,17 +1594,19 @@ form{
 }
 .login-form h2 {
   margin-bottom: 20px;
+  font-size: 2rem;
+  text-align: center;
 }
 
 .input-group {
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   
 }
 
 .input-group label {
   all:unset;
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 3px;
   font-size: 2rem;
   color: var(--using3);
   width:100%;
@@ -1620,7 +1622,9 @@ form{
   background-color: var(--using1);
   color:var(--using3);
 }
-
+.input-group input:focus{
+  border: 1px solid var(--using4);
+}
 .login-button {
   width: min(100%, 200px);
   padding: 10px;
@@ -1680,10 +1684,10 @@ form{
 }
 
 .login-container .error{
-  margin-top: 20px;
+  margin-bottom: 8px;
   width:80%;
   background-color: var(--using6);
-  padding: 10px;
+  padding: 8px;
   color:white;
   border-radius: 5px;
 }
@@ -1694,7 +1698,6 @@ form{
   justify-content: space-evenly;
   align-items: center;
   height:40px;
-  margin:10px 0;
 }
 .alternativasLogin div{
   height:100%;

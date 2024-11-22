@@ -22,9 +22,8 @@ export default function ProtectedReviewBook(){
                         return
                     }
                 } 
-                console.log(response)
                 // si llega aqui es por que algo no está bien
-                //window.location.href = '/';
+                window.location.href = '/';
             } catch (error) {
                 console.error('Error fetching user data:', error);
                 window.location.href = '/popUp/noUser';

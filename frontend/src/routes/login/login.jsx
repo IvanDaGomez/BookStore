@@ -123,13 +123,13 @@ export default function Login() {
       }}
     >
       <div className="login-form">
-        <h1>{isRegister ? 'Crea una cuenta!' : 'Bienvenido de vuelta!'}</h1>
+        <h1>{isRegister ? 'Crea una cuenta' : 'Bienvenido de vuelta'}</h1>
         <h2 >
           {isRegister
-            ? 'Un paso hacia el futuro que deseas. ¡Atrévete!'
+            ? 'Accede a un mundo infinito de conocimiento, ¡Todo depende de ti!'
             : 'Leer es el primer paso hacia un mundo lleno de posibilidades. ¿Te atreves a comenzar?'}
         </h2>
-        <h2 style={{fontSize:"3rem"}}>{isRegister ? 'Registro' : 'Inicio de Sesión'}</h2>
+        
 
         <form onSubmit={handleSubmit} noValidate>
         {isRegister && (<div className="input-group">
@@ -192,9 +192,9 @@ export default function Login() {
             <div> {/*Logo de Facebook */}
             <img loading="lazy" src="/facebook-logo.svg" alt="Facebook logo" title='Facebook logo'/>
             </div>
-            <div>{/*Logo de Amazon */}
+            {/*<div>{/*Logo de Amazon 
             <img loading="lazy" src="/amazon-logo.svg" alt="Amazon logo" title='Amazon logo'/>
-            </div>
+            </div>*/}
           </div>
         {!isRegister && (
           <div className="forgot-password">

@@ -12,6 +12,8 @@ const userSchema = z.object({
     .email('El correo electrónico no es válido')
     .transform(email => email.toLowerCase()), // Convierte el correo a minúsculas
 
+  validated: z.boolean().default(false),
+
   contraseña: z.string()
     .min(8, 'La contraseña debe tener al menos 8 caracteres')
     .max(20, 'La contraseña debe tener menos de 20 caracteres'),

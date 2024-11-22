@@ -138,6 +138,7 @@ export class UsersController {
       return res.status(400).json({ error: validated.error })
     }
 
+    data.validated = false
     data._id = crypto.randomUUID()
 
     // Revisar si el correo ya está en uso
@@ -299,5 +300,9 @@ export class UsersController {
     } else {
       res.status(401).json({ message: 'No autenticado' })
     }
+  }
+
+  static async validateUser (req, res) {
+
   }
 }

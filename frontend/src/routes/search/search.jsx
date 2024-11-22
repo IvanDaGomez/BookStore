@@ -372,7 +372,9 @@ const ordenarFormas = {
                         </div>
                 <div className="resultados sectionsContainer" style={{ display: 'grid', gridTemplateColumns: grid }}>
                 
-                    {renderizarResultados().map((element, index)=> (grid.split(" ").length !==1) ? makeCard(element, index, user._id) : makeOneFrCard(element, index, user._id) )}
+                    {renderizarResultados().map((element, index)=> (grid.split(" ").length !==1) ? 
+                    user ? makeCard(element, index, user._id): makeCard(element, index): 
+                    user ? makeOneFrCard(element, index, user._id): makeOneFrCard(element, index) )}
                 {optionalSpace}
                 </div>
                 <div className="numberPages separador" style={{display: (pageCount === 1)  ? "none":"flex"}}>

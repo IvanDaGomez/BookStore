@@ -19,7 +19,7 @@ useEffect(() => {
 
             if (response.ok) {
                 const data = await response.json();
-                setUser(data.user); // Establece el usuario en el estado
+                setUser(data.user);
             }
             else window.location.href = '/popUp/noUser'
         } catch (error) {
@@ -62,7 +62,10 @@ useEffect(() => {
     <div className="favoritesContainer">
         <h1>Mis favoritos</h1>
         <div className="postsContainer">
-                    {(user && librosFavoritos) && librosFavoritos.map((libro, index) => makeCard(libro, index, user._id))}
+                    {librosFavoritos && librosFavoritos.map((libro, index) => {
+                        user ? makeCard(libro, index, user._id):
+                        makeCard(libro, index)
+                    })}
                 </div>
     </div>
     <ToastContainer position="top-center"
