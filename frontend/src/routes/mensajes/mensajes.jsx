@@ -363,7 +363,13 @@ useEffect(() => {
                             onClick={() => setActiveConversation(conversation)}
                         >
                             <img
-                                src={findUserByConversation(conversation).fotoPerfil ? `http://localhost:3030/uploads/${findUserByConversation(conversation).fotoPerfil}` : "http://localhost:3030/uploads/default.jpg"}
+                                src={
+                                    findUserByConversation(conversation).fotoPerfil && findUserByConversation(conversation).login === 'default' ? 
+                                    `http://localhost:3030/uploads/${findUserByConversation(conversation).fotoPerfil}` 
+                                    : findUserByConversation(conversation).login === 'Google' && findUserByConversation(conversation).fotoPerfil
+                                    ? findUserByConversation(conversation).fotoPerfil 
+                                    : "http://localhost:3030/uploads/default.jpg"}
+                                    
                                 alt={`${findUserByConversation(conversation).name || 'User'}'s avatar`}
                             />
                             <div className="conversationSpecificTitleAndMessage">

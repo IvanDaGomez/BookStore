@@ -79,5 +79,22 @@
     "messages": [],
     "createdIn": "2024-11-23T21:08:15.027Z",
     "lastMessage": {}
+  },
+  {
+    "_id": "3073a7f2-7bee-4120-916d-c1b972d11c99",
+    "users": [
+      "857857d1-afdd-411d-b41a-be427d1ff186",
+      "9b922eb4-33e8-4781-9863-c066992e1620"
+    ],
+    "messages": [],
+    "createdIn": "2024-11-23T21:20:15.619Z",
+    "lastMessage": {
+      "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+      "conversationId": "3073a7f2-7bee-4120-916d-c1b972d11c99",
+      "message": "Hola",
+      "read": false,
+      "_id": "121edf3b-664c-4d33-ac0e-920ed12104ff",
+      "createdIn": "2024-11-23T21:20:19.706Z"
+    }
   }
 ]

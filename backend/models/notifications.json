@@ -644,7 +644,7 @@
     "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
     "input": "",
     "createdIn": "2024-11-23T20:25:46.167Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/libros/undefined",
     "expiresAt": "2024-12-23T20:25:46.167Z",
     "metadata": {
@@ -661,7 +661,7 @@
     "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
     "input": "",
     "createdIn": "2024-11-23T20:28:29.000Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/libros/undefined",
     "expiresAt": "2024-12-23T20:28:29.000Z",
     "metadata": {
@@ -678,7 +678,7 @@
     "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
     "input": "",
     "createdIn": "2024-11-23T20:32:09.454Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/libros/undefined",
     "expiresAt": "2024-12-23T20:32:09.454Z",
     "metadata": {
@@ -695,7 +695,7 @@
     "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
     "input": "",
     "createdIn": "2024-11-23T20:32:30.682Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/libros/6cdc0c65-8da3-493e-b09f-eef4d9e8345f",
     "expiresAt": "2024-12-23T20:32:30.682Z",
     "metadata": {
@@ -731,7 +731,7 @@
     "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
     "input": "",
     "createdIn": "2024-11-23T20:32:35.858Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/libros/0a3fca6a-f062-49e1-8043-949715ecf5e3",
     "expiresAt": "2024-12-23T20:32:35.858Z",
     "metadata": {
@@ -834,7 +834,7 @@
     "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
     "input": "",
     "createdIn": "2024-11-23T20:39:45.297Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/libros/bef7a2af-2bfa-467b-a0f9-2c50f5fa4a52",
     "expiresAt": "2024-12-23T20:39:45.297Z",
     "metadata": {
