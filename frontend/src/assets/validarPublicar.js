@@ -34,6 +34,9 @@ const validarPublicar1 = ({ titulo = '', autor = '', descripcion = '', archivos 
   if (!descripcion || typeof descripcion !== 'string' || descripcion.length < 10) {
     errors.push("La descripción es requerida y debe tener al menos 10 caracteres.");
   }
+  if (descripcion === 'Creando descripción...') {
+    errors.push("Espera a que se genere la descripción")
+  }
 
   return errors;
 };

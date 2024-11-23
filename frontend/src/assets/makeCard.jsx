@@ -1,8 +1,22 @@
+/* eslint-disable react/prop-types */
 import { reduceText } from "./reduceText"
 import { Link } from "react-router-dom";
 import { handleFavoritos } from "./handleFavoritos";
 import { toast } from "react-toastify";
-const makeCard = (element, index, userId = '', callback = ()=>{}) => {
+import { useEffect } from "react";
+
+const MakeCard = ({ element, index, user = '', callback = ()=>{} }) => {
+  
+       // Aplicar la clase "favoritoActivo" después de renderizar las tarjetas
+       useEffect(() => {
+        
+        if (user && user.favoritos) {
+            user.favoritos.forEach((favoritoId) => {
+                const favorites = document.querySelectorAll(`.favorito-${favoritoId}`);
+                favorites.forEach((element) => element.classList.add('favoritoActivo'));
+            });
+        }
+    }, [user]); // Se ejecuta cada vez que se actualizan user o libros
     return (
           <Link to={`/libros/${element._id}`}>
             <div className="sectionElement" key={index} >
@@ -37,14 +51,14 @@ const makeCard = (element, index, userId = '', callback = ()=>{}) => {
                 <svg onClick={(event) => {
                   event.preventDefault()
                   
-                  if (!userId) {
+                  if (!user._id) {
                     toast.error(<div>Necesitas iniciar sesión <Link to='/login' style={{
                       textDecoration: 'underline',
                       color: 'var(--using4)'
                     }}>aquí</Link></div>)
                     return
                   }
-                  userId ? handleFavoritos(event, element._id, userId): handleFavoritos(event, element._id)
+                  user._id ? handleFavoritos(event, element._id, user._id): handleFavoritos(event, element._id)
                   callback()
                   }} className={'favoritos ' +`favorito-${element._id}`} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#fff"}>
                   <path d="M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.221721 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -52,7 +66,7 @@ const makeCard = (element, index, userId = '', callback = ()=>{}) => {
                 
                 <div className="fastInfoElement" onClick={(e)=> {
                   e.preventDefault()
-                  if (!userId) {
+                  if (!user._id) {
                     toast.error(<div>Necesitas iniciar sesión <Link to='/login' style={{
                       textDecoration: 'underline',
                       color: 'var(--using4)'
@@ -67,7 +81,7 @@ const makeCard = (element, index, userId = '', callback = ()=>{}) => {
                 
                 <svg onClick={(e)=> {
                   e.preventDefault()
-                  if (!userId) {
+                  if (!user._id) {
                     toast.error(<div>Necesitas iniciar sesión <Link to='/login' style={{
                       textDecoration: 'underline',
                       color: 'var(--using4)'
@@ -87,7 +101,7 @@ const makeCard = (element, index, userId = '', callback = ()=>{}) => {
     )
 }
 
-const makeOneFrCard = (element, index, userId = '') => {
+const MakeOneFrCard = ({ element, index, user = '' }) => {
   
     return (
       <Link key={index} to={`/libros/${element._id}`}>
@@ -135,7 +149,7 @@ const makeOneFrCard = (element, index, userId = '') => {
         
         <button
           className="addToCartButton"
-          onClick={(event) => userId ? handleFavoritos(event, element._id, userId): handleFavoritos(event, element._id)}
+          onClick={(event) => user._id ? handleFavoritos(event, element._id, user._id): handleFavoritos(event, element._id)}
         >
           Agregar a favoritos
         </button>
@@ -146,33 +160,33 @@ const makeOneFrCard = (element, index, userId = '') => {
       
     );
   };
-  const makeUpdateCard = (element, index) => {
+  const MakeUpdateCard = ({ element, index }) => {
     
     return (
             <Link key={index} to={`/libros/${element._id}`}>
             <div className="sectionElement" >
                 
-                <div className="imageElementContainer"  style={{backgroundImage: `url(http://localhost:3030/uploads/${element.images[0]})`, backgroundRepeat: 'no-repeat'}}>
-
-                </div>
+                <div className="imageElementContainer"  style={{backgroundImage: `url(http://localhost:3030/uploads/${element.images[0]})`, backgroundRepeat: 'no-repeat'}}></div>
                 <div style={{padding:"5px"}}>
-                <h2 style={{textAlign: 'center'}}>{reduceText(element.titulo,33)}</h2>
+                <h2 style={{textAlign: 'center'}}>{reduceText(element.titulo,25)}</h2>
                 <h3>
                   {[element.autor && reduceText(element.autor, 30), 
-                    element.genero && reduceText(element.genero, 15), 
-                    element.estado]
+                    element.genero && reduceText(element.genero, 15)]
                     .filter(Boolean) // Filtra los elementos que no son null/undefined/false
                     .join(" | ")}
                 </h3>
+                <h3 style={{color: 'var(--using4)', fontSize: '1.8rem'}}>{element.estado}</h3>
                 <div className="precioSections">{(element.oferta) ? <><h3 style={{display:"inline", marginRight:"10px"}}><s>${element.precio.toLocaleString('es-CO')}</s></h3><h2 style={{display:"inline"}}>${element.oferta.toLocaleString('es-CO')}</h2></>: <><h2 style={{textAlign:"center"}}>${element.precio.toLocaleString('es-CO')}</h2></>}
                 </div>
                 <div className="editarOEliminar">
 
-                <button >
+                
                     <Link to={`/libros/crear?vendedor=${element.idVendedor}&libro=${element._id}`}>
+                    <button >
                             Editar
+                      </button>
                     </Link> 
-                  </button>
+                  
                 
                   <Link to={`/usuarios/${element.idVendedor}?eliminar=y&libro=${element._id}`}>
                   <button
@@ -188,7 +202,7 @@ const makeOneFrCard = (element, index, userId = '') => {
     )
 }
 
-const makeSmallCard = (element, index) => {
+const MakeSmallCard = ({ element, index }) => {
   return(<>
   <Link key={index} style={{width:'100%', height:'100%'}} to={`${window.location.origin}/libros/${element._id}`}>
             <div className="sectionElement" >
@@ -209,4 +223,4 @@ const makeSmallCard = (element, index) => {
             </Link>
   </>)
 }
-export { makeCard, makeOneFrCard, makeUpdateCard, makeSmallCard };
+export { MakeCard, MakeOneFrCard, MakeUpdateCard, MakeSmallCard };

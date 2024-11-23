@@ -1,13 +1,15 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
 import SideInfo from "../../components/sideInfo";
 import { useState, useEffect } from "react";
-import { makeCard, makeUpdateCard } from "../../assets/makeCard";
+import { MakeCard, MakeUpdateCard } from "../../assets/makeCard";
 import { useSearchParams, Link } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import Favorites from "./favorites";
 
 export default function Usuario() {
+    const navigate = useNavigate()
     const { idVendedor } = useParams();
     const [user, setUser] = useState(null);
     const [usuario, setUsuario] = useState({});
@@ -68,7 +70,6 @@ export default function Usuario() {
                         window.location.href = '/popUp/userNotFound';
                     }
                     const data = await response.json();
-                    console.log('Datos del usuario:', data)
                     setUsuario(data);
                     if (user){
                         if (data._id === user._id) {
@@ -97,7 +98,7 @@ export default function Usuario() {
                             if (response.ok) {
                                 return response.json();
                             } else {
-                                console.log('Libro no encontrado');
+                                console.error('Libro no encontrado');
                                 return null;
                             }
                         })
@@ -139,6 +140,22 @@ export default function Usuario() {
         }
     };
 
+    function handleShare() {
+        if (navigator.share) {
+          navigator
+            .share({
+              title: 'Checa este vendedor!',
+              text: 'Checa este vendedor:',
+              url: window.location.href, // Share the current URL
+            })
+            .then(() => console.log('Content shared successfully'))
+            .catch((error) => console.error('Error sharing:', error));
+        } else {
+          // Fallback for unsupported browsers
+          alert('Sharing is not supported on this browser.');
+        }
+      }
+      
     return (
         <>
             <Header />
@@ -161,24 +178,42 @@ export default function Usuario() {
             
             {usuario ? (
                 <div className="card-container">
+                    
                     <img
-                        src={usuario.fotoPerfil && usuario.fotoPerfil.trim() !== ''
-                            ? `http://localhost:3030/uploads/${usuario.fotoPerfil}`
-                            : 'http://localhost:3030/uploads/default.jpg'}
+                        src={
+                            usuario.fotoPerfil && usuario?.login === 'default' && usuario.fotoPerfil.trim() !== ''
+                              ? `http://localhost:3030/uploads/${encodeURIComponent(usuario.fotoPerfil)}`
+                              : usuario.login === 'Google' && usuario.fotoPerfil
+                              ? usuario.fotoPerfil
+                              : 'http://localhost:3030/uploads/default.jpg'
+                          }
                         alt="Profile"
                         className="profile-image"
                     />
                     <div className="card-info">
-                        {console.log(usuario.nombre)}
+                        
                         <h1 className="name">{usuario.nombre}</h1>
                         <p>Libros publicados: {librosUsuario.length || 0}</p>
                         <p>Libros vendidos: {usuario?.librosVendidos || 0}</p>
                         <p>Estado de la cuenta: {usuario.estadoCuenta}</p>
+                        {usuario.bio && <span><big>{usuario.bio}</big></span>}
                         <div>
                             {!permisos ? (
                                 <>
-                                    <Link to={`/mensajes?n=${usuario._id}`}><button className="compartir normal">Enviar mensaje</button></Link>
-                                    <button className="compartir botonInverso">Compartir</button>
+                                    
+                                    <button className="compartir normal" onClick={(e)=> {
+                                        e.preventDefault()
+                                        if (!user) {
+                                            toast.error(<div>Necesitas iniciar sesión <Link to='/login' style={{
+                                                textDecoration: 'underline',
+                                                color: 'var(--using4)'
+                                              }}>aquí</Link></div>)
+                                            return
+                                        }
+                                        navigate(`/mensajes?n=${usuario._id}`)
+                                    }}>
+                                        Enviar mensaje</button>
+                                    <button className="compartir botonInverso" onClick={handleShare}>Compartir</button>
                                 </>
                             ) : (
                                 <Link to='/usuarios/editarUsuario'>
@@ -192,18 +227,35 @@ export default function Usuario() {
                 <p>Cargando información del usuario...</p>
             )}
             <div className="select">
-                <div onClick={()=> setMyPosts(true)} className={myPosts ? 'active': ''}>Mis libros</div>
-                <div onClick={()=> setMyPosts(false)} className={myPosts ? '': 'active'}>Mis favoritos</div>
+                <div onClick={()=> setMyPosts(true)} className={myPosts ? 'active': ''}>
+                    {permisos ? 'Mis libros': 'Libros'}
+                </div>
+                <div onClick={()=> setMyPosts(false)} className={myPosts ? '': 'active'}>
+                    {permisos ? 'Mis favoritos': 'Favoritos'}
+                </div>
             </div>
             <div className="postsContainer">
-                {myPosts ? <>
+                { usuario &&  
+                myPosts ? <>
                 {librosUsuario.map((libro, index) => (<>
-                    {permisos ? makeUpdateCard(libro, index) : makeCard(libro, index)}                        
-                    </>
-                ))}</>
-                : <Favorites/>}
+                    {permisos ? <MakeUpdateCard element={libro} index={index}/>: 
+                    user ? <MakeCard element={libro} index={index} user={user} />:
+                    <MakeCard element={libro} index={index}/>
+                    }</>
+                ))}
+                {librosUsuario.length === 0 && <>No hay libros por aquí</>}
+                </>
+                : <Favorites vendedor={usuario}/>
+                }
             </div>
             </div>
+            <ToastContainer position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        pauseOnHover={false}
+        closeOnClick
+        theme="light"
+        />
             <Footer />
             <SideInfo />
         </>

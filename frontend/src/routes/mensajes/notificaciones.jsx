@@ -1,8 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Footer from "../../components/footer";
 import Header from "../../components/header";
 import SideInfo from "../../components/sideInfo";
 import { ToastContainer } from "react-toastify";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { formatDate } from "../../assets/formatDate";
 import { reduceText } from "../../assets/reduceText";
@@ -29,6 +30,7 @@ import { DetailedNotification } from "../../assets/formatNotificationMessage";
   }
 */
 export default function Notificaciones() {
+    const navigate = useNavigate()
 
     const [user, setUser] = useState(null)
 
@@ -45,11 +47,11 @@ export default function Notificaciones() {
                         const data = await response.json();
                         setUser(data.user);
                     } else {
-                        window.location.href = 'popUp/noUser';
+                        navigate('popUp/noUser');
                     }
                 } catch (error) {
                     console.error('Error fetching user data:', error);
-                    window.location.href = 'popUp/noUser';
+                    navigate('popUp/noUser')
                 }
             }
             fetchUser();

@@ -17,7 +17,7 @@ function Fase2({ form, setForm, setFase, user }) {
       }
     },[user])
     return (
-      <div className="checkoutContainer">
+      <div className="">
         <div className="inputCrear">
           <label htmlFor="nombre">Nombre completo *</label>
           <input

@@ -333,7 +333,9 @@ export default function Fase1({ form, setForm, setFase, fase }) {
           ></textarea>
         </div>
         {errors.length !== 0 && <div className="error">{errors[0]}</div>}
-        <input type="submit" value="Continuar" onKeyDown={handleKeyPress}/>
+        <div className="centrar">
+          <input type="submit" value="Continuar" onKeyDown={handleKeyPress}/>
+        </div>
       </form>
     </>
   );

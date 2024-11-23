@@ -100,8 +100,7 @@ export default function Fase3({ form, setForm, fase, setFase, meanPrice }){
         setKeywords(form.keywords || []);
       }, [form.precio, form.keywords, form.oferta]);
     return(<>
-        <div className="fase3">
-            <form action="" onSubmit={handleSubmit} noValidate>
+        <form action="" onSubmit={handleSubmit} noValidate>
 
 
         <div className="inputCrear">
@@ -156,15 +155,13 @@ export default function Fase3({ form, setForm, fase, setFase, meanPrice }){
         </div>
         {meanPrice && <label>El precio promedio de este libro en internet es de: $ {meanPrice} pesos</label>}
         {errors.length !== 0 && <div className="error">{errors[0]}</div>}
-            <div className="center">
+        <div className="center">
           <div className="atras" onClick={() =>setFase(fase - 1)}>
             Atrás
           </div>
           <input type="submit" value="Enviar"/>
         </div>
-            </form>
-        </div>
-            
+            </form>           
     
     </>)
 }

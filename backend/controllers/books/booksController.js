@@ -99,9 +99,6 @@ export class BooksController {
       return res.status(400).json({ error: validated.error })
     }
 
-    // Asignar un ID único al libro
-    data._id = crypto.randomUUID()
-
     // Agregar el ID del libro al usuario
     const user = await UsersModel.getUserById(data.idVendedor)
     if (!user) {
@@ -109,7 +106,7 @@ export class BooksController {
     }
 
     const updated = await UsersModel.updateUser(user._id, {
-      librosIds: [...user.librosIds, data._id]
+      librosIds: [...(user?.librosIds || []), data._id]
     })
 
     if (!updated) {
@@ -274,7 +271,33 @@ export class BooksController {
       if (!book) {
         return res.status(404).json({ error: 'Libro no encontrado o no actualizado' })
       }
-      console.log('Actualizado')
+
+      // Crear notificación
+
+      const notificationUrl = 'http://localhost:3030/api/notifications/'
+      const response = await fetch(notificationUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+
+          title: 'Tu libro ha sido actualizado con éxito',
+          priority: 'high',
+          type: 'bookUpdated',
+          userId: data.idVendedor,
+          read: false,
+          actionUrl: `http://localhost:5173/libros/${data._id}`,
+          metadata: data.metadata || {
+            photo: data.images[0],
+            bookTitle: data.titulo,
+            bookId: data._id
+          }
+        })
+      })
+      if (!response.ok) {
+        return res.send({ error: 'Error creando notificación' })
+      }
       res.status(200).json(book)
     } catch (err) {
       console.error('Error al actualizar el libro:', err)
@@ -428,6 +451,9 @@ export class BooksController {
       console.log('Error de validación:', validated.error)
       return res.status(400).json({ error: validated.error })
     }
+
+    // Asignar un ID único al libro
+    data._id = crypto.randomUUID()
 
     // Crear el libro en la base de datos
     const book = await BooksModel.createReviewBook(data)

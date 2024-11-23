@@ -126,7 +126,7 @@ function Fase3({ form, setForm, setFase, libro, preferenceId }) {
   },[])*/
 
   return (
-    <div className="checkoutContainer">
+    <div className="">
             <div className="paymentMethodsContainer">
         
         {preferenceId && <PaymentBrick libro={libro} preferenceId={preferenceId}/>}
@@ -307,8 +307,9 @@ function Fase3({ form, setForm, setFase, libro, preferenceId }) {
             )}
       <div>
         */}
-        <button type="button" onClick={() => setFase(2)}>Atrás</button>
+        
       </div>
+      <button type="button" style={{margin:'auto'}} onClick={() => setFase(2)}>Atrás</button>
     </div>
   );
 }

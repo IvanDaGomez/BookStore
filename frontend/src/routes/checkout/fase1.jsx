@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { makeOneFrCard } from "../../assets/makeCard";
+import { MakeOneFrCard } from "../../assets/makeCard";
 /* eslint-disable react/prop-types */
 function Fase1({ form, setForm, setFase, libro }) {
     const handleNext = () => setFase(2); // Avanzar a la siguiente fase
@@ -9,7 +9,7 @@ function Fase1({ form, setForm, setFase, libro }) {
       <div>
         {/* Muestra los productos del carrito */}
         {/* MakeCheckoutCard */}
-        {makeOneFrCard(libro, 0)}
+        <MakeOneFrCard element={libro} index={0} />
         
         <button onClick={handleNext}>Siguiente</button>
       </div>

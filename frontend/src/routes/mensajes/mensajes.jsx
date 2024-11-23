@@ -4,13 +4,14 @@ import Header from "../../components/header";
 import SideInfo from "../../components/sideInfo";
 import Footer from "../../components/footer";
 import { toast, ToastContainer } from "react-toastify";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { reduceText, reduceTextByFirstWord } from "../../assets/reduceText";
 import { formatDate } from "../../assets/formatDate";
 import { Link } from "react-router-dom";
 
 export default function Mensajes() {
 
+    const navigate = useNavigate()
     const [activeConversation, setActiveConversation] = useState(null);
 
 //--------------------------------------LOGICA DE MENSAJES-------------------------------------------
@@ -56,14 +57,15 @@ export default function Mensajes() {
                     const data = await response.json();
                     setUser(data.user);
                 } else {
-                    window.location.href = 'popUp/noUser';
+                    navigate('popUp/noUser')
                 }
             } catch (error) {
                 console.error('Error fetching user data:', error);
-                window.location.href = 'popUp/noUser';
+                navigate('popUp/noUser')
             }
         }
         fetchUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 
@@ -144,7 +146,8 @@ export default function Mensajes() {
                 }
                 
                 setConversaciones((prev) => [...(prev || []), data.conversation]);
-                window.location.reload()
+                navigate(window.location.path)
+                
             } catch (error) {
                 console.error('Error creating a new conversation:', error);
                 toast.error('Error creating a new conversation');
@@ -152,6 +155,7 @@ export default function Mensajes() {
         }
     
         fetchNewConversation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user, newConversationId, conversaciones]);
 
     useEffect(()=>{

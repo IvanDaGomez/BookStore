@@ -71,9 +71,12 @@ export default function EditarUsuario() {
             document.querySelector("#bio").value = user.bio || "";
             document.querySelector("#correo").value = correo || "";
             setFotoPerfil(
-                user.fotoPerfil?.trim()
-                    ? `http://localhost:3030/uploads/${user.fotoPerfil}`
-                    : 'http://localhost:3030/uploads/default.jpg'
+
+                    user.fotoPerfil && user?.login === 'default' && user.fotoPerfil.trim() !== ''
+                      ? `http://localhost:3030/uploads/${encodeURIComponent(user.fotoPerfil)}`
+                      : user.login === 'Google' && user.fotoPerfil
+                      ? user.fotoPerfil
+                      : 'http://localhost:3030/uploads/default.jpg'
             );
 
         }

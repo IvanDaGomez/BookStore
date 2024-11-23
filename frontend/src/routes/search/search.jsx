@@ -5,7 +5,7 @@ import Footer from "../../components/footer.jsx"
 import Header from "../../components/header.jsx"
 import { useEffect, useState, useRef } from "react"
 import { cambiarEspacioAGuiones, cambiarGuionesAEspacio } from "../../assets/agregarMas.js"
-import { makeCard, makeOneFrCard } from "../../assets/makeCard.jsx"
+import { MakeCard, MakeOneFrCard } from "../../assets/makeCard.jsx"
 import useBotonSelect from "../../assets/botonSelect.jsx"
 import DoubleSlider from "../../components/DoubleSlider.jsx"
 import { ToastContainer } from "react-toastify"
@@ -341,19 +341,11 @@ const ordenarFormas = {
       <div>{useBotonSelect(categoriaProps)}</div>
       <div>{useBotonSelect(estadoProps)}</div>
       <div>{useBotonSelect(ubicacionProps)}</div>
-      <div><DoubleSlider min={0} max={1000000} width={"15vw"}/></div>
+      {/*<div><DoubleSlider min={0} max={1000000} width={"15vw"}/></div>*/}
       <div>{useBotonSelect(edadProps)}</div>
       <div>{useBotonSelect(tapaProps)}</div>
       <div>{useBotonSelect(fechaPublicacionProps)}</div>
       <div>{useBotonSelect(idiomaProps)}</div>
-      <div className="flex">
-            <label>Valoración: </label>
-            {cincoEstrellas.map((star, index) => (
-                    <div key={index} onClick={() => handleStars(index)}>
-                        {star}
-                    </div>
-                ))}
-        </div>
       <button className="aplicarFiltros" onClick={aplicarFiltros}>Aplicar</button>
     </div>
             <div className="resultadosYMasFiltros">
@@ -379,8 +371,8 @@ const ordenarFormas = {
                 <div className="resultados sectionsContainer" style={{ display: 'grid', gridTemplateColumns: grid }}>
                 
                     {renderizarResultados().map((element, index)=> (grid.split(" ").length !==1) ? 
-                    user ? makeCard(element, index, user._id): makeCard(element, index): 
-                    user ? makeOneFrCard(element, index, user._id): makeOneFrCard(element, index) )}
+                    user ? <MakeCard element={element} index={index} user={user}/>: <MakeCard element={element} index={index}/>: 
+                    user ? <MakeOneFrCard element={element} index={index} user={user}/>: <MakeOneFrCard element={element} index={index}/> )}
                 {optionalSpace}
                 </div>
                 <div className="numberPages separador" style={{display: (pageCount === 1)  ? "none":"flex"}}>

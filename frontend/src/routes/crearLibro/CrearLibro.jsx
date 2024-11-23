@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Footer from "../../components/footer";
 import Header from "../../components/header";
 import SideInfo from "../../components/sideInfo";
@@ -6,12 +7,13 @@ import Fase2 from "./Fase2";
 import Fase3 from "./Fase3";
 import { useState, useEffect } from "react";
 import { average } from "../../assets/average";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import UseStep from "../../components/UseStep";
 import { ToastContainer } from "react-toastify";
 import axios from "axios";
 
 export default function CrearLibro() {
+  const navigate = useNavigate()
       //const user = useFetchUser('http://localhost:3030/api/users/userSession')
       const [user, setUser] = useState();
       
@@ -25,13 +27,13 @@ export default function CrearLibro() {
                 setUser(response.data.user);
             } catch (error) {
                 console.error('Error fetching user data:', error);
-                window.location.href = '/popUp/noUser'
+                navigate('/popUp/noUser')
             }
         };
         fetchUser();
     }, []);
   const [form, setForm] = useState({});
-  const [fase, setFase] = useState();
+  const [fase, setFase] = useState(1);
   // Recuperar datos de localStorage en el primer render
   useEffect(() => {
     const storedForm = localStorage.getItem("form");
@@ -41,14 +43,7 @@ export default function CrearLibro() {
       } catch (error) {
         console.error("Error parsing form from localStorage", error);
       }
-    }
-
-    const storedFase = localStorage.getItem("fase");
-    if (storedFase) {
-      setFase(parseInt(storedFase, 10)); // Asegurarse de que es un número entero
-    }
-    else setFase(1)
-    
+    }    
   }, []);
 
   // Guardar los cambios de fase y formulario en localStorage
@@ -80,7 +75,7 @@ export default function CrearLibro() {
           });
   
           if (!response.ok) {
-            window.location.href = "/libros/crear";
+            navigate("/libros/crear");
             return; // Exit the function if the response isn't OK
           }
   
@@ -188,7 +183,7 @@ export default function CrearLibro() {
                 setFase(1);
                 localStorage.removeItem("fase");
 
-                window.location.href = `/popUp/exitoCreandoLibro`;
+                navigate(`/popUp/exitoCreandoLibro`);
 
             } catch (error) {
                 console.error("Error al enviar los datos:", error);

@@ -337,5 +337,510 @@
       "bookId": "78c534c0-2fa8-40d0-b72a-c5ee34d0a883",
       "question": "¿En qué estado se encuentra el producto?"
     }
+  },
+  {
+    "_id": "cce2b27f-1cb4-4c9b-b0c9-c3218ee34c72",
+    "theme": "",
+    "title": "Tu libro ha sido publicado con éxito",
+    "priority": "high",
+    "type": "bookPublished",
+    "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
+    "input": "",
+    "createdIn": "2024-11-23T14:47:40.435Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/8269ca96-ed27-4cb3-a919-8967d4f83e9a",
+    "expiresAt": "2024-12-23T14:47:40.435Z",
+    "metadata": {
+      "photo": "1732372978147-450884669.png",
+      "bookTitle": "Batalla Cultural",
+      "bookId": "8269ca96-ed27-4cb3-a919-8967d4f83e9a"
+    }
+  },
+  {
+    "_id": "aa308ab5-a97a-4632-8db8-36df21021089",
+    "theme": "",
+    "title": "Tu libro ha sido publicado con éxito",
+    "priority": "normal",
+    "type": "bookPublished",
+    "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
+    "input": "",
+    "createdIn": "2024-11-23T14:47:40.481Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/undefined",
+    "expiresAt": "2024-12-23T14:47:40.481Z",
+    "metadata": {
+      "photo": "1732372978147-450884669.png",
+      "bookTitle": "Batalla Cultural"
+    }
+  },
+  {
+    "_id": "6e5f8251-7645-4080-8bcb-6fdba4ee47dd",
+    "theme": "",
+    "title": "Tu libro ha sido publicado con éxito",
+    "priority": "high",
+    "type": "bookPublished",
+    "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
+    "input": "",
+    "createdIn": "2024-11-23T17:56:09.347Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/05b00dd9-10f0-433b-98c9-453de0725495",
+    "expiresAt": "2024-12-23T17:56:09.347Z",
+    "metadata": {
+      "photo": "1732372978147-450884669.png",
+      "bookTitle": "Batalla Cultural",
+      "bookId": "05b00dd9-10f0-433b-98c9-453de0725495"
+    }
+  },
+  {
+    "_id": "20f8c370-63b5-4a3f-a07e-5c90d4dbd39f",
+    "theme": "",
+    "title": "Tu libro ha sido actualizado con éxito",
+    "priority": "high",
+    "type": "bookUpdated",
+    "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
+    "input": "",
+    "createdIn": "2024-11-23T17:56:12.928Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/8269ca96-ed27-4cb3-a919-8967d4f83e9a",
+    "expiresAt": "2024-12-23T17:56:12.928Z",
+    "metadata": {
+      "photo": "1732384520709-105376473.png",
+      "bookTitle": "Batalla Cultural",
+      "bookId": "8269ca96-ed27-4cb3-a919-8967d4f83e9a"
+    }
+  },
+  {
+    "_id": "eeb8ece8-047c-4069-a02c-24a5aaa849e5",
+    "theme": "",
+    "title": "Tu libro ha sido rechazado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
+    "input": "",
+    "createdIn": "2024-11-23T17:59:35.075Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/undefined",
+    "expiresAt": "2024-12-23T17:59:35.075Z",
+    "metadata": {
+      "photo": "1732372978147-450884669.png",
+      "bookTitle": "Batalla Cultural"
+    }
+  },
+  {
+    "_id": "225a4fe8-16e5-4de1-981b-02ee03fc04a3",
+    "theme": "",
+    "title": "Tu libro ha sido rechazado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
+    "input": "",
+    "createdIn": "2024-11-23T18:00:17.776Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/undefined",
+    "expiresAt": "2024-12-23T18:00:17.776Z",
+    "metadata": {
+      "photo": "1732372978147-450884669.png",
+      "bookTitle": "Batalla Cultural"
+    }
+  },
+  {
+    "_id": "85e77c5e-c4e7-43b5-b83e-08d39f19f2b4",
+    "theme": "",
+    "title": "Tu libro no ha podido ser actualizado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-11-23T18:00:18.731Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/78c534c0-2fa8-40d0-b72a-c5ee34d0a883",
+    "expiresAt": "2024-12-23T18:00:18.731Z",
+    "metadata": {
+      "photo": "1732384802057-527138254.png",
+      "bookTitle": "El encuentro de cuatro imperios",
+      "bookId": "78c534c0-2fa8-40d0-b72a-c5ee34d0a883"
+    }
+  },
+  {
+    "_id": "8cc1aa18-f7a6-4c9f-9560-6034b9b5aded",
+    "theme": "",
+    "title": "Tu libro ha sido actualizado con éxito",
+    "priority": "high",
+    "type": "bookUpdated",
+    "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
+    "input": "",
+    "createdIn": "2024-11-23T18:01:56.394Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/8269ca96-ed27-4cb3-a919-8967d4f83e9a",
+    "expiresAt": "2024-12-23T18:01:56.394Z",
+    "metadata": {
+      "photo": "1732384879818-848168127.png",
+      "bookTitle": "Batalla Cultural",
+      "bookId": "8269ca96-ed27-4cb3-a919-8967d4f83e9a"
+    }
+  },
+  {
+    "_id": "57bd6012-0d99-42a4-a3d4-df1afedf6595",
+    "theme": "",
+    "title": "Tu libro ha sido publicado con éxito",
+    "priority": "high",
+    "type": "bookPublished",
+    "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
+    "input": "",
+    "createdIn": "2024-11-23T19:21:19.558Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/354037a6-232d-4f28-a2ab-df76dbd70a93",
+    "expiresAt": "2024-12-23T19:21:19.558Z",
+    "metadata": {
+      "photo": "1732389630602-769309831.png",
+      "bookTitle": "Practical React Native",
+      "bookId": "354037a6-232d-4f28-a2ab-df76dbd70a93"
+    }
+  },
+  {
+    "_id": "f556d337-c849-40c9-83ed-0625a99451e3",
+    "theme": "",
+    "title": "Tu libro ha sido publicado con éxito",
+    "priority": "high",
+    "type": "bookPublished",
+    "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
+    "input": "",
+    "createdIn": "2024-11-23T19:31:36.822Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/2eb9dace-5caf-4db1-9fd1-e1916511f3cc",
+    "expiresAt": "2024-12-23T19:31:36.822Z",
+    "metadata": {
+      "photo": "1732389630602-769309831.png",
+      "bookTitle": "Practical React Native",
+      "bookId": "2eb9dace-5caf-4db1-9fd1-e1916511f3cc"
+    }
+  },
+  {
+    "_id": "9e4864a5-a9f8-409f-b526-d1923fc4e781",
+    "theme": "",
+    "title": "Tu libro ha sido actualizado con éxito",
+    "priority": "high",
+    "type": "bookUpdated",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-11-23T19:31:45.503Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/78c534c0-2fa8-40d0-b72a-c5ee34d0a883",
+    "expiresAt": "2024-12-23T19:31:45.503Z",
+    "metadata": {
+      "photo": "1732390286751-856618092.png",
+      "bookTitle": "El encuentro de cuatro imperios",
+      "bookId": "78c534c0-2fa8-40d0-b72a-c5ee34d0a883"
+    }
+  },
+  {
+    "_id": "6b80c9d4-31c6-42c3-8642-bfe75779eb79",
+    "theme": "",
+    "title": "Tu libro ha sido rechazado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
+    "input": "",
+    "createdIn": "2024-11-23T20:20:23.370Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/undefined",
+    "expiresAt": "2024-12-23T20:20:23.370Z",
+    "metadata": {
+      "photo": "1732389630602-769309831.png",
+      "bookTitle": "Practical React Native"
+    }
+  },
+  {
+    "_id": "59dd23ac-9a6d-425d-b159-5ead0353f7bc",
+    "theme": "",
+    "title": "Tu libro ha sido rechazado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-11-23T20:20:24.887Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/undefined",
+    "expiresAt": "2024-12-23T20:20:24.887Z",
+    "metadata": {
+      "photo": "1732393210472-474924780.png",
+      "bookTitle": "Practical React Native"
+    }
+  },
+  {
+    "_id": "321d0ac0-f433-40d2-96d5-7c7da18ec60d",
+    "theme": "",
+    "title": "Tu libro ha sido rechazado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
+    "input": "",
+    "createdIn": "2024-11-23T20:23:51.433Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/undefined",
+    "expiresAt": "2024-12-23T20:23:51.433Z",
+    "metadata": {
+      "photo": "1732389630602-769309831.png",
+      "bookTitle": "Practical React Native"
+    }
+  },
+  {
+    "_id": "e4b43cd5-cab5-4709-9299-cf5ddf40a1e8",
+    "theme": "",
+    "title": "Tu libro ha sido rechazado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-11-23T20:23:52.314Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/undefined",
+    "expiresAt": "2024-12-23T20:23:52.314Z",
+    "metadata": {
+      "photo": "1732393210472-474924780.png",
+      "bookTitle": "Practical React Native"
+    }
+  },
+  {
+    "_id": "fb91cbd0-e82b-4eee-95e0-71ef408eedc2",
+    "theme": "",
+    "title": "Tu libro ha sido rechazado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-11-23T20:23:53.298Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/undefined",
+    "expiresAt": "2024-12-23T20:23:53.298Z",
+    "metadata": {
+      "photo": "1732393419409-484289271.png",
+      "bookTitle": "Practical React Native"
+    }
+  },
+  {
+    "_id": "0c0e8ec5-6158-422e-b87c-b482606646d9",
+    "theme": "",
+    "title": "Tu libro ha sido rechazado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
+    "input": "",
+    "createdIn": "2024-11-23T20:24:05.101Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/undefined",
+    "expiresAt": "2024-12-23T20:24:05.101Z",
+    "metadata": {
+      "photo": "1732389630602-769309831.png",
+      "bookTitle": "Practical React Native"
+    }
+  },
+  {
+    "_id": "99b83c94-6a41-4292-a00c-f899e3beb67e",
+    "theme": "",
+    "title": "Tu libro ha sido rechazado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
+    "input": "",
+    "createdIn": "2024-11-23T20:25:46.167Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/undefined",
+    "expiresAt": "2024-12-23T20:25:46.167Z",
+    "metadata": {
+      "photo": "1732389630602-769309831.png",
+      "bookTitle": "Practical React Native"
+    }
+  },
+  {
+    "_id": "9db665e0-71d3-4cfc-8d6e-8f41ea36af38",
+    "theme": "",
+    "title": "Tu libro ha sido rechazado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
+    "input": "",
+    "createdIn": "2024-11-23T20:28:29.000Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/undefined",
+    "expiresAt": "2024-12-23T20:28:29.000Z",
+    "metadata": {
+      "photo": "1732389630602-769309831.png",
+      "bookTitle": "Practical React Native"
+    }
+  },
+  {
+    "_id": "d00bf883-b1a7-4ace-a380-4c8722cd268d",
+    "theme": "",
+    "title": "Tu libro ha sido rechazado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
+    "input": "",
+    "createdIn": "2024-11-23T20:32:09.454Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/undefined",
+    "expiresAt": "2024-12-23T20:32:09.454Z",
+    "metadata": {
+      "photo": "1732389630602-769309831.png",
+      "bookTitle": "Practical React Native"
+    }
+  },
+  {
+    "_id": "804bfe82-ac6c-4a9a-bb85-dd5d8e92ba00",
+    "theme": "",
+    "title": "Tu libro ha sido publicado con éxito",
+    "priority": "high",
+    "type": "bookPublished",
+    "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
+    "input": "",
+    "createdIn": "2024-11-23T20:32:30.682Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/6cdc0c65-8da3-493e-b09f-eef4d9e8345f",
+    "expiresAt": "2024-12-23T20:32:30.682Z",
+    "metadata": {
+      "photo": "1732389630602-769309831.png",
+      "bookTitle": "Practical React Native",
+      "bookId": "6cdc0c65-8da3-493e-b09f-eef4d9e8345f"
+    }
+  },
+  {
+    "_id": "5c3d529a-2d34-4e50-8bb7-af3579c4dc5b",
+    "theme": "",
+    "title": "Tu libro ha sido publicado con éxito",
+    "priority": "high",
+    "type": "bookPublished",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-11-23T20:32:35.307Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/54518c3c-68c7-49e1-8a8f-08dcaf6e7986",
+    "expiresAt": "2024-12-23T20:32:35.307Z",
+    "metadata": {
+      "photo": "1732393210472-474924780.png",
+      "bookTitle": "Practical React Native",
+      "bookId": "54518c3c-68c7-49e1-8a8f-08dcaf6e7986"
+    }
+  },
+  {
+    "_id": "e21b407d-2f66-46ec-a8da-e69adc568e5d",
+    "theme": "",
+    "title": "Tu libro ha sido publicado con éxito",
+    "priority": "high",
+    "type": "bookPublished",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-11-23T20:32:35.858Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/0a3fca6a-f062-49e1-8043-949715ecf5e3",
+    "expiresAt": "2024-12-23T20:32:35.858Z",
+    "metadata": {
+      "photo": "1732393419409-484289271.png",
+      "bookTitle": "Practical React Native",
+      "bookId": "0a3fca6a-f062-49e1-8043-949715ecf5e3"
+    }
+  },
+  {
+    "_id": "ce14ba68-9e51-4a44-8611-dfcaad326aff",
+    "theme": "",
+    "title": "Tu libro ha sido rechazado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
+    "input": "",
+    "createdIn": "2024-11-23T20:34:20.471Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/undefined",
+    "expiresAt": "2024-12-23T20:34:20.471Z",
+    "metadata": {
+      "photo": "1732389630602-769309831.png",
+      "bookTitle": "Practical React Native"
+    }
+  },
+  {
+    "_id": "7c442c77-551f-40cc-be43-e90e1ebf05ce",
+    "theme": "",
+    "title": "Tu libro ha sido rechazado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
+    "input": "",
+    "createdIn": "2024-11-23T20:35:21.314Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/undefined",
+    "expiresAt": "2024-12-23T20:35:21.314Z",
+    "metadata": {
+      "photo": "1732389630602-769309831.png",
+      "bookTitle": "Practical React Native"
+    }
+  },
+  {
+    "_id": "82876d48-df3a-40aa-8ca5-6d69b3efbfa8",
+    "theme": "",
+    "title": "Tu libro ha sido rechazado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
+    "input": "",
+    "createdIn": "2024-11-23T20:35:40.554Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/undefined",
+    "expiresAt": "2024-12-23T20:35:40.554Z",
+    "metadata": {
+      "photo": "1732389630602-769309831.png",
+      "bookTitle": "Practical React Native"
+    }
+  },
+  {
+    "_id": "4d5add57-9914-4b17-b9f8-06a02919e392",
+    "theme": "",
+    "title": "Tu libro ha sido rechazado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
+    "input": "",
+    "createdIn": "2024-11-23T20:35:53.690Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/undefined",
+    "expiresAt": "2024-12-23T20:35:53.690Z",
+    "metadata": {
+      "photo": "1732389630602-769309831.png",
+      "bookTitle": "Practical React Native"
+    }
+  },
+  {
+    "_id": "19fb4038-cc9b-45ea-9326-a3136ed128b6",
+    "theme": "",
+    "title": "Tu libro ha sido rechazado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
+    "input": "",
+    "createdIn": "2024-11-23T20:36:39.516Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/undefined",
+    "expiresAt": "2024-12-23T20:36:39.516Z",
+    "metadata": {
+      "photo": "1732389630602-769309831.png",
+      "bookTitle": "Practical React Native"
+    }
+  },
+  {
+    "_id": "fe536da9-c44d-4142-96a0-54bcfbcd1c3d",
+    "theme": "",
+    "title": "Tu libro ha sido rechazado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-11-23T20:39:45.297Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/bef7a2af-2bfa-467b-a0f9-2c50f5fa4a52",
+    "expiresAt": "2024-12-23T20:39:45.297Z",
+    "metadata": {
+      "photo": "1732394374941-45725469.png",
+      "bookTitle": "Practical React Native",
+      "bookId": "bef7a2af-2bfa-467b-a0f9-2c50f5fa4a52"
+    }
   }
 ]

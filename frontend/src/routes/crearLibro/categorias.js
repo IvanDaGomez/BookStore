@@ -16,6 +16,7 @@ const generos = [
     "Drama",
     "Autoayuda",
     "Ensayo",
+    "Educativo",
     "Literatura contemporánea",
     "Literatura clásica",
     "Ficción histórica",

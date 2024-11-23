@@ -5,7 +5,7 @@ import Header from "../../components/header";
 import SideInfo from "../../components/sideInfo";
 import Footer from "../../components/footer";
 import ErrorPage from "../../components/errorPage";
-import { makeCard, makeSmallCard } from "../../assets/makeCard";
+import { MakeCard, MakeSmallCard } from "../../assets/makeCard";
 import { cambiarEspacioAGuiones } from "../../assets/agregarMas";
 import { toast, ToastContainer } from "react-toastify"
 import axios from "axios";
@@ -368,14 +368,17 @@ export default function BookView() {
                     <div className="informacionDelVendedor">
                     
                     
-                    {librosRelacionadosVendedor && libro && (
+                    { librosRelacionadosVendedor && 
+                    librosRelacionadosVendedor.filter(element=> element._id !== libro._id).length !== 0 && 
+                    libro && (
                     <>
                     <h2>Productos de {libro.vendedor}: </h2>
                     <div className="smallCardContainer">
                         {librosRelacionadosVendedor
                         .filter(element=> element._id !== libro._id)
                         .map((element, index) => 
-                        user ? makeSmallCard(element, index, user._id): makeSmallCard(element, index))}
+                        user ? <MakeSmallCard key={index} element={element} index={index} user={user}/>: 
+                        <MakeSmallCard key={index} element={element} index={index}/>)}
                     </div>
                     </>
                     )}
@@ -433,7 +436,8 @@ export default function BookView() {
                         <div className="leftScrollContainer">
                         {librosRelacionados.filter(element=> element._id !== libro._id)
                         .map((element, index) => 
-                        user ? makeCard(element, index, user._id) : makeCard(element, index))}
+                        user ? <MakeCard key={index} element={element} index={index} user={user}/>: 
+                        <MakeCard key={index} element={element} index={index}/>)}
                         </div>
                     </div>
             ): <></>}

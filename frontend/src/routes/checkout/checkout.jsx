@@ -7,11 +7,11 @@ import UseStep from '../../components/UseStep';
 import Header from '../../components/header';
 import Footer from '../../components/footer';
 import SideInfo from '../../components/sideInfo';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { useEffect } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 function Checkout() {
-
+  const navigate = useNavigate()
   const [user, setUser] = useState(null)
   const [preferenceId, setPreferenceId] = useState(null);
       // Fetch del usuario primero que todo
@@ -25,10 +25,11 @@ function Checkout() {
                 setUser(response.data.user);
             } catch (error) {
                 console.error('Error fetching user data:', error);
-                window.location.href = '/popUp/noUser'
+                navigate('/popUp/noUser')
             }
         };
         fetchUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 
@@ -47,11 +48,12 @@ function Checkout() {
                 
             } catch (error) {
                 console.error("Error fetching book data:", error);
-                window.location.href = '/popUp/libroNoEncontrado'
+                navigate('/popUp/libroNoEncontrado')
             }
         }
 
         fetchLibro(bookId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [bookId]);
 
   const [fase, setFase] = useState(1);  // Estado para la fase actual
@@ -122,11 +124,11 @@ function Checkout() {
 
 
 
-  const steps = ['Información del producto', 'Tu datos de envío', 'Pago']
+  const steps = ['Información del producto', 'Datos de envío', 'Medios de pago']
   return (
     <>
     <Header />
-    <div className="checkout-container">
+    <div className="checkoutContainer">
       <h1>{steps[fase - 1]}</h1>
       <UseStep currentStep={fase} titulos={steps}  />
       

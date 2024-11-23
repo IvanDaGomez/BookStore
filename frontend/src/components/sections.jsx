@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"
-import { makeCard } from "../assets/makeCard";
+import { MakeCard } from "../assets/makeCard";
 import { cambiarEspacioAGuiones } from "../assets/agregarMas";
 import axios from "axios";
+
 // eslint-disable-next-line react/prop-types
 export default function Sections({ filter, backgroundColor }){
+    
     /*const [elementSections, setElementSections] = useState()
     useEffect(() => {
         async function fetchData(){
@@ -49,16 +51,6 @@ export default function Sections({ filter, backgroundColor }){
         
     },[filter])
     
-        // Aplicar la clase "favoritoActivo" después de renderizar las tarjetas
-    useEffect(() => {
-        
-        if (user && user.favoritos) {
-            user.favoritos.forEach((favoritoId) => {
-                const favorites = document.querySelectorAll(`.favorito-${favoritoId}`);
-                favorites.forEach((element) => element.classList.add('favoritoActivo'));
-            });
-        }
-    }, [user, libros]); // Se ejecuta cada vez que se actualizan user o libros
 
 
     return(  <>
@@ -68,7 +60,11 @@ export default function Sections({ filter, backgroundColor }){
         <h1 style={{margin:"0 40px", textAlign:"left"}}>{filter}</h1>
         <div className="sectionsContainer">
             
-            {user && libros.slice(0,6).map((element, index) => makeCard(element, index, user._id))}
+            {libros.slice(0,6).map((element, index) => (
+                user ? <MakeCard key={index} element={element} index={index} user={user}/>: 
+                <MakeCard key={index} element={element} index={index}/>
+            )  
+            )}
         </div>
         </div>
         </>)

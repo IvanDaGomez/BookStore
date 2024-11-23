@@ -49,5 +49,35 @@
       "_id": "916095c1-6057-4cd9-b840-fc15b4596503",
       "createdIn": "2024-11-22T22:56:44.559Z"
     }
+  },
+  {
+    "_id": "cab8c072-2f4b-4bfe-ba12-0907d2f63ac3",
+    "users": [
+      "9b922eb4-33e8-4781-9863-c066992e1620",
+      "857857d1-afdd-411d-b41a-be427d1ff186"
+    ],
+    "messages": [],
+    "createdIn": "2024-11-23T21:03:04.627Z",
+    "lastMessage": {}
+  },
+  {
+    "_id": "4e75b761-1d6c-4c9d-979a-10db354a2fe5",
+    "users": [
+      "9b922eb4-33e8-4781-9863-c066992e1620",
+      "1816d212-7dc5-4d74-bb9d-e0d97bf60d27"
+    ],
+    "messages": [],
+    "createdIn": "2024-11-23T21:07:53.229Z",
+    "lastMessage": {}
+  },
+  {
+    "_id": "22d0264e-fd98-47b8-957e-9ffe599095ee",
+    "users": [
+      "9b922eb4-33e8-4781-9863-c066992e1620",
+      "834a9dda-5cf5-4438-9499-eed4b8ec3e45"
+    ],
+    "messages": [],
+    "createdIn": "2024-11-23T21:08:15.027Z",
+    "lastMessage": {}
   }
 ]

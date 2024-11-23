@@ -26,7 +26,7 @@ export default function useBotonSelect({ formas, results , setResults, ancho, ca
   );
 
   return (
-    <div className="select" style={{ width: ancho }} onClick={() => setIsOpen(!isOpen)}>
+    <div className="select" style={{ width: ancho }} onClick={() => setIsOpen(!isOpen)} onMouseLeave={() => setIsOpen(false)}>
       {/* Mostrar la opción seleccionada */}
       <div className="selected" style={{ width: ancho }} >
         {selected ? <>{selected} {arrowDown}</> : <>Selected {arrowDown}</>}
@@ -34,7 +34,7 @@ export default function useBotonSelect({ formas, results , setResults, ancho, ca
 
       {/* Desplegar el menú de opciones cuando esté abierto */}
       {isOpen && (
-        <div className="optionsContainer" style={{ width: ancho }} onMouseLeave={() => setIsOpen(false)}>
+        <div className="optionsContainer" style={{ width: ancho }} >
           <div className="options" style={{ width: ancho }}>
             {/* Mostrar las opciones de ordenación */}
             {Object.keys(formas).map((forma, index) => (

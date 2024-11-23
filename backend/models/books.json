@@ -297,32 +297,6 @@
     "disponibilidad": "Disponible"
   },
   {
-    "titulo": "Nexus",
-    "autor": "Yuval Noah Harari",
-    "precio": 60000,
-    "oferta": null,
-    "images": [
-      "1729462242172-676985496.png"
-    ],
-    "keywords": [
-      "Nexus"
-    ],
-    "_id": "c9293f23-2a9f-4e76-93a3-d7404e9b01b6",
-    "descripcion": "Este es un libro muy interesante",
-    "estado": "Nuevo",
-    "genero": "Biografía",
-    "vendedor": "Ivan David Gomez",
-    "idVendedor": "836e151b-43ae-48a0-8352-17ad309d8068",
-    "edicion": "",
-    "idioma": "",
-    "ubicacion": "Buscar",
-    "tapa": "",
-    "edad": "",
-    "fechaPublicacion": "2024-10-20T22:10:42.143Z",
-    "actualizadoEn": "2024-10-20T22:10:42.200Z",
-    "disponibilidad": "Disponible"
-  },
-  {
     "titulo": "Si lo crees lo puedes lograr",
     "autor": "Claude Bristol",
     "precio": 90000,
@@ -354,7 +328,7 @@
     "precio": 70000,
     "oferta": 60000,
     "images": [
-      "1732209737801-866528806.png"
+      "1732390286751-856618092.png"
     ],
     "keywords": [
       "Premio Booker Internacional"
@@ -370,8 +344,8 @@
     "ubicacion": "Buscar",
     "tapa": "Dura",
     "edad": "Adulto",
-    "fechaPublicacion": "2024-11-21T17:22:17.651Z",
-    "actualizadoEn": "2024-11-22T23:53:28.840Z",
+    "fechaPublicacion": "2024-11-23T19:31:26.489Z",
+    "actualizadoEn": "2024-11-23T19:31:45.480Z",
     "disponibilidad": "Disponible",
     "formato": "Físico",
     "mensajes": [
@@ -462,5 +436,65 @@
     "fechaPublicacion": "2024-10-21T01:39:41.041Z",
     "actualizadoEn": "2024-10-21T01:39:41.063Z",
     "disponibilidad": "Disponible"
+  },
+  {
+    "titulo": "Batalla Cultural",
+    "autor": "Agustin Laje",
+    "precio": 70000,
+    "oferta": 30000,
+    "images": [
+      "1732384879818-848168127.png"
+    ],
+    "keywords": [],
+    "_id": "8269ca96-ed27-4cb3-a919-8967d4f83e9a",
+    "descripcion": "La \"Batalla Cultural\" de Agustín Laje es un libro que aborda de manera profunda y analítica el conflicto ideológico presente en la sociedad actual. A través de una mirada crítica y argumentos sólidos, Laje expone las diferentes corrientes de pensamiento que se enfrentan en el ámbito cultural, mostrando la importancia de defender y promover los valores tradicionales frente a las ideas progresistas. Con un estilo claro y directo, este libro invita a reflexionar sobre el papel de la cultura en la construcción de una sociedad más justa y equilibrada.",
+    "estado": "Usado",
+    "genero": "Autoayuda",
+    "formato": "Físico",
+    "vendedor": "Mónica Tatiana Silva Gonzalez",
+    "idVendedor": "9b922eb4-33e8-4781-9863-c066992e1620",
+    "edicion": "1ra Edición",
+    "idioma": "Español",
+    "ubicacion": {
+      "ciudad": "",
+      "departamento": "",
+      "pais": ""
+    },
+    "tapa": "",
+    "edad": "",
+    "fechaPublicacion": "2024-11-23T18:01:19.800Z",
+    "actualizadoEn": "2024-11-23T18:01:56.356Z",
+    "disponibilidad": "Disponible",
+    "mensajes": []
+  },
+  {
+    "titulo": "Practical React Native",
+    "autor": "Frank Zammetti",
+    "precio": 30000,
+    "oferta": null,
+    "images": [
+      "1732389630602-769309831.png"
+    ],
+    "keywords": [],
+    "_id": "354037a6-232d-4f28-a2ab-df76dbd70a93",
+    "descripcion": "\"Practical React Native\" es un libro escrito por Frank Zammetti que ofrece una guía práctica y detallada sobre el desarrollo de aplicaciones móviles con React Native. Con explicaciones claras y ejemplos útiles, este libro es una herramienta imprescindible para aquellos que desean dominar esta tecnología y crear aplicaciones móviles de alta calidad de manera eficiente.",
+    "estado": "Nuevo",
+    "genero": "Amor",
+    "formato": "Físico",
+    "vendedor": "Mónica Tatiana Silva Gonzalez",
+    "idVendedor": "9b922eb4-33e8-4781-9863-c066992e1620",
+    "edicion": "",
+    "idioma": "",
+    "ubicacion": {
+      "ciudad": "",
+      "departamento": "",
+      "pais": ""
+    },
+    "tapa": "",
+    "edad": "",
+    "fechaPublicacion": "2024-11-23T19:20:30.241Z",
+    "actualizadoEn": "2024-11-23T19:21:19.492Z",
+    "disponibilidad": "Disponible",
+    "mensajes": []
   }
 ]

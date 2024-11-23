@@ -113,7 +113,38 @@ export class UsersController {
         user,
         SECRET_KEY,
         {
-          expiresIn: '1h'
+          expiresIn: '3h'
+        }
+      )
+      res
+        .cookie('access_token', token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'strict',
+          maxAge: 1000 * 60 * 60 * 3 // 3 horas
+        })
+        .send({ user })
+    } catch (err) {
+      console.error('Error leyendo usuario por correo:', err)
+      res.status(500).json({ error: 'Error leyendo usuario' })
+    }
+  }
+
+  static async googleLogin (req, res) {
+    try {
+      const data = req.body
+      // If there is a mail, no matter if is manually logged or google, the user is the same
+      const user = await UsersModel.googleLogin(data)
+      if (!user) {
+        return res.status(404).json({ error: 'Usuario no encontrado' })
+      }
+
+      // Token
+      const token = jwt.sign(
+        user,
+        SECRET_KEY,
+        {
+          expiresIn: '3h'
         }
       )
       res

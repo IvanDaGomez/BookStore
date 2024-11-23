@@ -8,6 +8,7 @@ usersRouter.get('/', UsersController.getAllUsersSafe) // R
 usersRouter.get('/:userId/photoAndName', UsersController.getPhotoAndNameUser) // R
 usersRouter.post('/', UsersController.createUser) // C
 usersRouter.post('/login', UsersController.login)
+usersRouter.post('/google-login', UsersController.googleLogin)
 usersRouter.post('/logout', UsersController.logout)
 usersRouter.post('/userSession', UsersController.userData)
 usersRouter.get('/query', UsersController.getUserByQuery)

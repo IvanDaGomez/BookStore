@@ -14,7 +14,7 @@
     "estadoCuenta": "activo",
     "fotoPerfil": "",
     "_id": "857857d1-afdd-411d-b41a-be427d1ff186",
-    "actualizadoEn": "2024-11-22T23:36:45.180Z",
+    "actualizadoEn": "2024-11-23T17:32:21.343Z",
     "direccionEnvio": {
       "calle": "",
       "ciudad": "",
@@ -24,13 +24,13 @@
     "favoritos": [
       "33e5e785-cb74-4f4a-9211-25f341b089b4",
       "3f7ab023-15e7-4626-8890-a71f4f2e221c",
-      "88c87f69-4b49-4633-bfba-cd3d29b1a21d",
       "3cd4d6ad-df7c-4e0f-beb9-394de48ce33d"
     ],
     "conversationsIds": [
       "49771105-55f6-4299-b18e-7500a26ed708",
       "cb9b4163-5992-484a-8792-a532436d24b3",
-      "53a0c585-1e65-401e-b08a-50080c08ffae"
+      "53a0c585-1e65-401e-b08a-50080c08ffae",
+      "3ea9ec9c-a1d7-4481-8c61-3590636e024c"
     ],
     "bio": "",
     "notificationsIds": [
@@ -56,8 +56,18 @@
       "c5744af3-e0c0-4660-8c69-c6866d2ce1e1",
       "80bb63d1-c6b7-4630-b1a5-7c53ac5ea5b1",
       "5a942255-88f2-40d6-923a-f848ca4ccf2d",
-      "e179fa72-cb34-4758-b8f8-1e3681205f3c"
-    ]
+      "e179fa72-cb34-4758-b8f8-1e3681205f3c",
+      "85e77c5e-c4e7-43b5-b83e-08d39f19f2b4",
+      "9e4864a5-a9f8-409f-b526-d1923fc4e781",
+      "59dd23ac-9a6d-425d-b159-5ead0353f7bc",
+      "e4b43cd5-cab5-4709-9299-cf5ddf40a1e8",
+      "fb91cbd0-e82b-4eee-95e0-71ef408eedc2",
+      "5c3d529a-2d34-4e50-8bb7-af3579c4dc5b",
+      "e21b407d-2f66-46ec-a8da-e69adc568e5d",
+      "fe536da9-c44d-4142-96a0-54bcfbcd1c3d"
+    ],
+    "validated": false,
+    "login": "default"
   },
   {
     "nombre": "Monica Silva",
@@ -83,10 +93,14 @@
       "codigoPostal": ""
     },
     "conversationsIds": [
-      "a6a3abf3-4cdf-4767-bfb9-3997dd5e2872"
+      "a6a3abf3-4cdf-4767-bfb9-3997dd5e2872",
+      "22d0264e-fd98-47b8-957e-9ffe599095ee"
     ],
     "bio": "",
-    "favoritos": []
+    "favoritos": [],
+    "notificationsIds": [],
+    "validated": false,
+    "login": "default"
   },
   {
     "nombre": "Alvaro Gómez",
@@ -112,7 +126,8 @@
       "codigoPostal": ""
     },
     "conversationsIds": [
-      "a1daa0dd-0598-4cbc-802a-df08d09c2d11"
+      "a1daa0dd-0598-4cbc-802a-df08d09c2d11",
+      "4e75b761-1d6c-4c9d-979a-10db354a2fe5"
     ],
     "bio": "",
     "favoritos": [],
@@ -127,13 +142,14 @@
       "964921ff-5f6f-46d3-898d-a31ca7f8b4ee",
       "3b519f1c-f0f1-4f90-810f-e3c04531dfcb",
       "9974b870-894c-4615-9d12-2a81fd259846"
-    ]
+    ],
+    "validated": false,
+    "login": "default"
   },
   {
     "nombre": "Ivan David Gomez",
     "librosIds": [
       "23768e73-2ee5-4134-961a-3c08bb3cad34",
-      "c9293f23-2a9f-4e76-93a3-d7404e9b01b6",
       "221f695c-69a3-4dee-98e1-0ab4565a734c"
     ],
     "correo": "ivandavidgomezsilva@gmail.com",
@@ -143,7 +159,7 @@
     "estadoCuenta": "activo",
     "fotoPerfil": "",
     "_id": "836e151b-43ae-48a0-8352-17ad309d8068",
-    "actualizadoEn": "2024-10-20T21:47:37.859Z",
+    "actualizadoEn": "2024-11-23T20:59:03.801Z",
     "direccionEnvio": {
       "ciudad": "Floridablanca",
       "pais": "Colombia",
@@ -185,5 +201,62 @@
     "conversationsIds": [],
     "bio": "",
     "favoritos": []
+  },
+  {
+    "_id": "9b922eb4-33e8-4781-9863-c066992e1620",
+    "nombre": "Mónica Tatiana Silva Gonzalez",
+    "fotoPerfil": "https://lh3.googleusercontent.com/a/ACg8ocJRYOwlVUqaL2BIEhhioeu8ebw2pQoxGNRTEi0zWgggkwj49lTzJg=s96-c",
+    "bio": "Esta es mi bio",
+    "favoritos": [
+      "ac6773d2-9166-4840-b5cd-995a49b19031"
+    ],
+    "conversationsIds": [
+      "3ea9ec9c-a1d7-4481-8c61-3590636e024c",
+      "4e75b761-1d6c-4c9d-979a-10db354a2fe5",
+      "22d0264e-fd98-47b8-957e-9ffe599095ee"
+    ],
+    "notificationsIds": [
+      "cce2b27f-1cb4-4c9b-b0c9-c3218ee34c72",
+      "aa308ab5-a97a-4632-8db8-36df21021089",
+      "6e5f8251-7645-4080-8bcb-6fdba4ee47dd",
+      "20f8c370-63b5-4a3f-a07e-5c90d4dbd39f",
+      "e1124bde-8766-42b4-b4be-5a966343bb3c",
+      "225a4fe8-16e5-4de1-981b-02ee03fc04a3",
+      "8cc1aa18-f7a6-4c9f-9560-6034b9b5aded",
+      "57bd6012-0d99-42a4-a3d4-df1afedf6595",
+      "f556d337-c849-40c9-83ed-0625a99451e3",
+      "6b80c9d4-31c6-42c3-8642-bfe75779eb79",
+      "321d0ac0-f433-40d2-96d5-7c7da18ec60d",
+      "0c0e8ec5-6158-422e-b87c-b482606646d9",
+      "99b83c94-6a41-4292-a00c-f899e3beb67e",
+      "9db665e0-71d3-4cfc-8d6e-8f41ea36af38",
+      "d00bf883-b1a7-4ace-a380-4c8722cd268d",
+      "804bfe82-ac6c-4a9a-bb85-dd5d8e92ba00",
+      "ce14ba68-9e51-4a44-8611-dfcaad326aff",
+      "7c442c77-551f-40cc-be43-e90e1ebf05ce",
+      "82876d48-df3a-40aa-8ca5-6d69b3efbfa8",
+      "4d5add57-9914-4b17-b9f8-06a02919e392",
+      "19fb4038-cc9b-45ea-9326-a3136ed128b6"
+    ],
+    "validated": false,
+    "login": "Google",
+    "correo": "monitatinet@gmail.com",
+    "actualizadoEn": "2024-11-23T18:58:46.412Z",
+    "librosIds": [
+      "8269ca96-ed27-4cb3-a919-8967d4f83e9a",
+      "354037a6-232d-4f28-a2ab-df76dbd70a93"
+    ]
+  },
+  {
+    "_id": "aa82633f-5fe9-459f-9c63-143e02a51e3e",
+    "nombre": "Wazaaa Gonzalez",
+    "fotoPerfil": "https://lh3.googleusercontent.com/a/ACg8ocJc9CNuKiFihP_AnNZRVdohp_Q5gOqG1Gc_xp9nCnAGJ3khFw=s96-c",
+    "bio": "",
+    "favoritos": [],
+    "conversationsIds": [],
+    "notificationsIds": [],
+    "validated": false,
+    "login": "Google",
+    "correo": "gonzalezwazaaa2@gmail.com"
   }
 ]

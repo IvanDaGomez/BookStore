@@ -2,6 +2,7 @@ import fs from 'node:fs/promises'
 import bcrypt from 'bcrypt'
 import { SALT_ROUNDS } from '../../../assets/config.js'
 import { levenshteinDistance } from '../../../assets/levenshteinDistance.js'
+import crypto from 'node:crypto'
 
 function userObject (name) {
   return {
@@ -15,7 +16,9 @@ function userObject (name) {
     bio: name.bio || '',
     favoritos: name.favoritos || [],
     conversationsIds: name.conversationsIds || [],
-    notificationsIds: name.notificationsIds || []
+    notificationsIds: name.notificationsIds || [],
+    validated: name.validated || false,
+    login: name.login || 'default'
     // Avoid exposing sensitive fields like password, email, etc.
   }
 }
@@ -180,6 +183,38 @@ class UsersModel {
     }
   }
 
+  static async googleLogin (data) {
+    try {
+      // Validate input data
+      if (!data.nombre || !data.correo) {
+        throw new Error('Invalid data: Email and name are required')
+      }
+
+      const users = await this.getAllUsers()
+
+      // Check if the user exists
+      const user = users.find(usuario => usuario.correo === data.correo)
+
+      if (!user) {
+        // Google sign-up flow
+        const newUser = userObject(data) // Ensure `userObject` sanitizes and structures the input
+        newUser.login = 'Google' // Mark this as a Google user
+        // userObject() elimina el correo y la contraseña (que no hay)
+        newUser.correo = data.correo
+
+        newUser._id = crypto.randomUUID()
+        users.push(newUser)
+        // Write the new user to the file
+        await fs.writeFile('./models/users.json', JSON.stringify(users, null, 2), 'utf8')
+        return newUser
+      }
+      return userObject(user)
+    } catch (err) {
+      console.error('Error handling Google login:', err.message || err)
+      throw new Error('An error occurred while processing your request')
+    }
+  }
+
   static async getUserByEmail (correo) {
     try {
       const users = await this.getAllUsers()
@@ -200,24 +235,7 @@ class UsersModel {
       const users = await this.getAllUsers()
 
       // Crear valores por defecto
-      const newUser = {
-        nombre: data.nombre, // Nombre proporcionado
-        librosIds: data.librosIds || [], // Asignar librosIds o array vacío por defecto
-        correo: data.correo, // Correo proporcionado
-        contraseña: data.contraseña, // Contraseña (asegúrate de encriptarla antes de guardarla)
-        rol: data.rol || 'usuario', // Rol por defecto 'usuario'
-        fechaRegistro: new Date().toISOString(), // Fecha actual (solo la fecha)
-        estadoCuenta: data.estadoCuenta || 'activo', // Estado por defecto 'activo'
-        fotoPerfil: data.fotoPerfil || '', // URL por defecto
-        _id: data._id, // Generar un ID único para el usuario
-        actualizadoEn: new Date().toISOString(), // Fecha y hora de actualización
-        direccionEnvio: data.direccionEnvio || { // Asignar dirección de envío o objeto vacío
-          calle: '',
-          ciudad: '',
-          pais: '',
-          codigoPostal: ''
-        }
-      }
+      const newUser = userObject(data)
 
       newUser.contraseña = await bcrypt.hash(newUser.contraseña, SALT_ROUNDS)
       users.push(newUser)
