@@ -5,6 +5,7 @@ import SideInfo from "../../components/sideInfo";
 import { useState, useEffect } from "react";
 import { makeCard, makeUpdateCard } from "../../assets/makeCard";
 import { useSearchParams, Link } from "react-router-dom";
+import Favorites from "./favorites";
 
 export default function Usuario() {
     const { idVendedor } = useParams();
@@ -14,6 +15,8 @@ export default function Usuario() {
     const [librosUsuario, setLibrosUsuario] = useState([]);
     const [dropdown, setDropdown] = useState(false);
     const [libroAEliminar, setLibroAEliminar] = useState(null);
+    // Si la url incluye 'Usuarios' renderizar mis libros
+    const [myPosts, setMyPosts] = useState(window.location.href.includes('usuarios')) 
 
     const [searchParams] = useSearchParams();
     const eliminar = searchParams.get('eliminar');
@@ -65,6 +68,7 @@ export default function Usuario() {
                         window.location.href = '/popUp/userNotFound';
                     }
                     const data = await response.json();
+                    console.log('Datos del usuario:', data)
                     setUsuario(data);
                     if (user){
                         if (data._id === user._id) {
@@ -138,6 +142,7 @@ export default function Usuario() {
     return (
         <>
             <Header />
+            <div className="userPageContainer">
             {dropdown && (
                 <>
                     <div className="dropdownBackground"></div>
@@ -153,6 +158,7 @@ export default function Usuario() {
                     </div>
                 </>
             )}
+            
             {usuario ? (
                 <div className="card-container">
                     <img
@@ -163,6 +169,7 @@ export default function Usuario() {
                         className="profile-image"
                     />
                     <div className="card-info">
+                        {console.log(usuario.nombre)}
                         <h1 className="name">{usuario.nombre}</h1>
                         <p>Libros publicados: {librosUsuario.length || 0}</p>
                         <p>Libros vendidos: {usuario?.librosVendidos || 0}</p>
@@ -184,12 +191,18 @@ export default function Usuario() {
             ) : (
                 <p>Cargando información del usuario...</p>
             )}
-
+            <div className="select">
+                <div onClick={()=> setMyPosts(true)} className={myPosts ? 'active': ''}>Mis libros</div>
+                <div onClick={()=> setMyPosts(false)} className={myPosts ? '': 'active'}>Mis favoritos</div>
+            </div>
             <div className="postsContainer">
+                {myPosts ? <>
                 {librosUsuario.map((libro, index) => (<>
                     {permisos ? makeUpdateCard(libro, index) : makeCard(libro, index)}                        
                     </>
-                ))}
+                ))}</>
+                : <Favorites/>}
+            </div>
             </div>
             <Footer />
             <SideInfo />

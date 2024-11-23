@@ -14,7 +14,7 @@
     "estadoCuenta": "activo",
     "fotoPerfil": "",
     "_id": "857857d1-afdd-411d-b41a-be427d1ff186",
-    "actualizadoEn": "2024-11-21T20:45:07.027Z",
+    "actualizadoEn": "2024-11-22T23:36:45.180Z",
     "direccionEnvio": {
       "calle": "",
       "ciudad": "",
@@ -22,15 +22,15 @@
       "codigoPostal": ""
     },
     "favoritos": [
-      "3c37ef91-d1bb-4c19-ad47-85b9fb147474",
       "33e5e785-cb74-4f4a-9211-25f341b089b4",
       "3f7ab023-15e7-4626-8890-a71f4f2e221c",
-      "ac6773d2-9166-4840-b5cd-995a49b19031",
-      "88c87f69-4b49-4633-bfba-cd3d29b1a21d"
+      "88c87f69-4b49-4633-bfba-cd3d29b1a21d",
+      "3cd4d6ad-df7c-4e0f-beb9-394de48ce33d"
     ],
     "conversationsIds": [
       "49771105-55f6-4299-b18e-7500a26ed708",
-      "cb9b4163-5992-484a-8792-a532436d24b3"
+      "cb9b4163-5992-484a-8792-a532436d24b3",
+      "53a0c585-1e65-401e-b08a-50080c08ffae"
     ],
     "bio": "",
     "notificationsIds": [
@@ -53,7 +53,10 @@
       "905912cd-6e01-488e-a174-e8c972302259",
       "676129eb-309e-4a4a-9a7a-dd131642970f",
       "ea794540-6667-4fd4-97c1-f5c9255c6bab",
-      "c5744af3-e0c0-4660-8c69-c6866d2ce1e1"
+      "c5744af3-e0c0-4660-8c69-c6866d2ce1e1",
+      "80bb63d1-c6b7-4630-b1a5-7c53ac5ea5b1",
+      "5a942255-88f2-40d6-923a-f848ca4ccf2d",
+      "e179fa72-cb34-4758-b8f8-1e3681205f3c"
     ]
   },
   {
@@ -155,9 +158,12 @@
         "codigoSeguridad": ""
       }
     ],
-    "conversationsIds": [],
+    "conversationsIds": [
+      "e51f7131-171d-4723-95a2-e6fea54890f5"
+    ],
     "bio": "",
-    "favoritos": []
+    "favoritos": [],
+    "notificationsIds": []
   },
   {
     "nombre": "Monica Silva",

@@ -1,9 +1,5 @@
 import { useState, useEffect } from "react";
-import Header from "../../components/header";
-import Footer from "../../components/footer";
-import SideInfo from "../../components/sideInfo";
-import { ToastContainer } from "react-toastify";
-import { makeCard, makeSmallCard } from "../../assets/makeCard";
+import { makeCard } from "../../assets/makeCard";
 export default function Favorites(){
 
     const [user, setUser] = useState(null);
@@ -58,24 +54,10 @@ useEffect(() => {
 }, [user]); // Se ejecuta cada vez que cambia el usuario
 
     return(<>
-    <Header/>
-    <div className="favoritesContainer">
-        <h1>Mis favoritos</h1>
-        <div className="postsContainer">
-                    {librosFavoritos && librosFavoritos.map((libro, index) => {
-                        user ? makeCard(libro, index, user._id):
-                        makeCard(libro, index)
-                    })}
-                </div>
-    </div>
-    <ToastContainer position="top-center"
-            autoClose={5000}
-            hideProgressBar={false}
-            pauseOnHover={false}
-            closeOnClick
-            theme="light"
-            />
-    <Footer/>
-    <SideInfo />
+        {librosFavoritos && librosFavoritos.filter(libro => !libro.error)
+            .map((libro, index) => (
+            makeCard(libro, index, user._id)
+        ))}
+            
     </>)
 }

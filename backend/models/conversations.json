@@ -32,5 +32,22 @@
       "_id": "4b0fd016-37e0-4ee9-be3f-8e42eb69a14f",
       "createdIn": "2024-11-04T01:42:49.353Z"
     }
+  },
+  {
+    "_id": "53a0c585-1e65-401e-b08a-50080c08ffae",
+    "users": [
+      "857857d1-afdd-411d-b41a-be427d1ff186",
+      "836e151b-43ae-48a0-8352-17ad309d8068"
+    ],
+    "messages": [],
+    "createdIn": "2024-11-22T22:56:33.857Z",
+    "lastMessage": {
+      "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+      "conversationId": "53a0c585-1e65-401e-b08a-50080c08ffae",
+      "message": "Hola buena tarde",
+      "read": false,
+      "_id": "916095c1-6057-4cd9-b840-fc15b4596503",
+      "createdIn": "2024-11-22T22:56:44.559Z"
+    }
   }
 ]

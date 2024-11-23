@@ -304,5 +304,38 @@
       "bookTitle": "El encuentro de cuatro imperios",
       "bookId": "78c534c0-2fa8-40d0-b72a-c5ee34d0a883"
     }
+  },
+  {
+    "_id": "5a942255-88f2-40d6-923a-f848ca4ccf2d",
+    "theme": "",
+    "title": "Tu pregunta ha sido respondida!",
+    "priority": "normal",
+    "type": "questionAnswered",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "Perfecto estado",
+    "createdIn": "2024-11-22T23:50:12.178Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/78c534c0-2fa8-40d0-b72a-c5ee34d0a883",
+    "expiresAt": "2024-12-22T23:50:12.178Z",
+    "metadata": {}
+  },
+  {
+    "_id": "e179fa72-cb34-4758-b8f8-1e3681205f3c",
+    "theme": "",
+    "title": "Tu pregunta ha sido respondida!",
+    "priority": "normal",
+    "type": "questionAnswered",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "Perfecto",
+    "createdIn": "2024-11-22T23:53:28.880Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/78c534c0-2fa8-40d0-b72a-c5ee34d0a883",
+    "expiresAt": "2024-12-22T23:53:28.880Z",
+    "metadata": {
+      "photo": "1732209737801-866528806.png",
+      "bookTitle": "El encuentro de cuatro imperios",
+      "bookId": "78c534c0-2fa8-40d0-b72a-c5ee34d0a883",
+      "question": "¿En qué estado se encuentra el producto?"
+    }
   }
 ]

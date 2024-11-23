@@ -1,6 +1,7 @@
+import { createNotification } from "./createNotification";
 import { formatDate } from "./formatDate"
 import { toast } from "react-toastify";
-function formatNotificationMessage(notification) {
+function SimpleNotification(notification) {
     const { type, title, createdIn, metadata} = notification;
 
     const typeMessages = {
@@ -30,8 +31,8 @@ function formatNotificationMessage(notification) {
     </>)
 }
 
-function formatNotificationMessageBig(notification) {
-    const { type, createdIn, metadata, actionUrl, read, input, _id } = notification;
+function DetailedNotification(notification) {
+    const { type, createdIn, metadata, userId, actionUrl, read, input, _id } = notification;
 
 
     const typeIcons = {
@@ -79,7 +80,7 @@ function formatNotificationMessageBig(notification) {
                     return
                 }
 
-                // Enviar notificación de vuelta al usuario
+                
                 const deleteUrl = `http://localhost:3030/api/notifications/${_id}`
                 const deleted = await fetch(deleteUrl, {
                     method: 'DELETE',
@@ -89,6 +90,23 @@ function formatNotificationMessageBig(notification) {
                     toast.error('No se pudo eliminar la notificación')
                     return
                 }
+                const notificationToSend = {
+                    title: 'Tu pregunta ha sido respondida!',
+                    priority: 'normal',
+                    type: 'questionAnswered',
+                    userId: userId,
+                    input: inputPregunta.value,
+                    actionUrl,
+                    metadata: {
+                        photo: metadata.photo,
+                        bookTitle: metadata.bookTitle,
+                        bookId: metadata.bookId,
+                        question: input
+                    }
+                }
+                // Enviar notificación de vuelta al usuario
+                createNotification(notificationToSend)
+
                 toast.success('Pregunta enviada exitosamente')
                 inputPregunta.value = ''
             } catch (error) {
@@ -116,8 +134,10 @@ function formatNotificationMessageBig(notification) {
                     </>
                 )}
                 </div>
-                {input && <div className="input">
+                {metadata?.question && <span><big>{metadata.question}</big></span> }
+                {(input) && <div className="input">
                     {type === 'bookRejected' && <>Razón: </>}{input}
+                    
                     </div>}
                 {["newQuestion"].includes(type) && <>
                 <div className="sendAnswer">
@@ -145,4 +165,4 @@ function formatNotificationMessageBig(notification) {
 }
 
 
-export {formatNotificationMessage, formatNotificationMessageBig}
+export {SimpleNotification, DetailedNotification}

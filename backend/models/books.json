@@ -371,7 +371,7 @@
     "tapa": "Dura",
     "edad": "Adulto",
     "fechaPublicacion": "2024-11-21T17:22:17.651Z",
-    "actualizadoEn": "2024-11-21T17:22:30.509Z",
+    "actualizadoEn": "2024-11-22T23:53:28.840Z",
     "disponibilidad": "Disponible",
     "formato": "Físico",
     "mensajes": [
@@ -382,7 +382,7 @@
       ],
       [
         "¿En qué estado se encuentra el producto?",
-        "En perfecto estado",
+        "Perfecto",
         "857857d1-afdd-411d-b41a-be427d1ff186"
       ],
       [
@@ -398,6 +398,16 @@
       [
         "Otra vez tu?",
         "",
+        "857857d1-afdd-411d-b41a-be427d1ff186"
+      ],
+      [
+        "Tienes otros libros de la saga?",
+        "No señor, solo tengo este libro",
+        "857857d1-afdd-411d-b41a-be427d1ff186"
+      ],
+      [
+        "Hay otras variantes??",
+        "No señor",
         "857857d1-afdd-411d-b41a-be427d1ff186"
       ]
     ]

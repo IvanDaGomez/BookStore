@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from 'react-router-dom';
 import { reduceText } from "../assets/reduceText";
 import { cambiarEspacioAGuiones } from "../assets/agregarMas";
-import { formatNotificationMessage } from "../assets/formatNotificationMessage";
+import { SimpleNotification } from "../assets/formatNotificationMessage";
 import axios from 'axios'
 //import useFetchUser from "../assets/useFetchUser";
 export default function Header() {
@@ -143,57 +143,18 @@ const openExtraInfo = async (str) => {
 
     const profileContainer = useRef(null);
 
-    // Volvio a funcionar debido al overflow de styles
-    // ajustar el perfil de top
-    function adjustTopProfile() {
-        //50 de AntesHeader + 90 de el header
-        let top;
-        
-        if (!profile) return
-        if (window.scrollY > 50) {
-
-            top =  90 +"px";
-            profileContainer.current.style.top = top
-
-        }
-        else {
-
-            top = 90 - window.scrollY + "px";
-            profileContainer.current.style.top = top;
-
-        }
-        return top
-    }
-     // useEffect to listen for the scroll event
-     useEffect(() => {
-        console.log(window.scrollY)
-        const handleScroll = () => {  
-          adjustTopProfile();
-        };
-  
-        if (profile) adjustTopProfile()
-        window.addEventListener('scroll', handleScroll);
-  
-        // Clean up event listener on component unmount
-        return () => {
-          window.removeEventListener('scroll', handleScroll);
-        };
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [profile]);
-      
     const openProfile = () => {
         setProfile(prevProfile => {
             const newProfileState = !prevProfile;
-            if (newProfileState) {
-                adjustTopProfile(); // Ajusta la posición si el perfil se va a mostrar
-            }
             return newProfileState;
         });
     };
+
     return (
         <>
 
             <header>
+                {user && console.log(user)}
                 <div className="flex-between">
                 <Link to="/">
                 <div className="headerIzq">
@@ -269,9 +230,15 @@ const openExtraInfo = async (str) => {
                             </div>
                         }
                     </div> 
-                    <Link to='/favoritos' style={{all:'inherit'}}><div className="heart"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#ffffff"} fill={"none"}>
+                    <Link to={`/favoritos/${user._id}`} style={{all:'inherit'}}>
+                    <div className="heart"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#ffffff"} fill={"none"}>
                             <path d="M19.4626 3.99415C16.7809 2.34923 14.4404 3.01211 13.0344 4.06801C12.4578 4.50096 12.1696 4.71743 12 4.71743C11.8304 4.71743 11.5422 4.50096 10.9656 4.06801C9.55962 3.01211 7.21909 2.34923 4.53744 3.99415C1.01807 6.15294 0.221721 13.2749 8.33953 19.2834C9.88572 20.4278 10.6588 21 12 21C13.3412 21 14.1143 20.4278 15.6605 19.2834C23.7783 13.2749 22.9819 6.15294 19.4626 3.99415Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                        </svg>
+                    </svg>
+                    {(user && user.favoritos.length !== 0) && 
+                        <div className="heartIconCount">
+                            {user.favoritos.length}
+                        </div>
+                    }
                     </div></Link></>}
                     <div className="profile" onClick={openProfile} >
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#000000"} fill={"none"}>
@@ -380,7 +347,7 @@ const openExtraInfo = async (str) => {
                 {notifications.slice(notifications.length - 4, notifications.length).map((notification, index) => (
                     <Link to={`/notificaciones/${notification._id}`} key={index}>
                         <div className="notificationElement">
-                            {formatNotificationMessage(notification)}
+                            {SimpleNotification(notification)}
                         </div>
                     </Link>
                 )).reverse()}

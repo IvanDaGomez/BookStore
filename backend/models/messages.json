@@ -22,5 +22,13 @@
     "conversationId": "cb9b4163-5992-484a-8792-a532436d24b3",
     "createdIn": "2024-11-04T01:42:49.353Z",
     "read": false
+  },
+  {
+    "_id": "916095c1-6057-4cd9-b840-fc15b4596503",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "message": "Hola buena tarde",
+    "conversationId": "53a0c585-1e65-401e-b08a-50080c08ffae",
+    "createdIn": "2024-11-22T22:56:44.559Z",
+    "read": false
   }
 ]

@@ -7,7 +7,6 @@ import Search from './routes/search/search.jsx'
 import Login from './routes/login/login.jsx'
 import CrearLibro from './routes/crearLibro/CrearLibro.jsx'
 import Usuario from './routes/usuarios/Usuario.jsx'
-import Favorites from './routes/favorites/favorites.jsx'
 import Mensajes from './routes/mensajes/mensajes.jsx'
 import BookView from './routes/bookView/bookView.jsx'
 import './index.css'
@@ -67,8 +66,8 @@ const router = createBrowserRouter([
     element: <Checkout />
   },
   {
-    path: '/favoritos', // My favorites
-    element: <Favorites />
+    path: '/favoritos/:idVendedor', // My favorites
+    element: <Usuario />
   },
   {
     path: '/mensajes', // Messages

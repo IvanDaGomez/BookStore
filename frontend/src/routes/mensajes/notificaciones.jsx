@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { formatDate } from "../../assets/formatDate";
 import { reduceText } from "../../assets/reduceText";
 import axios from "axios";
-import { formatNotificationMessageBig } from "../../assets/formatNotificationMessage";
+import { DetailedNotification } from "../../assets/formatNotificationMessage";
 /*
 {
     _id: data._id || '',
@@ -159,16 +159,17 @@ export default function Notificaciones() {
 
                             </h2>
                             </div>
+                            <span>{formatDate(notification?.createdIn) || ''}</span>
                             
-                            <span>{formatDate(notification.createdIn) || ''}</span>
                         </div>
                     )).reverse()}
             </div>
+            {console.log(activeNotification)}
             <div className="chat">
                 {/*Specific information for each notification */}
                 {activeNotification &&
                             <div className="messagesViewContainer" >
-                                <div className="otherMessage" style={{padding: '5px'}}>{formatNotificationMessageBig(activeNotification)}</div>                             
+                                <div className="otherMessage" style={{padding: '5px'}}>{DetailedNotification(activeNotification)}</div>                             
                             </div>
                 }
 

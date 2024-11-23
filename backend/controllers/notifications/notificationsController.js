@@ -95,8 +95,8 @@ export class NotificationsController {
     }
 
     const time = new Date()
-    data.createdIn = time
-    data.expiresAt = time.setDate(time.getDate() + 30)
+    data.createdIn = `${time.toISOString()}`
+    data.expiresAt = `${new Date(time.setDate(time.getDate() + 30)).toISOString()}`
     data.read = false
     // Crear el notificacion en la base de datos
     const notification = await NotificationsModel.createNotification(data)

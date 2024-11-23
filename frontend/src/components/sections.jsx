@@ -59,6 +59,8 @@ export default function Sections({ filter, backgroundColor }){
             });
         }
     }, [user, libros]); // Se ejecuta cada vez que se actualizan user o libros
+
+
     return(  <>
         <div style={{backgroundColor: {backgroundColor}, width:"auto", height:"auto"}}>
 

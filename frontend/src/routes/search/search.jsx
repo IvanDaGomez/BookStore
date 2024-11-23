@@ -130,17 +130,23 @@ export default function Search(){
     };
     
 
-      function aplicarFiltros(){
-        const keys = Object.keys(filtros)
-        const values = Object.values(filtros)
-        let filtersQuery = "";
-
-        for (let i = 0; i < keys.length; i++) {
-            filtersQuery += `&${keys[i]}=${encodeURIComponent(values[i])}`; // Construye la cadena de consulta
-        }
-        window.location.href = window.location.origin + "/buscar" + "?" + `q=${cambiarEspacioAGuiones(query)}` + cambiarEspacioAGuiones(filtersQuery)
+    function aplicarFiltros(){
+      const keys = Object.keys(filtros)
+      const values = Object.values(filtros)
+      let filtersQuery = "";
+      for (let i = 0; i < keys.length; i++) {
+          filtersQuery += `&${keys[i]}=${encodeURIComponent(values[i])}`; // Construye la cadena de consulta
       }
-
+      window.location.href = window.location.origin + "/buscar" + "?" + `q=${cambiarEspacioAGuiones(query)}` + cambiarEspacioAGuiones(filtersQuery)
+      
+    }
+    /*
+    const [params] = us
+    useEffect(()=>{
+      async function fetchFilters() {
+        const response = await fetch
+      }
+    },[]) */
       const [stars, setStars] = useState(params.get("calificacion")); // State to track the selected rating
 
       const handleStars = (index) => {
