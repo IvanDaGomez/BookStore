@@ -2689,7 +2689,8 @@ color: var(--using6);
   box-shadow: 0 0 8px var(--using4);
   border-radius: 0  5px 5px;
 }
-.postsContainer .sectionElement{
+/*Bug with the width*/
+.postsContainer *{
   width: 100%;
 }
 .editarOEliminar{
