@@ -62,6 +62,70 @@ export class BooksController {
     }
   }
 
+  static async getBooksByQueryWithFilters (req, res) {
+    // Destructure query parameters
+    let { categoria, ubicacion, edad, tapa, fechaPublicacion, idioma, estado, q, l } = req.query
+    // Apply the filter transformation (change hyphens to spaces)
+    categoria = cambiarGuionesAEspacio(categoria)
+    ubicacion = cambiarGuionesAEspacio(ubicacion)
+    edad = cambiarGuionesAEspacio(edad)
+    tapa = cambiarGuionesAEspacio(tapa)
+    fechaPublicacion = cambiarGuionesAEspacio(fechaPublicacion)
+    idioma = cambiarGuionesAEspacio(idioma)
+    estado = cambiarGuionesAEspacio(estado)
+
+    // Validate required query parameter "q"
+    if (!q) {
+      return res.status(400).json({ error: 'El parámetro de consulta "q" es requerido' })
+    }
+
+    // Set default pagination limit if not provided
+    l = parseInt(l) || 24 // Default to 24 if l is not a valid number
+
+    // Prepare filter object for query
+    const filterObj = {
+      categoria,
+      ubicacion,
+      edad,
+      tapa,
+      fechaPublicacion,
+      idioma,
+      estado
+    }
+
+    // Initialize the query object to search for books (adjust according to your database/model)
+    try {
+      // Build the query dynamically based on provided filters
+      const query = {
+        query: q,
+        where: {},
+        limit: l,
+        offset: 0 // Add offset if you want pagination support
+      }
+
+      // Add filters to the query where clause dynamically
+      Object.keys(filterObj).forEach((filterKey) => {
+        const value = filterObj[filterKey]
+        if (value) { // Only add filters with a truthy value
+          query.where[filterKey] = value
+        }
+      })
+      console.log(query)
+      const books = await BooksModel.getBooksByQueryWithFilters(query)
+
+      // If no books found
+      if (books.length === 0) {
+        return res.status(404).json({ message: 'No books found matching your filters.' })
+      }
+
+      // Return the books found
+      return res.status(200).json({ books })
+    } catch (error) {
+      console.error('Error fetching books:', error)
+      return res.status(500).json({ error: 'An error occurred while fetching the books.' })
+    }
+  }
+
   // Filtrar libros
   static async createBook (req, res) {
     const data = req.body

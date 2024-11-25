@@ -4,7 +4,7 @@
 :root {
 
   --using1: #ffffff; /* Background */
-  --using2: #8e8894; /* Lines, separators, scrollbars */
+  --using2: #b2afb4; /* Lines, separators, scrollbars */
   --using3: #000000; /* Text color */
   --using4: #42376E; /* Accent */
   --using5: #f4f0f0; /* Buttons, divs */
@@ -859,10 +859,10 @@ input:-internal-autofill-selected {
 .sectionsContainer{
   display: grid;
   grid-template-columns: repeat(6, 1fr);
-  gap:10px;
+  gap:1rem;
   align-items: stretch; /* Asegúrate de que todos los elementos tengan la misma altura */
-  min-height: 300px;
-  padding: 20px;
+  min-height: 30rem;
+  padding: 2rem;
   height:auto;
   isolation:isolate;
   position:relative;
@@ -970,9 +970,9 @@ input:-internal-autofill-selected {
 .favoritos.favoritoActivo path{
   stroke: none;
 }
-@media only screen and (min-width: 300px) {
-  .sectionElement{
-    
+@media only screen and (max-width: 850px) {
+  .sectionsContainer{
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
 /*--------------------------------SECTIONS HORIZONTAL-------------------*/
@@ -1172,19 +1172,20 @@ color: var(--using6);
   background: white;
   color: black;
   border-radius: 10px;
-  width: 300px;
+  width: min(300px, 100%);
   font-size: 2.5rem;
-  padding: 10px;
+  padding: 1.5rem;
   border-radius: 5px;
 }
+
 .brand p{
   font-size: 3rem;
 }
 .app-buttons {
   width: 80%;
   display: flex;
-  gap: 10px;
-  margin: 10px auto 0 auto;
+  gap: 1rem;
+  margin: 1rem auto 0 auto;
 }
 
 .app-button {
@@ -1232,24 +1233,28 @@ color: var(--using6);
   background-color: #4a90e2;
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding: 1rem 1.5rem;
   cursor: pointer;
   border-radius: 5px;
-  margin-left: 10px;
+  margin: 10px auto
 }
 
 .social-icons * {
   color: white;
-  font-size: 20px;
-  margin: 10px;
+  margin: 1rem;
   border-radius: 5px;
   cursor: pointer;
-  padding: 3px;
+  padding: 0.3rem;
   transition: all .3s ease-in-out;
 }
 
 
-
+@media only screen and (max-width:600px) {
+  .footer-content {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+}
 
 
 /*-----------------------------CONTENEDOR DE LOS LIBROS-------------------------*/

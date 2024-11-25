@@ -51,8 +51,11 @@ class BooksModel {
   }
 
   // Pendiente desarrollar, una buena query para buscar varios patrones
-  static async getBookByQuery (query, l) {
-    const books = await this.getAllBooks()
+  static async getBookByQuery (query, l, books = []) {
+    console.log(books)
+    if (books.length === 0) {
+      books = await this.getAllBooks()
+    }
     function changeToArray (element) {
       if (typeof element === 'string' && element.trim() !== '') {
         return element.split(' ').filter(Boolean)
@@ -109,6 +112,22 @@ class BooksModel {
 
     // Solo los datos del libro, no del puntaje
     return booksWithScores.map(item => item.book)
+  }
+
+  static async getBooksByQueryWithFilters (query) {
+    let books = await this.getAllBooks() // Fetch all books (local data)
+    if (Object.keys(query.where).length === 0) return []
+
+    books = books.filter((book) => {
+      return Object.keys(query.where).some(filter => book[filter] === query.where[filter])
+    })
+
+    // Perform search based on the query
+    books = await this.getBookByQuery(query.query, query.l, books)
+    if (books === undefined || !books) {
+      return []
+    }
+    return books
   }
 
   static async createBook (data) {

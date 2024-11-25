@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import { useParams, useSearchParams } from "react-router-dom"
 import SideInfo from "../../components/sideInfo.jsx"
@@ -34,7 +35,17 @@ export default function Search(){
       fetchUser(); // Llama a la función para obtener el usuario
   }, []); // Dependencias vacías para ejecutar solo una vez al montar el componente
     
-    const [params, setParams] = useSearchParams()
+    const [params] = useSearchParams()
+
+    const queryParams = {
+      categoria: params.get('Categoría'),
+      estado: params.get('Estado'),
+      ubicacion: params.get('Ubicación'),
+      edad: params.get('Edad'),
+      tapa: params.get('Tapa-dura-o-blanda'),
+      fechaPublicacion: params.get('Fecha-de-publicación'),
+      idioma: params.get('Idioma')
+    };
     const query = cambiarGuionesAEspacio(params.get("q"))
 
     //Si no hay q devolver a la pestaña de inicio
@@ -49,7 +60,8 @@ export default function Search(){
       async function fetchResults() {
         try {
           // Verificamos que la query no esté vacía o sea solo espacios
-          if (query && query.trim()) {
+          // Si hay un filtro no empleamos esta funcion
+          if (query && query.trim() && Object.values(queryParams).every(val => !val)) {
             const response = await fetch(`http://localhost:3030/api/books/query?q=${query}`, {
               method: 'GET',
               credentials: 'include',  // Enviar las cookies
@@ -140,20 +152,43 @@ export default function Search(){
       window.location.href = window.location.origin + "/buscar" + "?" + `q=${cambiarEspacioAGuiones(query)}` + cambiarEspacioAGuiones(filtersQuery)
       
     }
-
-    useEffect(()=>{
+    useEffect(() => {
       async function fetchFilters() {
-        const categoria = params.get('Categoría')
-        const estado = params.get('Estado')
-        const ubicacion = params.get('Ubicación')
-        const edad = params.get('Edad')
-        const tapa = params.get('Tapa-dura-o-blanda')
-        const fechaPublicacion = params.get('Fecha-de-publicación')
-        const idioma = params.get('Idioma')
-        //const response = await fetch
+        // Return early if no valid query or filter parameters are available
+        if (!query || Object.values(queryParams).every(val => !val)) return;
+    
+        // Create the URL search parameters object
+        const searchParams = new URLSearchParams();
+        searchParams.append('q', query);
+    
+        // Add valid filters to searchParams
+        Object.entries(queryParams).forEach(([param, value]) => {
+          if (value) { // Only add filters with a truthy value
+            searchParams.append(param, value);
+          }
+        });
+    
+        // Construct the full URL
+        const url = `http://localhost:3030/api/books/query/filters?${searchParams.toString()}`;
+    
+        try {
+          const response = await fetch(url);
+          const data = await response.json();
+          
+          if (data.error) {
+            console.error(data.error);
+            return;
+          }
+    
+          setResults(data.books || []);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
       }
-      fetchFilters()
-    },[params]) 
+    
+      fetchFilters();
+    }, [params, query]); // Ensure `queryParams` is also included in the dependencies
+    
       const [stars, setStars] = useState(params.get("calificacion")); // State to track the selected rating
 
       const handleStars = (index) => {
@@ -292,7 +327,7 @@ const ordenarFormas = {
   };
   const estados = {
     "Estado":"",
-    "Nuevo sellado": "",
+    "Nuevo": "",
     "Un solo uso":"",
     "Levemente usado":"",
     "Con detalles":""
@@ -398,7 +433,10 @@ const ordenarFormas = {
                         <div className="flex">Ordenar por{useBotonSelect(selectedOrdenarProps)}</div>
                     </div>
                 </div>
+                
                 <div className="numberPages separador" style={{display: (pageCount === 1)  ? "none":"flex"}}>
+                {results.length === 0 ? <h2>No hay resultados</h2>:    
+                
                             <p>
                                 <span onClick={reducirPagina} style={{filter: (currentPage === 1) ?"opacity(0.2)":"none"}}>{"< "}</span>
                                 {Array.from({ length: pageCount }, (_, i) => (
@@ -406,6 +444,7 @@ const ordenarFormas = {
                                 ))}
                                 <span onClick={aumentarPagina} style={{filter: (currentPage === pageCount) ?"opacity(0.2)":"none"}}>{" >"}</span>
                             </p>
+  }
                         </div>
                 <div className="resultados sectionsContainer" style={{ display: 'grid', gridTemplateColumns: grid }}>
                 
@@ -415,13 +454,15 @@ const ordenarFormas = {
                 {optionalSpace}
                 </div>
                 <div className="numberPages separador" style={{display: (pageCount === 1)  ? "none":"flex"}}>
-                <p>
-                    <span onClick={reducirPagina} style={{filter: (currentPage === 1) ?"opacity(0.2)":"none"}}>{"< "}</span>
-                    {Array.from({ length: pageCount }, (_, i) => (
-                    <span key={i} onClick={() => setCurrentPage(i + 1)} style={{fontWeight: (i + 1 === currentPage)? "700": ""}}>{i + 1}  </span>
-                    ))}
-                    <span  onClick={aumentarPagina} style={{filter: (currentPage === pageCount) ?"opacity(0.2)":"none"}}>{" >"}</span>
-                </p>
+                {results.length !== 0 &&
+                  <p>
+                      <span onClick={reducirPagina} style={{filter: (currentPage === 1) ?"opacity(0.2)":"none"}}>{"< "}</span>
+                      {Array.from({ length: pageCount }, (_, i) => (
+                      <span key={i} onClick={() => setCurrentPage(i + 1)} style={{fontWeight: (i + 1 === currentPage)? "700": ""}}>{i + 1}  </span>
+                      ))}
+                      <span  onClick={aumentarPagina} style={{filter: (currentPage === pageCount) ?"opacity(0.2)":"none"}}>{" >"}</span>
+                  </p>
+                }
                 </div>
             </div>
         </div>

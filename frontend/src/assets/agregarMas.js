@@ -5,6 +5,7 @@ function cambiarEspacioAGuiones(input) {
 
 // Devuelve guiones a espacios
 function cambiarGuionesAEspacio(input) {
+    if (input === undefined) return ''
     return input.replace(/-/g, ' ');
 }
 
