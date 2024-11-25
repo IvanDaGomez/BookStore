@@ -243,8 +243,8 @@ export default function Search(){
 const ordenarFormas = {
     "Seleccionar": true,
     "Menor Precio": (a, b) => a.precio - b.precio,   // Ordenar de menor a mayor precio
-    "Mayor Precio": (a, b) => b.precio - a.precio,    // Ordenar de mayor a menor precio
-    "Orden Alfabético": (a, b) => a.titulo.localeCompare(b.titulo) // Ordenar alfabéticamente por nombre
+    "Mayor Precio": (a, b) => b.precio - a.precio    // Ordenar de mayor a menor precio
+
   };
   
   
@@ -350,57 +350,68 @@ const ordenarFormas = {
     "Tapa dura":"",
     "Tapa blanda":""
   }
+  const ancho = '200px'
   const categoriaProps = {
     formas: categorias,
-    ...configuracionFiltros("15vw")
+    ...configuracionFiltros(ancho)
   }
   const estadoProps = {
     formas: estados,
-    ...configuracionFiltros("15vw")
+    ...configuracionFiltros(ancho)
   }
   const edadProps = {
     formas:edades,
-    ...configuracionFiltros("15vw")
+    ...configuracionFiltros(ancho)
   }
   const fechaPublicacionProps = {
     formas : fechaPublicacion,
-    ...configuracionFiltros("15vw")
+    ...configuracionFiltros(ancho)
   }
   const tapaProps = {
     formas: tapa, 
-    ...configuracionFiltros("15vw")
+    ...configuracionFiltros(ancho)
   }
   const [filtersOpen, setFiltersOpen] = useState(true)
   function handleOpenFilters() {
     const arrow = document.querySelector('.flecha')
     const resultadosYMasFiltros = document.querySelector('.resultadosYMasFiltros')
     const masFiltros = document.querySelector('.masFiltros')
+    const phoneBreakPoint = window.innerWidth >= 600
     // if filters are open close them
     if (filtersOpen) {
-      arrow.style.left = '0px'
-      resultadosYMasFiltros.style.transform = 'translateX(calc(-20vw + 10vw))'
-      resultadosYMasFiltros.style.width = '100vw'
+      arrow.style.left = '-7rem'
       masFiltros.style.transform = 'translateX(-20vw)'
-      
       arrow.querySelector('svg').style.transform = 'rotate(0deg)'
+      if (phoneBreakPoint) {
+        resultadosYMasFiltros.style.transform = 'translateX(calc(-20vw + 10vw))'
+        resultadosYMasFiltros.style.width = '100vw'
+      }
+      
+      
     }
     // open them
     else {
-      arrow.style.left = '20vw'
-      resultadosYMasFiltros.style.transform = 'translateX(0)'
-      resultadosYMasFiltros.style.width = '80vw'
+      arrow.style.left = 'calc(20vw - 7rem)'
       masFiltros.style.transform = 'translateX(0)'
       arrow.querySelector('svg').style.transform = 'rotate(180deg)'
+      if (phoneBreakPoint) {
+        resultadosYMasFiltros.style.transform = 'translateX(0)'
+        resultadosYMasFiltros.style.width = '80vw'
+      }
     }
     setFiltersOpen(!filtersOpen)
   }
+  useEffect(()=>{
+    handleOpenFilters()
+
+  },[])
     return(
         <>
         <Header />
         <div><h1>Resultados</h1></div>
         <div className="flecha" onClick={handleOpenFilters}>
       Filtrar
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={'2rem'} height={'2rem'} color={"#000000"} fill={"none"}>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={25} height={25} color={"#000000"} fill={"none"}>
     <path d="M9.00005 6C9.00005 6 15 10.4189 15 12C15 13.5812 9 18 9 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
 </svg>
       </div> 
@@ -427,8 +438,14 @@ const ordenarFormas = {
                 <div className="separar">
                     <h2>{results.length} resultados</h2>
                     <div className="flex" >
-                        <div className="layout"><svg onClick={()=> { setGrid("1fr"); localStorage.setItem("grid", "1fr")}} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#000000"} fill={"none"}><path d="M20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28248 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12C2.5 7.52166 2.5 5.28248 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /><path d="M21.5 8.5L2.5 8.5" stroke="currentColor" strokeWidth="1.5" /><path d="M21.5 15.5L2.5 15.5" stroke="currentColor" strokeWidth="1.5" /></svg></div>
-                        <div className="layout"><svg onClick={()=> { setGrid("1fr 1fr 1fr 1fr"); localStorage.setItem("grid", "1fr 1fr 1fr 1fr")}} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#000000"} fill={"none"}><path d="M2 18C2 16.4596 2 15.6893 2.34673 15.1235C2.54074 14.8069 2.80693 14.5407 3.12353 14.3467C3.68934 14 4.45956 14 6 14C7.54044 14 8.31066 14 8.87647 14.3467C9.19307 14.5407 9.45926 14.8069 9.65327 15.1235C10 15.6893 10 16.4596 10 18C10 19.5404 10 20.3107 9.65327 20.8765C9.45926 21.1931 9.19307 21.4593 8.87647 21.6533C8.31066 22 7.54044 22 6 22C4.45956 22 3.68934 22 3.12353 21.6533C2.80693 21.4593 2.54074 21.1931 2.34673 20.8765C2 20.3107 2 19.5404 2 18Z" stroke="currentColor" strokeWidth="1.5" /><path d="M14 18C14 16.4596 14 15.6893 14.3467 15.1235C14.5407 14.8069 14.8069 14.5407 15.1235 14.3467C15.6893 14 16.4596 14 18 14C19.5404 14 20.3107 14 20.8765 14.3467C21.1931 14.5407 21.4593 14.8069 21.6533 15.1235C22 15.6893 22 16.4596 22 18C22 19.5404 22 20.3107 21.6533 20.8765C21.4593 21.1931 21.1931 21.4593 20.8765 21.6533C20.3107 22 19.5404 22 18 22C16.4596 22 15.6893 22 15.1235 21.6533C14.8069 21.4593 14.5407 21.1931 14.3467 20.8765C14 20.3107 14 19.5404 14 18Z" stroke="currentColor" strokeWidth="1.5" /><path d="M2 6C2 4.45956 2 3.68934 2.34673 3.12353C2.54074 2.80693 2.80693 2.54074 3.12353 2.34673C3.68934 2 4.45956 2 6 2C7.54044 2 8.31066 2 8.87647 2.34673C9.19307 2.54074 9.45926 2.80693 9.65327 3.12353C10 3.68934 10 4.45956 10 6C10 7.54044 10 8.31066 9.65327 8.87647C9.45926 9.19307 9.19307 9.45926 8.87647 9.65327C8.31066 10 7.54044 10 6 10C4.45956 10 3.68934 10 3.12353 9.65327C2.80693 9.45926 2.54074 9.19307 2.34673 8.87647C2 8.31066 2 7.54044 2 6Z" stroke="currentColor" strokeWidth="1.5" /><path d="M14 6C14 4.45956 14 3.68934 14.3467 3.12353C14.5407 2.80693 14.8069 2.54074 15.1235 2.34673C15.6893 2 16.4596 2 18 2C19.5404 2 20.3107 2 20.8765 2.34673C21.1931 2.54074 21.4593 2.80693 21.6533 3.12353C22 3.68934 22 4.45956 22 6C22 7.54044 22 8.31066 21.6533 8.87647C21.4593 9.19307 21.1931 9.45926 20.8765 9.65327C20.3107 10 19.5404 10 18 10C16.4596 10 15.6893 10 15.1235 9.65327C14.8069 9.45926 14.5407 9.19307 14.3467 8.87647C14 8.31066 14 7.54044 14 6Z" stroke="currentColor" strokeWidth="1.5" /></svg></div>
+                        <div className="layout"><svg onClick={()=> { 
+                          setGrid("1fr"); 
+                          localStorage.setItem("grid", "1fr")
+                        }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#000000"} fill={"none"}><path d="M20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28248 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12C2.5 7.52166 2.5 5.28248 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /><path d="M21.5 8.5L2.5 8.5" stroke="currentColor" strokeWidth="1.5" /><path d="M21.5 15.5L2.5 15.5" stroke="currentColor" strokeWidth="1.5" /></svg></div>
+                        <div className="layout"><svg onClick={()=> { 
+                          setGrid("1fr 1fr 1fr 1fr"); 
+                          localStorage.setItem("grid", "1fr 1fr 1fr 1fr")
+                          }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#000000"} fill={"none"}><path d="M2 18C2 16.4596 2 15.6893 2.34673 15.1235C2.54074 14.8069 2.80693 14.5407 3.12353 14.3467C3.68934 14 4.45956 14 6 14C7.54044 14 8.31066 14 8.87647 14.3467C9.19307 14.5407 9.45926 14.8069 9.65327 15.1235C10 15.6893 10 16.4596 10 18C10 19.5404 10 20.3107 9.65327 20.8765C9.45926 21.1931 9.19307 21.4593 8.87647 21.6533C8.31066 22 7.54044 22 6 22C4.45956 22 3.68934 22 3.12353 21.6533C2.80693 21.4593 2.54074 21.1931 2.34673 20.8765C2 20.3107 2 19.5404 2 18Z" stroke="currentColor" strokeWidth="1.5" /><path d="M14 18C14 16.4596 14 15.6893 14.3467 15.1235C14.5407 14.8069 14.8069 14.5407 15.1235 14.3467C15.6893 14 16.4596 14 18 14C19.5404 14 20.3107 14 20.8765 14.3467C21.1931 14.5407 21.4593 14.8069 21.6533 15.1235C22 15.6893 22 16.4596 22 18C22 19.5404 22 20.3107 21.6533 20.8765C21.4593 21.1931 21.1931 21.4593 20.8765 21.6533C20.3107 22 19.5404 22 18 22C16.4596 22 15.6893 22 15.1235 21.6533C14.8069 21.4593 14.5407 21.1931 14.3467 20.8765C14 20.3107 14 19.5404 14 18Z" stroke="currentColor" strokeWidth="1.5" /><path d="M2 6C2 4.45956 2 3.68934 2.34673 3.12353C2.54074 2.80693 2.80693 2.54074 3.12353 2.34673C3.68934 2 4.45956 2 6 2C7.54044 2 8.31066 2 8.87647 2.34673C9.19307 2.54074 9.45926 2.80693 9.65327 3.12353C10 3.68934 10 4.45956 10 6C10 7.54044 10 8.31066 9.65327 8.87647C9.45926 9.19307 9.19307 9.45926 8.87647 9.65327C8.31066 10 7.54044 10 6 10C4.45956 10 3.68934 10 3.12353 9.65327C2.80693 9.45926 2.54074 9.19307 2.34673 8.87647C2 8.31066 2 7.54044 2 6Z" stroke="currentColor" strokeWidth="1.5" /><path d="M14 6C14 4.45956 14 3.68934 14.3467 3.12353C14.5407 2.80693 14.8069 2.54074 15.1235 2.34673C15.6893 2 16.4596 2 18 2C19.5404 2 20.3107 2 20.8765 2.34673C21.1931 2.54074 21.4593 2.80693 21.6533 3.12353C22 3.68934 22 4.45956 22 6C22 7.54044 22 8.31066 21.6533 8.87647C21.4593 9.19307 21.1931 9.45926 20.8765 9.65327C20.3107 10 19.5404 10 18 10C16.4596 10 15.6893 10 15.1235 9.65327C14.8069 9.45926 14.5407 9.19307 14.3467 8.87647C14 8.31066 14 7.54044 14 6Z" stroke="currentColor" strokeWidth="1.5" /></svg></div>
                         {/*<div className="layout"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#ffffff"} fill={"none"}><path d="M20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28249 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12C2.5 7.52166 2.5 5.28249 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /><path d="M8.5 2.5V21.5" stroke="currentColor" strokeWidth="1.5" /><path d="M15.5 2.5V21.5" stroke="currentColor" strokeWidth="1.5" /></svg></div>*/}
                         <div className="flex">Ordenar por{useBotonSelect(selectedOrdenarProps)}</div>
                     </div>

@@ -110,7 +110,7 @@ export class BooksController {
           query.where[filterKey] = value
         }
       })
-      console.log(query)
+
       const books = await BooksModel.getBooksByQueryWithFilters(query)
 
       // If no books found

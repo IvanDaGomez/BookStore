@@ -1816,20 +1816,35 @@ form{
   align-items: flex-start;
 }
 .flecha{
-  width: 60px;
+  width: auto;
   position: fixed;
-  left: 0;
-  top: 153px;
+  left: -7rem;
+  top: 173px;
   padding: 3px;
+  padding-left: 7px;
   background: white;
   border: 1px solid var(--using2);
-  transform: translateY(20px);
   display: flex;
   justify-content: center;
   align-items: center;
   transition: all .3s ease-in-out;
-  z-index: 100;
+  z-index: 10;
   cursor: pointer;
+  animation: look 3s ease-in-out 2s 1 ;
+}
+@keyframes look {
+  0% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(7rem);
+  }
+  60% {
+    transform: translateX(7rem);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }
 .noMargen{
   margin: 10px 0 0 0;
@@ -1853,7 +1868,8 @@ form{
   align-items:start;
   flex-direction:column;
   transition: all .3s ease-in-out;
-  /*transform: translateX(-20vw);*/
+  z-index: 11;
+  transform: translateX(-20vw);
 }
 
 .masFiltros *{
@@ -1974,8 +1990,9 @@ input[type="range"]::-moz-range-thumb{
   height:100%;
   padding: 10px ;
   transition: all .3s ease-in-out;
-  /*width: 100vw;
-  transform: translateX(calc(-20vw + 10px));*/
+  transform: translateX(calc(-20vw + 10vw));
+  width: 100vw;
+  
 }
 .resultadosContainer .resultadosYMasFiltros .separar{
   display: flex;
