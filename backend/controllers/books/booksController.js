@@ -205,7 +205,7 @@ export class BooksController {
       if (!existingBook) {
         return res.status(404).json({ error: 'Libro no encontrado' })
       }
-      console.log('Paso')
+
       // Asegúrate de que los precios y ofertas sean números
       if (data.oferta) data.oferta = parseInt(data.oferta)
       if (data.precio) data.precio = parseInt(data.precio)
@@ -224,12 +224,11 @@ export class BooksController {
       if (!validated.success) {
         return res.status(400).json({ error: validated.error.errors })
       }
-      console.log('Validado')
+
       // Manejo del mensaje
       if (data.mensaje && data.tipo) {
         // Inicializa el array de mensajes si no existe
         const messagesArray = existingBook.mensajes || []
-
         if (data.tipo === 'pregunta') {
           // Verifica si la pregunta ya existe
           const questionIndex = messagesArray.findIndex(item => item[0] === data.mensaje)
@@ -272,31 +271,32 @@ export class BooksController {
         return res.status(404).json({ error: 'Libro no encontrado o no actualizado' })
       }
 
-      // Crear notificación
+      // Crear notificación si no es una pregunta
+      if (!data.mensaje && !data.tipo) {
+        const notificationUrl = 'http://localhost:3030/api/notifications/'
+        const response = await fetch(notificationUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
 
-      const notificationUrl = 'http://localhost:3030/api/notifications/'
-      const response = await fetch(notificationUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-
-          title: 'Tu libro ha sido actualizado con éxito',
-          priority: 'high',
-          type: 'bookUpdated',
-          userId: data.idVendedor,
-          read: false,
-          actionUrl: `http://localhost:5173/libros/${data._id}`,
-          metadata: data.metadata || {
-            photo: data.images[0],
-            bookTitle: data.titulo,
-            bookId: data._id
-          }
+            title: 'Tu libro ha sido actualizado con éxito',
+            priority: 'high',
+            type: 'bookUpdated',
+            userId: data.idVendedor,
+            read: false,
+            actionUrl: `http://localhost:5173/libros/${data._id}`,
+            metadata: data.metadata || {
+              photo: data.images[0],
+              bookTitle: data.titulo,
+              bookId: data._id
+            }
+          })
         })
-      })
-      if (!response.ok) {
-        return res.send({ error: 'Error creando notificación' })
+        if (!response.ok) {
+          return res.send({ error: 'Error creando notificación' })
+        }
       }
       res.status(200).json(book)
     } catch (err) {

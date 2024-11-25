@@ -38,5 +38,21 @@
     "conversationId": "3073a7f2-7bee-4120-916d-c1b972d11c99",
     "createdIn": "2024-11-23T21:20:19.706Z",
     "read": false
+  },
+  {
+    "_id": "acaf5115-f6b7-449d-8296-e7ad15e09dd3",
+    "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
+    "message": "Hola",
+    "conversationId": "3073a7f2-7bee-4120-916d-c1b972d11c99",
+    "createdIn": "2024-11-23T21:22:37.383Z",
+    "read": false
+  },
+  {
+    "_id": "9c79bd56-a279-4390-b803-f4a52a8758f2",
+    "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
+    "message": "Hola alvaro",
+    "conversationId": "4e75b761-1d6c-4c9d-979a-10db354a2fe5",
+    "createdIn": "2024-11-24T00:35:04.287Z",
+    "read": false
   }
 ]

@@ -67,7 +67,10 @@
       "fb91cbd0-e82b-4eee-95e0-71ef408eedc2",
       "5c3d529a-2d34-4e50-8bb7-af3579c4dc5b",
       "e21b407d-2f66-46ec-a8da-e69adc568e5d",
-      "fe536da9-c44d-4142-96a0-54bcfbcd1c3d"
+      "fe536da9-c44d-4142-96a0-54bcfbcd1c3d",
+      "734d22db-c692-4be2-8a9a-a7a1a3c15fa6",
+      "7e2fc170-021c-4101-a07c-4a3f37762c0e",
+      "64bd9da0-2cf4-4a18-82d6-3ac7bdc13d20"
     ],
     "validated": false,
     "login": "default"
@@ -101,7 +104,10 @@
     ],
     "bio": "",
     "favoritos": [],
-    "notificationsIds": [],
+    "notificationsIds": [
+      "484ec389-f6ec-4dc0-ac3f-fe1e391e458a",
+      "51390817-4724-445a-98e1-7c40eac0892c"
+    ],
     "validated": false,
     "login": "default"
   },
@@ -211,7 +217,8 @@
     "fotoPerfil": "https://lh3.googleusercontent.com/a/ACg8ocJRYOwlVUqaL2BIEhhioeu8ebw2pQoxGNRTEi0zWgggkwj49lTzJg=s96-c",
     "bio": "Esta es mi bio",
     "favoritos": [
-      "ac6773d2-9166-4840-b5cd-995a49b19031"
+      "ac6773d2-9166-4840-b5cd-995a49b19031",
+      "88c87f69-4b49-4633-bfba-cd3d29b1a21d"
     ],
     "conversationsIds": [
       "3ea9ec9c-a1d7-4481-8c61-3590636e024c",
@@ -242,12 +249,13 @@
       "7c442c77-551f-40cc-be43-e90e1ebf05ce",
       "82876d48-df3a-40aa-8ca5-6d69b3efbfa8",
       "4d5add57-9914-4b17-b9f8-06a02919e392",
-      "19fb4038-cc9b-45ea-9326-a3136ed128b6"
+      "19fb4038-cc9b-45ea-9326-a3136ed128b6",
+      "d6b7ee42-ae3d-450e-9690-4f18235bd01a"
     ],
     "validated": false,
     "login": "Google",
     "correo": "monitatinet@gmail.com",
-    "actualizadoEn": "2024-11-23T18:58:46.412Z",
+    "actualizadoEn": "2024-11-24T00:37:34.562Z",
     "librosIds": [
       "8269ca96-ed27-4cb3-a919-8967d4f83e9a",
       "354037a6-232d-4f28-a2ab-df76dbd70a93"

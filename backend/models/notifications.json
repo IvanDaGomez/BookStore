@@ -488,7 +488,7 @@
     "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
     "input": "",
     "createdIn": "2024-11-23T19:21:19.558Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/libros/354037a6-232d-4f28-a2ab-df76dbd70a93",
     "expiresAt": "2024-12-23T19:21:19.558Z",
     "metadata": {
@@ -506,7 +506,7 @@
     "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
     "input": "",
     "createdIn": "2024-11-23T19:31:36.822Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/libros/2eb9dace-5caf-4db1-9fd1-e1916511f3cc",
     "expiresAt": "2024-12-23T19:31:36.822Z",
     "metadata": {
@@ -542,7 +542,7 @@
     "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
     "input": "",
     "createdIn": "2024-11-23T20:20:23.370Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/libros/undefined",
     "expiresAt": "2024-12-23T20:20:23.370Z",
     "metadata": {
@@ -576,7 +576,7 @@
     "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
     "input": "",
     "createdIn": "2024-11-23T20:23:51.433Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/libros/undefined",
     "expiresAt": "2024-12-23T20:23:51.433Z",
     "metadata": {
@@ -627,7 +627,7 @@
     "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
     "input": "",
     "createdIn": "2024-11-23T20:24:05.101Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/libros/undefined",
     "expiresAt": "2024-12-23T20:24:05.101Z",
     "metadata": {
@@ -713,7 +713,7 @@
     "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
     "input": "",
     "createdIn": "2024-11-23T20:32:35.307Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/libros/54518c3c-68c7-49e1-8a8f-08dcaf6e7986",
     "expiresAt": "2024-12-23T20:32:35.307Z",
     "metadata": {
@@ -783,7 +783,7 @@
     "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
     "input": "",
     "createdIn": "2024-11-23T20:35:40.554Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/libros/undefined",
     "expiresAt": "2024-12-23T20:35:40.554Z",
     "metadata": {
@@ -841,6 +841,114 @@
       "photo": "1732394374941-45725469.png",
       "bookTitle": "Practical React Native",
       "bookId": "bef7a2af-2bfa-467b-a0f9-2c50f5fa4a52"
+    }
+  },
+  {
+    "_id": "d6b7ee42-ae3d-450e-9690-4f18235bd01a",
+    "theme": "",
+    "title": "Tu libro ha sido rechazado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
+    "input": "La foto no coincide con el libro",
+    "createdIn": "2024-11-24T00:31:41.985Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/61e8e17b-a771-47c5-bf11-410f0d359c9e",
+    "expiresAt": "2024-12-24T00:31:41.985Z",
+    "metadata": {
+      "photo": "1732408204688-972118118.png",
+      "bookTitle": "La metamorfosis",
+      "bookId": "61e8e17b-a771-47c5-bf11-410f0d359c9e"
+    }
+  },
+  {
+    "_id": "484ec389-f6ec-4dc0-ac3f-fe1e391e458a",
+    "theme": "",
+    "title": "Tienes una nueva pregunta",
+    "priority": "normal",
+    "type": "newQuestion",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "¿En qué estado se encuentra el producto?",
+    "createdIn": "2024-11-24T12:07:30.663Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/9f8eae32-d2c3-4739-87e5-4c95dc1a665c",
+    "expiresAt": "2024-12-24T12:07:30.663Z",
+    "metadata": {
+      "photo": "1729452808628-497173399.png",
+      "bookTitle": "Deja de ser tú",
+      "bookId": "9f8eae32-d2c3-4739-87e5-4c95dc1a665c"
+    }
+  },
+  {
+    "_id": "51390817-4724-445a-98e1-7c40eac0892c",
+    "theme": "",
+    "title": "Tienes una nueva pregunta",
+    "priority": "normal",
+    "type": "newQuestion",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "¿Qué métodos de pago aceptan?",
+    "createdIn": "2024-11-24T12:08:02.298Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/9f8eae32-d2c3-4739-87e5-4c95dc1a665c",
+    "expiresAt": "2024-12-24T12:08:02.298Z",
+    "metadata": {
+      "photo": "1729452808628-497173399.png",
+      "bookTitle": "Deja de ser tú",
+      "bookId": "9f8eae32-d2c3-4739-87e5-4c95dc1a665c"
+    }
+  },
+  {
+    "_id": "734d22db-c692-4be2-8a9a-a7a1a3c15fa6",
+    "theme": "",
+    "title": "Tienes una nueva pregunta",
+    "priority": "normal",
+    "type": "newQuestion",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "¿Cuál es el costo del producto?",
+    "createdIn": "2024-11-24T12:11:43.878Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/31d52487-f746-4951-bf11-7b41febea0a9",
+    "expiresAt": "2024-12-24T12:11:43.878Z",
+    "metadata": {
+      "photo": "1732197120267-615755189.png",
+      "bookTitle": "El libro de Bill",
+      "bookId": "31d52487-f746-4951-bf11-7b41febea0a9"
+    }
+  },
+  {
+    "_id": "7e2fc170-021c-4101-a07c-4a3f37762c0e",
+    "theme": "",
+    "title": "Tienes una nueva pregunta",
+    "priority": "normal",
+    "type": "newQuestion",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "¿En qué estado se encuentra el producto?",
+    "createdIn": "2024-11-25T20:43:01.998Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/78c534c0-2fa8-40d0-b72a-c5ee34d0a883",
+    "expiresAt": "2024-12-25T20:43:01.998Z",
+    "metadata": {
+      "photo": "1732390286751-856618092.png",
+      "bookTitle": "El encuentro de cuatro imperios",
+      "bookId": "78c534c0-2fa8-40d0-b72a-c5ee34d0a883"
+    }
+  },
+  {
+    "_id": "64bd9da0-2cf4-4a18-82d6-3ac7bdc13d20",
+    "theme": "",
+    "title": "Tienes una nueva pregunta",
+    "priority": "normal",
+    "type": "newQuestion",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "¿Cómo puedo hacer una devolución?",
+    "createdIn": "2024-11-25T20:44:48.229Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/78c534c0-2fa8-40d0-b72a-c5ee34d0a883",
+    "expiresAt": "2024-12-25T20:44:48.229Z",
+    "metadata": {
+      "photo": "1732390286751-856618092.png",
+      "bookTitle": "El encuentro de cuatro imperios",
+      "bookId": "78c534c0-2fa8-40d0-b72a-c5ee34d0a883"
     }
   }
 ]

@@ -103,6 +103,29 @@ export default function BookView() {
         
 
     },[libro])
+    useEffect(() => {
+        const handleHashChange = () => {
+            if (window.location.hash === '#comments') {
+                console.log('AAAAAAAAAAAAAAAAa')
+                const comments = document.querySelector('#comments')
+                
+                if (comments) {
+                    console.log(comments)
+                    setTimeout(window.scrollTo(0, comments.style.top), 300)
+                }
+
+            }
+        };
+
+        // Verificar si ya estamos en el hash al montar el componente
+        handleHashChange();
+
+        // Escuchar cambios en el hash
+        window.addEventListener('hashchange', handleHashChange);
+
+        // Limpieza del listener al desmontar el componente
+        return () => window.removeEventListener('hashchange', handleHashChange);
+    }, []);
     if (loading) {
         return (
             <>
@@ -250,8 +273,10 @@ export default function BookView() {
 
         }
     }
+
     return (
         <>
+        
             <Header />
             <div className="anuncio"></div>
             <div className="libroContenedor">
@@ -268,6 +293,7 @@ export default function BookView() {
                                     setActualImage(imageUrl); // Establecer la URL de la imagen actual
                                 }}
                             >
+                {console.log(window.scrollY)}
                                 <img 
                                     loading="lazy" 
                                     src={`http://localhost:3030/uploads/${image}`} // Usar la URL completa para mostrar la imagen
@@ -307,6 +333,7 @@ export default function BookView() {
                         </>
                     ) : (
                         <h2>${libro.precio.toLocaleString("es-CO")}</h2>
+                        
                     )}
                     {[
                         libro.autor && `Autor: ${libro.autor}`,
@@ -328,7 +355,7 @@ export default function BookView() {
                         .map((item, index) => (
                             <p key={index}>{item}</p>
                         ))}
-
+                    
                 </div>
 
                 <div className="comprarContainer">
@@ -388,7 +415,7 @@ export default function BookView() {
             </div>
             <div className="extraBookViewContainer">
             
-            <div className="comments">
+            <div className="comments" id="comments">
                 <div className="separar">
                 <h2>Pregúntale al vendedor</h2>
                 <h2>Preguntas realizadas</h2>

@@ -1,9 +1,9 @@
-import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import GoogleLogin from './googleLogin';
-// import getLocation from '../../assets/getLocation';
+import getLocation from '../../assets/getLocation';
 
 export default function Login() {
   const navigate =  useNavigate()
@@ -75,12 +75,17 @@ export default function Login() {
 
     const domain = 'http://localhost:3030';
     const url = isRegister ? `${domain}/api/users` : `${domain}/api/users/login`;
-    // const { pais, ciudad, departamento } = await getLocation()
+    const { pais, ciudad, departamento } = await getLocation()
     // Preparar los datos para enviar
     const sendData = {
         correo: email,
         contraseña: password,
-        ...(isRegister && { nombre: name })
+        ...(isRegister && { nombre: name }),
+        ubicacion: {
+          pais,
+          ciudad, 
+          departamento
+        }
     };
 
     try {
@@ -93,11 +98,10 @@ export default function Login() {
             credentials: 'include'
         });
 
-
-        if (!response.ok) {
-            // Actualizar el estado de errores usando setErrors
-            setErrors((prevErrors) => [...prevErrors, 'Error en el servidor: Intenta de Nuevo']);
-            return; // Salir de la función si hay un error
+        const data = await response.json()
+        if (data.error) {
+          setErrors((prevErrors) => [...prevErrors, `Error: ${data.error}`]);
+          return
         }
         
         // Si la respuesta es exitosa, puedes manejar la respuesta aquí
@@ -118,6 +122,12 @@ export default function Login() {
     }
 };
   const handleGoogleSubmit = async (userData) => {
+    const { pais, ciudad, departamento } = await getLocation()
+    userData.ubicacion = {
+      pais,
+      ciudad, 
+      departamento
+    }
     const url = `http://localhost:3030/api/users/google-login`
     const response = await fetch(url, {
       method: 'POST',

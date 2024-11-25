@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useSearchParams } from "react-router-dom"
+import { useParams, useSearchParams } from "react-router-dom"
 import SideInfo from "../../components/sideInfo.jsx"
 import Footer from "../../components/footer.jsx"
 import Header from "../../components/header.jsx"
@@ -140,13 +140,20 @@ export default function Search(){
       window.location.href = window.location.origin + "/buscar" + "?" + `q=${cambiarEspacioAGuiones(query)}` + cambiarEspacioAGuiones(filtersQuery)
       
     }
-    /*
-    const [params] = us
+
     useEffect(()=>{
       async function fetchFilters() {
-        const response = await fetch
+        const categoria = params.get('Categoría')
+        const estado = params.get('Estado')
+        const ubicacion = params.get('Ubicación')
+        const edad = params.get('Edad')
+        const tapa = params.get('Tapa-dura-o-blanda')
+        const fechaPublicacion = params.get('Fecha-de-publicación')
+        const idioma = params.get('Idioma')
+        //const response = await fetch
       }
-    },[]) */
+      fetchFilters()
+    },[params]) 
       const [stars, setStars] = useState(params.get("calificacion")); // State to track the selected rating
 
       const handleStars = (index) => {
@@ -328,16 +335,47 @@ const ordenarFormas = {
     formas: tapa, 
     ...configuracionFiltros("15vw")
   }
+  const [filtersOpen, setFiltersOpen] = useState(true)
+  function handleOpenFilters() {
+    const arrow = document.querySelector('.flecha')
+    const resultadosYMasFiltros = document.querySelector('.resultadosYMasFiltros')
+    const masFiltros = document.querySelector('.masFiltros')
+    // if filters are open close them
+    if (filtersOpen) {
+      arrow.style.left = '0px'
+      resultadosYMasFiltros.style.transform = 'translateX(calc(-20vw + 10vw))'
+      resultadosYMasFiltros.style.width = '100vw'
+      masFiltros.style.transform = 'translateX(-20vw)'
+      
+      arrow.querySelector('svg').style.transform = 'rotate(0deg)'
+    }
+    // open them
+    else {
+      arrow.style.left = '20vw'
+      resultadosYMasFiltros.style.transform = 'translateX(0)'
+      resultadosYMasFiltros.style.width = '80vw'
+      masFiltros.style.transform = 'translateX(0)'
+      arrow.querySelector('svg').style.transform = 'rotate(180deg)'
+    }
+    setFiltersOpen(!filtersOpen)
+  }
     return(
         <>
         <Header />
-        <div><h1>Resultados: </h1><h1>{query}</h1></div>
+        <div><h1>Resultados</h1></div>
+        <div className="flecha" onClick={handleOpenFilters}>
+      Filtrar
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={'2rem'} height={'2rem'} color={"#000000"} fill={"none"}>
+    <path d="M9.00005 6C9.00005 6 15 10.4189 15 12C15 13.5812 9 18 9 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+</svg>
+      </div> 
         <hr className="noMargen"/>
         
         <div className="resultadosContainer">
         
     <div className="masFiltros">
-      <h4>Filtrar por</h4>
+    
+      <h3>Filtrar por:</h3>
       <div>{useBotonSelect(categoriaProps)}</div>
       <div>{useBotonSelect(estadoProps)}</div>
       <div>{useBotonSelect(ubicacionProps)}</div>
@@ -348,6 +386,7 @@ const ordenarFormas = {
       <div>{useBotonSelect(idiomaProps)}</div>
       <button className="aplicarFiltros" onClick={aplicarFiltros}>Aplicar</button>
     </div>
+    
             <div className="resultadosYMasFiltros">
                 
                 <div className="separar">

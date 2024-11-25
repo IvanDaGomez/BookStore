@@ -18,7 +18,8 @@ function userObject (name) {
     conversationsIds: name.conversationsIds || [],
     notificationsIds: name.notificationsIds || [],
     validated: name.validated || false,
-    login: name.login || 'default'
+    login: name.login || 'default',
+    ubicacion: name.ubicacion || {}
     // Avoid exposing sensitive fields like password, email, etc.
   }
 }

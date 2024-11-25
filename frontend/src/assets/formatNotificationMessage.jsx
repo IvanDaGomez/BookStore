@@ -13,7 +13,7 @@ function SimpleNotification(notification) {
         orderShipped: "Tu pedido ha sido entregado!",
         reviewReceived: `Tienes una nueva reseña de "${metadata.bookTitle}"!`
     };
-
+    
     const typeIcons = {
         newMessage: "📩",
         bookPublished: "📘",

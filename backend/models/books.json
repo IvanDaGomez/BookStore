@@ -23,7 +23,7 @@
     "tapa": "",
     "edad": "",
     "fechaPublicacion": "2024-11-21T13:52:00.234Z",
-    "actualizadoEn": "2024-11-21T13:52:15.871Z",
+    "actualizadoEn": "2024-11-24T12:11:43.824Z",
     "disponibilidad": "Disponible",
     "formato": "Físico",
     "mensajes": [
@@ -36,6 +36,11 @@
         "Tienes un mensaje",
         "|15",
         ""
+      ],
+      [
+        "¿Qué métodos de pago aceptan?",
+        "",
+        "9b922eb4-33e8-4781-9863-c066992e1620"
       ]
     ]
   },
@@ -96,13 +101,23 @@
     "tapa": "Dura",
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:33:28.373Z",
-    "actualizadoEn": "2024-10-26T17:18:29.662Z",
+    "actualizadoEn": "2024-11-24T12:08:02.255Z",
     "disponibilidad": "Disponible",
     "mensajes": [
       [
         "¿Cómo puedo hacer una devolución?",
         "",
-        ""
+        "9b922eb4-33e8-4781-9863-c066992e1620"
+      ],
+      [
+        "¿En qué estado se encuentra el producto?",
+        "",
+        "9b922eb4-33e8-4781-9863-c066992e1620"
+      ],
+      [
+        "¿Qué métodos de pago aceptan?",
+        "",
+        "9b922eb4-33e8-4781-9863-c066992e1620"
       ]
     ]
   },
@@ -181,9 +196,15 @@
     "tapa": "",
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:54:25.204Z",
-    "actualizadoEn": "2024-11-19T12:42:04.904Z",
+    "actualizadoEn": "2024-11-24T00:23:14.152Z",
     "disponibilidad": "Disponible",
-    "mensajes": []
+    "mensajes": [
+      [
+        "¿Qué métodos de pago aceptan?",
+        "",
+        "9b922eb4-33e8-4781-9863-c066992e1620"
+      ]
+    ]
   },
   {
     "titulo": "100 sopas colombianas",
@@ -345,7 +366,7 @@
     "tapa": "Dura",
     "edad": "Adulto",
     "fechaPublicacion": "2024-11-23T19:31:26.489Z",
-    "actualizadoEn": "2024-11-23T19:31:45.480Z",
+    "actualizadoEn": "2024-11-25T20:44:48.213Z",
     "disponibilidad": "Disponible",
     "formato": "Físico",
     "mensajes": [
