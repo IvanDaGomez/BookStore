@@ -376,7 +376,9 @@ useEffect(() => {
                                 src={
                                     findUserByConversation(conversation).fotoPerfil && findUserByConversation(conversation).login === 'default' ? 
                                     `http://localhost:3030/uploads/${findUserByConversation(conversation).fotoPerfil}` 
-                                    : findUserByConversation(conversation).login === 'Google' && findUserByConversation(conversation).fotoPerfil
+                                    : findUserByConversation(conversation).login === 'Google' || 
+                                    findUserByConversation(conversation).login === 'Facebook'
+                                    && findUserByConversation(conversation).fotoPerfil
                                     ? findUserByConversation(conversation).fotoPerfil 
                                     : "http://localhost:3030/uploads/default.jpg"}
                                     

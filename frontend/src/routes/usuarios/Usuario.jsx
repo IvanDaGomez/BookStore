@@ -183,7 +183,7 @@ export default function Usuario() {
                         src={
                             usuario.fotoPerfil && usuario?.login === 'default' && usuario.fotoPerfil.trim() !== ''
                               ? `http://localhost:3030/uploads/${encodeURIComponent(usuario.fotoPerfil)}`
-                              : usuario.login === 'Google' && usuario.fotoPerfil
+                              : usuario.login === 'Google' || usuario.login === 'Facebook' && usuario.fotoPerfil
                               ? usuario.fotoPerfil
                               : 'http://localhost:3030/uploads/default.jpg'
                           }

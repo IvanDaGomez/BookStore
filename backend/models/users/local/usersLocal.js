@@ -224,8 +224,7 @@ class UsersModel {
       }
 
       const users = await this.getAllUsers()
-      console.log(data)
-      return
+
       // Check if the user exists
       const user = users.find(usuario => usuario.correo === data.correo)
 

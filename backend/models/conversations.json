@@ -123,5 +123,15 @@
     "messages": [],
     "createdIn": "2024-11-26T03:42:45.498Z",
     "lastMessage": {}
+  },
+  {
+    "_id": "327d50a5-187d-4da2-98fc-4a2a5727f08c",
+    "users": [
+      "9a656e1c-bc77-4fd4-8528-42e757d3b691",
+      "834a9dda-5cf5-4438-9499-eed4b8ec3e45"
+    ],
+    "messages": [],
+    "createdIn": "2024-11-26T04:06:43.670Z",
+    "lastMessage": {}
   }
 ]

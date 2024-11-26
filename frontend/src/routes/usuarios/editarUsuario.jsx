@@ -83,7 +83,7 @@ export default function EditarUsuario() {
     }, [user, correo]);
 
     const agregarAQuery = (formas, forma) => {
-        if (Object.prototype.hasOwnProperty.call(formas, forma)) {
+        if (forma) {
             setEstadoCuenta(forma);
             setForm({ ...form, estadoCuenta: forma });
         } else {
@@ -98,12 +98,7 @@ export default function EditarUsuario() {
         callback: agregarAQuery,
     });
 
-    const estadoCuentaInfo = {
-        "Estado Cuenta": "",
-        "Activo": "",
-        "Inactivo": "",
-        "Vacaciones": "",
-    };
+    const estadoCuentaInfo = ['Estado cuenta', 'Inactivo', 'Activo', 'Vacaciones']
 
     const estadoCuentaProps = {
         formas: estadoCuentaInfo,

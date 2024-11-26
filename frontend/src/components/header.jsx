@@ -250,7 +250,7 @@ const openExtraInfo = async (str) => {
                         : <img src={
                             user.fotoPerfil && user?.login === 'default' && user.fotoPerfil.trim() !== ''
                               ? `http://localhost:3030/uploads/${encodeURIComponent(user.fotoPerfil)}`
-                              : user.login === 'Google' &&  user.fotoPerfil
+                              : user.login === 'Google' || user.login === 'Facebook' &&  user.fotoPerfil
                           } alt="Foto de perfil del usuario" />
                         }
                     </div>

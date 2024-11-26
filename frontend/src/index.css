@@ -2714,6 +2714,7 @@ color: var(--using6);
   display: flex;
   justify-content: center;
   align-items: center;
+  
 }
 .userPageContainer .select div:first-of-type{
   border-top-left-radius: var(--border) ;
