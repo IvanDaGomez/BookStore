@@ -4,7 +4,8 @@ import { useNavigate } from 'react-router';
 import { ToastContainer } from 'react-toastify';
 import GoogleLogin from './googleLogin';
 import getLocation from '../../assets/getLocation';
-
+import { LoginSocialFacebook } from 'reactjs-social-login'
+import handleFacebookSubmit from './facebookLogin';
 export default function Login() {
   const navigate =  useNavigate()
   const mobileSep = window.innerWidth < 1280
@@ -142,12 +143,7 @@ export default function Login() {
       // Actualizar el estado de errores usando setErrors
       setErrors((prevErrors) => [...prevErrors, 'Error en el servidor: Intenta de Nuevo']);
       return; // Salir de la función si hay un error
-  }
-  
-  // Si la respuesta es exitosa, puedes manejar la respuesta aquí
-  // En teoría el token se guarda en la cookie desde el backend
-  // Si la respuesta es exitosa, puedes manejar la respuesta aquí
-
+    }
   // Si no hay una pagina anterior, redirigir a inicio, si si redirigir a la pagina que estaba
   if (!document.referrer || !document.referrer.includes(window.location.hostname)){
     navigate('/')
@@ -155,6 +151,8 @@ export default function Login() {
   }
   window.history.back()
   }
+
+
   return (
     <>
     <div
@@ -232,7 +230,13 @@ export default function Login() {
               <GoogleLogin callback={handleGoogleSubmit}/>
             </GoogleOAuthProvider>
             <div> {/*Logo de Facebook */}
-            <img loading="lazy" src="/facebook-logo.svg" alt="Facebook logo" title='Facebook logo'/>
+            <LoginSocialFacebook
+              appId='2114886455594411'
+              onResolve={res => handleFacebookSubmit(res, setErrors)}
+              onReject={(error) => console.error(error)}
+            >
+              <img loading="lazy" src="/facebook-logo.svg" alt="Facebook logo" title='Facebook logo'/>
+            </LoginSocialFacebook>
             </div>
             {/*<div>{/*Logo de Amazon 
             <img loading="lazy" src="/amazon-logo.svg" alt="Amazon logo" title='Amazon logo'/>

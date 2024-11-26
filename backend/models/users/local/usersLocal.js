@@ -216,6 +216,38 @@ class UsersModel {
     }
   }
 
+  static async facebookLogin (data) {
+    try {
+      // Validate input data
+      if (!data.nombre || !data.correo) {
+        throw new Error('Invalid data: Email and name are required')
+      }
+
+      const users = await this.getAllUsers()
+      console.log(data)
+      return
+      // Check if the user exists
+      const user = users.find(usuario => usuario.correo === data.correo)
+
+      if (!user) {
+        // Google sign-up flow
+        const newUser = userObject(data) // Ensure `userObject` sanitizes and structures the input
+        newUser.login = 'Facebook' // Mark this as a Facebook user
+        // userObject() elimina el correo y la contraseña (que no hay)
+        newUser.correo = data.correo
+
+        newUser._id = crypto.randomUUID()
+        users.push(newUser)
+        // Write the new user to the file
+        await fs.writeFile('./models/users.json', JSON.stringify(users, null, 2), 'utf8')
+        return newUser
+      }
+      return userObject(user)
+    } catch (err) {
+      console.error('Error handling Google login:', err.message || err)
+      throw new Error('An error occurred while processing your request')
+    }
+  }
   static async getUserByEmail (correo) {
     try {
       const users = await this.getAllUsers()

@@ -1125,6 +1125,26 @@ color: var(--using6);
   justify-content: center;
   align-items: center;
 }
+
+.chatSocial{
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #25d366;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.chatSocial svg{
+  width: 30px;
+  height: 30px;
+  color: white;
+}
 /*----------------------------------FOOTER-----------------------------------------------------*/
 /*--------------------------------------PIE DE PAGINA-------------------------------------------*/
 
@@ -1172,7 +1192,8 @@ color: var(--using6);
   background: white;
   color: black;
   border-radius: 10px;
-  width: min(300px, 100%);
+  width: 50rem;
+  margin-right: 2rem;
   font-size: 2.5rem;
   padding: 1.5rem;
   border-radius: 5px;
@@ -1759,11 +1780,11 @@ form{
 .alternativasLogin{
   width:40%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   height:40px;
 }
-.alternativasLogin div{
+.alternativasLogin > div{
   height:100%;
   aspect-ratio: 1/1;
   border: 1.5px solid var(--using2);
@@ -1773,7 +1794,7 @@ form{
   padding:5px;
   cursor: pointer;
   transition: all .3s ease-in-out;
-
+  margin: 0 5px;
 }
 .alternativasLogin div img{
   height:100%;

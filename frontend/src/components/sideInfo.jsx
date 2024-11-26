@@ -1,4 +1,5 @@
 import { useState, useRef } from "react"
+import { BsWhatsapp } from "react-icons/bs"
 export default function SideInfo(){
 
     const [lateralVisible, setLateralVisible] = useState(false)
@@ -17,6 +18,9 @@ export default function SideInfo(){
 
     return(
         <>
+        <a href="https://wa.me/+573024690359" target='_blank'><div className="chatSocial">
+            <BsWhatsapp />
+        </div></a>
         {/* 
         <div className="sideInfo" ref={sideInfo}>
             <div className="centrar">
