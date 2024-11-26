@@ -196,13 +196,18 @@
     "tapa": "",
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:54:25.204Z",
-    "actualizadoEn": "2024-11-24T00:23:14.152Z",
+    "actualizadoEn": "2024-11-26T02:29:24.811Z",
     "disponibilidad": "Disponible",
     "mensajes": [
       [
         "¿Qué métodos de pago aceptan?",
         "",
         "9b922eb4-33e8-4781-9863-c066992e1620"
+      ],
+      [
+        "¿En qué estado se encuentra el producto?",
+        "",
+        "857857d1-afdd-411d-b41a-be427d1ff186"
       ]
     ]
   },

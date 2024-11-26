@@ -244,7 +244,7 @@ class UsersModel {
       }
       return userObject(user)
     } catch (err) {
-      console.error('Error handling Google login:', err.message || err)
+      console.error('Error handling Facebook login:', err.message || err)
       throw new Error('An error occurred while processing your request')
     }
   }

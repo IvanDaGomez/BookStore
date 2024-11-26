@@ -950,5 +950,23 @@
       "bookTitle": "El encuentro de cuatro imperios",
       "bookId": "78c534c0-2fa8-40d0-b72a-c5ee34d0a883"
     }
+  },
+  {
+    "_id": "bce37547-a082-439b-9026-c50c681663bd",
+    "theme": "",
+    "title": "Tienes una nueva pregunta",
+    "priority": "normal",
+    "type": "newQuestion",
+    "userId": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
+    "input": "¿En qué estado se encuentra el producto?",
+    "createdIn": "2024-11-26T02:29:24.857Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/88c87f69-4b49-4633-bfba-cd3d29b1a21d",
+    "expiresAt": "2024-12-26T02:29:24.857Z",
+    "metadata": {
+      "photo": "1729454065315-576691826.png",
+      "bookTitle": "Acaba con la inflamación en 7 días",
+      "bookId": "88c87f69-4b49-4633-bfba-cd3d29b1a21d"
+    }
   }
 ]

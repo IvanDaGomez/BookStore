@@ -102,5 +102,18 @@ const generos = [
     "Gujarati",
     "Punjabi"
   ];
-  
-  export { generos, idiomas }
+  const estado = ["Nuevo", "Usado", "Reacondicionado", "Con detalles"]
+  const formato = ["Físico", "Digital", "AudioLibro"]
+  const edicion = ["1ra Edición", "2da Edición", "Edición Especial", "Edición de Coleccionista", "Reimpresión", "Edición Limitada"]
+  const tapa = ["Dura", "Blanda", "Semi-Dura", "Edición de bolsillo", "Sin tapa"]
+  const edad = ["Niños (0-5)", "Infantil (6-12)", "Adolescente (13-17)", "Adulto", "Mayores de 65"]
+  const ubicaciones = []
+  export { generos, 
+    idiomas, 
+    edad,
+    estado, 
+    formato, 
+    edicion, 
+    tapa,
+    ubicaciones
+  }

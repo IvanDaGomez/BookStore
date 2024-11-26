@@ -4,17 +4,17 @@ import UseCajones from "./useCajones";
 import { useState } from "react";
 import { useEffect } from "react";
 import titleCase from "../../assets/toTitleCase";
-import { generos, idiomas } from "./categorias";
+import { edad, edicion, estado, formato, generos, idiomas, tapa } from "../../assets/categorias";
 export default function Fase2({ form, setForm, fase, setFase }) {
   const [errors, setErrors] = useState([]);
 
 
   // Lista de categorías sin asterisco
   const categorias = {
-    "estado": ["Nuevo", "Usado", "Reacondicionado", "Con detalles"],
+    "estado": estado,
     "genero": generos.sort((a,b) => a.localeCompare(b)),
-    "formato": ["Físico", "Digital", "AudioLibro"],
-    "edicion": ["1ra Edición", "2da Edición", "Edición Especial", "Edición de Coleccionista", "Reimpresión", "Edición Limitada"],
+    "formato": formato,
+    "edicion": edicion,
     "idioma": idiomas.sort((a,b) => {
       const priority = ["Inglés", "Español"]
       if (priority.includes(a) || priority.includes(b)) {
@@ -23,8 +23,8 @@ export default function Fase2({ form, setForm, fase, setFase }) {
       return a.localeCompare(b)
       
     }),
-    "tapa": ["Dura", "Blanda", "Semi-Dura", "Edición de bolsillo", "Sin tapa"],
-    "edad": ["Niños (0-5)", "Infantil (6-12)", "Adolescente (13-17)", "Adulto", "Mayores de 65"],
+    "tapa": tapa,
+    "edad": edad,
   };
   // Lista de categorías que son requeridas
   const categoriasRequeridas = ["estado", "genero", "formato"];

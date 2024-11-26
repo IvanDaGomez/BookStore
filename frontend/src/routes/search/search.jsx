@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import { useParams, useSearchParams } from "react-router-dom"
+import { useNavigate, useParams, useSearchParams } from "react-router-dom"
 import SideInfo from "../../components/sideInfo.jsx"
 import Footer from "../../components/footer.jsx"
 import Header from "../../components/header.jsx"
@@ -10,8 +10,9 @@ import { MakeCard, MakeOneFrCard } from "../../assets/makeCard.jsx"
 import useBotonSelect from "../../assets/botonSelect.jsx"
 import DoubleSlider from "../../components/DoubleSlider.jsx"
 import { ToastContainer } from "react-toastify"
+import { edad, estado, generos, idiomas, tapa, ubicaciones } from "../../assets/categorias.js"
 export default function Search(){
-
+  const navigate = useNavigate()
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -38,13 +39,13 @@ export default function Search(){
     const [params] = useSearchParams()
 
     const queryParams = {
-      categoria: params.get('Categoría'),
-      estado: params.get('Estado'),
-      ubicacion: params.get('Ubicación'),
-      edad: params.get('Edad'),
-      tapa: params.get('Tapa-dura-o-blanda'),
-      fechaPublicacion: params.get('Fecha-de-publicación'),
-      idioma: params.get('Idioma')
+      categoria: params.get('categoria'),
+      estado: params.get('estado'),
+      ubicacion: params.get('bicacion'),
+      edad: params.get('edad'),
+      tapa: params.get('tapa'),
+      fechaPublicacion: params.get('fechaPublicacion'),
+      idioma: params.get('idioma')
     };
     const query = cambiarGuionesAEspacio(params.get("q"))
 
@@ -81,77 +82,7 @@ export default function Search(){
     
       fetchResults(); // Llama a la función para obtener los resultados
     }, [query]); // Ejecuta cada vez que 'query' cambie
-    
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const [grid, setGrid] = useState(localStorage.getItem("grid")|| "1fr 1fr 1fr 1fr");
-    const pageCount = Math.ceil(results.length / 24);
-    
-    const optionalSpace = (results.length % 2 === 1) ? <div></div> : <></>;
-
-    const reducirPagina = () => {
-    if (currentPage > 1) {
-        setCurrentPage(currentPage - 1);
-    }
-    };
-
-    const aumentarPagina = () => {
-    if (currentPage < pageCount) {
-        setCurrentPage(currentPage + 1);
-    }
-    };
-
-    const renderizarResultados = () => {
-        return results.slice((currentPage - 1) * 24, currentPage * 24)
-    }
-
-
-
-    useEffect(() => {
-    const updateGrid = () => {
-        if (grid.split(" ").length !==1) {
-          setGrid((window.innerWidth >= 834) ? "repeat(4, 1fr)" : "repeat(2, 1fr)");  
-          
-        }
-        else {
-          setGrid("1fr") 
-          
-        }
-        
-    };
-    
-    updateGrid(); // Initial check
-
-    window.addEventListener('resize', updateGrid);
-    return () => window.removeEventListener('resize', updateGrid);
-    }, [grid]);
-
-    useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, [currentPage]);
-    
-    //filtros
-
-    const [filtros, setFiltros] = useState({});
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFiltros((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
-    };
-    
-
-    function aplicarFiltros(){
-      const keys = Object.keys(filtros)
-      const values = Object.values(filtros)
-      let filtersQuery = "";
-      for (let i = 0; i < keys.length; i++) {
-          filtersQuery += `&${keys[i]}=${encodeURIComponent(values[i])}`; // Construye la cadena de consulta
-      }
-      window.location.href = window.location.origin + "/buscar" + "?" + `q=${cambiarEspacioAGuiones(query)}` + cambiarEspacioAGuiones(filtersQuery)
-      
-    }
     useEffect(() => {
       async function fetchFilters() {
         // Return early if no valid query or filter parameters are available
@@ -189,222 +120,187 @@ export default function Search(){
       fetchFilters();
     }, [params, query]); // Ensure `queryParams` is also included in the dependencies
     
-      const [stars, setStars] = useState(params.get("calificacion")); // State to track the selected rating
 
-      const handleStars = (index) => {
-        const newStars = index + 1; // Obtiene el nuevo valor de calificación
-        setStars(newStars);
-        setFiltros((prev) => ({ ...prev, calificacion: newStars })); // Actualiza el estado de filtros
-        };
-      const estrellaClara = (
-          <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              width={20}
-              height={20}
-              fill={"#fff"}
-              style={{ cursor: 'pointer', margin: "0 2px" }}
-              onClick={() => handleStars(0)} // Handle click for clear star
-          >
-              <path d="M13.7276 3.44418L15.4874 6.99288C15.7274 7.48687 16.3673 7.9607 16.9073 8.05143L20.0969 8.58575C22.1367 8.92853 22.6167 10.4206 21.1468 11.8925L18.6671 14.3927C18.2471 14.8161 18.0172 15.6327 18.1471 16.2175L18.8571 19.3125C19.417 21.7623 18.1271 22.71 15.9774 21.4296L12.9877 19.6452C12.4478 19.3226 11.5579 19.3226 11.0079 19.6452L8.01827 21.4296C5.8785 22.71 4.57865 21.7522 5.13859 19.3125L5.84851 16.2175C5.97849 15.6327 5.74852 14.8161 5.32856 14.3927L2.84884 11.8925C1.389 10.4206 1.85895 8.92853 3.89872 8.58575L7.08837 8.05143C7.61831 7.9607 8.25824 7.48687 8.49821 6.99288L10.258 3.44418C11.2179 1.51861 12.7777 1.51861 13.7276 3.44418Z" 
-                  stroke="black" 
-                  strokeWidth="1.5" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-              />
-          </svg>
-      );
-      
-      const estrellaAmarilla = (
-          <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              width={20}
-              height={20}
-              fill={"yellow"}
-              style={{ cursor: 'pointer', margin: "0 2px" }}
-              onClick={() => handleStars(1)} // Handle click for filled star
-          >
-              <path d="M13.7276 3.44418L15.4874 6.99288C15.7274 7.48687 16.3673 7.9607 16.9073 8.05143L20.0969 8.58575C22.1367 8.92853 22.6167 10.4206 21.1468 11.8925L18.6671 14.3927C18.2471 14.8161 18.0172 15.6327 18.1471 16.2175L18.8571 19.3125C19.417 21.7623 18.1271 22.71 15.9774 21.4296L12.9877 19.6452C12.4478 19.3226 11.5579 19.3226 11.0079 19.6452L8.01827 21.4296C5.8785 22.71 4.57865 21.7522 5.13859 19.3125L5.84851 16.2175C5.97849 15.6327 5.74852 14.8161 5.32856 14.3927L2.84884 11.8925C1.389 10.4206 1.85895 8.92853 3.89872 8.58575L7.08837 8.05143C7.61831 7.9607 8.25824 7.48687 8.49821 6.99288L10.258 3.44418C11.2179 1.51861 12.7777 1.51861 13.7276 3.44418Z" 
-                  stroke="black" 
-                  strokeWidth="1.5" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-              />
-          </svg>
-      );
-      
-      const cincoEstrellas = Array(5).fill().map((_, index) => (
-          index < stars ? estrellaAmarilla : estrellaClara
-      ));
-
-
-// Opciones de ordenación disponibles
-const ordenarFormas = {
-    "Seleccionar": true,
-    "Menor Precio": (a, b) => a.precio - b.precio,   // Ordenar de menor a mayor precio
-    "Mayor Precio": (a, b) => b.precio - a.precio    // Ordenar de mayor a menor precio
-
-  };
-  
-  
-  const selectedProyectos = (formas, forma, results, setResults) => {
-    // Aquí se ejecuta la lógica de ordenación
-    const sortedData = [...results].sort(formas[forma]);
-    setResults(sortedData);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [grid, setGrid] = useState(localStorage.getItem("grid")|| "1fr 1fr 1fr 1fr");
+    const pageCount = Math.ceil(results.length / 24);
     
-  };
-  
-  const selectedOrdenarProps ={   // Llama al hook aquí
-    formas: ordenarFormas,
-    results,
-    setResults,
-    ancho: "150px",
-    callback: selectedProyectos // Pasa la función como callback
-  };
+    const optionalSpace = (results.length % 2 === 1) ? <div></div> : <></>;
 
-
-  const idiomas = {
-    "Idioma": "",
-    "Español": "Español",
-    "Ingles": "Ingles"
-  }
-
-  const agregarAQuery = (formas, forma, results, setResults) => {
-    // Verificar si la forma seleccionada está en el objeto formas
-    if (Object.prototype.hasOwnProperty.call(formas, forma)) {
-      const categoria = Object.keys(formas)[0]; // El nombre de la categoría seleccionada (por ejemplo, "Español" o "Inglés")
-      const valor = forma; // El valor asociado a esa categoría
-  
-      // Actualizamos el estado de filtros
-      setResults((prevResults) => ({
-        ...prevResults,  // Mantén los filtros anteriores
-        [categoria]: cambiarEspacioAGuiones(valor) // Actualiza el filtro seleccionado en la categoría correspondiente
-      }));
-    } else {
-      console.error("La forma seleccionada no existe en el objeto formas.");
+    const reducirPagina = () => {
+    if (currentPage > 1) {
+        setCurrentPage(currentPage - 1);
     }
-  };
-  
-  const idiomaProps = {
-    formas: idiomas,
-    results: filtros,
-    setResults: setFiltros,
-    ancho: "15vw",
-    callback: agregarAQuery
-  }
-  const ubicaciones = {
-    "Ubicación" : "",
-    "Bucaramanga": "",
-    "Santander":""
-  }
-  const configuracionFiltros = (ancho)=>{
-    return {
-      results:filtros,
-      setResults:setFiltros,
-      ancho,
-      callback: agregarAQuery
-    }
-  }
-  const ubicacionProps = {
-    formas : ubicaciones,
-    ...configuracionFiltros("15vw")
-  }
+    };
 
-  const categorias = {
-    "Categoría": "",
-    "novela": "Novela",
-    "ciencia-ficcion": "Ciencia Ficción",
-    "infantil": "Infantil",
-    "escolar": "Escolar",
-    "literatura": "Literatura",
-    "biografias": "Biografías",
-    "profesional": "Profesional",
-    "idiomas": "Idiomas",
-    "poesia": "Poesía",
-    "misterio": "Misterio",
-    "historia": "Historia"
-  };
-  const estados = {
-    "Estado":"",
-    "Nuevo": "",
-    "Un solo uso":"",
-    "Levemente usado":"",
-    "Con detalles":""
+    const aumentarPagina = () => {
+    if (currentPage < pageCount) {
+        setCurrentPage(currentPage + 1);
+    }
+    };
+
+    const renderizarResultados = () => {
+        return results.slice((currentPage - 1) * 24, currentPage * 24)
+    }
+
+
+
+    useEffect(() => {
+    const updateGrid = () => {
+        if (grid.split(" ").length !==1) setGrid((window.innerWidth >= 834) ? "repeat(4, 1fr)" : "repeat(2, 1fr)")
+        else setGrid("1fr")
+    };
+    updateGrid(); // Initial check
+    window.addEventListener('resize', updateGrid);
+    return () => window.removeEventListener('resize', updateGrid);
+    }, [grid]);
+
+    useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, [currentPage]);
     
-  }
-  const fechaPublicacion = {
-    "Fecha de publicación":"",
-    "Menos de un mes":"",
-    "Menos de un año":""
+    //filtros
 
-  }
-  const edades = {
-    "Edad":"",
-    "Niños": "",
-    "Jóvenes":"",
-    "Adultos":""
-  }
-  const tapa = {
-    "Tapa dura o blanda":"",
-    "Tapa dura":"",
-    "Tapa blanda":""
-  }
-  const ancho = '200px'
-  const categoriaProps = {
-    formas: categorias,
-    ...configuracionFiltros(ancho)
-  }
-  const estadoProps = {
-    formas: estados,
-    ...configuracionFiltros(ancho)
-  }
-  const edadProps = {
-    formas:edades,
-    ...configuracionFiltros(ancho)
-  }
-  const fechaPublicacionProps = {
-    formas : fechaPublicacion,
-    ...configuracionFiltros(ancho)
-  }
-  const tapaProps = {
-    formas: tapa, 
-    ...configuracionFiltros(ancho)
-  }
-  const [filtersOpen, setFiltersOpen] = useState(true)
-  function handleOpenFilters() {
-    const arrow = document.querySelector('.flecha')
-    const resultadosYMasFiltros = document.querySelector('.resultadosYMasFiltros')
-    const masFiltros = document.querySelector('.masFiltros')
-    const phoneBreakPoint = window.innerWidth >= 600
-    // if filters are open close them
-    if (filtersOpen) {
-      arrow.style.left = '-7rem'
-      masFiltros.style.transform = 'translateX(-20vw)'
-      arrow.querySelector('svg').style.transform = 'rotate(0deg)'
-      if (phoneBreakPoint) {
-        resultadosYMasFiltros.style.transform = 'translateX(calc(-20vw + 10vw))'
-        resultadosYMasFiltros.style.width = '100vw'
-      }
-      
-      
-    }
-    // open them
-    else {
-      arrow.style.left = 'calc(20vw - 7rem)'
-      masFiltros.style.transform = 'translateX(0)'
-      arrow.querySelector('svg').style.transform = 'rotate(180deg)'
-      if (phoneBreakPoint) {
-        resultadosYMasFiltros.style.transform = 'translateX(0)'
-        resultadosYMasFiltros.style.width = '80vw'
-      }
-    }
-    setFiltersOpen(!filtersOpen)
-  }
-  useEffect(()=>{
-    handleOpenFilters()
+    const [filtros, setFiltros] = useState({});
+    const [filtersOpen, setFiltersOpen] = useState(true);
+    
+    // Handle filter changes
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFiltros((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
 
-  },[])
+        // Add filter to query
+        const agregarAQuery = (formas, forma, results, setResults) => {
+      
+          if (forma !== formas[0]) {
+              const categoria = formas[0];
+              setResults((prevResults) => ({
+                  ...prevResults,
+                  [categoria]: cambiarEspacioAGuiones(forma),
+              }));
+              
+          } else {
+              console.error("Forma seleccionada no existe en el objeto formas.");
+          }
+      };
+      
+    // Apply filters and redirect
+    const aplicarFiltros = () => {
+      console.log(filtros)
+      // Construye el query string de filtros
+      const filtersQuery = Object.entries(filtros)
+        .filter(([_, value]) => value) // Solo incluye filtros con valores no vacíos
+        .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+        .join("&");
+    
+      // Construye la query principal
+      const baseQuery = cambiarEspacioAGuiones(query || "");
+      const fullQuery = `q=${baseQuery}${filtersQuery ? `&${filtersQuery}` : ""}`;
+    
+      // Navega a la nueva URL
+      navigate(`/buscar?${fullQuery}`);
+    };
+    
+    
+    // Sorting options
+    const ordenarFormas = {
+        "Seleccionar": true,
+        "Menor Precio": (a, b) => a.precio - b.precio,
+        "Mayor Precio": (a, b) => b.precio - a.precio,
+    };
+    
+    // Sort selected projects
+    const selectedProyectos = (formas, forma, results, setResults) => {
+        if (formas[forma]) {
+            const sortedData = [...results].sort(formas[forma]);
+            setResults(sortedData);
+        }
+    };
+    
+    // Props for sorting dropdown
+    const selectedOrdenarProps = {
+        formas: ordenarFormas,
+        results,
+        setResults,
+        ancho: "150px",
+        callback: selectedProyectos,
+    };
+    
+    // Language filter setup
+    const idioma = [
+        "Idioma",
+        ...idiomas.sort((a, b) => {
+            const priority = ["Inglés", "Español"];
+            if (priority.includes(a) || priority.includes(b)) return 1;
+            return a.localeCompare(b);
+        }),
+    ];
+    
+
+    // Filter props configuration
+    const configuracionFiltros = (ancho) => ({
+        results: filtros,
+        setResults: setFiltros,
+        ancho,
+        callback: agregarAQuery,
+    });
+    
+    // Filter categories setup
+    const filterCategories = {
+        idioma: { formas: idioma, ...configuracionFiltros("15vw") },
+        ubicacion: { formas: ['ubicacion', ...ubicaciones], ...configuracionFiltros("15vw") },
+        categoria: { formas: ['genero' ,...generos.sort((a,b) => a.localeCompare(b))], ...configuracionFiltros("15vw") },
+        estado: { formas: ['estado', ...estado], ...configuracionFiltros("15vw") },
+        edad: { formas: ['edad', ...edad], ...configuracionFiltros("15vw") },
+        fechaPublicacion: {
+            formas: [
+                "Fecha de publicación",
+                "Menos de un mes",
+                "Menos de un año"
+            ],
+            ...configuracionFiltros("15vw"),
+        },
+        tapa: { formas: ['tapa',...tapa], ...configuracionFiltros("15vw") },
+    };
+    
+    // Handle filter toggle
+    const handleOpenFilters = () => {
+        const arrow = document.querySelector(".flecha");
+        const resultadosYMasFiltros = document.querySelector(".resultadosYMasFiltros");
+        const masFiltros = document.querySelector(".masFiltros");
+        const phoneBreakPoint = window.innerWidth >= 600;
+    
+        if (filtersOpen) {
+            // Close filters
+            arrow.style.left = "-7rem";
+            masFiltros.style.transform = "translateX(-20vw)";
+            arrow.querySelector("svg").style.transform = "rotate(0deg)";
+            if (phoneBreakPoint) {
+                resultadosYMasFiltros.style.transform = "translateX(calc(-20vw + 10vw))";
+                resultadosYMasFiltros.style.width = "100vw";
+            }
+        } else {
+            // Open filters
+            arrow.style.left = "calc(20vw - 7rem)";
+            masFiltros.style.transform = "translateX(0)";
+            arrow.querySelector("svg").style.transform = "rotate(180deg)";
+            if (phoneBreakPoint) {
+                resultadosYMasFiltros.style.transform = "translateX(0)";
+                resultadosYMasFiltros.style.width = "80vw";
+            }
+        }
+        setFiltersOpen(!filtersOpen);
+    };
+    
+    // Initialize filters on mount
+    useEffect(() => {
+        handleOpenFilters();
+    }, []);
+    
     return(
         <>
         <Header />
@@ -422,14 +318,14 @@ const ordenarFormas = {
     <div className="masFiltros">
     
       <h3>Filtrar por:</h3>
-      <div>{useBotonSelect(categoriaProps)}</div>
-      <div>{useBotonSelect(estadoProps)}</div>
-      <div>{useBotonSelect(ubicacionProps)}</div>
-      {/*<div><DoubleSlider min={0} max={1000000} width={"15vw"}/></div>*/}
-      <div>{useBotonSelect(edadProps)}</div>
-      <div>{useBotonSelect(tapaProps)}</div>
-      <div>{useBotonSelect(fechaPublicacionProps)}</div>
-      <div>{useBotonSelect(idiomaProps)}</div>
+      <div>{useBotonSelect(filterCategories.categoria)}</div>
+      <div>{useBotonSelect(filterCategories.estado)}</div>
+      <div>{useBotonSelect(filterCategories.ubicacion)}</div>
+      
+      <div>{useBotonSelect(filterCategories.edad)}</div>
+      <div>{useBotonSelect(filterCategories.tapa)}</div>
+      <div>{useBotonSelect(filterCategories.fechaPublicacion)}</div>
+      <div>{useBotonSelect(filterCategories.idioma)}</div>
       <button className="aplicarFiltros" onClick={aplicarFiltros}>Aplicar</button>
     </div>
     

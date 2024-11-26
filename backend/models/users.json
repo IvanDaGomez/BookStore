@@ -101,7 +101,8 @@
     },
     "conversationsIds": [
       "a6a3abf3-4cdf-4767-bfb9-3997dd5e2872",
-      "22d0264e-fd98-47b8-957e-9ffe599095ee"
+      "22d0264e-fd98-47b8-957e-9ffe599095ee",
+      "5644390f-de7e-4280-8801-9c6a017bb2b5"
     ],
     "bio": "",
     "favoritos": [],
@@ -110,7 +111,8 @@
       "51390817-4724-445a-98e1-7c40eac0892c"
     ],
     "validated": false,
-    "login": "default"
+    "login": "default",
+    "ubicacion": {}
   },
   {
     "nombre": "Alvaro Gómez",
@@ -137,7 +139,8 @@
     },
     "conversationsIds": [
       "a1daa0dd-0598-4cbc-802a-df08d09c2d11",
-      "4e75b761-1d6c-4c9d-979a-10db354a2fe5"
+      "4e75b761-1d6c-4c9d-979a-10db354a2fe5",
+      "3406adf0-a240-44d6-b497-55e0a9d463e7"
     ],
     "bio": "",
     "favoritos": [],
@@ -151,10 +154,12 @@
       "c5f5fb1e-9fcf-4279-a470-48277a87117f",
       "964921ff-5f6f-46d3-898d-a31ca7f8b4ee",
       "3b519f1c-f0f1-4f90-810f-e3c04531dfcb",
-      "9974b870-894c-4615-9d12-2a81fd259846"
+      "9974b870-894c-4615-9d12-2a81fd259846",
+      "bce37547-a082-439b-9026-c50c681663bd"
     ],
     "validated": false,
-    "login": "default"
+    "login": "default",
+    "ubicacion": {}
   },
   {
     "nombre": "Ivan David Gomez",
@@ -185,11 +190,16 @@
       }
     ],
     "conversationsIds": [
-      "e51f7131-171d-4723-95a2-e6fea54890f5"
+      "e51f7131-171d-4723-95a2-e6fea54890f5",
+      "0413aa19-5e92-4833-9ae7-bf9f00ea06c6",
+      "5644390f-de7e-4280-8801-9c6a017bb2b5"
     ],
     "bio": "",
     "favoritos": [],
-    "notificationsIds": []
+    "notificationsIds": [],
+    "validated": false,
+    "login": "default",
+    "ubicacion": {}
   },
   {
     "nombre": "Monica Silva",

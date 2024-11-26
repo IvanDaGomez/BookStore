@@ -4,7 +4,7 @@ export default function useBotonSelect({ formas, results , setResults, ancho, ca
 
 
   // Estado inicial para la opción de ordenación seleccionada
-  const [selected, setSelected] = useState(Object.keys(formas)[0]);
+  const [selected, setSelected] = useState(formas[0]);
   const [isOpen, setIsOpen] = useState(false);
 
   // Función para manejar la selección de una forma de ordenación
@@ -29,7 +29,8 @@ export default function useBotonSelect({ formas, results , setResults, ancho, ca
     <div className="select" style={{ width: ancho }} onClick={() => setIsOpen(!isOpen)} onMouseLeave={() => setIsOpen(false)}>
       {/* Mostrar la opción seleccionada */}
       <div className="selected" style={{ width: ancho }} >
-        {selected ? <>{selected} {arrowDown}</> : <>Selected {arrowDown}</>}
+        {/*Capitalize */}
+        {selected ? <>{selected.charAt(0).toUpperCase() + selected.slice(1)} {arrowDown}</> : <>Selected {arrowDown}</>}
       </div>
 
       {/* Desplegar el menú de opciones cuando esté abierto */}
@@ -37,7 +38,7 @@ export default function useBotonSelect({ formas, results , setResults, ancho, ca
         <div className="optionsContainer" style={{ width: ancho }} >
           <div className="options" style={{ width: ancho }}>
             {/* Mostrar las opciones de ordenación */}
-            {Object.keys(formas).map((forma, index) => (
+            {formas.map((forma, index) => (
               <div key={index} className="option" style={{ width: ancho }} onClick={() => handleSelect(forma)}>
                 {forma}
               </div>
