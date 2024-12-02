@@ -968,5 +968,23 @@
       "bookTitle": "Acaba con la inflamación en 7 días",
       "bookId": "88c87f69-4b49-4633-bfba-cd3d29b1a21d"
     }
+  },
+  {
+    "_id": "1d5303d0-c032-4124-baf3-d739c114fbda",
+    "theme": "",
+    "title": "Tienes una nueva pregunta",
+    "priority": "normal",
+    "type": "newQuestion",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "¿Cuál es el costo del producto?",
+    "createdIn": "2024-11-26T16:16:50.085Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/31d52487-f746-4951-bf11-7b41febea0a9",
+    "expiresAt": "2024-12-26T16:16:50.085Z",
+    "metadata": {
+      "photo": "1732197120267-615755189.png",
+      "bookTitle": "El libro de Bill",
+      "bookId": "31d52487-f746-4951-bf11-7b41febea0a9"
+    }
   }
 ]

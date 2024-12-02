@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { initMercadoPago, Payment } from '@mercadopago/sdk-react';
 import { calculateComission } from '../../assets/calculateComission';
 
@@ -103,30 +103,102 @@ function PaymentBrick({ libro, preferenceId }) {
         console.log("Payment Brick is ready");
     };
 
+
+    const [selectedMethod, setSelectedMethod] = useState("mercadoPago"); // Default payment method
+    const [loading, setLoading] = useState(false);
+
+    const handlePayWithBalance = async () => {
+        /*if (userBalance < libro.precio) {
+            alert("Insufficient balance!");
+            return;
+        }*/
+
+        setLoading(true);
+
+        try {
+            const response = await fetch('http://localhost:3030/api/books/pay_with_balance', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    userId: "user-id", // Replace with actual user ID
+                    bookId: libro.id,
+                    amount: libro.oferta || libro.precio,
+                }),
+            });
+
+            const result = await response.json();
+
+            if (result.status === "success") {
+                alert("Payment successful with balance!");
+            } else {
+                throw new Error(result.message || "Payment failed");
+            }
+        } catch (error) {
+            console.error("Balance payment error:", error);
+            alert("Payment failed. Please try again.");
+        } finally {
+            setLoading(false);
+        }
+    };
     return (
         <>
-            <div id="paymentBrick_container"></div>
-            {libro && preferenceId && (
-                <Payment
-                    initialization={{
-                        amount: libro.oferta ? libro.oferta : libro.precio,
-                        preferenceId,
-                        marketplace: true,
-                    }}
-                    customization={{
-                        paymentMethods: {
-                            ticket: "all",
-                            bankTransfer: "all",
-                            creditCard: "all",
-                            debitCard: "all",
-                            mercadoPago: "all",
-                            atm: "all"
-                        },
-                    }}
-                    onSubmit={onSubmit}
-                    onReady={onReady}
-                    onError={onError}
-                />
+            {libro && preferenceId ? (
+                <>
+                    <div className="mp-checkout-bricks__payment-options">
+                        {/* Pay with Balance Option */}
+                        <div
+                            className={`mp-checkout-bricks__option ${selectedMethod === "balance" ? "active" : ""}`}
+                            onClick={() => setSelectedMethod("balance")}
+                        >
+                            <div className="mp-checkout-bricks__option-icon">
+                                {/* Add an icon for balance (e.g., a wallet) */}
+                                💰
+                            </div>
+                            <div className="mp-checkout-bricks__option-text">
+                                <strong>Pay with Balance</strong>
+                                <span>Available balance: ${/*userBalance || */0}</span>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+
+                    {/* Conditionally Render Payment Methods */}
+                    {selectedMethod === "balance" ? (
+                        <button
+                            className="mp-checkout-bricks__pay-button"
+                            onClick={handlePayWithBalance}
+                            disabled={loading}
+                        >
+                            {loading ? "Processing..." : "Pay with Balance"}
+                        </button>
+                    ) : (
+                        <Payment
+                            initialization={{
+                                amount: libro.oferta ? libro.oferta : libro.precio,
+                                preferenceId,
+                                marketplace: true,
+                            }}
+                            customization={{
+                                paymentMethods: {
+                                    ticket: "all",
+                                    bankTransfer: "all",
+                                    creditCard: "all",
+                                    debitCard: "all",
+                                    mercadoPago: "all",
+                                    atm: "all",
+                                },
+                            }}
+                            onSubmit={onSubmit}
+                            onReady={onReady}
+                            onError={onError}
+                        />
+                    )}
+                </>
+            ) : (
+                <span>Loading...</span>
             )}
         </>
     );

@@ -207,7 +207,7 @@ export class UsersController {
     const users = await UsersModel.getAllUsers()
     const emailRepeated = users.some(user => user.correo === data.correo)
     if (emailRepeated) {
-      return res.status(409).json({ error: 'El correo ya está en uso' })
+      return res.json({ error: 'El correo ya está en uso' })
     }
     const time = new Date()
     data.creadoEn = time

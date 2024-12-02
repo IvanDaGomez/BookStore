@@ -122,6 +122,10 @@ const router = createBrowserRouter([
   {
     path: '/cuenta',
     element: <Cuenta />
+  },
+  {
+    path: '/cuenta/:extension',
+    element:<Cuenta /> 
   }
 ], {
   future: {

@@ -14,7 +14,7 @@
     "estadoCuenta": "activo",
     "fotoPerfil": "",
     "_id": "857857d1-afdd-411d-b41a-be427d1ff186",
-    "actualizadoEn": "2024-11-26T04:10:07.168Z",
+    "actualizadoEn": "2024-11-26T04:30:44.693Z",
     "direccionEnvio": {
       "calle": "",
       "ciudad": "",
@@ -71,7 +71,8 @@
       "fe536da9-c44d-4142-96a0-54bcfbcd1c3d",
       "734d22db-c692-4be2-8a9a-a7a1a3c15fa6",
       "7e2fc170-021c-4101-a07c-4a3f37762c0e",
-      "64bd9da0-2cf4-4a18-82d6-3ac7bdc13d20"
+      "64bd9da0-2cf4-4a18-82d6-3ac7bdc13d20",
+      "1d5303d0-c032-4124-baf3-d739c114fbda"
     ],
     "validated": false,
     "login": "default"
@@ -174,7 +175,7 @@
     "estadoCuenta": "activo",
     "fotoPerfil": "",
     "_id": "836e151b-43ae-48a0-8352-17ad309d8068",
-    "actualizadoEn": "2024-11-23T20:59:03.801Z",
+    "actualizadoEn": "2024-12-01T07:47:27.680Z",
     "direccionEnvio": {
       "ciudad": "Floridablanca",
       "pais": "Colombia",
@@ -195,7 +196,9 @@
       "5644390f-de7e-4280-8801-9c6a017bb2b5"
     ],
     "bio": "",
-    "favoritos": [],
+    "favoritos": [
+      "3f7ab023-15e7-4626-8890-a71f4f2e221c"
+    ],
     "notificationsIds": [],
     "validated": false,
     "login": "default",

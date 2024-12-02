@@ -32,7 +32,7 @@ import { DetailedNotification } from "../../assets/formatNotificationMessage";
 export default function Notificaciones() {
     const navigate = useNavigate()
 
-    const [user, setUser] = useState(null)
+    const [user, setUser] = useState({})
 
         // Fetch del usuario primero que todo
         useEffect(() => {
@@ -56,12 +56,12 @@ export default function Notificaciones() {
             }
             fetchUser();
         }, []);
-        const [notifications, setNotifications] = useState(null)
-        const [activeNotification, setActiveNotification] = useState(null)
-        const [filteredNotifications, setFilteredNotifications] = useState(null)
+        const [notifications, setNotifications] = useState([])
+        const [activeNotification, setActiveNotification] = useState({})
+        const [filteredNotifications, setFilteredNotifications] = useState([])
         useEffect(()=>{
             async function fetchNotifications() {
-                if (!user) return 
+                if (!user || !user?._id) return; 
                 const url = 'http://localhost:3030/api/notifications/getNotificationsByUser/' + user._id
                 const response = await axios.get(url)
                 setNotifications(response.data)
@@ -73,17 +73,25 @@ export default function Notificaciones() {
     const { notificationId } = useParams()
 
     useEffect(()=>{
-        if (notificationId && notifications) {
+        if (notificationId && notifications.length !== 0) {
             setActiveNotification(notifications.find(notification=> notification._id === notificationId))
         }
     },[notificationId, notifications])
 
+
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
+useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 600);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+}, []);
+
     // slide when a notification is active or not
     useEffect(()=>{
-        if (activeNotification && window.innerWidth <= 600) {
+        if (activeNotification && isMobile) {
             document.querySelector('.messagesContainer').style.transform = 'translateX(-100vw)'
         }
-        else if (!activeNotification && window.innerWidth <= 600){
+        else if (!activeNotification && isMobile){
             document.querySelector('.messagesContainer').style.transform = 'translateX(0)'
         }
     },[activeNotification])
@@ -91,9 +99,9 @@ export default function Notificaciones() {
         const searchTerm = e.target.value.toLowerCase(); // Normalize the search term for case-insensitive comparison
     
         // Filter conversations where the name of the other user contains the search term
-        const filtered = notifications.title.filter((notification)=>{
-            notification.title.includes(searchTerm)
-        })
+        const filtered = notifications.filter((notification) =>
+            notification.title.toLowerCase().includes(searchTerm)
+        );
     
         // Update the state with the filtered conversations
         setFilteredNotifications(filtered);
@@ -103,24 +111,27 @@ export default function Notificaciones() {
         newMessage: "Tienes un nuevo mensaje!",
         newQuestion: "Tienes una nueva pregunta!",
         bookPublished: "Tu libro ha sido publicado!",
-        bookSold: `Tu libro "${activeNotification && activeNotification.metadata.bookTitle}" ha sido vendido!`,
+        bookSold: `Tu libro "${activeNotification && activeNotification?.metadata?.bookTitle}" ha sido vendido!`,
         orderShipped: "Tu pedido ha sido entregado!",
-        reviewReceived: `Tienes una nueva reseña de "${activeNotification && activeNotification.metadata.bookTitle}"!`
+        reviewReceived: `Tienes una nueva reseña de "${activeNotification && activeNotification?.metadata?.bookTitle}"!`
     };
     // Mark every notification as read
 
-    useEffect(()=>{
-        async function fetchReadNotification(){
-            if (!notifications || !activeNotification) return
-            const url = 'http://localhost:3030/api/notifications/' + activeNotification._id + '/read'
-            const read = await fetch(url)
+useEffect(() => {
+    if (!activeNotification) return;
+    async function fetchReadNotification() {
+        try {
+            const url = `http://localhost:3030/api/notifications/${activeNotification._id}/read`;
+            const read = await fetch(url, { method: 'PUT' });
             if (!read.ok) {
-                console.log('Error marcando notificación como leida')
-                return
+                console.error('Error marking notification as read');
             }
+        } catch (error) {
+            console.error(error);
         }
-        fetchReadNotification()
-    },[notifications, activeNotification])
+    }
+    fetchReadNotification();
+}, [activeNotification?._id]); // Only trigger when the active notification changes
     return (
         <>
         <Header />
@@ -151,8 +162,9 @@ export default function Notificaciones() {
                 <input type="text" className="conversationsFilter" onChange={(event)=>filterNotifications(event)} placeholder="Buscar"/>
 
 {/*----------------------------------------CADA CONVERSACIÓN----------------------------------------------- */}
-                {filteredNotifications && filteredNotifications
-                    
+                {(filteredNotifications && filteredNotifications.length !== 0) && filteredNotifications
+                    .slice() // Ensure a new array is created to avoid mutating state
+                    .reverse()
                     .map((notification) => (
                         <div
                             key={notification._id}
@@ -175,16 +187,16 @@ export default function Notificaciones() {
                             <span>{formatDate(notification?.createdIn) || ''}</span>
                             
                         </div>
-                    )).reverse()}
+                    ))}
             </div>
             {console.log(activeNotification)}
             <div className="chat">
                 {/*Specific information for each notification */}
-                <div className="headerMessage" style={{display: window.innerWidth <= 600 ? 'flex': 'none'}}>
+                <div className="headerMessage" style={{display: isMobile ? 'flex': 'none'}}>
                                     <svg 
                                     onClick={()=>setActiveNotification(null)}
                                     style={{transform:'rotate(180deg)'}} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={25} height={25} color={"#000000"} fill={"none"}><path d="M9.00005 6C9.00005 6 15 10.4189 15 12C15 13.5812 9 18 9 18" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg></div> 
-                {activeNotification &&
+                {(activeNotification && Object.keys(activeNotification).length !== 0) &&
                             <div className="messagesViewContainer" >
                                 <div className="otherMessage" style={{padding: '5px'}}>{DetailedNotification(activeNotification)}</div>                             
                             </div>
