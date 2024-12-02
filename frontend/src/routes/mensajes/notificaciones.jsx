@@ -118,7 +118,7 @@ useEffect(() => {
     // Mark every notification as read
 
 useEffect(() => {
-    if (!activeNotification) return;
+    if (!activeNotification || activeNotification.read) return;
     async function fetchReadNotification() {
         try {
             const url = `http://localhost:3030/api/notifications/${activeNotification._id}/read`;

@@ -7,6 +7,7 @@ import { MakeCard, MakeUpdateCard } from "../../assets/makeCard";
 import { useSearchParams, Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import Favorites from "./favorites";
+import renderProfilePhoto from "../../assets/renderProfilePhoto";
 
 export default function Usuario() {
     const navigate = useNavigate()
@@ -180,13 +181,7 @@ export default function Usuario() {
                 <div className="card-container">
                     
                     <img
-                        src={
-                            usuario.fotoPerfil && usuario?.login === 'default' && usuario.fotoPerfil.trim() !== ''
-                              ? `http://localhost:3030/uploads/${encodeURIComponent(usuario.fotoPerfil)}`
-                              : usuario.login === 'Google' || usuario.login === 'Facebook' && usuario.fotoPerfil
-                              ? usuario.fotoPerfil
-                              : 'http://localhost:3030/uploads/default.jpg'
-                          }
+                        src={renderProfilePhoto({ user:  usuario })}
                         alt="Profile"
                         className="profile-image"
                     />

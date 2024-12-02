@@ -9,7 +9,7 @@ import { emailsRouter } from './routes/email/emailRouter.js'
 import { SECRET_KEY } from './assets/config.js'
 import cookieParser from 'cookie-parser'
 import jwt from 'jsonwebtoken'
-
+// import { handleStats } from './assets/handleStats.js'
 const app = express()
 
 const PORT = process.env.PORT ?? 3030
@@ -61,6 +61,9 @@ app.use(express.urlencoded({ extended: true }))
 
 // Habilitar respuestas solo en json
 app.use(express.json())
+
+// Estadísticas
+// app.use((req, res, next) => handleStats(req, res, next))
 
 // Archivos para uploads y optimizados
 app.use('/uploads', express.static('uploads'))

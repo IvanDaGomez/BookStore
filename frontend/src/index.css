@@ -4,7 +4,7 @@
 :root {
 
   --using1: #ffffff; /* Background */
-  --using2: #b2afb4; /* Lines, separators, scrollbars */
+  --using2: #c4c3c4; /* Lines, separators, scrollbars */
   --using3: #000000; /* Text color */
   --using4: #42376E; /* Accent */
   --using5: #f4f0f0; /* Buttons, divs */
@@ -33,6 +33,7 @@
   --lime6:#d4d4d4;
   
   --border: 5px;
+  --padding-big: 20px;
   font-family: "Manrope","Kanit", system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: bold;
@@ -453,7 +454,7 @@ header .flex-between{
   align-items: center;
   padding: 10px;
   height:auto;
-  text-align: center;
+  text-align: left;
 }
 .profileElement:hover{
   text-decoration: underline;
@@ -2697,7 +2698,7 @@ color: var(--using6);
   padding: 20px;
   width:min(1000px, calc(100vw - 10px));
   border: 1px solid var(--using4);
-  box-shadow: 0 0 8px var(--using4);
+
   border-radius: var(--border);;
 }
 
@@ -2788,7 +2789,6 @@ color: var(--using6);
   width:min(1000px, calc(100vw - 10px));
   border: 1px solid var(--using4);
   border-top: none;
-  box-shadow: 0 0 var(--border) var(--using4);
   border-radius: 0  var(--border) var(--border) var(--border);
 }
 /*Bug with the width*/
@@ -3750,6 +3750,7 @@ a[href="/chat"]{
 .main-content {
   flex: 1;
   padding: 40px;
+  background: #e0dee170;
 }
 
 .profile-header {
@@ -3796,4 +3797,35 @@ a[href="/chat"]{
 .info-row h4 {
   margin: 5px 0 0;
   font-size: 16px;
+}
+
+.account-dashboard .main-content .genericContainer{
+  width: auto;
+  max-width: 500px;
+  border-radius: var(--border);
+  background: var(--using4);
+  color: var(--using1);
+  margin: auto;
+  padding: 5px;
+}
+.account-dashboard .main-content a{
+  font-weight: 1000;
+}
+
+.account-dashboard .main-content .userInfo{
+  width: min(100%, 800px);
+  height: auto;
+  border-radius: var(--border);
+  background: var(--using1);
+  margin: 10px auto;
+  padding: var(--padding-big);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  
+}
+
+.account-dashboard .main-content .userInfo img{
+  height: 100px;
+  aspect-ratio: 1 / 1;
 }

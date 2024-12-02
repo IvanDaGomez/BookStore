@@ -1,23 +1,7 @@
-import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
-export default function HeaderCuenta({ actualOption, setActualOption}) {
-    const headerOptions = [{
-        title: 'Mi perfil',
-        href:'/cuenta'
-      },
-      {
-        title:'Mi balance',
-        href:'/cuenta/balance'
-      },
-      {
-        title: 'Verificar',
-        href: '/cuenta/verificar'
-      },{
-        
-      }]
-    useEffect(()=>{
-        setActualOption(headerOptions.find(option => window.location.pathname === option.href))
-    },[window.location.href])
+/* eslint-disable react/prop-types */
+
+export default function HeaderCuenta({ options }) {
+
     return(<>
       {/* Sidebar */}
 
@@ -28,14 +12,12 @@ export default function HeaderCuenta({ actualOption, setActualOption}) {
         </div>
         <div className="menu">
 
-          {headerOptions.map((option, index)=> (
-            <>
+          {options.map((option, index)=> (
               <a href={option.href} key={index}>
                 <div className={`headerOption ${window.location.pathname === option.href ? 'active': ''}`}>
                   {option.title}
                 </div>
               </a>
-            </>
           ))}
         </div>
 
