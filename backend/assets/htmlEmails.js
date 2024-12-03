@@ -1,13 +1,7 @@
 import dotenv from 'dotenv'
 dotenv.config()
-function createEmail (data, template) {
-  switch (template) {
-    case 'thankEmail': {
-      return `
-        <html>
-            <head>
-            <style>
-                body {
+
+const styles = `body {
                 font-family: Arial, sans-serif;
                 color: #333;
                 background-color: #f4f4f9;
@@ -31,7 +25,7 @@ function createEmail (data, template) {
                 }
                 .button {
                 display: inline-block;
-                padding: 12px 24px;
+                padding: 12px;
                 background-color: #4CAF50;
                 color: white;
                 text-decoration: none;
@@ -43,7 +37,15 @@ function createEmail (data, template) {
                 font-size: 0.9em;
                 color: #aaa;
                 text-align: center;
-                }
+                }`
+function createEmail (data, template) {
+  switch (template) {
+    case 'thankEmail': {
+      return `
+        <html>
+            <head>
+            <style>
+                ${styles}
             </style>
             </head>
             <body>
@@ -68,43 +70,7 @@ function createEmail (data, template) {
         <html>
             <head>
             <style>
-                body {
-                font-family: Arial, sans-serif;
-                color: #333;
-                background-color: #f4f4f9;
-                padding: 20px;
-                }
-                .container {
-                width: 600px;
-                margin: 0 auto;
-                background-color: #ffffff;
-                padding: 20px;
-                border-radius: 8px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                }
-                h1 {
-                color: #4CAF50;
-                text-align: center;
-                }
-                p {
-                font-size: 1.1em;
-                line-height: 1.6;
-                }
-                .button {
-                display: inline-block;
-                padding: 12px 24px;
-                background-color: #4CAF50;
-                color: white;
-                text-decoration: none;
-                border-radius: 5px;
-                text-align: center;
-                }
-                .footer {
-                margin-top: 20px;
-                font-size: 0.9em;
-                color: #aaa;
-                text-align: center;
-                }
+                ${styles}
             </style>
             </head>
             <body>

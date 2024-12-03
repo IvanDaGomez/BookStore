@@ -262,14 +262,15 @@ export class UsersController {
     try {
       const { userId } = req.params
       const data = req.body
-      console.log(data)
 
       // Validar datos
       const validated = validatePartialUser(data)
       if (!validated.success) {
+        console.log(validated.error.errors)
         return res.status(400).json({ error: 'Error validando usuario', details: validated.error.errors })
       }
 
+      if (req.file) data.fotoPerfil = `${req.file.filename}`
       if (data.favoritos && data.accion) {
         const user = await UsersModel.getUserById(userId)
 
@@ -306,6 +307,8 @@ export class UsersController {
         if (existingUser && existingUser._id !== userId) {
           return res.status(409).json({ error: 'El correo ya está en uso' })
         }
+        // Eliminar la validación del correo
+        data.validated = false
       }
 
       // Filtrar los campos permitidos

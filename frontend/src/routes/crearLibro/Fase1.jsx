@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { validarPublicar1 } from "../../assets/validarPublicar";
 import { toast } from "react-toastify";
+import { cropImageToAspectRatio } from "../../assets/cropImageToAspectRatio";
 export default function Fase1({ form, setForm, setFase, fase }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [croppedImages, setCroppedImages] = useState([]);
@@ -22,7 +23,8 @@ export default function Fase1({ form, setForm, setFase, fase }) {
     }));
   
     if (selectedFiles.length + files.length > 5) {
-      window.alert("No puedes subir más de 5 fotos.");
+      toast.error('No puedes subir más de 5 fotos.')
+
       return;
     }
   
@@ -33,10 +35,10 @@ export default function Fase1({ form, setForm, setFase, fase }) {
   const handleDrop = async (e) => {
     e.preventDefault();
     const files = Array.from(e.dataTransfer.files);
-    const croppedFiles = await Promise.all(files.map(cropImageToAspectRatio));
+    const croppedFiles = await Promise.all(files.map((file) => cropImageToAspectRatio(file, 2 / 3)));
 
     if (selectedFiles.length + files.length > 5) {
-      window.alert("No puedes subir más de 5 fotos.");
+      toast.error('No puedes subir más de 5 fotos.')
       return;
     }
 
@@ -46,7 +48,7 @@ export default function Fase1({ form, setForm, setFase, fase }) {
 
   // Solo previene el comportamiento predeterminado en onDragOver
   const handleDragOver = (e) => {
-    e.preventDefault();
+    e.preventDefault(); 
   };
 
   const handleSubmit = (e) => {
@@ -88,58 +90,7 @@ export default function Fase1({ form, setForm, setFase, fase }) {
     setCroppedImages(form.images || []);
   }, [form.titulo, form.descripcion, form.images, form.autor]);
 
-  // Función para recortar la imagen con aspect ratio 2/3
-  const cropImageToAspectRatio = (file) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = (event) => {
-        const img = new Image();
-        img.src = event.target.result;
-        img.onload = () => {
-          const canvas = document.createElement("canvas");
-          const ctx = canvas.getContext("2d");
 
-          const aspectRatio = 2 / 3;
-          let width, height, sx, sy, sw, sh;
-
-          // Si la imagen es más ancha que alta
-          if (img.width / img.height > aspectRatio) {
-            width = img.height * aspectRatio;
-            height = img.height;
-            sx = (img.width - width) / 2; // Recortar desde el centro horizontalmente
-            sy = 0;
-            sw = width;
-            sh = height;
-          } else {
-            width = img.width;
-            height = img.width / aspectRatio;
-            sx = 0;
-            sy = (img.height - height) / 2; // Recortar desde el centro verticalmente
-            sw = width;
-            sh = height;
-          }
-
-          canvas.width = width;
-          canvas.height = height;
-
-          ctx.drawImage(img, sx, sy, sw, sh, 0, 0, width, height);
-          // La URL no es permanente
-          canvas.toBlob(
-            (blob) => {
-              if (blob) {
-                resolve(URL.createObjectURL(blob));
-              } else {
-                reject(new Error("Error al crear blob de imagen"));
-              }
-            },
-            file.type
-          );
-        };
-      };
-      reader.onerror = (err) => reject(err);
-    });
-  };
 
 
 

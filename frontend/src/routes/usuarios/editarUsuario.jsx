@@ -5,7 +5,8 @@ import Footer from "../../components/footer";
 import useBotonSelect from "../../assets/botonSelect";
 import { validarActualizarUsuario } from "../../assets/validarPublicar";
 import titleCase from "../../assets/toTitleCase";
-
+import renderProfilePhoto from "../../assets/renderProfilePhoto"
+import { cropImageToAspectRatio } from "../../assets/cropImageToAspectRatio";
 export default function EditarUsuario() {
     const [user, setUser] = useState(null);
     const [fotoPerfil, setFotoPerfil] = useState('');
@@ -14,7 +15,7 @@ export default function EditarUsuario() {
     const [filtros, setFiltros] = useState({});
     const [form, setForm] = useState({});
     const [errors, setErrors] = useState([]);
-    const [newImage, setNewImage] = useState(null); // To track new image upload
+
 
     // Fetch user session on mount
     useEffect(() => {
@@ -70,14 +71,8 @@ export default function EditarUsuario() {
             document.querySelector("#nombre").value = user.nombre || "";
             document.querySelector("#bio").value = user.bio || "";
             document.querySelector("#correo").value = correo || "";
-            setFotoPerfil(
-
-                    user.fotoPerfil && user?.login === 'default' && user.fotoPerfil.trim() !== ''
-                      ? `http://localhost:3030/uploads/${encodeURIComponent(user.fotoPerfil)}`
-                      : user.login === 'Google' && user.fotoPerfil
-                      ? user.fotoPerfil
-                      : 'http://localhost:3030/uploads/default.jpg'
-            );
+            
+            setFotoPerfil(renderProfilePhoto({ user }));
 
         }
     }, [user, correo]);
@@ -102,19 +97,15 @@ export default function EditarUsuario() {
 
     const estadoCuentaProps = {
         formas: estadoCuentaInfo,
-        valorInicial: estadoCuenta,
+        valorInicial: user && estadoCuentaInfo.find((val)=>val === titleCase(user.estadoCuenta)),
         ...configuracionFiltros("15vw"),
     };
 
     const botonSelect = useBotonSelect(estadoCuentaProps);
 
     const handleSetForm = (e) => {
-        const { name, value, files } = e.target;
-        if (name === "fotoPerfil" && files.length > 0) {
-            setNewImage(files[0]); // Store the new image
-        } else {
-            setForm((prevForm) => ({ ...prevForm, [name]: value }));
-        }
+        const { name, value } = e.target;
+        setForm((prevForm) => ({ ...prevForm, [name]: value }));
     };
 
     const handleSubmit = async (e) => {
@@ -139,17 +130,27 @@ export default function EditarUsuario() {
         const formData = new FormData();
         setForm({ ...form, contraseña: (nuevaContraseña) ? nuevaContraseña: '' })
 
-        if (newImage) {
-            formData.append('images', newImage, newImage.name); // Append new image
+        async function urlToBlob(blobUrl) {
+            const response = await fetch(blobUrl);
+            const blob = await response.blob();
+            return blob;
+          }
+        if (Object.keys(croppedImage).length !== 0) {
+            const blob = await urlToBlob(croppedImage.url)
+            formData.append('images', blob, 'imagenPerfil.png'); // Append new image
         }
-
-        for (let [key, value] of Object.entries(form)) {
-            formData.append(key, value);
+        if (form) {
+            for (let [key, value] of Object.entries(form || {})) {
+                formData.append(key, value);
+            }
         }
 
         formData.append("actualizadoEn", new Date().toISOString());
-
+        for (let [key, value] of formData.entries()) {
+            console.log(`${key}: ${value}`);
+            }
         try {
+             
             const URL = `http://localhost:3030/api/users/${user._id}`;
             const response = await fetch(URL, {
                 method: 'PATCH',
@@ -169,7 +170,24 @@ export default function EditarUsuario() {
             console.error("Error al enviar los datos:", error);
         }
     };
+    function handleProfilePhotoClick(e) {
+        e.preventDefault()
+        document.getElementById('inputFotoPerfil').click()
+    }
 
+    const [croppedImage, setCroppedImage] = useState({})
+    async function handleImageChange(e) {
+        
+            const file = e.target.files[0];
+            const crop = async () => {
+              const croppedURL = await cropImageToAspectRatio(file, 1 / 1);
+              return { url: croppedURL, type: file.type };  // Guardar URL y tipo de archivo
+            }
+            const croppedFile = await crop()
+          
+            setCroppedImage(croppedFile);  // Añadir imágenes recortadas con su tipo
+        
+    }
     return (
         <>
             <Header />
@@ -177,11 +195,15 @@ export default function EditarUsuario() {
                 <form onSubmit={handleSubmit} noValidate onChange={handleSetForm}>
                     <div className="editarUsuario">
                         <div className="editarFotoContainer">
-                            <img src={fotoPerfil} alt="Profile" />
-                            <input id='inputFotoPerfil'type="file" name="fotoPerfil" />
+                            <img src={croppedImage.url || fotoPerfil} alt="Profile" />
+                            <input id='inputFotoPerfil'
+                            type="file" name="fotoPerfil" 
+                            accept="image/*"
+                            onChange={handleImageChange} style={{ display: 'none' }}/>
 
                         </div>
-                        <button onClick={()=> document.querySelector('.inputFotoPerfil').click() }>Cambiar Foto</button>
+                        
+                        <button onClick={handleProfilePhotoClick}>Cambiar Foto</button>
                         <div className="inputCrear">
                             <label htmlFor="nombre">Nombre</label>
                             <input id="nombre" type="text" name="nombre" placeholder="Tu nombre" />

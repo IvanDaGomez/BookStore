@@ -53,6 +53,7 @@ export class NotificationsController {
   static async markNotificationAsRead (req, res) {
     try {
       const { notificationId } = req.params
+      console.log(notificationId)
       if (!notificationId) {
         return res.status(404).json({ error: 'No hay ID de notificación' })
       }

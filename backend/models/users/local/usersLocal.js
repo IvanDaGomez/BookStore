@@ -11,7 +11,7 @@ function userObject (name) {
     rol: name.rol,
     fotoPerfil: name.fotoPerfil, // Example of public info
     librosIds: name.librosIds,
-    estadoCuenta: name.estadoCuenta,
+    estadoCuenta: name.estadoCuenta || 'Activo',
     creadoEn: name.creadoEn,
     bio: name.bio || '',
     favoritos: name.favoritos || [],

@@ -148,7 +148,7 @@ export class NotificationsModel {
 
     // Actualiza los datos de la conversación
     notifications[notificationIndex].read = true
-
+    console.log(notifications[notificationIndex])
     // Hacer el path hacia aqui
     // const filePath = pat h.join()
     await fs.writeFile('./models/notifications.json', JSON.stringify(notifications, null, 2))
