@@ -39,7 +39,13 @@ export default function Sections({ filter, backgroundColor }){
     useEffect(()=>{
         const fetchResults = async () => {
             try {
-                const url = `http://localhost:3030/api/books/query?q=${cambiarEspacioAGuiones(filter)}&l=6`
+                let url;
+                if (filter === 'Nuevo') {
+                    url = 'http://localhost:3030/api/books/query/filters?Fecha-de-publicación=' + 'Menos-de-una-semana'
+                }
+                else {
+                    url = `http://localhost:3030/api/books/query?q=${cambiarEspacioAGuiones(filter)}&l=6`
+                }
                 const response = await axios.get(url, { withCredentials: true });
                 setLibros(response.data)
             } catch (error) {
@@ -60,7 +66,7 @@ export default function Sections({ filter, backgroundColor }){
         <h1 style={{margin:"0 40px", textAlign:"left"}}>{filter}</h1>
         <div className="sectionsContainer">
             
-            {libros.slice(0,6).map((element, index) => (
+            {libros.map((element, index) => (
                 user ? <MakeCard key={index} element={element} index={index} user={user}/>: 
                 <MakeCard key={index} element={element} index={index}/>
             )  

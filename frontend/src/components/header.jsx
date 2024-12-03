@@ -310,8 +310,8 @@ const openExtraInfo = async (str) => {
                     <span>Mis mensajes</span>
                 </div>
                 </Link>
-                <div className="profileElement" onClick={()=>{
-                    axios.post('http://localhost:3030/api/users/logout', null, {withCredentials: true})
+                <div className="profileElement" onClick={async ()=>{
+                    await axios.post('http://localhost:3030/api/users/logout', null, {withCredentials: true})
                     window.location.reload();
                 }}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={20} height={20} color={"#000000"} fill={"none"}>

@@ -4,6 +4,8 @@ import { validateUser, validatePartialUser } from '../../assets/validate.js'
 import { SECRET_KEY } from '../../assets/config.js'
 import jwt from 'jsonwebtoken'
 import { cambiarGuionesAEspacio } from '../../../frontend/src/assets/agregarMas.js'
+import { sendEmail } from '../../assets/sendEmail.js'
+import { createEmail } from '../../assets/htmlEmails.js'
 
 export class UsersController {
   static async getAllUsers (req, res) {
@@ -229,7 +231,8 @@ export class UsersController {
     if (!token) {
       return res.status(500).send({ error: 'Error al generar el token' })
     }
-
+    // Enviar correo de agradecimiento por unirse a meridian
+    await sendEmail(`${data.nombre} ${data.correo}`, 'Bienvenido a Meridian!', createEmail(data, 'thankEmail'))
     // Si todo es exitoso, devolver el usuario creado
     res
       .cookie('access_token', token, {

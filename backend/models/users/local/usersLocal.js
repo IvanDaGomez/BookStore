@@ -247,6 +247,7 @@ class UsersModel {
       throw new Error('An error occurred while processing your request')
     }
   }
+
   static async getUserByEmail (correo) {
     try {
       const users = await this.getAllUsers()
@@ -267,7 +268,7 @@ class UsersModel {
       const users = await this.getAllUsers()
 
       // Crear valores por defecto
-      const newUser = userObject(data)
+      const newUser = { ...userObject(data), contraseña: data.contraseña, correo: data.correo }
 
       newUser.contraseña = await bcrypt.hash(newUser.contraseña, SALT_ROUNDS)
       users.push(newUser)

@@ -9,6 +9,8 @@ import { emailsRouter } from './routes/email/emailRouter.js'
 import { SECRET_KEY } from './assets/config.js'
 import cookieParser from 'cookie-parser'
 import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+dotenv.config()
 // import { handleStats } from './assets/handleStats.js'
 const app = express()
 
@@ -52,7 +54,6 @@ app.use((req, res, next) => {
 })
 app.use((req, res, next) => {
   console.log(`Request URL: ${req.url}, Method: ${req.method}`)
-
   next()
 })
 

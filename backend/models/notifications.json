@@ -986,5 +986,95 @@
       "bookTitle": "El libro de Bill",
       "bookId": "31d52487-f746-4951-bf11-7b41febea0a9"
     }
+  },
+  {
+    "_id": "51230904-949a-472a-b1c8-408bd6aa7a36",
+    "theme": "",
+    "title": "Tu libro ha sido publicado con éxito",
+    "priority": "high",
+    "type": "bookPublished",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-03T04:06:37.194Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/e93345c4-ca50-4919-ba85-4dcf00882673",
+    "expiresAt": "2025-01-02T04:06:37.194Z",
+    "metadata": {
+      "photo": "1733198744024-545526866.png",
+      "bookTitle": "React Practico desde cero a desarrollos web avanzados",
+      "bookId": "e93345c4-ca50-4919-ba85-4dcf00882673"
+    }
+  },
+  {
+    "_id": "d130879c-9b6b-4270-9571-a511e41c1f61",
+    "theme": "",
+    "title": "Tu libro ha sido publicado con éxito",
+    "priority": "high",
+    "type": "bookPublished",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-03T04:08:23.034Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/e93345c4-ca50-4919-ba85-4dcf00882673",
+    "expiresAt": "2025-01-02T04:08:23.034Z",
+    "metadata": {
+      "photo": "1733198744024-545526866.png",
+      "bookTitle": "React Practico desde cero a desarrollos web avanzados",
+      "bookId": "e93345c4-ca50-4919-ba85-4dcf00882673"
+    }
+  },
+  {
+    "_id": "78bf08e9-8dc9-4bad-9254-41237d898d34",
+    "theme": "",
+    "title": "Tu libro ha sido publicado con éxito",
+    "priority": "high",
+    "type": "bookPublished",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-03T04:09:07.491Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/e93345c4-ca50-4919-ba85-4dcf00882673",
+    "expiresAt": "2025-01-02T04:09:07.491Z",
+    "metadata": {
+      "photo": "1733198744024-545526866.png",
+      "bookTitle": "React Practico desde cero a desarrollos web avanzados",
+      "bookId": "e93345c4-ca50-4919-ba85-4dcf00882673"
+    }
+  },
+  {
+    "_id": "175eb6a4-9c22-42cd-a8aa-0a3bc09f73b3",
+    "theme": "",
+    "title": "Tu libro ha sido publicado con éxito",
+    "priority": "high",
+    "type": "bookPublished",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-03T04:09:21.384Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/e93345c4-ca50-4919-ba85-4dcf00882673",
+    "expiresAt": "2025-01-02T04:09:21.384Z",
+    "metadata": {
+      "photo": "1733198744024-545526866.png",
+      "bookTitle": "React Practico desde cero a desarrollos web avanzados",
+      "bookId": "e93345c4-ca50-4919-ba85-4dcf00882673"
+    }
+  },
+  {
+    "_id": "4c0d2723-f52f-429b-8ed8-55f2a5d1003a",
+    "theme": "",
+    "title": "Tu libro ha sido publicado con éxito",
+    "priority": "high",
+    "type": "bookPublished",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-03T04:09:37.544Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/e93345c4-ca50-4919-ba85-4dcf00882673",
+    "expiresAt": "2025-01-02T04:09:37.544Z",
+    "metadata": {
+      "photo": "1733198744024-545526866.png",
+      "bookTitle": "React Practico desde cero a desarrollos web avanzados",
+      "bookId": "e93345c4-ca50-4919-ba85-4dcf00882673"
+    }
   }
 ]

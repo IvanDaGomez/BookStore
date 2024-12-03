@@ -10,6 +10,8 @@ import { scrapingFunctions } from '../../assets/scrappingConfig.js'
 import { Preference, MercadoPagoConfig, Payment } from 'mercadopago'
 import { ACCESS_TOKEN } from '../../assets/config.js'
 import fetch from 'node-fetch'
+import { sendEmail } from '../../assets/sendEmail.js'
+import { createEmail } from '../../assets/htmlEmails.js'
 export class BooksController {
   static async getAllBooks (req, res) {
     try {
@@ -215,6 +217,10 @@ export class BooksController {
     if (!response.ok) {
       return res.send({ error: 'Error creando notificación' })
     }
+    const correo = await UsersModel.getEmailById(data.idVendedor)
+    // Enviar correo
+    console.log(correo)
+    await sendEmail(`${data.vendedor} ${correo.correo}`, 'Libro publicado con éxito', createEmail(data, 'bookPublished'))
     // Si todo es exitoso, devolver el libro creado
     res.send({ book })
   }

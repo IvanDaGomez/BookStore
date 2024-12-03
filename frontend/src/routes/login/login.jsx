@@ -96,6 +96,7 @@ export default function Login() {
     };
 
     try {
+        document.body.style.cursor = "wait"
         const response = await fetch(url, {
             method: 'POST' ,
             headers: {
@@ -114,7 +115,7 @@ export default function Login() {
         // Si la respuesta es exitosa, puedes manejar la respuesta aquí
         // En teoría el token se guarda en la cookie desde el backend
         // Si la respuesta es exitosa, puedes manejar la respuesta aquí
-
+        document.body.style.cursor = "auto"
         // Si no hay una pagina anterior, redirigir a inicio, si si redirigir a la pagina que estaba
         if (!document.referrer || !document.referrer.includes(window.location.hostname)){
           navigate('/')
@@ -135,6 +136,7 @@ export default function Login() {
       ciudad, 
       departamento
     }
+    document.body.style.cursor = "wait"
     const url = `http://localhost:3030/api/users/google-login`
     const response = await fetch(url, {
       method: 'POST',
@@ -150,6 +152,7 @@ export default function Login() {
       setErrors((prevErrors) => [...prevErrors, 'Error en el servidor: Intenta de Nuevo']);
       return; // Salir de la función si hay un error
     }
+  document.body.style.cursor = "auto"
   // Si no hay una pagina anterior, redirigir a inicio, si si redirigir a la pagina que estaba
   if (!document.referrer || !document.referrer.includes(window.location.hostname)){
     navigate('/')
@@ -239,7 +242,7 @@ export default function Login() {
             <GoogleOAuthProvider clientId={'116098868999-7vlh6uf4e7c7ctsif1kl8nnsqvrk7831.apps.googleusercontent.com'}>
               <GoogleLogin callback={handleGoogleSubmit}/>
             </GoogleOAuthProvider>
-            <div> {/*Logo de Facebook */}
+             {/*Logo de Facebook */}
             <LoginSocialFacebook
               appId='2114886455594411'
               onResolve={res => handleFacebookSubmit(res, setErrors)}
@@ -247,7 +250,7 @@ export default function Login() {
             >
               <img loading="lazy" src="/facebook-logo.svg" alt="Facebook logo" title='Facebook logo'/>
             </LoginSocialFacebook>
-            </div>
+            
             {/*<div>{/*Logo de Amazon 
             <img loading="lazy" src="/amazon-logo.svg" alt="Amazon logo" title='Amazon logo'/>
             </div>*/}

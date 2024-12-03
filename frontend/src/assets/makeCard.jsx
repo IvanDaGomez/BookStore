@@ -20,7 +20,6 @@ const MakeCard = ({ element, index, user = '', callback = ()=>{} }) => {
     return (
           <Link to={`/libros/${element._id}`}>
             <div className="sectionElement" key={index} >
-                {console.log(element.fechaPublicacion)}
                 <div className="imageElementContainer"  style={{backgroundImage: `url(http://localhost:3030/uploads/${element.images[0]})`, backgroundRepeat: 'no-repeat'}}>
                 {(element.oferta || element.estado === 'Nuevo' || element.fechaPublicacion) ? (
                     <div 
