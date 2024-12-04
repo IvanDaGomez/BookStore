@@ -8,6 +8,7 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { reduceText, reduceTextByFirstWord } from "../../assets/reduceText";
 import { formatDate } from "../../assets/formatDate";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function Mensajes() {
 
@@ -230,7 +231,7 @@ useEffect(() => {
 
     async function handleSubmitMessage(e) {
         e.preventDefault();
-        const messageInput = document.querySelector('.messageInput');
+        const messageInput = document.querySelector('#messageInput');
         const value = messageInput.value.trim(); // Trim whitespace
         const url = `http://localhost:3030/api/messages`;
     
@@ -316,19 +317,53 @@ useEffect(() => {
         setFilteredConversations(filtered);
     }
 
-//----------------------------------------LÓGICA DE NOTIFICACIONES------------------------------------//
-    const { notificationId } = useParams()
+
+
+    const [libroAPreguntar, setLibroAPreguntar] = useState({})
+    const idLibro = urlSearchParams.get('q')
+
 
     useEffect(()=>{
-        if (notificationId) {
-            // fetchNotification(notificationId)
-        }
-    },[notificationId])
+        async function fetchLibro(id) {
+            if (!idLibro) return
+            const url = `http://localhost:3030/api/books/${id}`
+            console.log(url)
+            try {
+                const response = await axios.get(url, { withCredentials: true });
+                const book = response.data
+                console.log(book)
+                setLibroAPreguntar(book || {}); // Asegurar que el libro existe o dejar vacío
 
+
+            } catch (error) {
+                setLibroAPreguntar({});
+                console.error("Error fetching book data:", error);
+            }
+        }
+
+        fetchLibro(idLibro);
+    },[idLibro])
+    const convertToLinks = (text) => {
+        const urlRegex = /(https?:\/\/[^\s]+)/g;
+        return text.split(urlRegex).map((part, index) => 
+          urlRegex.test(part) ? <a key={index} href={part} target="_blank" rel="noopener noreferrer">{part}</a> : part
+        );
+      };
+    const inputMessage = document.querySelector('#messageInput')
+    useEffect(()=>{
+        if (Object.keys(libroAPreguntar).length !== 0 && inputMessage && activeConversation && libroAPreguntar.idVendedor === findUserByConversation(activeConversation)._id){
+            
+           inputMessage.value = 'Hola me gustaría saber más del libro ' + libroAPreguntar.titulo + '\n' + 'http://localhost:5173/libros/' + libroAPreguntar._id
+        }
+        else if (inputMessage){
+            inputMessage.value = ''
+        }
+    },[libroAPreguntar, inputMessage, activeConversation])
     return (
         <>
             <Header />
 {/*----------------------------------------SELECCION DE NOTIFICACION----------------------------------------------- */}
+
             <div className="sectionMessagesContainer">
                     <Link to='/notificaciones'>
                         <div className={`sectionMessage`}>
@@ -432,7 +467,29 @@ useEffect(() => {
                             {activeConversation ? (
                                 <>
                                     <div className="messageInputContainer">
-                                        <input type="text" className="messageInput" onKeyDown={(event) => event.key === 'Enter' ? handleSubmitMessage(event) : ''} />
+                                        <textarea type="text" id="messageInput" onKeyDown={(event) => {
+                                            if (event.key === 'Enter' && event.shiftKey) {
+                                            event.preventDefault(); // Evita que el evento por defecto de Enter ocurra
+                                            const textarea = event.target;
+                                            const start = textarea.selectionStart;
+                                            const end = textarea.selectionEnd;
+
+                                            // Inserta un salto de línea en la posición actual del cursor
+                                            const newValue =
+                                                textarea.value.substring(0, start) +
+                                                '\n' +
+                                                textarea.value.substring(end);
+                                            textarea.value = newValue;
+
+                                            // Mueve el cursor al lugar correcto después del salto de línea
+                                            textarea.selectionStart = textarea.selectionEnd = start + 1;
+                                            textarea.scrollTop = textarea.scrollHeight;
+                                            } else if (event.key === 'Enter') {
+                                            event.preventDefault(); // Aquí puedes llamar tu función de envío
+                                            handleSubmitMessage(event);
+                                            }
+                                        }} >
+                                            </textarea>
                                         <div className="send" onClick={(event) => handleSubmitMessage(event)}>
                                             <img src='/sendMessage.svg' alt="Send Message" />
                                         </div>

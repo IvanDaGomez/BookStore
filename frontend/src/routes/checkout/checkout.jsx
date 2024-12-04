@@ -115,14 +115,15 @@ function Checkout() {
       case 2:
         return <Fase2 form={form} setForm={setForm} setFase={setFase} user={user}/>;
       case 3:
-        return <Fase3 form={form} setForm={setForm} setFase={setFase} libro={libro} preferenceId={preferenceId}/>;
+        return <Fase3 form={form} setForm={setForm} setFase={setFase} user={user} libro={libro} preferenceId={preferenceId}/>;
       default:
         return <Fase1 form={form} setForm={setForm} setFase={setFase} />;
     }
   };
   
 
-
+  useEffect(() => {
+    if (user) user.balance = 10000},[user])
 
   const steps = ['Información del producto', 'Datos de envío', 'Medios de pago']
   return (

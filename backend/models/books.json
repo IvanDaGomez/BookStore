@@ -371,7 +371,7 @@
     "tapa": "Dura",
     "edad": "Adulto",
     "fechaPublicacion": "2024-11-23T19:31:26.489Z",
-    "actualizadoEn": "2024-11-25T20:44:48.213Z",
+    "actualizadoEn": "2024-12-04T00:12:36.198Z",
     "disponibilidad": "Disponible",
     "formato": "Físico",
     "mensajes": [
@@ -542,15 +542,21 @@
     "edicion": "",
     "idioma": "Español",
     "ubicacion": {
-      "ciudad": "",
+      "ciudad": "Bucaramanga",
       "departamento": "",
       "pais": ""
     },
     "tapa": "Blanda",
     "edad": "",
     "fechaPublicacion": "2024-12-03T04:05:44.005Z",
-    "actualizadoEn": "2024-12-03T04:09:37.530Z",
+    "actualizadoEn": "2024-12-03T17:37:14.352Z",
     "disponibilidad": "Disponible",
-    "mensajes": []
+    "mensajes": [
+      [
+        "¿En qué estado se encuentra el producto?",
+        "",
+        "857857d1-afdd-411d-b41a-be427d1ff186"
+      ]
+    ]
   }
 ]

@@ -156,7 +156,19 @@ export default function Usuario() {
           alert('Sharing is not supported on this browser.');
         }
       }
-      
+    async function handleFollowers(e) {
+        
+        e.preventDefault()
+        if (!user) {
+            toast.error(<div>Necesitas iniciar sesión <Link to='/login' style={{
+                textDecoration: 'underline',
+                color: 'var(--using4)'
+              }}>aquí</Link></div>)
+            return
+        }
+
+        // Fetch para actualizar el contador de seguidores
+    }
     return (
         <>
             <Header />
@@ -187,7 +199,8 @@ export default function Usuario() {
                     />
                     <div className="card-info">
                         
-                        <h1 className="name">{usuario.nombre}</h1>
+                        <h1 >{usuario.nombre}</h1>
+                        <h2>Seguidores: {usuario?.seguidores?.length || 0}</h2>
                         <p>Libros publicados: {librosUsuario.length || 0}</p>
                         <p>Libros vendidos: {usuario?.librosVendidos || 0}</p>
                         <p>Estado de la cuenta: {usuario.estadoCuenta}</p>
@@ -209,6 +222,10 @@ export default function Usuario() {
                                     }}>
                                         Enviar mensaje</button>
                                     <button className="compartir botonInverso" onClick={handleShare}>Compartir</button>
+                                    <button className={`compartir ${user?.seguidores?.includes(usuario._id) ? 'normal' : 'botonInverso'}`}
+                                    onClick={handleFollowers}>
+                                    {user?.seguidores?.includes(usuario._id) ? 'Seguir' : 'Siguiendo'}
+                                    </button>
                                 </>
                             ) : (
                                 <Link to='/usuarios/editarUsuario'>
@@ -237,7 +254,7 @@ export default function Usuario() {
                     user ? <MakeCard element={libro} index={index} user={user} />:
                     <MakeCard element={libro} index={index}/>
                     }</>
-                ))}
+                )).reverse()}
                 {librosUsuario.length === 0 && <>No hay libros por aquí</>}
                 </>
                 : <Favorites vendedor={usuario}/>

@@ -342,7 +342,7 @@ export default function BookView() {
                         libro.edicion && `Edición: ${libro.edicion}`,
                         libro.tapa && `Tapa: ${libro.tapa}`,
                         libro.idioma && `Idioma: ${libro.idioma}`,
-                        libro.ubicacion && `Ubicación: ${libro.ubicacion}`,
+                        libro.ubicacion && `Ubicación: ${libro?.ubicacion?.ciudad || 'No encontrada'}`,
                         libro.fechaPublicacion && `Publicado: ${new Date(libro.fechaPublicacion)
                         .toLocaleDateString("es-ES", {
                             day: "numeric",

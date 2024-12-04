@@ -127,6 +127,7 @@ export default function Fase3({ form, setForm, fase, setFase, meanPrice }){
           </div>:<></>
           }
         </div>
+        {/*-------------------------------------ESTE LIBRO ES PARTE DE UNA COLECCION */}
         <div className="inputCrear" >
           <label htmlFor="precio">Precio *</label>
           {/*value={formattedValue}*/}

@@ -54,5 +54,21 @@
     "conversationId": "4e75b761-1d6c-4c9d-979a-10db354a2fe5",
     "createdIn": "2024-11-24T00:35:04.287Z",
     "read": false
+  },
+  {
+    "_id": "85ed7c7a-2db7-40ae-b0d3-2e30b41bf24d",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "message": "Hola me gustaría saber más del libro Demasiado tarde para despertar\nhttp://localhost:5173/libros/3cd4d6ad-df7c-4e0f-beb9-394de48ce33d",
+    "conversationId": "49771105-55f6-4299-b18e-7500a26ed708",
+    "createdIn": "2024-12-03T19:22:19.933Z",
+    "read": false
+  },
+  {
+    "_id": "ac9ad373-74a5-44b3-869f-844c55cca660",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "message": "Hola me gustaría saber más del libro Demasiado tarde para despertar\nhttp://localhost:5173/libros/3cd4d6ad-df7c-4e0f-beb9-394de48ce33d",
+    "conversationId": "49771105-55f6-4299-b18e-7500a26ed708",
+    "createdIn": "2024-12-03T19:28:14.613Z",
+    "read": false
   }
 ]

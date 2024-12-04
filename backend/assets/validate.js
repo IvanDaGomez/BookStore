@@ -36,7 +36,8 @@ const userSchema = z.object({
     departamento: ''
   }),
 
-  fotoPerfil: z.string().url('La foto de perfil debe ser una URL válida').default('https://default-profile.com/default.jpg') // URL por defecto para la foto de perfil
+  fotoPerfil: z.string().url('La foto de perfil debe ser una URL válida').default('https://default-profile.com/default.jpg'), // URL por defecto para la foto de perfil
+  seguidores: z.array(z.string()).default([])
 })
 
 function validateUser (data) {

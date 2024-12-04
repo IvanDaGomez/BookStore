@@ -19,7 +19,8 @@ function userObject (name) {
     notificationsIds: name.notificationsIds || [],
     validated: name.validated || false,
     login: name.login || 'default',
-    ubicacion: name.ubicacion || {}
+    ubicacion: name.ubicacion || {},
+    seguidores: name.seguidores || []
     // Avoid exposing sensitive fields like password, email, etc.
   }
 }
@@ -203,6 +204,8 @@ class UsersModel {
         // userObject() elimina el correo y la contraseña (que no hay)
         newUser.correo = data.correo
 
+        // La validación es por defecto true si se hace este método
+        newUser.validated = true
         newUser._id = crypto.randomUUID()
         users.push(newUser)
         // Write the new user to the file
@@ -235,12 +238,16 @@ class UsersModel {
         // userObject() elimina el correo y la contraseña (que no hay)
         newUser.correo = data.correo
 
+        // La validación es por defecto true si se hace este método
+        newUser.validated = true
+
         newUser._id = crypto.randomUUID()
         users.push(newUser)
         // Write the new user to the file
         await fs.writeFile('./models/users.json', JSON.stringify(users, null, 2), 'utf8')
         return newUser
       }
+      // Si ya existe el usuario solo devolverlo
       return userObject(user)
     } catch (err) {
       console.error('Error handling Facebook login:', err.message || err)

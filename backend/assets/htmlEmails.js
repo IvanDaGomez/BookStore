@@ -89,6 +89,32 @@ function createEmail (data, template) {
         </html>
         `
     }
+    case 'newQuestion': {
+      return `
+      <html>
+            <head>
+            <style>
+                ${styles}
+            </style>
+            </head>
+            <body>
+            
+                <div class='container'>
+                  <h1>Tienes una nueva pregunta!</h1>
+                  <p>Hola <strong>${data.vendedor}</strong>,</p>
+                  <p>Un usuario tiene una pregunta sobre tu libro:</p>
+                  <blockquote>
+                    <p>${data.pregunta}</p>
+                  </blockquote>
+                  <p>Puedes responder a esta pregunta haciendo clic en el siguiente enlace:</p>
+                  <p><a href="${process.env.FRONTEND_URL}/notificaciones/${data._id}">Responder pregunta</a></p>
+                  <p>Si tienes otras preguntas o necesitas asistencia, puedes responder a este correo o contactarnos <a href="mailto:support@meridianbookstore.com">aquí</a>.</p>
+                </div>
+
+            </body>
+        </html>
+      `
+    }
   }
 }
 

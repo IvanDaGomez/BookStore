@@ -2,14 +2,8 @@
   {
     "nombre": "Ivan David Gomez Silva",
     "librosIds": [
-      "5376d15f-5ffc-42ea-a65f-18af3be5be86",
       "31d52487-f746-4951-bf11-7b41febea0a9",
       "78c534c0-2fa8-40d0-b72a-c5ee34d0a883",
-      "83779148-3ff5-40fa-bf0b-647f69498762",
-      "e93345c4-ca50-4919-ba85-4dcf00882673",
-      "e93345c4-ca50-4919-ba85-4dcf00882673",
-      "e93345c4-ca50-4919-ba85-4dcf00882673",
-      "e93345c4-ca50-4919-ba85-4dcf00882673",
       "e93345c4-ca50-4919-ba85-4dcf00882673"
     ],
     "correo": "ivandavidgomezsilva@hotmail.com",
@@ -17,9 +11,9 @@
     "rol": "admin",
     "fechaRegistro": "2024-10-20T18:37:31.276Z",
     "estadoCuenta": "activo",
-    "fotoPerfil": "1733246826696-195750474.png",
+    "fotoPerfil": "1733253245824-669736538.png",
     "_id": "857857d1-afdd-411d-b41a-be427d1ff186",
-    "actualizadoEn": "2024-12-03T17:27:06.704Z",
+    "actualizadoEn": "2024-12-03T19:14:05.836Z",
     "direccionEnvio": {
       "calle": "",
       "ciudad": "",
@@ -82,7 +76,9 @@
       "d130879c-9b6b-4270-9571-a511e41c1f61",
       "78bf08e9-8dc9-4bad-9254-41237d898d34",
       "175eb6a4-9c22-42cd-a8aa-0a3bc09f73b3",
-      "4c0d2723-f52f-429b-8ed8-55f2a5d1003a"
+      "4c0d2723-f52f-429b-8ed8-55f2a5d1003a",
+      "f60c325b-cb26-48e7-a08b-18a7ddc5ab1c",
+      "69643157-9ddb-47e1-8ace-e5d02e17478d"
     ],
     "validated": false,
     "login": "default"
@@ -185,7 +181,7 @@
     "estadoCuenta": "activo",
     "fotoPerfil": "",
     "_id": "836e151b-43ae-48a0-8352-17ad309d8068",
-    "actualizadoEn": "2024-12-01T07:47:27.680Z",
+    "actualizadoEn": "2024-12-03T17:41:32.079Z",
     "direccionEnvio": {
       "ciudad": "Floridablanca",
       "pais": "Colombia",

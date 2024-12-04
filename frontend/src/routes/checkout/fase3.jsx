@@ -4,7 +4,7 @@ import { getCardBrand } from "../../assets/getCardBrand";
 import PaymentBrick from "./paymentBrick";
 
 /* eslint-disable react/prop-types */
-function Fase3({ form, setForm, setFase, libro, preferenceId }) {
+function Fase3({ form, setForm, setFase, libro, preferenceId, user }) {
 
   const [paymentMethod, setPaymentMethod] = useState('Tarjeta de crédito');
   const [brand, setBrand] = useState(null);
@@ -129,7 +129,7 @@ function Fase3({ form, setForm, setFase, libro, preferenceId }) {
     <div className="">
             <div className="paymentMethodsContainer">
         
-        {preferenceId && <PaymentBrick libro={libro} preferenceId={preferenceId}/>}
+        {preferenceId && <PaymentBrick libro={libro} preferenceId={preferenceId} user={user}/>}
         {/*<div className="paymentMethods">
           
           <div

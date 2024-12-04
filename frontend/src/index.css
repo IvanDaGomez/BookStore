@@ -2225,6 +2225,8 @@ input[type="range"]::-moz-range-thumb{
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  width: min(calc(100vw - 10px), 1000px);;
+  margin: auto;
 }
 .crearLibroDiv .error{
   background: var(--using6);
@@ -2261,7 +2263,7 @@ input[type="range"]::-moz-range-thumb{
 
 .fileUploaderContainer {
   text-align: center;
-  width: max(450px, 60vw);
+  width: 100%;
   margin: 20px auto;
   border-radius: var(--border);
   position: relative;
@@ -2318,7 +2320,7 @@ color: var(--using6);
 }
 
 .inputCrear{
-  width: max(450px, 60vw);
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: start;
@@ -2379,7 +2381,7 @@ color: var(--using6);
 }
 
 .fileUploaded{
-  width: max(450px, 60vw);
+  width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
   height: 200px;
@@ -2454,7 +2456,7 @@ color: var(--using6);
   left: 50vw;
   transform: translate(-50%, -50%);
   background: var(--using1);
-  width: max(30vw, 400px);
+  width: 100%;
   height:calc(100vh - 80px);
   border-radius: var(--border);;
   padding: 0 20px;
@@ -2725,12 +2727,19 @@ color: var(--using6);
   color: var(--using1);
   background: var(--using4);
 }
-.name {
-  margin: 0;
-  font-size: 24px;
-  color: #333;
+.compartir:hover{
+  color: var(--using1);
+  background: #380050;
 }
-
+.card-info * {
+  text-align: center;
+}
+.card-info h1{
+  font-size: 4rem;
+}
+.card-info h2{
+  font-size: 2.5rem;
+}
 .card-info p {
   margin: 5px 0;
   color: #555;
@@ -2885,7 +2894,6 @@ color: var(--using6);
   padding: 20px;
   width:min(1000px, calc(100vw - 10px));
   border: 1px solid var(--using4);
-  box-shadow: 0 0 8px var(--using4);
   border-radius: var(--border);;
 }
 .checkoutContainer .cardContainer{
@@ -2934,8 +2942,10 @@ color: var(--using6);
 }
 .paymentMethodsContainer{
   width: auto;
-  margin-right: auto;
+  margin: auto;
+  padding: auto;
   text-align: left;
+  
 }
 .paymentMethods {
   margin: 10px 0;
@@ -2954,6 +2964,7 @@ color: var(--using6);
 .paymentMethodsContainer .svelte-101ibq7.mp-checkout-bricks__padding-3h33cf.extra-large-3dfJos{
   display: none;
 }
+
 .paymentMethodsLabel{
   font-size: 3rem;
 
@@ -3023,6 +3034,63 @@ color: var(--using6);
   margin: auto;
   font-size: 5.5rem;
   font-weight: 400;
+}
+.payWithBalance{
+  width: calc(100% - 30px);
+  min-width: 300px;
+  margin: auto;
+  padding: 18px;
+  border: 1px solid #E5E5E5;
+  border-radius: var(--border);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+
+}
+
+.payWithBalance .imageLogoContainer{
+  height: 55%;
+  margin-inline: 16px;
+  width: 40px;
+  height: 40px;
+  aspect-ratio: 1 / 1;
+  border: 1px solid #E5E5E5;
+  border-radius: 50%;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+.payWithBalance div h2{
+  font-size:15px;
+}
+.payWithBalance h3{
+  font-size: 12px;
+  color: #737373;
+}
+.payWithBalance input{
+  all: unset;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid #BFBFBF;
+  position: relative;
+}
+.payWithBalance input.active{
+  border-color: #009EE3;
+}
+.payWithBalance input.active::before{
+  content: '';
+  position: absolute;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+  margin: 2px;
+  background: #009EE3;
+  border-color: #009EE3;
+  border-radius: 50%;
 }
 /*--------------------------------------MESSAGES----------------------------------------*/
 
@@ -3185,6 +3253,7 @@ color: var(--using6);
 }
 .myMessage{
   margin-left: auto;
+  max-width: 70%;
   margin-block: 2px;
   margin-right: 2px;
   padding: 10px;
@@ -3195,6 +3264,7 @@ color: var(--using6);
 }
 .otherMessage{
   margin-right: auto;
+  max-width: 70%;
   padding: 10px;
   border: 1px solid var(--using2);
   border-radius: 20px 20px 20px 0;
@@ -3205,7 +3275,8 @@ color: var(--using6);
 
 
 .messageInputContainer{
-  height: 50px;
+  height: auto;
+  max-height: 30rem;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -3213,19 +3284,21 @@ color: var(--using6);
   background: var(--using2);
   padding: 6px 8px;
 }
-.messageInputContainer input{
+.messageInputContainer textarea{
   width: 100%;
-  height: 100%;
+  height: auto;
   border: none;
-  border-radius: 300px;
+  border-radius: var(--border);
   background: var(--using1) ;
   color: var(--using3);
   font-size: 3rem;
-  padding: 2px 10px;
+  padding: var(--padding-small);
+  padding-left: 10px;
   margin-right: 5px;
+  font-family: inherit;
 }
 .messageInputContainer .send{
-  height: 100%;
+  width: 40px;
   
   aspect-ratio: 1 / 1;
   background-color: var(--using4);
@@ -3849,7 +3922,44 @@ a[href="/chat"]{
   padding: var(--padding-small);
   margin: 5px 0;
 }
-
+.account-dashboard .main-content .userExtraInfo{
+  width: min(100%, 800px);
+  height: auto;
+  border-radius: var(--border);
+  background: var(--using1);
+  margin: 10px auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: start;
+  flex-direction: column;
+  padding-block: var(--padding-small);
+}
+.account-dashboard .main-content .userExtraInfo h2{
+  font-size: 3rem;
+}
+.account-dashboard .main-content .userExtraInfo h3{
+  font-size: 2rem;
+}
+.account-dashboard .main-content .userExtraInfo .box{
+  width: min(100%, 800px);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+  border-bottom: 1px solid var(--using2);
+  padding: var(--padding-big);
+}
+.account-dashboard .main-content .userExtraInfo .box:last-of-type{
+  border-bottom: none;
+}
+.account-dashboard .main-content .userExtraInfo .box .iconContainer svg{
+  height:60%;
+}
+.account-dashboard .main-content .userExtraInfo .box .iconContainer{
+  width: 100px;
+  height: 100%;
+  margin-right: 20px;
+}
 .account-dashboard .main-content .container{
   background: var(--using1);
   border-radius: var(--border);
@@ -3857,4 +3967,37 @@ a[href="/chat"]{
 }
 .account-dashboard .main-content .container h1{
   font-size: 4rem;
+}
+
+.account-dashboard .main-content .container.balanceContainer{
+  width: min(100%, 800px);
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.account-dashboard .main-content .container.balanceContainer .numbers{
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  
+}
+.account-dashboard .main-content .container.balanceContainer .numbers div{
+  width: auto;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: start;
+  flex-direction: column;
+  margin-inline: 15px;
+}
+.account-dashboard .main-content .container.balanceContainer .numbers div h2{
+  font-size: 3rem;
+}
+.account-dashboard .main-content .container.balanceContainer .numbers div h3{
+  font-size: 2.5rem;
+}
+.account-dashboard .main-content .container.balanceContainer button{
+  width: 150px;
 }
