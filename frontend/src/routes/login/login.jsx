@@ -82,21 +82,28 @@ export default function Login() {
 
     const domain = 'http://localhost:3030';
     const url = isRegister ? `${domain}/api/users` : `${domain}/api/users/login`;
-    const { pais, ciudad, departamento } = await getLocation()
+    const ubicacion = {}
+    if (isRegister) {
+      const data = await getLocation()
+      ubicacion.ciudad = data.ciudad
+      ubicacion.pais = data.pais
+      ubicacion.departamento = data.departamento
+    }
+
     // Preparar los datos para enviar
     const sendData = {
         correo: email,
         contraseña: password,
         ...(isRegister && { nombre: name }),
-        ubicacion: {
-          pais,
-          ciudad, 
-          departamento
-        }
+        ...(isRegister && {ubicacion: {
+          pais: ubicacion.pais,
+          ciudad: ubicacion.ciudad, 
+          departamento: ubicacion.departamento
+        }})
     };
 
     try {
-        document.body.style.cursor = "wait"
+        document.body.style.cursor = "auto"
         const response = await fetch(url, {
             method: 'POST' ,
             headers: {
@@ -115,6 +122,14 @@ export default function Login() {
         // Si la respuesta es exitosa, puedes manejar la respuesta aquí
         // En teoría el token se guarda en la cookie desde el backend
         // Si la respuesta es exitosa, puedes manejar la respuesta aquí
+        document.body.style.cursor = "auto"
+        // Si la respuesta es exitosa, puedes manejar la respuesta aquí
+        // En teoría el token se guarda en la cookie desde el backend
+        // Si la respuesta es exitosa, puedes manejar la respuesta aquí
+        if (isRegister || !response.data.user?.validated) {
+          navigate('/verificar')
+          return
+        }
         document.body.style.cursor = "auto"
         // Si no hay una pagina anterior, redirigir a inicio, si si redirigir a la pagina que estaba
         if (!document.referrer || !document.referrer.includes(window.location.hostname)){

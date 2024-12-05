@@ -197,6 +197,7 @@ export class UsersController {
   static async createUser (req, res) {
     const data = req.body
     // Validación
+    console.log(data)
     const validated = validateUser(data)
     if (!validated.success) {
       return res.status(400).json({ error: validated.error })
@@ -372,21 +373,22 @@ export class UsersController {
 
   static async sendValidationEmail (req, res) {
     const data = req.body
-    console.log('Llego')
     if (!data || !data.nombre || !data.correo) {
       return res.status(400).json({ error: 'Missing required fields: nombre or correo' })
     }
-
+    if (data.validated) {
+      return res.json({ verified: true })
+    }
     try {
       // Generate a token with user ID (or email) for validation
       const token = jwt.sign({ _id: data._id, correo: data.correo }, SECRET_KEY, { expiresIn: '1h' })
 
-      // Create the validation link
-      const validationLink = `${process.env.FRONTEND_URL}/verificar/${token}`
+      // Create the validation code of 6 digits
+      const validationCode = Math.floor(100000 + Math.random() * 900000)
 
       // Prepare the email content
       const emailContent = createEmail(
-        { ...data, validationLink },
+        { ...data, validationCode },
         'validationEmail'
       )
 
@@ -397,7 +399,7 @@ export class UsersController {
         emailContent
       )
 
-      res.json({ ok: true, status: 'Validation email sent successfully' })
+      res.json({ ok: true, status: 'Validation email sent successfully', token, code: validationCode })
     } catch (error) {
       console.error('Error sending validation email:', error)
       res.status(500).json({ ok: false, error: 'Failed to send validation email' })
@@ -422,16 +424,16 @@ export class UsersController {
       if (!user || !correo) {
         return res.status(404).json({ error: 'User not found' })
       }
-      // Verify that the email matches
 
+      // Verify that the email matches
       if (data.correo !== correo.correo) {
         return res.status(400).json({ error: 'Email mismatch' })
       }
 
       // Check if the user is already validated
-      if (user.validated) {
-        return res.status(200).json({ status: 'User already validated' })
-      }
+      // if (user.validated) {
+      //   return res.json({ status: 'User already validated' })
+      // }
 
       // Update the user's validation status
       const updated = await UsersModel.updateUser(data._id, { validated: true })
@@ -439,27 +441,23 @@ export class UsersController {
       if (!updated) {
         return res.status(500).json({ error: 'Failed to update user validation status' })
       }
-      console.log(updated)
-      // Update de user cookie
+      // Generate a new token with only essential data
       const newToken = jwt.sign(
         updated,
         SECRET_KEY,
-        {
-          expiresIn: '3h'
-        }
+        { expiresIn: '3h' }
       )
-      // logout and then send the cookie
-      // await this.logout(req, res)
 
-      // Not working the update od the cookie
+      // Set the new cookie
       res
+        .clearCookie('access_token')
         .cookie('access_token', newToken, {
           httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
           sameSite: 'strict',
-          maxAge: 1000 * 60 * 60 * 3 // 3 horas
+          maxAge: 1000 * 60 * 60 * 3 // 3 hours
         })
-        .send({ status: 'User successfully validated' })
+        .json({ status: 'User successfully validated', updated })
     } catch (error) {
       console.error('Error validating user:', error)
 

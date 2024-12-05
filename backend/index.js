@@ -43,15 +43,23 @@ app.use(cors(corsOptions))
 
 app.use(cookieParser())
 app.use((req, res, next) => {
+  // eslint-disable-next-line dot-notation
   const token = req.cookies.access_token
-  req.session = { user: null }
+  // Only reset req.session.user if it doesn't already exist
+  if (!req.session) req.session = { user: null }
 
   try {
     const info = jwt.verify(token, SECRET_KEY)
-    req.session.user = info
-  } catch {}
+
+    req.session.user = info // Update session with user info from token
+  } catch (error) {
+    // Ignore token verification errors (e.g., expired or invalid tokens)
+    console.error('Token verification failed:', error)
+  }
+
   next()
 })
+
 app.use((req, res, next) => {
   console.log(`Request URL: ${req.url}, Method: ${req.method}`)
   next()

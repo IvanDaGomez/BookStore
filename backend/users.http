@@ -21,8 +21,8 @@ POST http://localhost:3030/api/users
 Content-Type: application/json
 
 {
-    "nombre": "Monica Silva",
-    "correo": "monitatinet@cmail.com",
+    "nombre": "Yanae",
+    "correo": "ivandavidgomezsilva@sanpedro.edu.co",
     "contraseña": "Idgs2603"
 }
 

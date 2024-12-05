@@ -139,9 +139,9 @@ function createEmail (data, template) {
                   <h1>¡Validación de cuenta requerida!</h1>
                   <p>Hola <strong>${data.nombre}</strong>,</p>
                   <p>¡Gracias por registrarte en Meridian Bookstore!</p>
-                  <p>Por favor, valida tu cuenta haciendo clic en el siguiente enlace:</p>
-                  <a href="${data.validationLink}"><div class='button'>Validar mi cuenta</div></a>
-                  <p>Si no te registraste en Meridian Bookstore, ignora este correo o contáctanos para informarnos.</p>
+                  <p>El código de verificación es ${data.validationCode}</p>
+                  <hr/>
+                  <<p>Si no te registraste en Meridian Bookstore, ignora este correo o contáctanos para informarnos.</p>>
                   <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en responder a este correo o <a href="mailto:support@meridianbookstore.com">contactarnos aquí</a>.</p>
                 </div>
             </body>

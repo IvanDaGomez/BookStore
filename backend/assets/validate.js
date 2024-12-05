@@ -20,7 +20,7 @@ const userSchema = z.object({
 
   rol: z.enum(['usuario', 'admin', 'Vendedor']).default('usuario'), // Rol por defecto como 'usuario'
 
-  estadoCuenta: z.enum(['Activo', 'Inactivo', 'Vacaciones', 'Suspendido']).default('activo'), // Estado por defecto 'activo'
+  estadoCuenta: z.enum(['Activo', 'Inactivo', 'Vacaciones', 'Suspendido']).default('Activo'), // Estado por defecto 'activo'
 
   direccionEnvio: z.object({
     calle: z.string().default(''),

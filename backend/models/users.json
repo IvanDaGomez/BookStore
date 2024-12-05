@@ -292,5 +292,25 @@
     "validated": false,
     "login": "Google",
     "correo": "gonzalezwazaaa2@gmail.com"
+  },
+  {
+    "_id": "10b06a78-3654-4f3f-b87d-93244323c619",
+    "nombre": "Yanae",
+    "rol": "usuario",
+    "estadoCuenta": "Activo",
+    "bio": "",
+    "favoritos": [],
+    "conversationsIds": [],
+    "notificationsIds": [],
+    "validated": true,
+    "login": "default",
+    "ubicacion": {
+      "pais": "Colombia",
+      "ciudad": "Perímetro Urbano Bucaramanga",
+      "departamento": "Santander"
+    },
+    "seguidores": [],
+    "contraseña": "$2b$10$EPctAXaHHXFPjPQDeqlS9OEvr8hsI3BsAEn6lx/2N/lNa3DGiK0oK",
+    "correo": "ivan.gomez@sanpedro.edu.co"
   }
 ]

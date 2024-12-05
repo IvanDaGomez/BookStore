@@ -1,16 +1,24 @@
 /* eslint-disable react/prop-types */
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
 
-export default function Verificar({ user }) {
-    const { token } = useParams();
+export default function Verificar({ user, token }) {
     const [verifying, setVerifying] = useState(true);
     const [verified, setVerified] = useState(false);
+    const [counter, setCounter] = useState(5);
 
     useEffect(() => {
         async function validateUser() {
-            // If no token is provided or the user is already validated, skip validation
+            const countdown = setInterval(() => {
+                setCounter((prev) => {
+                    if (prev <= 1) {
+                        clearInterval(countdown);
+                        window.location.href = "/";
+                        return 0;
+                    }
+                    return prev - 1;
+                });
+            }, 1000);
             if (!token || user?.validated) {
                 setVerifying(false);
                 return;
@@ -18,10 +26,14 @@ export default function Verificar({ user }) {
 
             try {
                 const url = `http://localhost:3030/api/users/validateUser/${token}`;
-                const response = await axios.get(url);
-                console.log(response.data)
-                if (response.data.status) {
+                const response = await axios.get(url, {withCredentials: true});
+                if (response.data.error) {
+                    return
+                }
+                if (response?.data?.verified || response?.data?.status) {
                     setVerified(true);
+                    // Iniciar el contador y redirección después de verificar
+
                 }
             } catch (error) {
                 console.error("Error validating user:", error);
@@ -31,7 +43,8 @@ export default function Verificar({ user }) {
         }
 
         validateUser();
-    }, [token, user?.validated]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [token]);
 
     return (
         <div className="verifyContainer">
@@ -41,16 +54,26 @@ export default function Verificar({ user }) {
                     <p>Verificando tu cuenta... Por favor espera.</p>
                 </div>
             ) : (
-                <div className="verification-status">
-                    <h2>Estado de Verificación:</h2>
-                    <p
-                        className={verified || user?.validated ? "status-verified" : "status-unverified"}
-                    >
-                        {verified || user?.validated
-                            ? "Cuenta verificada ✅"
-                            : "Cuenta no verificada ❌"}
-                    </p>
+                <>
+                <div className="imageDiv">
+                    <img src="/verifiedPhoto.jpg" alt="" />
                 </div>
+                    <h2>
+                        {verified || user?.validated
+                            ? "Cuenta verificada"
+                            : "Cuenta no verificada"}
+                        
+
+                    </h2>
+                    <div style={{width: 'auto'}}>
+                                            <a href="/"><button>Regresar a inicio</button></a>
+
+                                                <p>Serás redirigido a inicio en {counter > 0 ? counter : 0} segundos</p>
+
+
+                                        
+                    </div>
+                </>
             )}
         </div>
     );
