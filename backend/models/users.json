@@ -282,24 +282,14 @@
     ]
   },
   {
-    "_id": "aa82633f-5fe9-459f-9c63-143e02a51e3e",
-    "nombre": "Wazaaa Gonzalez",
-    "fotoPerfil": "https://lh3.googleusercontent.com/a/ACg8ocJc9CNuKiFihP_AnNZRVdohp_Q5gOqG1Gc_xp9nCnAGJ3khFw=s96-c",
-    "bio": "",
-    "favoritos": [],
-    "conversationsIds": [],
-    "notificationsIds": [],
-    "validated": false,
-    "login": "Google",
-    "correo": "gonzalezwazaaa2@gmail.com"
-  },
-  {
-    "_id": "10b06a78-3654-4f3f-b87d-93244323c619",
-    "nombre": "Yanae",
+    "_id": "192c8f5f-4c9b-431b-a3b6-d4f93ba871aa",
+    "nombre": "Ivan David Gomez Silva",
     "rol": "usuario",
     "estadoCuenta": "Activo",
     "bio": "",
-    "favoritos": [],
+    "favoritos": [
+      "3f7ab023-15e7-4626-8890-a71f4f2e221c"
+    ],
     "conversationsIds": [],
     "notificationsIds": [],
     "validated": true,
@@ -310,7 +300,8 @@
       "departamento": "Santander"
     },
     "seguidores": [],
-    "contraseña": "$2b$10$EPctAXaHHXFPjPQDeqlS9OEvr8hsI3BsAEn6lx/2N/lNa3DGiK0oK",
-    "correo": "ivan.gomez@sanpedro.edu.co"
+    "contraseña": "$2b$10$KJ5IPpTXkMmttqSYCNhyseZROgQBzZQDBRYWR6xeNPR8uLZ8zHPrC",
+    "correo": "ivan.gomez@sanpedro.edu.co",
+    "actualizadoEn": "2024-12-05T22:03:43.161Z"
   }
 ]

@@ -48,7 +48,7 @@ export default function Verificar({ user, token }) {
 
     return (
         <div className="verifyContainer">
-            <h1>Verificación de Cuenta</h1>
+            <h1>Estado de Cuenta</h1>
             {verifying ? (
                 <div className="verifying">
                     <p>Verificando tu cuenta... Por favor espera.</p>

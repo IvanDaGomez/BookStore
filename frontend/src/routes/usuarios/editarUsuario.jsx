@@ -203,7 +203,7 @@ export default function EditarUsuario() {
 
                         </div>
                         
-                        <button onClick={handleProfilePhotoClick}>Cambiar Foto</button>
+                        <button onClick={handleProfilePhotoClick}>Cambiar foto</button>
                         <div className="inputCrear">
                             <label htmlFor="nombre">Nombre</label>
                             <input id="nombre" type="text" name="nombre" placeholder="Tu nombre" />
