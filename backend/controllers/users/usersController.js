@@ -370,7 +370,108 @@ export class UsersController {
     }
   }
 
-  static async validateUser (req, res) {
+  static async sendValidationEmail (req, res) {
+    const data = req.body
+    console.log('Llego')
+    if (!data || !data.nombre || !data.correo) {
+      return res.status(400).json({ error: 'Missing required fields: nombre or correo' })
+    }
 
+    try {
+      // Generate a token with user ID (or email) for validation
+      const token = jwt.sign({ _id: data._id, correo: data.correo }, SECRET_KEY, { expiresIn: '1h' })
+
+      // Create the validation link
+      const validationLink = `${process.env.FRONTEND_URL}/verificar/${token}`
+
+      // Prepare the email content
+      const emailContent = createEmail(
+        { ...data, validationLink },
+        'validationEmail'
+      )
+
+      // Send the email
+      await sendEmail(
+        `${data.nombre} <${data.correo}>`,
+        'Correo de validación en Meridian',
+        emailContent
+      )
+
+      res.json({ ok: true, status: 'Validation email sent successfully' })
+    } catch (error) {
+      console.error('Error sending validation email:', error)
+      res.status(500).json({ ok: false, error: 'Failed to send validation email' })
+    }
+  }
+
+  static async userValidation (req, res) {
+    const { token } = req.params
+
+    if (!token) {
+      return res.status(400).json({ error: 'Token not provided' })
+    }
+
+    try {
+      // Verify the token
+      const data = jwt.verify(token, SECRET_KEY)
+
+      // Retrieve the user and their email
+      const user = await UsersModel.getUserById(data._id)
+      const correo = await UsersModel.getEmailById(data._id)
+
+      if (!user || !correo) {
+        return res.status(404).json({ error: 'User not found' })
+      }
+      // Verify that the email matches
+
+      if (data.correo !== correo.correo) {
+        return res.status(400).json({ error: 'Email mismatch' })
+      }
+
+      // Check if the user is already validated
+      if (user.validated) {
+        return res.status(200).json({ status: 'User already validated' })
+      }
+
+      // Update the user's validation status
+      const updated = await UsersModel.updateUser(data._id, { validated: true })
+
+      if (!updated) {
+        return res.status(500).json({ error: 'Failed to update user validation status' })
+      }
+      console.log(updated)
+      // Update de user cookie
+      const newToken = jwt.sign(
+        updated,
+        SECRET_KEY,
+        {
+          expiresIn: '3h'
+        }
+      )
+      // logout and then send the cookie
+      // await this.logout(req, res)
+
+      // Not working the update od the cookie
+      res
+        .cookie('access_token', newToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'strict',
+          maxAge: 1000 * 60 * 60 * 3 // 3 horas
+        })
+        .send({ status: 'User successfully validated' })
+    } catch (error) {
+      console.error('Error validating user:', error)
+
+      // Handle token expiration or invalidity
+      if (error.name === 'TokenExpiredError') {
+        return res.status(401).json({ error: 'Token has expired' })
+      }
+      if (error.name === 'JsonWebTokenError') {
+        return res.status(400).json({ error: 'Invalid token' })
+      }
+
+      res.status(500).json({ error: 'Server error during validation' })
+    }
   }
 }

@@ -7,7 +7,7 @@ import { MakeCard, MakeUpdateCard } from "../../assets/makeCard";
 import { useSearchParams, Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import Favorites from "./favorites";
-import renderProfilePhoto from "../../assets/renderProfilePhoto";
+import { renderProfilePhoto } from "../../assets/renderProfilePhoto.js";
 
 export default function Usuario() {
     const navigate = useNavigate()
@@ -188,7 +188,6 @@ export default function Usuario() {
                     </div>
                 </>
             )}
-            
             {usuario ? (
                 <div className="card-container">
                     

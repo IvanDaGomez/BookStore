@@ -18,7 +18,7 @@ const senderEmail = process.env.EMAIL
  * @returns
  */
 
-const sendEmail = (to, subject, htmlContent) => {
+const sendEmail = async (to, subject, htmlContent) => {
   const transporter = nodemailer.createTransport({
     host: gmailHost,
     port: mailPort,
@@ -38,7 +38,8 @@ const sendEmail = (to, subject, htmlContent) => {
     subject,
     html: htmlContent
   }
-  return transporter.sendMail(mailOptions) // promise
+  const res = await transporter.sendMail(mailOptions) // promise
+  return res
 }
 
 export { sendEmail }

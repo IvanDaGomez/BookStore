@@ -8,11 +8,11 @@ function userObject (name) {
   return {
     _id: name._id,
     nombre: name.nombre,
-    rol: name.rol,
+    rol: name.rol || 'usuario',
     fotoPerfil: name.fotoPerfil, // Example of public info
     librosIds: name.librosIds,
     estadoCuenta: name.estadoCuenta || 'Activo',
-    creadoEn: name.creadoEn,
+    fechaRegistro: name.fechaRegistro,
     bio: name.bio || '',
     favoritos: name.favoritos || [],
     conversationsIds: name.conversationsIds || [],
@@ -306,7 +306,6 @@ class UsersModel {
       if (data.contraseña) {
         data.contraseña = await bcrypt.hash(data.contraseña, SALT_ROUNDS)
       }
-      console.log(data)
       // Actualiza los datos del usuario
       Object.assign(users[userIndex], data)
 

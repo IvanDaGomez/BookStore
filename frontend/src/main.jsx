@@ -23,6 +23,8 @@ import Contacto from './routes/extraFooterInfo/contacto.jsx'
 import PoliticaDatosPersonales from './routes/extraFooterInfo/politicaDatosPersonales.jsx'
 import UsoDeCookies from './routes/extraFooterInfo/usoCookies.jsx'
 import Cuenta from './routes/cuenta/cuenta.jsx'
+import Verificar from './routes/verificar/verificar.jsx'
+import EnviarCorreoAVerificar from './routes/verificar/enviarCorreoAVerificar.jsx'
 
 
 
@@ -126,6 +128,13 @@ const router = createBrowserRouter([
   {
     path: '/cuenta/:extension',
     element:<Cuenta /> 
+  },{
+    path: '/verificar',
+    element:<EnviarCorreoAVerificar /> 
+  },
+  {
+    path: '/verificar/:token',
+    element:<Verificar /> 
   }
 ], {
   future: {

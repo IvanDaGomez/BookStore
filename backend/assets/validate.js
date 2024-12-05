@@ -18,7 +18,7 @@ const userSchema = z.object({
     .min(8, 'La contraseña debe tener al menos 8 caracteres')
     .max(20, 'La contraseña debe tener menos de 20 caracteres'),
 
-  rol: z.enum(['usuario', 'administrador']).default('usuario'), // Rol por defecto como 'usuario'
+  rol: z.enum(['usuario', 'admin', 'Vendedor']).default('usuario'), // Rol por defecto como 'usuario'
 
   estadoCuenta: z.enum(['Activo', 'Inactivo', 'Vacaciones', 'Suspendido']).default('activo'), // Estado por defecto 'activo'
 

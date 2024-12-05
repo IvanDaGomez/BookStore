@@ -5,7 +5,7 @@ import Footer from "../../components/footer";
 import useBotonSelect from "../../assets/botonSelect";
 import { validarActualizarUsuario } from "../../assets/validarPublicar";
 import titleCase from "../../assets/toTitleCase";
-import renderProfilePhoto from "../../assets/renderProfilePhoto"
+import { renderProfilePhoto } from "../../assets/renderProfilePhoto"
 import { cropImageToAspectRatio } from "../../assets/cropImageToAspectRatio";
 export default function EditarUsuario() {
     const [user, setUser] = useState(null);
@@ -97,7 +97,7 @@ export default function EditarUsuario() {
 
     const estadoCuentaProps = {
         formas: estadoCuentaInfo,
-        valorInicial: user && estadoCuentaInfo.find((val)=>val === titleCase(user.estadoCuenta)),
+        valorInicial: user && estadoCuentaInfo.find((val)=>val === titleCase(estadoCuenta)),
         ...configuracionFiltros("15vw"),
     };
 

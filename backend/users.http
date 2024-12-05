@@ -55,3 +55,17 @@ Content-Type: application/json
 ###
 
 DELETE http://localhost:3030/api/users/6bcb7b9b-b22c-4a66-a4a3-c90beb84ec25
+
+###
+POST http://localhost:3030/api/users/sendValidationEmail
+Content-Type: application/json
+
+{
+    "correo": "ivandavidgomezsilva@hotmail.com",
+    "nombre": "Ivan David Gomez Silva",
+    "_id": "857857d1-afdd-411d-b41a-be427d1ff186"
+}
+
+###
+GET http://localhost:3030/api/users/validateUser/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI4MzZlMTUxYi00M2FlLTQ4YTAtODM1Mi0xN2FkMzA5ZDgwNjgiLCJjb3JyZW8iOiJpdmFuZGF2aWRnb21lenNpbHZhQGdtYWlsLmNvbSIsImlhdCI6MTczMzM1Nzg1NSwiZXhwIjoxNzMzMzYxNDU1fQ.SgKAGJsvlLoJfo7ViTbk3hRIwYuYQV6NMzdkq6zJIqc
+

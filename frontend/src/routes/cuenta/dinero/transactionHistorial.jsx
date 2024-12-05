@@ -18,8 +18,7 @@ export default function TransactionHistorial() {
     ];
 
     return (
-        <div className='container' style={{ padding: '1rem', fontFamily: 'Arial, sans-serif' }}>
-            <h1>Historial de Transacciones</h1>
+        <div className='container'>
             {transactionHistorial.length === 0 ? (
                 <p>No hay transacciones disponibles.</p>
             ) : (

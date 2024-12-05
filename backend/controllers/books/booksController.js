@@ -174,7 +174,9 @@ export class BooksController {
     const updated = await UsersModel.updateUser(user._id, {
       librosIds: [...(user?.librosIds || []), data._id]
     })
-
+    if (!user.rol || user.rol === 'usuario') {
+      user.rol = 'Vendedor'
+    }
     if (!updated) {
       return res.status(404).json({ error: 'Usuario no actualizado' })
     }

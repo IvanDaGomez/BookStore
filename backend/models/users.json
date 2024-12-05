@@ -80,7 +80,7 @@
       "f60c325b-cb26-48e7-a08b-18a7ddc5ab1c",
       "69643157-9ddb-47e1-8ace-e5d02e17478d"
     ],
-    "validated": false,
+    "validated": true,
     "login": "default"
   },
   {
@@ -206,7 +206,7 @@
       "3f7ab023-15e7-4626-8890-a71f4f2e221c"
     ],
     "notificationsIds": [],
-    "validated": false,
+    "validated": true,
     "login": "default",
     "ubicacion": {}
   },
@@ -234,7 +234,7 @@
   {
     "_id": "9b922eb4-33e8-4781-9863-c066992e1620",
     "nombre": "Mónica Tatiana Silva Gonzalez",
-    "fotoPerfil": "https://lh3.googleusercontent.com/a/ACg8ocJRYOwlVUqaL2BIEhhioeu8ebw2pQoxGNRTEi0zWgggkwj49lTzJg=s96-c",
+    "fotoPerfil": "1733333394714-237900940.png",
     "bio": "Esta es mi bio",
     "favoritos": [
       "ac6773d2-9166-4840-b5cd-995a49b19031",
@@ -275,7 +275,7 @@
     "validated": false,
     "login": "Google",
     "correo": "monitatinet@gmail.com",
-    "actualizadoEn": "2024-11-24T00:37:34.562Z",
+    "actualizadoEn": "2024-12-04T17:29:54.719Z",
     "librosIds": [
       "8269ca96-ed27-4cb3-a919-8967d4f83e9a",
       "354037a6-232d-4f28-a2ab-df76dbd70a93"

@@ -3759,10 +3759,21 @@ a[href="/chat"]{
   width: 250px;
   background-color: #ffffff;
   border-right: 1px solid #eaeaea;
-  padding: 20px;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+.sidebar > *{
+  width: 100%;
+}
+.sidebar .headerOption{
+  font-size: 2.3rem;
 }
 
 .team-info h2 {
+  text-align: center;
   margin: auto;
 }
 
@@ -3873,17 +3884,10 @@ a[href="/chat"]{
   font-size: 16px;
 }
 
-.account-dashboard .main-content .genericContainer{
-  width: auto;
-  max-width: 500px;
-  border-radius: var(--border);
-  background: var(--using4);
-  color: var(--using1);
-  margin: auto;
-  padding: var(--padding-big);
-}
-.account-dashboard .main-content a{
+.account-dashboard .main-content .link{
   font-weight: 1000;
+  text-decoration: underline;
+  color: var(--using4);
 }
 
 .account-dashboard .main-content .userInfo{
@@ -3918,6 +3922,7 @@ a[href="/chat"]{
   flex-direction: column;
 }
 .account-dashboard .main-content .userInfo button{
+  width: 15rem;
   font-size: 2rem;
   padding: var(--padding-small);
   margin: 5px 0;
@@ -4000,4 +4005,7 @@ a[href="/chat"]{
 }
 .account-dashboard .main-content .container.balanceContainer button{
   width: 150px;
+}
+.account-dashboard .main-content > h1{
+  margin-block: 10px;
 }
