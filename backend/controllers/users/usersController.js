@@ -472,4 +472,77 @@ export class UsersController {
       res.status(500).json({ error: 'Server error during validation' })
     }
   }
+
+  static async sendChangePasswordEmail (req, res) {
+    const { email } = req.body
+
+    try {
+      if (!email) {
+        return res.status(400).json({ error: 'Correo no proveído', ok: false })
+      }
+
+      // Verificar existencia del correo
+      const user = await UsersModel.getUserByEmail(email)
+      if (!user) {
+        return res.status(404).json({ error: 'El correo no está registrado', ok: false })
+      }
+
+      // Generar token
+      const tokenPayload = { _id: user._id } // No incluir información sensible
+      const token = jwt.sign(tokenPayload, SECRET_KEY, { expiresIn: '15m' })
+
+      const validationLink = `${process.env.FRONTEND_URL}/opciones/cambiarContraseña/${token}`
+      const emailContent = createEmail({ correo: email, validationLink, nombre: user.nombre }, 'changePassword')
+
+      await sendEmail(email, 'Correo de reinicio de contraseña', emailContent)
+
+      return res.json({ ok: true, message: 'Correo enviado con éxito' })
+    } catch (error) {
+      console.error('Error en sendChangePasswordEmail:', error)
+      return res.status(500).json({ ok: false, error: 'Error en el servidor' })
+    }
+  }
+
+  static async changePassword (req, res) {
+    const { token, password } = req.body
+
+    try {
+      if (!token) {
+        return res.status(400).json({ error: 'Token no proporcionado', ok: false })
+      }
+
+      if (!password) {
+        return res.status(400).json({ error: 'Contraseña no proporcionada', ok: false })
+      }
+
+      let decodedToken
+      try {
+        decodedToken = jwt.verify(token, SECRET_KEY)
+      } catch (err) {
+        if (err.name === 'TokenExpiredError') {
+          return res.status(401).json({ error: 'El token ha expirado', ok: false })
+        }
+        return res.status(401).json({ error: 'Token inválido', ok: false })
+      }
+
+      const { _id } = decodedToken
+
+      const user = await UsersModel.getUserById(_id)
+      if (!user) {
+        return res.status(404).json({ error: 'Usuario no encontrado', ok: false })
+      }
+
+      // Actualizar la contraseña (el hash se realiza en el modelo)
+      const userUpdated = await UsersModel.updateUser(_id, { contraseña: password })
+
+      if (!userUpdated) {
+        return res.status(500).json({ error: 'Error al actualizar la contraseña', ok: false })
+      }
+
+      return res.json({ ok: true, message: 'Contraseña actualizada con éxito' })
+    } catch (error) {
+      console.error('Error en changePassword:', error)
+      return res.status(500).json({ ok: false, error: 'Error en el servidor' })
+    }
+  }
 }

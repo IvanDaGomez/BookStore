@@ -8,6 +8,8 @@ usersRouter.get('/', UsersController.getAllUsersSafe) // R
 usersRouter.get('/:userId/photoAndName', UsersController.getPhotoAndNameUser) // R
 usersRouter.post('/', UsersController.createUser) // C
 usersRouter.post('/login', UsersController.login)
+usersRouter.post('/changePasswordEmail', UsersController.sendChangePasswordEmail)
+usersRouter.post('/changePassword', UsersController.changePassword)
 usersRouter.post('/google-login', UsersController.googleLogin)
 usersRouter.post('/facebook-login', UsersController.facebookLogin)
 usersRouter.post('/logout', UsersController.logout)

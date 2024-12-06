@@ -148,6 +148,30 @@ function createEmail (data, template) {
         </html>
       `
     }
+    case 'changePassword': {
+      return `
+      <html>
+          <head>
+              <style>
+                  ${styles}
+              </style>
+          </head>
+          <body>
+              <div class='container'>
+                  <h1>Solicitud para Cambiar Contraseña</h1>
+                  <p>Hola <strong>${data.nombre}</strong>,</p>
+                  <p>Hemos recibido una solicitud para cambiar la contraseña de tu cuenta en Meridian Bookstore.</p>
+                  <p>Por favor, pulsa el siguiente botón para completar el proceso de cambio de contraseña:</p>
+                  <a href='${data.validationLink}'><div class='button'>Cambiar Contraseña</div></a>
+                  <p>Este código es válido por 15 minutos.</p>
+                  <hr/>
+                  <p>Si no solicitaste este cambio, ignora este correo o contáctanos para informarnos.</p>
+                  <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en responder a este correo o <a href="mailto:support@meridianbookstore.com">contactarnos aquí</a>.</p>
+              </div>
+          </body>
+      </html>
+      `
+    }
   }
 }
 

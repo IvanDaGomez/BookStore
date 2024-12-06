@@ -4,13 +4,12 @@ import Footer from '../../components/footer.jsx'
 import { Link, useParams } from 'react-router-dom'
 import SideInfo from '../../components/sideInfo.jsx'
 import Sections from '../../components/sections.jsx'
-import './App.css'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import { Carousel } from '../../components/photoCarrousel.jsx'
 import { ToastContainer } from "react-toastify"
+import CustomDesigns from '../../components/customDesigns.jsx'
 
-// eslint-disable-next-line react/prop-types
 function App() {
   const [notification, setNotification] = useState('');
   const { info } = useParams();
@@ -110,7 +109,7 @@ function App() {
 
   const slides = [
       {
-        "src": "/slide1.jpg",
+        "src": "/customPlantilla2.png",
         "alt": "Image 1 for carousel"
       },
       {
@@ -120,8 +119,49 @@ function App() {
       {
         "src": "https://picsum.photos/seed/img3/600/400",
         "alt": "Image 3 for carousel"
+      },
+      {
+        "src": "/customPlantilla1.png",
+        "alt": "Image 2 for carousel",
+        extraComponents: [{
+          href: '/buscar?q=tendencia',
+          component: <button>Explorar</button>,
+          height: '30px',
+          width: '60px',
+          top: '30px',
+          left: '30px'
+        },{
+          href: '/buscar?q=tendencia',
+          component: <img href='' alt='' />,
+          width: '40px',
+          height: '50px',
+          top: '30px',
+          left: '30px'
+        },{
+          href: '/buscar?q=tendencia',
+          component: <button>Venta</button>,
+          height: '30px',
+          width: '80px',
+          top: '40px',
+          right: '5%'
+        }]
       }
     ]
+  const plantillas = [
+    {
+      photo: '/customPlantilla1.png',
+      alt: 'Imagen 1'
+    },{
+      photo: '/customPlantilla1.png',
+      alt: 'Imagen 1'
+    },{
+      photo: '/customPlantilla1.png',
+      alt: 'Imagen 1'
+    },{
+      photo: '/customPlantilla1.png',
+      alt: 'Imagen 1'
+    }
+  ]
   return (
     <>
       {renderNotification()}
@@ -135,6 +175,7 @@ function App() {
           <Link to="/search" style={{width:"auto"}}><button className='boton'>Comienza Ahora</button></Link>
         </div>      
       </div>*/}
+      <CustomDesigns plantillas={plantillas} />
       <Sections filter={"Para ti"} />
       <Sections filter={"Nuevo"} backgroundColor={"#00ff00"}/>
       

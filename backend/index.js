@@ -54,7 +54,7 @@ app.use((req, res, next) => {
     req.session.user = info // Update session with user info from token
   } catch (error) {
     // Ignore token verification errors (e.g., expired or invalid tokens)
-    console.error('Token verification failed:', error)
+    console.error('Token verification failed:')//, error)
   }
 
   next()

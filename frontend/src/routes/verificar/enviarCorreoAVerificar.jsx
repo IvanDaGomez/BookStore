@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
 import Verificar from "./verificar";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function EnviarCorreoAVerificar() {
   const navigate = useNavigate();
@@ -131,8 +132,8 @@ export default function EnviarCorreoAVerificar() {
   }
 
   return (
+    <>
     <div className="verifyContainer">
-      {console.log(code)}
       {verifying ? (
         <>
         <h1>Verificación</h1>
@@ -165,7 +166,10 @@ export default function EnviarCorreoAVerificar() {
               </div>
               <div>
               <p style={{fontSize: '2.3rem'}}>Si no recibiste el correo</p>
-              <a onClick={sendVerifyEmail}>Volver a enviar código</a>
+              <a onClick={()=>{
+                sendVerifyEmail()
+                toast.success('Código enviado exitosamente')
+                }}>Volver a enviar código</a>
               </div>
               <button onClick={verifyCode}>Verificar</button>
               {errors && <p className="error">{errors}</p>}
@@ -176,5 +180,7 @@ export default function EnviarCorreoAVerificar() {
         user && <Verificar user={user} token={token} />
       )}
     </div>
+    <ToastContainer />
+    </>
   );
 }

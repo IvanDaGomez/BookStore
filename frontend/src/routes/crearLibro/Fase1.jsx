@@ -18,7 +18,7 @@ export default function Fase1({ form, setForm, setFase, fase }) {
   const handleFileChange = async (e) => {
     const files = Array.from(e.target.files);
     const croppedFiles = await Promise.all(files.map(async (file) => {
-      const croppedURL = await cropImageToAspectRatio(file);
+      const croppedURL = await cropImageToAspectRatio(file, 2 / 3);
       return { url: croppedURL, type: file.type };  // Guardar URL y tipo de archivo
     }));
   

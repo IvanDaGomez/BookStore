@@ -26,13 +26,49 @@
     "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
     "input": "¿En qué estado se encuentra el producto?",
     "createdIn": "2024-12-04T00:12:36.217Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/libros/78c534c0-2fa8-40d0-b72a-c5ee34d0a883",
     "expiresAt": "2025-01-03T00:12:36.217Z",
     "metadata": {
       "photo": "1732390286751-856618092.png",
       "bookTitle": "El encuentro de cuatro imperios",
       "bookId": "78c534c0-2fa8-40d0-b72a-c5ee34d0a883"
+    }
+  },
+  {
+    "_id": "32c6afd8-f11c-4e81-adb9-bedc2fd303df",
+    "theme": "",
+    "title": "Tu libro ha sido publicado con éxito",
+    "priority": "high",
+    "type": "bookPublished",
+    "userId": "192c8f5f-4c9b-431b-a3b6-d4f93ba871aa",
+    "input": "",
+    "createdIn": "2024-12-05T23:18:43.050Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/8cf89699-cc2b-4216-998d-a8031fe5fe79",
+    "expiresAt": "2025-01-04T23:18:43.050Z",
+    "metadata": {
+      "photo": "1733440696073-961967320.png",
+      "bookTitle": "React Practico desde cero a desarrollos web avanzados",
+      "bookId": "8cf89699-cc2b-4216-998d-a8031fe5fe79"
+    }
+  },
+  {
+    "_id": "482b4345-d251-4a49-8936-189e2d74302a",
+    "theme": "",
+    "title": "Tu libro ha sido publicado con éxito",
+    "priority": "high",
+    "type": "bookPublished",
+    "userId": "192c8f5f-4c9b-431b-a3b6-d4f93ba871aa",
+    "input": "",
+    "createdIn": "2024-12-05T23:23:57.795Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/80f63656-b199-47e8-9d49-16826153ed63",
+    "expiresAt": "2025-01-04T23:23:57.795Z",
+    "metadata": {
+      "photo": "1733441018344-166312992.png",
+      "bookTitle": "React Practico desde cero a desarrollos web avanzados",
+      "bookId": "80f63656-b199-47e8-9d49-16826153ed63"
     }
   }
 ]

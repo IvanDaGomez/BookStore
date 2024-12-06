@@ -170,13 +170,14 @@ export class BooksController {
     if (!user) {
       return res.status(404).json({ error: 'Usuario no encontrado' })
     }
-
-    const updated = await UsersModel.updateUser(user._id, {
-      librosIds: [...(user?.librosIds || []), data._id]
-    })
     if (!user.rol || user.rol === 'usuario') {
       user.rol = 'Vendedor'
     }
+    const updated = await UsersModel.updateUser(user._id, {
+      librosIds: [...(user?.librosIds || []), data._id],
+      rol: user?.rol || 'Usuario'
+    })
+
     if (!updated) {
       return res.status(404).json({ error: 'Usuario no actualizado' })
     }
@@ -221,7 +222,7 @@ export class BooksController {
     }
     const correo = await UsersModel.getEmailById(data.idVendedor)
     // Enviar correo
-    console.log(correo)
+
     await sendEmail(`${data.vendedor} ${correo.correo}`, 'Libro publicado con éxito', createEmail(data, 'bookPublished'))
     // Si todo es exitoso, devolver el libro creado
     res.send({ book })

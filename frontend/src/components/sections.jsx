@@ -40,12 +40,12 @@ export default function Sections({ filter, backgroundColor }){
         const fetchResults = async () => {
             try {
                 let url;
-                if (filter === 'Nuevo') {
-                    url = 'http://localhost:3030/api/books/query/filters?Fecha-de-publicación=' + 'Menos-de-una-semana'
-                }
-                else {
+                //if (filter === 'Nuevo') {
+                //    url = 'http://localhost:3030/api/books/query/filters?Fecha-de-publicación=' + 'Menos-de-una-semana'
+                //}
+                //else {
                     url = `http://localhost:3030/api/books/query?q=${cambiarEspacioAGuiones(filter)}&l=6`
-                }
+                //}
                 const response = await axios.get(url, { withCredentials: true });
                 setLibros(response.data)
             } catch (error) {

@@ -6,6 +6,8 @@ import GoogleLogin from './googleLogin';
 import getLocation from '../../assets/getLocation';
 import { LoginSocialFacebook } from 'reactjs-social-login'
 import handleFacebookSubmit from './facebookLogin';
+import Loader from '../cambiarContraseña/loader.jsx';
+import '../cambiarContraseña/loader.css'
 export default function Login() {
   const navigate =  useNavigate()
   const mobileSep = window.innerWidth < 1280
@@ -16,7 +18,7 @@ export default function Login() {
   const [name, setName] = useState('')
   const [isMobile, setIsMobile] = useState(mobileSep);
   const [isRegister, setIsRegister] = useState(false); // Estado para alternar entre login y signup
-
+  const [loading, setLoading] = useState(false)
   const handleResize = () => {
     setIsMobile(mobileSep);
   };
@@ -78,11 +80,17 @@ export default function Login() {
       // If the condition is not met, remove the error if it exists
       setErrors((prevErrors) => prevErrors.filter(error => error !== 'Necesitas aceptar los términos y condiciones'));
     }
+    if (isRegister && strengthLevel <= 3) {
+      setErrors((prevErrors) => [...prevErrors, 'La contraseña es demasiado débil']);
+    }
     if (!validated) return;
 
     const domain = 'http://localhost:3030';
     const url = isRegister ? `${domain}/api/users` : `${domain}/api/users/login`;
     const ubicacion = {}
+
+    setLoading(true)
+
     if (isRegister) {
       const data = await getLocation()
       ubicacion.ciudad = data.ciudad
@@ -119,9 +127,7 @@ export default function Login() {
           return
         }
         
-        // Si la respuesta es exitosa, puedes manejar la respuesta aquí
-        // En teoría el token se guarda en la cookie desde el backend
-        // Si la respuesta es exitosa, puedes manejar la respuesta aquí
+        setLoading(false)
         document.body.style.cursor = "auto"
         // Si la respuesta es exitosa, puedes manejar la respuesta aquí
         // En teoría el token se guarda en la cookie desde el backend
@@ -130,7 +136,6 @@ export default function Login() {
           navigate('/verificar')
           return
         }
-        document.body.style.cursor = "auto"
         // Si no hay una pagina anterior, redirigir a inicio, si si redirigir a la pagina que estaba
         if (!document.referrer || !document.referrer.includes(window.location.hostname)){
           navigate('/')
@@ -145,12 +150,15 @@ export default function Login() {
     }
 };
   const handleGoogleSubmit = async (userData) => {
-    const { pais, ciudad, departamento } = await getLocation()
-    userData.ubicacion = {
-      pais,
-      ciudad, 
-      departamento
-    }
+    setLoading(true)
+    // const { pais, ciudad, departamento } = await getLocation()
+    // userData.ubicacion = {
+    //   pais,
+    //   ciudad, 
+    //   departamento
+    // }
+
+    
     document.body.style.cursor = "wait"
     const url = `http://localhost:3030/api/users/google-login`
     const response = await fetch(url, {
@@ -167,6 +175,7 @@ export default function Login() {
       setErrors((prevErrors) => [...prevErrors, 'Error en el servidor: Intenta de Nuevo']);
       return; // Salir de la función si hay un error
     }
+    setLoading(false)
   document.body.style.cursor = "auto"
   // Si no hay una pagina anterior, redirigir a inicio, si si redirigir a la pagina que estaba
   if (!document.referrer || !document.referrer.includes(window.location.hostname)){
@@ -176,9 +185,26 @@ export default function Login() {
   window.history.back()
   }
 
+  const [strengthLevel, setStrengthLevel] = useState(0); // Estado para el nivel de fortaleza
+
+    // Calcular la fortaleza de la contraseña
+    const calculateStrength = (password) => {
+      let strength = 0;
+
+      if (password.length >= 8) strength++; // Longitud mínima
+      if (/[A-Z]/.test(password)) strength++; // Mayúsculas
+      if (/[a-z]/.test(password)) strength++; // Minúsculas
+      if (/\d/.test(password)) strength++; // Números
+      if (/[@$!%*?&.]/.test(password)) strength++; // Caracteres especiales
+
+      setStrengthLevel(strength); // Actualizar el nivel
+  };
   
   return (
     <>
+    {loading && <>
+    <div className="opaqueBackground"></div>
+    <div className="loader"><Loader /></div></>}
     <div
       className="login-container"
       style={{
@@ -225,7 +251,11 @@ export default function Login() {
               name="password"
               placeholder="Ingresa tu contraseña"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                calculateStrength(e.target.value)
+                setPassword(e.target.value)
+                }
+              }
               required
             />
           </div>
@@ -242,6 +272,30 @@ export default function Login() {
               />
             </div>
           )}
+          {isRegister && (<div className="strengthMeter">
+                        <span>Fortaleza:</span>
+                            {Array(5)
+                                .fill(null)
+                                .map((_, index) => (
+                                    <div
+                                        className="strengthDiv"
+                                        key={index}
+                                        style={{
+                                            width: "20%",
+                                            height: "10px",
+                                            margin: "2px",
+                                            backgroundColor:
+                                                strengthLevel > index
+                                                    ? strengthLevel <= 2
+                                                        ? "red"
+                                                        : strengthLevel <= 4
+                                                        ? "orange"
+                                                        : "green"
+                                                    : "#e0e0e0",
+                                        }}
+                                    ></div>
+                                ))}
+                        </div>)}
           {isRegister && <div className='aceptoTerminos'>
             <input type="checkbox"  />
             <span>Acepto los <a href="/terminos-y-condiciones" target='_blank'> términos y condiciones</a></span>
@@ -260,7 +314,7 @@ export default function Login() {
              {/*Logo de Facebook */}
             <LoginSocialFacebook
               appId='2114886455594411'
-              onResolve={res => handleFacebookSubmit(res, setErrors)}
+              onResolve={res => handleFacebookSubmit(res, setErrors, setLoading)}
               onReject={(error) => console.error(error)}
             >
               <img loading="lazy" src="/facebook-logo.svg" alt="Facebook logo" title='Facebook logo'/>
@@ -272,7 +326,7 @@ export default function Login() {
           </div>
         {!isRegister && (
           <div className="forgot-password">
-            <a href="/">¿Olvidaste tu contraseña?</a>
+            <a href="/opciones/olvido-contraseña">¿Olvidaste tu contraseña?</a>
           </div>
         )}
         <div className="register-link">

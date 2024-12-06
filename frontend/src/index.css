@@ -48,6 +48,14 @@
   content-visibility: auto;
   scroll-behavior: smooth;
 }
+#root {
+  
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+}
+
+
 html {
   -webkit-text-size-adjust: 100%; /* Prevents scaling */
   text-size-adjust: 100%;          /* For other browsers */
@@ -810,6 +818,11 @@ input:-internal-autofill-selected {
 
 .slide {
   height: 100%;  
+  width: 100%;
+  position: relative;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .slide-hidden {
@@ -848,8 +861,8 @@ input:-internal-autofill-selected {
   all: unset;
   background-color: white;
   
-  height: 15px;
-  width: 15px;
+  height: 10px;
+  width: 10px;
   border-radius: 50%;
 
   border: 1px  solid grey;
@@ -980,6 +993,22 @@ input:-internal-autofill-selected {
   .sectionsContainer{
     grid-template-columns: 1fr 1fr 1fr;
   }
+}
+/*--------------------------------CUSTOM DESIGNS PLANTILLAS-----------------------------*/
+
+.customDesignsContainer{
+  width: min(calc(100vw - 10px), 1200px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
+  margin: 20px auto;
+  gap: var(--padding-big);
+}
+.customDesignsContainer div{
+  width: 100%;
+}
+.customDesignsContainer div img{
+  width: 100%;
 }
 /*--------------------------------SECTIONS HORIZONTAL-------------------*/
 
@@ -1853,7 +1882,17 @@ form{
   transform: scale(1.05);
 }
 
+.login-container .strengthMeter{
+  width: 60%;
+  margin: 10px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
+}
+.login-container .strengthMeter div{
+  width: fit-content;
+}
 /*------------------------------------------------buscar----------------------------------------------------------*/
 .misFiltros{
   width:100vw;
@@ -4014,6 +4053,145 @@ a[href="/chat"]{
   margin-block: 10px;
 }
 
+/*-------------------------------------------------------PREFERENCIAS------------------------------------------------*/
+
+.notification-settings .inputContainer{
+
+  height: 20px;
+  display: flex;
+  align-items: center;
+  margin: auto;
+  justify-content: center;
+}
+.notification-settings table{
+  width: auto;
+  margin: auto;
+  padding: var(--padding-small);
+}
+.notification-settings table th{
+  padding: var(--padding-small)
+}
+.notification-settings table td{
+  padding: auto;
+}
+.notification-settings .switch {
+  --circle-dim: 1.4em;
+  font-size: 17px;
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+}
+
+/* Hide default HTML checkbox */
+.notification-settings .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.notification-settings .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  background-color: var(--using3);
+  filter: opacity(0.5);
+
+  transition: all .4s ease-in-out;
+  border-radius: 30px;
+}
+
+.notification-settings .slider-card {
+  position: absolute;
+  content: "";
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 20px;
+  left: 0;
+  bottom: 0;
+  transition: .4s;
+  pointer-events: none;
+}
+
+.notification-settings .slider-card-face {
+  position: absolute;
+  inset: 0;
+  
+  backface-visibility: hidden;
+  perspective: 1000px;
+  border-radius: 50%;
+  transition: .4s transform;
+}
+
+.notification-settings .slider-card-front {
+  background-color: var(--using2);
+}
+
+.notification-settings .slider-card-back {
+  background-color: var(--using4);
+  transform: rotateY(180deg);
+}
+
+.notification-settings input:checked ~ .slider-card .slider-card-back {
+  transform: rotateY(0);
+}
+
+.notification-settings input:checked ~ .slider-card .slider-card-front {
+  transform: rotateY(-180deg);
+}
+
+.notification-settings input:checked ~ .slider-card {
+  transform: translateX(100%);
+}
+
+.notification-settings input:checked ~ .slider {
+  background-color: var(--using4);
+  filter: opacity(0.5);
+
+}
+
+/*----------------------------------------------------PREFERENCIAS COMPRADOR-----------------------------------------*/
+
+.preferences.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.preferences .preference-section {
+  margin-bottom: 20px;
+}
+
+.preferences .preference-section h2 {
+  margin-bottom: 10px;
+}
+
+.preferences .settings-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.preferences .settings-table th,
+.preferences .settings-table td {
+  padding: 10px;
+  text-align: center;
+}
+
+.preferences Ul {
+  list-style: none;
+  padding: 0;
+}
+
+.preferences ul li {
+  margin: 5px 0;
+}
+
 /*----------------------------------------------VERIFICAR--------------------------------------------------------*/
 .verifyContainer{
   position: absolute;
@@ -4078,4 +4256,110 @@ a[href="/chat"]{
 }
 .verifyContainer h2{
   font-size: 4rem;
+}
+/*-------------------------------------------------CAMBIAR CONTRASEÑA------------------------------------------*/
+.cambiarContraseñaDiv input[type='email'] {
+  width: 40rem;
+  margin: auto;
+  font-size: 2rem;
+  background: white;
+  color: black;
+  padding: var(--padding-small);
+  border-radius: var(--border);
+  border: 1px solid var(--using3);
+  
+}
+.cambiarContraseñaDiv input[type='email']:focus{
+  outline: auto 1px var(--using4);
+}
+.cambiarContraseñaDiv form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+}
+.cambiarContraseñaDiv .input-field{
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  margin-block: 15px;
+}
+.cambiarContraseñaDiv .strengthMeter{
+  width: 60%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cambiarContraseñaDiv .strengthMeter div{
+  width: fit-content;
+}
+.cambiarContraseñaDiv .input-field {
+  position: relative;
+}
+
+.cambiarContraseñaDiv .input-field label {
+  position: absolute;
+  color: #8d8d8d;
+  pointer-events: none;
+  background-color: transparent;
+  left: 15px;
+  transform: translateY(1.7rem);
+  transition: all 0.3s ease;
+}
+
+.cambiarContraseñaDiv .input-field input {
+  padding: 10px 15px;
+  font-size: 2rem;
+  border-radius: var(--border);
+  border: solid 1px var(--using3);
+  letter-spacing: 1px;
+  width: 100%;
+  background: white;
+}
+
+.cambiarContraseñaDiv .input-field input:focus,
+.cambiarContraseñaDiv .input-field input:valid {
+  outline: none;
+  border: solid 1px var(--using4);
+}
+
+.cambiarContraseñaDiv .input-field input:focus ~ label,
+.cambiarContraseñaDiv .input-field input:valid ~ label {
+  transform: translateY(-51%) translateX(-10px) scale(0.8);
+  background-color: #fff;
+  padding: 0px 5px;
+  color: var(--using4);
+  font-weight: bold;
+  letter-spacing: 1px;
+  border: none;
+  border-radius: 100px;
+}
+.opaqueBackground{
+  position: absolute;
+  width: 100vw;
+  height: 100vw;
+  inset: 0;
+  background: #ffffff80;
+  filter: blur(0.1);
+  z-index: 1;
+}
+.loader{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, calc(-50% - 6vh));
+  z-index: 2;
+}
+/*---------------------------------------------------MIS COMPRAS--------------------------------------------------*/
+
+.mis-compras table{
+  margin: auto;
+  width: 100%;
+ 
+}
+
+.mis-compras th, .mis-compras td{
+  border: 1px solid black;
 }

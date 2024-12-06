@@ -40,7 +40,7 @@ export default function Perfil({ user, navigate }) {
     </svg>,
         href: '/cuenta/balance',
         description: 'Encuentra tu dinero y el historial de transacciones'
-    },{
+    }/*{
         name: 'Preferencias del comprador',
         href: '/cuenta/preferencias-comprador',
         icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={svgHeight} height={svgHeight} color={"#000000"} fill={"none"}>
@@ -58,7 +58,7 @@ export default function Perfil({ user, navigate }) {
         <path d="M8.5 16.5C9.19863 15.2923 10.5044 14.4797 12 14.4797C13.4956 14.4797 14.8014 15.2923 15.5 16.5M14 10C14 11.1046 13.1046 12 12 12C10.8955 12 10 11.1046 10 10C10 8.89544 10.8955 8.00001 12 8.00001C13.1046 8.00001 14 8.89544 14 10Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
     </svg>,
         condition: !(user?.rol === 'Vendedor')
-    },{
+    }*/,{
         name: 'Direcciones',
         icon: <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={svgHeight} height={svgHeight} color={"#000000"} fill={"none"}>
         <path d="M14.5 9C14.5 10.3807 13.3807 11.5 12 11.5C10.6193 11.5 9.5 10.3807 9.5 9C9.5 7.61929 10.6193 6.5 12 6.5C13.3807 6.5 14.5 7.61929 14.5 9Z" stroke="currentColor" strokeWidth="1.5" />

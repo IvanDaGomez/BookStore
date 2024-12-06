@@ -14,15 +14,15 @@ export const Carousel = ({ data }) => {
   const prevSlide = () => {
     setSlide(slide === 0 ? data.length - 1 : slide - 1);
   };
-  useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 5000); // Change slide every 3 seconds
-
-    // Cleanup interval on component unmount
-    return () => clearInterval(interval);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [slide]); // Only re-run if data changes
+  //useEffect(() => {
+  //  const interval = setInterval(() => {
+  //    nextSlide();
+  //  }, 5000); // Change slide every 3 seconds
+//
+  //  // Cleanup interval on component unmount
+  //  return () => clearInterval(interval);
+  //// eslint-disable-next-line react-hooks/exhaustive-deps
+  //}, [slide]); // Only re-run if data changes
   return (
     <div className="carousel">
       <div className="arrow arrow-left" onClick={prevSlide} >
@@ -32,12 +32,14 @@ export const Carousel = ({ data }) => {
       </div>
       {data.map((item, idx) => {
         return (
-          <img
-            src={item.src}
-            alt={item.alt}
-            key={idx}
-            className={slide === idx ? "slide" : "slide slide-hidden"}
-          />
+          <div className={slide === idx ? "slide" : "slide slide-hidden"} style={{backgroundImage: `url(${item.src})`}} key={idx}>
+            {item?.extraComponents && item.extraComponents.map((component, index)=>(
+              <div key={index} style={{position: 'absolute', height: component.height, width: component.width, top: component?.top, left: component?.left, right: component?.right, bottom: component?.bottom}}>
+                {component.component}
+              </div>
+            ))}
+          </div>
+
         );
       })}
       <div className="arrow arrow-right" onClick={nextSlide} style={{transform: (document.body.scrollHeight > document.body.clientHeight) ? 'translateX(-2rem)': 'none'}}>

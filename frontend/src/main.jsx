@@ -24,6 +24,8 @@ import PoliticaDatosPersonales from './routes/extraFooterInfo/politicaDatosPerso
 import UsoDeCookies from './routes/extraFooterInfo/usoCookies.jsx'
 import Cuenta from './routes/cuenta/cuenta.jsx'
 import EnviarCorreoAVerificar from './routes/verificar/enviarCorreoAVerificar.jsx'
+import EnviarCorreoCambiarContraseña from './routes/cambiarContraseña/enviarCorreoCambiarContraseña.jsx'
+import CambiarContraseña from './routes/cambiarContraseña/cambiarContraseña.jsx'
 
 
 
@@ -130,6 +132,12 @@ const router = createBrowserRouter([
   },{
     path: '/verificar',
     element:<EnviarCorreoAVerificar /> 
+  },{
+    path: '/opciones/olvido-contraseña',
+    element: <EnviarCorreoCambiarContraseña />
+  }, {
+    path: '/opciones/cambiarContraseña/:token',
+    element: <CambiarContraseña />
   }
 ], {
   future: {

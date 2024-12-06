@@ -7,7 +7,7 @@
       "e93345c4-ca50-4919-ba85-4dcf00882673"
     ],
     "correo": "ivandavidgomezsilva@hotmail.com",
-    "contraseña": "$2b$10$CAuCoxBvkDkpnib9jXTRvOb7P1KMDC0NqPEhvBMaYaZRtNR45DFrq",
+    "contraseña": "$2b$10$Q9lRwXVG0KB8lA6ri0ec5O6gikZxswytoAjFx3CBStDCl0ghx0tDq",
     "rol": "admin",
     "fechaRegistro": "2024-10-20T18:37:31.276Z",
     "estadoCuenta": "activo",
@@ -272,7 +272,7 @@
       "19fb4038-cc9b-45ea-9326-a3136ed128b6",
       "d6b7ee42-ae3d-450e-9690-4f18235bd01a"
     ],
-    "validated": false,
+    "validated": true,
     "login": "Google",
     "correo": "monitatinet@gmail.com",
     "actualizadoEn": "2024-12-04T17:29:54.719Z",
@@ -284,14 +284,17 @@
   {
     "_id": "192c8f5f-4c9b-431b-a3b6-d4f93ba871aa",
     "nombre": "Ivan David Gomez Silva",
-    "rol": "usuario",
+    "rol": "Vendedor",
     "estadoCuenta": "Activo",
     "bio": "",
     "favoritos": [
       "3f7ab023-15e7-4626-8890-a71f4f2e221c"
     ],
     "conversationsIds": [],
-    "notificationsIds": [],
+    "notificationsIds": [
+      "32c6afd8-f11c-4e81-adb9-bedc2fd303df",
+      "482b4345-d251-4a49-8936-189e2d74302a"
+    ],
     "validated": true,
     "login": "default",
     "ubicacion": {
@@ -302,6 +305,10 @@
     "seguidores": [],
     "contraseña": "$2b$10$KJ5IPpTXkMmttqSYCNhyseZROgQBzZQDBRYWR6xeNPR8uLZ8zHPrC",
     "correo": "ivan.gomez@sanpedro.edu.co",
-    "actualizadoEn": "2024-12-05T22:03:43.161Z"
+    "actualizadoEn": "2024-12-06T00:52:35.976Z",
+    "librosIds": [
+      "80f63656-b199-47e8-9d49-16826153ed63"
+    ],
+    "fotoPerfil": "1733446355974-592149507.png"
   }
 ]
