@@ -17,14 +17,14 @@ export default async function handleFacebookSubmit(response, setErrors, setLoadi
         credentials: 'include'
     })
 
-    
+    setLoading(false)
     if (!res.ok) {
         // Actualizar el estado de errores usando setErrors
         setErrors((prevErrors) => [...prevErrors, 'Error en el servidor: Intenta de Nuevo']);
         return; // Salir de la función si hay un error
       }
 
-    setLoading(false)
+    
     // Si no hay una pagina anterior, redirigir a inicio, si si redirigir a la pagina que estaba
     if (!document.referrer || !document.referrer.includes(window.location.hostname)){
       window.location.href = '/'

@@ -98,26 +98,32 @@ export class UsersController {
 
   static async login (req, res) {
     try {
-      const { correo, contraseña } = req.body // Obtener el valor del parámetro de consulta 'e'
+      const { correo, contraseña } = req.body
       if (!correo || !contraseña) {
         return res.status(400).json({ error: 'Algunos espacios están en blanco' })
       }
 
-      const user = await UsersModel.login(correo, contraseña) // Asegúrate de implementar este método en UsersModel
+      const user = await UsersModel.login(correo, contraseña)
+
       if (user === 'No encontrado') {
         return res.status(404).json({ error: 'Usuario no encontrado' })
       }
       if (user === 'Contraseña no coincide') {
-        return res.status(404).json({ error: 'La contraseña no coincide' })
+        return res.status(404).json({ error: 'La contraseña es incorrecta' })
+      }
+      const tokenToSend = {
+        _id: user._id,
+        nombre: user.nombre
       }
       // Token
       const token = jwt.sign(
-        user,
+        tokenToSend,
         SECRET_KEY,
         {
           expiresIn: '3h'
         }
       )
+      console.log('todogood')
       res
         .cookie('access_token', token, {
           httpOnly: true,
@@ -140,10 +146,13 @@ export class UsersController {
       if (!user) {
         return res.status(404).json({ error: 'Usuario no encontrado' })
       }
-
+      const tokenToSend = {
+        _id: user._id,
+        nombre: user.nombre
+      }
       // Token
       const token = jwt.sign(
-        user,
+        tokenToSend,
         SECRET_KEY,
         {
           expiresIn: '3h'
@@ -171,10 +180,13 @@ export class UsersController {
       if (!user) {
         return res.status(404).json({ error: 'Usuario no encontrado' })
       }
-
+      const tokenToSend = {
+        _id: user._id,
+        nombre: user.nombre
+      }
       // Token
       const token = jwt.sign(
-        user,
+        tokenToSend,
         SECRET_KEY,
         {
           expiresIn: '3h'
@@ -220,9 +232,12 @@ export class UsersController {
     if (!user) {
       return res.status(500).json({ error: 'Error creando usuario' })
     }
-
+    const tokenToSend = {
+      _id: user._id,
+      nombre: user.nombre
+    }
     const token = jwt.sign(
-      user,
+      tokenToSend,
       SECRET_KEY,
       {
         expiresIn: '3h'
@@ -328,10 +343,13 @@ export class UsersController {
       if (!user) {
         res.status(404).json({ error: 'Usuario no encontrado o no actualizado' })
       }
-
+      const tokenToSend = {
+        _id: user._id,
+        nombre: user.nombre
+      }
       // Generar un nuevo token con los datos actualizados
       const newToken = jwt.sign(
-        user,
+        tokenToSend,
         SECRET_KEY,
         { expiresIn: '3h' } // Tiempo de expiración del token
       )
@@ -365,7 +383,11 @@ export class UsersController {
   static async userData (req, res) {
     if (req.session.user) {
       // Devolver los datos del usuario
-      res.json({ user: req.session.user })
+      const user = await UsersModel.getUserById(req.session.user._id)
+      if (!user) {
+        return res.status(401).json({ error: 'Usuario no encontrado' })
+      }
+      res.json({ user })
     } else {
       res.status(401).json({ message: 'No autenticado' })
     }
@@ -381,7 +403,7 @@ export class UsersController {
     }
     try {
       // Generate a token with user ID (or email) for validation
-      const token = jwt.sign({ _id: data._id, correo: data.correo }, SECRET_KEY, { expiresIn: '1h' })
+      const token = jwt.sign({ _id: data._id, nombre: data.nombre }, SECRET_KEY, { expiresIn: '1h' })
 
       // Create the validation code of 6 digits
       const validationCode = Math.floor(100000 + Math.random() * 900000)
@@ -426,7 +448,7 @@ export class UsersController {
       }
 
       // Verify that the email matches
-      if (data.correo !== correo.correo) {
+      if (data.nombre !== correo.nombre) {
         return res.status(400).json({ error: 'Email mismatch' })
       }
 
@@ -441,9 +463,13 @@ export class UsersController {
       if (!updated) {
         return res.status(500).json({ error: 'Failed to update user validation status' })
       }
+      const tokenToSend = {
+        _id: updated._id,
+        nombre: updated.nombre
+      }
       // Generate a new token with only essential data
       const newToken = jwt.sign(
-        updated,
+        tokenToSend,
         SECRET_KEY,
         { expiresIn: '3h' }
       )

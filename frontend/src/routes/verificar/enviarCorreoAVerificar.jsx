@@ -180,7 +180,14 @@ export default function EnviarCorreoAVerificar() {
         user && <Verificar user={user} token={token} />
       )}
     </div>
-    <ToastContainer />
+    <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                pauseOnHover={false}
+                closeOnClick
+                theme="light"
+            />
     </>
   );
 }

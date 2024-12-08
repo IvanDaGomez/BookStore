@@ -7,7 +7,7 @@
       "e93345c4-ca50-4919-ba85-4dcf00882673"
     ],
     "correo": "ivandavidgomezsilva@hotmail.com",
-    "contraseña": "$2b$10$Q9lRwXVG0KB8lA6ri0ec5O6gikZxswytoAjFx3CBStDCl0ghx0tDq",
+    "contraseña": "$2b$10$NcQtM/8q3L3kjBYtdqW4Y.80B8Bri28DC.PPfk0bf3c4TjLgt54Xa",
     "rol": "admin",
     "fechaRegistro": "2024-10-20T18:37:31.276Z",
     "estadoCuenta": "activo",
@@ -33,7 +33,19 @@
       "3ea9ec9c-a1d7-4481-8c61-3590636e024c",
       "fa229dfb-8954-4b60-bfc7-084ebc884535",
       "829b2fbc-ea40-4da3-95a4-eaa22135536e",
-      "20046e75-7007-4dc2-ab0d-761189ede0e8"
+      "20046e75-7007-4dc2-ab0d-761189ede0e8",
+      "322f7970-66d4-407a-904f-cca903bd8e49",
+      "e573538d-ccc8-47d9-a9df-864b41fa77b9",
+      "a936e7e2-c463-4666-ad12-4f1564700264",
+      "e5090606-1790-454c-ab67-afa2de0bf030",
+      "149e220b-1053-47bc-a76c-8e95db518844",
+      "b3c0e77e-8181-4bbe-b563-2b71582ee33c",
+      "612c1485-e879-4361-bad5-000abf33bffe",
+      "8902088e-85d9-4588-a3ab-2d49eb5b70e2",
+      "f3b92ca2-cba7-43d4-9870-9024ac9f5253",
+      "f855175f-d87a-42df-9084-4b9818000ee0",
+      "94f3593c-684b-4ec5-ac37-cea376cef1a6",
+      "6a6c2f5a-8ad3-4bcb-96e6-5aca2ba8c695"
     ],
     "bio": "Hola me gusta mucho comprar y vender libros",
     "notificationsIds": [
@@ -81,7 +93,9 @@
       "69643157-9ddb-47e1-8ace-e5d02e17478d"
     ],
     "validated": true,
-    "login": "default"
+    "login": "default",
+    "ubicacion": {},
+    "seguidores": []
   },
   {
     "nombre": "Monica Silva",
@@ -109,7 +123,10 @@
     "conversationsIds": [
       "a6a3abf3-4cdf-4767-bfb9-3997dd5e2872",
       "22d0264e-fd98-47b8-957e-9ffe599095ee",
-      "5644390f-de7e-4280-8801-9c6a017bb2b5"
+      "5644390f-de7e-4280-8801-9c6a017bb2b5",
+      "322f7970-66d4-407a-904f-cca903bd8e49",
+      "149e220b-1053-47bc-a76c-8e95db518844",
+      "f3b92ca2-cba7-43d4-9870-9024ac9f5253"
     ],
     "bio": "",
     "favoritos": [],
@@ -119,7 +136,8 @@
     ],
     "validated": false,
     "login": "default",
-    "ubicacion": {}
+    "ubicacion": {},
+    "seguidores": []
   },
   {
     "nombre": "Alvaro Gómez",
@@ -147,7 +165,15 @@
     "conversationsIds": [
       "a1daa0dd-0598-4cbc-802a-df08d09c2d11",
       "4e75b761-1d6c-4c9d-979a-10db354a2fe5",
-      "3406adf0-a240-44d6-b497-55e0a9d463e7"
+      "3406adf0-a240-44d6-b497-55e0a9d463e7",
+      "e573538d-ccc8-47d9-a9df-864b41fa77b9",
+      "e5090606-1790-454c-ab67-afa2de0bf030",
+      "b3c0e77e-8181-4bbe-b563-2b71582ee33c",
+      "612c1485-e879-4361-bad5-000abf33bffe",
+      "8902088e-85d9-4588-a3ab-2d49eb5b70e2",
+      "03565f92-cb06-4688-a049-d8586ce05ab3",
+      "94f3593c-684b-4ec5-ac37-cea376cef1a6",
+      "f5537de9-ff41-4339-85dd-e52cee28dc8f"
     ],
     "bio": "",
     "favoritos": [],
@@ -166,7 +192,8 @@
     ],
     "validated": false,
     "login": "default",
-    "ubicacion": {}
+    "ubicacion": {},
+    "seguidores": []
   },
   {
     "nombre": "Ivan David Gomez",
@@ -179,9 +206,9 @@
     "rol": "admin",
     "fechaRegistro": "2024-10-20T21:47:37.859Z",
     "estadoCuenta": "activo",
-    "fotoPerfil": "",
+    "fotoPerfil": "1733521219913-952070967.png",
     "_id": "836e151b-43ae-48a0-8352-17ad309d8068",
-    "actualizadoEn": "2024-12-03T17:41:32.079Z",
+    "actualizadoEn": "2024-12-06T21:40:19.917Z",
     "direccionEnvio": {
       "ciudad": "Floridablanca",
       "pais": "Colombia",
@@ -199,7 +226,9 @@
     "conversationsIds": [
       "e51f7131-171d-4723-95a2-e6fea54890f5",
       "0413aa19-5e92-4833-9ae7-bf9f00ea06c6",
-      "5644390f-de7e-4280-8801-9c6a017bb2b5"
+      "5644390f-de7e-4280-8801-9c6a017bb2b5",
+      "03565f92-cb06-4688-a049-d8586ce05ab3",
+      "f855175f-d87a-42df-9084-4b9818000ee0"
     ],
     "bio": "",
     "favoritos": [
@@ -208,7 +237,8 @@
     "notificationsIds": [],
     "validated": true,
     "login": "default",
-    "ubicacion": {}
+    "ubicacion": {},
+    "seguidores": []
   },
   {
     "nombre": "Monica Silva",
@@ -246,7 +276,10 @@
       "22d0264e-fd98-47b8-957e-9ffe599095ee",
       "fa229dfb-8954-4b60-bfc7-084ebc884535",
       "829b2fbc-ea40-4da3-95a4-eaa22135536e",
-      "3073a7f2-7bee-4120-916d-c1b972d11c99"
+      "3073a7f2-7bee-4120-916d-c1b972d11c99",
+      "a936e7e2-c463-4666-ad12-4f1564700264",
+      "6a6c2f5a-8ad3-4bcb-96e6-5aca2ba8c695",
+      "f5537de9-ff41-4339-85dd-e52cee28dc8f"
     ],
     "notificationsIds": [
       "cce2b27f-1cb4-4c9b-b0c9-c3218ee34c72",
@@ -279,7 +312,11 @@
     "librosIds": [
       "8269ca96-ed27-4cb3-a919-8967d4f83e9a",
       "354037a6-232d-4f28-a2ab-df76dbd70a93"
-    ]
+    ],
+    "rol": "usuario",
+    "estadoCuenta": "Activo",
+    "ubicacion": {},
+    "seguidores": []
   },
   {
     "_id": "192c8f5f-4c9b-431b-a3b6-d4f93ba871aa",

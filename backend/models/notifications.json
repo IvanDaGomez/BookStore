@@ -70,5 +70,23 @@
       "bookTitle": "React Practico desde cero a desarrollos web avanzados",
       "bookId": "80f63656-b199-47e8-9d49-16826153ed63"
     }
+  },
+  {
+    "_id": "8633acbd-50c2-49b2-8db6-64dd24abaf1b",
+    "theme": "",
+    "title": "Tu libro ha sido publicado con éxito",
+    "priority": "high",
+    "type": "bookPublished",
+    "userId": "08750a7d-4d35-458b-ae1c-2273f04390e9",
+    "input": "",
+    "createdIn": "2024-12-06T22:51:24.411Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/df9478ae-6ffb-4b52-9fe1-81e17e434e47",
+    "expiresAt": "2025-01-05T22:51:24.411Z",
+    "metadata": {
+      "photo": "1733525295775-121853063.png",
+      "bookTitle": "React Practico desde cero a desarrollos web avanzados",
+      "bookId": "df9478ae-6ffb-4b52-9fe1-81e17e434e47"
+    }
   }
 ]

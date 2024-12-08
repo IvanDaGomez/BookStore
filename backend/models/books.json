@@ -588,5 +588,35 @@
     "actualizadoEn": "2024-12-05T23:23:57.785Z",
     "disponibilidad": "Disponible",
     "mensajes": []
+  },
+  {
+    "titulo": "React Practico desde cero a desarrollos web avanzados",
+    "autor": "Pello Xavier Altadill Izura",
+    "precio": 50000,
+    "oferta": null,
+    "images": [
+      "1733525295775-121853063.png"
+    ],
+    "keywords": [],
+    "_id": "df9478ae-6ffb-4b52-9fe1-81e17e434e47",
+    "descripcion": "\"React Práctico desde cero a desarrollos web avanzados\" de Pello Xavier Altadill Izura es un libro que te guiará en el aprendizaje de React, desde los conceptos básicos hasta técnicas avanzadas para el desarrollo web. Con explicaciones claras y ejemplos prácticos, este libro te ayudará a dominar React y crear aplicaciones web de alto nivel. Ideal para desarrolladores que deseen mejorar sus habilidades en React y llevar sus proyectos a un nivel más avanzado.",
+    "estado": "Nuevo Sellado",
+    "genero": "Educativo",
+    "formato": "Físico",
+    "vendedor": "Ivan David Gomez Silva",
+    "idVendedor": "08750a7d-4d35-458b-ae1c-2273f04390e9",
+    "edicion": "",
+    "idioma": "",
+    "ubicacion": {
+      "ciudad": "",
+      "departamento": "",
+      "pais": ""
+    },
+    "tapa": "",
+    "edad": "",
+    "fechaPublicacion": "2024-12-06T22:48:15.769Z",
+    "actualizadoEn": "2024-12-06T22:51:24.403Z",
+    "disponibilidad": "Disponible",
+    "mensajes": []
   }
 ]

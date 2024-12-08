@@ -64,10 +64,12 @@ const validarPublicar3 = ({ precio = '', keywords = [], oferta = '' } = {}) => {
     errors.push("El precio es requerido");
     
   }
-  if (precio <= 999){
-    errors.push("Introduce un precio válido");
+  if (precio <= 20000){
+    errors.push("El precio debe ser mayor a 20000 pesos");
   }
-  
+  if (oferta !== 0 && oferta <= 20000) {
+    errors.push('El precio de oferta debe ser mayor a 20000 pesos')
+  }
     // Validación de precio (campo requerido)
   if (oferta >= precio) {
     errors.push("El precio de oferta debe ser menor al precio original");

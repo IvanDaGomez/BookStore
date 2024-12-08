@@ -5,7 +5,7 @@ const usersRouter = Router()
 
 usersRouter.get('/', UsersController.getAllUsersSafe) // R
 // usersRouter.get('/safe', UsersController.getAllUsersSafe) // R
-usersRouter.get('/:userId/photoAndName', UsersController.getPhotoAndNameUser) // R
+
 usersRouter.post('/', UsersController.createUser) // C
 usersRouter.post('/login', UsersController.login)
 usersRouter.post('/changePasswordEmail', UsersController.sendChangePasswordEmail)
@@ -19,7 +19,7 @@ usersRouter.post('/sendValidationEmail', UsersController.sendValidationEmail)
 usersRouter.get('/validateUser/:token', UsersController.userValidation)
 usersRouter.get('/c/:userId', UsersController.getEmailById) // R
 usersRouter.get('/:userId', UsersController.getUserById) // R
-
+usersRouter.get('/:userId/photoAndName', UsersController.getPhotoAndNameUser) // R
 usersRouter.patch('/:userId', upload.single('images'), UsersController.updateUser) // U
 usersRouter.delete('/:userId', UsersController.deleteUser)
 

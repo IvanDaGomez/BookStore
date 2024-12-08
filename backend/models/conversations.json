@@ -1,137 +1,104 @@
 [
   {
-    "_id": "49771105-55f6-4299-b18e-7500a26ed708",
-    "users": [
-      "857857d1-afdd-411d-b41a-be427d1ff186",
-      "1816d212-7dc5-4d74-bb9d-e0d97bf60d27"
-    ],
-    "messages": [],
-    "createdIn": "2024-11-02T19:51:58.367Z",
-    "lastMessage": {
-      "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
-      "conversationId": "49771105-55f6-4299-b18e-7500a26ed708",
-      "message": "Hola me gustaría saber más del libro Demasiado tarde para despertar\nhttp://localhost:5173/libros/3cd4d6ad-df7c-4e0f-beb9-394de48ce33d",
-      "read": false,
-      "_id": "ac9ad373-74a5-44b3-869f-844c55cca660",
-      "createdIn": "2024-12-03T19:28:14.613Z"
-    }
-  },
-  {
-    "_id": "cb9b4163-5992-484a-8792-a532436d24b3",
+    "_id": "f3b92ca2-cba7-43d4-9870-9024ac9f5253",
     "users": [
       "857857d1-afdd-411d-b41a-be427d1ff186",
       "834a9dda-5cf5-4438-9499-eed4b8ec3e45"
     ],
     "messages": [],
-    "createdIn": "2024-11-04T01:42:40.235Z",
+    "createdIn": "2024-12-07T00:13:27.997Z",
     "lastMessage": {
       "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
-      "conversationId": "cb9b4163-5992-484a-8792-a532436d24b3",
+      "conversationId": "f3b92ca2-cba7-43d4-9870-9024ac9f5253",
       "message": "Hola",
       "read": false,
-      "_id": "4b0fd016-37e0-4ee9-be3f-8e42eb69a14f",
-      "createdIn": "2024-11-04T01:42:49.353Z"
+      "_id": "89f3956f-2bf1-45c1-b7f2-59c17f749f4d",
+      "createdIn": "2024-12-07T22:39:43.972Z"
     }
   },
   {
-    "_id": "53a0c585-1e65-401e-b08a-50080c08ffae",
+    "_id": "03565f92-cb06-4688-a049-d8586ce05ab3",
     "users": [
-      "857857d1-afdd-411d-b41a-be427d1ff186",
-      "836e151b-43ae-48a0-8352-17ad309d8068"
+      "836e151b-43ae-48a0-8352-17ad309d8068",
+      "1816d212-7dc5-4d74-bb9d-e0d97bf60d27"
     ],
     "messages": [],
-    "createdIn": "2024-11-22T22:56:33.857Z",
+    "createdIn": "2024-12-07T22:23:40.512Z",
     "lastMessage": {
-      "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
-      "conversationId": "53a0c585-1e65-401e-b08a-50080c08ffae",
-      "message": "Hola buena tarde",
+      "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+      "conversationId": "03565f92-cb06-4688-a049-d8586ce05ab3",
+      "message": "Hola Alvaro Gómez, me gustaría saber más del libro Demasiado tarde para despertar\nhttp://localhost:5173/libros/3cd4d6ad-df7c-4e0f-beb9-394de48ce33d",
       "read": false,
-      "_id": "916095c1-6057-4cd9-b840-fc15b4596503",
-      "createdIn": "2024-11-22T22:56:44.559Z"
+      "_id": "f88e9367-c142-4a06-acd6-56c56cb0719b",
+      "createdIn": "2024-12-07T22:23:40.530Z"
     }
   },
   {
-    "_id": "cab8c072-2f4b-4bfe-ba12-0907d2f63ac3",
+    "_id": "f855175f-d87a-42df-9084-4b9818000ee0",
+    "users": [
+      "836e151b-43ae-48a0-8352-17ad309d8068",
+      "857857d1-afdd-411d-b41a-be427d1ff186"
+    ],
+    "messages": [],
+    "createdIn": "2024-12-07T22:38:15.849Z",
+    "lastMessage": {
+      "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+      "conversationId": "f855175f-d87a-42df-9084-4b9818000ee0",
+      "message": "q",
+      "read": false,
+      "_id": "314052fd-81ab-4601-984d-8ceee2213644",
+      "createdIn": "2024-12-07T22:39:38.844Z"
+    }
+  },
+  {
+    "_id": "94f3593c-684b-4ec5-ac37-cea376cef1a6",
+    "users": [
+      "857857d1-afdd-411d-b41a-be427d1ff186",
+      "1816d212-7dc5-4d74-bb9d-e0d97bf60d27"
+    ],
+    "messages": [],
+    "createdIn": "2024-12-07T22:49:35.005Z",
+    "lastMessage": {
+      "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+      "conversationId": "94f3593c-684b-4ec5-ac37-cea376cef1a6",
+      "message": "Hola Alvaro Gómez, me gustaría saber más del libro Acaba con la inflamación en 7 días\nhttp://localhost:5173/libros/88c87f69-4b49-4633-bfba-cd3d29b1a21d",
+      "read": false,
+      "_id": "d28e9f17-70f9-4b6e-b6df-0c66e2d9ec5d",
+      "createdIn": "2024-12-07T22:49:35.019Z"
+    }
+  },
+  {
+    "_id": "6a6c2f5a-8ad3-4bcb-96e6-5aca2ba8c695",
     "users": [
       "9b922eb4-33e8-4781-9863-c066992e1620",
       "857857d1-afdd-411d-b41a-be427d1ff186"
     ],
     "messages": [],
-    "createdIn": "2024-11-23T21:03:04.627Z",
-    "lastMessage": {}
-  },
-  {
-    "_id": "4e75b761-1d6c-4c9d-979a-10db354a2fe5",
-    "users": [
-      "9b922eb4-33e8-4781-9863-c066992e1620",
-      "1816d212-7dc5-4d74-bb9d-e0d97bf60d27"
-    ],
-    "messages": [],
-    "createdIn": "2024-11-23T21:07:53.229Z",
+    "createdIn": "2024-12-07T22:53:23.732Z",
     "lastMessage": {
       "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
-      "conversationId": "4e75b761-1d6c-4c9d-979a-10db354a2fe5",
-      "message": "Hola alvaro",
-      "read": false,
-      "_id": "9c79bd56-a279-4390-b803-f4a52a8758f2",
-      "createdIn": "2024-11-24T00:35:04.287Z"
-    }
-  },
-  {
-    "_id": "22d0264e-fd98-47b8-957e-9ffe599095ee",
-    "users": [
-      "9b922eb4-33e8-4781-9863-c066992e1620",
-      "834a9dda-5cf5-4438-9499-eed4b8ec3e45"
-    ],
-    "messages": [],
-    "createdIn": "2024-11-23T21:08:15.027Z",
-    "lastMessage": {}
-  },
-  {
-    "_id": "3073a7f2-7bee-4120-916d-c1b972d11c99",
-    "users": [
-      "857857d1-afdd-411d-b41a-be427d1ff186",
-      "9b922eb4-33e8-4781-9863-c066992e1620"
-    ],
-    "messages": [],
-    "createdIn": "2024-11-23T21:20:15.619Z",
-    "lastMessage": {
-      "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
-      "conversationId": "3073a7f2-7bee-4120-916d-c1b972d11c99",
+      "conversationId": "6a6c2f5a-8ad3-4bcb-96e6-5aca2ba8c695",
       "message": "Hola",
       "read": false,
-      "_id": "acaf5115-f6b7-449d-8296-e7ad15e09dd3",
-      "createdIn": "2024-11-23T21:22:37.383Z"
+      "_id": "7f057741-5240-46a6-b037-b2f0e7af9e2f",
+      "createdIn": "2024-12-07T22:58:14.909Z"
     }
   },
   {
-    "_id": "3406adf0-a240-44d6-b497-55e0a9d463e7",
+    "_id": "f5537de9-ff41-4339-85dd-e52cee28dc8f",
     "users": [
-      "836e151b-43ae-48a0-8352-17ad309d8068",
+      "9b922eb4-33e8-4781-9863-c066992e1620",
       "1816d212-7dc5-4d74-bb9d-e0d97bf60d27"
     ],
     "messages": [],
-    "createdIn": "2024-11-26T03:42:18.828Z",
-    "lastMessage": {}
-  },
-  {
-    "_id": "5644390f-de7e-4280-8801-9c6a017bb2b5",
-    "users": [
-      "836e151b-43ae-48a0-8352-17ad309d8068",
-      "834a9dda-5cf5-4438-9499-eed4b8ec3e45"
-    ],
-    "messages": [],
-    "createdIn": "2024-11-26T03:42:45.498Z",
-    "lastMessage": {}
-  },
-  {
-    "_id": "327d50a5-187d-4da2-98fc-4a2a5727f08c",
-    "users": [
-      "9a656e1c-bc77-4fd4-8528-42e757d3b691",
-      "834a9dda-5cf5-4438-9499-eed4b8ec3e45"
-    ],
-    "messages": [],
-    "createdIn": "2024-11-26T04:06:43.670Z",
-    "lastMessage": {}
+    "createdIn": "2024-12-07T22:54:30.744Z",
+    "lastMessage": {
+      "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
+      "conversationId": "f5537de9-ff41-4339-85dd-e52cee28dc8f",
+      "message": "Hola",
+      "read": false,
+      "_id": "449ba87b-5715-4abe-9a3e-ce0704425a1b",
+      "createdIn": "2024-12-07T22:58:04.540Z"
+    }
   }
 ]

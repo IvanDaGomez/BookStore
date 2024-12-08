@@ -844,10 +844,12 @@ input:-internal-autofill-selected {
 }
 
 .arrow-left {
+  z-index: 10;
   left: 1rem;
 }
 
 .arrow-right {
+  z-index: 10;
   right: 1rem;
 }
 
@@ -3336,6 +3338,8 @@ color: var(--using6);
   padding-left: 10px;
   margin-right: 5px;
   font-family: inherit;
+  max-height: 6em;
+  resize: none;
 }
 .messageInputContainer .send{
   width: 40px;
@@ -3605,7 +3609,7 @@ a[href="/chat"]{
   z-index: -1;
 }
 .contactContainer{
-  width:min(100vw, 1000px);
+  width: min(calc(100vw - 10px), 1000px);
   margin: auto;
   height:100%;
   display: grid;
@@ -4280,6 +4284,7 @@ a[href="/chat"]{
   height: auto;
 }
 .cambiarContraseñaDiv .input-field{
+  height: 3rem;
   width: 60%;
   display: flex;
   flex-direction: column;
@@ -4298,14 +4303,16 @@ a[href="/chat"]{
 .cambiarContraseñaDiv .input-field {
   position: relative;
 }
-
+.cambiarContraseñaDiv .success{
+  color: #4BB543;
+}
 .cambiarContraseñaDiv .input-field label {
   position: absolute;
   color: #8d8d8d;
   pointer-events: none;
   background-color: transparent;
   left: 15px;
-  transform: translateY(1.7rem);
+  transform: translateY(10px);
   transition: all 0.3s ease;
 }
 
@@ -4362,4 +4369,55 @@ a[href="/chat"]{
 
 .mis-compras th, .mis-compras td{
   border: 1px solid black;
+}
+/*-----------------------------------------------------FAQ------------------------------------*/
+
+.faqContainer {
+  width: min(calc(100vw - 10px), 1000px);
+  margin: auto;
+  padding: 20px;
+}
+.faqContainer h2{
+  font-size: 3rem;
+}
+.faqContainer h3{
+  font-size: 2.5rem;
+}
+.faqSection {
+  margin-bottom: 30px;
+}
+
+.faqSection h2 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.faqPair {
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.faqQuestion {
+  cursor: pointer;
+  background-color: var(--using1);
+  padding: 10px;
+  border: 1px solid var(--using3);
+  border-radius: 5px;
+  margin-bottom: 5px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.faqQuestion:hover {
+  background-color: #ddd;
+}
+
+.faqAnswer {
+  padding: 10px;
+  background-color: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 5px;
+  font-size: 16px;
+  color: #555;
 }

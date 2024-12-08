@@ -26,6 +26,7 @@ import Cuenta from './routes/cuenta/cuenta.jsx'
 import EnviarCorreoAVerificar from './routes/verificar/enviarCorreoAVerificar.jsx'
 import EnviarCorreoCambiarContraseña from './routes/cambiarContraseña/enviarCorreoCambiarContraseña.jsx'
 import CambiarContraseña from './routes/cambiarContraseña/cambiarContraseña.jsx'
+import Faq from './routes/faq/faq.jsx'
 
 
 
@@ -125,6 +126,10 @@ const router = createBrowserRouter([
   {
     path: '/cuenta',
     element: <Cuenta />
+  },
+  {
+    path: '/faq',
+    element: <Faq />
   },
   {
     path: '/cuenta/:extension',

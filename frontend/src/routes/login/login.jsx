@@ -72,7 +72,7 @@ export default function Login() {
         password,
         confirmPassword,
     };
-
+    
     const validated = validateErrors(formData);
     if (isRegister && !document.querySelector('.aceptoTerminos input').checked) {
       setErrors((prevErrors) => [...prevErrors, 'Necesitas aceptar los términos y condiciones']);
@@ -109,7 +109,7 @@ export default function Login() {
           departamento: ubicacion.departamento
         }})
     };
-
+    console.log('datos para enviar:', sendData)
     try {
         document.body.style.cursor = "auto"
         const response = await fetch(url, {
@@ -120,18 +120,20 @@ export default function Login() {
             body: JSON.stringify(sendData),
             credentials: 'include'
         });
-
+        
         const data = await response.json()
+        setLoading(false)
         if (data.error) {
           setErrors((prevErrors) => [...prevErrors, `Error: ${data.error}`]);
           return
         }
         
-        setLoading(false)
+        
         document.body.style.cursor = "auto"
         // Si la respuesta es exitosa, puedes manejar la respuesta aquí
         // En teoría el token se guarda en la cookie desde el backend
         // Si la respuesta es exitosa, puedes manejar la respuesta aquí
+
         if (isRegister || !data.user?.validated) {
           navigate('/verificar')
           return
@@ -169,13 +171,13 @@ export default function Login() {
       body: JSON.stringify(userData),
       credentials: 'include'
     })
-
+    setLoading(false)
     if (!response.ok) {
       // Actualizar el estado de errores usando setErrors
       setErrors((prevErrors) => [...prevErrors, 'Error en el servidor: Intenta de Nuevo']);
       return; // Salir de la función si hay un error
     }
-    setLoading(false)
+    
   document.body.style.cursor = "auto"
   // Si no hay una pagina anterior, redirigir a inicio, si si redirigir a la pagina que estaba
   if (!document.referrer || !document.referrer.includes(window.location.hostname)){

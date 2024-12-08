@@ -62,7 +62,7 @@ export default function EnviarCorreoCambiarContraseña() {
                     </div>
             {errors.length!== 0 && <div className="error">{errors[0]}</div> }
              <button type='submit'>{!emailSent ? 'Enviar': 'Volver a enviar'}</button> 
-            {emailSent && <div>El correo se ha enviado exitosamente, revisa tu bandeja de entrada.</div>}
+            {emailSent && <div className="success">El correo se ha enviado exitosamente, revisa tu bandeja de entrada.</div>}
         </form>
 
 

@@ -113,11 +113,11 @@ function App() {
         "alt": "Image 1 for carousel"
       },
       {
-        "src": "/slide2.png",
+        "src": "/customPlantilla3.png",
         "alt": "Image 2 for carousel"
       },
       {
-        "src": "https://picsum.photos/seed/img3/600/400",
+        "src": "/customPlantilla4.png",
         "alt": "Image 3 for carousel"
       },
       {

@@ -91,7 +91,6 @@ function createEmail (data, template) {
                 <p>Estamos emocionados de compartir tu publicación con nuestros amantes de libros!. TU libro ya se puede buscar y está listo para ser vendido.</p>
                 <p>Puedes ver tu libro aquí:</p>
                 <a href="${process.env.FRONTEND_URL}/libros/${data._id}"><div class='button'>Ver libro</div></a>
-                <a href="${data.validationLink}"></a>
                 <div class="footer">
                 <p>Si tienes preguntas o necesitas asistencia, contáctate con <a href="mailto:support@meridianbookstore.com">nosotros</a>.</p>
                 </div>
