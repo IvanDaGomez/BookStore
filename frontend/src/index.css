@@ -6,11 +6,11 @@
   --using1: #ffffff; /* Background */
   --using2: #c4c3c4; /* Lines, separators, scrollbars */
   --using3: #000000; /* Text color */
-  --using4: #42376E; /* Accent */
+  --using4: #2664ab; /* Accent */
   --using5: #f4f0f0; /* Buttons, divs */
   --using6: red; /* Errores, acentos */
   
-    /*-----VEREMOS: #2664ab*/
+    /*-----VEREMOS: #42376E*/
   --naranja1: #ffffff; /* Background */
   --naranja2: #f7f0f0; /* Lines, separators, scrollbars */
   --naranja3: #252525; /* Text color */
@@ -3148,17 +3148,21 @@ color: var(--using6);
 .sectionMessage{
   border: 1px solid var(--using2);
   border-bottom: none;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+
   background: white;
   padding: 5px 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 5px;
   cursor: pointer;
   position: relative;
   isolation: isolate;
+}
+.sectionMessagesContainer:first-child div{
+  border-top-left-radius: 5px;
+}
+.sectionMessagesContainer:last-child div{
+  border-top-right-radius: 5px;
 }
 .sectionMessageActive, .sectionMessageActive svg{
   color: var(--using1);
@@ -4018,23 +4022,41 @@ a[href="/chat"]{
   padding: var(--padding-big);
 }
 .account-dashboard .main-content .container h1{
-  font-size: 4rem;
+  font-size: 3.5rem;
 }
 
 .account-dashboard .main-content .container.balanceContainer{
-  width: min(100%, 800px);
+  width: 100%;
+  height: 100%;
   margin: auto;
+  padding: var(--padding-big);
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: start;
+  flex-direction: column;
+  background: var(--using4);
+  color: var(--using1);
+}
+
+.account-dashboard .main-content .flexBalance{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  place-items: center;
+  gap: var(--padding-big)
+}
+.account-dashboard .main-content .bigNumber{
+  text-align: left;
+  font-size: 5rem;
 }
 .account-dashboard .main-content .container.balanceContainer .numbers{
   width: 100%;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   
 }
+
 .account-dashboard .main-content .container.balanceContainer .numbers div{
   width: auto;
   height: 100%;
@@ -4042,7 +4064,6 @@ a[href="/chat"]{
   justify-content: flex-start;
   align-items: start;
   flex-direction: column;
-  margin-inline: 15px;
 }
 .account-dashboard .main-content .container.balanceContainer .numbers div h2{
   font-size: 3rem;
@@ -4052,9 +4073,107 @@ a[href="/chat"]{
 }
 .account-dashboard .main-content .container.balanceContainer button{
   width: 150px;
+  background: var(--using1);
+  color: var(--using4);
+  transition: all .3s ease-in-out;
+}
+.account-dashboard .main-content .container.balanceContainer button:hover{
+  background: var(--using4);
+  color: var(--using1);
+  outline: 3px solid var(--using1);
 }
 .account-dashboard .main-content > h1{
   margin-block: 10px;
+}
+
+.account-dashboard .main-content .graphContainer{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+.account-dashboard .main-content .graphContainer .chartBalance{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+.account-dashboard .main-content .graphContainer .axisPicker{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  margin-inline: 20px;
+}
+.account-dashboard .main-content .graphContainer .axisPicker div{
+  width: 100%;
+  padding: var(--padding-small);
+  background-color: var(--using1);
+  border: 3px solid var(--using4);
+  border-radius: 200px;
+  margin: 10px;
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+}
+
+.account-dashboard .main-content .graphContainer .axisPicker div.active{
+  background: var(--using4);
+  color: var(--using1);
+}
+@media only screen and (max-width:800px) {
+  .account-dashboard .main-content .flexBalance{
+    grid-template-columns: 1fr;
+  }
+}
+
+.account-dashboard .main-content .cobrarContainer{
+  width: min(calc(100vw - 10px), 1000px);
+  margin: 10px auto;
+  padding: 20px;
+  background: white;
+}
+.account-dashboard .main-content .balanceTransactionHistorialContainer{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.account-dashboard .main-content .balanceTransactionHistorialContainer .balanceTransactionHeader{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--using5);
+  text-align: center;
+  padding: var(--padding-big);
+}
+.account-dashboard .main-content .balanceTransactionHistorialContainer .balanceTransactionHeader div{
+  width: 100%;
+}
+.account-dashboard .main-content .balanceTransactionHistorialContainer .balanceTransactionHistorial{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+.account-dashboard .main-content .balanceTransactionHistorialContainer .balanceTransactionHistorial .transactionLine{
+  width: 100%;
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--using1);
+  margin-block: var(--padding-small);
+  padding: var(--padding-big);
+  border-radius: var(--border);
+}
+.account-dashboard .main-content .balanceTransactionHistorialContainer .balanceTransactionHistorial .transactionLine div{
+  width: 100%;
 }
 
 /*-------------------------------------------------------PREFERENCIAS------------------------------------------------*/
@@ -4348,7 +4467,7 @@ a[href="/chat"]{
   width: 100vw;
   height: 100vw;
   inset: 0;
-  background: #ffffff80;
+  background: #f5f7f6;
   filter: blur(0.1);
   z-index: 1;
 }
@@ -4356,7 +4475,7 @@ a[href="/chat"]{
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, calc(-50% - 6vh));
+  transform: translate(-50%, calc(-50%));
   z-index: 2;
 }
 /*---------------------------------------------------MIS COMPRAS--------------------------------------------------*/

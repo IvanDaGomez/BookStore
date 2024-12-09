@@ -175,9 +175,11 @@ function App() {
           <Link to="/search" style={{width:"auto"}}><button className='boton'>Comienza Ahora</button></Link>
         </div>      
       </div>*/}
-      <CustomDesigns plantillas={plantillas} />
+
       <Sections filter={"Para ti"} />
       <Sections filter={"Nuevo"} backgroundColor={"#00ff00"}/>
+      <CustomDesigns plantillas={plantillas} />
+      
       
       <SideInfo/>
       {/*<ChatBot/>*/}

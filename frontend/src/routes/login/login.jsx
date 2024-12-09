@@ -76,12 +76,14 @@ export default function Login() {
     const validated = validateErrors(formData);
     if (isRegister && !document.querySelector('.aceptoTerminos input').checked) {
       setErrors((prevErrors) => [...prevErrors, 'Necesitas aceptar los términos y condiciones']);
+      return
     } else {
       // If the condition is not met, remove the error if it exists
       setErrors((prevErrors) => prevErrors.filter(error => error !== 'Necesitas aceptar los términos y condiciones'));
     }
     if (isRegister && strengthLevel <= 3) {
       setErrors((prevErrors) => [...prevErrors, 'La contraseña es demasiado débil']);
+      return
     }
     if (!validated) return;
 
@@ -122,13 +124,13 @@ export default function Login() {
         });
         
         const data = await response.json()
-        setLoading(false)
+        
         if (data.error) {
           setErrors((prevErrors) => [...prevErrors, `Error: ${data.error}`]);
           return
         }
         
-        
+        setLoading(false)
         document.body.style.cursor = "auto"
         // Si la respuesta es exitosa, puedes manejar la respuesta aquí
         // En teoría el token se guarda en la cookie desde el backend

@@ -1,60 +1,52 @@
+import titleCase from "../../../assets/toTitleCase";
+
 export default function TransactionHistorial() {
     // Sample transaction history data
     const transactionHistorial = [
         {
-            id: 'txn_001',
-            date: '2024-12-01',
-            amount: 150.00,
-            status: 'Completed',
-            description: 'Purchased "Harry Potter and the Chamber of Secrets"',
+            ID: 'txn_001',
+            fecha: '2024-12-01',
+            cantidad: 150.00,
+            estado: 'Completed',
+            descripcion: 'Purchased "Harry Potter and the Chamber of Secrets"',
         },
         {
-            id: 'txn_002',
-            date: '2024-12-02',
-            amount: 45.00,
-            status: 'Pending',
-            description: 'Purchased "Introduction to React"',
+            ID: 'txn_001',
+            fecha: '2024-12-01',
+            cantidad: 150.00,
+            estado: 'Completed',
+            descripcion: 'Purchased "Harry Potter and the Chamber of Secrets"',
         },
     ];
 
     return (
-        <div className='container'>
+        <>
+        <h1>Historial de transacciones</h1>
+        <div className='balanceTransactionHistorialContainer'>
             {transactionHistorial.length === 0 ? (
                 <p>No hay transacciones disponibles.</p>
-            ) : (
-                <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                    <thead>
-                        <tr>
-                            <th style={{ border: '1px solid #ccc', padding: '0.5rem' }}>Id usuario</th>
-                            <th style={{ border: '1px solid #ccc', padding: '0.5rem' }}>Fecha</th>
-                            <th style={{ border: '1px solid #ccc', padding: '0.5rem' }}>Monto</th>
-                            <th style={{ border: '1px solid #ccc', padding: '0.5rem' }}>Estado</th>
-                            <th style={{ border: '1px solid #ccc', padding: '0.5rem' }}>Descripción</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {transactionHistorial.map((transaction) => (
-                            <tr key={transaction.id}>
-                                <td style={{ border: '1px solid #ccc', padding: '0.5rem' }}>
-                                    {transaction.id}
-                                </td>
-                                <td style={{ border: '1px solid #ccc', padding: '0.5rem' }}>
-                                    {transaction.date}
-                                </td>
-                                <td style={{ border: '1px solid #ccc', padding: '0.5rem' }}>
-                                    ${transaction.amount.toFixed(2)}
-                                </td>
-                                <td style={{ border: '1px solid #ccc', padding: '0.5rem' }}>
-                                    {transaction.status}
-                                </td>
-                                <td style={{ border: '1px solid #ccc', padding: '0.5rem' }}>
-                                    {transaction.description}
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            )}
+            ) : (<>
+                <div className="balanceTransactionHeader">
+                {Object.keys(transactionHistorial[0]).map((header, index)=>(
+                    <div key={index}>
+                        {titleCase(header)}
+                    </div>
+                ))}
+            </div>
+                <div className="balanceTransactionHistorial" >
+                    {transactionHistorial.map((transaction) => (
+                        
+                        <div className="transactionLine" key={transaction.id}>
+                            {Object.keys(transaction).map((key, index)=>(
+                                <div key ={index}>
+                                {transaction[key]}
+                                </div>
+                            ))}
+                        </div>
+                    ))}
+                </div>
+                </>)}
         </div>
+        </>
     );
 }

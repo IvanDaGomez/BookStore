@@ -13,7 +13,7 @@
     "estadoCuenta": "activo",
     "fotoPerfil": "1733253245824-669736538.png",
     "_id": "857857d1-afdd-411d-b41a-be427d1ff186",
-    "actualizadoEn": "2024-12-03T19:14:05.836Z",
+    "actualizadoEn": "2024-12-08T20:24:39.697Z",
     "direccionEnvio": {
       "calle": "",
       "ciudad": "",
@@ -45,7 +45,14 @@
       "f3b92ca2-cba7-43d4-9870-9024ac9f5253",
       "f855175f-d87a-42df-9084-4b9818000ee0",
       "94f3593c-684b-4ec5-ac37-cea376cef1a6",
-      "6a6c2f5a-8ad3-4bcb-96e6-5aca2ba8c695"
+      "6a6c2f5a-8ad3-4bcb-96e6-5aca2ba8c695",
+      "442792ea-4af9-4fe9-ae99-b85a7ba779a9",
+      "d6fd9528-ae7d-4382-ba68-af75a28184f1",
+      "3df55f8b-b31a-4768-bfc2-c91fd33427c9",
+      "991a622a-1d83-44e4-bc5d-6ead2cc1e6d6",
+      "a380c853-0330-438d-9a13-bb16397f0610",
+      "276e6fe2-67a9-4b11-ab2b-06daea57d37e",
+      "512e04be-4bea-4138-a6d9-5ce2e9e4bbd1"
     ],
     "bio": "Hola me gusta mucho comprar y vender libros",
     "notificationsIds": [
@@ -126,7 +133,10 @@
       "5644390f-de7e-4280-8801-9c6a017bb2b5",
       "322f7970-66d4-407a-904f-cca903bd8e49",
       "149e220b-1053-47bc-a76c-8e95db518844",
-      "f3b92ca2-cba7-43d4-9870-9024ac9f5253"
+      "f3b92ca2-cba7-43d4-9870-9024ac9f5253",
+      "442792ea-4af9-4fe9-ae99-b85a7ba779a9",
+      "991a622a-1d83-44e4-bc5d-6ead2cc1e6d6",
+      "276e6fe2-67a9-4b11-ab2b-06daea57d37e"
     ],
     "bio": "",
     "favoritos": [],
@@ -173,7 +183,10 @@
       "8902088e-85d9-4588-a3ab-2d49eb5b70e2",
       "03565f92-cb06-4688-a049-d8586ce05ab3",
       "94f3593c-684b-4ec5-ac37-cea376cef1a6",
-      "f5537de9-ff41-4339-85dd-e52cee28dc8f"
+      "f5537de9-ff41-4339-85dd-e52cee28dc8f",
+      "d6fd9528-ae7d-4382-ba68-af75a28184f1",
+      "a380c853-0330-438d-9a13-bb16397f0610",
+      "512e04be-4bea-4138-a6d9-5ce2e9e4bbd1"
     ],
     "bio": "",
     "favoritos": [],
@@ -327,7 +340,9 @@
     "favoritos": [
       "3f7ab023-15e7-4626-8890-a71f4f2e221c"
     ],
-    "conversationsIds": [],
+    "conversationsIds": [
+      "3df55f8b-b31a-4768-bfc2-c91fd33427c9"
+    ],
     "notificationsIds": [
       "32c6afd8-f11c-4e81-adb9-bedc2fd303df",
       "482b4345-d251-4a49-8936-189e2d74302a"
@@ -347,5 +362,25 @@
       "80f63656-b199-47e8-9d49-16826153ed63"
     ],
     "fotoPerfil": "1733446355974-592149507.png"
+  },
+  {
+    "_id": "a3377a79-64f2-4309-b114-73d650b03ce1",
+    "nombre": "Ivan David Gomez Silva",
+    "rol": "usuario",
+    "estadoCuenta": "Activo",
+    "bio": "",
+    "favoritos": [],
+    "conversationsIds": [],
+    "notificationsIds": [],
+    "validated": false,
+    "login": "default",
+    "ubicacion": {
+      "pais": "Colombia",
+      "ciudad": "Perímetro Urbano Bucaramanga",
+      "departamento": "Santander"
+    },
+    "seguidores": [],
+    "contraseña": "$2b$10$J4X6ej7EtXAS/iLUvEOMcuPpyp3XaZ4anaaNQ8tMIlSQTj7DTbZQa",
+    "correo": "alvaroivangomez1@yopmail.com"
   }
 ]

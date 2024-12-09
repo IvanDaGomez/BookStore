@@ -294,5 +294,125 @@
     "conversationId": "6a6c2f5a-8ad3-4bcb-96e6-5aca2ba8c695",
     "createdIn": "2024-12-07T22:58:14.909Z",
     "read": false
+  },
+  {
+    "_id": "820e600b-0958-4b01-a099-f97694dfe861",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "message": "Hola Alvaro Gómez, me gustaría saber más del libro Demasiado tarde para despertar\nhttp://localhost:5173/libros/3cd4d6ad-df7c-4e0f-beb9-394de48ce33d",
+    "conversationId": "94f3593c-684b-4ec5-ac37-cea376cef1a6",
+    "createdIn": "2024-12-08T19:43:38.448Z",
+    "read": false
+  },
+  {
+    "_id": "d7000d76-ce5e-4914-9e6d-e7b297221091",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "message": "Hola Alvaro Gómez, me gustaría saber más del libro Demasiado tarde para despertar\nhttp://localhost:5173/libros/3cd4d6ad-df7c-4e0f-beb9-394de48ce33d",
+    "conversationId": "94f3593c-684b-4ec5-ac37-cea376cef1a6",
+    "createdIn": "2024-12-08T19:43:47.451Z",
+    "read": false
+  },
+  {
+    "_id": "9169f189-c3df-4aca-9b68-5802ff72f6b6",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "message": "Hola Monica Silva, me gustaría saber más del libro Recupera tu mente, reconquista tu vida\nhttp://localhost:5173/libros/3f7ab023-15e7-4626-8890-a71f4f2e221c",
+    "conversationId": "442792ea-4af9-4fe9-ae99-b85a7ba779a9",
+    "createdIn": "2024-12-08T19:51:34.443Z",
+    "read": false
+  },
+  {
+    "_id": "b43b66ee-091d-4330-893e-431d3a01eaaa",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "message": "Hola Monica Silva, me gustaría saber más del libro Deja de ser tú\nhttp://localhost:5173/libros/9f8eae32-d2c3-4739-87e5-4c95dc1a665c",
+    "conversationId": "442792ea-4af9-4fe9-ae99-b85a7ba779a9",
+    "createdIn": "2024-12-08T20:03:08.126Z",
+    "read": false
+  },
+  {
+    "_id": "2ba7ba1e-1d7f-40ea-b45c-dec547439d4b",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "message": "Hola Alvaro Gómez, me gustaría saber más del libro Globalismo\nhttp://localhost:5173/libros/1f097f12-ce06-4068-a0a1-f37647d38c6a",
+    "conversationId": "d6fd9528-ae7d-4382-ba68-af75a28184f1",
+    "createdIn": "2024-12-08T20:04:31.652Z",
+    "read": false
+  },
+  {
+    "_id": "29cc6e00-495e-4bce-aba4-1390c2b718cf",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "message": "Hola Alvaro Gómez, me gustaría saber más del libro Globalismo\nhttp://localhost:5173/libros/1f097f12-ce06-4068-a0a1-f37647d38c6a",
+    "conversationId": "d6fd9528-ae7d-4382-ba68-af75a28184f1",
+    "createdIn": "2024-12-08T20:05:56.844Z",
+    "read": false
+  },
+  {
+    "_id": "71724db6-8f7e-4f1c-903a-897d743e43d4",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "message": "Hola Alvaro Gómez, me gustaría saber más del libro Acaba con la inflamación en 7 días\nhttp://localhost:5173/libros/88c87f69-4b49-4633-bfba-cd3d29b1a21d",
+    "conversationId": "d6fd9528-ae7d-4382-ba68-af75a28184f1",
+    "createdIn": "2024-12-08T20:06:08.784Z",
+    "read": false
+  },
+  {
+    "_id": "5a0524c0-2c4d-4afd-8611-d68d235b2597",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "message": "Hola Ivan David Gomez Silva, me gustaría saber más del libro React Practico desde cero a desarrollos web avanzados\nhttp://localhost:5173/libros/80f63656-b199-47e8-9d49-16826153ed63",
+    "conversationId": "3df55f8b-b31a-4768-bfc2-c91fd33427c9",
+    "createdIn": "2024-12-08T20:13:52.885Z",
+    "read": false
+  },
+  {
+    "_id": "679b9dcd-5fd7-4ebb-8219-043a88686459",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "message": "Hola Ivan David Gomez Silva, me gustaría saber más del libro React Practico desde cero a desarrollos web avanzados\nhttp://localhost:5173/libros/80f63656-b199-47e8-9d49-16826153ed63",
+    "conversationId": "3df55f8b-b31a-4768-bfc2-c91fd33427c9",
+    "createdIn": "2024-12-08T20:14:09.808Z",
+    "read": false
+  },
+  {
+    "_id": "165e9df6-678c-4563-abc3-c126129faa81",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "message": "Hola Monica Silva, me gustaría saber más del libro La vegetariana\nhttp://localhost:5173/libros/a7358b0d-d158-4df9-a714-9c34d757a752",
+    "conversationId": "991a622a-1d83-44e4-bc5d-6ead2cc1e6d6",
+    "createdIn": "2024-12-08T20:14:35.959Z",
+    "read": false
+  },
+  {
+    "_id": "a5621ec4-1ce4-40d3-a515-146cd4d37e7f",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "message": "Hola Monica Silva, me gustaría saber más del libro La vegetariana\nhttp://localhost:5173/libros/a7358b0d-d158-4df9-a714-9c34d757a752",
+    "conversationId": "991a622a-1d83-44e4-bc5d-6ead2cc1e6d6",
+    "createdIn": "2024-12-08T20:14:53.546Z",
+    "read": false
+  },
+  {
+    "_id": "ed2a1ee9-6713-4544-ab89-3554a5431743",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "message": "Hola Alvaro Gómez, me gustaría saber más del libro Globalismo\nhttp://localhost:5173/libros/1f097f12-ce06-4068-a0a1-f37647d38c6a",
+    "conversationId": "a380c853-0330-438d-9a13-bb16397f0610",
+    "createdIn": "2024-12-08T20:20:27.722Z",
+    "read": false
+  },
+  {
+    "_id": "782a4cf5-0000-4a61-9d18-a9794bffd0b8",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "message": "Hola Monica Silva, me gustaría saber más del libro Recupera tu mente, reconquista tu vida\nhttp://localhost:5173/libros/3f7ab023-15e7-4626-8890-a71f4f2e221c",
+    "conversationId": "276e6fe2-67a9-4b11-ab2b-06daea57d37e",
+    "createdIn": "2024-12-08T20:23:54.253Z",
+    "read": false
+  },
+  {
+    "_id": "9d91caa1-6741-40f9-8e6b-f41acfda9bc2",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "message": "¡Hola Alvaro Gómez! 😊\n    \n            Me interesa mucho el libro que estás ofreciendo: *Acaba con la inflamación en 7 días*. ¿Podrías contarme un poco más al respecto? Aquí está el enlace del libro para que lo tengas a mano: \n            http://localhost:5173/libros/88c87f69-4b49-4633-bfba-cd3d29b1a21d\n    \n            ¡Muchas gracias de antemano! Espero tu respuesta. 😊",
+    "conversationId": "512e04be-4bea-4138-a6d9-5ce2e9e4bbd1",
+    "createdIn": "2024-12-08T20:27:37.754Z",
+    "read": false
+  },
+  {
+    "_id": "99f04489-66d0-4216-a1db-8d16a9b87abc",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "message": "¡Hola Monica Silva! 😊\n    \n            Me interesa mucho el libro que estás ofreciendo: *Recupera tu mente, reconquista tu vida*. ¿Podrías contarme un poco más al respecto? Aquí está el enlace del libro para que lo tengas a mano: \n            http://localhost:5173/libros/3f7ab023-15e7-4626-8890-a71f4f2e221c\n    \n            ¡Muchas gracias de antemano! Espero tu respuesta. 😊",
+    "conversationId": "276e6fe2-67a9-4b11-ab2b-06daea57d37e",
+    "createdIn": "2024-12-08T20:43:09.262Z",
+    "read": false
   }
 ]

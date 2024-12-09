@@ -1,104 +1,36 @@
 [
   {
-    "_id": "f3b92ca2-cba7-43d4-9870-9024ac9f5253",
+    "_id": "276e6fe2-67a9-4b11-ab2b-06daea57d37e",
     "users": [
       "857857d1-afdd-411d-b41a-be427d1ff186",
       "834a9dda-5cf5-4438-9499-eed4b8ec3e45"
     ],
     "messages": [],
-    "createdIn": "2024-12-07T00:13:27.997Z",
+    "createdIn": "2024-12-08T20:23:54.238Z",
     "lastMessage": {
       "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
-      "conversationId": "f3b92ca2-cba7-43d4-9870-9024ac9f5253",
-      "message": "Hola",
+      "conversationId": "276e6fe2-67a9-4b11-ab2b-06daea57d37e",
+      "message": "¡Hola Monica Silva! 😊\n    \n            Me interesa mucho el libro que estás ofreciendo: *Recupera tu mente, reconquista tu vida*. ¿Podrías contarme un poco más al respecto? Aquí está el enlace del libro para que lo tengas a mano: \n            http://localhost:5173/libros/3f7ab023-15e7-4626-8890-a71f4f2e221c\n    \n            ¡Muchas gracias de antemano! Espero tu respuesta. 😊",
       "read": false,
-      "_id": "89f3956f-2bf1-45c1-b7f2-59c17f749f4d",
-      "createdIn": "2024-12-07T22:39:43.972Z"
+      "_id": "99f04489-66d0-4216-a1db-8d16a9b87abc",
+      "createdIn": "2024-12-08T20:43:09.262Z"
     }
   },
   {
-    "_id": "03565f92-cb06-4688-a049-d8586ce05ab3",
-    "users": [
-      "836e151b-43ae-48a0-8352-17ad309d8068",
-      "1816d212-7dc5-4d74-bb9d-e0d97bf60d27"
-    ],
-    "messages": [],
-    "createdIn": "2024-12-07T22:23:40.512Z",
-    "lastMessage": {
-      "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
-      "conversationId": "03565f92-cb06-4688-a049-d8586ce05ab3",
-      "message": "Hola Alvaro Gómez, me gustaría saber más del libro Demasiado tarde para despertar\nhttp://localhost:5173/libros/3cd4d6ad-df7c-4e0f-beb9-394de48ce33d",
-      "read": false,
-      "_id": "f88e9367-c142-4a06-acd6-56c56cb0719b",
-      "createdIn": "2024-12-07T22:23:40.530Z"
-    }
-  },
-  {
-    "_id": "f855175f-d87a-42df-9084-4b9818000ee0",
-    "users": [
-      "836e151b-43ae-48a0-8352-17ad309d8068",
-      "857857d1-afdd-411d-b41a-be427d1ff186"
-    ],
-    "messages": [],
-    "createdIn": "2024-12-07T22:38:15.849Z",
-    "lastMessage": {
-      "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
-      "conversationId": "f855175f-d87a-42df-9084-4b9818000ee0",
-      "message": "q",
-      "read": false,
-      "_id": "314052fd-81ab-4601-984d-8ceee2213644",
-      "createdIn": "2024-12-07T22:39:38.844Z"
-    }
-  },
-  {
-    "_id": "94f3593c-684b-4ec5-ac37-cea376cef1a6",
+    "_id": "512e04be-4bea-4138-a6d9-5ce2e9e4bbd1",
     "users": [
       "857857d1-afdd-411d-b41a-be427d1ff186",
       "1816d212-7dc5-4d74-bb9d-e0d97bf60d27"
     ],
     "messages": [],
-    "createdIn": "2024-12-07T22:49:35.005Z",
+    "createdIn": "2024-12-08T20:27:37.735Z",
     "lastMessage": {
       "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
-      "conversationId": "94f3593c-684b-4ec5-ac37-cea376cef1a6",
-      "message": "Hola Alvaro Gómez, me gustaría saber más del libro Acaba con la inflamación en 7 días\nhttp://localhost:5173/libros/88c87f69-4b49-4633-bfba-cd3d29b1a21d",
+      "conversationId": "512e04be-4bea-4138-a6d9-5ce2e9e4bbd1",
+      "message": "¡Hola Alvaro Gómez! 😊\n    \n            Me interesa mucho el libro que estás ofreciendo: *Acaba con la inflamación en 7 días*. ¿Podrías contarme un poco más al respecto? Aquí está el enlace del libro para que lo tengas a mano: \n            http://localhost:5173/libros/88c87f69-4b49-4633-bfba-cd3d29b1a21d\n    \n            ¡Muchas gracias de antemano! Espero tu respuesta. 😊",
       "read": false,
-      "_id": "d28e9f17-70f9-4b6e-b6df-0c66e2d9ec5d",
-      "createdIn": "2024-12-07T22:49:35.019Z"
-    }
-  },
-  {
-    "_id": "6a6c2f5a-8ad3-4bcb-96e6-5aca2ba8c695",
-    "users": [
-      "9b922eb4-33e8-4781-9863-c066992e1620",
-      "857857d1-afdd-411d-b41a-be427d1ff186"
-    ],
-    "messages": [],
-    "createdIn": "2024-12-07T22:53:23.732Z",
-    "lastMessage": {
-      "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
-      "conversationId": "6a6c2f5a-8ad3-4bcb-96e6-5aca2ba8c695",
-      "message": "Hola",
-      "read": false,
-      "_id": "7f057741-5240-46a6-b037-b2f0e7af9e2f",
-      "createdIn": "2024-12-07T22:58:14.909Z"
-    }
-  },
-  {
-    "_id": "f5537de9-ff41-4339-85dd-e52cee28dc8f",
-    "users": [
-      "9b922eb4-33e8-4781-9863-c066992e1620",
-      "1816d212-7dc5-4d74-bb9d-e0d97bf60d27"
-    ],
-    "messages": [],
-    "createdIn": "2024-12-07T22:54:30.744Z",
-    "lastMessage": {
-      "userId": "9b922eb4-33e8-4781-9863-c066992e1620",
-      "conversationId": "f5537de9-ff41-4339-85dd-e52cee28dc8f",
-      "message": "Hola",
-      "read": false,
-      "_id": "449ba87b-5715-4abe-9a3e-ce0704425a1b",
-      "createdIn": "2024-12-07T22:58:04.540Z"
+      "_id": "9d91caa1-6741-40f9-8e6b-f41acfda9bc2",
+      "createdIn": "2024-12-08T20:27:37.754Z"
     }
   }
 ]
