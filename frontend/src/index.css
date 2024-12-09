@@ -144,7 +144,15 @@ button:hover{
 input{
   color: var(--using3)
 }
-
+.error{
+  margin: auto;
+  margin-bottom: 8px;
+  width:80%;
+  background-color: var(--using6) !important;
+  padding: 8px;
+  color:white !important;
+  border-radius: var(--border);;
+}
 /*-----------------------------------------------*/
 .errorContainer{
   height: 100vh;
@@ -184,7 +192,7 @@ input{
 
   }
 }
-header{
+#root > header{
   border-bottom: 2px solid var(--using2);
   position:sticky;
   top:0;
@@ -2369,6 +2377,19 @@ color: var(--using6);
   flex-direction: column;
   margin: auto;
 }
+.inputCrear #departamento, .inputCrear #departamento > *{
+  background: white;
+  color: var(--using3);
+  width: 100%;
+  display: flex;
+  border-radius: var(--border);
+  padding: var(--padding-small);
+  justify-content: center;
+  align-items: start;
+  font-family: inherit;
+  flex-direction: column;
+  margin: auto;
+}
 .inputCrear label, .inputCrear label{
   font-size: 3rem;
 }
@@ -2984,11 +3005,19 @@ color: var(--using6);
 }
 .paymentMethodsContainer{
   width: auto;
+  max-width: 100%;
   margin: auto;
   padding: auto;
   text-align: left;
   
 }
+
+#statusScreenBrick_container{
+  margin: 20px auto;
+  border: 2px solid #737373;
+  border-radius: 18px;
+}
+
 .paymentMethods {
   margin: 10px 0;
   width: 500px;

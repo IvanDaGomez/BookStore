@@ -1,3 +1,3 @@
 export function calculateComission(price) {
-    return price * 0.05 + 4000
+    return price * 0.10 + 2000
 }

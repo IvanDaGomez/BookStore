@@ -1,10 +1,12 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
-import { initMercadoPago, Payment } from '@mercadopago/sdk-react';
+import { initMercadoPago, Payment, StatusScreen } from '@mercadopago/sdk-react';
 import { calculateComission } from '../../assets/calculateComission';
+import { toast } from 'react-toastify';
+function PaymentBrick({ libro, preferenceId, user, setFase, form }) {
 
-function PaymentBrick({ libro, preferenceId, user }) {
-
+    const [statusScreen, setStatusScreen] = useState(false)
+    const [paymentId, setPaymentId] = useState('')
     const PUBLIC_KEY = 'TEST-4b6be399-19ca-4ae3-9397-455af528f651';
 
     // Initialize MercadoPago once
@@ -23,7 +25,7 @@ function PaymentBrick({ libro, preferenceId, user }) {
                     const initialization = {
                         amount: libro.oferta ? libro.oferta : libro.precio,
                         preferenceId,
-                        marketplace: true,
+                        marketplace: true
                     };
 
                     const customization = {
@@ -56,41 +58,77 @@ function PaymentBrick({ libro, preferenceId, user }) {
     }, [preferenceId, libro]); // Ensure `renderPaymentBrick` only depends on `preferenceId` and `libro` values
 
     const onSubmit = async ({ formData }) => {
+
+        try {
+
+                    // Calcular monto total y comisión
         const totalAmount = libro.oferta || libro.precio;
         const commissionAmount = calculateComission(totalAmount);
     
-        // Ensure the token is included
-        const { token, payment_method_id, payer } = formData;
-    
-        try {
-            const response = await fetch('http://localhost:3030/api/books/process_payment', {
+        // Preparar datos del usuario y dirección
+
+        const body = {
+            ...formData,
+            token: formData.token || null, // El token generado por Mercado Pago
+            issuer_id: formData.issuer_id || null, // Puede ser null si no aplica
+            payment_method_id: formData.payment_method_id || "", // Definido como cadena vacía si no se aplica
+            transaction_amount: totalAmount || 0, // Definido como 0 si no se proporciona
+            installments: formData.installments || 1, // Definido como 1 si no se proporciona
+            application_fee: commissionAmount || 0, // Comisión de la aplicación, 0 si no se proporciona
+
+            payer: {
+                ...formData.payer,
+                email: formData.payer.email || "", // Email del usuario, vacío si no se proporciona
+                identification: {
+                    type: formData?.payer?.identification?.identificationType || "CC", // Tipo de identificación por defecto "CC"
+                    number: formData?.payer?.identification?.identificationNumber || "" // Número de identificación vacío si no se proporciona
+                },
+                address: {
+                    street_name: form.address.street_name || "", // Nombre de la calle, vacío si no se proporciona
+                    street_number: form.address.street_number || "", // Número de la calle, vacío si no se proporciona
+                    zip_code: form.address.zip_code || "", // Código postal, vacío si no se proporciona
+                    neighborhood: form.address.neighborhood || "", // Barrio, vacío si no se proporciona
+                    city: form.address.city || "" // Ciudad, vacío si no se proporciona
+                },
+                phone: {
+                    area_code: form.phone.area_code || "", // Código de área, vacío si no se proporciona
+                    number: form.phone.number || "" // Número de teléfono, vacío si no se proporciona
+                },
+                first_name: form.first_name || null,
+                last_name: form.last_name || null
+            },
+            additional_info: {
+                ip_address: form.additional_info.ip_address || "" // IP Address, vacío si no se proporciona
+            },
+            description: `Pago de libro "${libro.titulo || "desconocido"}"`, // Título del libro, con valor por defecto si es undefined
+            callback_url: `https://www.youtube.com`
+        };
+        
+        console.log('Body:', body)
+            const response = await fetch('http://localhost:3030/api/users/process_payment', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({
-                    transaction_amount: totalAmount,
-                    description: `Purchase of ${libro.title}`,
-                    token, // The generated card/payment token
-                    payment_method_id, // The selected payment method
-                    payer: {
-                        email: payer.email,
-                    },
-                    application_fee: commissionAmount, // Your platform's commission
-                }),
+                body: JSON.stringify(body), // Asegúrate de enviar `body` y no `formData`
             });
     
             const result = await response.json();
             if (result.status === "success") {
-                alert("Payment successful!");
+                
+                setStatusScreen(true)
+                setPaymentId(result.id)
+                // setTimeout(()=>setFase(4),5000)
+                
             } else {
-                throw new Error(result.message || "Payment failed");
+                throw new Error(result.message || "El pago falló");
             }
         } catch (error) {
             console.error("Payment error:", error);
-            alert("Payment error occurred, please try again.");
+            toast.error("Ocurrió un error al enviar los datos, vuelve a intentar.");
         }
     };
+    
     
     
     
@@ -109,10 +147,10 @@ function PaymentBrick({ libro, preferenceId, user }) {
     const [loading, setLoading] = useState(false);
 
     const handlePayWithBalance = async () => {
-        /*if (userBalance < libro.precio) {
-            alert("Insufficient balance!");
+        if (user.balance < libro.precio) {
+            toast.error("No tienes el suficiente dinero!");
             return;
-        }*/
+        }
 
         setLoading(true);
 
@@ -132,22 +170,37 @@ function PaymentBrick({ libro, preferenceId, user }) {
             const result = await response.json();
 
             if (result.status === "success") {
-                alert("Payment successful with balance!");
+                toast.success("Payment successful with balance!");
             } else {
                 throw new Error(result.message || "Payment failed");
             }
         } catch (error) {
             console.error("Balance payment error:", error);
-            alert("Payment failed. Please try again.");
+            toast.error("Payment failed. Please try again.");
         } finally {
             setLoading(false);
         }
     };
 
+//--------------------------------------------------------------STATUS SCREEN-----------------------------------------------------
+
+    const initializationStatus = {
+        paymentId, // payment id to show
+       };
+       const onErrorStatus = async (error) => {
+        // callback called for all Brick error cases
+        console.error(error);
+       };
+       const onReadyStatus = async () => {};
+       
+               
     return (
         <>
+        <div className="paymentMethodsContainer">
+        {console.log(form)}
             {libro && preferenceId ? (
                 <>
+
                     <div className="payWithBalance"
                         onClick={() => {selectedMethod === 'balance' ? setSelectedMethod('') : setSelectedMethod('balance')}}>
                         {/* Pay with Balance Option */}
@@ -176,7 +229,7 @@ function PaymentBrick({ libro, preferenceId, user }) {
                         >
                             {loading ? "Procesando..." : "Pagar con mi balance"}
                         </button>
-                    ) : (
+                    ) : !statusScreen ?(
                         <Payment
                             initialization={{
                                 amount: libro.oferta ? libro.oferta : libro.precio,
@@ -197,11 +250,22 @@ function PaymentBrick({ libro, preferenceId, user }) {
                             onReady={onReady}
                             onError={onError}
                         />
-                    )}
+                    ) : <StatusScreen
+                    initialization={initializationStatus}
+                    onReady={onReadyStatus}
+                    onError={onErrorStatus}
+                    customization={{visual: {
+                        style: {
+                            theme: 'flat'
+                        }
+                        
+                    }}}
+                 />}
                 </>
             ) : (
-                <span>Loading...</span>
+                <span>Cargando...</span>
             )}
+            </div>
         </>
     );
 }

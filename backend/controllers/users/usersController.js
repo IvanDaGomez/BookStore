@@ -1,11 +1,13 @@
+/* eslint-disable camelcase */
 import { UsersModel } from '../../models/users/local/usersLocal.js'
-import crypto from 'node:crypto'
+import crypto, { randomUUID } from 'node:crypto'
 import { validateUser, validatePartialUser } from '../../assets/validate.js'
-import { SECRET_KEY } from '../../assets/config.js'
+import { SECRET_KEY, ACCESS_TOKEN } from '../../assets/config.js'
 import jwt from 'jsonwebtoken'
 import { cambiarGuionesAEspacio } from '../../../frontend/src/assets/agregarMas.js'
 import { sendEmail } from '../../assets/sendEmail.js'
 import { createEmail } from '../../assets/htmlEmails.js'
+import { Preference, MercadoPagoConfig, Payment } from 'mercadopago'
 
 export class UsersController {
   static async getAllUsers (req, res) {
@@ -569,6 +571,88 @@ export class UsersController {
     } catch (error) {
       console.error('Error en changePassword:', error)
       return res.status(500).json({ ok: false, error: 'Error en el servidor' })
+    }
+  }
+
+  static async getPreferenceId (req, res) {
+    const client = new MercadoPagoConfig({
+      accessToken: ACCESS_TOKEN
+    })
+
+    try {
+      const body = {
+        items: [
+          {
+            title: req.body.title,
+            quantity: 1,
+            unit_price: Number(req.body.price),
+            currency_id: 'COP'
+          }
+
+        ]/* ,
+        back_urls: {
+          success: 'localhost/popUp/successBuying',
+          failure: 'localhost/popUp/failureBuying',
+          pending: 'localhost/popUp/pendingBuying'
+        } */
+        // auto_return: 'approved'
+      }
+      const preference = new Preference(client)
+      const result = await preference.create({ body })
+      res.json({
+        id: result.id
+      })
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({
+        error: 'Error al crear la preferencia'
+      })
+    }
+  }
+
+  static async processPayment (req, res) {
+    try {
+      const data = req.body
+      const XidempotencyKey = randomUUID()
+
+      // if (!token) {
+      //   return res.status(400).json({
+      //     status: 'error',
+      //     message: 'El token de procesamiento ha expirado'
+      //   })
+      // }
+
+      const client = new MercadoPagoConfig({
+        accessToken: ACCESS_TOKEN // Your platform's access token
+
+      })
+
+      const payment = new Payment(client)
+      console.log('Req.body:', req.body)
+      const response = await payment.create({
+        body: {
+          ...data
+        },
+        requestOptions: {
+          idempotencyKey: XidempotencyKey
+        }
+      })
+
+      // Send email
+      // Send notifications
+
+      res.json({
+        status: 'success',
+        message: 'Payment processed successfully',
+        id: response.id
+      })
+    } catch (error) {
+      console.error('Error processing payment:', error)
+      res.status(500).json({
+        status: 'error',
+        message: 'Payment processing failed',
+        error: error.message
+      })
     }
   }
 }

@@ -19,8 +19,6 @@ booksRouter.put('/:bookId', upload.array('images', 5), BooksController.updateBoo
 
 booksRouter.delete('/review/:bookId', BooksController.deleteReviewBook)
 booksRouter.delete('/:bookId', BooksController.deleteBook)
-booksRouter.post('/process_payment', BooksController.processPayment)
-booksRouter.post('/getPreferenceId', BooksController.getPreferenceId)
 
 booksRouter.post('/generateDescription', generateResponse)
 export { booksRouter }

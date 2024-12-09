@@ -15,6 +15,8 @@ usersRouter.post('/facebook-login', UsersController.facebookLogin)
 usersRouter.post('/logout', UsersController.logout)
 usersRouter.post('/userSession', UsersController.userData)
 usersRouter.get('/query', UsersController.getUserByQuery)
+usersRouter.post('/process_payment', UsersController.processPayment)
+usersRouter.post('/getPreferenceId', UsersController.getPreferenceId)
 usersRouter.post('/sendValidationEmail', UsersController.sendValidationEmail)
 usersRouter.get('/validateUser/:token', UsersController.userValidation)
 usersRouter.get('/c/:userId', UsersController.getEmailById) // R

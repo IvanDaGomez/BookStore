@@ -32,7 +32,26 @@ function Checkout() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-
+    useEffect(() => {
+      async function fetchUserBalance() {
+        if (!user) return
+          try {
+              const url = `http://localhost:3030/api/users/balance/${user._id}`
+              const response = await axios.post(url, null, {
+                  withCredentials: true
+              })
+              setUser({
+                ...user,
+                balance: response.data.balance || 0
+              });
+          } catch (error) {
+              console.error('Error fetching user data:', error);
+              navigate('/popUp/noUser')
+          }
+      };
+      fetchUserBalance();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const { bookId } = useParams()
   // Fetch book
@@ -70,7 +89,7 @@ function Checkout() {
     const fetchPreferenceId = async () => {
       if (libro) {
         try {
-          const url = 'http://localhost:3030/api/books/getPreferenceId';
+          const url = 'http://localhost:3030/api/users/getPreferenceId';
   
           // Prepare the payload
           const body = {
@@ -116,14 +135,14 @@ function Checkout() {
         return <Fase2 form={form} setForm={setForm} setFase={setFase} user={user}/>;
       case 3:
         return <Fase3 form={form} setForm={setForm} setFase={setFase} user={user} libro={libro} preferenceId={preferenceId}/>;
+      // case 4:
+      //   return <Fase4 />
       default:
         return <Fase1 form={form} setForm={setForm} setFase={setFase} />;
     }
   };
   
 
-  useEffect(() => {
-    if (user) user.balance = 10000},[user])
 
   const steps = ['Información del producto', 'Datos de envío', 'Medios de pago']
   return (

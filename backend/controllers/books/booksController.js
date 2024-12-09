@@ -7,8 +7,7 @@ import { cambiarGuionesAEspacio } from '../../../frontend/src/assets/agregarMas.
 import { chromium } from 'playwright'
 import { scrapingFunctions } from '../../assets/scrappingConfig.js'
 // import { helperImg } from '../../assets/helperImg.js'
-import { Preference, MercadoPagoConfig, Payment } from 'mercadopago'
-import { ACCESS_TOKEN } from '../../assets/config.js'
+
 import fetch from 'node-fetch'
 import { sendEmail } from '../../assets/sendEmail.js'
 import { createEmail } from '../../assets/htmlEmails.js'
@@ -398,93 +397,6 @@ export class BooksController {
     } catch (error) {
       await browser.close()
       res.status(500).json({ error: error.message })
-    }
-  }
-
-  static async getPreferenceId (req, res) {
-    const client = new MercadoPagoConfig({
-      accessToken: ACCESS_TOKEN
-    })
-
-    try {
-      const body = {
-        items: [
-          {
-            title: req.body.title,
-            quantity: 1,
-            unit_price: Number(req.body.price),
-            currency_id: 'COP'
-          }
-
-        ]/* ,
-        back_urls: {
-          success: 'localhost/popUp/successBuying',
-          failure: 'localhost/popUp/failureBuying',
-          pending: 'localhost/popUp/pendingBuying'
-        } */
-        // auto_return: 'approved'
-      }
-      const preference = new Preference(client)
-      const result = await preference.create({ body })
-      res.json({
-        id: result.id
-      })
-    } catch (error) {
-      console.log(error)
-      res.status(500).json({
-        error: 'Error al crear la preferencia'
-      })
-    }
-  }
-
-  static async processPayment (req, res) {
-    try {
-      const {
-        transaction_amount,
-        description,
-        token,
-        payment_method_id,
-        payer,
-        application_fee // Marketplace commission
-      } = req.body
-
-      if (!token) {
-        return res.status(400).json({
-          status: 'error',
-          message: 'Token is required for payment processing'
-        })
-      }
-
-      const client = new MercadoPagoConfig({
-        accessToken: ACCESS_TOKEN, // Your platform's access token
-        options: { timeout: 5000 }
-      })
-
-      const payment = new Payment(client)
-
-      const response = await payment.create({
-        body: {
-          transaction_amount,
-          description,
-          token, // Required for payment processing
-          payment_method_id,
-          payer,
-          application_fee
-        }
-      })
-
-      res.status(200).json({
-        status: 'success',
-        message: 'Payment processed successfully',
-        data: response.body
-      })
-    } catch (error) {
-      console.error('Error processing payment:', error)
-      res.status(500).json({
-        status: 'error',
-        message: 'Payment processing failed',
-        error: error.message
-      })
     }
   }
 
