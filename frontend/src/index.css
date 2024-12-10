@@ -6,11 +6,11 @@
   --using1: #ffffff; /* Background */
   --using2: #c4c3c4; /* Lines, separators, scrollbars */
   --using3: #000000; /* Text color */
-  --using4: #2664ab; /* Accent */
+  --using4: #3689e7; /* Accent */
   --using5: #f4f0f0; /* Buttons, divs */
   --using6: red; /* Errores, acentos */
   
-    /*-----VEREMOS: #42376E*/
+    /*-----VEREMOS: #42376E #2664ab*/
   --naranja1: #ffffff; /* Background */
   --naranja2: #f7f0f0; /* Lines, separators, scrollbars */
   --naranja3: #252525; /* Text color */
@@ -3331,6 +3331,7 @@ color: var(--using6);
   max-width: 70%;
   margin-block: 2px;
   margin-right: 2px;
+  text-align: left;
   padding: 10px;
   border: 1px solid var(--using2);
   border-radius: 20px 20px 0 20px;
@@ -3345,7 +3346,7 @@ color: var(--using6);
   border-radius: 20px 20px 20px 0;
   margin-block: 2px;
   margin-left: 2px;
-  
+  text-align: left;
 }
 
 

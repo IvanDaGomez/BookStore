@@ -1,6 +1,5 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
-import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 
 
 export const Carousel = ({ data }) => {
@@ -14,15 +13,15 @@ export const Carousel = ({ data }) => {
   const prevSlide = () => {
     setSlide(slide === 0 ? data.length - 1 : slide - 1);
   };
-  //useEffect(() => {
-  //  const interval = setInterval(() => {
-  //    nextSlide();
-  //  }, 5000); // Change slide every 3 seconds
-//
-  //  // Cleanup interval on component unmount
-  //  return () => clearInterval(interval);
-  //// eslint-disable-next-line react-hooks/exhaustive-deps
-  //}, [slide]); // Only re-run if data changes
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextSlide();
+    }, 5000); // Change slide every 3 seconds
+
+    // Cleanup interval on component unmount
+    return () => clearInterval(interval);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slide]); // Only re-run if data changes
   return (
     <div className="carousel">
       <div className="arrow arrow-left" onClick={prevSlide} >

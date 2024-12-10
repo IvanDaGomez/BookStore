@@ -20,7 +20,8 @@ function userObject (name) {
     validated: name.validated || false,
     login: name.login || 'default',
     ubicacion: name.ubicacion || {},
-    seguidores: name.seguidores || []
+    seguidores: name.seguidores || [],
+    siguiendo: name.siguiendo || []
     // Avoid exposing sensitive fields like password, email, etc.
   }
 }

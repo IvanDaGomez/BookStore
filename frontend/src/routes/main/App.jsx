@@ -113,7 +113,7 @@ function App() {
         "alt": "Image 1 for carousel"
       },
       {
-        "src": "/customPlantilla3.png",
+        "src": "/customPlantilla5.png",
         "alt": "Image 2 for carousel"
       },
       {
@@ -177,12 +177,14 @@ function App() {
       </div>*/}
 
       <Sections filter={"Para ti"} />
+      <img src="/customPlantilla3.png" style={{width: '100vw'}} alt="" />
       <Sections filter={"Nuevo"} backgroundColor={"#00ff00"}/>
       <CustomDesigns plantillas={plantillas} />
       
       
       <SideInfo/>
       {/*<ChatBot/>*/}
+      
       <Footer/>
       <ToastContainer position="top-center"
       autoClose={5000}

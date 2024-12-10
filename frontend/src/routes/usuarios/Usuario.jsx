@@ -8,6 +8,7 @@ import { useSearchParams, Link } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import Favorites from "./favorites";
 import { renderProfilePhoto } from "../../assets/renderProfilePhoto.js";
+import axios from "axios";
 
 export default function Usuario() {
     const navigate = useNavigate()
@@ -168,6 +169,24 @@ export default function Usuario() {
         }
 
         // Fetch para actualizar el contador de seguidores
+        try {
+            
+
+            const url = 'http://localhost:3030/api/users/follow'
+            // Seguidor es el otro y user yo
+            const body = {
+                followerId: usuario._id,
+                userId: user._id
+            }
+
+            const response = await axios.post(url, body,{ withCredentials: true })
+            if (!response.data.ok) return
+            
+            setUsuario(response.data.follower)
+            setUser(response.data.user)
+        } catch (error){
+            console.error('Error:', error)    
+        }
     }
     return (
         <>
@@ -223,7 +242,8 @@ export default function Usuario() {
                                     <button className="compartir botonInverso" onClick={handleShare}>Compartir</button>
                                     <button className={`compartir ${user?.seguidores?.includes(usuario._id) ? 'normal' : 'botonInverso'}`}
                                     onClick={handleFollowers}>
-                                    {user?.seguidores?.includes(usuario._id) ? 'Seguir' : 'Siguiendo'}
+                                    
+                                    {user?.siguiendo?.includes(usuario._id) ? 'Siguiendo' : 'Seguir' }
                                     </button>
                                 </>
                             ) : (

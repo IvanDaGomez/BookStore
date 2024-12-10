@@ -13,7 +13,7 @@
     "estadoCuenta": "activo",
     "fotoPerfil": "1733253245824-669736538.png",
     "_id": "857857d1-afdd-411d-b41a-be427d1ff186",
-    "actualizadoEn": "2024-12-08T20:24:39.697Z",
+    "actualizadoEn": "2024-12-10T17:00:22.873Z",
     "direccionEnvio": {
       "calle": "",
       "ciudad": "",
@@ -23,7 +23,6 @@
     "favoritos": [
       "33e5e785-cb74-4f4a-9211-25f341b089b4",
       "3f7ab023-15e7-4626-8890-a71f4f2e221c",
-      "3cd4d6ad-df7c-4e0f-beb9-394de48ce33d",
       "8269ca96-ed27-4cb3-a919-8967d4f83e9a"
     ],
     "conversationsIds": [
@@ -102,7 +101,10 @@
     "validated": true,
     "login": "default",
     "ubicacion": {},
-    "seguidores": []
+    "seguidores": [],
+    "siguiendo": [
+      "1816d212-7dc5-4d74-bb9d-e0d97bf60d27"
+    ]
   },
   {
     "nombre": "Monica Silva",
@@ -147,7 +149,8 @@
     "validated": false,
     "login": "default",
     "ubicacion": {},
-    "seguidores": []
+    "seguidores": [],
+    "siguiendo": []
   },
   {
     "nombre": "Alvaro Gómez",
@@ -206,7 +209,10 @@
     "validated": false,
     "login": "default",
     "ubicacion": {},
-    "seguidores": []
+    "seguidores": [
+      "857857d1-afdd-411d-b41a-be427d1ff186"
+    ],
+    "siguiendo": []
   },
   {
     "nombre": "Ivan David Gomez",

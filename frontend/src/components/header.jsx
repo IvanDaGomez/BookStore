@@ -167,6 +167,7 @@ const openExtraInfo = async (str) => {
 
                 <div className="indice headerCen desaparecer">
                     <Link to="/"><p>Inicio</p></Link>
+                    <Link to='/para-ti'><p>Para ti</p></Link>
                     <p  onMouseOver={() => openExtraInfo("Libros")} >Libros</p>
                     <p onMouseOver={() => openExtraInfo("Autores")} >Autores</p>
                     

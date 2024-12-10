@@ -655,4 +655,79 @@ export class UsersController {
       })
     }
   }
+
+  static async forYouPage (req, res) {
+    const results = await UsersModel.forYouPage()
+
+    if (!results) {
+      return res.status(400).json({ ok: false, error: 'No se encontraron resultados' })
+    }
+
+    res.json({ data: results, ok: true })
+  }
+
+  static async followUser (req, res) {
+    const { followerId, userId } = req.body
+    try {
+      if (!followerId || !userId) {
+        return res.status(404).json({ ok: false, error: 'No se proporcionó usuario y seguidor' })
+      }
+      // Es necesario conseguir el usuario para saber que otros seguidores tenía
+      const follower = await UsersModel.getUserById(followerId)
+
+      const user = await UsersModel.getUserById(userId)
+
+      if (!follower || !user) {
+        return res.status(401).json({ ok: false, error: 'No se encontró el usuario o el seguidor' })
+      }
+      let action
+      // Agregar el seguidor
+      if (!follower.seguidores.includes(userId)) {
+        follower.seguidores = [...(follower?.seguidores || []), userId]
+        user.siguiendo = [...(user?.siguiendo || []), followerId]
+        action = 'Agregado'
+        // Eliminar el seguidor
+      } else {
+        follower.seguidores = follower.seguidores.filter(seguidorId => seguidorId !== userId)
+        user.siguiendo = follower.seguidores.filter(siguiendoId => siguiendoId !== followerId)
+        action = 'Eliminado'
+      }
+
+      const followerUpdated = await UsersModel.updateUser(followerId, follower)
+      const userUpdated = await UsersModel.updateUser(userId, user)
+
+      if (!followerUpdated || !userUpdated) {
+        return res.status(401).json({ ok: false, error: 'No se pudo actualizar el seguidor' })
+      }
+      // Update the token
+      const tokenToSend = {
+        _id: user._id,
+        nombre: user.nombre
+      }
+      // Generar un nuevo token con los datos actualizados
+      const newToken = jwt.sign(
+        tokenToSend,
+        SECRET_KEY,
+        { expiresIn: '3h' } // Tiempo de expiración del token
+      )
+
+      if (!newToken) {
+        return res.status(500).json({ ok: false, error: 'Error al generar el token' })
+      }
+
+      // Enviar el nuevo token en la cookie
+      res
+        .clearCookie('access_token')
+        .cookie('access_token', newToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'strict',
+          maxAge: 1000 * 60 * 60 * 3 // 3 horas
+        })
+        .json({ ok: true, action, follower, user })
+    } catch (error) {
+      console.error('Error:', error)
+      res.status(500).json({ ok: false, error: 'Error del servidor' })
+    }
+  }
 }
