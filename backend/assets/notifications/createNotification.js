@@ -76,5 +76,10 @@ export function createNotification (data, template) {
         }
       }
     }
+    case 'paymentDone': {
+      return {
+        title: 'Tu pago se ha efectuado con éxito'
+      }
+    }
   }
 }

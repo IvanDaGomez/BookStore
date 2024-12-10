@@ -1,0 +1,25 @@
+Req.body: {
+  token: 'e54bc97a20174f689dbbcc6656548d15',
+  issuer_id: '204',
+  payment_method_id: 'master',
+  transaction_amount: 70000,
+  installments: 1,
+  payer: {
+    email: 'ivandavidgomezsilva@hotmail.com',
+    identification: { type: 'CC', number: '' },
+    address: {
+      street_name: 'Transveral oriental # 90 - 223 Apto 1507',
+      street_number: '90',
+      zip_code: '680003',
+      neighborhood: 'Porton del tejar',
+      city: 'Bucaramanga'
+    },
+    phone: { area_code: '57', number: '3024690359' },
+    first_name: 'Ivan',
+    last_name: 'Gomez'
+  },
+  application_fee: 9000,
+  additional_info: { ip_address: '181.131.51.170' },
+  description: 'Pago de libro "Deja de ser tú"',
+  callback_url: 'https://www.youtube.com'
+}

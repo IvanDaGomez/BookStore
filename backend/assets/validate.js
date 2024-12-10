@@ -115,9 +115,30 @@ function validateNotification (data) {
 function validatePartialNotification (data) {
   return notificationSchema.partial().safeParse(data)
 }
+
+const transactionSchema = z.object({
+  userId: z.string().uuid({ message: 'El ID del usuario debe ser un UUID válido.' }),
+  amount: z.number().positive({ message: 'El monto debe ser un número positivo.' }),
+  currency: z.string().length(3, { message: 'La moneda debe ser un código ISO 4217 de 3 caracteres.' }),
+  status: z.enum(['pending', 'completed', 'failed', 'cancelled'], {
+    message: 'El estado debe ser uno de: pending, completed, failed o cancelled.'
+  }),
+  paymentMethod: z.enum(['credit_card', 'debit_card', 'pse', 'cash', 'mercado_pago'], {
+    message: 'El método de pago debe ser uno de los métodos válidos.'
+  }),
+  description: z.string().max(255, { message: 'La descripción debe tener como máximo 255 caracteres.' }).optional()
+})
+
+function validateTransaction (data) {
+  return transactionSchema.safeParse(data)
+}
+function validatePartialTransaction (data) {
+  return transactionSchema.partial().safeParse(data)
+}
 export {
   validateUser, validatePartialUser,
   validateBook, validatePartialBook,
   validateMessage, validatePartialMessage,
-  validateNotification, validatePartialNotification
+  validateNotification, validatePartialNotification,
+  validateTransaction, validatePartialTransaction
 }

@@ -10,6 +10,9 @@ import { createEmail } from '../../assets/email/htmlEmails.js'
 import { Preference, MercadoPagoConfig, Payment } from 'mercadopago'
 import { createNotification } from '../../assets/notifications/createNotification.js'
 import { sendNotification } from '../../assets/notifications/sendNotification.js'
+import { TransactionsModel } from '../../models/transactions/transactionsModel.js'
+import { CreateOrdenDeEnvío } from '../../assets/createOrdenDeEnvio.js'
+import { handlePaymentResponse } from '../../assets/handlePaymentResponse.js'
 
 export class UsersController {
   static async getAllUsers (req, res) {
@@ -621,6 +624,7 @@ export class UsersController {
 
   static async processPayment (req, res) {
     try {
+      // Considerar 3DS mas seguro pero más pasos para el vendedor
       const data = req.body
       const XidempotencyKey = randomUUID()
 
@@ -639,21 +643,44 @@ export class UsersController {
       const payment = new Payment(client)
       console.log('Req.body:', req.body)
       const response = await payment.create({
-        body: {
-          ...data
-        },
+        body: data,
         requestOptions: {
           idempotencyKey: XidempotencyKey
         }
       })
-
+      console.log('Response:', response)
       // Send email
+      // eslint-disable-next-line no-constant-condition
+      if (data.payer.email && false) {
+        await sendEmail(data.payer.email, '')
+      }
       // Send notifications
+      // eslint-disable-next-line no-constant-condition
+      if (false) {
+        await sendNotification(createNotification(data, 'paymentDone'))
+      }
+      // Manejar la respuesta
+      const result = handlePaymentResponse(response)
+
+      // Registrar en base de datos si es necesario
+      if (result.success) {
+        // Guarda la transacción como exitosa en la base de datos
+        await TransactionsModel.createSuccessfullTransaction(result.paymentDetails)
+      } else {
+        // Guarda transacciones pendientes o rechazadas si es necesario
+        await TransactionsModel.createFailureTransaction(result.paymentDetails)
+      }
+
+      // Crear orden de envío si aplica
+      // const ordenData = {}
+      // const order = await CreateOrdenDeEnvío(ordenData)
 
       res.json({
         status: 'success',
-        message: 'Payment processed successfully',
-        id: response.id
+        message: 'Pago procesado exitosamente!',
+        id: response.id,
+        paymentDetails: result.paymentDetails
+        // order
       })
     } catch (error) {
       console.error('Error processing payment:', error)

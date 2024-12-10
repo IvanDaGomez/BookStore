@@ -5,6 +5,7 @@ import { booksRouter } from './routes/books/booksRouter.js'
 import { messagesRouter } from './routes/messages/messagesRouter.js'
 import { conversationsRouter } from './routes/conversations/conversationsRouter.js'
 import { notificationsRouter } from './routes/notifications/notificationsRouter.js'
+import { transactionsRouter } from './routes/transactions/transactionsRouter.js'
 import { emailsRouter } from './routes/email/emailRouter.js'
 import { SECRET_KEY } from './assets/config.js'
 import cookieParser from 'cookie-parser'
@@ -85,6 +86,7 @@ app.use('/api/messages', messagesRouter)
 app.use('/api/conversations', conversationsRouter)
 app.use('/api/notifications', notificationsRouter)
 app.use('/api/emails', emailsRouter)
+app.use('/api/transactions', transactionsRouter)
 app.listen(PORT, () => {
   console.log('Server is listening on http://localhost:' + PORT)
 })
