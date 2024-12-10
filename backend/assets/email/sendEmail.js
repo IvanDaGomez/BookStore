@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import nodemailer from 'nodemailer'
 import dotenv from 'dotenv'
+import { google } from 'googleapis'
 dotenv.config()
 
 const yourEmail = process.env.EMAIL
@@ -17,8 +18,11 @@ const senderEmail = process.env.EMAIL
  * @param {string[html]} htmlContent
  * @returns
  */
+const oAuth2Client = new google.auth.OAuth2(process.env.EMAIL_CLIENT_ID, process.env.EMAIL_CLIENT_SECRET, 'https://developers.google.com/oauthplayground')
+oAuth2Client.setCredentials({ refresh_token: process.env.EMAIL_REFRESH_TOKEN })
 
 const sendEmail = async (to, subject, htmlContent) => {
+  const accessToken = await oAuth2Client.getAccessToken()
   const transporter = nodemailer.createTransport({
     host: gmailHost,
     port: mailPort,
@@ -28,10 +32,12 @@ const sendEmail = async (to, subject, htmlContent) => {
       user: yourEmail,
       clientId: process.env.EMAIL_CLIENT_ID,
       clientSecret: process.env.EMAIL_CLIENT_SECRET,
-      refreshToken: process.env.EMAIL_REFRESH_TOKEN // , // Optional, for long-lived sessions
+      refreshToken: process.env.EMAIL_REFRESH_TOKEN, // Optional, for long-lived sessions
+      accessToken: accessToken.token
       // accessToken: process.env.EMAIL_ACCESS_TOKEN // Use the token from the script
     }
   })
+
   const mailOptions = {
     from: `${'Meridian'} ${senderEmail}`,
     to,

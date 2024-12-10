@@ -22,7 +22,8 @@ const whitelist = [
   'http://localhost:3000',
   'https://localhost:3000',
   'http://localhost:5173',
-  'localhost:5173'
+  'localhost:5173',
+  'https://www.googleapis.com/auth/gmail.send'
 ]
 
 // Configuración de CORS

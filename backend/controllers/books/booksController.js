@@ -8,9 +8,10 @@ import { chromium } from 'playwright'
 import { scrapingFunctions } from '../../assets/scrappingConfig.js'
 // import { helperImg } from '../../assets/helperImg.js'
 
-import fetch from 'node-fetch'
-import { sendEmail } from '../../assets/sendEmail.js'
-import { createEmail } from '../../assets/htmlEmails.js'
+import { sendEmail } from '../../assets/email/sendEmail.js'
+import { createEmail } from '../../assets/email/htmlEmails.js'
+import { sendNotification } from '../../assets/notifications/sendNotification.js'
+import { createNotification } from '../../assets/notifications/createNotification.js'
 export class BooksController {
   static async getAllBooks (req, res) {
     try {
@@ -130,23 +131,23 @@ export class BooksController {
   // Filtrar libros
   static async createBook (req, res) {
     const data = req.body
+    try {
+      if (data.oferta) data.oferta = parseInt(data.oferta)
+      data.precio = parseInt(data.precio)
+      // Manejo de keywords
+      if (data.keywords && typeof data.keywords === 'string') {
+        data.keywords = data.keywords.split(',').map(keyword => keyword.trim()).filter(keyword => keyword)
+      } else {
+        data.keywords = [] // O manejar como sea necesario si no se proporcionan keywords
+      }
 
-    if (data.oferta) data.oferta = parseInt(data.oferta)
-    data.precio = parseInt(data.precio)
-    // Manejo de keywords
-    if (data.keywords && typeof data.keywords === 'string') {
-      data.keywords = data.keywords.split(',').map(keyword => keyword.trim()).filter(keyword => keyword)
-    } else {
-      data.keywords = [] // O manejar como sea necesario si no se proporcionan keywords
-    }
+      // Imágenes
+      // Diferentes tamaños
+      if (req.files) data.images = req.files.map(file => `${file.filename}`)
 
-    // Imágenes
-    // Diferentes tamaños
-    if (req.files) data.images = req.files.map(file => `${file.filename}`)
+      // En un futuro para imágenes de distintos tamaños
 
-    // En un futuro para imágenes de distintos tamaños
-
-    /* console.log(req.files)
+      /* console.log(req.files)
     // Usar Promise.all para esperar a que todas las imágenes sean procesadas
     await Promise.all(req.files.map(file => {
       return Promise.all([
@@ -157,74 +158,58 @@ export class BooksController {
       ])
     })) */
 
-    // Validación
-    const validated = validateBook(data)
-    if (!validated.success) {
-      console.log('Error de validación:', validated.error)
-      return res.status(400).json({ error: validated.error })
-    }
+      // Validación
+      const validated = validateBook(data)
+      if (!validated.success) {
+        console.log('Error de validación:', validated.error)
+        return res.status(400).json({ error: validated.error })
+      }
 
-    // Agregar el ID del libro al usuario
-    const user = await UsersModel.getUserById(data.idVendedor)
-    if (!user) {
-      return res.status(404).json({ error: 'Usuario no encontrado' })
-    }
-    if (!user.rol || user.rol === 'usuario') {
-      user.rol = 'Vendedor'
-    }
-    const updated = await UsersModel.updateUser(user._id, {
-      librosIds: [...(user?.librosIds || []), data._id],
-      rol: user?.rol || 'Usuario'
-    })
-
-    if (!updated) {
-      return res.status(404).json({ error: 'Usuario no actualizado' })
-    }
-
-    const time = new Date()
-    data.creadoEn = time
-    data.actualizadoEn = time
-
-    // Crear el libro en la base de datos
-    const book = await BooksModel.createBook(data)
-    if (typeof book === 'string' && book.startsWith('Error')) {
-      return res.status(500).json({ error: book })
-    }
-    if (!book) {
-      return res.status(500).json({ error: 'Error al crear libro' })
-    }
-
-    // Crear notificación
-    const notificationUrl = 'http://localhost:3030/api/notifications/'
-    const response = await fetch(notificationUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-
-        title: 'Tu libro ha sido publicado con éxito',
-        priority: 'high',
-        type: 'bookPublished',
-        userId: data.idVendedor,
-        read: false,
-        actionUrl: `http://localhost:5173/libros/${data._id}`,
-        metadata: data.metadata || {
-          photo: data.images[0],
-          bookTitle: data.titulo,
-          bookId: data._id
-        }
+      // Agregar el ID del libro al usuario
+      const user = await UsersModel.getUserById(data.idVendedor)
+      if (!user) {
+        return res.status(404).json({ error: 'Usuario no encontrado' })
+      }
+      if (!user.rol || user.rol === 'usuario') {
+        user.rol = 'Vendedor'
+      }
+      const updated = await UsersModel.updateUser(user._id, {
+        librosIds: [...(user?.librosIds || []), data._id],
+        rol: user?.rol || 'Usuario'
       })
-    })
-    if (!response.ok) {
-      return res.send({ error: 'Error creando notificación' })
-    }
-    const correo = await UsersModel.getEmailById(data.idVendedor)
-    // Enviar correo
 
-    await sendEmail(`${data.vendedor} ${correo.correo}`, 'Libro publicado con éxito', createEmail(data, 'bookPublished'))
-    // Si todo es exitoso, devolver el libro creado
-    res.send({ book })
+      if (!updated) {
+        return res.status(404).json({ error: 'Usuario no actualizado' })
+      }
+
+      const time = new Date()
+      data.creadoEn = time
+      data.actualizadoEn = time
+
+      // Crear el libro en la base de datos
+      const book = await BooksModel.createBook(data)
+      if (typeof book === 'string' && book.startsWith('Error')) {
+        return res.status(500).json({ error: book })
+      }
+      if (!book) {
+        return res.status(500).json({ error: 'Error al crear libro' })
+      }
+
+      // Crear notificación
+      const notification = await sendNotification(createNotification(data, 'bookPublished'))
+
+      // Enviar correo
+      const correo = await UsersModel.getEmailById(data.idVendedor)
+      if (!correo || !notification) {
+        console.error('No se pudo enviar el correo o la notificación')
+      }
+      await sendEmail(`${data.vendedor} ${correo.correo}`, 'Libro publicado con éxito', createEmail(data, 'bookPublished'))
+      // Si todo es exitoso, devolver el libro creado
+      res.send({ book })
+    } catch (error) {
+      console.error('Error al crear el libro:', error)
+      res.status(500).json({ error: error.message })
+    }
   }
 
   static async deleteBook (req, res) {
@@ -345,31 +330,9 @@ export class BooksController {
 
       // Crear notificación si no es una pregunta
       if (!data.mensaje && !data.tipo) {
-        const notificationUrl = 'http://localhost:3030/api/notifications/'
-        const response = await fetch(notificationUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-
-            title: 'Tu libro ha sido actualizado con éxito',
-            priority: 'high',
-            type: 'bookUpdated',
-            userId: data.idVendedor,
-            read: false,
-            actionUrl: `http://localhost:5173/libros/${data._id}`,
-            metadata: data.metadata || {
-              photo: data.images[0],
-              bookTitle: data.titulo,
-              bookId: data._id
-            }
-          })
-        })
-        if (!response.ok) {
-          return res.send({ error: 'Error creando notificación' })
-        }
+        await sendNotification(createNotification(data, 'bookUpdated'))
       }
+
       res.status(200).json(book)
     } catch (err) {
       console.error('Error al actualizar el libro:', err)

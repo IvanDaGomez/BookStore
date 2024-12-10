@@ -88,5 +88,69 @@
       "bookTitle": "React Practico desde cero a desarrollos web avanzados",
       "bookId": "df9478ae-6ffb-4b52-9fe1-81e17e434e47"
     }
+  },
+  {
+    "_id": "ab8813ca-d2fa-4fc0-b356-a05452d9b900",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "welcomeUser",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-10T20:00:29.855Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-09T20:00:29.855Z",
+    "metadata": {
+      "photo": ""
+    }
+  },
+  {
+    "_id": "de4de205-96d7-4256-9e21-fd092803b3d4",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "welcomeUser",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-10T20:00:37.444Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-09T20:00:37.444Z",
+    "metadata": {
+      "photo": ""
+    }
+  },
+  {
+    "_id": "6b73415c-8452-4958-87e1-20a457ea3eb3",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-10T20:05:45.164Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-09T20:05:45.164Z",
+    "metadata": {
+      "photo": "1733253245824-669736538.png"
+    }
+  },
+  {
+    "_id": "24ef83f6-fdca-4d61-a500-58d5a3632e87",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-10T20:06:29.633Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-09T20:06:29.633Z",
+    "metadata": {
+      "photo": ""
+    }
   }
 ]

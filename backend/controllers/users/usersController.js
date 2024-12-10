@@ -5,9 +5,11 @@ import { validateUser, validatePartialUser } from '../../assets/validate.js'
 import { SECRET_KEY, ACCESS_TOKEN } from '../../assets/config.js'
 import jwt from 'jsonwebtoken'
 import { cambiarGuionesAEspacio } from '../../../frontend/src/assets/agregarMas.js'
-import { sendEmail } from '../../assets/sendEmail.js'
-import { createEmail } from '../../assets/htmlEmails.js'
+import { sendEmail } from '../../assets/email/sendEmail.js'
+import { createEmail } from '../../assets/email/htmlEmails.js'
 import { Preference, MercadoPagoConfig, Payment } from 'mercadopago'
+import { createNotification } from '../../assets/notifications/createNotification.js'
+import { sendNotification } from '../../assets/notifications/sendNotification.js'
 
 export class UsersController {
   static async getAllUsers (req, res) {
@@ -211,55 +213,62 @@ export class UsersController {
   static async createUser (req, res) {
     const data = req.body
     // Validación
-    console.log(data)
-    const validated = validateUser(data)
-    if (!validated.success) {
-      return res.status(400).json({ error: validated.error })
-    }
-
-    data.validated = false
-    data._id = crypto.randomUUID()
-
-    // Revisar si el correo ya está en uso
-    const users = await UsersModel.getAllUsers()
-    const emailRepeated = users.some(user => user.correo === data.correo)
-    if (emailRepeated) {
-      return res.json({ error: 'El correo ya está en uso' })
-    }
-    const time = new Date()
-    data.creadoEn = time
-    data.actualizadoEn = time
-    // Crear usuario
-    const user = await UsersModel.createUser(data)
-    if (!user) {
-      return res.status(500).json({ error: 'Error creando usuario' })
-    }
-    const tokenToSend = {
-      _id: user._id,
-      nombre: user.nombre
-    }
-    const token = jwt.sign(
-      tokenToSend,
-      SECRET_KEY,
-      {
-        expiresIn: '3h'
+    try {
+      const validated = validateUser(data)
+      if (!validated.success) {
+        return res.status(400).json({ error: validated.error })
       }
-    )
 
-    if (!token) {
-      return res.status(500).send({ error: 'Error al generar el token' })
+      data.validated = false
+      data._id = crypto.randomUUID()
+
+      // Revisar si el correo ya está en uso
+      const users = await UsersModel.getAllUsers()
+      const emailRepeated = users.some(user => user.correo === data.correo)
+      if (emailRepeated) {
+        return res.json({ error: 'El correo ya está en uso' })
+      }
+      const time = new Date()
+      data.creadoEn = time
+      data.actualizadoEn = time
+      // Crear usuario
+      const user = await UsersModel.createUser(data)
+      if (!user) {
+        return res.status(500).json({ error: 'Error creando usuario' })
+      }
+      const tokenToSend = {
+        _id: user._id,
+        nombre: user.nombre
+      }
+      const token = jwt.sign(
+        tokenToSend,
+        SECRET_KEY,
+        {
+          expiresIn: '3h'
+        }
+      )
+
+      if (!token) {
+        return res.status(500).send({ error: 'Error al generar el token' })
+      }
+      // Enviar correo de agradecimiento por unirse a meridian
+      await sendEmail(`${data.nombre} ${data.correo}`, 'Bienvenido a Meridian!', createEmail(data, 'thankEmail'))
+
+      // Enviar notificación de bienvenida
+
+      await sendNotification(createNotification(data, 'welcomeUser'))
+      // Si todo es exitoso, devolver el usuario creado
+      res
+        .cookie('access_token', token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'strict',
+          maxAge: 1000 * 60 * 60 * 3 // 3 Horas
+        })
+        .send({ user })
+    } catch (error) {
+      console.error(error)
     }
-    // Enviar correo de agradecimiento por unirse a meridian
-    await sendEmail(`${data.nombre} ${data.correo}`, 'Bienvenido a Meridian!', createEmail(data, 'thankEmail'))
-    // Si todo es exitoso, devolver el usuario creado
-    res
-      .cookie('access_token', token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'strict',
-        maxAge: 1000 * 60 * 60 * 3 // 3 Horas
-      })
-      .send({ user })
   }
 
   static async deleteUser (req, res) {
@@ -657,7 +666,8 @@ export class UsersController {
   }
 
   static async forYouPage (req, res) {
-    const results = await UsersModel.forYouPage()
+    const { l } = req.query
+    const results = await UsersModel.forYouPage(l)
 
     if (!results) {
       return res.status(400).json({ ok: false, error: 'No se encontraron resultados' })
@@ -713,6 +723,10 @@ export class UsersController {
 
       if (!newToken) {
         return res.status(500).json({ ok: false, error: 'Error al generar el token' })
+      }
+      // Notificación de nuevo seguidor
+      if (action === 'Agregado') {
+        await sendNotification(createNotification({ follower, user }, 'newFollower'))
       }
 
       // Enviar el nuevo token en la cookie

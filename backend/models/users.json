@@ -96,14 +96,17 @@
       "175eb6a4-9c22-42cd-a8aa-0a3bc09f73b3",
       "4c0d2723-f52f-429b-8ed8-55f2a5d1003a",
       "f60c325b-cb26-48e7-a08b-18a7ddc5ab1c",
-      "69643157-9ddb-47e1-8ace-e5d02e17478d"
+      "69643157-9ddb-47e1-8ace-e5d02e17478d",
+      "6b73415c-8452-4958-87e1-20a457ea3eb3"
     ],
     "validated": true,
     "login": "default",
     "ubicacion": {},
-    "seguidores": [],
+    "seguidores": [
+      "9b922eb4-33e8-4781-9863-c066992e1620"
+    ],
     "siguiendo": [
-      "1816d212-7dc5-4d74-bb9d-e0d97bf60d27"
+      "834a9dda-5cf5-4438-9499-eed4b8ec3e45"
     ]
   },
   {
@@ -144,12 +147,15 @@
     "favoritos": [],
     "notificationsIds": [
       "484ec389-f6ec-4dc0-ac3f-fe1e391e458a",
-      "51390817-4724-445a-98e1-7c40eac0892c"
+      "51390817-4724-445a-98e1-7c40eac0892c",
+      "24ef83f6-fdca-4d61-a500-58d5a3632e87"
     ],
     "validated": false,
     "login": "default",
     "ubicacion": {},
-    "seguidores": [],
+    "seguidores": [
+      "857857d1-afdd-411d-b41a-be427d1ff186"
+    ],
     "siguiendo": []
   },
   {
@@ -335,7 +341,10 @@
     "rol": "usuario",
     "estadoCuenta": "Activo",
     "ubicacion": {},
-    "seguidores": []
+    "seguidores": [],
+    "siguiendo": [
+      "857857d1-afdd-411d-b41a-be427d1ff186"
+    ]
   },
   {
     "_id": "192c8f5f-4c9b-431b-a3b6-d4f93ba871aa",

@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { notificationTypes } from './notifications/notificationTypes.js'
 // PENDIENTE EL PATCH
 
 const userSchema = z.object({
@@ -96,7 +97,7 @@ function validatePartialMessage (data) {
 }
 const notificationSchema = z.object({
   theme: z.enum(['light', 'dark']).default('light'), // Limits theme to specific options
-  type: z.enum(['newMessage', 'bookUpdated', 'bookPublished', 'bookRejected', 'questionAnswered', 'newQuestion', 'bookSold', 'orderShipped', 'reviewReceived']), // Define valid types
+  type: z.enum(notificationTypes), // Define valid types
   userId: z.string().min(1, 'userId is required'), // Require non-empty string
   title: z.string().optional(),
   priority: z.enum(['low', 'normal', 'high']).optional(), // Allows optional priority levels
