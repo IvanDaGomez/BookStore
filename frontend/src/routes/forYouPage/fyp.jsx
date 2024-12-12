@@ -50,7 +50,7 @@ export default function Fyp() {
             }
         }
         fetchFYP()
-    })
+    },[])
     return (<>
     <Header />
     <div className="booksFyp">

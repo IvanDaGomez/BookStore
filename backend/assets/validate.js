@@ -10,7 +10,8 @@ const userSchema = z.object({
   librosIds: z.array(z.string()).default([]), // IDs de los libros con un array vacío por defecto
   balance: z.object({
     pendiente: z.number().optional(),
-    disponible: z.number().optional()
+    disponible: z.number().optional(),
+    porLlegar: z.number().optional()
   }).optional(),
   correo: z.string()
     .email('El correo electrónico no es válido')

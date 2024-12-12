@@ -1,2 +1,41 @@
 [
+  {
+    "_id": 1320577752,
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "sellerId": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
+    "fee_details": [],
+    "description": "Pago de libro \"Acaba con la inflamación en 7 días\" en Meridian",
+    "charges_details": [
+      {
+        "id": "1320577752-001",
+        "name": "mercadopago_fee",
+        "type": "fee",
+        "accounts": {
+          "from": "collector",
+          "to": "mp"
+        },
+        "client_id": 0,
+        "date_created": "2024-12-12T10:05:25.781-04:00",
+        "last_updated": "2024-12-12T10:05:25.781-04:00",
+        "amounts": {
+          "original": 4284,
+          "refunded": 0
+        },
+        "metadata": {
+          "source": "rule-engine"
+        },
+        "reserve_id": null,
+        "refund_charges": []
+      }
+    ],
+    "paymentLink": "https://www.mercadopago.com.co/sandbox/payments/1320577752/ticket?caller_id=1883966051&payment_method_id=efecty&payment_id=1320577752&payment_method_reference_id=6005581356&hash=fad75ce9-4d74-4901-87bc-4e21683dad1d",
+    "transactionId": "",
+    "amount": 85000,
+    "paymentMethod": "efecty",
+    "installments": 1,
+    "card": {},
+    "status": "pending",
+    "createdIn": "2024-12-12T14:05:26.124Z",
+    "updatedIn": "2024-12-12T14:05:26.124Z"
+  }
 ]

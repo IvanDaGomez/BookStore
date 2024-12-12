@@ -105,7 +105,9 @@ class BooksModel {
       if (score < queryWords.length * 0.7) return null
 
       return { book, score } // Devolvemos el libro junto con su puntaje si pasa la validación
-    }).filter(item => item !== null).slice(0, l)
+    })
+      .filter(item => item !== null).slice(0, l)
+      .filter(item => item.book.disponibilidad === 'Disponible')
 
     // Ordenamos los libros por el puntaje en orden descendente
     booksWithScores.sort((a, b) => b.score - a.score)

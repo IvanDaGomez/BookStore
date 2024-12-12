@@ -7,6 +7,7 @@ function PaymentBrick({ libro, preferenceId, user, form, setFase }) {
 
     const [statusScreen, setStatusScreen] = useState(false)
     const [paymentId, setPaymentId] = useState('')
+    const [status, setStatus] = useState(null)
     const PUBLIC_KEY = 'TEST-4b6be399-19ca-4ae3-9397-455af528f651';
 
     // Initialize MercadoPago once
@@ -107,26 +108,19 @@ function PaymentBrick({ libro, preferenceId, user, form, setFase }) {
             description: `Pago de libro "${libro.titulo || "desconocido"}" en Meridian`, // Título del libro, con valor por defecto si es undefined
             callback_url: `https://www.youtube.com`
         };
-        
-        console.log('Body:', body)
+
             const response = await fetch('http://localhost:3030/api/users/process_payment', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(body), // Asegúrate de enviar `body` y no `formData`
+                body: JSON.stringify(body)
             });
     
             const result = await response.json();
-            if (result.status === "success") {
-                
-                setStatusScreen(true)
-                setPaymentId(result.id)
-                // setTimeout(()=>setFase(4),5000)
-                
-            } else {
-                throw new Error(result.message || "El pago falló");
-            }
+            setStatus(result.status)
+            setStatusScreen(true)
+            setPaymentId(result.id)
         } catch (error) {
             console.error("Payment error:", error);
             toast.error("Ocurrió un error al enviar los datos, vuelve a intentar.");
@@ -201,7 +195,6 @@ function PaymentBrick({ libro, preferenceId, user, form, setFase }) {
     return (
         <>
         <div className="paymentMethodsContainer">
-        {console.log(form)}
             {libro && preferenceId ? (
                 <>
 
@@ -270,6 +263,7 @@ function PaymentBrick({ libro, preferenceId, user, form, setFase }) {
                 <span>Cargando...</span>
             )}
             </div>
+            {(status === 'pending') && <span>El libro no se comprará hasta que realices el pago</span>}
             {!statusScreen && <button type="button" style={{margin:'auto'}} onClick={() => setFase(2)}>Atrás</button>}
         </>
     );

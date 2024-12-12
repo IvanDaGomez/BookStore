@@ -6,12 +6,12 @@ const transactionObject = (data) => {
     userId: data.userId || '', // ID del usuario que realiza la compra
     sellerId: data.sellerId || '',
     fee_details: data.fee_details || [],
-    description: data.paymentDetails.description || '',
+    description: data?.paymentDetails?.description || '',
     charges_details: data.charges_details || [],
-    paymentLink: data.paymentDetails.paymentLink || '',
+    paymentLink: data?.paymentDetails?.paymentLink || '',
     transactionId: data.transactionId || '', // ID de la transacción en la plataforma de Efecty
-    amount: data.paymentDetails.amount || 0, // Monto de la transacción
-    paymentMethod: data.paymentDetails.method,
+    amount: data?.paymentDetails?.amount || 0, // Monto de la transacción
+    paymentMethod: data?.paymentDetails?.method,
     installments: data.installments || 1,
     card: data.card || [],
     status: data.status || 'pending', // Estado del pago (pendiente, confirmado, entregado)

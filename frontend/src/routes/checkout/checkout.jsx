@@ -59,10 +59,13 @@ function Checkout() {
 
    useEffect(() => {
         async function fetchLibro(id) {
+            if (!user) return 
             const url = `http://localhost:3030/api/books/${id}`
             try {
                 const response = await axios.get(url, {withCredentials: true});
-                
+                if (response.data.idVendedor === user._id) {
+                  navigate('/popUp/errorAutoPayment')
+                }
                 setLibro(response.data); // Asegurar que el libro existe o dejar vacío
                 
             } catch (error) {
@@ -73,7 +76,7 @@ function Checkout() {
 
         fetchLibro(bookId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [bookId]);
+    }, [bookId, user]);
 
   const [fase, setFase] = useState(1);  // Estado para la fase actual
   const [form, setForm] = useState({

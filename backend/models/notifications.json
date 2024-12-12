@@ -414,7 +414,7 @@
     "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
     "input": "",
     "createdIn": "2024-12-11T21:44:34.986Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/usuarios/undefined",
     "expiresAt": "2025-01-10T21:44:34.986Z",
     "metadata": {
@@ -430,7 +430,7 @@
     "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
     "input": "",
     "createdIn": "2024-12-11T21:45:16.312Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/libros/23768e73-2ee5-4134-961a-3c08bb3cad34",
     "expiresAt": "2025-01-10T21:45:16.312Z",
     "metadata": {
@@ -448,7 +448,7 @@
     "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
     "input": "",
     "createdIn": "2024-12-11T21:52:14.760Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/libros/23768e73-2ee5-4134-961a-3c08bb3cad34",
     "expiresAt": "2025-01-10T21:52:14.760Z",
     "metadata": {
@@ -466,7 +466,7 @@
     "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
     "input": "",
     "createdIn": "2024-12-11T21:55:16.731Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/libros/23768e73-2ee5-4134-961a-3c08bb3cad34",
     "expiresAt": "2025-01-10T21:55:16.731Z",
     "metadata": {
@@ -484,7 +484,7 @@
     "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
     "input": "",
     "createdIn": "2024-12-11T21:56:42.950Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/libros/23768e73-2ee5-4134-961a-3c08bb3cad34",
     "expiresAt": "2025-01-10T21:56:42.950Z",
     "metadata": {
@@ -502,13 +502,85 @@
     "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
     "input": "",
     "createdIn": "2024-12-11T22:05:50.143Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/libros/23768e73-2ee5-4134-961a-3c08bb3cad34",
     "expiresAt": "2025-01-10T22:05:50.143Z",
     "metadata": {
       "photo": "1729461161367-827651725.png",
       "bookTitle": "Nexus",
       "bookId": "23768e73-2ee5-4134-961a-3c08bb3cad34"
+    }
+  },
+  {
+    "_id": "19194fb5-57d9-4046-abfc-d5391622afee",
+    "theme": "",
+    "title": "Tu libro ha sido vendido con éxito",
+    "priority": "high",
+    "type": "bookSold",
+    "userId": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
+    "input": "",
+    "createdIn": "2024-12-12T14:06:31.371Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/88c87f69-4b49-4633-bfba-cd3d29b1a21d",
+    "expiresAt": "2025-01-11T14:06:31.371Z",
+    "metadata": {
+      "photo": "1729454065315-576691826.png",
+      "bookTitle": "Acaba con la inflamación en 7 días",
+      "bookId": "88c87f69-4b49-4633-bfba-cd3d29b1a21d"
+    }
+  },
+  {
+    "_id": "b67a2d35-0a21-4fdb-a93b-9eaaf5bc2db5",
+    "theme": "",
+    "title": "Tu libro ha sido vendido con éxito",
+    "priority": "high",
+    "type": "bookSold",
+    "userId": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
+    "input": "",
+    "createdIn": "2024-12-12T14:10:25.842Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/88c87f69-4b49-4633-bfba-cd3d29b1a21d",
+    "expiresAt": "2025-01-11T14:10:25.842Z",
+    "metadata": {
+      "photo": "1729454065315-576691826.png",
+      "bookTitle": "Acaba con la inflamación en 7 días",
+      "bookId": "88c87f69-4b49-4633-bfba-cd3d29b1a21d"
+    }
+  },
+  {
+    "_id": "7013d948-ff9d-441b-902a-2cfd706cefe2",
+    "theme": "",
+    "title": "Tu libro ha sido vendido con éxito",
+    "priority": "high",
+    "type": "bookSold",
+    "userId": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
+    "input": "",
+    "createdIn": "2024-12-12T14:11:39.467Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/88c87f69-4b49-4633-bfba-cd3d29b1a21d",
+    "expiresAt": "2025-01-11T14:11:39.467Z",
+    "metadata": {
+      "photo": "1729454065315-576691826.png",
+      "bookTitle": "Acaba con la inflamación en 7 días",
+      "bookId": "88c87f69-4b49-4633-bfba-cd3d29b1a21d"
+    }
+  },
+  {
+    "_id": "15ebce0f-c2da-4014-98b1-f7d665c89dd5",
+    "theme": "",
+    "title": "Tu libro ha sido vendido con éxito",
+    "priority": "high",
+    "type": "bookSold",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-12T14:42:23.466Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/31d52487-f746-4951-bf11-7b41febea0a9",
+    "expiresAt": "2025-01-11T14:42:23.466Z",
+    "metadata": {
+      "photo": "1732197120267-615755189.png",
+      "bookTitle": "El libro de Bill",
+      "bookId": "31d52487-f746-4951-bf11-7b41febea0a9"
     }
   }
 ]

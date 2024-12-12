@@ -1,10 +1,13 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { reduceText } from "./reduceText"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { handleFavoritos } from "./handleFavoritos";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
+
 const anchoDeIconos = 30;
+
 const MakeCard = ({ element, index, user = '', callback = ()=>{} }) => {
   
        // Aplicar la clase "favoritoActivo" después de renderizar las tarjetas
@@ -19,27 +22,37 @@ const MakeCard = ({ element, index, user = '', callback = ()=>{} }) => {
     }, [user]); // Se ejecuta cada vez que se actualizan user o libros
     return (
           <Link to={`/libros/${element._id}`}>
-            <div className="sectionElement" key={index} >
+            <div className="sectionElement" key={index} style={{filter: `opacity(${element.disponibilidad === 'Vendido' ? '0.6': '1'})`}} >
                 <div className="imageElementContainer"  style={{backgroundImage: `url(http://localhost:3030/uploads/${element.images[0]})`, backgroundRepeat: 'no-repeat'}}>
-                {(element.oferta || element.estado === 'Nuevo' || element.fechaPublicacion) ? (
+                {
+                  element.disponibilidad === 'Vendido' ? (
                     <div 
-                        className="percentageElement" 
-                        style={{ 
-                            background: element.oferta 
-                                ? 'green' 
-                                : (new Date() - new Date(element.fechaPublicacion) < 15 * 24 * 60 * 60 * 1000) // 15 días en milisegundos
-                                    ? '#4457ff' // Color para "Nuevo"
-                                    : 'gray'  // Color para "En perfecto estado"
-                        }}
+                      className="percentageElement" 
+                      style={{ background: 'red' }}
                     >
-                        {element.oferta 
-                            ? Math.ceil(((1 - element.oferta / element.precio) * 100).toFixed(2) / 5) * 5 + '% de descuento'
-                            : (new Date() - new Date(element.fechaPublicacion) < 15 * 24 * 60 * 60 * 1000) 
-                                ? '¡Nuevo!' // Si se creó hace menos de 15 días
-                                : 'En perfecto estado' // Si no se creó recientemente
-                        }
+                      Vendido
                     </div>
-                ) : null}
+                  ) : (element.oferta || element.estado === 'Nuevo' || element.fechaPublicacion) ? (
+                    <div 
+                      className="percentageElement" 
+                      style={{ 
+                        background: element.oferta 
+                          ? 'green' 
+                          : (new Date() - new Date(element.fechaPublicacion) < 15 * 24 * 60 * 60 * 1000) // 15 días en milisegundos
+                            ? '#4457ff' // Color para "Nuevo"
+                            : 'gray'  // Color para "En perfecto estado"
+                      }}
+                    >
+                      {element.oferta 
+                        ? Math.ceil(((1 - element.oferta / element.precio) * 100).toFixed(2) / 5) * 5 + '% de descuento'
+                        : (new Date() - new Date(element.fechaPublicacion) < 15 * 24 * 60 * 60 * 1000) 
+                          ? '¡Nuevo!' // Si se creó hace menos de 15 días
+                          : 'En perfecto estado' // Si no se creó recientemente
+                      }
+                    </div>
+                  ) : null
+                }
+
                     
                 </div>
                 <h2>{reduceText(element.titulo,25)}</h2>
@@ -61,7 +74,7 @@ const MakeCard = ({ element, index, user = '', callback = ()=>{} }) => {
                 </div>
                 
                 </div>
-                
+                {element.disponibilidad !== 'Vendido' ?
                 <div className="extraInfoElement">
                 <svg onClick={(event) => {
                   event.preventDefault()
@@ -109,7 +122,7 @@ const MakeCard = ({ element, index, user = '', callback = ()=>{} }) => {
                   <path d="M14.1706 20.8905C18.3536 20.6125 21.6856 17.2332 21.9598 12.9909C22.0134 12.1607 22.0134 11.3009 21.9598 10.4707C21.6856 6.22838 18.3536 2.84913 14.1706 2.57107C12.7435 2.47621 11.2536 2.47641 9.8294 2.57107C5.64639 2.84913 2.31441 6.22838 2.04024 10.4707C1.98659 11.3009 1.98659 12.1607 2.04024 12.9909C2.1401 14.536 2.82343 15.9666 3.62791 17.1746C4.09501 18.0203 3.78674 19.0758 3.30021 19.9978C2.94941 20.6626 2.77401 20.995 2.91484 21.2351C3.05568 21.4752 3.37026 21.4829 3.99943 21.4982C5.24367 21.5285 6.08268 21.1757 6.74868 20.6846C7.1264 20.4061 7.31527 20.2668 7.44544 20.2508C7.5756 20.2348 7.83177 20.3403 8.34401 20.5513C8.8044 20.7409 9.33896 20.8579 9.8294 20.8905C11.2536 20.9852 12.7435 20.9854 14.1706 20.8905Z" stroke="currentColor" strokeWidth="1" strokeLinejoin="round" />
                 </svg>
                 
-                </div>
+                </div>: <div style={{height: '30px'}}></div>}
             </div>
             </Link>
             
@@ -117,13 +130,13 @@ const MakeCard = ({ element, index, user = '', callback = ()=>{} }) => {
 }
 
 const MakeOneFrCard = ({ element, index, user = '' }) => {
-  
+    const navigate = useNavigate()
     return (
-      <Link key={index} to={`/libros/${element._id}`}>
-      <div className="cardContainer" >
+      <Link key={element._id} to={`/libros/${element._id}`}>
+      <div className="cardContainer"  style={{filter: `opacity(${element.disponibilidad === 'Vendido' ? '0.6': '1'})`}}>
         
         {/* Imagen de los auriculares */}
-        <div className="imageContainer" style={{ textAlign: 'center' }}>
+        <div className="imageContainer" style={{ textAlign: 'center'}}>
           <img
             src={`http://localhost:3030/uploads/${element.images[0]}`}
             alt={element.titulo}
@@ -157,7 +170,7 @@ const MakeOneFrCard = ({ element, index, user = '' }) => {
 
 
         <div className="soldBy" style={{ fontSize: '14px', color: '#555' }} >
-          Vendido por <Link to={`/usuarios/${element.idVendedor}`}><span className="accent">{element.vendedor}</span></Link>
+          Vendido por <span onClick={()=>navigate(`/usuarios/${element.idVendedor}`)} className="accent">{element.vendedor}</span>
         </div>
   
         {/* Botón de agregar al carrito */}
@@ -179,9 +192,20 @@ const MakeOneFrCard = ({ element, index, user = '' }) => {
     
     return (
             <Link key={index} to={`/libros/${element._id}`}>
-            <div className="sectionElement" >
+            <div className="sectionElement" style={{filter: `opacity(${element.disponibilidad === 'Vendido' ? '0.6': '1'})`}} >
+            
+                    
+                <div className="imageElementContainer"  style={{backgroundImage: `url(http://localhost:3030/uploads/${element.images[0]})`, backgroundRepeat: 'no-repeat'}}>
+                {(element.disponibilidad === 'Vendido') ? (
+                    <div 
+                        className="percentageElement" 
+                        style={{ 
+                            background: 'red'}}
+                    >
+                        Vendido
+                    </div>
+                ) : null}</div>
                 
-                <div className="imageElementContainer"  style={{backgroundImage: `url(http://localhost:3030/uploads/${element.images[0]})`, backgroundRepeat: 'no-repeat'}}></div>
                 <div style={{padding:"5px"}}>
                 <h2 style={{textAlign: 'center'}}>{reduceText(element.titulo,25)}</h2>
                 <h3>

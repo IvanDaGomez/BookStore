@@ -463,7 +463,7 @@ export class BooksController {
         console.log(validated)
         return res.status(400).json({ error: validated.error.errors })
       }
-      console.log('Pasó validación')
+
       // Filtrar los campos permitidos
       const allowedFields = [
         'titulo', 'autor', 'precio', 'oferta', 'formato', 'images', 'keywords', 'descripcion',

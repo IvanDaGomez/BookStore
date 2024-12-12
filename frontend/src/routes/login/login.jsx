@@ -47,8 +47,8 @@ export default function Login() {
     }
 
     // Validar longitud de la contraseña
-    if (password && password.length < 6) {
-      errorMessages.push('La contraseña debe tener al menos 6 caracteres.');
+    if (password && password.length < 8) {
+      errorMessages.push('La contraseña debe tener al menos 8 caracteres.');
     }
 
     // Verificar coincidencia de contraseñas (solo para registro)
@@ -124,14 +124,16 @@ export default function Login() {
         });
         
         const data = await response.json()
-        
+
+        setLoading(false)
+        document.body.style.cursor = "auto"
         if (data.error) {
           setErrors((prevErrors) => [...prevErrors, `Error: ${data.error}`]);
           return
         }
         
-        setLoading(false)
-        document.body.style.cursor = "auto"
+        
+        
         // Si la respuesta es exitosa, puedes manejar la respuesta aquí
         // En teoría el token se guarda en la cookie desde el backend
         // Si la respuesta es exitosa, puedes manejar la respuesta aquí

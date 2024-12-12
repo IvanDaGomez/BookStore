@@ -336,6 +336,15 @@ class UsersModel {
       throw new Error('Error deleting user')
     }
   }
+
+  static async getBalance (id) {
+    const users = await this.getAllUsers()
+
+    const user = users.find((usuario) => usuario._id === id)
+
+    if (!user) return null
+    return user.balance
+  }
 }
 
 export { UsersModel }

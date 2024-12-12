@@ -66,6 +66,7 @@ export default function Cuenta() {
   }, [user]);
 
   // Memoize headerOptions to prevent infinite loops
+
   const headerOptions = useMemo(() => [
     { title: "Mi perfil", href: "/cuenta" },
     { title: "Mi balance", href: "/cuenta/balance" },
@@ -74,10 +75,10 @@ export default function Cuenta() {
     { title: "Estadísticas", href: "/cuenta/stats" },
     { title: "Notificaciones", href: "/cuenta/preferencias-notificaciones", includeInHeader: false },
     { title: "Preferencias del comprador", href: "/cuenta/preferencias-comprador", includeInHeader: false },
-    { title: "Preferencias del vendedor", href: "/cuenta/preferencias-vendedor", includeInHeader: false, condition: user?.rol === "Vendedor" },
+    { title: "Preferencias del vendedor", href: "/cuenta/preferencias-vendedor", includeInHeader: false, condition: user?.rol === "Vendedor" || user?.rol === "admin" },
     { title: "Mis pedidos", href: "/cuenta/pedidos" },
     { title: "Mis compras", href: "/cuenta/mis-compras" },
-    { title: "Mis ventas", href: "/cuenta/mis-ventas", condition: user?.rol === "Vendedor" },
+    { title: "Mis ventas", href: "/cuenta/mis-ventas", condition: user?.rol === "Vendedor" || user?.rol === "admin"},
     { title: "Direcciones", href: "/cuenta/direcciones", includeInHeader: false }
   ], [user?.rol, user?._id]);
 
@@ -104,7 +105,7 @@ export default function Cuenta() {
       case "Mi perfil":
         return <Perfil user={user} navigate={navigate} />;
       case "Mi balance":
-        return <Balance user={user} />;
+        return <Balance user={user} setUser={setUser}/>;
 
       case "Estadísticas":
         return <Stats user={user} />;

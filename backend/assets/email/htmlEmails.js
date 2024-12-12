@@ -326,6 +326,48 @@ function createEmail (data, template) {
       </html>
       `
     }
+    case 'efectyPendingPayment': {
+      return `
+      <html>
+        <head>
+          <style>
+            ${styles}
+          </style>
+        </head>
+          <div class="container">
+            <div class='header'>
+              <img src='${process.env.LOGO_URL}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
+            </div>
+            <main>
+              <h1>¡Gracias por tu compra!</h1>
+              <p>Para completar tu pedido, debes realizar el pago en cualquier sucursal de <strong>Efecty</strong>.</p>
+              <p>Indica al operador de Efecty que deseas realizar un pago y proporciona el código de pago junto con el monto exacto.</p>
+                  <ul>
+                    <li><strong>Monto a pagar:</strong> $${data.transaction_amount}</li>
+                    <li><strong>Vencimiento:</strong> ${new Date(data.date_of_expiration).toLocaleString('es-CO', {
+                      weekday: 'long',
+                      year: 'numeric',
+                      month: 'long',
+                      day: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit'
+                    })}</li>
+                  </ul>
+                  <p>
+                    Presenta este código de pago en el punto de Efecty: <strong>${data.barcode.content}</strong>
+                  </p>
+              <p>Si necesitas ayuda con el proceso de envío o tienes alguna pregunta, no dudes en contactarnos.</p>
+            </main>
+            <footer>
+              <p>¡Gracias por confiar en nosotros!</p>
+              <p>Atentamente,</p>
+              <p>El equipo de ${process.env.BRAND_NAME}</p>
+            </footer>
+          </div>
+        </body>
+      </html>
+      `
+    }
   }
 }
 

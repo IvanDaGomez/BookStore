@@ -635,7 +635,7 @@ export class UsersController {
 
       const XidempotencyKey = randomUUID()
       const client = new MercadoPagoConfig({ accessToken: ACCESS_TOKEN })
-
+      // Hay que agregar el precio del domicilio si aplica
       const payment = new Payment(client)
       const response = await payment.create({
         body: data,
@@ -649,10 +649,10 @@ export class UsersController {
       } else {
         await TransactionsModel.createFailureTransaction(result)
       }
-
+      const user = await UsersModel.getUserById(sellerId)
       const [updatedBook, updatedUser] = await Promise.all([
         BooksModel.updateBook(book._id, { disponibilidad: 'Vendido' }),
-        UsersModel.updateUser(sellerId, { librosVendidos: (book.librosVendidos || 0) + 1 })
+        (result.success || result.payment_method_id === 'efecty') ? UsersModel.updateUser(sellerId, { librosVendidos: (book.librosVendidos || 0) + 1, balance: { porLlegar: (user?.balance?.porLlegar || 0) + data.transaction_amount } }) : '' // No se suma, se actualiza revisar
       ])
 
       if (!updatedBook || !updatedUser) {
@@ -661,50 +661,60 @@ export class UsersController {
 
       // Crear orden de envío si aplica (con los shipping details)
       if (result.success) {
-        // ...
-      }
-      const ordenData = {}
-      if (false) {
-        const order = await CreateOrdenDeEnvío(ordenData)
-      }
-      // Send notifications with the order
-      const otherUser = {
-        idVendedor: sellerId,
-        nombreVendedor: book.vendedor,
-        _id: book._id,
-        titulo: book.titulo,
-        images: book.images,
-        librosVendidos: book?.librosVendidos || 0
+        // const ordenData = {}
+        // const order = await CreateOrdenDeEnvío(ordenData)
+
+        // Send notifications with the order
+        const otherUser = {
+          idVendedor: sellerId,
+          nombreVendedor: book.vendedor,
+          _id: book._id,
+          titulo: book.titulo,
+          images: book.images,
+          librosVendidos: book?.librosVendidos || 0
         // action: Guía para el envío
-      }
-
-      const correo = await UsersModel.getEmailById(sellerId)
-      // Promesa para enviar todos los correos y la notificación en paralelo
-      try {
-        const emailPromises = []
-        const notificationPromises = []
-
-        if (data.payer.email) {
-          emailPromises.push(
-            sendEmail(data.payer.email, 'Comprobante de pago en Meridian', createEmail(result, 'paymentDoneBill')),
-            sendEmail(data.payer.email, '¡Gracias por tu compra!', createEmail(result, 'paymentDoneThank'))
-          )
         }
-        emailPromises.push(
-          sendEmail(correo.correo, '¡Tu libro ha sido vendido con éxito!', createEmail({ ...otherUser, fecha: result.paymentDetails.createdIn }, 'bookSold'))
-        )
-        notificationPromises.push(
-          sendNotification(createNotification(otherUser, 'bookSold'))
-        )
-        // Ejecutar emails y notificaciones en paralelo
-        await Promise.all([...emailPromises, ...notificationPromises])
-      } catch (notifError) {
-        console.error('Error enviando notificación:', notifError.message)
-      }
 
+        const correo = await UsersModel.getEmailById(sellerId)
+        // Promesa para enviar todos los correos y la notificación en paralelo
+        try {
+          const emailPromises = []
+          const notificationPromises = []
+
+          if (data.payer.email) {
+            emailPromises.push(
+              sendEmail(data.payer.email, 'Comprobante de pago en Meridian', createEmail(result, 'paymentDoneBill')),
+              sendEmail(data.payer.email, '¡Gracias por tu compra!', createEmail(result, 'paymentDoneThank'))
+            )
+          }
+          emailPromises.push(
+            sendEmail(correo.correo, '¡Tu libro ha sido vendido con éxito!', createEmail({ ...otherUser, fecha: result.paymentDetails.createdIn }, 'bookSold'))
+          )
+          notificationPromises.push(
+            sendNotification(createNotification(otherUser, 'bookSold'))
+          )
+          // Ejecutar emails y notificaciones en paralelo
+          await Promise.all([...emailPromises, ...notificationPromises])
+        } catch (notifError) {
+          console.error('Error enviando notificación:', notifError.message)
+        }
+        return res.json({
+          status: 'success',
+          message: 'Pago procesado exitosamente!',
+          id: response.id,
+          paymentDetails: result.paymentDetails
+        })
+        // if not success
+      } else {
+        // If payment method is efecty send the email
+        if (data.payment_method_id === 'efecty' && data.payer.email) {
+          await sendEmail(data.payer.email, 'Información de tu pago en Efecty', createEmail(response, 'efectyPendingPayment'))
+        }
+        console.log('No tuvo éxito el pago')
+      }
       res.json({
-        status: 'success',
-        message: 'Pago procesado exitosamente!',
+        status: result.status,
+        message: 'Pago pendiente o rechazado!',
         id: response.id,
         paymentDetails: result.paymentDetails
       })
@@ -785,5 +795,18 @@ export class UsersController {
       console.error('Error:', error)
       res.status(500).json({ ok: false, error: 'Error del servidor' })
     }
+  }
+
+  static async getBalance (req, res) {
+    const { userId } = req.params
+
+    if (!userId) return res.status(404).json({ error: 'No se proporcionó id de usuario' })
+
+    const balance = await UsersModel.getBalance(userId)
+
+    if (!balance) {
+      return res.json({ error: 'No se pudo encontrar el balance' })
+    }
+    res.json({ balance })
   }
 }

@@ -3831,7 +3831,9 @@ a[href="/chat"]{
   display: flex;
   height: auto;
 }
-
+.account-dashboard .main-content{
+  width: 100%;
+}
 /* Sidebar Styles */
 .sidebar {
   width: 250px;
@@ -3911,7 +3913,6 @@ a[href="/chat"]{
 
 /* Main Content Styles */
 .main-content {
-  flex: 1;
   padding: 40px;
   background: #e0dee170;
 }
@@ -4084,12 +4085,11 @@ a[href="/chat"]{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
+  flex-wrap: wrap;
 }
 
 .account-dashboard .main-content .container.balanceContainer .numbers div{
   width: auto;
-  height: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: start;
@@ -4153,7 +4153,7 @@ a[href="/chat"]{
   background: var(--using4);
   color: var(--using1);
 }
-@media only screen and (max-width:800px) {
+@media only screen and (max-width:1000px) {
   .account-dashboard .main-content .flexBalance{
     grid-template-columns: 1fr;
   }

@@ -25,6 +25,7 @@ usersRouter.post('/getPreferenceId', UsersController.getPreferenceId)
 usersRouter.post('/sendValidationEmail', UsersController.sendValidationEmail)
 usersRouter.get('/validateUser/:token', UsersController.userValidation)
 
+usersRouter.get('/balance/:userId', UsersController.getBalance)
 usersRouter.get('/c/:userId', UsersController.getEmailById) // R
 usersRouter.get('/:userId/photoAndName', UsersController.getPhotoAndNameUser) // R
 usersRouter.get('/:userId', UsersController.getUserById) // R

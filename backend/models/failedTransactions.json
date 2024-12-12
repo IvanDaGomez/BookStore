@@ -1,13 +1,13 @@
 [
   {
-    "_id": 1328873109,
-    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
-    "sellerId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "_id": 1320577752,
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "sellerId": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
     "fee_details": [],
-    "description": "Pago de libro \"Nexus\" en Meridian",
+    "description": "",
     "charges_details": [
       {
-        "id": "1328873109-001",
+        "id": "1320577752-001",
         "name": "mercadopago_fee",
         "type": "fee",
         "accounts": {
@@ -15,10 +15,10 @@
           "to": "mp"
         },
         "client_id": 0,
-        "date_created": "2024-12-11T18:05:49.441-04:00",
-        "last_updated": "2024-12-11T18:05:49.441-04:00",
+        "date_created": "2024-12-12T10:05:25.781-04:00",
+        "last_updated": "2024-12-12T10:05:25.781-04:00",
         "amounts": {
-          "original": 3304,
+          "original": 4284,
           "refunded": 0
         },
         "metadata": {
@@ -30,29 +30,50 @@
     ],
     "paymentLink": "",
     "transactionId": "",
-    "amount": 60000,
-    "paymentMethod": "master",
-    "installments": 2,
-    "card": {
-      "id": null,
-      "first_six_digits": null,
-      "last_four_digits": "6271",
-      "expiration_month": null,
-      "expiration_year": null,
-      "date_created": null,
-      "date_last_updated": null,
-      "country": null,
-      "tags": null,
-      "cardholder": {
-        "identification": {
-          "number": null,
-          "type": null
+    "amount": 0,
+    "installments": 1,
+    "card": {},
+    "status": "pending",
+    "createdIn": "2024-12-12T14:05:26.124Z",
+    "updatedIn": "2024-12-12T14:05:26.124Z"
+  },
+  {
+    "_id": 1328890421,
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "sellerId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "fee_details": [],
+    "description": "Pago de libro \"El encuentro de cuatro imperios\" en Meridian",
+    "charges_details": [
+      {
+        "id": "1328890421-001",
+        "name": "mercadopago_fee",
+        "type": "fee",
+        "accounts": {
+          "from": "collector",
+          "to": "mp"
         },
-        "name": null
+        "client_id": 0,
+        "date_created": "2024-12-12T12:38:24.818-04:00",
+        "last_updated": "2024-12-12T12:38:24.818-04:00",
+        "amounts": {
+          "original": 3304,
+          "refunded": 0
+        },
+        "metadata": {
+          "source": "rule-engine"
+        },
+        "reserve_id": null,
+        "refund_charges": []
       }
-    },
-    "status": "in_process",
-    "createdIn": "2024-12-11T22:05:50.099Z",
-    "updatedIn": "2024-12-11T22:05:50.099Z"
+    ],
+    "paymentLink": "https://www.mercadopago.com.co/sandbox/payments/1328890421/ticket?caller_id=2154601444&payment_method_id=efecty&payment_id=1328890421&payment_method_reference_id=6005587100&hash=1593aaf0-0fd8-493d-bc12-b2d38ad33f66",
+    "transactionId": "",
+    "amount": 60000,
+    "paymentMethod": "efecty",
+    "installments": 1,
+    "card": {},
+    "status": "pending",
+    "createdIn": "2024-12-12T16:38:25.140Z",
+    "updatedIn": "2024-12-12T16:38:25.140Z"
   }
 ]

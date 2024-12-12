@@ -69,3 +69,7 @@ Content-Type: application/json
 ###
 GET http://localhost:3030/api/users/validateUser/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI4MzZlMTUxYi00M2FlLTQ4YTAtODM1Mi0xN2FkMzA5ZDgwNjgiLCJjb3JyZW8iOiJpdmFuZGF2aWRnb21lenNpbHZhQGdtYWlsLmNvbSIsImlhdCI6MTczMzM1Nzg1NSwiZXhwIjoxNzMzMzYxNDU1fQ.SgKAGJsvlLoJfo7ViTbk3hRIwYuYQV6NMzdkq6zJIqc
 
+###
+GET http://localhost:3030/api/users/validateUser/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI4MzZlMTUxYi00M2FlLTQ4YTAtODM1Mi0xN2FkMzA5ZDgwNjgiLCJjb3JyZW8iOiJpdmFuZGF2aWRnb21lenNpbHZhQGdtYWlsLmNvbSIsImlhdCI6MTczMzM1Nzg1NSwiZXhwIjoxNzMzMzYxNDU1fQ.SgKAGJsvlLoJfo7ViTbk3hRIwYuYQV6NMzdkq6zJIqc
+###
+GET http://localhost:3030/api/users/balance/1816d212-7dc5-4d74-bb9d-e0d97bf60d27
