@@ -18,7 +18,6 @@ usersRouter.post('/changePassword', UsersController.changePassword)
 
 usersRouter.get('/query', UsersController.getUserByQuery)
 
-usersRouter.get('/fyp', UsersController.forYouPage)
 usersRouter.post('/follow', UsersController.followUser)
 
 usersRouter.post('/process_payment', UsersController.processPayment)

@@ -52,7 +52,7 @@ export function createNotification (data, template) {
         type: 'bookPublished',
         userId: data.idVendedor,
         read: false,
-        actionUrl: `http://localhost:5173/libros/${data._id}`,
+        actionUrl: `${process.env.FRONTEND_URL}/libros/${data._id}`,
         metadata: data.metadata || {
           photo: data.images[0],
           bookTitle: data.titulo,
@@ -68,7 +68,7 @@ export function createNotification (data, template) {
         type: 'bookUpdated',
         userId: data.idVendedor,
         read: false,
-        actionUrl: `http://localhost:5173/libros/${data._id}`,
+        actionUrl: `${process.env.FRONTEND_URL}/libros/${data._id}`,
         metadata: data.metadata || {
           photo: data.images[0],
           bookTitle: data.titulo,
@@ -76,9 +76,19 @@ export function createNotification (data, template) {
         }
       }
     }
-    case 'paymentDone': {
+    case 'bookSold': {
       return {
-        title: 'Tu pago se ha efectuado con éxito'
+        title: 'Tu libro ha sido vendido con éxito',
+        priority: 'high',
+        type: 'bookSold',
+        userId: data.idVendedor,
+        read: false,
+        actionUrl: `${process.env.FRONTEND_URL}/libros/${data._id}`,
+        metadata: data.metadata || {
+          photo: data.images[0],
+          bookTitle: data.titulo,
+          bookId: data._id
+        }
       }
     }
   }

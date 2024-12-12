@@ -1,3 +1,5 @@
 /node_modules/
 /assets/config.js
 .env
+/controllers/users/req.body.txt
+/controllers/users/transactionResponseSample.txt

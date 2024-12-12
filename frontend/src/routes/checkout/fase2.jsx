@@ -170,7 +170,7 @@ function Fase2({ form, setForm, setFase }) {
                 </div>
 
                 {errors.length > 0 && <div className="error">{errors[0]}</div>}
-
+                {/* PRECIO DE ENVÍO */}
                 <div>
                     <button onClick={() => setFase(1)}>Atrás</button>
                     <button type="submit">Siguiente</button>

@@ -27,6 +27,7 @@ import EnviarCorreoAVerificar from './routes/verificar/enviarCorreoAVerificar.js
 import EnviarCorreoCambiarContraseña from './routes/cambiarContraseña/enviarCorreoCambiarContraseña.jsx'
 import CambiarContraseña from './routes/cambiarContraseña/cambiarContraseña.jsx'
 import Faq from './routes/faq/faq.jsx'
+import Fyp from './routes/forYouPage/fyp.jsx'
 
 
 
@@ -143,6 +144,10 @@ const router = createBrowserRouter([
   }, {
     path: '/opciones/cambiarContraseña/:token',
     element: <CambiarContraseña />
+  }, {
+    path: '/para-ti',
+    element: <Fyp/>,
+    
   }
 ], {
   future: {

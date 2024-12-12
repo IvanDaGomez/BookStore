@@ -32,14 +32,13 @@ const sendEmail = async (to, subject, htmlContent) => {
       user: yourEmail,
       clientId: process.env.EMAIL_CLIENT_ID,
       clientSecret: process.env.EMAIL_CLIENT_SECRET,
-      refreshToken: process.env.EMAIL_REFRESH_TOKEN, // Optional, for long-lived sessions
+      refreshToken: process.env.EMAIL_REFRESH_TOKEN,
       accessToken: accessToken.token
-      // accessToken: process.env.EMAIL_ACCESS_TOKEN // Use the token from the script
     }
   })
 
   const mailOptions = {
-    from: `${'Meridian'} ${senderEmail}`,
+    from: `${process.env.BRAND_NAME} ${senderEmail}`,
     to,
     subject,
     html: htmlContent

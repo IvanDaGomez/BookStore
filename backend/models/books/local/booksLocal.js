@@ -144,7 +144,7 @@ class BooksModel {
         keywords: data.keywords || [],
         _id: data._id,
         descripcion: data.descripcion || '',
-        estado: data.estado || 'Nuevo',
+        estado: data.estado || 'Nuevo sellado',
         genero: data.genero || '',
         formato: data.formato || '',
         vendedor: data.vendedor || '',
@@ -161,8 +161,8 @@ class BooksModel {
         fechaPublicacion: data.fechaPublicacion || new Date().toISOString(),
         actualizadoEn: data.actualizadoEn || new Date().toISOString(),
         disponibilidad: data.disponibilidad || 'Disponible',
-        mensajes: data.mensajes || []
-
+        mensajes: data.mensajes || [],
+        librosVendidos: data.librosVendidos || 0
       }
 
       books.push(newBook)
@@ -303,6 +303,12 @@ class BooksModel {
       console.error('Error updating book:', err)
       throw new Error(err)
     }
+  }
+
+  static async forYouPage (user = {}, l) {
+    const books = this.getAllBooks()
+    // Mostrar libros en base a preferencias etc
+    return books
   }
 }
 

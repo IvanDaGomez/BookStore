@@ -1,6 +1,23 @@
 /* eslint-disable camelcase */
 export function handlePaymentResponse (response) {
-  const { status, status_detail, payment_method_id, payment_type_id, transaction_amount, description, date_created, external_resource_url } = response
+  const {
+    userId,
+    sellerId,
+    id,
+    status,
+    status_detail,
+    payment_method_id,
+    payment_type_id,
+    transaction_amount,
+    description,
+    date_created,
+    transaction_details,
+    fee_details,
+    charges_details,
+    installments,
+    shippingDetails,
+    card
+  } = response
 
   let message = ''
   let success = false
@@ -12,7 +29,7 @@ export function handlePaymentResponse (response) {
       success = true
       break
     case 'pending':
-      message = `El pago está pendiente. Por favor, realiza el pago utilizando el enlace proporcionado: ${external_resource_url || 'No disponible'}`
+      message = `El pago está pendiente. Por favor, realiza el pago utilizando el enlace proporcionado: ${transaction_details.external_resource_url || 'No disponible'}`
       break
     case 'rejected':
       message = 'El pago fue rechazado. Razón: ' + (status_detail || 'Razón desconocida.')
@@ -24,15 +41,24 @@ export function handlePaymentResponse (response) {
 
   // Retornar el resultado procesado
   return {
+    _id: id,
+    userId,
+    sellerId,
     success,
+    status,
+    fee_details,
+    charges_details,
     message,
+    shippingDetails,
+    installments,
+    card,
     paymentDetails: {
       method: payment_method_id,
       type: payment_type_id,
       amount: transaction_amount,
       description,
       createdIn: date_created,
-      paymentLink: external_resource_url
+      paymentLink: transaction_details.external_resource_url
     }
   }
 }

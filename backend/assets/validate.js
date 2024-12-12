@@ -8,7 +8,10 @@ const userSchema = z.object({
     .max(100, 'El nombre debe tener menos de 100 caracteres'),
 
   librosIds: z.array(z.string()).default([]), // IDs de los libros con un array vacío por defecto
-
+  balance: z.object({
+    pendiente: z.number().optional(),
+    disponible: z.number().optional()
+  }).optional(),
   correo: z.string()
     .email('El correo electrónico no es válido')
     .transform(email => email.toLowerCase()), // Convierte el correo a minúsculas
@@ -68,7 +71,7 @@ const bookSchema = z.object({
   edad: z.string().optional(), // Validates that 'edad' is a string
   fechaPublicacion: z.string(), // Validates that 'fechaPublicacion' is a date string in YYYY-MM-DD format
   actualizadoEn: z.string(),
-  disponibilidad: z.enum(['Disponible', 'No Disponible']).optional(), // Validates that 'disponibilidad' is either 'Disponible' or 'No Disponible'
+  disponibilidad: z.enum(['Disponible', 'No Disponible', 'Vendido']).optional(), // Validates that 'disponibilidad' is either 'Disponible' or 'No Disponible'
   mensajes: z.array(z.tuple([z.string(), z.string(), z.string()])).optional(), // Define nested arrays
   mensaje: z.string().optional(),
   tipo: z.string().optional(),
@@ -117,6 +120,11 @@ function validatePartialNotification (data) {
 }
 
 const transactionSchema = z.object({
+  _id: z.string().uuid(),
+  sellerId: z.string().uuid(),
+  fee_details: z.array(),
+  charges_details: z.array(),
+
   userId: z.string().uuid({ message: 'El ID del usuario debe ser un UUID válido.' }),
   amount: z.number().positive({ message: 'El monto debe ser un número positivo.' }),
   currency: z.string().length(3, { message: 'La moneda debe ser un código ISO 4217 de 3 caracteres.' }),

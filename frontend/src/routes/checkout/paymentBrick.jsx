@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { initMercadoPago, Payment, StatusScreen } from '@mercadopago/sdk-react';
 import { calculateComission } from '../../assets/calculateComission';
 import { toast } from 'react-toastify';
-function PaymentBrick({ libro, preferenceId, user, setFase, form }) {
+function PaymentBrick({ libro, preferenceId, user, form, setFase }) {
 
     const [statusScreen, setStatusScreen] = useState(false)
     const [paymentId, setPaymentId] = useState('')
@@ -69,6 +69,10 @@ function PaymentBrick({ libro, preferenceId, user, setFase, form }) {
 
         const body = {
             ...formData,
+            userId: user._id,
+            book: libro,
+            sellerId: libro.idVendedor,
+            shippingDetails: form,
             token: formData.token || null, // El token generado por Mercado Pago
             issuer_id: formData.issuer_id || null, // Puede ser null si no aplica
             payment_method_id: formData.payment_method_id || "", // Definido como cadena vacía si no se aplica
@@ -100,7 +104,7 @@ function PaymentBrick({ libro, preferenceId, user, setFase, form }) {
             additional_info: {
                 ip_address: form.additional_info.ip_address || "" // IP Address, vacío si no se proporciona
             },
-            description: `Pago de libro "${libro.titulo || "desconocido"}"`, // Título del libro, con valor por defecto si es undefined
+            description: `Pago de libro "${libro.titulo || "desconocido"}" en Meridian`, // Título del libro, con valor por defecto si es undefined
             callback_url: `https://www.youtube.com`
         };
         
@@ -266,6 +270,7 @@ function PaymentBrick({ libro, preferenceId, user, setFase, form }) {
                 <span>Cargando...</span>
             )}
             </div>
+            {!statusScreen && <button type="button" style={{margin:'auto'}} onClick={() => setFase(2)}>Atrás</button>}
         </>
     );
 }

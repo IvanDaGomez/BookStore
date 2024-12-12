@@ -111,9 +111,9 @@ useEffect(() => {
         newMessage: "Tienes un nuevo mensaje!",
         newQuestion: "Tienes una nueva pregunta!",
         bookPublished: "Tu libro ha sido publicado!",
-        bookSold: `Tu libro "${activeNotification && activeNotification?.metadata?.bookTitle}" ha sido vendido!`,
+        bookSold: `Tu libro ha sido vendido!`,
         orderShipped: "Tu pedido ha sido entregado!",
-        reviewReceived: `Tienes una nueva reseña de "${activeNotification && activeNotification?.metadata?.bookTitle}"!`
+        reviewReceived: `Tienes una nueva reseña!`
     };
     // Mark every notification as read
 

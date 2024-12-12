@@ -336,10 +336,6 @@ class UsersModel {
       throw new Error('Error deleting user')
     }
   }
-
-  static async forYouPage(l) {
-
-  }
 }
 
 export { UsersModel }

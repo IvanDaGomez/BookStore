@@ -1,9 +1,6 @@
 Req.body: {
-  token: 'e54bc97a20174f689dbbcc6656548d15',
-  issuer_id: '204',
-  payment_method_id: 'master',
-  transaction_amount: 70000,
-  installments: 1,
+  payment_method_id: 'efecty',
+  transaction_amount: 100000,
   payer: {
     email: 'ivandavidgomezsilva@hotmail.com',
     identification: { type: 'CC', number: '' },
@@ -18,8 +15,42 @@ Req.body: {
     first_name: 'Ivan',
     last_name: 'Gomez'
   },
-  application_fee: 9000,
-  additional_info: { ip_address: '181.131.51.170' },
-  description: 'Pago de libro "Deja de ser tú"',
-  callback_url: 'https://www.youtube.com'
+  userId: '836e151b-43ae-48a0-8352-17ad309d8068',
+  book: {
+    titulo: 'Demasiado tarde para despertar',
+    autor: 'Slavoj Zizek',
+    precio: 100000,
+    oferta: null,
+    images: [ '1729453883736-303865584.png' ],
+    keywords: [],
+    _id: '3cd4d6ad-df7c-4e0f-beb9-394de48ce33d',
+    descripcion: 'Este ensayo filosófico de Slavoj Žižek ofrece una mirada crítica y provocadora sobre los desafíos contemporáneos, desde la guerra en Ucrania y el ascenso de los populismos, hasta la manipulación del lenguaje y el cambio climático. El autor sugiere que es necesario asumir que el "fin del mundo" tal como lo conocemos ya no es evitable y que debemos empezar a pensar desde esa realidad. Con su estilo habitual, Žižek confronta con ironía y agudeza las ideologías contemporáneas y nos invita a cuestionar las certezas del presente.',
+    estado: 'Nuevo',
+    genero: 'Filosofía',
+    vendedor: 'Alvaro Gómez',
+    idVendedor: '1816d212-7dc5-4d74-bb9d-e0d97bf60d27',
+    edicion: '',
+    idioma: '',
+    ubicacion: 'Buscar',
+    tapa: '',
+    edad: '',
+    fechaPublicacion: '2024-10-20T19:51:23.575Z',
+    actualizadoEn: '2024-10-26T16:59:19.373Z',
+    disponibilidad: 'Disponible'
+  },
+  sellerId: '1816d212-7dc5-4d74-bb9d-e0d97bf60d27',
+  shippingDetails: {
+    first_name: 'Ivan',
+    last_name: 'Gomez',
+    address: {
+      zip_code: '680003',
+      street_name: 'Transveral oriental # 90 - 223 Apto 1507',
+      street_number: '90',
+      neighborhood: 'Porton del tejar',
+      city: 'Bucaramanga',
+      department: 'Atlántico'
+    },
+    phone: { area_code: '57', number: '3024690359' },
+    additional_info: { ip_address: '...' }
+  }
 }

@@ -491,4 +491,15 @@ export class BooksController {
       res.status(500).json({ error: err.message })
     }
   }
+
+  static async forYouPage (req, res) {
+    const { l } = req.query
+    const results = await BooksModel.forYouPage(req.session.user, l)
+
+    if (!results) {
+      return res.status(400).json({ ok: false, error: 'No se encontraron resultados' })
+    }
+
+    res.json({ books: results, ok: true })
+  }
 }

@@ -13,6 +13,7 @@ import { sendNotification } from '../../assets/notifications/sendNotification.js
 import { TransactionsModel } from '../../models/transactions/transactionsModel.js'
 import { CreateOrdenDeEnvío } from '../../assets/createOrdenDeEnvio.js'
 import { handlePaymentResponse } from '../../assets/handlePaymentResponse.js'
+import { BooksModel } from '../../models/books/local/booksLocal.js'
 
 export class UsersController {
   static async getAllUsers (req, res) {
@@ -226,14 +227,17 @@ export class UsersController {
       data._id = crypto.randomUUID()
 
       // Revisar si el correo ya está en uso
-      const users = await UsersModel.getAllUsers()
-      const emailRepeated = users.some(user => user.correo === data.correo)
-      if (emailRepeated) {
+      const correo = await UsersModel.getUserByEmail(data.correo)
+      if (correo.correo) {
         return res.json({ error: 'El correo ya está en uso' })
       }
       const time = new Date()
       data.creadoEn = time
       data.actualizadoEn = time
+      data.balance = {
+        disponible: 0,
+        pendiente: 0
+      }
       // Crear usuario
       const user = await UsersModel.createUser(data)
       if (!user) {
@@ -624,83 +628,94 @@ export class UsersController {
 
   static async processPayment (req, res) {
     try {
-      // Considerar 3DS mas seguro pero más pasos para el vendedor
-      const data = req.body
+      const { sellerId, userId, book, shippingDetails, ...data } = req.body
+      if (!sellerId || !userId || !book || !shippingDetails) {
+        return res.status(400).json({ error: 'Faltan datos requeridos en la solicitud' })
+      }
+
       const XidempotencyKey = randomUUID()
-
-      // if (!token) {
-      //   return res.status(400).json({
-      //     status: 'error',
-      //     message: 'El token de procesamiento ha expirado'
-      //   })
-      // }
-
-      const client = new MercadoPagoConfig({
-        accessToken: ACCESS_TOKEN // Your platform's access token
-
-      })
+      const client = new MercadoPagoConfig({ accessToken: ACCESS_TOKEN })
 
       const payment = new Payment(client)
-      console.log('Req.body:', req.body)
       const response = await payment.create({
         body: data,
-        requestOptions: {
-          idempotencyKey: XidempotencyKey
-        }
+        requestOptions: { idempotencyKey: XidempotencyKey }
       })
-      console.log('Response:', response)
-      // Send email
-      // eslint-disable-next-line no-constant-condition
-      if (data.payer.email && false) {
-        await sendEmail(data.payer.email, '')
-      }
-      // Send notifications
-      // eslint-disable-next-line no-constant-condition
-      if (false) {
-        await sendNotification(createNotification(data, 'paymentDone'))
-      }
-      // Manejar la respuesta
-      const result = handlePaymentResponse(response)
 
-      // Registrar en base de datos si es necesario
+      const result = handlePaymentResponse({ ...response, sellerId, userId, book, shippingDetails })
+
       if (result.success) {
-        // Guarda la transacción como exitosa en la base de datos
-        await TransactionsModel.createSuccessfullTransaction(result.paymentDetails)
+        await TransactionsModel.createSuccessfullTransaction(result)
       } else {
-        // Guarda transacciones pendientes o rechazadas si es necesario
-        await TransactionsModel.createFailureTransaction(result.paymentDetails)
+        await TransactionsModel.createFailureTransaction(result)
       }
 
-      // Crear orden de envío si aplica
-      // const ordenData = {}
-      // const order = await CreateOrdenDeEnvío(ordenData)
+      const [updatedBook, updatedUser] = await Promise.all([
+        BooksModel.updateBook(book._id, { disponibilidad: 'Vendido' }),
+        UsersModel.updateUser(sellerId, { librosVendidos: (book.librosVendidos || 0) + 1 })
+      ])
+
+      if (!updatedBook || !updatedUser) {
+        return res.status(400).json({ error: 'El libro o usuario no pudo actualizarse' })
+      }
+
+      // Crear orden de envío si aplica (con los shipping details)
+      if (result.success) {
+        // ...
+      }
+      const ordenData = {}
+      if (false) {
+        const order = await CreateOrdenDeEnvío(ordenData)
+      }
+      // Send notifications with the order
+      const otherUser = {
+        idVendedor: sellerId,
+        nombreVendedor: book.vendedor,
+        _id: book._id,
+        titulo: book.titulo,
+        images: book.images,
+        librosVendidos: book?.librosVendidos || 0
+        // action: Guía para el envío
+      }
+
+      const correo = await UsersModel.getEmailById(sellerId)
+      // Promesa para enviar todos los correos y la notificación en paralelo
+      try {
+        const emailPromises = []
+        const notificationPromises = []
+
+        if (data.payer.email) {
+          emailPromises.push(
+            sendEmail(data.payer.email, 'Comprobante de pago en Meridian', createEmail(result, 'paymentDoneBill')),
+            sendEmail(data.payer.email, '¡Gracias por tu compra!', createEmail(result, 'paymentDoneThank'))
+          )
+        }
+        emailPromises.push(
+          sendEmail(correo.correo, '¡Tu libro ha sido vendido con éxito!', createEmail({ ...otherUser, fecha: result.paymentDetails.createdIn }, 'bookSold'))
+        )
+        notificationPromises.push(
+          sendNotification(createNotification(otherUser, 'bookSold'))
+        )
+        // Ejecutar emails y notificaciones en paralelo
+        await Promise.all([...emailPromises, ...notificationPromises])
+      } catch (notifError) {
+        console.error('Error enviando notificación:', notifError.message)
+      }
 
       res.json({
         status: 'success',
         message: 'Pago procesado exitosamente!',
         id: response.id,
         paymentDetails: result.paymentDetails
-        // order
       })
     } catch (error) {
-      console.error('Error processing payment:', error)
+      console.error('Error processing payment:', error.message, { error })
       res.status(500).json({
         status: 'error',
-        message: 'Payment processing failed',
+        message: 'No se pudo procesar el pago.',
         error: error.message
       })
     }
-  }
-
-  static async forYouPage (req, res) {
-    const { l } = req.query
-    const results = await UsersModel.forYouPage(l)
-
-    if (!results) {
-      return res.status(400).json({ ok: false, error: 'No se encontraron resultados' })
-    }
-
-    res.json({ data: results, ok: true })
   }
 
   static async followUser (req, res) {

@@ -10,6 +10,7 @@ booksRouter.get('/review', BooksController.getAllReviewBooks)
 booksRouter.post('/', upload.array('images', 5), BooksController.createBook)
 booksRouter.post('/review', upload.array('images', 5), BooksController.createReviewBook)
 
+booksRouter.get('/fyp', BooksController.forYouPage)
 booksRouter.get('/query', BooksController.getBookByQuery)
 booksRouter.get('/query/filters', BooksController.getBooksByQueryWithFilters)
 booksRouter.get('/search/:bookTitle', BooksController.searchByBookTitle)
