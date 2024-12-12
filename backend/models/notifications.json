@@ -582,5 +582,42 @@
       "bookTitle": "El libro de Bill",
       "bookId": "31d52487-f746-4951-bf11-7b41febea0a9"
     }
+  },
+  {
+    "_id": "d1b1217e-f798-4b46-ba48-48f4cb687713",
+    "theme": "",
+    "title": "Tu libro ha sido actualizado con éxito",
+    "priority": "high",
+    "type": "bookUpdated",
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "input": "",
+    "createdIn": "2024-12-12T16:49:45.935Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/23768e73-2ee5-4134-961a-3c08bb3cad34",
+    "expiresAt": "2025-01-11T16:49:45.935Z",
+    "metadata": {
+      "photo": "1734022157820-23916145.png",
+      "bookTitle": "Nexus",
+      "bookId": "23768e73-2ee5-4134-961a-3c08bb3cad34"
+    }
+  },
+  {
+    "_id": "72de218b-def9-4bf2-ad61-0f8ba9f38a03",
+    "theme": "",
+    "title": "Tu pregunta ha sido respondida!",
+    "priority": "normal",
+    "type": "questionAnswered",
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "input": "El libro sólamente tiene un uso",
+    "createdIn": "2024-12-12T16:50:51.428Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/23768e73-2ee5-4134-961a-3c08bb3cad34",
+    "expiresAt": "2025-01-11T16:50:51.428Z",
+    "metadata": {
+      "photo": "1734022157820-23916145.png",
+      "bookTitle": "Nexus",
+      "bookId": "23768e73-2ee5-4134-961a-3c08bb3cad34",
+      "question": "¿En qué estado se encuentra el producto?"
+    }
   }
 ]

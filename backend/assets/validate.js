@@ -76,7 +76,11 @@ const bookSchema = z.object({
   mensajes: z.array(z.tuple([z.string(), z.string(), z.string()])).optional(), // Define nested arrays
   mensaje: z.string().optional(),
   tipo: z.string().optional(),
-  pregunta: z.string().optional()
+  pregunta: z.string().optional(),
+  colecciones: z.object({
+    nombre: z.string(), // Nombre de la colección
+    librosIds: z.array() // Libros que incluye la colección
+  }).optional()
 })
 function validateBook (data) {
   return bookSchema.safeParse(data)

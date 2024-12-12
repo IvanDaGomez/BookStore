@@ -502,4 +502,38 @@ export class BooksController {
 
     res.json({ books: results, ok: true })
   }
+
+  static async createColection (req, res) {
+    const { bookId, colectionName } = req.params
+    if (!bookId || !colectionName) {
+      return res.status(400).json({ error: 'No se entregaron todos los campos' })
+    }
+    const book = await BooksModel.getBookById(bookId)
+    if (!book) {
+      return res.status(500).json({ error: 'No se encontró el libro' })
+    }
+    book.colecciones.push({ nombre: colectionName, librosIds: [] })
+    const updated = await BooksController.updateBook(bookId, { colecciones: book.colecciones })
+  }
+
+  static async addToColection (req, res) {
+    const { bookId, colectionName } = req.params
+    if (!bookId) {
+      return res.status(404).json({ error: 'No se proveyó un libro' })
+    }
+    const book = await BooksModel.getBookById(bookId)
+    if (!book) {
+      return res.status(500).json({ error: 'No se encontró el libro' })
+    }
+    // REVISAR SI YA SE AGREGÓ
+    const colection = book.colecciones.find((coleccion) => coleccion.nombre === colectionName)
+    const coleccionesRestantes = book.colecciones.filter((coleccion) => coleccion.nombre !== colectionName)
+    const updated = await BooksModel.updateBook(bookId, {
+      colecciones: [...coleccionesRestantes,
+        {
+          nombre: colection.nombre,
+          librosIds: [...colection?.librosIds || [], bookId]
+        }]
+    })
+  }
 }

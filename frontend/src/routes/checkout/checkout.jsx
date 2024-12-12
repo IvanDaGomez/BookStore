@@ -66,6 +66,9 @@ function Checkout() {
                 if (response.data.idVendedor === user._id) {
                   navigate('/popUp/errorAutoPayment')
                 }
+                if (response.data.disponibilidad === 'Vendido') {
+                  navigate('/popUp/libroVendido')
+                }
                 setLibro(response.data); // Asegurar que el libro existe o dejar vacío
                 
             } catch (error) {

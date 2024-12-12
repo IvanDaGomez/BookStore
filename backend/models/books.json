@@ -300,15 +300,15 @@
     "titulo": "Nexus",
     "autor": "Yuval Noah Harari",
     "precio": 60000,
-    "oferta": null,
+    "oferta": 0,
     "images": [
-      "1729461161367-827651725.png"
+      "1734022157820-23916145.png"
     ],
     "keywords": [
       "Biografía"
     ],
     "_id": "23768e73-2ee5-4134-961a-3c08bb3cad34",
-    "descripcion": "Este es un libro muy interesante",
+    "descripcion": "\"Nexus\" es una fascinante exploración de Yuval Noah Harari sobre el futuro de la humanidad en un mundo cada vez más interconectado. En este libro, Harari analiza cómo la tecnología, la biología y la inteligencia artificial están transformando nuestra sociedad y plantea preguntas provocativas sobre el destino de la humanidad en la era del Big Data y la ciberguerra. Con su estilo perspicaz y su enfoque interdisciplinario, Harari desafía nuestras percepciones sobre la realidad y nos invita a reflexionar sobre las posibilidades y peligros que nos depara el futuro.",
     "estado": "Nuevo",
     "genero": "Biografía",
     "vendedor": "Ivan David Gomez",
@@ -318,9 +318,17 @@
     "ubicacion": "Buscar",
     "tapa": "",
     "edad": "",
-    "fechaPublicacion": "2024-10-20T21:52:41.265Z",
-    "actualizadoEn": "2024-10-20T21:52:41.416Z",
-    "disponibilidad": "Vendido"
+    "fechaPublicacion": "2024-12-12T16:49:17.807Z",
+    "actualizadoEn": "2024-12-12T16:50:51.408Z",
+    "disponibilidad": "Disponible",
+    "formato": "Físico",
+    "mensajes": [
+      [
+        "¿En qué estado se encuentra el producto?",
+        "El libro sólamente tiene un uso",
+        "836e151b-43ae-48a0-8352-17ad309d8068"
+      ]
+    ]
   },
   {
     "titulo": "Si lo crees lo puedes lograr",

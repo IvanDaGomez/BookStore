@@ -728,6 +728,9 @@ export class UsersController {
     }
   }
 
+  static async processDelivery (req, res) {
+  }
+
   static async followUser (req, res) {
     const { followerId, userId } = req.body
     try {
