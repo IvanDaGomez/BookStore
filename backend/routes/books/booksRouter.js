@@ -15,8 +15,6 @@ booksRouter.get('/query', BooksController.getBookByQuery)
 booksRouter.get('/query/filters', BooksController.getBooksByQueryWithFilters)
 booksRouter.get('/search/:bookTitle', BooksController.searchByBookTitle)
 
-booksRouter.post('/newCollection', BooksController.createColection)
-booksRouter.post('/addToCollection', BooksController.addToColection)
 booksRouter.get('/:bookId', BooksController.getBookById) // R
 booksRouter.put('/review/:bookId', upload.array('images', 5), BooksController.updateReviewBook) // U
 booksRouter.put('/:bookId', upload.array('images', 5), BooksController.updateBook) // U

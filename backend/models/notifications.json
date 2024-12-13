@@ -619,5 +619,133 @@
       "bookId": "23768e73-2ee5-4134-961a-3c08bb3cad34",
       "question": "¿En qué estado se encuentra el producto?"
     }
+  },
+  {
+    "_id": "fc77ea6c-e527-469f-9438-07db503c90ac",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-13T22:15:29.677Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-12T22:15:29.677Z",
+    "metadata": {
+      "photo": ""
+    }
+  },
+  {
+    "_id": "368d6444-3abb-4952-8279-fe39efcb9a07",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-13T22:18:42.758Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-12T22:18:42.758Z",
+    "metadata": {
+      "photo": ""
+    }
+  },
+  {
+    "_id": "4b9aec26-c6b6-4ef1-b077-fe33e7b34953",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-13T22:18:44.872Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-12T22:18:44.872Z",
+    "metadata": {
+      "photo": ""
+    }
+  },
+  {
+    "_id": "160f16ef-7ed7-4168-a69e-e021c51c7f2f",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-13T22:18:45.213Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-12T22:18:45.213Z",
+    "metadata": {
+      "photo": ""
+    }
+  },
+  {
+    "_id": "0f5715dd-ddae-40bf-a1a0-8a99b337a746",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-13T22:18:45.536Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-12T22:18:45.536Z",
+    "metadata": {
+      "photo": ""
+    }
+  },
+  {
+    "_id": "de81c254-3ed6-4117-a1fd-c0d0568abd18",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-13T22:18:45.883Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-12T22:18:45.883Z",
+    "metadata": {
+      "photo": ""
+    }
+  },
+  {
+    "_id": "8a4cf6f5-b80c-499b-a388-a3b7ea62bc82",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-13T22:18:46.353Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-12T22:18:46.353Z",
+    "metadata": {
+      "photo": ""
+    }
+  },
+  {
+    "_id": "2e52b41d-4b3f-4220-a8ed-87ac54f2c2d9",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-13T22:18:48.672Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-12T22:18:48.672Z",
+    "metadata": {
+      "photo": ""
+    }
   }
 ]

@@ -43,8 +43,7 @@
         "9b922eb4-33e8-4781-9863-c066992e1620"
       ]
     ],
-    "librosVendidos": 0,
-    "colecciones": []
+    "librosVendidos": 0
   },
   {
     "titulo": "Recupera tu mente, reconquista tu vida",
@@ -82,8 +81,7 @@
         ""
       ]
     ],
-    "librosVendidos": 0,
-    "colecciones": []
+    "librosVendidos": 0
   },
   {
     "titulo": "Deja de ser tú",
@@ -126,8 +124,7 @@
         "9b922eb4-33e8-4781-9863-c066992e1620"
       ]
     ],
-    "librosVendidos": 0,
-    "colecciones": []
+    "librosVendidos": 0
   },
   {
     "titulo": "La vegetariana",
@@ -160,8 +157,7 @@
     "actualizadoEn": "2024-10-20T19:38:48.292Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0,
-    "colecciones": []
+    "librosVendidos": 0
   },
   {
     "titulo": "Demasiado tarde para despertar",
@@ -188,8 +184,7 @@
     "actualizadoEn": "2024-10-26T16:59:19.373Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0,
-    "colecciones": []
+    "librosVendidos": 0
   },
   {
     "titulo": "Acaba con la inflamación en 7 días",
@@ -213,7 +208,7 @@
     "tapa": "",
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:54:25.204Z",
-    "actualizadoEn": "2024-11-26T02:29:24.811Z",
+    "actualizadoEn": "2024-12-13T20:12:45.747Z",
     "disponibilidad": "Disponible",
     "mensajes": [
       [
@@ -231,10 +226,7 @@
     "colecciones": [
       {
         "nombre": "Aña",
-        "librosIds": [
-          "88c87f69-4b49-4633-bfba-cd3d29b1a21d",
-          "88c87f69-4b49-4633-bfba-cd3d29b1a21d"
-        ]
+        "librosIds": []
       }
     ]
   },
@@ -263,8 +255,7 @@
     "actualizadoEn": "2024-10-27T05:17:45.540Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0,
-    "colecciones": []
+    "librosVendidos": 0
   },
   {
     "titulo": "Globalismo",
@@ -297,8 +288,7 @@
     "actualizadoEn": "2024-10-20T20:00:43.116Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0,
-    "colecciones": []
+    "librosVendidos": 0
   },
   {
     "titulo": "IA más allá de los algoritmos",
@@ -331,8 +321,7 @@
     "actualizadoEn": "2024-10-20T20:16:04.908Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0,
-    "colecciones": []
+    "librosVendidos": 0
   },
   {
     "titulo": "Nexus",
@@ -367,8 +356,7 @@
         "836e151b-43ae-48a0-8352-17ad309d8068"
       ]
     ],
-    "librosVendidos": 0,
-    "colecciones": []
+    "librosVendidos": 0
   },
   {
     "titulo": "Si lo crees lo puedes lograr",
@@ -397,8 +385,7 @@
     "actualizadoEn": "2024-10-20T22:11:53.027Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0,
-    "colecciones": []
+    "librosVendidos": 0
   },
   {
     "titulo": "El encuentro de cuatro imperios",
@@ -463,8 +450,7 @@
         "857857d1-afdd-411d-b41a-be427d1ff186"
       ]
     ],
-    "librosVendidos": 0,
-    "colecciones": []
+    "librosVendidos": 0
   },
   {
     "titulo": "El experimento: Amor Verdadero",
@@ -494,8 +480,7 @@
     "actualizadoEn": "2024-10-21T01:38:17.821Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0,
-    "colecciones": []
+    "librosVendidos": 0
   },
   {
     "titulo": "La mujer incierta",
@@ -522,8 +507,7 @@
     "actualizadoEn": "2024-10-21T01:39:41.063Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0,
-    "colecciones": []
+    "librosVendidos": 0
   },
   {
     "titulo": "Batalla Cultural",
@@ -554,8 +538,7 @@
     "actualizadoEn": "2024-11-23T18:01:56.356Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0,
-    "colecciones": []
+    "librosVendidos": 0
   },
   {
     "titulo": "Practical React Native",
@@ -586,8 +569,7 @@
     "actualizadoEn": "2024-11-23T19:21:19.492Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0,
-    "colecciones": []
+    "librosVendidos": 0
   },
   {
     "titulo": "React Practico desde cero a desarrollos web avanzados",
@@ -624,8 +606,7 @@
         "857857d1-afdd-411d-b41a-be427d1ff186"
       ]
     ],
-    "librosVendidos": 0,
-    "colecciones": []
+    "librosVendidos": 0
   },
   {
     "titulo": "React Practico desde cero a desarrollos web avanzados",
@@ -656,8 +637,7 @@
     "actualizadoEn": "2024-12-05T23:23:57.785Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0,
-    "colecciones": []
+    "librosVendidos": 0
   },
   {
     "titulo": "React Practico desde cero a desarrollos web avanzados",
@@ -688,7 +668,6 @@
     "actualizadoEn": "2024-12-06T22:51:24.403Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0,
-    "colecciones": []
+    "librosVendidos": 0
   }
 ]

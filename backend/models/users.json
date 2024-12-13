@@ -113,7 +113,20 @@
     "librosVendidos": 1,
     "balance": {
       "porLlegar": 90000
-    }
+    },
+    "colecciones": [
+      {
+        "nombre": "Aña",
+        "librosIds": [
+          "221f695c-69a3-4dee-98e1-0ab4565a734c",
+          "836e151b-43ae-48a0-8352-17ad309d8068"
+        ]
+      },
+      {
+        "nombre": "Aña",
+        "librosIds": []
+      }
+    ]
   },
   {
     "nombre": "Monica Silva",
@@ -154,15 +167,25 @@
     "notificationsIds": [
       "484ec389-f6ec-4dc0-ac3f-fe1e391e458a",
       "51390817-4724-445a-98e1-7c40eac0892c",
-      "24ef83f6-fdca-4d61-a500-58d5a3632e87"
+      "24ef83f6-fdca-4d61-a500-58d5a3632e87",
+      "fc77ea6c-e527-469f-9438-07db503c90ac",
+      "368d6444-3abb-4952-8279-fe39efcb9a07",
+      "4b9aec26-c6b6-4ef1-b077-fe33e7b34953",
+      "160f16ef-7ed7-4168-a69e-e021c51c7f2f",
+      "0f5715dd-ddae-40bf-a1a0-8a99b337a746",
+      "de81c254-3ed6-4117-a1fd-c0d0568abd18",
+      "8a4cf6f5-b80c-499b-a388-a3b7ea62bc82",
+      "2e52b41d-4b3f-4220-a8ed-87ac54f2c2d9"
     ],
     "validated": false,
     "login": "default",
     "ubicacion": {},
     "seguidores": [
-      "857857d1-afdd-411d-b41a-be427d1ff186"
+      "857857d1-afdd-411d-b41a-be427d1ff186",
+      "836e151b-43ae-48a0-8352-17ad309d8068"
     ],
-    "siguiendo": []
+    "siguiendo": [],
+    "colecciones": []
   },
   {
     "nombre": "Alvaro Gómez",
@@ -297,8 +320,33 @@
     "login": "default",
     "ubicacion": {},
     "seguidores": [],
-    "siguiendo": [],
-    "librosVendidos": 1
+    "siguiendo": [
+      "857857d1-afdd-411d-b41a-be427d1ff186",
+      "834a9dda-5cf5-4438-9499-eed4b8ec3e45"
+    ],
+    "librosVendidos": 1,
+    "colecciones": [
+      {
+        "nombre": "Harry",
+        "librosIds": []
+      },
+      {
+        "nombre": "Aja",
+        "librosIds": []
+      },
+      {
+        "nombre": "A",
+        "librosIds": []
+      },
+      {
+        "nombre": "aj",
+        "librosIds": []
+      },
+      {
+        "nombre": "jiji",
+        "librosIds": []
+      }
+    ]
   },
   {
     "nombre": "Monica Silva",

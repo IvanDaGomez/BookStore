@@ -9,6 +9,7 @@ import { toast, ToastContainer } from "react-toastify";
 import Favorites from "./favorites";
 import { renderProfilePhoto } from "../../assets/renderProfilePhoto.js";
 import axios from "axios";
+import Colecciones from "./colecciones.jsx";
 
 export default function Usuario() {
     const navigate = useNavigate()
@@ -20,7 +21,7 @@ export default function Usuario() {
     const [dropdown, setDropdown] = useState(false);
     const [libroAEliminar, setLibroAEliminar] = useState(null);
     // Si la url incluye 'Usuarios' renderizar mis libros
-    const [myPosts, setMyPosts] = useState(window.location.href.includes('usuarios')) 
+    const [myPosts, setMyPosts] = useState(window.location.href.includes('usuarios') ? 'libros': window.location.href.includes('favoritos') ? 'favoritos' : 'colecciones') 
 
     const [searchParams] = useSearchParams();
     const eliminar = searchParams.get('eliminar');
@@ -240,7 +241,12 @@ export default function Usuario() {
                                     }}>
                                         Enviar mensaje</button>
                                     <button className="compartir botonInverso" onClick={handleShare}>Compartir</button>
-                                    <button className={`compartir ${user?.seguidores?.includes(usuario._id) ? 'normal' : 'botonInverso'}`}
+                                    <button 
+                                    style={{
+                                        background: user?.siguiendo?.includes(usuario._id) ? 'var(--using4)' : '',
+                                        color: user?.siguiendo?.includes(usuario._id) ? 'white' : ''
+                                      }}
+                                    className={`compartir ${user?.seguidores?.includes(usuario._id) ? 'normal' : 'botonInverso'}`}
                                     onClick={handleFollowers}>
                                     
                                     {user?.siguiendo?.includes(usuario._id) ? 'Siguiendo' : 'Seguir' }
@@ -258,16 +264,19 @@ export default function Usuario() {
                 <p>Cargando información del usuario...</p>
             )}
             <div className="select">
-                <div onClick={()=> setMyPosts(true)} className={myPosts ? 'active': ''}>
+                <div onClick={()=> setMyPosts('libros')} className={myPosts === 'libros' ? 'active': ''}>
                     {permisos ? 'Mis libros': 'Libros'}
                 </div>
-                <div onClick={()=> setMyPosts(false)} className={myPosts ? '': 'active'}>
+                <div onClick={()=> setMyPosts('colecciones')} className={myPosts === 'colecciones' ? 'active': ''}>
+                    Colecciones
+                </div>
+                <div onClick={()=> setMyPosts('favoritos')} className={myPosts === 'favoritos' ? 'active': ''}>
                     {permisos ? 'Mis favoritos': 'Favoritos'}
                 </div>
             </div>
             <div className="postsContainer">
                 { usuario &&  
-                myPosts ? <>
+                myPosts === 'libros' ? <>
                 {librosUsuario.map((libro, index) => (<>
                     {permisos ? <MakeUpdateCard element={libro} index={index}/>: 
                     user ? <MakeCard element={libro} index={index} user={user} />:
@@ -276,7 +285,9 @@ export default function Usuario() {
                 )).reverse()}
                 {librosUsuario.length === 0 && <>No hay libros por aquí</>}
                 </>
-                : <Favorites vendedor={usuario}/>
+                :
+                myPosts === 'favoritos' ?<Favorites vendedor={usuario}/>
+                : <Colecciones user={usuario}/>
                 }
             </div>
             </div>

@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt'
 import { SALT_ROUNDS } from '../../../assets/config.js'
 import { levenshteinDistance } from '../../../assets/levenshteinDistance.js'
 import crypto from 'node:crypto'
+import { BooksModel } from '../../books/local/booksLocal.js'
 
 function userObject (name) {
   return {
@@ -21,7 +22,8 @@ function userObject (name) {
     login: name.login || 'default',
     ubicacion: name.ubicacion || {},
     seguidores: name.seguidores || [],
-    siguiendo: name.siguiendo || []
+    siguiendo: name.siguiendo || [],
+    colecciones: name.colecciones || []
     // Avoid exposing sensitive fields like password, email, etc.
   }
 }
@@ -344,6 +346,22 @@ class UsersModel {
 
     if (!user) return null
     return user.balance
+  }
+
+  static async getBooksByCollection (collection) {
+    try {
+      // Obtener todos los libros
+      const books = await BooksModel.getAllBooks()
+
+      // Filtrar los libros que pertenecen a la colección
+      console.log(books)
+      const colecciones = books.filter(book => collection.librosIds.includes(book._id))
+
+      return colecciones
+    } catch (error) {
+      console.error('Error en getBooksByCollection:', error)
+      throw new Error('No se pudieron obtener los libros de la colección')
+    }
   }
 }
 

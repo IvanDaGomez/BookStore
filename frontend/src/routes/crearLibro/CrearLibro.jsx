@@ -239,7 +239,7 @@ useEffect(() => {
         ) : fase === 2 ? (
           <Fase2 form={form} setForm={setForm} fase={fase} setFase={setFase} />
         ) : (
-          <Fase3 form={form} setForm={setForm} fase={fase} setFase={setFase} meanPrice={meanPrice}/>
+          <Fase3 form={form} setForm={setForm} fase={fase} setFase={setFase} meanPrice={meanPrice} user={user}/>
         )}
       </div>
       <Footer />

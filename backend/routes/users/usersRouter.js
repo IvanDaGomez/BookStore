@@ -18,6 +18,10 @@ usersRouter.post('/changePassword', UsersController.changePassword)
 
 usersRouter.get('/query', UsersController.getUserByQuery)
 
+usersRouter.post('/newCollection', UsersController.createColection)
+usersRouter.post('/addToCollection', UsersController.addToColection)
+usersRouter.post('/getBooksByCollection', UsersController.getBooksByCollection)
+
 usersRouter.post('/follow', UsersController.followUser)
 
 usersRouter.post('/process_payment', UsersController.processPayment)

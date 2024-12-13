@@ -11,6 +11,7 @@ import { Preference, MercadoPagoConfig, Payment } from 'mercadopago'
 import { createNotification } from '../../assets/notifications/createNotification.js'
 import { sendNotification } from '../../assets/notifications/sendNotification.js'
 import { TransactionsModel } from '../../models/transactions/transactionsModel.js'
+// eslint-disable-next-line no-unused-vars
 import { CreateOrdenDeEnvío } from '../../assets/createOrdenDeEnvio.js'
 import { handlePaymentResponse } from '../../assets/handlePaymentResponse.js'
 import { BooksModel } from '../../models/books/local/booksLocal.js'
@@ -811,5 +812,110 @@ export class UsersController {
       return res.json({ error: 'No se pudo encontrar el balance' })
     }
     res.json({ balance })
+  }
+
+  static async createColection (req, res) {
+    const { collectionName, userId } = req.body
+    try {
+      if (!userId || !collectionName) {
+        return res.status(400).json({ error: 'No se entregaron todos los campos' })
+      }
+
+      const user = await UsersModel.getUserById(userId)
+      if (!user) {
+        return res.status(404).json({ error: 'No se encontró el libro' })
+      }
+
+      // Agregar la nueva colección
+      const updated = await UsersModel.updateUser(userId, {
+        colecciones: [...(user.colecciones || []), { nombre: collectionName, librosIds: [] }]
+      })
+
+      if (!updated) {
+        return res.status(500).json({ error: 'No se pudo actualizar el libro' })
+      }
+      const tokenToSend = {
+        _id: updated._id,
+        nombre: updated.nombre
+      }
+      const newToken = jwt.sign(tokenToSend, SECRET_KEY, {
+        expiresIn: '3h'
+      })
+      res
+        .clearCookie('access_token')
+        .cookie('access_token', newToken, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'strict',
+          maxAge: 1000 * 60 * 60 * 3 // 3 horas
+        })
+        .json({ data: updated })
+    } catch (error) {
+      console.error('Error en createColection:', error)
+      res.status(500).json({ error: 'Error en el servidor' })
+    }
+  }
+
+  static async addToColection (req, res) {
+    const { bookId, collectionName, userId } = req.body
+    try {
+      if (!userId || !collectionName) {
+        return res.status(400).json({ error: 'No se entregaron todos los campos' })
+      }
+
+      const user = await UsersModel.getUserById(userId)
+      if (!user) {
+        return res.status(404).json({ error: 'No se encontró el usuario' })
+      }
+
+      const collection = user.colecciones.find((coleccion) => coleccion.nombre === collectionName)
+      if (!collection) {
+        return res.status(404).json({ error: 'No se encontró la colección' })
+      }
+
+      // Verificar si el libro ya está en la colección
+      if (collection.librosIds.includes(bookId)) {
+        return res.status(200).json({ message: 'El libro ya está en la colección', data: user })
+      }
+
+      // Actualizar colección
+      const updated = await UsersModel.updateUser(userId, {
+        colecciones: [
+          ...user.colecciones.filter((coleccion) => coleccion.nombre !== collectionName),
+          {
+            nombre: collection.nombre,
+            librosIds: [...collection.librosIds, bookId]
+          }
+        ]
+      })
+
+      if (!updated) {
+        return res.status(500).json({ error: 'No se pudo actualizar el libro' })
+      }
+
+      res.json({ data: updated })
+    } catch (error) {
+      console.error('Error en addToColection:', error)
+      res.status(500).json({ error: 'Error en el servidor' })
+    }
+  }
+
+  static async getBooksByCollection (req, res) {
+    const { collection } = req.body
+    try {
+      if (!collection) {
+        return res.status(400).json({ error: 'No se proporcionó la colección' })
+      }
+
+      const books = await UsersModel.getBooksByCollection(collection)
+      if (!books || books.length === 0) {
+        return res.status(404).json({ error: 'No hay libros en esta colección' })
+      }
+
+      res.json({ data: books })
+    } catch (error) {
+      console.error('Error en getBooksByCollection:', error)
+      res.status(500).json({ error: 'Error en el servidor' })
+    }
   }
 }

@@ -1,1 +1,62 @@
-[]
+[
+  {
+    "titulo": "Si lo crees lo puedes lograr",
+    "autor": "Claude Bristol",
+    "precio": 90000,
+    "oferta": 80000,
+    "images": [
+      "1734124472771-278938377.png"
+    ],
+    "keywords": [
+      "Ayuda"
+    ],
+    "_id": "221f695c-69a3-4dee-98e1-0ab4565a734c",
+    "descripcion": "Libro de autoayuda que te motivará",
+    "estado": "Nuevo",
+    "genero": "Autoayuda",
+    "formato": "",
+    "vendedor": "Ivan David Gomez",
+    "idVendedor": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "edicion": "",
+    "idioma": "",
+    "ubicacion": "Buscar",
+    "tapa": "",
+    "edad": "",
+    "fechaPublicacion": "2024-12-13T21:14:32.758Z",
+    "actualizadoEn": "2024-12-13T21:14:32.780Z",
+    "disponibilidad": "Disponible",
+    "mensajes": [],
+    "librosVendidos": 0,
+    "method": "PUT"
+  },
+  {
+    "titulo": "Si lo crees lo puedes lograr",
+    "autor": "Claude Bristol",
+    "precio": 90000,
+    "oferta": 80000,
+    "images": [
+      "1734127290036-83717320.png"
+    ],
+    "keywords": [
+      "Ayuda"
+    ],
+    "_id": "221f695c-69a3-4dee-98e1-0ab4565a734c",
+    "descripcion": "Libro de autoayuda que te motivará",
+    "estado": "Nuevo",
+    "genero": "Autoayuda",
+    "formato": "",
+    "vendedor": "Ivan David Gomez",
+    "idVendedor": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "edicion": "",
+    "idioma": "",
+    "ubicacion": "Buscar",
+    "tapa": "",
+    "edad": "",
+    "fechaPublicacion": "2024-12-13T22:01:30.024Z",
+    "actualizadoEn": "2024-12-13T22:01:30.046Z",
+    "disponibilidad": "Disponible",
+    "mensajes": [],
+    "librosVendidos": 0,
+    "method": "PUT"
+  }
+]

@@ -2700,7 +2700,57 @@ color: var(--using6);
   margin-left: 5px;
   cursor: pointer;
 }
-
+.crearLibroDiv .coleccionesContainer{
+  border: 1px solid var(--using4);
+  border-radius: var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  width: min(60%, 300px);
+  min-height: 200px;
+  height: 200px;
+}
+.crearLibroDiv .coleccionesContainer > div {
+  margin: 0;
+  width: 100%;
+  border-top: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.crearLibroDiv .coleccionesContainer .colecciones{
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+.crearLibroDiv .coleccionesContainer .colecciones .coleccionElemento{
+  width: 100%;
+  height: 25px;
+  border-bottom: 1px solid black;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+.crearLibroDiv .coleccionesContainer .colecciones .coleccionElemento input {
+  height: 25px;
+  width: 100%;
+  background: white;
+  border: 1px solid var(--using4);
+  padding: 3px;
+}
+.crearLibroDiv .coleccionesContainer .colecciones .coleccionElemento button{
+  height: 100%;
+  padding: 3px;
+  margin: 0;
+  font-size: 1.5rem;
+}
 /*-------------------------------------SUCCESS CREATING BOOK------------------------*/
 
 .success-container {

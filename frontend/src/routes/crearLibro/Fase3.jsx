@@ -1,8 +1,9 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
 import { validarPublicar3 } from "../../assets/validarPublicar";
+import Colecciones from "./colecciones";
 
-export default function Fase3({ form, setForm, fase, setFase, meanPrice }){
+export default function Fase3({ form, setForm, fase, setFase, meanPrice, user }){
 
 
     const [errors, setErrors] = useState([]);
@@ -101,7 +102,7 @@ export default function Fase3({ form, setForm, fase, setFase, meanPrice }){
       }, [form.precio, form.keywords, form.oferta]);
     return(<>
         <form action="" onSubmit={handleSubmit} noValidate>
-
+        <Colecciones user={user} setForm={setForm} form={form}/>
 
         <div className="inputCrear">
           <label htmlFor="keywords">Palabras clave (hasta 5)</label>
@@ -154,7 +155,8 @@ export default function Fase3({ form, setForm, fase, setFase, meanPrice }){
             onKeyDown={handleKeyPress}
           />
         </div>
-        {meanPrice && <label>El precio promedio de este libro en internet es de: $ {meanPrice} pesos</label>}
+        {console.log(!isNaN(meanPrice))}
+        {(!isNaN(meanPrice)) && <label>El precio promedio de este libro en internet es de: $ {meanPrice} pesos</label>}
         {errors.length !== 0 && <div className="error">{errors[0]}</div>}
         <div className="center">
           <div className="atras" onClick={() =>setFase(fase - 1)}>

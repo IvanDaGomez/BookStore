@@ -73,3 +73,40 @@ GET http://localhost:3030/api/users/validateUser/eyJhbGciOiJIUzI1NiIsInR5cCI6Ikp
 GET http://localhost:3030/api/users/validateUser/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI4MzZlMTUxYi00M2FlLTQ4YTAtODM1Mi0xN2FkMzA5ZDgwNjgiLCJjb3JyZW8iOiJpdmFuZGF2aWRnb21lenNpbHZhQGdtYWlsLmNvbSIsImlhdCI6MTczMzM1Nzg1NSwiZXhwIjoxNzMzMzYxNDU1fQ.SgKAGJsvlLoJfo7ViTbk3hRIwYuYQV6NMzdkq6zJIqc
 ###
 GET http://localhost:3030/api/users/balance/1816d212-7dc5-4d74-bb9d-e0d97bf60d27
+
+###
+
+POST http://localhost:3030/api/users/newCollection
+Content-Type: application/json
+
+{
+    "collectionName": "Aña",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186"
+}
+
+###
+
+POST http://localhost:3030/api/users/addToCollection
+Content-Type: application/json
+
+{
+    "collectionName": "Aña",
+    "bookId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186"
+}
+
+###
+
+POST http://localhost:3030/api/users/getBooksByCollection
+Content-Type: application/json
+
+{
+    "collection": {
+        "nombre": "Aña",
+        "librosIds": [
+          "221f695c-69a3-4dee-98e1-0ab4565a734c",
+          "836e151b-43ae-48a0-8352-17ad309d8068",
+          "e93345c4-ca50-4919-ba85-4dcf00882673"
+        ]
+    }
+}

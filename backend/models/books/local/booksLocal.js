@@ -50,8 +50,7 @@ const bookObject = (data) => {
     actualizadoEn: data.actualizadoEn || new Date().toISOString(),
     disponibilidad: data.disponibilidad || 'Disponible',
     mensajes: data.mensajes || [],
-    librosVendidos: data.librosVendidos || 0,
-    colecciones: data.colecciones || []
+    librosVendidos: data.librosVendidos || 0
   }
 }
 class BooksModel {
@@ -168,6 +167,9 @@ class BooksModel {
   static async createBook (data) {
     try {
       const books = await this.getAllBooks()
+      const time = new Date()
+      data.creadoEn = time
+      data.actualizadoEn = time
 
       books.push(bookObject(data))
       await fs.writeFile('./models/books.json', JSON.stringify(books, null, 2))
@@ -185,6 +187,7 @@ class BooksModel {
       if (bookIndex === -1) {
         return null // Si no se encuentra el usuario, retorna null
       }
+      data.actualizadoEn = new Date()
 
       // Actualiza los datos del usuario
       Object.assign(books[bookIndex], data)
