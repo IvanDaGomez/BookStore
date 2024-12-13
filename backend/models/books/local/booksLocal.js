@@ -21,13 +21,46 @@ import { levenshteinDistance } from '../../../assets/levenshteinDistance.js'
     "disponibilidad" : "Disponible"
 
 } */
+
+const bookObject = (data) => {
+  return {
+    titulo: data.titulo || '',
+    autor: data.autor || '',
+    precio: data.precio || 0,
+    oferta: data.oferta || null,
+    images: data.images || [],
+    keywords: data.keywords || [],
+    _id: data._id,
+    descripcion: data.descripcion || '',
+    estado: data.estado || 'Nuevo sellado',
+    genero: data.genero || '',
+    formato: data.formato || '',
+    vendedor: data.vendedor || '',
+    idVendedor: data.idVendedor,
+    edicion: data.edicion,
+    idioma: data.idioma,
+    ubicacion: data.ubicacion || {
+      ciudad: '',
+      departamento: '',
+      pais: ''
+    },
+    tapa: data.tapa || '',
+    edad: data.edad || '',
+    fechaPublicacion: data.fechaPublicacion || new Date().toISOString(),
+    actualizadoEn: data.actualizadoEn || new Date().toISOString(),
+    disponibilidad: data.disponibilidad || 'Disponible',
+    mensajes: data.mensajes || [],
+    librosVendidos: data.librosVendidos || 0,
+    colecciones: data.colecciones || []
+  }
+}
 class BooksModel {
   static async getAllBooks () {
     try {
       const data = await fs.readFile('./models/books.json', 'utf-8')
       const books = JSON.parse(data)
 
-      return books
+      return books.map((book) => bookObject(book))
     } catch (err) {
       console.error('Error reading books:', err)
       throw new Error(err)
@@ -43,7 +76,7 @@ class BooksModel {
       }
 
       // Return book with limited public information
-      return book
+      return bookObject(book)
     } catch (err) {
       console.error('Error reading book:', err)
       throw new Error(err)
@@ -113,7 +146,7 @@ class BooksModel {
     booksWithScores.sort((a, b) => b.score - a.score)
 
     // Solo los datos del libro, no del puntaje
-    return booksWithScores.map(item => item.book)
+    return booksWithScores.map(item => bookObject(item.book))
   }
 
   static async getBooksByQueryWithFilters (query) {
@@ -129,47 +162,16 @@ class BooksModel {
     if (books === undefined || !books) {
       return []
     }
-    return books
+    return books.map((book) => bookObject(book))
   }
 
   static async createBook (data) {
     try {
       const books = await this.getAllBooks()
 
-      // Crear valores por defecto
-      const newBook = {
-        titulo: data.titulo || '',
-        autor: data.autor || '',
-        precio: data.precio || 0,
-        oferta: data.oferta || null,
-        images: data.images || [],
-        keywords: data.keywords || [],
-        _id: data._id,
-        descripcion: data.descripcion || '',
-        estado: data.estado || 'Nuevo sellado',
-        genero: data.genero || '',
-        formato: data.formato || '',
-        vendedor: data.vendedor || '',
-        idVendedor: data.idVendedor,
-        edicion: data.edicion,
-        idioma: data.idioma,
-        ubicacion: data.ubicacion || {
-          ciudad: '',
-          departamento: '',
-          pais: ''
-        },
-        tapa: data.tapa || '',
-        edad: data.edad || '',
-        fechaPublicacion: data.fechaPublicacion || new Date().toISOString(),
-        actualizadoEn: data.actualizadoEn || new Date().toISOString(),
-        disponibilidad: data.disponibilidad || 'Disponible',
-        mensajes: data.mensajes || [],
-        librosVendidos: data.librosVendidos || 0
-      }
-
-      books.push(newBook)
+      books.push(bookObject(data))
       await fs.writeFile('./models/books.json', JSON.stringify(books, null, 2))
-      return newBook
+      return bookObject(data)
     } catch (err) {
       return err
     }
@@ -191,7 +193,7 @@ class BooksModel {
       // const filePath = pat h.join()
       await fs.writeFile('./models/books.json', JSON.stringify(books, null, 2))
 
-      return books[bookIndex]
+      return bookObject(books[bookIndex])
     } catch (err) {
       console.error('Error updating book:', err)
       throw new Error(err)
@@ -230,40 +232,9 @@ class BooksModel {
     try {
       const books = await this.getAllReviewBooks()
 
-      // Crear valores por defecto
-      const newBook = {
-        titulo: data.titulo || '',
-        autor: data.autor || '',
-        precio: data.precio || 0,
-        oferta: data.oferta || null,
-        images: data.images || [],
-        keywords: data.keywords || [],
-        _id: data._id,
-        descripcion: data.descripcion || '',
-        estado: data.estado || 'Nuevo',
-        genero: data.genero || '',
-        formato: data.formato || '',
-        vendedor: data.vendedor || '',
-        idVendedor: data.idVendedor,
-        edicion: data.edicion,
-        idioma: data.idioma,
-        ubicacion: data.ubicacion || {
-          ciudad: '',
-          departamento: '',
-          pais: ''
-        },
-        tapa: data.tapa || '',
-        edad: data.edad || '',
-        fechaPublicacion: data.fechaPublicacion || new Date().toISOString(),
-        actualizadoEn: data.actualizadoEn || new Date().toISOString(),
-        disponibilidad: data.disponibilidad || 'Disponible',
-        mensajes: data.mensajes || []
-
-      }
-
-      books.push(newBook)
+      books.push(bookObject(data))
       await fs.writeFile('./models/booksBackStage.json', JSON.stringify(books, null, 2))
-      return newBook
+      return bookObject(data)
     } catch (err) {
       return err
     }

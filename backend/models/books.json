@@ -15,6 +15,7 @@
     "descripcion": "El libro de Bill es una fascinante obra que se sumerge en el mundo de Bill Cipher, el enigmático y carismático villano de la popular serie de televisión Gravity Falls. A través de ilustraciones vibrantes y un estilo narrativo envolvente, Alex Hirsch nos presenta la historia de Bill y sus aventuras, así como su intrincada personalidad. Con un tono lleno de humor oscuro y giros inesperados, el libro explora los temas de la amistad, la traición y el poder, ofreciendo a los fanáticos de la serie una mirada única a la mente de uno de sus personajes más intrigantes. La obra combina elementos de fantasía y misterio, haciéndola accesible tanto para jóvenes como para adultos.",
     "estado": "Reacondicionado",
     "genero": "Ciencia ficción",
+    "formato": "Físico",
     "vendedor": "Ivan David Gomez Silva",
     "idVendedor": "857857d1-afdd-411d-b41a-be427d1ff186",
     "edicion": "2da Edición",
@@ -25,7 +26,6 @@
     "fechaPublicacion": "2024-11-21T13:52:00.234Z",
     "actualizadoEn": "2024-11-26T16:16:50.028Z",
     "disponibilidad": "Vendido",
-    "formato": "Físico",
     "mensajes": [
       [
         "¿Cuál es el costo del producto?",
@@ -42,7 +42,9 @@
         "",
         "9b922eb4-33e8-4781-9863-c066992e1620"
       ]
-    ]
+    ],
+    "librosVendidos": 0,
+    "colecciones": []
   },
   {
     "titulo": "Recupera tu mente, reconquista tu vida",
@@ -57,6 +59,7 @@
     "descripcion": "Este libro aborda los retos de vivir en una sociedad hiperconectada, donde la gratificación inmediata y las distracciones constantes han debilitado nuestra capacidad de concentración y gestión emocional. Marian Rojas Estapé, desde su perspectiva como psiquiatra, ofrece herramientas para rescatar la atención perdida, comprender mejor las emociones y recuperar el control de la vida. El libro explora temas como el impacto de las pantallas, las adicciones digitales, la dopamina y los efectos del estrés y la ansiedad, con el objetivo de ayudar al lector a encontrar un equilibrio mental y emocional.",
     "estado": "Nuevo",
     "genero": "Autoayuda",
+    "formato": "",
     "vendedor": "Monica Silva",
     "idVendedor": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
     "edicion": "",
@@ -78,7 +81,9 @@
         "",
         ""
       ]
-    ]
+    ],
+    "librosVendidos": 0,
+    "colecciones": []
   },
   {
     "titulo": "Deja de ser tú",
@@ -93,6 +98,7 @@
     "descripcion": "Deja de ser tú: La mente crea la realidad de Joe Dispenza explora cómo nuestras creencias y pensamientos condicionan nuestra vida. A través de una combinación de física cuántica, neurociencia, biología y genética, el autor ofrece herramientas para reprogramar el cerebro y alcanzar un estado superior de conciencia. Dispenza sugiere que es posible romper patrones mentales negativos y transformar la realidad personal mediante la meditación y la autosuperación, logrando prosperidad y bienestar emocional.",
     "estado": "Nuevo",
     "genero": "Autoayuda",
+    "formato": "",
     "vendedor": "Monica Silva",
     "idVendedor": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
     "edicion": "",
@@ -119,7 +125,9 @@
         "",
         "9b922eb4-33e8-4781-9863-c066992e1620"
       ]
-    ]
+    ],
+    "librosVendidos": 0,
+    "colecciones": []
   },
   {
     "titulo": "La vegetariana",
@@ -140,6 +148,7 @@
     "descripcion": "\"La vegetariana\" de Han Kang cuenta la historia de Yeonghye, una mujer coreana que decide dejar de consumir carne después de experimentar pesadillas violentas. Este cambio aparentemente simple desata una serie de transformaciones radicales tanto en su vida como en sus relaciones, convirtiendo su decisión en un acto subversivo que impacta su entorno familiar y social. La novela explora temas como la resistencia contra la violencia, la represión patriarcal, y la búsqueda de pureza y libertad en un contexto social opresivo.",
     "estado": "Reacondicionado",
     "genero": "Literatura contemporánea",
+    "formato": "",
     "vendedor": "Monica Silva",
     "idVendedor": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
     "edicion": "",
@@ -149,7 +158,10 @@
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:38:47.585Z",
     "actualizadoEn": "2024-10-20T19:38:48.292Z",
-    "disponibilidad": "Disponible"
+    "disponibilidad": "Disponible",
+    "mensajes": [],
+    "librosVendidos": 0,
+    "colecciones": []
   },
   {
     "titulo": "Demasiado tarde para despertar",
@@ -164,6 +176,7 @@
     "descripcion": "Este ensayo filosófico de Slavoj Žižek ofrece una mirada crítica y provocadora sobre los desafíos contemporáneos, desde la guerra en Ucrania y el ascenso de los populismos, hasta la manipulación del lenguaje y el cambio climático. El autor sugiere que es necesario asumir que el \"fin del mundo\" tal como lo conocemos ya no es evitable y que debemos empezar a pensar desde esa realidad. Con su estilo habitual, Žižek confronta con ironía y agudeza las ideologías contemporáneas y nos invita a cuestionar las certezas del presente.",
     "estado": "Nuevo",
     "genero": "Filosofía",
+    "formato": "",
     "vendedor": "Alvaro Gómez",
     "idVendedor": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
     "edicion": "",
@@ -173,7 +186,10 @@
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:51:23.575Z",
     "actualizadoEn": "2024-10-26T16:59:19.373Z",
-    "disponibilidad": "Disponible"
+    "disponibilidad": "Disponible",
+    "mensajes": [],
+    "librosVendidos": 0,
+    "colecciones": []
   },
   {
     "titulo": "Acaba con la inflamación en 7 días",
@@ -188,6 +204,7 @@
     "descripcion": "\"Acaba con la inflamación en 7 días\" de Stephen Perrine es un libro que presenta un enfoque integral para reducir la inflamación crónica y mejorar la salud intestinal. El autor explica cómo un microbioma poco saludable puede estar relacionado con el aumento de peso y por qué muchas dietas tradicionales no logran resultados sostenibles. A lo largo del texto, Perrine ofrece un plan de siete días que combina alimentos de origen vegetal y recetas prácticas (como pizzas y snacks) para facilitar la pérdida de peso, mejorar la digestión, reducir la obesidad y prevenir enfermedades relacionadas. El libro enfatiza la importancia del bienestar sostenible, sin enfocarse exclusivamente en restricciones dietéticas.",
     "estado": "Nuevo",
     "genero": "Salud",
+    "formato": "",
     "vendedor": "Alvaro Gómez",
     "idVendedor": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
     "edicion": "",
@@ -209,6 +226,16 @@
         "",
         "857857d1-afdd-411d-b41a-be427d1ff186"
       ]
+    ],
+    "librosVendidos": 0,
+    "colecciones": [
+      {
+        "nombre": "Aña",
+        "librosIds": [
+          "88c87f69-4b49-4633-bfba-cd3d29b1a21d",
+          "88c87f69-4b49-4633-bfba-cd3d29b1a21d"
+        ]
+      }
     ]
   },
   {
@@ -224,6 +251,7 @@
     "descripcion": "\"100 sopas colombianas\" de Ana Belén Charry es un libro que busca rescatar la tradición culinaria del país a través de una selección de recetas emblemáticas de sopas. La autora, conocida como la \"#antropochef\", viaja por distintas regiones de Colombia para recopilar saberes y sabores transmitidos de forma oral por generaciones. Con esta obra, Charry no solo ofrece recetas, sino también una conexión con la historia y la cultura del país, evocando ese sabor acogedor típico de las abuelas.",
     "estado": "Nuevo",
     "genero": "Cocina",
+    "formato": "",
     "vendedor": "Alvaro Gómez",
     "idVendedor": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
     "edicion": "",
@@ -234,7 +262,9 @@
     "fechaPublicacion": "2024-10-20T19:57:40.347Z",
     "actualizadoEn": "2024-10-27T05:17:45.540Z",
     "disponibilidad": "Disponible",
-    "mensajes": []
+    "mensajes": [],
+    "librosVendidos": 0,
+    "colecciones": []
   },
   {
     "titulo": "Globalismo",
@@ -255,6 +285,7 @@
     "descripcion": "\"Globalismo: Ingeniería social y control total en el siglo XXI\" de Agustín Laje es un ensayo crítico que aborda los peligros de lo que el autor denomina “globalismo”. Laje argumenta que esta ideología, distinta de la globalización, busca concentrar el poder mediante instituciones supranacionales (como la ONU y el Foro Económico Mundial) para imponer un control total sobre las naciones y sus ciudadanos. El libro examina temas como la vigilancia, la manipulación lingüística, el transhumanismo, y las implicaciones sociales y políticas de la Agenda 2030. Según el autor, el objetivo del globalismo es la creación de un régimen político no representativo que pone en riesgo la soberanía de los estados y las libertades individuales.",
     "estado": "Nuevo",
     "genero": "Ciencias políticas",
+    "formato": "",
     "vendedor": "Alvaro Gómez",
     "idVendedor": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
     "edicion": "",
@@ -264,7 +295,10 @@
     "edad": "",
     "fechaPublicacion": "2024-10-20T20:00:42.968Z",
     "actualizadoEn": "2024-10-20T20:00:43.116Z",
-    "disponibilidad": "Disponible"
+    "disponibilidad": "Disponible",
+    "mensajes": [],
+    "librosVendidos": 0,
+    "colecciones": []
   },
   {
     "titulo": "IA más allá de los algoritmos",
@@ -285,6 +319,7 @@
     "descripcion": "\"IA Más Allá de los Algoritmos\" es un libro que explora las implicaciones éticas, sociales y filosóficas de la inteligencia artificial (IA). El autor, Víctor Muñoz, ofrece un análisis profundo de cómo la IA no solo afecta a la tecnología, sino también a la vida cotidiana y a las decisiones humanas. A través de casos de estudio y reflexiones críticas, se invita al lector a pensar en el futuro de la IA y su impacto en la sociedad.",
     "estado": "Nuevo",
     "genero": "Tecnología",
+    "formato": "",
     "vendedor": "Alvaro Gómez",
     "idVendedor": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
     "edicion": "",
@@ -294,13 +329,16 @@
     "edad": "",
     "fechaPublicacion": "2024-10-20T20:16:04.711Z",
     "actualizadoEn": "2024-10-20T20:16:04.908Z",
-    "disponibilidad": "Disponible"
+    "disponibilidad": "Disponible",
+    "mensajes": [],
+    "librosVendidos": 0,
+    "colecciones": []
   },
   {
     "titulo": "Nexus",
     "autor": "Yuval Noah Harari",
     "precio": 60000,
-    "oferta": 0,
+    "oferta": null,
     "images": [
       "1734022157820-23916145.png"
     ],
@@ -311,6 +349,7 @@
     "descripcion": "\"Nexus\" es una fascinante exploración de Yuval Noah Harari sobre el futuro de la humanidad en un mundo cada vez más interconectado. En este libro, Harari analiza cómo la tecnología, la biología y la inteligencia artificial están transformando nuestra sociedad y plantea preguntas provocativas sobre el destino de la humanidad en la era del Big Data y la ciberguerra. Con su estilo perspicaz y su enfoque interdisciplinario, Harari desafía nuestras percepciones sobre la realidad y nos invita a reflexionar sobre las posibilidades y peligros que nos depara el futuro.",
     "estado": "Nuevo",
     "genero": "Biografía",
+    "formato": "Físico",
     "vendedor": "Ivan David Gomez",
     "idVendedor": "836e151b-43ae-48a0-8352-17ad309d8068",
     "edicion": "",
@@ -321,14 +360,15 @@
     "fechaPublicacion": "2024-12-12T16:49:17.807Z",
     "actualizadoEn": "2024-12-12T16:50:51.408Z",
     "disponibilidad": "Disponible",
-    "formato": "Físico",
     "mensajes": [
       [
         "¿En qué estado se encuentra el producto?",
         "El libro sólamente tiene un uso",
         "836e151b-43ae-48a0-8352-17ad309d8068"
       ]
-    ]
+    ],
+    "librosVendidos": 0,
+    "colecciones": []
   },
   {
     "titulo": "Si lo crees lo puedes lograr",
@@ -345,6 +385,7 @@
     "descripcion": "Libro de autoayuda que te motivará",
     "estado": "Nuevo",
     "genero": "Autoayuda",
+    "formato": "",
     "vendedor": "Ivan David Gomez",
     "idVendedor": "836e151b-43ae-48a0-8352-17ad309d8068",
     "edicion": "",
@@ -354,7 +395,10 @@
     "edad": "",
     "fechaPublicacion": "2024-10-20T22:11:53.009Z",
     "actualizadoEn": "2024-10-20T22:11:53.027Z",
-    "disponibilidad": "Disponible"
+    "disponibilidad": "Disponible",
+    "mensajes": [],
+    "librosVendidos": 0,
+    "colecciones": []
   },
   {
     "titulo": "El encuentro de cuatro imperios",
@@ -371,6 +415,7 @@
     "descripcion": "\"El encuentro de cuatro imperios\" es una obra literaria de Javier Fernandez Aguado que narra la fascinante historia de cuatro poderosos imperios que chocan en un épico enfrentamiento por el dominio del mundo. Con una trama llena de intrigas, alianzas y traiciones, esta novela transporta al lector a un universo de conflictos bélicos y políticos donde cada movimiento estratégico puede cambiar el rumbo de la historia. Aguado crea un relato apasionante que explora las ambiciones de los líderes, las pasiones de los personajes y las consecuencias de sus decisiones en un escenario de guerra y poder. Una obra imperdible para los amantes de la ficción histórica y la intriga política.",
     "estado": "Nuevo",
     "genero": "Autoayuda",
+    "formato": "Físico",
     "vendedor": "Ivan David Gomez Silva",
     "idVendedor": "857857d1-afdd-411d-b41a-be427d1ff186",
     "edicion": "2da Edición",
@@ -381,7 +426,6 @@
     "fechaPublicacion": "2024-11-23T19:31:26.489Z",
     "actualizadoEn": "2024-12-04T00:12:36.198Z",
     "disponibilidad": "Vendido",
-    "formato": "Físico",
     "mensajes": [
       [
         "Ojalá que me puedan responder a esto",
@@ -418,7 +462,9 @@
         "No señor",
         "857857d1-afdd-411d-b41a-be427d1ff186"
       ]
-    ]
+    ],
+    "librosVendidos": 0,
+    "colecciones": []
   },
   {
     "titulo": "El experimento: Amor Verdadero",
@@ -436,6 +482,7 @@
     "descripcion": "El experimento: amor verdadero",
     "estado": "Nuevo",
     "genero": "Amor",
+    "formato": "",
     "vendedor": "Monica Silva",
     "idVendedor": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
     "edicion": "",
@@ -445,7 +492,10 @@
     "edad": "",
     "fechaPublicacion": "2024-10-21T01:38:17.687Z",
     "actualizadoEn": "2024-10-21T01:38:17.821Z",
-    "disponibilidad": "Disponible"
+    "disponibilidad": "Disponible",
+    "mensajes": [],
+    "librosVendidos": 0,
+    "colecciones": []
   },
   {
     "titulo": "La mujer incierta",
@@ -460,6 +510,7 @@
     "descripcion": "Mujer incierta",
     "estado": "Usado",
     "genero": "Biografía",
+    "formato": "",
     "vendedor": "Monica Silva",
     "idVendedor": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
     "edicion": "",
@@ -469,7 +520,10 @@
     "edad": "",
     "fechaPublicacion": "2024-10-21T01:39:41.041Z",
     "actualizadoEn": "2024-10-21T01:39:41.063Z",
-    "disponibilidad": "Disponible"
+    "disponibilidad": "Disponible",
+    "mensajes": [],
+    "librosVendidos": 0,
+    "colecciones": []
   },
   {
     "titulo": "Batalla Cultural",
@@ -499,7 +553,9 @@
     "fechaPublicacion": "2024-11-23T18:01:19.800Z",
     "actualizadoEn": "2024-11-23T18:01:56.356Z",
     "disponibilidad": "Disponible",
-    "mensajes": []
+    "mensajes": [],
+    "librosVendidos": 0,
+    "colecciones": []
   },
   {
     "titulo": "Practical React Native",
@@ -529,7 +585,9 @@
     "fechaPublicacion": "2024-11-23T19:20:30.241Z",
     "actualizadoEn": "2024-11-23T19:21:19.492Z",
     "disponibilidad": "Disponible",
-    "mensajes": []
+    "mensajes": [],
+    "librosVendidos": 0,
+    "colecciones": []
   },
   {
     "titulo": "React Practico desde cero a desarrollos web avanzados",
@@ -565,7 +623,9 @@
         "",
         "857857d1-afdd-411d-b41a-be427d1ff186"
       ]
-    ]
+    ],
+    "librosVendidos": 0,
+    "colecciones": []
   },
   {
     "titulo": "React Practico desde cero a desarrollos web avanzados",
@@ -595,7 +655,9 @@
     "fechaPublicacion": "2024-12-05T23:23:38.336Z",
     "actualizadoEn": "2024-12-05T23:23:57.785Z",
     "disponibilidad": "Disponible",
-    "mensajes": []
+    "mensajes": [],
+    "librosVendidos": 0,
+    "colecciones": []
   },
   {
     "titulo": "React Practico desde cero a desarrollos web avanzados",
@@ -625,6 +687,8 @@
     "fechaPublicacion": "2024-12-06T22:48:15.769Z",
     "actualizadoEn": "2024-12-06T22:51:24.403Z",
     "disponibilidad": "Disponible",
-    "mensajes": []
+    "mensajes": [],
+    "librosVendidos": 0,
+    "colecciones": []
   }
 ]

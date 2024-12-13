@@ -504,36 +504,56 @@ export class BooksController {
   }
 
   static async createColection (req, res) {
-    const { bookId, colectionName } = req.params
-    if (!bookId || !colectionName) {
-      return res.status(400).json({ error: 'No se entregaron todos los campos' })
+    const { bookId, collectionName } = req.body
+    try {
+      if (!bookId || !collectionName) {
+        return res.status(400).json({ error: 'No se entregaron todos los campos' })
+      }
+      const book = await BooksModel.getBookById(bookId)
+      if (!book) {
+        return res.status(500).json({ error: 'No se encontró el libro' })
+      }
+      const updated = await BooksModel.updateBook(bookId, { colecciones: [...(book?.colecciones || []), { nombre: collectionName, librosIds: [] }] })
+
+      if (!updated) {
+        return res.status(401).json({ erro: 'No se pudo actualizar el libro' })
+      }
+
+      res.json({ data: updated })
+    } catch (error) {
+      console.log('Error:', error)
+      res.status(500).json({ error: 'Error en el servidor' })
     }
-    const book = await BooksModel.getBookById(bookId)
-    if (!book) {
-      return res.status(500).json({ error: 'No se encontró el libro' })
-    }
-    book.colecciones.push({ nombre: colectionName, librosIds: [] })
-    const updated = await BooksController.updateBook(bookId, { colecciones: book.colecciones })
   }
 
   static async addToColection (req, res) {
-    const { bookId, colectionName } = req.params
-    if (!bookId) {
-      return res.status(404).json({ error: 'No se proveyó un libro' })
+    try {
+      const { bookId, collectionName } = req.body
+      if (!bookId) {
+        return res.status(404).json({ error: 'No se proveyó un libro' })
+      }
+      const book = await BooksModel.getBookById(bookId)
+      if (!book) {
+        return res.status(500).json({ error: 'No se encontró el libro' })
+      }
+      // REVISAR SI YA SE AGREGÓ
+      const colection = book.colecciones.find((coleccion) => coleccion.nombre === collectionName)
+      const coleccionesRestantes = book.colecciones.filter((coleccion) => coleccion.nombre !== collectionName)
+      const updated = await BooksModel.updateBook(bookId, {
+        colecciones: [...(coleccionesRestantes || []),
+          {
+            nombre: colection.nombre,
+            librosIds: [...(colection?.librosIds || []), bookId]
+          }]
+      })
+      if (!updated) {
+        return res.status(401).json({ error: 'No se pudo actualizar el libro' })
+      }
+
+      res.json({ data: updated })
+    } catch (error) {
+      console.log('Error:', error)
+      res.status(500).json({ error: 'Error en el servidor' })
     }
-    const book = await BooksModel.getBookById(bookId)
-    if (!book) {
-      return res.status(500).json({ error: 'No se encontró el libro' })
-    }
-    // REVISAR SI YA SE AGREGÓ
-    const colection = book.colecciones.find((coleccion) => coleccion.nombre === colectionName)
-    const coleccionesRestantes = book.colecciones.filter((coleccion) => coleccion.nombre !== colectionName)
-    const updated = await BooksModel.updateBook(bookId, {
-      colecciones: [...coleccionesRestantes,
-        {
-          nombre: colection.nombre,
-          librosIds: [...colection?.librosIds || [], bookId]
-        }]
-    })
   }
 }

@@ -143,3 +143,24 @@ Content-Type: application/json
     "titulo": "Harry Potter y la Cámara Secreta",
     "autor": "Warner Bros"
 }
+
+
+###
+
+POST http://localhost:3030/api/books/newCollection
+Content-Type: application/json
+
+{
+    "collectionName": "Aña",
+    "bookId": "88c87f69-4b49-4633-bfba-cd3d29b1a21d"
+}
+
+###
+
+POST http://localhost:3030/api/books/addToCollection
+Content-Type: application/json
+
+{
+    "collectionName": "Aña",
+    "bookId": "88c87f69-4b49-4633-bfba-cd3d29b1a21d"
+}
