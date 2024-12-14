@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import { UsersController } from '../../controllers/users/usersController.js'
 import { upload } from '../../assets/config.js'
+
 const usersRouter = Router()
 
 usersRouter.get('/', UsersController.getAllUsersSafe) // R
@@ -15,6 +16,8 @@ usersRouter.post('/userSession', UsersController.userData)
 
 usersRouter.post('/changePasswordEmail', UsersController.sendChangePasswordEmail)
 usersRouter.post('/changePassword', UsersController.changePassword)
+
+usersRouter.use('/mercadoPagoWebHooks', UsersController.MercadoPagoWebhooks)
 
 usersRouter.get('/query', UsersController.getUserByQuery)
 
