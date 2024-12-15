@@ -322,7 +322,7 @@ export class BooksController {
         return res.status(404).json({ error: 'Libro no encontrado o no actualizado' })
       }
 
-      // Crear notificación si no es una pregunta
+      // Crear notificación si no es una preguntax
       if (!data.mensaje && !data.tipo) {
         await sendNotification(createNotification(data, 'bookUpdated'))
       }

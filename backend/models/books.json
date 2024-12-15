@@ -25,7 +25,7 @@
     "edad": "",
     "fechaPublicacion": "2024-11-21T13:52:00.234Z",
     "actualizadoEn": "2024-11-26T16:16:50.028Z",
-    "disponibilidad": "Vendido",
+    "disponibilidad": "Disponible",
     "mensajes": [
       [
         "¿Cuál es el costo del producto?",
@@ -67,7 +67,7 @@
     "tapa": "Sin tapa",
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:24:21.509Z",
-    "actualizadoEn": "2024-10-28T04:44:38.674Z",
+    "actualizadoEn": "2024-12-15T01:30:43.538Z",
     "disponibilidad": "Disponible",
     "mensajes": [
       [
@@ -105,8 +105,8 @@
     "tapa": "Dura",
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:33:28.373Z",
-    "actualizadoEn": "2024-11-24T12:08:02.255Z",
-    "disponibilidad": "Disponible",
+    "actualizadoEn": "2024-12-15T01:41:41.502Z",
+    "disponibilidad": "Vendido",
     "mensajes": [
       [
         "¿Cómo puedo hacer una devolución?",
@@ -154,8 +154,8 @@
     "tapa": "Blanda",
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:38:47.585Z",
-    "actualizadoEn": "2024-10-20T19:38:48.292Z",
-    "disponibilidad": "Disponible",
+    "actualizadoEn": "2024-12-15T01:40:20.506Z",
+    "disponibilidad": "Vendido",
     "mensajes": [],
     "librosVendidos": 0
   },
@@ -181,7 +181,7 @@
     "tapa": "",
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:51:23.575Z",
-    "actualizadoEn": "2024-10-26T16:59:19.373Z",
+    "actualizadoEn": "2024-12-15T01:27:38.596Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
     "librosVendidos": 0
@@ -208,7 +208,7 @@
     "tapa": "",
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:54:25.204Z",
-    "actualizadoEn": "2024-12-13T20:12:45.747Z",
+    "actualizadoEn": "2024-12-15T01:33:08.851Z",
     "disponibilidad": "Disponible",
     "mensajes": [
       [
@@ -222,13 +222,7 @@
         "857857d1-afdd-411d-b41a-be427d1ff186"
       ]
     ],
-    "librosVendidos": 0,
-    "colecciones": [
-      {
-        "nombre": "Aña",
-        "librosIds": []
-      }
-    ]
+    "librosVendidos": 0
   },
   {
     "titulo": "100 sopas colombianas",
@@ -285,7 +279,7 @@
     "tapa": "",
     "edad": "",
     "fechaPublicacion": "2024-10-20T20:00:42.968Z",
-    "actualizadoEn": "2024-10-20T20:00:43.116Z",
+    "actualizadoEn": "2024-12-15T01:35:23.816Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
     "librosVendidos": 0
@@ -412,7 +406,7 @@
     "edad": "Adulto",
     "fechaPublicacion": "2024-11-23T19:31:26.489Z",
     "actualizadoEn": "2024-12-04T00:12:36.198Z",
-    "disponibilidad": "Vendido",
+    "disponibilidad": "Disponible",
     "mensajes": [
       [
         "Ojalá que me puedan responder a esto",

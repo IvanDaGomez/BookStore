@@ -1,4 +1,3 @@
-import { OPENAI_API_KEY } from '../../assets/config.js' // Ensure your API key is correctly set
 import fetch from 'node-fetch'
 async function generateResponse (req, res) {
   try {
@@ -17,7 +16,7 @@ async function generateResponse (req, res) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${OPENAI_API_KEY}` // Ensure API key is passed correctly
+        Authorization: `Bearer ${process.env.OPENAI_API_KEY}` // Ensure API key is passed correctly
       },
       body: JSON.stringify({
         model: 'gpt-3.5-turbo',

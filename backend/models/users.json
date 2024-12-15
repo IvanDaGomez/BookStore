@@ -185,7 +185,11 @@
       "836e151b-43ae-48a0-8352-17ad309d8068"
     ],
     "siguiendo": [],
-    "colecciones": []
+    "colecciones": [],
+    "librosVendidos": 1,
+    "balance": {
+      "porLlegar": null
+    }
   },
   {
     "nombre": "Alvaro Gómez",
@@ -264,7 +268,7 @@
     "siguiendo": [],
     "librosVendidos": 1,
     "balance": {
-      "porLlegar": 85000
+      "porLlegar": null
     }
   },
   {
@@ -280,7 +284,7 @@
     "estadoCuenta": "activo",
     "fotoPerfil": "1733521219913-952070967.png",
     "_id": "836e151b-43ae-48a0-8352-17ad309d8068",
-    "actualizadoEn": "2024-12-12T13:55:51.308Z",
+    "actualizadoEn": "2024-12-14T23:05:14.476Z",
     "direccionEnvio": {
       "ciudad": "Floridablanca",
       "pais": "Colombia",
@@ -304,7 +308,10 @@
     ],
     "bio": "",
     "favoritos": [
-      "3f7ab023-15e7-4626-8890-a71f4f2e221c"
+      "3f7ab023-15e7-4626-8890-a71f4f2e221c",
+      "31d52487-f746-4951-bf11-7b41febea0a9",
+      "9f8eae32-d2c3-4739-87e5-4c95dc1a665c",
+      "3c37ef91-d1bb-4c19-ad47-85b9fb147474"
     ],
     "notificationsIds": [
       "eed1b131-50d1-4d63-84a5-c5c9e0abf849",

@@ -5,6 +5,7 @@ const transactionObject = (data) => {
     _id: data._id || '', // ID único de la transacción
     userId: data.userId || '', // ID del usuario que realiza la compra
     sellerId: data.sellerId || '',
+    bookId: data.bookId || '',
     fee_details: data.fee_details || [],
     description: data?.paymentDetails?.description || '',
     charges_details: data.charges_details || [],
@@ -13,7 +14,7 @@ const transactionObject = (data) => {
     amount: data?.paymentDetails?.amount || 0, // Monto de la transacción
     paymentMethod: data?.paymentDetails?.method,
     installments: data.installments || 1,
-    card: data.card || [],
+    card: data.card || {},
     status: data.status || 'pending', // Estado del pago (pendiente, confirmado, entregado)
     createdIn: data.createdIn || new Date().toISOString(), // Fecha de creación de la transacción
     updatedIn: data.updatedIn || new Date().toISOString() // Fecha de la última actualización (cuando cambie el estado)
@@ -88,6 +89,8 @@ class TransactionsModel {
       const newTransaction = transactionObject(data)
 
       transactions.push(newTransaction)
+      console.log('New transaction', newTransaction)
+      console.log('Transacciones:', transactions)
       await fs.writeFile('./models/failedTransactions.json', JSON.stringify(transactions, null, 2))
       return newTransaction
     } catch (err) {
@@ -130,6 +133,22 @@ class TransactionsModel {
       return true
     } catch (err) {
       console.error('Error updating transaction:', err)
+      throw new Error(err)
+    }
+  }
+
+  static async getBookByTransactionId (id) {
+    try {
+      const transactions = await this.getAllTransactions()
+      const transaction = transactions.find(transaction => transaction.bookId === id)
+      if (!transaction) {
+        return null
+      }
+
+      // Return transaction with limited public information
+      return transactionObject(transaction)
+    } catch (err) {
+      console.error('Error reading transaction:', err)
       throw new Error(err)
     }
   }

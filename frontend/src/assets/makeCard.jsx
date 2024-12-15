@@ -177,7 +177,19 @@ const MakeOneFrCard = ({ element, index, user = '' }) => {
         
         <button
           className="addToCartButton"
-          onClick={(event) => user._id ? handleFavoritos(event, element._id, user._id): handleFavoritos(event, element._id)}
+          onClick={(event) => {
+            event.preventDefault()
+            
+            if (!user._id) {
+              toast.error(<div>Necesitas iniciar sesión <Link to='/login' style={{
+                textDecoration: 'underline',
+                color: 'var(--using4)'
+              }}>aquí</Link></div>)
+              return
+            }
+            user._id ? handleFavoritos(event, element._id, user._id): handleFavoritos(event, element._id)
+            toast.success('Agregado a favoritos exitosamente')
+            }}
         >
           Agregar a favoritos
         </button>
@@ -199,9 +211,7 @@ const MakeOneFrCard = ({ element, index, user = '' }) => {
                 {(element.disponibilidad === 'Vendido') ? (
                     <div 
                         className="percentageElement" 
-                        style={{ 
-                            background: 'red'}}
-                    >
+                        style={{ background: 'red'}}>
                         Vendido
                     </div>
                 ) : null}</div>

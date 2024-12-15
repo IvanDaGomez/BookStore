@@ -14,8 +14,8 @@ import { TransactionsModel } from '../../models/transactions/transactionsModel.j
 // eslint-disable-next-line no-unused-vars
 import { CreateOrdenDeEnvío } from '../../assets/createOrdenDeEnvio.js'
 import { handlePaymentResponse } from '../../assets/handlePaymentResponse.js'
-import { BooksModel } from '../../models/books/local/booksLocal.js'
 import { validateSignature } from '../../assets/validateSignature.js'
+import { processPaymentResponse } from './processPaymentResponse.js'
 
 export class UsersController {
   static async getAllUsers (req, res) {
@@ -649,88 +649,34 @@ export class UsersController {
           installments: data.installments || 1,
           token: data.token || null,
           issuer_id: data.issuer_id || null,
-          additional_info: data.additional_info || null,
+          additional_info: data.additional_info || {
+
+          },
           callback_url: data.callback_url || null,
           application_fee: application_fee || 0, // Tarifa de la aplicación
-          marketplace: {
+          /* marketplace: {
             collector_id: process.env.MERCADOPAGO_COLLECTOR_ID // ID de tu cuenta colectora principal
-          },
+          }, */
           external_reference: `book_${book._id}_${userId}`, // Referencia para identificar el pago
-          notification_url: `${process.env.WEBHOOK_URL}/mercadopago/notifications` // Webhook para notificaciones
+          notification_url: `${process.env.BACKEND_DOMAIN}/api/users/mercadoPagoWebHooks?source_news=webhooks` // Webhook para notificaciones
+          /* payments: [
+            {
+              collector_id: sellerId, // ID de la página de gestiones
+              amount: transaction_amount - application_fee, // Lo que queda para el vendedor
+              payment_method_id: data.payment_method_id
+            },
+            {
+              collector_id: marketplaceCollectorId, // ID del marketplace (comisiones)
+              amount: application_fee, // Comisión del marketplace
+              payment_method_id: data.payment_method_id
+            }
+          ] */
         },
         requestOptions: { idempotencyKey: XidempotencyKey }
       })
 
       const result = handlePaymentResponse({ ...response, sellerId, userId, book, shippingDetails })
-
-      if (result.success) {
-        await TransactionsModel.createSuccessfullTransaction(result)
-      } else {
-        await TransactionsModel.createFailureTransaction(result)
-      }
-      const user = await UsersModel.getUserById(sellerId)
-      const [updatedBook, updatedUser] = await Promise.all([
-        BooksModel.updateBook(book._id, { disponibilidad: 'Vendido' }),
-        (result.success || result.payment_method_id === 'efecty')
-          ? UsersModel.updateUser(sellerId, {
-            librosVendidos: (book.librosVendidos || 0) + 1,
-            balance: { porLlegar: (user?.balance?.porLlegar || 0) + data.transaction_amount }
-          })
-          : ''
-      ])
-
-      if (!updatedBook || !updatedUser) {
-        return res.status(400).json({ error: 'El libro o usuario no pudo actualizarse' })
-      }
-
-      // Crear orden de envío si aplica (con los shipping details)
-      if (result.success) {
-        // const ordenData = {}
-        // const order = await CreateOrdenDeEnvío(ordenData)
-
-        const correo = await UsersModel.getEmailById(sellerId)
-        // Promesa para enviar todos los correos y la notificación en paralelo
-        try {
-          const emailPromises = []
-          const notificationPromises = []
-
-          if (data.payer.email) {
-            emailPromises.push(
-              sendEmail(data.payer.email, 'Comprobante de pago en Meridian', createEmail(result, 'paymentDoneBill')),
-              sendEmail(data.payer.email, '¡Gracias por tu compra!', createEmail(result, 'paymentDoneThank'))
-            )
-          }
-          emailPromises.push(
-            sendEmail(correo.correo, '¡Tu libro ha sido vendido con éxito!', createEmail({ ...book, fecha: result.paymentDetails.createdIn }, 'bookSold'))
-          )
-          notificationPromises.push(
-            sendNotification(createNotification(book, 'bookSold'))
-          )
-          // Ejecutar emails y notificaciones en paralelo
-          await Promise.all([...emailPromises, ...notificationPromises])
-        } catch (notifError) {
-          console.error('Error enviando notificación:', notifError.message)
-        }
-        return res.json({
-          status: 'success',
-          message: 'Pago procesado exitosamente!',
-          id: response.id,
-          paymentDetails: result.paymentDetails
-        })
-        // if not success
-      } else {
-        // If payment method is efecty send the email
-        if (data.payment_method_id === 'efecty' && data.payer.email) {
-          await sendEmail(data.payer.email, 'Información de tu pago en Efecty', createEmail(response, 'efectyPendingPayment'))
-        }
-        console.log('No tuvo éxito el pago')
-      }
-      res.json({
-        status: result.status,
-        message: 'Pago pendiente o rechazado!',
-        id: response.id,
-        paymentDetails: result.paymentDetails
-      })
+      await processPaymentResponse({ response, result, sellerId, book, data, res })
     } catch (error) {
       console.error('Error processing payment:', error.message, { error })
       res.status(500).json({
@@ -743,28 +689,76 @@ export class UsersController {
 
   static async MercadoPagoWebhooks (req, res) {
     try {
-      // 1. Verificar la autenticidad del webhook (opcional)
+      const { type } = req.query
       const paymentData = req.body
       const signature = req.headers['x-signature']
       const reqId = req.headers['x-request-id']
-      const isValid = validateSignature({ signature, reqId, body: paymentData }) // Función para validar la firma
-
+      const isValid = validateSignature({ signature, reqId, body: paymentData })
       if (!isValid) {
         return res.status(400).json({ error: 'Firma no válida' })
       }
+
       const client = new MercadoPagoConfig({ accessToken: ACCESS_TOKEN })
       const payment = new Payment(client)
 
-      // Verificar el estado del pago
-      if (paymentData.type === 'payment') {
-        const data = await payment.get({
-          id: paymentData.id
-        })
-        console.log(data)
-      } else if (paymentData.type === 'topic_claims_integration_wh') {
-        // Reclamos
+      if (type === 'payment') {
+        const data = await payment.get({ id: paymentData.id })
+        /* Modelo de respuesta
+        https://www.mercadopago.com.co/developers/es/reference/payments/_payments_id/get
+        {
+          id,
+          date_created,
+          date_approved,
+          date_last_updated,
+          date_of_expiration,
+          money_release_date,
+          operation_type,
+          issuer_id,
+          payment_method_id,
+          payment_type_id,
+          status,
+          status_detail,
+          currency_id,
+          description,
+          live_mode,
+          sponsor_id,
+          authorization_code,
+          money_release_schema,
+          counter_currency,
+          collector_id,
+          payer,
+          metadata,
+          additional_info,
+          external_reference,
+          transaction_amount,
+          transaction_amount_refunded,
+          coupon_amount,
+          differential_pricing_id,
+          deduction_schema,
+          transaction_details,
+          captures,
+          binary_mode,
+          call_for_authorize_id,
+          statement_descriptor,
+          card,
+          notification_url,
+          proccessing_mode,
+          merchant_account_id,
+          acquirer,
+          merchant_number
+        }
+        */
+        // Verificar si ya se procesó esta transacción
+        const existingTransaction = await TransactionsModel.getTransactionById(data.id)
+        if (existingTransaction) {
+          console.log('Webhook: transacción ya procesada:', data.id)
+          return res.status(200).json({ status: 'success' })
+        }
+
+        const book = await TransactionsModel.getBookByTransactionId(paymentData.id)
+        await processPaymentResponse({ result: data, sellerId: book.idVendedor, book, data, res })
       }
-      // 3. Responder correctamente a Mercado Pago para evitar reintentos
+
       res.status(200).json({ status: 'success' })
     } catch (error) {
       console.error('Error al procesar el webhook:', error.message)
