@@ -1,4 +1,4 @@
-const validarPublicar1 = ({ titulo = '', autor = '', descripcion = '', archivos = [] } = {}) => {
+const validarPublicar1 = ({ titulo = '', autor = '', descripcion = '', ISBN = '',  archivos = [] } = {}) => {
   let errors = [];
 
   // Validación de archivos (campo requerido, menos de 10 archivos y solo imágenes)
@@ -38,6 +38,12 @@ const validarPublicar1 = ({ titulo = '', autor = '', descripcion = '', archivos 
     errors.push("Espera a que se genere la descripción")
   }
 
+    // Validación de ISBN
+    if (!ISBN || typeof ISBN !== 'string') {
+      errors.push("El ISBN es requerido y debe ser un texto.");
+    } else if (!esISBNValido(ISBN)) {
+      errors.push("El ISBN proporcionado no es válido.");
+    }
   return errors;
 };
 
@@ -106,5 +112,34 @@ function validarActualizarUsuario({ nombre, bio, correo, anteriorContraseña, nu
   // Return errors (if any), or null if no errors
   return errores.length > 0 ? errores : null;
 }
+// Función para validar ISBN
+const esISBNValido = (ISBN) => {
+  const limpio = ISBN.replace(/-/g, ''); // Quitar guiones
+  if (limpio.length === 10) {
+    return validarISBN10(limpio);
+  } else if (limpio.length === 13) {
+    return validarISBN13(limpio);
+  }
+  return false;
+};
 
+// Validación para ISBN-10
+const validarISBN10 = (isbn) => {
+  if (!/^\d{9}[\dX]$/.test(isbn)) return false; // 9 dígitos y un dígito de control
+  const suma = isbn.split('').reduce((acc, char, index) => {
+    const valor = char === 'X' ? 10 : parseInt(char, 10);
+    return acc + valor * (10 - index);
+  }, 0);
+  return suma % 11 === 0;
+};
+
+// Validación para ISBN-13
+const validarISBN13 = (isbn) => {
+  if (!/^\d{13}$/.test(isbn)) return false; // 13 dígitos
+  const suma = isbn.split('').reduce((acc, char, index) => {
+    const valor = parseInt(char, 10);
+    return acc + (index % 2 === 0 ? valor : valor * 3);
+  }, 0);
+  return suma % 10 === 0;
+};
 export { validarPublicar1, validarPublicar3, validarActualizarUsuario }

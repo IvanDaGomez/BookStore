@@ -55,10 +55,11 @@ export default function Fase1({ form, setForm, setFase, fase }) {
     e.preventDefault();
 
     
-    const { autor, titulo, descripcion } = e.target;
+    const { autor, titulo, isbn, descripcion } = e.target;
     const fallos = validarPublicar1({
       titulo: titulo.value,
       autor: autor.value,
+      ISBN: isbn.value,
       descripcion: descripcion.value,
       archivos: croppedImages,
     }) || [];
@@ -75,6 +76,7 @@ export default function Fase1({ form, setForm, setFase, fase }) {
       ...form,
       titulo: titulo.value,
       autor: autor.value,
+      ISBN: isbn.value,
       descripcion: descripcion.value,
       images: croppedImages,
     });
@@ -86,9 +88,10 @@ export default function Fase1({ form, setForm, setFase, fase }) {
     document.querySelector("#titulo").value = form.titulo || "";
     document.querySelector("#descripcion").value = form.descripcion || "";
     document.querySelector("#autor").value = form.autor || "";
+    document.querySelector("#isbn").value = form.ISBN || "";
     setSelectedFiles(form.images || []);
     setCroppedImages(form.images || []);
-  }, [form.titulo, form.descripcion, form.images, form.autor]);
+  }, [form.titulo, form.descripcion, form.images, form.autor, form.ISBN]);
 
 
 
@@ -264,6 +267,18 @@ export default function Fase1({ form, setForm, setFase, fase }) {
             type="text"
             name="autor"
             placeholder="Autor de tu libro"
+            required
+            
+            
+          />
+        </div>
+        <div className="inputCrear">
+          <label htmlFor="isbn">ISBN <a href="">¿Que es un ISBN?</a> *</label>
+          <input
+            id="isbn"
+            type="text"
+            name="isbn"
+            placeholder="ISBN de tu libro"
             required
             
             
