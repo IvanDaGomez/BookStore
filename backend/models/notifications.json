@@ -747,5 +747,37 @@
     "metadata": {
       "photo": ""
     }
+  },
+  {
+    "_id": "0aed0bde-6692-4ffe-97a5-3931fbff61a5",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-15T16:37:53.000Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-14T16:37:53.000Z",
+    "metadata": {
+      "photo": ""
+    }
+  },
+  {
+    "_id": "a00e27f1-e40d-41e8-b011-4d12f17c433c",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-15T16:37:53.705Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-14T16:37:53.705Z",
+    "metadata": {
+      "photo": ""
+    }
   }
 ]

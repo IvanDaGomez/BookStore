@@ -175,14 +175,15 @@
       "0f5715dd-ddae-40bf-a1a0-8a99b337a746",
       "de81c254-3ed6-4117-a1fd-c0d0568abd18",
       "8a4cf6f5-b80c-499b-a388-a3b7ea62bc82",
-      "2e52b41d-4b3f-4220-a8ed-87ac54f2c2d9"
+      "2e52b41d-4b3f-4220-a8ed-87ac54f2c2d9",
+      "0aed0bde-6692-4ffe-97a5-3931fbff61a5",
+      "a00e27f1-e40d-41e8-b011-4d12f17c433c"
     ],
     "validated": false,
     "login": "default",
     "ubicacion": {},
     "seguidores": [
-      "857857d1-afdd-411d-b41a-be427d1ff186",
-      "836e151b-43ae-48a0-8352-17ad309d8068"
+      "857857d1-afdd-411d-b41a-be427d1ff186"
     ],
     "siguiendo": [],
     "colecciones": [],
@@ -328,8 +329,7 @@
     "ubicacion": {},
     "seguidores": [],
     "siguiendo": [
-      "857857d1-afdd-411d-b41a-be427d1ff186",
-      "834a9dda-5cf5-4438-9499-eed4b8ec3e45"
+      "857857d1-afdd-411d-b41a-be427d1ff186"
     ],
     "librosVendidos": 1,
     "colecciones": [

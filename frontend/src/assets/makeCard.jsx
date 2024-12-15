@@ -252,7 +252,7 @@ const MakeOneFrCard = ({ element, index, user = '' }) => {
 }
 
 const MakeSmallCard = ({ element, index }) => {
-  return(<>
+  return(
   <Link key={index} style={{width:'100%', height:'100%'}} to={`${window.location.origin}/libros/${element._id}`}>
             <div className="sectionElement" >
                 
@@ -269,7 +269,17 @@ const MakeSmallCard = ({ element, index }) => {
 
                 
             </div>
-            </Link>
-  </>)
+            </Link>)
 }
-export { MakeCard, MakeOneFrCard, MakeUpdateCard, MakeSmallCard };
+// Pendiente
+const MakeCollectionCard = ({ element, index }) => {
+  return ( <Link key={index} style={{width:'100%', height: '100%'}} to={`/colecciones/${element._id}`}>
+    <div className="collectionElement">
+      <div className="imageElementCollectionContainer">
+
+      </div>
+    </div>
+  </Link> )
+}
+
+export { MakeCard, MakeOneFrCard, MakeUpdateCard, MakeSmallCard, MakeCollectionCard };

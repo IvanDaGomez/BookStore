@@ -1,0 +1,49 @@
+GET http://localhost:3030/api/collections
+
+
+###
+GET http://localhost:3030/api/collections/id/afd647d7-3b09-495e-9f6e-0421c16b28d6
+
+
+
+###
+POST http://localhost:3030/api/collections
+Content-Type: application/json
+
+{
+    "userId": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
+    "collection": "Hola soy miguel",
+    "conversationId": "afd647d7-3b09-495e-9f6e-0421c16b28d6"
+}
+
+###
+
+POST http://localhost:3030/api/collections/cc0c59fc-f000-4d19-af60-6b803c7bea2f/read
+
+###
+
+DELETE http://localhost:3030/api/collections/98a19b6b-9b6a-45d4-a6c3-a40a2ec32071
+
+
+#Conversation
+###
+GET http://localhost:3030/api/conversations
+
+
+###
+GET http://localhost:3030/api/conversations/afd647d7-3b09-495e-9f6e-0421c16b28d6
+
+
+
+###
+POST http://localhost:3030/api/conversations
+Content-Type: application/json
+
+{
+    "users": ["857857d1-afdd-411d-b41a-be427d1ff186","1816d212-7dc5-4d74-bb9d-e0d97bf60d27"]
+}
+
+###
+
+
+DELETE http://localhost:3030/api/conversations/4e22d65d-48b7-485f-a017-c3d296ddefae

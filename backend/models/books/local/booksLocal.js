@@ -1,26 +1,5 @@
 import fs from 'node:fs/promises'
 import { levenshteinDistance } from '../../../assets/levenshteinDistance.js'
-/* {
-    "titulo": "Harry Potter y la Cámara Secreta",
-    "autor": "Warner Bros",
-    "precio": 100000,
-    "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg", "https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg", "https://images.cdn3.buscalibre.com/fit-in/360x360/61/8d/618d227e8967274cd9589a549adff52d.jpg" ],
-    "keywords": ["fantasía", "Harry Potter", "J.K. Rowling"],
-    "id": "a1b2c3d4-e5f6-7g8h-9i10-j11k12l13m14",
-    "descripcion": "Esta es la descripción",
-    "estado" : "Usado",
-    "genero": "Novela",
-    "vendedor": "Ivan Gómez",
-    "idVendedor" : "a1b2c3d4-e5f6-7g8h-9i10-j11k12l13321",
-    "edicion": "1",
-    "idioma": "Español",
-    "ubicacion": "Bucaramanga",
-    "tapa":"Dura",
-    "edad":"Jóvenes",
-    "fechaPublicacion": "2024-10-01",
-    "disponibilidad" : "Disponible"
-
-} */
 
 const bookObject = (data) => {
   return {

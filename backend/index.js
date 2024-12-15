@@ -11,6 +11,7 @@ import { SECRET_KEY } from './assets/config.js'
 import cookieParser from 'cookie-parser'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
+import { collectionsRouter } from './routes/collections/collectionsRouter.js'
 dotenv.config()
 // import { handleStats } from './assets/handleStats.js'
 const app = express()
@@ -85,6 +86,7 @@ app.use('/api/books', booksRouter)
 app.use('/api/messages', messagesRouter)
 app.use('/api/conversations', conversationsRouter)
 app.use('/api/notifications', notificationsRouter)
+app.use('/api/collections', collectionsRouter)
 app.use('/api/emails', emailsRouter)
 app.use('/api/transactions', transactionsRouter)
 app.listen(PORT, () => {

@@ -43,7 +43,9 @@ const userSchema = z.object({
 
   fotoPerfil: z.string().url('La foto de perfil debe ser una URL válida').default('https://default-profile.com/default.jpg'), // URL por defecto para la foto de perfil
   seguidores: z.array(z.string()).default([]),
-  siguiendo: z.array(z.string()).default([])
+  siguiendo: z.array(z.string()).default([]),
+  preferencias: z.array().optional(),
+  fyp: z.array().optional()
 })
 
 function validateUser (data) {
@@ -77,10 +79,7 @@ const bookSchema = z.object({
   mensaje: z.string().optional(),
   tipo: z.string().optional(),
   pregunta: z.string().optional(),
-  colecciones: z.object({
-    nombre: z.string(), // Nombre de la colección
-    librosIds: z.array() // Libros que incluye la colección
-  }).optional()
+  coleccionsIds: z.array().optional()
 })
 function validateBook (data) {
   return bookSchema.safeParse(data)
@@ -148,10 +147,27 @@ function validateTransaction (data) {
 function validatePartialTransaction (data) {
   return transactionSchema.partial().safeParse(data)
 }
+
+const collectionSchema = z.object({
+  _id: z.string().uuid(),
+  foto: z.string().optional(),
+  librosIds: z.array().optional(),
+  nombre: z.string(),
+  descripcion: z.string().max(255, { message: 'La descripción debe tener como máximo 255 caracteres.' }).optional(),
+  seguidores: z.array().optional()
+})
+
+function validateCollection (data) {
+  return collectionSchema.safeParse(data)
+}
+function validatePartialCollection (data) {
+  return collectionSchema.partial().safeParse(data)
+}
 export {
   validateUser, validatePartialUser,
   validateBook, validatePartialBook,
   validateMessage, validatePartialMessage,
   validateNotification, validatePartialNotification,
-  validateTransaction, validatePartialTransaction
+  validateTransaction, validatePartialTransaction,
+  validateCollection, validatePartialCollection
 }

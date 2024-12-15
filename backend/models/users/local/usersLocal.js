@@ -23,7 +23,7 @@ function userObject (name) {
     ubicacion: name.ubicacion || {},
     seguidores: name.seguidores || [],
     siguiendo: name.siguiendo || [],
-    colecciones: name.colecciones || []
+    coleccionsIds: name.colecciones || []
     // Avoid exposing sensitive fields like password, email, etc.
   }
 }
