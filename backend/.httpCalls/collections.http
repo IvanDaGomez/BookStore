@@ -2,7 +2,7 @@ GET http://localhost:3030/api/collections
 
 
 ###
-GET http://localhost:3030/api/collections/id/afd647d7-3b09-495e-9f6e-0421c16b28d6
+GET http://localhost:3030/api/collections/id/5b14f0b8-1501-4a34-b90d-c87d0eea6a9b
 
 
 
@@ -11,9 +11,7 @@ POST http://localhost:3030/api/collections
 Content-Type: application/json
 
 {
-    "userId": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
-    "collection": "Hola soy miguel",
-    "conversationId": "afd647d7-3b09-495e-9f6e-0421c16b28d6"
+    "nombre": "Dicen que estamos locos"
 }
 
 ###
@@ -22,14 +20,17 @@ POST http://localhost:3030/api/collections/cc0c59fc-f000-4d19-af60-6b803c7bea2f/
 
 ###
 
-DELETE http://localhost:3030/api/collections/98a19b6b-9b6a-45d4-a6c3-a40a2ec32071
+DELETE http://localhost:3030/api/collections/5b14f0b8-1501-4a34-b90d-c87d0eea6a9b
 
 
 #Conversation
 ###
-GET http://localhost:3030/api/conversations
+PATCH http://localhost:3030/api/collections/0e17735a-8b8b-40ba-b4f5-62c89ab7d29c
+Content-Type: application/json
 
-
+{
+    "nombre": "ñaña"
+}
 ###
 GET http://localhost:3030/api/conversations/afd647d7-3b09-495e-9f6e-0421c16b28d6
 

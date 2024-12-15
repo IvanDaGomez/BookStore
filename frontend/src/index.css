@@ -2883,6 +2883,9 @@ color: var(--using6);
 .userPageContainer .select div:first-of-type{
   border-top-left-radius: var(--border) ;
 }
+.userPageContainer .select div:nth-last-of-type(even) {
+  border-inline: none;
+}
 .userPageContainer .select div:last-of-type{
   border-top-right-radius: var(--border) ;
 }

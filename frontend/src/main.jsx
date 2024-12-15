@@ -28,6 +28,7 @@ import EnviarCorreoCambiarContraseña from './routes/cambiarContraseña/enviarCo
 import CambiarContraseña from './routes/cambiarContraseña/cambiarContraseña.jsx'
 import Faq from './routes/faq/faq.jsx'
 import Fyp from './routes/forYouPage/fyp.jsx'
+import ColeccionesPage from './routes/colecciones/colecciones.jsx'
 
 
 
@@ -144,10 +145,14 @@ const router = createBrowserRouter([
   }, {
     path: '/opciones/cambiarContraseña/:token',
     element: <CambiarContraseña />
-  }, {
+  }, 
+  {
     path: '/para-ti',
-    element: <Fyp/>,
-    
+    element: <Fyp/>
+  },
+  {
+    path: 'colecciones/:collectionId',
+    element: <ColeccionesPage />
   }
 ], {
   future: {

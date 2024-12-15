@@ -34,6 +34,7 @@ export default function CrearLibro() {
     }, []);
   const [form, setForm] = useState({});
   const [fase, setFase] = useState(1);
+
   // Recuperar datos de localStorage en el primer render
   useEffect(() => {
     const storedForm = localStorage.getItem("form");
@@ -232,7 +233,6 @@ useEffect(() => {
           No todos los campos son requeridos, pero ten en cuenta que entre más completa esté tu publicación más rápido podrá venderse.
         </div>
         <h1>{actualizar ? <>Actualiza</>:<>Publica</>} tu libro</h1>
-    {console.log(form)}
         <UseStep currentStep={fase} titulos={steps}  />
         {fase === 1 ? (
           <Fase1 form={form} setForm={setForm} fase={fase} setFase={setFase} />
@@ -244,13 +244,7 @@ useEffect(() => {
       </div>
       <Footer />
       <SideInfo />
-      <ToastContainer position="top-center"
-            autoClose={5000}
-            hideProgressBar={false}
-            pauseOnHover={false}
-            closeOnClick
-            theme="light"
-            />
+      <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} pauseOnHover={false} closeOnClick theme="light"/>
     </>
   );
 }

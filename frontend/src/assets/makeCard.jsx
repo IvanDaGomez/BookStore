@@ -276,7 +276,11 @@ const MakeCollectionCard = ({ element, index }) => {
   return ( <Link key={index} style={{width:'100%', height: '100%'}} to={`/colecciones/${element._id}`}>
     <div className="collectionElement">
       <div className="imageElementCollectionContainer">
-
+        <img src={element.foto} alt="" />
+      </div>
+      <div className="info">
+        <h2>{element.nombre}</h2>
+        Seguidores: {element.seguidores.length}
       </div>
     </div>
   </Link> )

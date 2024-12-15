@@ -149,7 +149,7 @@ function validatePartialTransaction (data) {
 }
 
 const collectionSchema = z.object({
-  _id: z.string().uuid().default(''),
+  _id: z.string().uuid().optional(),
   foto: z.string().optional(),
   librosIds: z.array().optional(),
   nombre: z.string(),
