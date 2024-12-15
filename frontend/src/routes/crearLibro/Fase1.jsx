@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { validarPublicar1 } from "../../assets/validarPublicar";
 import { toast } from "react-toastify";
 import { cropImageToAspectRatio } from "../../assets/cropImageToAspectRatio";
+import { ISBNmatch } from "../../assets/ISBNmatch";
 export default function Fase1({ form, setForm, setFase, fase }) {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [croppedImages, setCroppedImages] = useState([]);
@@ -51,19 +52,27 @@ export default function Fase1({ form, setForm, setFase, fase }) {
     e.preventDefault(); 
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     
     const { autor, titulo, isbn, descripcion } = e.target;
-    const fallos = validarPublicar1({
+    const datos = {
       titulo: titulo.value,
       autor: autor.value,
       ISBN: isbn.value,
       descripcion: descripcion.value,
-      archivos: croppedImages,
-    }) || [];
-
+      images: croppedImages,
+    }
+    const fallos = validarPublicar1(datos) || [];
+    // Verificar ISBN
+    
+    const coincide = await ISBNmatch(datos)
+    console.log(coincide)
+    if (!coincide) {
+      setErrors([...errors, 'El ISBN no coincide con los datos del libro'])
+      return 
+    }
     if (fallos.length !== 0) {
       setErrors(fallos);
       return;
@@ -74,11 +83,7 @@ export default function Fase1({ form, setForm, setFase, fase }) {
 
     setForm({
       ...form,
-      titulo: titulo.value,
-      autor: autor.value,
-      ISBN: isbn.value,
-      descripcion: descripcion.value,
-      images: croppedImages,
+      ...datos
     });
     
     setFase(fase + 1);
@@ -273,7 +278,7 @@ export default function Fase1({ form, setForm, setFase, fase }) {
           />
         </div>
         <div className="inputCrear">
-          <label htmlFor="isbn">ISBN <a href="">¿Que es un ISBN?</a> *</label>
+          <label htmlFor="isbn">ISBN * <a href="https://es.wikipedia.org/wiki/ISBN" target="_blank" style={{color:'var(--using4)', fontSize:'2rem'}}>¿Que es un ISBN?</a></label>
           <input
             id="isbn"
             type="text"

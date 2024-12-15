@@ -76,12 +76,12 @@ class BooksModel {
     }
 
     const calculateMatchScore = (book, queryWords) => {
-      let score = 0
-      const tolerance = 2 // Tolerancia de letras equivocadas
-
       const queryWordsArray = changeToArray(queryWords)
       const valueElements = Object.values(book)
       const stringValueWords = []
+
+      let score = 0
+      const tolerance = query.length > 3 ? 2 : 0 // Tolerancia de letras equivocadas
 
       valueElements.forEach((element) => {
         if (typeof element === 'string') {

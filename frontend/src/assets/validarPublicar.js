@@ -1,11 +1,11 @@
-const validarPublicar1 = ({ titulo = '', autor = '', descripcion = '', ISBN = '',  archivos = [] } = {}) => {
+const validarPublicar1 = ({ titulo = '', autor = '', descripcion = '', ISBN = '',  images = [] } = {}) => {
   let errors = [];
 
   // Validación de archivos (campo requerido, menos de 10 archivos y solo imágenes)
-  if (archivos.length === 0) {
+  if (images.length === 0) {
     errors.push("Debes subir al menos una imagen.");
   } else {
-    archivos.forEach((archivo, index) => {
+    images.forEach((archivo, index) => {
       // Ahora archivo tiene una estructura {url, type}
       if (archivo.type) {
         if (!archivo.type.startsWith('image/')) {
@@ -16,7 +16,7 @@ const validarPublicar1 = ({ titulo = '', autor = '', descripcion = '', ISBN = ''
       }
     });
 
-    if (archivos.length > 10) {
+    if (images.length > 10) {
       errors.push("No puedes subir más de 10 imágenes.");
     }
   }

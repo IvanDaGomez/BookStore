@@ -5,6 +5,8 @@ const generos = [
     "Misterio",
     "Biografía",
     "Romance",
+    "Tecnología",
+    "Ingenirería",
     "Terror",
     "Histórica",
     "Poesía",
