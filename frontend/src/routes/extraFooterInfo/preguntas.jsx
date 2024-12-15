@@ -1,3 +1,3 @@
-export default function Preguntas() {
-    return(<></>)
+export default function Preguntas () {
+  return (<></>)
 }

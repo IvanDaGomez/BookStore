@@ -4,6 +4,7 @@
     "autor": "Alex Hirsch",
     "precio": 100000,
     "oferta": 90000,
+    "isbn": "",
     "images": [
       "1732197120267-615755189.png"
     ],
@@ -50,6 +51,7 @@
     "autor": "Marian Rojas Estapé",
     "precio": 40000,
     "oferta": null,
+    "isbn": "",
     "images": [
       "1729452261759-326590439.png"
     ],
@@ -88,6 +90,7 @@
     "autor": "Joe Dispenza",
     "precio": 70000,
     "oferta": null,
+    "isbn": "",
     "images": [
       "1729452808628-497173399.png"
     ],
@@ -131,6 +134,7 @@
     "autor": "Han Kang",
     "precio": 90000,
     "oferta": 80000,
+    "isbn": "",
     "images": [
       "1729453127900-467578096.png"
     ],
@@ -164,6 +168,7 @@
     "autor": "Slavoj Zizek",
     "precio": 100000,
     "oferta": null,
+    "isbn": "",
     "images": [
       "1729453883736-303865584.png"
     ],
@@ -191,6 +196,7 @@
     "autor": "Stephen Perrine",
     "precio": 95000,
     "oferta": 85000,
+    "isbn": "",
     "images": [
       "1729454065315-576691826.png"
     ],
@@ -229,6 +235,7 @@
     "autor": "Ana Belén Charry",
     "precio": 70000,
     "oferta": 60000,
+    "isbn": "",
     "images": [
       "1729454260508-386087744.png"
     ],
@@ -256,6 +263,7 @@
     "autor": "Agustín Laje",
     "precio": 95000,
     "oferta": 80000,
+    "isbn": "",
     "images": [
       "1729454443083-99653114.png"
     ],
@@ -289,6 +297,7 @@
     "autor": "Victor Muñoz, Maria Paula Mujica",
     "precio": 100000,
     "oferta": 80000,
+    "isbn": "",
     "images": [
       "1729455364862-791453802.png"
     ],
@@ -322,6 +331,7 @@
     "autor": "Yuval Noah Harari",
     "precio": 60000,
     "oferta": null,
+    "isbn": "",
     "images": [
       "1734022157820-23916145.png"
     ],
@@ -357,6 +367,7 @@
     "autor": "Claude Bristol",
     "precio": 90000,
     "oferta": 80000,
+    "isbn": "",
     "images": [
       "1729462313016-360593454.png"
     ],
@@ -386,6 +397,7 @@
     "autor": "Javier Fernandez Aguado",
     "precio": 70000,
     "oferta": 60000,
+    "isbn": "",
     "images": [
       "1732390286751-856618092.png"
     ],
@@ -451,6 +463,7 @@
     "autor": "Christina Lauren",
     "precio": 80000,
     "oferta": 70000,
+    "isbn": "",
     "images": [
       "1729474697742-161873197.png"
     ],
@@ -481,6 +494,7 @@
     "autor": "Piedad Bonnett",
     "precio": 40000,
     "oferta": null,
+    "isbn": "",
     "images": [
       "1729474781049-30122040.png"
     ],
@@ -508,6 +522,7 @@
     "autor": "Agustin Laje",
     "precio": 70000,
     "oferta": 30000,
+    "isbn": "",
     "images": [
       "1732384879818-848168127.png"
     ],
@@ -539,6 +554,7 @@
     "autor": "Frank Zammetti",
     "precio": 30000,
     "oferta": null,
+    "isbn": "",
     "images": [
       "1732389630602-769309831.png"
     ],
@@ -570,8 +586,9 @@
     "autor": "Pello Xavier Altadill Izura",
     "precio": 60000,
     "oferta": null,
+    "isbn": "9788441547735",
     "images": [
-      "1733198744024-545526866.png"
+      "1734304084508-767749665.png"
     ],
     "keywords": [],
     "_id": "e93345c4-ca50-4919-ba85-4dcf00882673",
@@ -591,12 +608,12 @@
     "tapa": "Blanda",
     "edad": "",
     "fechaPublicacion": "2024-12-03T04:05:44.005Z",
-    "actualizadoEn": "2024-12-03T17:37:14.352Z",
+    "actualizadoEn": "2024-12-15T23:09:54.630Z",
     "disponibilidad": "Disponible",
     "mensajes": [
       [
         "¿En qué estado se encuentra el producto?",
-        "",
+        "El libro se encuentra en perfecto estado con un solo uso",
         "857857d1-afdd-411d-b41a-be427d1ff186"
       ]
     ],
@@ -607,6 +624,7 @@
     "autor": "Pello Xavier Altadill Izura",
     "precio": 40000,
     "oferta": null,
+    "isbn": "",
     "images": [
       "1733441018344-166312992.png"
     ],
@@ -638,6 +656,7 @@
     "autor": "Pello Xavier Altadill Izura",
     "precio": 50000,
     "oferta": null,
+    "isbn": "",
     "images": [
       "1733525295775-121853063.png"
     ],

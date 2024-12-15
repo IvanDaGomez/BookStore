@@ -1,6 +1,4 @@
-
-
-export default function MisCompras({ user }) {
+export default function MisCompras ({ user }) {
   const compras = [
     {
       id: 1,
@@ -8,7 +6,7 @@ export default function MisCompras({ user }) {
       autor: 'J.R.R. Tolkien',
       fechaCompra: '2024-01-10',
       precio: 19.99,
-      estado: 'Entregado',
+      estado: 'Entregado'
     },
     {
       id: 2,
@@ -16,7 +14,7 @@ export default function MisCompras({ user }) {
       autor: 'George Orwell',
       fechaCompra: '2024-02-15',
       precio: 14.99,
-      estado: 'En proceso',
+      estado: 'En proceso'
     },
     {
       id: 3,
@@ -24,41 +22,43 @@ export default function MisCompras({ user }) {
       autor: 'Gabriel García Márquez',
       fechaCompra: '2024-03-05',
       precio: 24.99,
-      estado: 'Entregado',
-    },
-  ];
+      estado: 'Entregado'
+    }
+  ]
 
   return (
-    <div className="mis-compras container">
+    <div className='mis-compras container'>
       <h1>Mis Compras</h1>
       <p>Aquí puedes revisar los libros que has adquirido.</p>
 
-      {compras.length === 0 ? (
-        <p>No tienes compras registradas.</p>
-      ) : (
-        <table className="compras-table">
-          <thead>
-            <tr>
-              <th>Título</th>
-              <th>Autor</th>
-              <th>Fecha de Compra</th>
-              <th>Precio</th>
-              <th>Estado</th>
-            </tr>
-          </thead>
-          <tbody>
-            {compras.map((compra) => (
-              <tr key={compra.id}>
-                <td>{compra.titulo}</td>
-                <td>{compra.autor}</td>
-                <td>{new Date(compra.fechaCompra).toLocaleDateString()}</td>
-                <td>${compra.precio.toFixed(2)}</td>
-                <td>{compra.estado}</td>
+      {compras.length === 0
+        ? (
+          <p>No tienes compras registradas.</p>
+          )
+        : (
+          <table className='compras-table'>
+            <thead>
+              <tr>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Fecha de Compra</th>
+                <th>Precio</th>
+                <th>Estado</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+            </thead>
+            <tbody>
+              {compras.map((compra) => (
+                <tr key={compra.id}>
+                  <td>{compra.titulo}</td>
+                  <td>{compra.autor}</td>
+                  <td>{new Date(compra.fechaCompra).toLocaleDateString()}</td>
+                  <td>${compra.precio.toFixed(2)}</td>
+                  <td>{compra.estado}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          )}
     </div>
-  );
+  )
 }

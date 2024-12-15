@@ -1,27 +1,25 @@
-import { useState, useRef } from "react"
-import { BsWhatsapp } from "react-icons/bs"
-export default function SideInfo(){
-
-    const [lateralVisible, setLateralVisible] = useState(false)
-    const sideInfo = useRef(null)
-    function handleSideInfo(){
-        if (lateralVisible){
-            sideInfo.current.style.transform = "translateX(0px)"
-        
-        }
-        else {
-            sideInfo.current.style.transform = "translateX(-44px)"//44pxsideInfo right:
-        }
-
-        setLateralVisible(!lateralVisible)
+import { useState, useRef } from 'react'
+import { BsWhatsapp } from 'react-icons/bs'
+export default function SideInfo () {
+  const [lateralVisible, setLateralVisible] = useState(false)
+  const sideInfo = useRef(null)
+  function handleSideInfo () {
+    if (lateralVisible) {
+      sideInfo.current.style.transform = 'translateX(0px)'
+    } else {
+      sideInfo.current.style.transform = 'translateX(-44px)'// 44pxsideInfo right:
     }
 
-    return(
-        <>
-        <a href="https://wa.me/+573024690359" target='_blank'><div className="chatSocial">
-            <BsWhatsapp />
-        </div></a>
-        {/* 
+    setLateralVisible(!lateralVisible)
+  }
+
+  return (
+    <>
+      <a href='https://wa.me/+573024690359' target='_blank' rel='noreferrer'><div className='chatSocial'>
+        <BsWhatsapp />
+                                                                             </div>
+      </a>
+      {/*
         <div className="sideInfo" ref={sideInfo}>
             <div className="centrar">
                 <svg className="sideInfoAbrir" style={{transform: (lateralVisible)? "none" : "rotate(180deg)"}} onClick={handleSideInfo} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={40} height={40} color={"#000000"} fill={"none"}>
@@ -29,9 +27,7 @@ export default function SideInfo(){
                 </svg>
             </div>
             <div className="sideReferences">
-            
-        
-                
+
             <a href="https://www.facebook.com/VoleiColombia" target="_blank">
             <div className="socialContainer facebook">
             <svg className="social imgFooter" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#ffffff"} fill={"none"}>
@@ -63,12 +59,10 @@ export default function SideInfo(){
 </svg>
             </div>
             </a>
-            
-            
 
             </div>
             </div>
             */}
-            </>
-    )
+    </>
+  )
 }

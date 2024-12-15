@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useState } from 'react';
+import { useState } from 'react'
 
 const PreferenciasComprador = ({ user }) => {
   const [settings, setSettings] = useState({
@@ -9,10 +9,10 @@ const PreferenciasComprador = ({ user }) => {
       Fantasía: true,
       CienciaFicción: false,
       Romance: true,
-      Historia: false,
+      Historia: false
     },
-    sugerencias: { activar: true, email: false },
-  });
+    sugerencias: { activar: true, email: false }
+  })
 
   const handleToggle = (category, key) => {
     if (typeof settings[category] === 'object') {
@@ -20,44 +20,44 @@ const PreferenciasComprador = ({ user }) => {
         ...prev,
         [category]: {
           ...prev[category],
-          [key]: !prev[category][key],
-        },
-      }));
+          [key]: !prev[category][key]
+        }
+      }))
     }
-  };
+  }
 
   const handleSelectChange = (event) => {
     setSettings((prev) => ({
       ...prev,
-      idioma: event.target.value,
-    }));
-  };
+      idioma: event.target.value
+    }))
+  }
 
   return (
-    <div className="preferences container">
+    <div className='preferences container'>
       <h1>Preferencias del Comprador</h1>
       <p>Personaliza tu experiencia para disfrutar al máximo de nuestra biblioteca de libros.</p>
 
       {/* Idioma preferido */}
-      <div className="preference-section">
+      <div className='preference-section'>
         <h2>Idioma preferido</h2>
         <select value={settings.idioma} onChange={handleSelectChange}>
-          <option value="Español">Español</option>
-          <option value="Inglés">Inglés</option>
-          <option value="Francés">Francés</option>
-          <option value="Alemán">Alemán</option>
+          <option value='Español'>Español</option>
+          <option value='Inglés'>Inglés</option>
+          <option value='Francés'>Francés</option>
+          <option value='Alemán'>Alemán</option>
         </select>
       </div>
 
       {/* Géneros favoritos */}
-      <div className="preference-section">
+      <div className='preference-section'>
         <h2>Géneros favoritos</h2>
         <ul>
           {Object.entries(settings.generosFavoritos).map(([genre, isSelected]) => (
             <li key={genre}>
               <label>
                 <input
-                  type="checkbox"
+                  type='checkbox'
                   checked={isSelected}
                   onChange={() => handleToggle('generosFavoritos', genre)}
                 />
@@ -69,9 +69,9 @@ const PreferenciasComprador = ({ user }) => {
       </div>
 
       {/* Sugerencias personalizadas */}
-      <div className="preference-section">
+      <div className='preference-section'>
         <h2>Sugerencias personalizadas</h2>
-        <table className="settings-table">
+        <table className='settings-table'>
           <thead>
             <tr>
               <th>Tipo</th>
@@ -83,23 +83,23 @@ const PreferenciasComprador = ({ user }) => {
             <tr>
               <td>Sugerencias de libros</td>
               <td>
-                <label className="switch">
+                <label className='switch'>
                   <input
-                    type="checkbox"
+                    type='checkbox'
                     checked={settings.sugerencias.activar}
                     onChange={() => handleToggle('sugerencias', 'activar')}
                   />
-                  <div className="slider"></div>
+                  <div className='slider' />
                 </label>
               </td>
               <td>
-                <label className="switch">
+                <label className='switch'>
                   <input
-                    type="checkbox"
+                    type='checkbox'
                     checked={settings.sugerencias.email}
                     onChange={() => handleToggle('sugerencias', 'email')}
                   />
-                  <div className="slider"></div>
+                  <div className='slider' />
                 </label>
               </td>
             </tr>
@@ -107,7 +107,7 @@ const PreferenciasComprador = ({ user }) => {
         </table>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default PreferenciasComprador;
+export default PreferenciasComprador

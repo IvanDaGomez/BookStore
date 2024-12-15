@@ -7,7 +7,7 @@ const bookObject = (data) => {
     autor: data.autor || '',
     precio: data.precio || 0,
     oferta: data.oferta || null,
-    ISBN: data.ISBN || '',
+    isbn: data.isbn || '',
     images: data.images || [],
     keywords: data.keywords || [],
     _id: data._id,
@@ -148,7 +148,7 @@ class BooksModel {
     try {
       const books = await this.getAllBooks()
       const time = new Date()
-      data.creadoEn = time
+      data.fechaPublicacion = time
       data.actualizadoEn = time
 
       books.push(bookObject(data))

@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-import { useGoogleLogin } from '@react-oauth/google';
-import axios from 'axios';
+import { useGoogleLogin } from '@react-oauth/google'
+import axios from 'axios'
 
-export default function GoogleLogin({ callback }) {
+export default function GoogleLogin ({ callback }) {
   const handleGoogleLogin = useGoogleLogin({
     onSuccess: async (data) => {
       try {
@@ -10,30 +10,30 @@ export default function GoogleLogin({ callback }) {
         const userInfoResponse = await axios.get(
           'https://www.googleapis.com/oauth2/v3/userinfo',
           { headers: { Authorization: `Bearer ${data.access_token}` } }
-        );
+        )
 
         // Pass the user data to the callback
         const userData = {
           nombre: userInfoResponse.data.name,
           correo: userInfoResponse.data.email,
-          fotoPerfil: userInfoResponse.data.picture,
-        };
-        callback(userData);
+          fotoPerfil: userInfoResponse.data.picture
+        }
+        callback(userData)
       } catch (error) {
-        console.error('Error fetching user info:', error);
+        console.error('Error fetching user info:', error)
       }
     },
-    onError: (error) => console.error('Google Login Error:', error),
-  });
+    onError: (error) => console.error('Google Login Error:', error)
+  })
 
   return (
     <div onClick={handleGoogleLogin}>
       <img
-        loading="lazy"
-        src="/google-logo.svg"
-        alt="Google logo"
-        title="Google logo"
+        loading='lazy'
+        src='/google-logo.svg'
+        alt='Google logo'
+        title='Google logo'
       />
     </div>
-  );
+  )
 }

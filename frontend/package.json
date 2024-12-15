@@ -41,6 +41,9 @@
     "vite": "^5.4.1"
   },
   "eslintConfig": {
-    "extends": "standard"
+    "extends": ["standard", "standard-jsx"]
+  },
+  "react": {
+    "version": "detect"
   }
 }

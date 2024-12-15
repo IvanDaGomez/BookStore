@@ -1,4 +1,4 @@
-export default function fase4() {
-    // Agradecimiento
+export default function fase4 () {
+  // Agradecimiento
 
 }

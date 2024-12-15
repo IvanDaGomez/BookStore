@@ -28,48 +28,46 @@ import EnviarCorreoCambiarContraseña from './routes/cambiarContraseña/enviarCo
 import CambiarContraseña from './routes/cambiarContraseña/cambiarContraseña.jsx'
 import Faq from './routes/faq/faq.jsx'
 import Fyp from './routes/forYouPage/fyp.jsx'
-import ColeccionesPage from './routes/colecciones/colecciones.jsx'
-
-
+import ColeccionesPage from './routes/colecciones/coleccionEspecifico.jsx'
 
 const router = createBrowserRouter([
   {
-    path:"/", // Main path
-    element: <App/>,
-    errorElement: <ErrorPage/>
+    path: '/', // Main path
+    element: <App />,
+    errorElement: <ErrorPage />
   },
   {
-    path:"libros/crear", // Post  book
+    path: 'libros/crear', // Post  book
     element: <CrearLibro />
   },
   {
-    path:"popUp/:info", // Notifications
-    element: <App/>
+    path: 'popUp/:info', // Notifications
+    element: <App />
   },
   {
-    
-    path:"libros/:bookId", // Specific Book
-    element:<BookView />,
-        
+
+    path: 'libros/:bookId', // Specific Book
+    element: <BookView />
+
   },
   {
-    path: "/buscar", // Search book with filters
-    element:<Search />
+    path: '/buscar', // Search book with filters
+    element: <Search />
   },
   {
-    path: "/login", // Login and Signup
+    path: '/login', // Login and Signup
     element: <Login />
   },
   {
-    path: "/usuarios/:idVendedor", // Specific user UI
-    element:  <Usuario />
+    path: '/usuarios/:idVendedor', // Specific user UI
+    element: <Usuario />
   },
   {
     path: '/usuarios/editarUsuario', // Update user
-    element: <EditarUsuario/>
+    element: <EditarUsuario />
   },
   {
-    path: '/checkout/:bookId', //Checkout
+    path: '/checkout/:bookId', // Checkout
     element: <Checkout />
   },
   {
@@ -78,51 +76,51 @@ const router = createBrowserRouter([
   },
   {
     path: '/mensajes', // Messages
-    element: <Mensajes/>
+    element: <Mensajes />
   },
-  
+
   {
     path: '/notificaciones',
-    element: <Notificaciones/>
+    element: <Notificaciones />
   },
   {
     path: '/notificaciones/:notificationId',
-    element: <Notificaciones/>
+    element: <Notificaciones />
   },
   {
     path: '/protected/review',
     element: <ProtectedReviewBook />
   },
   {
-    path:'/terminos-y-condiciones',
+    path: '/terminos-y-condiciones',
     element: <TerminosYCondiciones />
   },
   {
-    path:'/sobre-nosotros',
+    path: '/sobre-nosotros',
     element: <SobreNosotros />
   },
   {
-    path:'/politica-privacidad',
+    path: '/politica-privacidad',
     element: <PoliticaPrivacidad />
   },
   {
-    path:'/aviso-de-privacidad',
+    path: '/aviso-de-privacidad',
     element: <AvisoPrivacidad />
   },
   {
-    path:'/contacto',
+    path: '/contacto',
     element: <Contacto />
   },
   {
-    path:'/politica-de-datos-personales',
+    path: '/politica-de-datos-personales',
     element: <PoliticaDatosPersonales />
   },
   {
-    path:'/sobre-nosotros',
-    element: <SobreNosotros/>
+    path: '/sobre-nosotros',
+    element: <SobreNosotros />
   },
   {
-    path:'/uso-cookies',
+    path: '/uso-cookies',
     element: <UsoDeCookies />
   },
   {
@@ -135,20 +133,20 @@ const router = createBrowserRouter([
   },
   {
     path: '/cuenta/:extension',
-    element:<Cuenta /> 
-  },{
+    element: <Cuenta />
+  }, {
     path: '/verificar',
-    element:<EnviarCorreoAVerificar /> 
-  },{
+    element: <EnviarCorreoAVerificar />
+  }, {
     path: '/opciones/olvido-contraseña',
     element: <EnviarCorreoCambiarContraseña />
   }, {
     path: '/opciones/cambiarContraseña/:token',
     element: <CambiarContraseña />
-  }, 
+  },
   {
     path: '/para-ti',
-    element: <Fyp/>
+    element: <Fyp />
   },
   {
     path: 'colecciones/:collectionId',
@@ -156,18 +154,19 @@ const router = createBrowserRouter([
   }
 ], {
   future: {
-    v7_relativeSplatPath: true,
-  },
+    v7_relativeSplatPath: true
+  }
 })
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <RouterProvider router={router} />
-    <ToastContainer position="top-center"
-        autoClose={5000}
-        hideProgressBar={false}
-        pauseOnHover={false}
-        closeOnClick
-        theme="light"
-        />
-  </StrictMode>,
+    <ToastContainer
+      position='top-center'
+      autoClose={5000}
+      hideProgressBar={false}
+      pauseOnHover={false}
+      closeOnClick
+      theme='light'
+    />
+  </StrictMode>
 )

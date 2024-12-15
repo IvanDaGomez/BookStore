@@ -1,4 +1,6 @@
-export default function PreferenciasVendedor() {
-    return(<>
-    </>)
+export default function PreferenciasVendedor () {
+  return (
+    <>
+    </>
+  )
 }

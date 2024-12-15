@@ -13,7 +13,7 @@
     "estadoCuenta": "activo",
     "fotoPerfil": "1733253245824-669736538.png",
     "_id": "857857d1-afdd-411d-b41a-be427d1ff186",
-    "actualizadoEn": "2024-12-10T17:00:22.873Z",
+    "actualizadoEn": "2024-12-15T23:10:13.284Z",
     "direccionEnvio": {
       "calle": "",
       "ciudad": "",
@@ -101,7 +101,10 @@
       "6631a28c-b909-4cbb-9c6d-700d1091f4d4",
       "8553414f-dc88-49cf-b311-4c731333d768",
       "b3e8ff2c-719a-45dc-b784-b76b6b61fab8",
-      "15ebce0f-c2da-4014-98b1-f7d665c89dd5"
+      "15ebce0f-c2da-4014-98b1-f7d665c89dd5",
+      "369989bc-c49c-4acb-adb7-32c5bba2b1dd",
+      "dd9a2a3b-05a3-4042-a33b-8e65cecedee8",
+      "16c206be-aa74-44fa-8a62-4b846fb7d496"
     ],
     "validated": true,
     "login": "default",
@@ -322,7 +325,9 @@
       "faea3f55-5326-4eca-9fe3-587770b7ed0c",
       "6dcc1a13-b49a-42b0-8ef8-71b6df6188d1",
       "d1b1217e-f798-4b46-ba48-48f4cb687713",
-      "72de218b-def9-4bf2-ad61-0f8ba9f38a03"
+      "72de218b-def9-4bf2-ad61-0f8ba9f38a03",
+      "be972bc7-74fa-4b6e-b39e-cdfc8dbdaf86",
+      "cdf642a0-ebc2-47e3-afd8-da3ce97de1cf"
     ],
     "validated": true,
     "login": "default",

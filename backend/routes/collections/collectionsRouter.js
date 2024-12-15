@@ -5,7 +5,7 @@ const collectionsRouter = Router()
 collectionsRouter.get('/', CollectionsController.getAllCollections)
 
 collectionsRouter.get('/id/:collectionId', CollectionsController.getCollectionById)
-collectionsRouter.get('/user/:userId', CollectionsController.getCollectionsByUser)
+collectionsRouter.get('/getCollectionsByUser/:userId', CollectionsController.getCollectionsByUser)
 
 collectionsRouter.post('/', CollectionsController.createCollection)
 collectionsRouter.post('/addToCollection', CollectionsController.addBookToCollection)

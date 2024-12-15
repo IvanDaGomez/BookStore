@@ -1,83 +1,81 @@
 /* eslint-disable react/prop-types */
-import { useState, useEffect } from "react";
-import { MakeCard } from "../../assets/makeCard";
+import { useState, useEffect } from 'react'
+import { MakeCard } from '../../assets/makeCard'
 
-export default function Favorites({ vendedor }) {
-  const [user, setUser] = useState(null);
+export default function Favorites ({ vendedor }) {
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
-    async function fetchUser() {
+    async function fetchUser () {
       try {
-        const response = await fetch("http://localhost:3030/api/users/userSession", {
-          method: "POST",
-          credentials: "include", // Ensure cookies are sent
-        });
+        const response = await fetch('http://localhost:3030/api/users/userSession', {
+          method: 'POST',
+          credentials: 'include' // Ensure cookies are sent
+        })
 
         if (response.ok) {
-          const data = await response.json();
-          setUser(data.user);
+          const data = await response.json()
+          setUser(data.user)
         }
       } catch (error) {
-        console.error("Error fetching user data:", error);
+        console.error('Error fetching user data:', error)
       }
     }
 
-    fetchUser(); // Call to fetch user on mount
-  }, []); // Only run once, on mount
+    fetchUser() // Call to fetch user on mount
+  }, []) // Only run once, on mount
 
-  const [librosFavoritos, setLibrosFavoritos] = useState([]);
-  
+  const [librosFavoritos, setLibrosFavoritos] = useState([])
+
   useEffect(() => {
-    async function fetchLibrosFavoritos() {
+    async function fetchLibrosFavoritos () {
       try {
-        const url = "http://localhost:3030/api/books/";
-  
+        const url = 'http://localhost:3030/api/books/'
+
         // Create promises to fetch all the favoritos books
         const promises = vendedor.favoritos.map(async (favorito) => {
           try {
-            const response = await fetch(url + favorito);
-  
+            const response = await fetch(url + favorito)
+
             if (!response.ok) {
-              console.error(`Error fetching book with ID ${favorito}:`, response.statusText);
-              return null; // Return null on error to handle gracefully
+              console.error(`Error fetching book with ID ${favorito}:`, response.statusText)
+              return null // Return null on error to handle gracefully
             }
-  
-            const data = await response.json();
-  
+
+            const data = await response.json()
+
             if (data.error) {
-              console.error(`Error in book data for ID ${favorito}:`, data.error);
-              return null; // Return null if there's an error in the data
+              console.error(`Error in book data for ID ${favorito}:`, data.error)
+              return null // Return null if there's an error in the data
             }
-  
-            return data; // Return the valid book data
+
+            return data // Return the valid book data
           } catch (error) {
-            console.error(`Error fetching book with ID ${favorito}:`, error);
-            return null; // Return null in case of an error
+            console.error(`Error fetching book with ID ${favorito}:`, error)
+            return null // Return null in case of an error
           }
-        });
-  
+        })
+
         // Wait for all promises to resolve
-        const results = await Promise.all(promises);
-  
-        console.log(results.filter((libro) => libro != null)); // Log results to see what's returned
-  
+        const results = await Promise.all(promises)
+
+        console.log(results.filter((libro) => libro != null)) // Log results to see what's returned
+
         // Filter out null or undefined results
         setLibrosFavoritos(results.filter((libro) => libro != null))
       } catch (error) {
-        console.error("Error in the server:", error);
+        console.error('Error in the server:', error)
       }
     }
-  
-    fetchLibrosFavoritos();
-  }, [vendedor]); // Re-run whenever 'vendedor' changes
-  
+
+    fetchLibrosFavoritos()
+  }, [vendedor]) // Re-run whenever 'vendedor' changes
+
   return (
     <>
-    {console.log(librosFavoritos)}
       {librosFavoritos && librosFavoritos
-        .map((libro, index) => user ? <MakeCard key={index} element={libro} index={index} user={user}/>: 
-        <MakeCard key={index} element={libro} index={index}/>)}
-    {librosFavoritos.length === 0 && <>No hay libros por aquí</>}
+        .map((libro, index) => <MakeCard key={index} element={libro} index={index} user={user || ''} />)}
+      {librosFavoritos.length === 0 && <>No hay libros por aquí</>}
     </>
-  );
+  )
 }

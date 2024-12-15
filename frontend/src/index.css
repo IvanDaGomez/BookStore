@@ -2547,7 +2547,7 @@ color: var(--using6);
 /*-------------------------FIN DE FASE 1*/
 /*-------------------------FASE 2---------------------*/
 .fase2 .cajones {
-  width: max(400px, 50vw);
+  width: 100%;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -2948,7 +2948,24 @@ color: var(--using6);
   
 }
 
-
+.postsContainer .newCollection{
+  width: auto;
+  padding: var(--padding-small);
+  border: 3px solid var(--using4);
+  border-radius: var(--border);
+  background: var(--using1);
+  color: var(--using3);
+  font-size: 2rem;
+  grid-column: 1 / 5;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  cursor: pointer;
+}
+.postsContainer .newCollection svg{
+  margin: 0 10px;
+  width: auto;
+}
 /*-----------------------------------Editar usuario----------------------------*/
 
 .editarUsuario{

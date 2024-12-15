@@ -779,5 +779,96 @@
     "metadata": {
       "photo": ""
     }
+  },
+  {
+    "_id": "be972bc7-74fa-4b6e-b39e-cdfc8dbdaf86",
+    "theme": "",
+    "title": "Tu libro no ha podido ser actualizado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "input": "",
+    "createdIn": "2024-12-15T22:41:03.003Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/221f695c-69a3-4dee-98e1-0ab4565a734c",
+    "expiresAt": "2025-01-14T22:41:03.003Z",
+    "metadata": {
+      "photo": "1734124472771-278938377.png",
+      "bookTitle": "Si lo crees lo puedes lograr",
+      "bookId": "221f695c-69a3-4dee-98e1-0ab4565a734c"
+    }
+  },
+  {
+    "_id": "cdf642a0-ebc2-47e3-afd8-da3ce97de1cf",
+    "theme": "",
+    "title": "Tu libro no ha podido ser actualizado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "input": "",
+    "createdIn": "2024-12-15T22:41:12.813Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/221f695c-69a3-4dee-98e1-0ab4565a734c",
+    "expiresAt": "2025-01-14T22:41:12.813Z",
+    "metadata": {
+      "photo": "1734127290036-83717320.png",
+      "bookTitle": "Si lo crees lo puedes lograr",
+      "bookId": "221f695c-69a3-4dee-98e1-0ab4565a734c"
+    }
+  },
+  {
+    "_id": "369989bc-c49c-4acb-adb7-32c5bba2b1dd",
+    "theme": "",
+    "title": "Tu libro no ha podido ser actualizado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-15T22:45:26.540Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/e93345c4-ca50-4919-ba85-4dcf00882673",
+    "expiresAt": "2025-01-14T22:45:26.540Z",
+    "metadata": {
+      "photo": "1734302451134-693795767.png",
+      "bookTitle": "React Practico desde cero a desarrollos web avanzados",
+      "bookId": "e93345c4-ca50-4919-ba85-4dcf00882673"
+    }
+  },
+  {
+    "_id": "dd9a2a3b-05a3-4042-a33b-8e65cecedee8",
+    "theme": "",
+    "title": "Tu libro ha sido actualizado con éxito",
+    "priority": "high",
+    "type": "bookUpdated",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-15T23:08:20.732Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/e93345c4-ca50-4919-ba85-4dcf00882673",
+    "expiresAt": "2025-01-14T23:08:20.732Z",
+    "metadata": {
+      "photo": "1734304084508-767749665.png",
+      "bookTitle": "React Practico desde cero a desarrollos web avanzados",
+      "bookId": "e93345c4-ca50-4919-ba85-4dcf00882673"
+    }
+  },
+  {
+    "_id": "16c206be-aa74-44fa-8a62-4b846fb7d496",
+    "theme": "",
+    "title": "Tu pregunta ha sido respondida!",
+    "priority": "normal",
+    "type": "questionAnswered",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "El libro se encuentra en perfecto estado con un solo uso",
+    "createdIn": "2024-12-15T23:09:54.654Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/e93345c4-ca50-4919-ba85-4dcf00882673",
+    "expiresAt": "2025-01-14T23:09:54.654Z",
+    "metadata": {
+      "photo": "1734304084508-767749665.png",
+      "bookTitle": "React Practico desde cero a desarrollos web avanzados",
+      "bookId": "e93345c4-ca50-4919-ba85-4dcf00882673",
+      "question": "¿En qué estado se encuentra el producto?"
+    }
   }
 ]

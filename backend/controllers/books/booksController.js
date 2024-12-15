@@ -161,10 +161,9 @@ export class BooksController {
       // Validación
       const validated = validateBook(data)
       if (!validated.success) {
-        console.log('Error de validación:', validated.error)
+        console.error('Error de validación:', validated.error)
         return res.status(400).json({ error: validated.error })
       }
-
       // Agregar el ID del libro al usuario
       const user = await UsersModel.getUserById(data.idVendedor)
       if (!user) {
@@ -306,7 +305,7 @@ export class BooksController {
       const allowedFields = [
         'titulo', 'autor', 'precio', 'oferta', 'formato', 'images', 'keywords', 'descripcion',
         'estado', 'genero', 'vendedor', 'idVendedor', 'edicion', 'idioma',
-        'ubicacion', 'tapa', 'edad', 'fechaPublicacion', 'actualizadoEn', 'disponibilidad', 'mensajes'
+        'ubicacion', 'tapa', 'edad', 'fechaPublicacion', 'actualizadoEn', 'disponibilidad', 'mensajes', 'isbn'
       ]
 
       const filteredData = {}
@@ -373,7 +372,6 @@ export class BooksController {
   // Filtrar libros
   static async createReviewBook (req, res) {
     const data = req.body
-
     if (data.oferta) data.oferta = parseInt(data.oferta)
     data.precio = parseInt(data.precio)
     // Manejo de keywords
@@ -390,7 +388,7 @@ export class BooksController {
     // Validación
     const validated = validateBook(data)
     if (!validated.success) {
-      console.log('Error de validación:', validated.error)
+      console.error('Error de validación:', validated.error)
       return res.status(400).json({ error: validated.error })
     }
 
@@ -434,7 +432,6 @@ export class BooksController {
       const data = req.body
       // Obtener el libro existente para obtener los mensajes actuales
       const existingBook = await BooksModel.getBookById(bookId)
-      console.log(existingBook)
       if (!existingBook) {
         return res.status(404).json({ error: 'Libro no encontrado' })
       }
@@ -456,7 +453,7 @@ export class BooksController {
       // Validar datos
       const validated = validatePartialBook(data)
       if (!validated.success) {
-        console.log(validated)
+        console.error(validated)
         return res.status(400).json({ error: validated.error.errors })
       }
 
@@ -464,7 +461,7 @@ export class BooksController {
       const allowedFields = [
         'titulo', 'autor', 'precio', 'oferta', 'formato', 'images', 'keywords', 'descripcion',
         'estado', 'genero', 'vendedor', 'idVendedor', 'edicion', 'idioma',
-        'ubicacion', 'tapa', 'edad', 'fechaPublicacion', 'actualizadoEn', 'disponibilidad', 'mensajes'
+        'ubicacion', 'tapa', 'edad', 'fechaPublicacion', 'actualizadoEn', 'disponibilidad', 'mensajes', 'isbn'
       ]
 
       const filteredData = {}

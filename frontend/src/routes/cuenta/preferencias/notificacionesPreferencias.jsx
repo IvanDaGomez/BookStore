@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import { useState } from 'react'
 
 const NotificacionesPreferencias = ({ user }) => {
   const [settings, setSettings] = useState({
@@ -6,24 +6,24 @@ const NotificacionesPreferencias = ({ user }) => {
     Ventas: { notification: true, email: false },
     Noticias: { notification: false, email: false },
     'Nuevos libros': { notification: true, email: false },
-    'Ofertas especiales': { notification: true, email: false },
-  });
+    'Ofertas especiales': { notification: true, email: false }
+  })
 
   const handleToggle = (topic, type) => {
     setSettings((prev) => ({
       ...prev,
       [topic]: {
         ...prev[topic],
-        [type]: !prev[topic][type],
-      },
-    }));
-  };
+        [type]: !prev[topic][type]
+      }
+    }))
+  }
 
   return (
-    <div className="notification-settings container">
+    <div className='notification-settings container'>
       <h1>Configuración de notificaciones</h1>
 
-      <table className="settings-table">
+      <table className='settings-table'>
         <thead>
           <tr>
             <th>Notificación</th>
@@ -37,36 +37,36 @@ const NotificacionesPreferencias = ({ user }) => {
               <td>{topic.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase())}</td>
               <td>
                 <div className='inputContainer'>
-              <label className="switch">
-                <input type="checkbox" />
-                <div className="slider"></div>
-                <div className="slider-card">
-                    <div className="slider-card-face slider-card-front"></div>
-                    <div className="slider-card-face slider-card-back"></div>
-                </div>
-                </label>
+                  <label className='switch'>
+                    <input type='checkbox' />
+                    <div className='slider' />
+                    <div className='slider-card'>
+                      <div className='slider-card-face slider-card-front' />
+                      <div className='slider-card-face slider-card-back' />
+                    </div>
+                  </label>
                 </div>
               </td>
-              
+
               <td>
-                <div  className='inputContainer'>
-              <label className="switch">
-                <input type="checkbox" />
-                <div className="slider"></div>
-                <div className="slider-card">
-                    <div className="slider-card-face slider-card-front"></div>
-                    <div className="slider-card-face slider-card-back"></div>
+                <div className='inputContainer'>
+                  <label className='switch'>
+                    <input type='checkbox' />
+                    <div className='slider' />
+                    <div className='slider-card'>
+                      <div className='slider-card-face slider-card-front' />
+                      <div className='slider-card-face slider-card-back' />
+                    </div>
+                  </label>
                 </div>
-                </label>
-              </div>
               </td>
-              
+
             </tr>
           ))}
         </tbody>
       </table>
     </div>
-  );
-};
+  )
+}
 
-export default NotificacionesPreferencias;
+export default NotificacionesPreferencias
