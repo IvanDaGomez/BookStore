@@ -7,6 +7,7 @@ const bookObject = (data) => {
     autor: data.autor || '',
     precio: data.precio || 0,
     oferta: data.oferta || null,
+    ISBN: data.ISBN || '',
     images: data.images || [],
     keywords: data.keywords || [],
     _id: data._id,
