@@ -282,7 +282,7 @@ export default function Usuario () {
                 </>
             : myPosts === 'favoritos'
               ? <Favorites vendedor={usuario} />
-              : <Colecciones user={usuario} permisos={permisos}/>}
+              : <Colecciones user={usuario} permisos={permisos} />}
         </div>
       </div>
       <ToastContainer

@@ -41,7 +41,6 @@ export default function EditarUsuario () {
     fetchUser()
   }, [])
 
-
   useEffect(() => {
     if (user) {
       document.querySelector('#nombre').value = user.nombre || ''
@@ -182,7 +181,7 @@ export default function EditarUsuario () {
               <label htmlFor='bio'>Bio</label>
               <input id='bio' type='text' name='bio' placeholder='Tu bio' />
             </div>
-            {/*<div className='inputCrear'>
+            {/* <div className='inputCrear'>
               <label htmlFor='correo'>Correo</label>
               <input id='correo' type='email' name='correo' placeholder='Tu correo' />
             </div>
@@ -190,7 +189,7 @@ export default function EditarUsuario () {
               <label htmlFor='anteriorContraseña'>Cambiar Contraseña *</label>
               <input id='anteriorContraseña' type='password' name='anteriorContraseña' placeholder='Anterior Contraseña' />
               <input id='nuevaContraseña' type='password' name='nuevaContraseña' placeholder='Nueva Contraseña' />
-            </div>*/}
+            </div> */}
             <div className='inputCrear'>
               <label>Estado de la cuenta: </label>
               <div>{botonSelect}</div>

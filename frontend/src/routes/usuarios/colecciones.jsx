@@ -27,7 +27,7 @@ export default function Colecciones ({ user, permisos }) {
   }, [user])
 
   useEffect(() => {
-    async function fetchFavorites() {
+    async function fetchFavorites () {
       if (!user) return
       const url = 'http://localhost:3030/api/books/getFavoritesByUser/' + user._id
     }
@@ -42,9 +42,7 @@ export default function Colecciones ({ user, permisos }) {
     }
     if (!data.nombre.value) {
       setErrors([...errors, 'El nombre es requerido'])
-      return
     }
-    
   }
 
   async function handleImageChange (e) {
@@ -77,11 +75,11 @@ export default function Colecciones ({ user, permisos }) {
                 required
               />
             </div>
-            <div className="photoContainer" onClick={handleClickImage}>
-              <img src={croppedImage?.url || 'http://localhost:3030/uploads/default.jpg'} alt="Profile Photo" />
-              <svg className='more' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#000000"} fill={"none"}>
-                <path d="M12 8V16M16 12L8 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z" stroke="currentColor" strokeWidth="1.5" />
+            <div className='photoContainer' onClick={handleClickImage}>
+              <img src={croppedImage?.url || 'http://localhost:3030/uploads/default.jpg'} alt='Profile Photo' />
+              <svg className='more' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width={24} height={24} color='#000000' fill='none'>
+                <path d='M12 8V16M16 12L8 12' stroke='currentColor' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round' />
+                <path d='M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z' stroke='currentColor' strokeWidth='1.5' />
               </svg>
             </div>
             <div>
@@ -92,21 +90,22 @@ export default function Colecciones ({ user, permisos }) {
                 accept='image/*'
                 required
                 onChange={handleImageChange}
-                style={{display: 'none'}}
+                style={{ display: 'none' }}
               />
             </div>
             <div>
               <h4>Agregar libros:</h4>
               <div className='librosFav'>{
-                librosFav.length !== 0 ?
-                librosFav.map((libro, index) => (
-                  <li key={index}>{libro.titulo}</li>
-                ))
-                :<><h3>No tienes libros en favoritos</h3></>}
+                librosFav.length !== 0
+                  ? librosFav.map((libro, index) => (
+                    <li key={index}>{libro.titulo}</li>
+                  ))
+                  : <><h3>No tienes libros en favoritos</h3></>
+}
               </div>
             </div>
             {errors.length !== 0 && <div className='error'>{errors[0]}</div>}
-            <div className="flex">
+            <div className='flex'>
               <button type='submit'>Crear</button>
               <button className='botonInverso' onClick={() => setOpenNewCollection(!openNewCollection)}>Cerrar</button>
             </div>
@@ -119,9 +118,11 @@ export default function Colecciones ({ user, permisos }) {
           <path d='M2.5 12C2.5 7.52166 2.5 5.28249 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28249 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12Z' stroke='currentColor' strokeWidth='1.5' />
         </svg>Crear nueva colección
       </button>}
-      {colecciones.length !== 0 ? colecciones.map((coleccion, index) => (
-        <MakeCollectionCard key={index} element={coleccion} index={index} user={user || ''} />
-      )): <>Aún no hay colecciones</>}
+      {colecciones.length !== 0
+        ? colecciones.map((coleccion, index) => (
+          <MakeCollectionCard key={index} element={coleccion} index={index} user={user || ''} />
+        ))
+        : <>Aún no hay colecciones</>}
     </>
   )
 }

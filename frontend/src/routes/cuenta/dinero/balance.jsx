@@ -54,7 +54,7 @@ export default function Balance ({ user, setUser }) {
               <h3>${user?.balance?.porLlegar || 0}</h3>
             </div>
             <div>
-              <button onClick={() => setCobrar(!cobrar)} style={{display: balanceSum === 0 ? 'none' : 'block'}}>
+              <button onClick={() => setCobrar(!cobrar)} style={{ display: balanceSum === 0 ? 'none' : 'block' }}>
                 Cobrar
               </button>
             </div>
