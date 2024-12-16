@@ -46,7 +46,7 @@ export default function EditarUsuario () {
       document.querySelector('#nombre').value = user.nombre || ''
       document.querySelector('#bio').value = user.bio || ''
 
-      setFotoPerfil(renderProfilePhoto({ user }))
+      setFotoPerfil(renderProfilePhoto(user?.fotoPerfil || ''))
     }
   }, [user])
 
@@ -116,9 +116,9 @@ export default function EditarUsuario () {
     }
 
     formData.append('actualizadoEn', new Date().toISOString())
-    for (const [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`)
-    }
+    // for (const [key, value] of formData.entries()) {
+    //   console.log(`${key}: ${value}`)
+    // }
     try {
       const URL = `http://localhost:3030/api/users/${user._id}`
       const response = await fetch(URL, {

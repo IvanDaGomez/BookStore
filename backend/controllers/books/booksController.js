@@ -495,4 +495,20 @@ export class BooksController {
 
     res.json({ books: results, ok: true })
   }
+
+  static async getFavoritesByUser (req, res) {
+    const { userId } = req.params
+    try {
+      if (!userId) return res.status(401).json({ error: 'No se proporcionó userId' })
+      const user = await UsersModel.getUserById(userId)
+      if (!user) return res.status(402).json({ error: 'No se encontró el usuario' })
+      const favorites = await BooksModel.getFavoritesByUser(user?.favoritos || [])
+      if (!favorites) return res.status(400).json({ error: 'No hay favoritos' })
+
+      res.json({ data: favorites })
+    } catch (error) {
+      console.error('Error:', error)
+      res.status(500).json({ error: 'Error en el servidor' })
+    }
+  }
 }

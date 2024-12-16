@@ -147,8 +147,8 @@ export default function Fase1 ({ form, setForm, setFase, fase }) {
     <>
       <form onSubmit={handleSubmit} noValidate>
 
-        {dropdown && <>
-          <div className='dropdownBackground' />
+        {dropdown && 
+          <div className='dropdownBackground' >
           <div className='dropdown'>
             <div className='flex'>
               Recomendaciones para subir un libro
@@ -164,7 +164,7 @@ export default function Fase1 ({ form, setForm, setFase, fase }) {
             <img src='/subir.png' alt='Como subir tus libros?' />
           </div>
 
-        </>}
+        </div>}
 
         <p className='uploadHint letraAcento' onClick={() => setDropdown(!dropdown)}>¿Como subir tu libro?</p>
         <div className='fileUploaderContainer'>

@@ -465,7 +465,7 @@ export default function Mensajes () {
                   }}
                 >
                   <img
-                    src={renderProfilePhoto({ user: findUserByConversation(conversation) })}
+                    src={renderProfilePhoto(findUserByConversation(conversation)?.fotoPerfil || '')}
                     alt={`${findUserByConversation(conversation).nombre || 'User'}'s avatar`}
                   />
                   <div className='conversationSpecificTitleAndMessage'>

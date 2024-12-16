@@ -880,7 +880,7 @@
     "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
     "input": "",
     "createdIn": "2024-12-15T23:59:05.626Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/usuarios/undefined",
     "expiresAt": "2025-01-14T23:59:05.626Z",
     "metadata": {
@@ -896,7 +896,7 @@
     "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
     "input": "",
     "createdIn": "2024-12-15T23:59:08.225Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/usuarios/undefined",
     "expiresAt": "2025-01-14T23:59:08.225Z",
     "metadata": {
@@ -912,7 +912,7 @@
     "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
     "input": "",
     "createdIn": "2024-12-15T23:59:10.518Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/usuarios/undefined",
     "expiresAt": "2025-01-14T23:59:10.518Z",
     "metadata": {
@@ -928,7 +928,7 @@
     "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
     "input": "",
     "createdIn": "2024-12-15T23:59:11.190Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/usuarios/undefined",
     "expiresAt": "2025-01-14T23:59:11.190Z",
     "metadata": {
@@ -944,7 +944,7 @@
     "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
     "input": "",
     "createdIn": "2024-12-15T23:59:16.210Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/usuarios/undefined",
     "expiresAt": "2025-01-14T23:59:16.210Z",
     "metadata": {
@@ -992,7 +992,7 @@
     "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
     "input": "",
     "createdIn": "2024-12-16T03:39:26.587Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/usuarios/undefined",
     "expiresAt": "2025-01-15T03:39:26.587Z",
     "metadata": {
@@ -1008,7 +1008,7 @@
     "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
     "input": "",
     "createdIn": "2024-12-16T03:39:28.566Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/usuarios/undefined",
     "expiresAt": "2025-01-15T03:39:28.566Z",
     "metadata": {
@@ -1024,7 +1024,7 @@
     "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
     "input": "",
     "createdIn": "2024-12-16T03:39:30.050Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/usuarios/undefined",
     "expiresAt": "2025-01-15T03:39:30.050Z",
     "metadata": {
@@ -1040,7 +1040,7 @@
     "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
     "input": "",
     "createdIn": "2024-12-16T03:39:32.624Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/usuarios/undefined",
     "expiresAt": "2025-01-15T03:39:32.624Z",
     "metadata": {
@@ -1056,7 +1056,7 @@
     "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
     "input": "",
     "createdIn": "2024-12-16T03:39:35.097Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/usuarios/undefined",
     "expiresAt": "2025-01-15T03:39:35.097Z",
     "metadata": {

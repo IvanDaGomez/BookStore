@@ -16,7 +16,7 @@ Content-Type: application/json
 
 ###
 
-POST http://localhost:3030/api/collections/cc0c59fc-f000-4d19-af60-6b803c7bea2f/read
+POST http://localhost:3030/api/collections/addToCollection?collectionId=bfed12f2-8814-438a-a22e-43d4a6d33d96&bookId=3cd4d6ad-df7c-4e0f-beb9-394de48ce33d
 
 ###
 

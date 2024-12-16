@@ -3,21 +3,24 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { MakeCollectionCard } from '../../assets/makeCard'
 import { cropImageToAspectRatio } from '../../assets/cropImageToAspectRatio'
+import { renderProfilePhoto } from '../../assets/renderProfilePhoto'
 
 export default function Colecciones ({ user, permisos }) {
   const [colecciones, setColecciones] = useState([])
   const [openNewCollection, setOpenNewCollection] = useState(false)
   const [croppedImage, setCroppedImage] = useState({})
   const [librosFav, setLibrosFav] = useState([])
+  const [addedCollections, setAddedCollections] = useState([])
   const [errors, setErrors] = useState([])
   useEffect(() => {
     async function fetchColecciones () {
       try {
         if (!user) return
         const url = 'http://localhost:3030/api/collections/getCollectionsByUser/' + user._id
-        const response = axios.get(url, { withCredentials: true })
+        const response = await axios.get(url, { withCredentials: true })
+
         if (response.data) {
-          setColecciones(response.data.colecciones)
+          setColecciones(response.data.data)
         }
       } catch {
         console.error('Error')
@@ -30,18 +33,84 @@ export default function Colecciones ({ user, permisos }) {
     async function fetchFavorites () {
       if (!user) return
       const url = 'http://localhost:3030/api/books/getFavoritesByUser/' + user._id
+      try {
+        const response = await axios.get(url, { withCredentials: true })
+        
+        if (response.data) {
+          setLibrosFav(response.data.data)
+        }
+      } catch {
+        console.error('Error en el servidor')
+      }
     }
+    fetchFavorites()
   }, [user])
   async function handleSubmit (e) {
     e.preventDefault()
+    if (!user) return
     const { nombre } = e.target
     const data = {
-      nombre,
-      foto: croppedImage,
-      librosIds: librosFav
+      nombre: nombre.value,
+      foto: croppedImage?.url || '',
+      userId: user._id
     }
-    if (!data.nombre.value) {
+    if (!data.nombre) {
       setErrors([...errors, 'El nombre es requerido'])
+      return
+    }
+    if (Object.keys(croppedImage).length !== 0 && !croppedImage.type.includes('image/')) {
+      setErrors([...errors, 'La imagen no es válida'])
+      return
+    }
+    setErrors([])
+
+    const formData = new FormData()
+    async function urlToBlob (blobUrl) {
+      const response = await fetch(blobUrl)
+      const blob = await response.blob()
+      return blob
+    }
+    if (Object.keys(croppedImage).length !== 0) {
+      const blob = await urlToBlob(croppedImage.url)
+      formData.append('images', blob, 'imagenPerfil.png') // Append new image
+    }
+    if (data) {
+      for (const [key, value] of Object.entries(data || {})) {
+        formData.append(key, value)
+      }
+    }
+    // for (const [key, value] of formData.entries()) {
+    //   console.log(`${key}: ${value}`)
+    // }
+    try {
+      const createCollectionUrl = 'http://localhost:3030/api/collections'
+      const createCollectionResponse = await axios.post(createCollectionUrl, formData, { withCredentials: true })
+      if (createCollectionResponse.data) {
+        setColecciones([...colecciones, {...createCollectionResponse.data.data, librosIds: addedCollections}])
+        
+      }
+      if (addedCollections.length > 0) {
+        const addToCollectionUrl = 'http://localhost:3030/api/collections/addToCollection?collectionId=' + createCollectionResponse.data.data._id
+        
+        // Realizar las solicitudes de manera secuencial
+        for (const bookId of addedCollections) {
+          const fullUrl = addToCollectionUrl + `&bookId=${bookId}`
+          try {
+            const addToCollectionResponse = await axios.post(fullUrl, null, { withCredentials: true })
+            // Puedes manejar la respuesta de cada libro aquí si lo necesitas
+            console.log(addToCollectionResponse.data)
+          } catch (error) {
+            console.error('Error al agregar libro a la colección:', error)
+          }
+        }
+      }
+
+      setAddedCollections([])
+      setCroppedImage({})
+      setOpenNewCollection(false)
+    } catch (error){
+      console.log(error)
+      console.error('Error en el servidor')
     }
   }
 
@@ -60,9 +129,17 @@ export default function Colecciones ({ user, permisos }) {
     e.preventDefault()
     document.querySelector('#foto').click()
   }
+
+  async function handleAddToCollection (bookId) {
+    if (!addedCollections.includes(bookId)) {
+      setAddedCollections([...addedCollections, bookId])
+    } else {
+      setAddedCollections(addedCollections.filter(collection=>collection !== bookId))
+    }
+  }
   return (
     <>
-      {openNewCollection && <><div className='dropdownBackground' />
+      {openNewCollection && <div className='dropdownBackground'>
         <div className='success-container' style={{ width: 'min(60vw, 400px)', height: 'min(500px, 70vh)' }}>
           <form onSubmit={handleSubmit} noValidate>
             <h2>Crear Nueva Colección</h2>
@@ -98,7 +175,13 @@ export default function Colecciones ({ user, permisos }) {
               <div className='librosFav'>{
                 librosFav.length !== 0
                   ? librosFav.map((libro, index) => (
-                    <li key={index}>{libro.titulo}</li>
+                    <div className={`libroFav ${addedCollections.includes(libro._id) ? 'reverse' : ''}`} key={index}
+                      onClick={()=>handleAddToCollection(libro._id)}
+                    >
+                      <img src={renderProfilePhoto(libro.images[0])} alt={`Foto del libro ${libro.titulo}`} />
+                      {libro.titulo}
+
+                    </div>
                   ))
                   : <><h3>No tienes libros en favoritos</h3></>
 }
@@ -111,7 +194,7 @@ export default function Colecciones ({ user, permisos }) {
             </div>
           </form>
         </div>
-                            </>}
+      </div>}
       {permisos && <button className='newCollection' onClick={() => setOpenNewCollection(!openNewCollection)}>
         <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width={24} height={24} color='#000000' fill='none'>
           <path d='M12 8V16M16 12L8 12' stroke='currentColor' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round' />
@@ -121,7 +204,7 @@ export default function Colecciones ({ user, permisos }) {
       {colecciones.length !== 0
         ? colecciones.map((coleccion, index) => (
           <MakeCollectionCard key={index} element={coleccion} index={index} user={user || ''} />
-        ))
+        )).reverse()
         : <>Aún no hay colecciones</>}
     </>
   )

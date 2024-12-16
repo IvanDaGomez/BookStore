@@ -1,11 +1,11 @@
-function renderProfilePhoto ({ user }) {
+function renderProfilePhoto (url) {
   let profilePhoto
-  if (!user.fotoPerfil) {
+  if (!url) {
     profilePhoto = 'http://localhost:3030/uploads/default.jpg'
-  } else if (user.fotoPerfil.startsWith('http')) {
-    profilePhoto = user.fotoPerfil
-  } else if (user.fotoPerfil) {
-    profilePhoto = `http://localhost:3030/uploads/${user.fotoPerfil}`
+  } else if (url.startsWith('http')) {
+    profilePhoto = url
+  } else if (url) {
+    profilePhoto = `http://localhost:3030/uploads/${url}`
   } else profilePhoto = 'http://localhost:3030/uploads/default.jpg'
   return profilePhoto
 }

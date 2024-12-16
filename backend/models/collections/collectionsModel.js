@@ -8,7 +8,8 @@ const collectionObject = (data) => {
     nombre: data.nombre || '',
     descripcion: data.descripcion || '',
     seguidores: data.seguidores || [],
-    userId: data.userId || ''
+    userId: data.userId || '',
+    saga: data.saga || false
 
   }
 }
@@ -18,7 +19,7 @@ class CollectionsModel {
       const data = await fs.readFile('./models/collections.json', 'utf-8')
       const collections = JSON.parse(data)
 
-      return collections.map(collection => collectionObject(collection))
+      return collections
     } catch (err) {
       console.error('Error reading collections:', err)
       throw new Error(err)
@@ -62,8 +63,11 @@ class CollectionsModel {
       const collections = await this.getAllCollections()
 
       // Crear valores por defecto
+      // Asignar un ID único al colección
+      data._id = crypto.randomUUID()
+      const time = new Date()
+      data.createdIn = `${time.toISOString()}`
       const newCollection = collectionObject(data)
-
       collections.push(newCollection)
       await fs.writeFile('./models/collections.json', JSON.stringify(collections, null, 2))
       return newCollection
@@ -94,17 +98,13 @@ class CollectionsModel {
 
       const collectionIndex = collections.findIndex(collection => collection._id === id)
       if (collectionIndex === -1) {
-        return null // Si no se encuentra el usuario, retorna null
+        return null // Si no se encuentra la colección, retorna null
       }
-
-      // Actualiza los datos del usuario
-      Object.assign(collections[collectionIndex], data)
-
-      // Hacer el path hacia aqui
-      // const filePath = pat h.join()
+      // Actualiza los datos directamente en el objeto de la colección
+      Object.assign(collections[collectionIndex], data) // Modifica directamente el objeto en el array
       await fs.writeFile('./models/collections.json', JSON.stringify(collections, null, 2))
 
-      return true
+      return collectionObject(collections[collectionIndex]) // Devuelve la colección actualizada
     } catch (err) {
       console.error('Error updating collection:', err)
       throw new Error(err)

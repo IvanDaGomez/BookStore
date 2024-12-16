@@ -1,10 +1,119 @@
 [
   {
-    "_id": "0e17735a-8b8b-40ba-b4f5-62c89ab7d29c",
-    "foto": "",
-    "librosIds": [],
-    "nombre": "ñaña",
+    "_id": "788fcde2-3213-4d3b-bdc3-0480f5152131",
+    "foto": "1734360926576-21387704.png",
+    "librosIds": [
+      "31d52487-f746-4951-bf11-7b41febea0a9",
+      "a7358b0d-d158-4df9-a714-9c34d757a752"
+    ],
+    "nombre": "Fantasía",
     "descripcion": "",
-    "seguidores": []
+    "seguidores": [],
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "saga": false
+  },
+  {
+    "_id": "6ae813e7-c18a-44ae-ab87-b7f601d4561e",
+    "foto": "1734361007294-970162498.png",
+    "librosIds": [
+      "3f7ab023-15e7-4626-8890-a71f4f2e221c",
+      "3cd4d6ad-df7c-4e0f-beb9-394de48ce33d"
+    ],
+    "nombre": "Sueños",
+    "descripcion": "",
+    "seguidores": [],
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "saga": false
+  },
+  {
+    "_id": "7db232f9-ec22-4bf2-8b5d-d5bd9480d2c6",
+    "foto": "1734361071860-953068979.png",
+    "librosIds": [
+      "31d52487-f746-4951-bf11-7b41febea0a9",
+      "3f7ab023-15e7-4626-8890-a71f4f2e221c"
+    ],
+    "nombre": "ss",
+    "descripcion": "",
+    "seguidores": [],
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "saga": false
+  },
+  {
+    "_id": "e84ead35-ac16-4827-ba37-674394dd7445",
+    "foto": "1734361092783-309991630.png",
+    "librosIds": [
+      "3f7ab023-15e7-4626-8890-a71f4f2e221c",
+      "31d52487-f746-4951-bf11-7b41febea0a9"
+    ],
+    "nombre": "sss",
+    "descripcion": "",
+    "seguidores": [],
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "saga": false
+  },
+  {
+    "_id": "6e76e0c8-e5dc-4d0b-92c2-4ed190a9f5a5",
+    "foto": "1734361137530-492299886.png",
+    "librosIds": [
+      "3f7ab023-15e7-4626-8890-a71f4f2e221c",
+      "9f8eae32-d2c3-4739-87e5-4c95dc1a665c"
+    ],
+    "nombre": "ssssa",
+    "descripcion": "",
+    "seguidores": [],
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "saga": false
+  },
+  {
+    "_id": "af12dfca-46d4-4679-96a7-f320e2bd5260",
+    "foto": "1734361184323-422253295.png",
+    "librosIds": [
+      "3f7ab023-15e7-4626-8890-a71f4f2e221c"
+    ],
+    "nombre": "qsxwwx",
+    "descripcion": "",
+    "seguidores": [],
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "saga": false
+  },
+  {
+    "_id": "6ed6ea52-79f6-47f7-aec1-2d90cf1fd19d",
+    "foto": "1734361349097-645633414.png",
+    "librosIds": [
+      "3f7ab023-15e7-4626-8890-a71f4f2e221c",
+      "a7358b0d-d158-4df9-a714-9c34d757a752"
+    ],
+    "nombre": "ssss",
+    "descripcion": "",
+    "seguidores": [],
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "saga": false
+  },
+  {
+    "_id": "df121502-806c-4921-b59b-c94e2492cd19",
+    "foto": "1734361370437-797570483.png",
+    "librosIds": [
+      "9f8eae32-d2c3-4739-87e5-4c95dc1a665c",
+      "31d52487-f746-4951-bf11-7b41febea0a9"
+    ],
+    "nombre": "wsas",
+    "descripcion": "",
+    "seguidores": [],
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "saga": false
+  },
+  {
+    "_id": "61633db1-edf4-4767-be8b-e1d805329196",
+    "foto": "1734361450638-121870573.png",
+    "librosIds": [
+      "31d52487-f746-4951-bf11-7b41febea0a9",
+      "9f8eae32-d2c3-4739-87e5-4c95dc1a665c",
+      "3cd4d6ad-df7c-4e0f-beb9-394de48ce33d"
+    ],
+    "nombre": "qqqqq",
+    "descripcion": "",
+    "seguidores": [],
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "saga": false
   }
 ]

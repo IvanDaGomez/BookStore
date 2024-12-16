@@ -30,7 +30,8 @@ const bookObject = (data) => {
     actualizadoEn: data.actualizadoEn || new Date().toISOString(),
     disponibilidad: data.disponibilidad || 'Disponible',
     mensajes: data.mensajes || [],
-    librosVendidos: data.librosVendidos || 0
+    librosVendidos: data.librosVendidos || 0,
+    collectionsIds: data.collectionsIds || []
   }
 }
 class BooksModel {
@@ -39,7 +40,7 @@ class BooksModel {
       const data = await fs.readFile('./models/books.json', 'utf-8')
       const books = JSON.parse(data)
 
-      return books.map((book) => bookObject(book))
+      return books
     } catch (err) {
       console.error('Error reading books:', err)
       throw new Error(err)
@@ -265,6 +266,37 @@ class BooksModel {
     const books = this.getAllBooks()
     // Mostrar libros en base a preferencias etc
     return books
+  }
+
+  static async getFavoritesByUser (favorites) {
+    try {
+      const books = await this.getAllBooks()
+
+      const elements = books.filter(book => favorites.includes(book._id))
+      if (!elements) return null
+      return elements
+    } catch (error) {
+      console.error('Error getting favorites:', error)
+    }
+  }
+
+  static async getBooksByIdList (list, l) {
+    try {
+      const books = await this.getAllBooks()
+      const filteredBooks = books.filter((book, index) => {
+        if (index >= l) return false
+        return list.includes(book._id)
+      })
+
+      if (!filteredBooks || filteredBooks.length === 0) {
+        return [] // Devuelve un arreglo vacío si no hay coincidencias
+      }
+      // Return book with limited public information
+      return filteredBooks.map((book) => bookObject(book)) // Suponiendo que `bookObject` formatea el resultado
+    } catch (err) {
+      console.error('Error reading book:', err)
+      throw new Error('Error fetching books') // Devuelve un mensaje más genérico
+    }
   }
 }
 

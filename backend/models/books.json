@@ -25,7 +25,7 @@
     "tapa": "",
     "edad": "",
     "fechaPublicacion": "2024-11-21T13:52:00.234Z",
-    "actualizadoEn": "2024-11-26T16:16:50.028Z",
+    "actualizadoEn": "2024-12-16T15:04:10.655Z",
     "disponibilidad": "Disponible",
     "mensajes": [
       [
@@ -44,7 +44,25 @@
         "9b922eb4-33e8-4781-9863-c066992e1620"
       ]
     ],
-    "librosVendidos": 0
+    "librosVendidos": 0,
+    "collectionsIds": [
+      "c3b5ef11-6cca-4ecc-a40d-888dab4d961d",
+      "8213597c-4bac-49cc-95ea-3388f74627d8",
+      "f5d689ea-4fd7-4c7b-8f77-583694d0302b",
+      "89a54f0c-db1a-46a3-bd12-5a266d92c8de",
+      "6eff6aec-8efd-471f-8ce7-b5c278fb1884",
+      "596c9b2f-b195-4add-ba61-ca3cdb701258",
+      "4574d737-95bc-4d4d-8d8a-ee45ec154e54",
+      "f24fe9d2-9c78-43e2-96e1-ed04d7207739",
+      "1f9b8650-03ec-4931-9400-7e5c6ecb7f40",
+      "3b959d88-b1b0-4679-84a2-9b0c1e72fb9e",
+      "66193010-9dcf-42d3-8c86-7cd7c5a3e027",
+      "788fcde2-3213-4d3b-bdc3-0480f5152131",
+      "7db232f9-ec22-4bf2-8b5d-d5bd9480d2c6",
+      "e84ead35-ac16-4827-ba37-674394dd7445",
+      "df121502-806c-4921-b59b-c94e2492cd19",
+      "61633db1-edf4-4767-be8b-e1d805329196"
+    ]
   },
   {
     "titulo": "Recupera tu mente, reconquista tu vida",
@@ -69,7 +87,7 @@
     "tapa": "Sin tapa",
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:24:21.509Z",
-    "actualizadoEn": "2024-12-15T01:30:43.538Z",
+    "actualizadoEn": "2024-12-16T15:02:29.123Z",
     "disponibilidad": "Disponible",
     "mensajes": [
       [
@@ -83,7 +101,20 @@
         ""
       ]
     ],
-    "librosVendidos": 0
+    "librosVendidos": 0,
+    "collectionsIds": [
+      "af2149d8-0e39-4877-aac8-e360be09938d",
+      "c519d6ca-feae-4569-ac37-8b694ed9f8a7",
+      "25d4d825-1a0e-4b4c-8cd3-f49ac1320b21",
+      "3b959d88-b1b0-4679-84a2-9b0c1e72fb9e",
+      "66193010-9dcf-42d3-8c86-7cd7c5a3e027",
+      "6ae813e7-c18a-44ae-ab87-b7f601d4561e",
+      "7db232f9-ec22-4bf2-8b5d-d5bd9480d2c6",
+      "e84ead35-ac16-4827-ba37-674394dd7445",
+      "6e76e0c8-e5dc-4d0b-92c2-4ed190a9f5a5",
+      "af12dfca-46d4-4679-96a7-f320e2bd5260",
+      "6ed6ea52-79f6-47f7-aec1-2d90cf1fd19d"
+    ]
   },
   {
     "titulo": "Deja de ser tú",
@@ -108,7 +139,7 @@
     "tapa": "Dura",
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:33:28.373Z",
-    "actualizadoEn": "2024-12-15T01:41:41.502Z",
+    "actualizadoEn": "2024-12-16T15:04:10.660Z",
     "disponibilidad": "Disponible",
     "mensajes": [
       [
@@ -127,7 +158,14 @@
         "9b922eb4-33e8-4781-9863-c066992e1620"
       ]
     ],
-    "librosVendidos": 0
+    "librosVendidos": 0,
+    "collectionsIds": [
+      "fd0cbe7f-73fd-4156-8325-1ba314375345",
+      "66193010-9dcf-42d3-8c86-7cd7c5a3e027",
+      "6e76e0c8-e5dc-4d0b-92c2-4ed190a9f5a5",
+      "df121502-806c-4921-b59b-c94e2492cd19",
+      "61633db1-edf4-4767-be8b-e1d805329196"
+    ]
   },
   {
     "titulo": "La vegetariana",
@@ -158,10 +196,16 @@
     "tapa": "Blanda",
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:38:47.585Z",
-    "actualizadoEn": "2024-12-15T01:40:20.506Z",
+    "actualizadoEn": "2024-12-16T15:02:29.127Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0
+    "librosVendidos": 0,
+    "collectionsIds": [
+      "8213597c-4bac-49cc-95ea-3388f74627d8",
+      "66193010-9dcf-42d3-8c86-7cd7c5a3e027",
+      "788fcde2-3213-4d3b-bdc3-0480f5152131",
+      "6ed6ea52-79f6-47f7-aec1-2d90cf1fd19d"
+    ]
   },
   {
     "titulo": "Demasiado tarde para despertar",
@@ -186,10 +230,14 @@
     "tapa": "",
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:51:23.575Z",
-    "actualizadoEn": "2024-12-15T01:27:38.596Z",
+    "actualizadoEn": "2024-12-16T15:04:10.665Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0
+    "librosVendidos": 0,
+    "collectionsIds": [
+      "6ae813e7-c18a-44ae-ab87-b7f601d4561e",
+      "61633db1-edf4-4767-be8b-e1d805329196"
+    ]
   },
   {
     "titulo": "Acaba con la inflamación en 7 días",
@@ -228,7 +276,8 @@
         "857857d1-afdd-411d-b41a-be427d1ff186"
       ]
     ],
-    "librosVendidos": 0
+    "librosVendidos": 0,
+    "collectionsIds": []
   },
   {
     "titulo": "100 sopas colombianas",
@@ -256,7 +305,8 @@
     "actualizadoEn": "2024-10-27T05:17:45.540Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0
+    "librosVendidos": 0,
+    "collectionsIds": []
   },
   {
     "titulo": "Globalismo",
@@ -290,7 +340,8 @@
     "actualizadoEn": "2024-12-15T01:35:23.816Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0
+    "librosVendidos": 0,
+    "collectionsIds": []
   },
   {
     "titulo": "IA más allá de los algoritmos",
@@ -324,7 +375,8 @@
     "actualizadoEn": "2024-10-20T20:16:04.908Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0
+    "librosVendidos": 0,
+    "collectionsIds": []
   },
   {
     "titulo": "Nexus",
@@ -360,7 +412,8 @@
         "836e151b-43ae-48a0-8352-17ad309d8068"
       ]
     ],
-    "librosVendidos": 0
+    "librosVendidos": 0,
+    "collectionsIds": []
   },
   {
     "titulo": "Si lo crees lo puedes lograr",
@@ -390,7 +443,8 @@
     "actualizadoEn": "2024-10-20T22:11:53.027Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0
+    "librosVendidos": 0,
+    "collectionsIds": []
   },
   {
     "titulo": "El encuentro de cuatro imperios",
@@ -456,7 +510,8 @@
         "857857d1-afdd-411d-b41a-be427d1ff186"
       ]
     ],
-    "librosVendidos": 0
+    "librosVendidos": 0,
+    "collectionsIds": []
   },
   {
     "titulo": "El experimento: Amor Verdadero",
@@ -487,7 +542,8 @@
     "actualizadoEn": "2024-10-21T01:38:17.821Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0
+    "librosVendidos": 0,
+    "collectionsIds": []
   },
   {
     "titulo": "La mujer incierta",
@@ -515,7 +571,8 @@
     "actualizadoEn": "2024-10-21T01:39:41.063Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0
+    "librosVendidos": 0,
+    "collectionsIds": []
   },
   {
     "titulo": "Batalla Cultural",
@@ -547,7 +604,8 @@
     "actualizadoEn": "2024-11-23T18:01:56.356Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0
+    "librosVendidos": 0,
+    "collectionsIds": []
   },
   {
     "titulo": "Practical React Native",
@@ -579,7 +637,8 @@
     "actualizadoEn": "2024-11-23T19:21:19.492Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0
+    "librosVendidos": 0,
+    "collectionsIds": []
   },
   {
     "titulo": "React Practico desde cero a desarrollos web avanzados",
@@ -617,7 +676,8 @@
         "857857d1-afdd-411d-b41a-be427d1ff186"
       ]
     ],
-    "librosVendidos": 0
+    "librosVendidos": 0,
+    "collectionsIds": []
   },
   {
     "titulo": "React Practico desde cero a desarrollos web avanzados",
@@ -649,7 +709,8 @@
     "actualizadoEn": "2024-12-05T23:23:57.785Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0
+    "librosVendidos": 0,
+    "collectionsIds": []
   },
   {
     "titulo": "React Practico desde cero a desarrollos web avanzados",
@@ -681,6 +742,7 @@
     "actualizadoEn": "2024-12-06T22:51:24.403Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0
+    "librosVendidos": 0,
+    "collectionsIds": []
   }
 ]

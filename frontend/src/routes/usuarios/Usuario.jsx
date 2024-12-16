@@ -189,15 +189,13 @@ export default function Usuario () {
             </div>
           </>
         )}
-        {usuario
-          ? (
+        {usuario &&
             <div className='card-container'>
 
               <img
-                src={renderProfilePhoto({ user: usuario })}
+                src={renderProfilePhoto(usuario.fotoPerfil)}
                 alt='Profile'
-                className='profile-image'
-              />
+                className='profile-image'/>
               <div className='card-info'>
 
                 <h1>{usuario.nombre}</h1>
@@ -215,19 +213,11 @@ export default function Usuario () {
                           className='compartir normal' onClick={(e) => {
                             e.preventDefault()
                             if (!user) {
-                              toast.error(<div>Necesitas iniciar sesión <Link
-                                to='/login' style={{
-                                  textDecoration: 'underline',
-                                  color: 'var(--using4)'
-                                }}
-                                                                        >aquí
-                              </Link>
-                              </div>)
+                              toast.error(<div>Necesitas iniciar sesión <Link to='/login' style={{ textDecoration: 'underline', color: 'var(--using4)' }}>aquí</Link></div>)
                               return
                             }
                             navigate(`/mensajes?n=${usuario._id}`)
-                          }}
-                        >
+                          }}>
                           Enviar mensaje
                         </button>
                         <button className='compartir botonInverso' onClick={handleShare}>Compartir</button>
@@ -237,14 +227,12 @@ export default function Usuario () {
                             color: user?.siguiendo?.includes(usuario._id) ? 'white' : ''
                           }}
                           className={`compartir ${user?.seguidores?.includes(usuario._id) ? 'normal' : 'botonInverso'}`}
-                          onClick={handleFollowers}
-                        >
+                          onClick={handleFollowers}>
 
                           {user?.siguiendo?.includes(usuario._id) ? 'Siguiendo' : 'Seguir'}
                         </button>
                       </>
-                      )
-                    : (
+                      ) : (
                       <Link to='/usuarios/editarUsuario'>
                         <button className='compartir normal'>Editar perfil</button>
                       </Link>
@@ -252,10 +240,7 @@ export default function Usuario () {
                 </div>
               </div>
             </div>
-            )
-          : (
-            <p>Cargando información del usuario...</p>
-            )}
+            }
         <div className='select'>
           <div onClick={() => setMyPosts('libros')} className={myPosts === 'libros' ? 'active' : ''}>
             {permisos ? 'Mis libros' : 'Libros'}
@@ -270,14 +255,13 @@ export default function Usuario () {
         <div className='postsContainer'>
           {usuario &&
                 myPosts === 'libros' ? <>
-                  {librosUsuario.map((libro, index) => (<>
-                    {permisos
-                      ? <MakeUpdateCard element={libro} index={index} />
+                  {librosUsuario.map((libro, index) => 
+                    permisos
+                      ? <MakeUpdateCard key={index} element={libro} index={index} />
                       : user
-                        ? <MakeCard element={libro} index={index} user={user} />
-                        : <MakeCard element={libro} index={index} />}
-                                                        </>
-                  )).reverse()/* Están en orden de creación */}
+                        ? <MakeCard key={index} element={libro} index={index} user={user} />
+                        : <MakeCard key={index} element={libro} index={index} />
+                  ).reverse()/* Están en orden de creación */}
                   {librosUsuario.length === 0 && <>No hay libros por aquí</>}
                 </>
             : myPosts === 'favoritos'

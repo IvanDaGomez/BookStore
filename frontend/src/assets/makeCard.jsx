@@ -5,9 +5,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import { handleFavoritos } from './handleFavoritos'
 import { toast } from 'react-toastify'
 import { useEffect } from 'react'
-
+import { renderProfilePhoto } from './renderProfilePhoto.js'
 const anchoDeIconos = 30
-
+const necesitasIniciarSesion = <div>Necesitas iniciar sesión <Link to='/login' style={{ textDecoration: 'underline', color: 'var(--using4)' }}>aquí</Link></div>
 const MakeCard = ({ element, index, user = '', callback = () => {} }) => {
   // Aplicar la clase "favoritoActivo" después de renderizar las tarjetas
   useEffect(() => {
@@ -76,7 +76,7 @@ const MakeCard = ({ element, index, user = '', callback = () => {} }) => {
                 event.preventDefault()
 
                 if (!user) {
-                  toast.error(<div>Necesitas iniciar sesión <Link to='/login' style={{ textDecoration: 'underline', color: 'var(--using4)' }}>aquí</Link></div>)
+                  toast.error(necesitasIniciarSesion)
                   return
                 }
                 user._id ? handleFavoritos(event, element._id, user._id) : handleFavoritos(event, element._id)
@@ -90,14 +90,7 @@ const MakeCard = ({ element, index, user = '', callback = () => {} }) => {
               className='fastInfoElement' onClick={(e) => {
                 e.preventDefault()
                 if (!user) {
-                  toast.error(<div>Necesitas iniciar sesión <Link
-                    to='/login' style={{
-                      textDecoration: 'underline',
-                      color: 'var(--using4)'
-                    }}
-                                                            >aquí
-                                                            </Link>
-                              </div>)
+                  toast.error(necesitasIniciarSesion)
                   return
                 }
                 window.location.href = `/checkout/${element._id}`
@@ -110,14 +103,7 @@ const MakeCard = ({ element, index, user = '', callback = () => {} }) => {
               onClick={(e) => {
                 e.preventDefault()
                 if (!user) {
-                  toast.error(<div>Necesitas iniciar sesión <Link
-                    to='/login' style={{
-                      textDecoration: 'underline',
-                      color: 'var(--using4)'
-                    }}
-                                                            >aquí
-                                                            </Link>
-                              </div>)
+                  toast.error(necesitasIniciarSesion)
                   return
                 }
                 window.location.href = `/mensajes?n=${element.idVendedor}&q=${element._id}`
@@ -185,14 +171,7 @@ const MakeOneFrCard = ({ element, index, user = '' }) => {
               event.preventDefault()
 
               if (!user._id) {
-                toast.error(<div>Necesitas iniciar sesión <Link
-                  to='/login' style={{
-                    textDecoration: 'underline',
-                    color: 'var(--using4)'
-                  }}
-                                                          >aquí
-                                                          </Link>
-                            </div>)
+                toast.error(necesitasIniciarSesion)
                 return
               }
               user._id ? handleFavoritos(event, element._id, user._id) : handleFavoritos(event, element._id)
@@ -209,6 +188,7 @@ const MakeOneFrCard = ({ element, index, user = '' }) => {
   )
 }
 const MakeUpdateCard = ({ element, index }) => {
+  const navigate = useNavigate()
   return (
     <Link key={index} to={`/libros/${element._id}`}>
       <div className='sectionElement' style={{ filter: `opacity(${element.disponibilidad === 'Vendido' ? '0.6' : '1'})` }}>
@@ -239,19 +219,18 @@ const MakeUpdateCard = ({ element, index }) => {
           </div>
           <div className='editarOEliminar'>
 
-            <Link to={`/libros/crear?vendedor=${element.idVendedor}&libro=${element._id}`}>
-              <button>
+              <button onClick={()=>navigate(`/libros/crear?vendedor=${element.idVendedor}&libro=${element._id}`)}>
                 Editar
               </button>
-            </Link>
 
-            <Link to={`/usuarios/${element.idVendedor}?eliminar=y&libro=${element._id}`}>
+
               <button
+                onClick={()=> navigate(`/usuarios/${element.idVendedor}?eliminar=y&libro=${element._id}`)}
                 className='eliminar'
               >
                 Eliminar
               </button>
-            </Link>
+
           </div>
         </div>
       </div>
@@ -284,15 +263,19 @@ const MakeSmallCard = ({ element, index }) => {
 }
 // Pendiente
 const MakeCollectionCard = ({ element, index }) => {
+  async function handleSave () {
+    
+  }
   return (
     <Link key={index} style={{ width: '100%', height: '100%' }} to={`/colecciones/${element._id}`}>
       <div className='collectionElement'>
+        <h2>{element.nombre}</h2>
         <div className='imageElementCollectionContainer'>
-          <img src={element.foto} alt='' />
+          <img src={renderProfilePhoto(element.foto)} alt='' />
         </div>
         <div className='info'>
-          <h2>{element.nombre}</h2>
-          Seguidores: {element.seguidores.length}
+          Libros: {element.librosIds.length}
+          <button onClick={handleSave}>Guardar</button>
         </div>
       </div>
     </Link>

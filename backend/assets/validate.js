@@ -152,10 +152,11 @@ const collectionSchema = z.object({
   _id: z.string().uuid().optional(),
   foto: z.string().optional(),
   userId: z.string(),
-  librosIds: z.array().optional(),
+  librosIds: z.array(z.string()).default([]), // Define el tipo de los elementos como string
   nombre: z.string(),
   descripcion: z.string().max(255, { message: 'La descripción debe tener como máximo 255 caracteres.' }).optional(),
-  seguidores: z.array().optional()
+  seguidores: z.array(z.string()).default([]), // Define el tipo de los elementos como string
+  saga: z.boolean().default(false)
 })
 
 function validateCollection (data) {

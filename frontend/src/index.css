@@ -146,11 +146,13 @@ button:hover{
 input {
   all:unset;
   font-size: 2rem;
+  font-family: inherit;
   width: min(100%, 300px);
   padding: var(--padding-small);
   border: 1px solid var(--using2);
   border-radius: var(--border);;
   background-color: var(--using1);
+  text-align: left;
   color:var(--using3);
 }
 input:focus{
@@ -338,6 +340,7 @@ header .flex-between{
 
 
 .headerDer .input{
+  all: unset;
   display: flex;
   align-items: center;
   background-color: white;
@@ -349,7 +352,7 @@ header .flex-between{
 
 .search {
   border: none;
-  padding: 10px;
+  padding: 0;
   padding-left: 15px;
   border-radius: 300px 0 0 300px; /* Round corners on the left side */
   font-size: 15px;
@@ -359,7 +362,9 @@ header .flex-between{
   background-color: var(--using1);
   
 }
-
+.search:focus{
+  border: none;
+}
 .icon {
   all:unset;
   border: none;
@@ -1097,6 +1102,8 @@ color: var(--using6);
 .cardContainer .addToCartButton:hover{
   transform: scale(1.05);
 }
+
+
 /*----------------------------------SIDE INFO------------------------*/
 
 .sideInfo{
@@ -2242,7 +2249,7 @@ input[type="range"]::-moz-range-thumb{
   width: 200px; /* Ensure it matches the width of .select */
   border: 1px solid var(--using2);
   border-radius: var(--border);
-}
+} 
 .optionsContainer {
   width: 200px; /* Ensure it matches the width of .select */
   position: absolute;
@@ -2514,8 +2521,8 @@ color: var(--using6);
   cursor: pointer;
 }
 .dropdownBackground{
-  width:120vw;
-  height: 120vh;
+  width:100vw;
+  height: 100vh;
   position: fixed;
   top: 50lvh;
   left: 50lvw;
@@ -2523,13 +2530,13 @@ color: var(--using6);
   transform: translate(-50%, -50%);
   background: var(--using3);
   z-index: 1001;
-  filter:opacity(0.4);
+  background: #00000040;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .dropdown{
-  position: absolute;
-  top: 50vh;
-  left: 50vw;
-  transform: translate(-50%, -50%);
+
   background: var(--using1);
   width: min(calc(100vw - 10px), 1000px);
   height:calc(100vh - 80px);
@@ -2979,11 +2986,60 @@ color: var(--using6);
   margin: 0 10px;
   width: auto;
 }
-.postsContainer .success-container{
+.postsContainer .collectionElement{
+  width: 100%;
+  
+  margin: auto;
+  background: var(--using1);
+  border: 1px solid var(--using2);
+  border-radius: var(--border);
+  padding: var(--padding-small);
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  color: var(--using3);
+  
+}
+.postsContainer .collectionElement h2{
+  text-align: center;
+  font-size: 2rem;
+}
+.postsContainer .collectionElement .imageElementCollectionContainer{
+  width: 60%;
+  aspect-ratio: 2 / 3;
+  background: #a6a6a6;
+  display: flex;
+  align-items: center;
+  margin: 10px auto;
+  padding: 0s;
+  border-radius: var(--border);
+}
+.postsContainer .collectionElement .imageElementCollectionContainer img{
+  height: 100%;
+
+  aspect-ratio: 2 / 3;
+}
+.postsContainer .collectionElement .info{
+  background: none;
+  color: black;
+}
+.postsContainer .collectionElement .info *{
+  width: 100%;
+  margin: 5px auto;
+}
+.postsContainer .success-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  padding: var(--padding-big);
+  height: min(90vw, 300px);
+  overflow-y: auto;
+}
+
+.postsContainer .success-container form{
+  width: 100%;
 }
 .postsContainer .success-container *{
   width: auto;
@@ -3021,16 +3077,40 @@ color: var(--using6);
 
 }
 .postsContainer .success-container .librosFav{
-  width: 70%;
-  height: 120px;
+  width: 100%;
+  height: 150px;
   border: 1px solid var(--using4);
   margin: auto;
   border-radius: var(--border);
-  overflow: auto;
+  overflow-y: auto;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
+}
+.postsContainer .success-container .librosFav .libroFav{
+  height: calc(20px + calc(2 * 3px));
+  width: 100%;
+  border-bottom: 1px solid var(--using4);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  padding-inline: var(--padding-small);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.postsContainer .success-container .librosFav .libroFav.reverse{
+  background: var(--using4);
+  color: var(--using1);
+}
+.postsContainer .success-container .librosFav .libroFav *{
+  margin: 0;
+}
+.postsContainer .success-container .librosFav .libroFav img{
+  height: 100%;
 }
 .postsContainer .success-container .flex{
   margin-top: auto;
@@ -3377,9 +3457,10 @@ color: var(--using6);
   flex-direction: column;
   border-right: 1px solid var(--using2);
   overflow-y:auto;
+  overflow-x: hidden;
 }
 .conversationsFilter{
-  width: calc(100% - 10px);/*Margin *2*/
+  width: calc(100% - 30px) !important;/*Margin *2*/
   height: 30px;
   background: var(--using1);
   border: 1px solid var(--using3);
@@ -3388,6 +3469,7 @@ color: var(--using6);
   margin: 5px;
   padding: 3px;
   padding-inline: 10px;
+
 }
 .activeConversation{
   width: 100%;
