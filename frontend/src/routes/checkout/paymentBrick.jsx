@@ -222,20 +222,20 @@ function PaymentBrick ({ libro, preferenceId, user, form, setFase }) {
                   ? (
                     <Payment
                       initialization={{
-                          amount: libro.oferta ? libro.oferta : libro.precio,
-                          preferenceId,
-                          marketplace: true
-                        }}
+                        amount: libro.oferta ? libro.oferta : libro.precio,
+                        preferenceId,
+                        marketplace: true
+                      }}
                       customization={{
-                          paymentMethods: {
-                            ticket: 'all',
-                            bankTransfer: 'all',
-                            creditCard: 'all',
-                            debitCard: 'all',
-                            mercadoPago: 'all',
-                            atm: 'all'
-                          }
-                        }}
+                        paymentMethods: {
+                          ticket: 'all',
+                          bankTransfer: 'all',
+                          creditCard: 'all',
+                          debitCard: 'all',
+                          mercadoPago: 'all',
+                          atm: 'all'
+                        }
+                      }}
                       onSubmit={onSubmit}
                       onReady={onReady}
                       onError={onError}

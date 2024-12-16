@@ -471,16 +471,16 @@ export default function Mensajes () {
                   <div className='conversationSpecificTitleAndMessage'>
                     <h2>{findUserByConversation(conversation).nombre || ''}</h2>
                     <span>
-                            {(user && reducedUsers && conversation && conversation?.lastMessage && conversation?.lastMessage?.message) && (
-                                <>
-                                    {conversation.lastMessage.userId === user._id
-                                        ? 'Tu: '
-                                        : `${reduceTextByFirstWord(findUserByConversation(conversation).nombre || '')}: `}
-                                    {reduceText(conversation?.lastMessage?.message, 20)}
-                                  </>
-                              )}
+                      {(user && reducedUsers && conversation && conversation?.lastMessage && conversation?.lastMessage?.message) && (
+                        <>
+                          {conversation.lastMessage.userId === user._id
+                            ? 'Tu: '
+                            : `${reduceTextByFirstWord(findUserByConversation(conversation).nombre || '')}: `}
+                          {reduceText(conversation?.lastMessage?.message, 20)}
+                        </>
+                      )}
 
-                          </span>
+                    </span>
                   </div>
                   {/* 2024-12-21T17:01:32.197Z */}
                   <span>{formatDate(conversation?.lastMessage?.createdIn) || ''}</span>
@@ -495,9 +495,9 @@ export default function Mensajes () {
                   <svg
                     onClick={() => setActiveConversation(null)}
                     style={{
-                            display: window.innerWidth <= 600 ? 'block' : 'none',
-                            transform: 'rotate(180deg)'
-                          }} xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width={25} height={25} color='#000000' fill='none'
+                      display: window.innerWidth <= 600 ? 'block' : 'none',
+                      transform: 'rotate(180deg)'
+                    }} xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width={25} height={25} color='#000000' fill='none'
                   ><path d='M9.00005 6C9.00005 6 15 10.4189 15 12C15 13.5812 9 18 9 18' stroke='currentColor' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round' />
                   </svg>
                   <img src={activeUser.fotoPerfil ? `http://localhost:3030/uploads/${activeUser.fotoPerfil}` : 'http://localhost:3030/uploads/default.jpg'} alt={activeUser.nombre} />

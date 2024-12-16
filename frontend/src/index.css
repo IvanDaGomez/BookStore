@@ -128,6 +128,7 @@ button{
   
   padding: 5px;
   background: var(--using4);
+  border: 3px solid var(--using4);
   color:var(--using1);
   border:none;
   border-radius: var(--border);
@@ -139,10 +140,21 @@ button{
   
 }
 button:hover{
-  background: #380050;
+  background: #041dbe;
 }
-input{
-  color: var(--using3)
+
+input {
+  all:unset;
+  font-size: 2rem;
+  width: min(100%, 300px);
+  padding: var(--padding-small);
+  border: 1px solid var(--using2);
+  border-radius: var(--border);;
+  background-color: var(--using1);
+  color:var(--using3);
+}
+input:focus{
+  border: 1px solid var(--using4);
 }
 .error{
   margin: auto;
@@ -1492,7 +1504,7 @@ color: var(--using6);
 }
 .botonInverso:hover{
   color: var(--using1);
-  background: #380050;
+  background: #041dbe;
 }
 .actualImageContainer {
   position: relative;
@@ -2764,7 +2776,8 @@ color: var(--using6);
   align-items: center;
   width: max(60vw, 400px);
   border: 2px solid var(--using2); 
-  height: 150px; /* Ocupa toda la altura de la ventana */
+  min-height: 150px;
+  height: auto; /* Ocupa toda la altura de la ventana */
   background: var(--using1); /* Color de fondo suave */
   color: var(--using3); /* Color del texto */
   text-align: center; /* Centrar texto */
@@ -2965,6 +2978,69 @@ color: var(--using6);
 .postsContainer .newCollection svg{
   margin: 0 10px;
   width: auto;
+}
+.postsContainer .success-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.postsContainer .success-container *{
+  width: auto;
+  text-align: center;
+  margin: 4px auto;
+}
+.postsContainer .success-container div{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.postsContainer .success-container .photoContainer{
+  width: 50px;
+  aspect-ratio: 2 / 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #a6a6a6;
+  border-radius: var(--border);
+  margin: auto;
+  position: relative;
+  isolation: isolate;
+}
+.postsContainer .success-container .photoContainer img{
+  width: 100%;
+}
+.postsContainer .success-container .photoContainer .more{
+  position: absolute;
+  width: 20px;
+  bottom: -10px;
+  right: -10px; /*Half width*/
+  background: white;
+  border-radius: 50%;
+
+}
+.postsContainer .success-container .librosFav{
+  width: 70%;
+  height: 120px;
+  border: 1px solid var(--using4);
+  margin: auto;
+  border-radius: var(--border);
+  overflow: auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+.postsContainer .success-container .flex{
+  margin-top: auto;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.postsContainer .success-container .flex button{
+  width: auto;
+  margin: 0 10px;
 }
 /*-----------------------------------Editar usuario----------------------------*/
 

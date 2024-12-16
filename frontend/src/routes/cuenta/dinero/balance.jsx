@@ -31,13 +31,14 @@ export default function Balance ({ user, setUser }) {
     fetchBalance()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+  const balanceSum = Object.values(user?.balance || {}).reduce((a, b) => a + b, 0)
   return (
     <>
       <div className='flexBalance'>
         <div className='container balanceContainer'>
           <h1>Balance</h1>
           <div className='bigNumber'>
-            ${Object.values(user?.balance || {}).reduce((a, b) => a + b, 0)}
+            ${balanceSum}
           </div>
           <div className='numbers'>
             <div>
@@ -53,7 +54,7 @@ export default function Balance ({ user, setUser }) {
               <h3>${user?.balance?.porLlegar || 0}</h3>
             </div>
             <div>
-              <button onClick={() => setCobrar(!cobrar)}>
+              <button onClick={() => setCobrar(!cobrar)} style={{display: balanceSum === 0 ? 'none' : 'block'}}>
                 Cobrar
               </button>
             </div>

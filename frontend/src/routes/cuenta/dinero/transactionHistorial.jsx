@@ -41,8 +41,8 @@ export default function TransactionHistorial () {
                 <div className='transactionLine' key={transaction.id}>
                   {Object.keys(transaction).map((key, index) => (
                     <div key={index}>
-                        {transaction[key]}
-                      </div>
+                      {transaction[key]}
+                    </div>
                   ))}
                 </div>
               ))}

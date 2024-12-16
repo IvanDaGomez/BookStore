@@ -104,7 +104,17 @@
       "15ebce0f-c2da-4014-98b1-f7d665c89dd5",
       "369989bc-c49c-4acb-adb7-32c5bba2b1dd",
       "dd9a2a3b-05a3-4042-a33b-8e65cecedee8",
-      "16c206be-aa74-44fa-8a62-4b846fb7d496"
+      "16c206be-aa74-44fa-8a62-4b846fb7d496",
+      "f4d08807-1a78-49ea-b058-10a17709c3bc",
+      "f1078af2-187a-42d7-a34b-2ffa8f2cd755",
+      "2d880b74-898d-4bb7-99eb-7ccc7a1a9ca2",
+      "59b6ae97-181a-4509-9643-6eae5204de8f",
+      "dbf1574b-69d0-4def-8878-635d5e59cff1",
+      "7b6113c7-128b-4cf0-8de6-78fecd81ccbb",
+      "2d20cf34-6201-4fa1-889c-db691a823563",
+      "537a4d28-3ba5-430a-8d5f-d5f968073a16",
+      "08e1e564-22a7-48dc-b2d8-09371b9a601f",
+      "4c5c9d30-5036-4e45-bd84-57966d7ee540"
     ],
     "validated": true,
     "login": "default",
@@ -118,6 +128,19 @@
       "porLlegar": 90000
     },
     "colecciones": [
+      {
+        "nombre": "Aña",
+        "librosIds": [
+          "221f695c-69a3-4dee-98e1-0ab4565a734c",
+          "836e151b-43ae-48a0-8352-17ad309d8068"
+        ]
+      },
+      {
+        "nombre": "Aña",
+        "librosIds": []
+      }
+    ],
+    "coleccionsIds": [
       {
         "nombre": "Aña",
         "librosIds": [
@@ -163,7 +186,8 @@
       "f3b92ca2-cba7-43d4-9870-9024ac9f5253",
       "442792ea-4af9-4fe9-ae99-b85a7ba779a9",
       "991a622a-1d83-44e4-bc5d-6ead2cc1e6d6",
-      "276e6fe2-67a9-4b11-ab2b-06daea57d37e"
+      "276e6fe2-67a9-4b11-ab2b-06daea57d37e",
+      "fb555364-2859-4b6e-b0c6-82fd15a4dfaf"
     ],
     "bio": "",
     "favoritos": [],
@@ -180,20 +204,24 @@
       "8a4cf6f5-b80c-499b-a388-a3b7ea62bc82",
       "2e52b41d-4b3f-4220-a8ed-87ac54f2c2d9",
       "0aed0bde-6692-4ffe-97a5-3931fbff61a5",
-      "a00e27f1-e40d-41e8-b011-4d12f17c433c"
+      "a00e27f1-e40d-41e8-b011-4d12f17c433c",
+      "69e9632d-9a9a-444c-aa20-d1712e3c414a",
+      "c7172f62-3606-499c-abe4-fbc8e3bdea89"
     ],
     "validated": false,
     "login": "default",
     "ubicacion": {},
     "seguidores": [
-      "857857d1-afdd-411d-b41a-be427d1ff186"
+      "857857d1-afdd-411d-b41a-be427d1ff186",
+      "836e151b-43ae-48a0-8352-17ad309d8068"
     ],
     "siguiendo": [],
     "colecciones": [],
     "librosVendidos": 1,
     "balance": {
       "porLlegar": null
-    }
+    },
+    "coleccionsIds": []
   },
   {
     "nombre": "Alvaro Gómez",
@@ -288,27 +316,19 @@
     "estadoCuenta": "activo",
     "fotoPerfil": "1733521219913-952070967.png",
     "_id": "836e151b-43ae-48a0-8352-17ad309d8068",
-    "actualizadoEn": "2024-12-14T23:05:14.476Z",
+    "actualizadoEn": "2024-12-16T02:25:33.319Z",
     "direccionEnvio": {
       "ciudad": "Floridablanca",
       "pais": "Colombia",
       "departamento": "Santander"
     },
-    "facturacion": [
-      {
-        "tipo": "tarjeta",
-        "tarjeta": "",
-        "fechaExpiracion": "",
-        "nombreTarjeta": "",
-        "codigoSeguridad": ""
-      }
-    ],
     "conversationsIds": [
       "e51f7131-171d-4723-95a2-e6fea54890f5",
       "0413aa19-5e92-4833-9ae7-bf9f00ea06c6",
       "5644390f-de7e-4280-8801-9c6a017bb2b5",
       "03565f92-cb06-4688-a049-d8586ce05ab3",
-      "f855175f-d87a-42df-9084-4b9818000ee0"
+      "f855175f-d87a-42df-9084-4b9818000ee0",
+      "fb555364-2859-4b6e-b0c6-82fd15a4dfaf"
     ],
     "bio": "",
     "favoritos": [
@@ -334,31 +354,10 @@
     "ubicacion": {},
     "seguidores": [],
     "siguiendo": [
-      "857857d1-afdd-411d-b41a-be427d1ff186"
+      "9b922eb4-33e8-4781-9863-c066992e1620"
     ],
     "librosVendidos": 1,
-    "colecciones": [
-      {
-        "nombre": "Harry",
-        "librosIds": []
-      },
-      {
-        "nombre": "Aja",
-        "librosIds": []
-      },
-      {
-        "nombre": "A",
-        "librosIds": []
-      },
-      {
-        "nombre": "aj",
-        "librosIds": []
-      },
-      {
-        "nombre": "jiji",
-        "librosIds": []
-      }
-    ]
+    "coleccionsIds": []
   },
   {
     "nombre": "Monica Silva",

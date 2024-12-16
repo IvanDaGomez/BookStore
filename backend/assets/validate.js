@@ -151,6 +151,7 @@ function validatePartialTransaction (data) {
 const collectionSchema = z.object({
   _id: z.string().uuid().optional(),
   foto: z.string().optional(),
+  userId: z.string(),
   librosIds: z.array().optional(),
   nombre: z.string(),
   descripcion: z.string().max(255, { message: 'La descripción debe tener como máximo 255 caracteres.' }).optional(),

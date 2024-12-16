@@ -154,8 +154,8 @@ export default function Faq () {
                   {/* Solo muestra la respuesta si la pregunta está activa */}
                   {activeIndex === faqIndex && (
                     <div className='faqAnswer'>
-                        <p>{faq.answer}</p>
-                      </div>
+                      <p>{faq.answer}</p>
+                    </div>
                   )}
                 </div>
               ))}

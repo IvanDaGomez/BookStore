@@ -36,7 +36,7 @@ class CollectionsController {
       if (!userId) {
         return res.status(400).json({ error: 'No se proporcionó el userId' })
       }
-      const collections = await CollectionsModel.getCollectionsByUser()
+      const collections = await CollectionsModel.getCollectionsByUser(userId)
       if (!collections) {
         return res.status(404).json({ error: 'Colección no encontrada' })
       }
@@ -47,9 +47,26 @@ class CollectionsController {
     }
   }
 
+  static async getBooksByCollection (req, res) {
+    try {
+      const { collectionId } = req.params
+      if (!collectionId) {
+        return res.status(400).json({ error: 'No se proporcionó el userId' })
+      }
+      const collections = await CollectionsModel.getBooksByCollection(collectionId)
+      if (!collections) {
+        return res.status(404).json({ error: 'Colección no encontrada' })
+      }
+      res.json({ data: collections })
+    } catch (err) {
+      console.error('Error leyendo colección:', err)
+      res.status(500).json({ error: 'Error leyendo colección' })
+    }
+  }
+
   static async createCollection (req, res) {
     const data = req.body
-
+    if (req.file) data.foto = `${req.file.filename}`
     // Validación
     const validated = validateCollection(data)
     if (!validated.success) {

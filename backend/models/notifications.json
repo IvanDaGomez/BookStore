@@ -789,7 +789,7 @@
     "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
     "input": "",
     "createdIn": "2024-12-15T22:41:03.003Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/libros/221f695c-69a3-4dee-98e1-0ab4565a734c",
     "expiresAt": "2025-01-14T22:41:03.003Z",
     "metadata": {
@@ -807,7 +807,7 @@
     "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
     "input": "",
     "createdIn": "2024-12-15T22:41:12.813Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/libros/221f695c-69a3-4dee-98e1-0ab4565a734c",
     "expiresAt": "2025-01-14T22:41:12.813Z",
     "metadata": {
@@ -869,6 +869,198 @@
       "bookTitle": "React Practico desde cero a desarrollos web avanzados",
       "bookId": "e93345c4-ca50-4919-ba85-4dcf00882673",
       "question": "¿En qué estado se encuentra el producto?"
+    }
+  },
+  {
+    "_id": "f4d08807-1a78-49ea-b058-10a17709c3bc",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-15T23:59:05.626Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-14T23:59:05.626Z",
+    "metadata": {
+      "photo": "1733253245824-669736538.png"
+    }
+  },
+  {
+    "_id": "f1078af2-187a-42d7-a34b-2ffa8f2cd755",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-15T23:59:08.225Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-14T23:59:08.225Z",
+    "metadata": {
+      "photo": "1733253245824-669736538.png"
+    }
+  },
+  {
+    "_id": "2d880b74-898d-4bb7-99eb-7ccc7a1a9ca2",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-15T23:59:10.518Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-14T23:59:10.518Z",
+    "metadata": {
+      "photo": "1733253245824-669736538.png"
+    }
+  },
+  {
+    "_id": "59b6ae97-181a-4509-9643-6eae5204de8f",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-15T23:59:11.190Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-14T23:59:11.190Z",
+    "metadata": {
+      "photo": "1733253245824-669736538.png"
+    }
+  },
+  {
+    "_id": "dbf1574b-69d0-4def-8878-635d5e59cff1",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-15T23:59:16.210Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-14T23:59:16.210Z",
+    "metadata": {
+      "photo": "1733253245824-669736538.png"
+    }
+  },
+  {
+    "_id": "69e9632d-9a9a-444c-aa20-d1712e3c414a",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-16T02:23:25.463Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-15T02:23:25.463Z",
+    "metadata": {
+      "photo": ""
+    }
+  },
+  {
+    "_id": "c7172f62-3606-499c-abe4-fbc8e3bdea89",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-16T02:23:28.019Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-15T02:23:28.019Z",
+    "metadata": {
+      "photo": ""
+    }
+  },
+  {
+    "_id": "7b6113c7-128b-4cf0-8de6-78fecd81ccbb",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-16T03:39:26.587Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-15T03:39:26.587Z",
+    "metadata": {
+      "photo": "1733253245824-669736538.png"
+    }
+  },
+  {
+    "_id": "2d20cf34-6201-4fa1-889c-db691a823563",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-16T03:39:28.566Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-15T03:39:28.566Z",
+    "metadata": {
+      "photo": "1733253245824-669736538.png"
+    }
+  },
+  {
+    "_id": "537a4d28-3ba5-430a-8d5f-d5f968073a16",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-16T03:39:30.050Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-15T03:39:30.050Z",
+    "metadata": {
+      "photo": "1733253245824-669736538.png"
+    }
+  },
+  {
+    "_id": "08e1e564-22a7-48dc-b2d8-09371b9a601f",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-16T03:39:32.624Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-15T03:39:32.624Z",
+    "metadata": {
+      "photo": "1733253245824-669736538.png"
+    }
+  },
+  {
+    "_id": "4c5c9d30-5036-4e45-bd84-57966d7ee540",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-16T03:39:35.097Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-15T03:39:35.097Z",
+    "metadata": {
+      "photo": "1733253245824-669736538.png"
     }
   }
 ]

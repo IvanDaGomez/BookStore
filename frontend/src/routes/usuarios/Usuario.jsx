@@ -2,7 +2,7 @@ import { useNavigate, useParams } from 'react-router'
 import Header from '../../components/header'
 import Footer from '../../components/footer'
 import SideInfo from '../../components/sideInfo'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { MakeCard, MakeUpdateCard } from '../../assets/makeCard'
 import { useSearchParams, Link } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify'
@@ -10,11 +10,12 @@ import Favorites from './favorites'
 import { renderProfilePhoto } from '../../assets/renderProfilePhoto.js'
 import axios from 'axios'
 import Colecciones from './colecciones.jsx'
+import { UserContext } from '../../context/userContext.jsx'
 
 export default function Usuario () {
   const navigate = useNavigate()
   const { idVendedor } = useParams()
-  const [user, setUser] = useState(null)
+  const { user, setUser } = useContext(UserContext)
   const [usuario, setUsuario] = useState({})
   const [permisos, setPermisos] = useState(false)
   const [librosUsuario, setLibrosUsuario] = useState([])
@@ -39,27 +40,6 @@ export default function Usuario () {
       setDropdown(false)
     }
   }, [eliminar, libro])
-
-  useEffect(() => {
-    async function fetchUser () {
-      try {
-        const response = await fetch('http://localhost:3030/api/users/userSession', {
-          method: 'POST',
-          credentials: 'include'
-        })
-        if (response.ok) {
-          const data = await response.json()
-          setUser(data.user)
-        } else {
-          console.error('Failed to fetch user data:', response)
-        }
-      } catch (error) {
-        console.error('Error fetching user data:', error)
-      }
-    }
-
-    fetchUser()
-  }, [])
 
   useEffect(() => {
     async function fetchResults () {
@@ -229,45 +209,45 @@ export default function Usuario () {
                 <div>
                   {!permisos
                     ? (
-                        <>
+                      <>
 
-                            <button
-                                className='compartir normal' onClick={(e) => {
-                  e.preventDefault()
-                  if (!user) {
-                    toast.error(<div>Necesitas iniciar sesión <Link
-                                  to='/login' style={{
-                                      textDecoration: 'underline',
-                                      color: 'var(--using4)'
-                                    }}
-                                                                          >aquí
-                                                                          </Link>
-                                            </div>)
-                    return
-                  }
-                  navigate(`/mensajes?n=${usuario._id}`)
-                }}
-                              >
-                                        Enviar mensaje
-                              </button>
-                            <button className='compartir botonInverso' onClick={handleShare}>Compartir</button>
-                            <button
-                                style={{
-                  background: user?.siguiendo?.includes(usuario._id) ? 'var(--using4)' : '',
-                  color: user?.siguiendo?.includes(usuario._id) ? 'white' : ''
-                }}
-                                className={`compartir ${user?.seguidores?.includes(usuario._id) ? 'normal' : 'botonInverso'}`}
-                                onClick={handleFollowers}
-                              >
+                        <button
+                          className='compartir normal' onClick={(e) => {
+                            e.preventDefault()
+                            if (!user) {
+                              toast.error(<div>Necesitas iniciar sesión <Link
+                                to='/login' style={{
+                                  textDecoration: 'underline',
+                                  color: 'var(--using4)'
+                                }}
+                                                                        >aquí
+                              </Link>
+                              </div>)
+                              return
+                            }
+                            navigate(`/mensajes?n=${usuario._id}`)
+                          }}
+                        >
+                          Enviar mensaje
+                        </button>
+                        <button className='compartir botonInverso' onClick={handleShare}>Compartir</button>
+                        <button
+                          style={{
+                            background: user?.siguiendo?.includes(usuario._id) ? 'var(--using4)' : '',
+                            color: user?.siguiendo?.includes(usuario._id) ? 'white' : ''
+                          }}
+                          className={`compartir ${user?.seguidores?.includes(usuario._id) ? 'normal' : 'botonInverso'}`}
+                          onClick={handleFollowers}
+                        >
 
-                                {user?.siguiendo?.includes(usuario._id) ? 'Siguiendo' : 'Seguir'}
-                              </button>
-                          </>
+                          {user?.siguiendo?.includes(usuario._id) ? 'Siguiendo' : 'Seguir'}
+                        </button>
+                      </>
                       )
                     : (
-                        <Link to='/usuarios/editarUsuario'>
-                            <button className='compartir normal'>Editar perfil</button>
-                          </Link>
+                      <Link to='/usuarios/editarUsuario'>
+                        <button className='compartir normal'>Editar perfil</button>
+                      </Link>
                       )}
                 </div>
               </div>
@@ -302,7 +282,7 @@ export default function Usuario () {
                 </>
             : myPosts === 'favoritos'
               ? <Favorites vendedor={usuario} />
-              : <Colecciones user={usuario} />}
+              : <Colecciones user={usuario} permisos={permisos}/>}
         </div>
       </div>
       <ToastContainer

@@ -1,5 +1,5 @@
 import { useParams } from 'react-router'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '../../components/header'
 import SideInfo from '../../components/sideInfo'
@@ -12,6 +12,7 @@ import axios from 'axios'
 import 'react-toastify/dist/ReactToastify.css'
 import { handleFavoritos } from '../../assets/handleFavoritos'
 import { createNotification } from '../../assets/createNotification'
+import { UserContext } from '../../context/userContext.jsx'
 export default function BookView () {
   const { bookId } = useParams()
   const [libro, setLibro] = useState(null) // Inicialmente null
@@ -21,22 +22,7 @@ export default function BookView () {
   const [librosRelacionadosVendedor, setLibrosRelacionadosVendedor] = useState([])
   const [librosRelacionados, setLibrosRelacionados] = useState([])
   const actualImageRef = useRef(null)
-  const [user, setUser] = useState(null)
-
-  useEffect(() => {
-    async function fetchUser () {
-      try {
-        const url = 'http://localhost:3030/api/users/userSession'
-        const response = await axios.post(url, null, {
-          withCredentials: true
-        })
-        setUser(response.data.user)
-      } catch (error) {
-        console.error('Error fetching user data:', error)
-      }
-    };
-    fetchUser()
-  }, [])
+  const { user } = useContext(UserContext)
 
   useEffect(() => {
     window.scrollTo(0, 0)

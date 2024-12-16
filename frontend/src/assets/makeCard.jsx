@@ -22,34 +22,32 @@ const MakeCard = ({ element, index, user = '', callback = () => {} }) => {
     <Link to={`/libros/${element._id}`}>
       <div className='sectionElement' key={index} style={{ filter: `opacity(${element.disponibilidad === 'Vendido' ? '0.6' : '1'})` }}>
         <div className='imageElementContainer' style={{ backgroundImage: `url(http://localhost:3030/uploads/${element.images[0]})`, backgroundRepeat: 'no-repeat' }}>
-          {
-                  element.disponibilidad === 'Vendido' ? (
-                    <div
-                      className='percentageElement'
-                      style={{ background: 'red' }}
-                    >
-                      Vendido
-                    </div>
-                  ) : (element.oferta || element.estado === 'Nuevo' || element.fechaPublicacion) ? (
-                    <div
-                      className='percentageElement'
-                      style={{
-                        background: element.oferta
-                          ? 'green'
-                          : (new Date() - new Date(element.fechaPublicacion) < 15 * 24 * 60 * 60 * 1000) // 15 días en milisegundos
-                              ? '#4457ff' // Color para "Nuevo"
-                              : 'gray' // Color para "En perfecto estado"
-                      }}
-                    >
-                      {element.oferta
-                        ? Math.ceil(((1 - element.oferta / element.precio) * 100).toFixed(2) / 5) * 5 + '% de descuento'
-                        : (new Date() - new Date(element.fechaPublicacion) < 15 * 24 * 60 * 60 * 1000)
-                            ? '¡Nuevo!' // Si se creó hace menos de 15 días
-                            : 'En perfecto estado' // Si no se creó recientemente
+          {element.disponibilidad === 'Vendido' ? (
+            <div
+              className='percentageElement'
+              style={{ background: 'red' }}
+            >
+              Vendido
+            </div>
+          ) : (element.oferta || element.estado === 'Nuevo' || element.fechaPublicacion) ? (
+            <div
+              className='percentageElement'
+              style={{
+                background: element.oferta
+                  ? 'green'
+                  : (new Date() - new Date(element.fechaPublicacion) < 15 * 24 * 60 * 60 * 1000) // 15 días en milisegundos
+                      ? '#4457ff' // Color para "Nuevo"
+                      : 'gray' // Color para "En perfecto estado"
+              }}
+            >
+              {element.oferta
+                ? Math.ceil(((1 - element.oferta / element.precio) * 100).toFixed(2) / 5) * 5 + '% de descuento'
+                : (new Date() - new Date(element.fechaPublicacion) < 15 * 24 * 60 * 60 * 1000)
+                    ? '¡Nuevo!' // Si se creó hace menos de 15 días
+                    : 'En perfecto estado' // Si no se creó recientemente
                       }
-                    </div>
-                  ) : null
-                }
+            </div>
+          ) : null}
 
         </div>
         <h2>{reduceText(element.titulo, 25)}</h2>
@@ -78,14 +76,7 @@ const MakeCard = ({ element, index, user = '', callback = () => {} }) => {
                 event.preventDefault()
 
                 if (!user) {
-                  toast.error(<div>Necesitas iniciar sesión <Link
-                    to='/login' style={{
-                        textDecoration: 'underline',
-                        color: 'var(--using4)'
-                      }}
-                                                            >aquí
-                                                            </Link>
-                              </div>)
+                  toast.error(<div>Necesitas iniciar sesión <Link to='/login' style={{ textDecoration: 'underline', color: 'var(--using4)' }}>aquí</Link></div>)
                   return
                 }
                 user._id ? handleFavoritos(event, element._id, user._id) : handleFavoritos(event, element._id)
@@ -98,12 +89,12 @@ const MakeCard = ({ element, index, user = '', callback = () => {} }) => {
             <div
               className='fastInfoElement' onClick={(e) => {
                 e.preventDefault()
-                if (!user._id) {
+                if (!user) {
                   toast.error(<div>Necesitas iniciar sesión <Link
                     to='/login' style={{
-                        textDecoration: 'underline',
-                        color: 'var(--using4)'
-                      }}
+                      textDecoration: 'underline',
+                      color: 'var(--using4)'
+                    }}
                                                             >aquí
                                                             </Link>
                               </div>)
@@ -118,12 +109,12 @@ const MakeCard = ({ element, index, user = '', callback = () => {} }) => {
             <svg
               onClick={(e) => {
                 e.preventDefault()
-                if (!user._id) {
+                if (!user) {
                   toast.error(<div>Necesitas iniciar sesión <Link
                     to='/login' style={{
-                        textDecoration: 'underline',
-                        color: 'var(--using4)'
-                      }}
+                      textDecoration: 'underline',
+                      color: 'var(--using4)'
+                    }}
                                                             >aquí
                                                             </Link>
                               </div>)

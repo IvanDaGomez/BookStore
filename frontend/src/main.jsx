@@ -29,6 +29,7 @@ import CambiarContraseña from './routes/cambiarContraseña/cambiarContraseña.j
 import Faq from './routes/faq/faq.jsx'
 import Fyp from './routes/forYouPage/fyp.jsx'
 import ColeccionesPage from './routes/colecciones/coleccionEspecifico.jsx'
+import { UserProvider } from './context/userContext.jsx'
 
 const router = createBrowserRouter([
   {
@@ -159,14 +160,16 @@ const router = createBrowserRouter([
 })
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
-    <ToastContainer
-      position='top-center'
-      autoClose={5000}
-      hideProgressBar={false}
-      pauseOnHover={false}
-      closeOnClick
-      theme='light'
-    />
+    <UserProvider>
+      <RouterProvider router={router} />
+      <ToastContainer
+        position='top-center'
+        autoClose={5000}
+        hideProgressBar={false}
+        pauseOnHover={false}
+        closeOnClick
+        theme='light'
+      />
+    </UserProvider>
   </StrictMode>
 )

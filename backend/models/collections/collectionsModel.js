@@ -7,7 +7,8 @@ const collectionObject = (data) => {
     librosIds: data.librosIds || [],
     nombre: data.nombre || '',
     descripcion: data.descripcion || '',
-    seguidores: data.seguidores || []
+    seguidores: data.seguidores || [],
+    userId: data.userId || ''
 
   }
 }
@@ -40,10 +41,10 @@ class CollectionsModel {
     }
   }
 
-  static async getCollectionsByUser (user) {
+  static async getCollectionsByUser (id) {
     try {
       const collections = await this.getAllCollections()
-      const filteredCollections = collections.filter(collection => collection.conversationId === id)
+      const filteredCollections = collections.filter(collection => collection.userId === id)
       if (!filteredCollections) {
         return null
       }

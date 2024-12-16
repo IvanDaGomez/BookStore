@@ -32,5 +32,22 @@
       "_id": "9d91caa1-6741-40f9-8e6b-f41acfda9bc2",
       "createdIn": "2024-12-08T20:27:37.754Z"
     }
+  },
+  {
+    "_id": "fb555364-2859-4b6e-b0c6-82fd15a4dfaf",
+    "users": [
+      "836e151b-43ae-48a0-8352-17ad309d8068",
+      "834a9dda-5cf5-4438-9499-eed4b8ec3e45"
+    ],
+    "messages": [],
+    "createdIn": "2024-12-16T02:22:55.706Z",
+    "lastMessage": {
+      "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+      "conversationId": "fb555364-2859-4b6e-b0c6-82fd15a4dfaf",
+      "message": "¡Hola Monica Silva! 😊\n    \n            Me interesa mucho el libro que estás ofreciendo: *Recupera tu mente, reconquista tu vida*. ¿Podrías contarme un poco más al respecto? Aquí está el enlace del libro para que lo tengas a mano: \n            http://localhost:5173/libros/3f7ab023-15e7-4626-8890-a71f4f2e221c\n    \n            ¡Muchas gracias de antemano! Espero tu respuesta. 😊",
+      "read": false,
+      "_id": "e4b41e4e-03af-47c4-985c-989a037b4d1d",
+      "createdIn": "2024-12-16T02:22:55.725Z"
+    }
   }
 ]

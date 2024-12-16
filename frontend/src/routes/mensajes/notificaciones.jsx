@@ -174,15 +174,15 @@ export default function Notificaciones () {
 
                 <div className='conversationSpecificTitleAndMessage'>
                   <h2>
-                      {notification.type
-                          ? (
-                          <>
-                              {reduceText(typeMessages[notification.type] || notification.title, 40)}
-                            </>
-                            )
-                          : null}
+                    {notification.type
+                      ? (
+                        <>
+                          {reduceText(typeMessages[notification.type] || notification.title, 40)}
+                        </>
+                        )
+                      : null}
 
-                    </h2>
+                  </h2>
                 </div>
                 <span>{formatDate(notification?.createdIn) || ''}</span>
 

@@ -10,7 +10,6 @@ import { cropImageToAspectRatio } from '../../assets/cropImageToAspectRatio'
 export default function EditarUsuario () {
   const [user, setUser] = useState(null)
   const [fotoPerfil, setFotoPerfil] = useState('')
-  const [correo, setCorreo] = useState('')
   const [estadoCuenta, setEstadoCuenta] = useState('')
   const [filtros, setFiltros] = useState({})
   const [form, setForm] = useState({})
@@ -42,37 +41,15 @@ export default function EditarUsuario () {
     fetchUser()
   }, [])
 
-  // Fetch user email when user changes
-  useEffect(() => {
-    if (!user) return
-    async function fetchUserEmail () {
-      try {
-        const response = await fetch(`http://localhost:3030/api/users/c/${user._id}`, {
-          method: 'GET',
-          credentials: 'include'
-        })
-
-        if (response.ok) {
-          const data = await response.json()
-          setCorreo(data.correo)
-        }
-      } catch (error) {
-        console.error('Error fetching user email:', error)
-      }
-    }
-
-    fetchUserEmail()
-  }, [user])
 
   useEffect(() => {
     if (user) {
       document.querySelector('#nombre').value = user.nombre || ''
       document.querySelector('#bio').value = user.bio || ''
-      document.querySelector('#correo').value = correo || ''
 
       setFotoPerfil(renderProfilePhoto({ user }))
     }
-  }, [user, correo])
+  }, [user])
 
   const agregarAQuery = (formas, forma) => {
     if (forma) {
@@ -108,13 +85,10 @@ export default function EditarUsuario () {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    const { nombre, bio, correo, anteriorContraseña, nuevaContraseña } = e.target
+    const { nombre, bio, nuevaContraseña } = e.target
     const fallos = validarActualizarUsuario({
       nombre: nombre.value,
-      bio: bio.value,
-      correo: correo.value,
-      anteriorContraseña: anteriorContraseña.value,
-      nuevaContraseña: nuevaContraseña.value
+      bio: bio.value
     }) || []
 
     if (fallos.length !== 0) {
@@ -208,7 +182,7 @@ export default function EditarUsuario () {
               <label htmlFor='bio'>Bio</label>
               <input id='bio' type='text' name='bio' placeholder='Tu bio' />
             </div>
-            <div className='inputCrear'>
+            {/*<div className='inputCrear'>
               <label htmlFor='correo'>Correo</label>
               <input id='correo' type='email' name='correo' placeholder='Tu correo' />
             </div>
@@ -216,7 +190,7 @@ export default function EditarUsuario () {
               <label htmlFor='anteriorContraseña'>Cambiar Contraseña *</label>
               <input id='anteriorContraseña' type='password' name='anteriorContraseña' placeholder='Anterior Contraseña' />
               <input id='nuevaContraseña' type='password' name='nuevaContraseña' placeholder='Nueva Contraseña' />
-            </div>
+            </div>*/}
             <div className='inputCrear'>
               <label>Estado de la cuenta: </label>
               <div>{botonSelect}</div>
