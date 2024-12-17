@@ -23,6 +23,7 @@ export default function BookView () {
   const [librosRelacionados, setLibrosRelacionados] = useState([])
   const actualImageRef = useRef(null)
   const { user } = useContext(UserContext)
+  const [sagaLibros, setSagaLibros] = useState([])
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -105,15 +106,28 @@ export default function BookView () {
     // Limpieza del listener al desmontar el componente
     return () => window.removeEventListener('hashchange', handleHashChange)
   }, [])
-  if (loading) {
-    return (
-      <>
-        <Header />
-        <Footer />
-        <SideInfo />
-      </>
-    )
-  }
+
+  useEffect(()=>{
+    async function fetchSagaLibros() {
+      if (!libro) return
+      try {
+        const url = 'http://localhost:3030/api/collections/collectionSaga'
+        const body = {
+          bookId: libro._id,
+          userId: libro.idVendedor
+        }
+        console.log(body)
+        const response = await axios.post(url, body, {withCredentials: true})
+        console.log(response.data)
+        if (response.data) {
+          setSagaLibros(response.data.data)
+        }
+      } catch  {
+        console.error('Error en el servidor')
+      }
+    }
+    fetchSagaLibros()
+  }, [libro])
 
   if (!libro || Object.keys(libro).length === 0) {
     return <ErrorPage />
@@ -433,6 +447,13 @@ export default function BookView () {
             </div>
           </div>
         </div>
+        {sagaLibros && sagaLibros.length !== 0 && <div className='related'>
+              <h2>Este libro es parte de una colección con libros relacionados</h2>
+              <div className='leftScrollContainer'>
+                {sagaLibros.filter(element => element._id !== libro._id)
+                  .map((element, index) => <MakeCard key={index} element={element} index={index} user={user || ''} />)}
+              </div>
+            </div> }
         <div className='description'>
 
           <h2>Descripción</h2>

@@ -4,35 +4,17 @@ import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import SideInfo from '../../components/sideInfo.jsx'
 import Footer from '../../components/footer.jsx'
 import Header from '../../components/header.jsx'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useContext } from 'react'
 import { cambiarEspacioAGuiones, cambiarGuionesAEspacio } from '../../assets/agregarMas.js'
-import { MakeCard, MakeOneFrCard } from '../../assets/makeCard.jsx'
+import { MakeCard, MakeCollectionCard, MakeOneFrCard } from '../../assets/makeCard.jsx'
 import useBotonSelect from '../../assets/botonSelect.jsx'
 import DoubleSlider from '../../components/DoubleSlider.jsx'
 import { ToastContainer } from 'react-toastify'
 import { edad, estado, generos, idiomas, tapa, ubicaciones } from '../../assets/categorias.js'
+import { UserContext } from '../../context/userContext.jsx'
 export default function Search () {
   const navigate = useNavigate()
-  const [user, setUser] = useState(null)
-
-  useEffect(() => {
-    async function fetchUser () {
-      try {
-        const response = await fetch('http://localhost:3030/api/users/userSession', {
-          method: 'POST',
-          credentials: 'include' // Asegúrate de enviar las cookies
-        })
-        if (response.ok) {
-          const data = await response.json()
-          setUser(data.user) // Establece el usuario en el estado
-        }
-      } catch (error) {
-        console.error('Error fetching user data:', error)
-      }
-    };
-
-    fetchUser() // Llama a la función para obtener el usuario
-  }, []) // Dependencias vacías para ejecutar solo una vez al montar el componente
+  const { user } = useContext(UserContext)
 
   const [params] = useSearchParams()
 
@@ -46,7 +28,7 @@ export default function Search () {
     idioma: params.get('idioma')
   }
   const query = cambiarGuionesAEspacio(params.get('q'))
-
+  const sk = cambiarGuionesAEspacio(params.get('sk') || 'books')
   // Si no hay q devolver a la pestaña de inicio
   useEffect(() => {
     if (!query) window.location.href = window.location.origin
@@ -61,7 +43,9 @@ export default function Search () {
         // Verificamos que la query no esté vacía o sea solo espacios
         // Si hay un filtro no empleamos esta funcion
         if (query && query.trim() && Object.values(queryParams).every(val => !val)) {
-          const response = await fetch(`http://localhost:3030/api/books/query?q=${query}`, {
+          const validKinds = ['books', 'collections', 'users'];
+          const searchKind = validKinds.includes(sk) ? sk : 'books';
+          const response = await fetch(`http://localhost:3030/api/${searchKind}/query?q=${query}`, {
             method: 'GET',
             credentials: 'include' // Enviar las cookies
           })
@@ -96,9 +80,10 @@ export default function Search () {
           searchParams.append(param, value)
         }
       })
-
+      const validKinds = ['books', 'collections', 'users'];
+      const searchKind = validKinds.includes(sk) ? sk : 'books';
       // Construct the full URL
-      const url = `http://localhost:3030/api/books/query/filters?${searchParams.toString()}`
+      const url = `http://localhost:3030/api/${searchKind}/query/filters?${searchParams.toString()}`
 
       try {
         const response = await fetch(url)
@@ -291,7 +276,29 @@ export default function Search () {
   useEffect(() => {
     handleOpenFilters()
   }, [])
+  function updateQuery(sk) {
+    const currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.set('sk', sk); // Agrega o actualiza la query 'sk'
+    window.location.href = currentUrl.toString(); // Redirige a la nueva URL
+  }
 
+  const renderCard = (item, index) => {
+    if (!user || !item || !item?._id) return
+    console.log(user._id)
+    console.log(item._id)
+    switch (sk) {
+      case 'books': {
+        if (grid.split(' ').length !== 1) {
+          return <MakeCard key={index} element={item} user={user || {}}/> // Tarjeta de libros
+        }
+        else return <MakeOneFrCard key={index} element={item} user={user || {}}/> // Tarjeta de usuarios
+      }
+      case 'collections':
+        return <MakeCollectionCard key={index} element={item} user={user || {}}/> // Tarjeta de colecciones
+      default:
+        return <MakeCard key={index} element={item} user={user || ''}/> // Tarjeta de libros
+    }
+  }
   return (
     <>
       <Header />
@@ -321,7 +328,11 @@ export default function Search () {
         </div>
 
         <div className='resultadosYMasFiltros'>
-
+              <div className='setSearchKind'>
+        <div onClick={()=>updateQuery('users')}>Usuarios</div>
+        <div onClick={()=>updateQuery('books')}>Libros</div>
+        <div onClick={()=>updateQuery('collections')}>Colecciones</div>
+      </div>
           <div className='separar'>
             <h2>{results.length} resultados</h2>
             <div className='flex'>
@@ -360,9 +371,9 @@ export default function Search () {
           </div>
           <div className='resultados sectionsContainer' style={{ display: 'grid', gridTemplateColumns: grid }}>
 
-            {renderizarResultados().map((element, index) => (grid.split(' ').length !== 1)
+            {renderizarResultados().map((element, index) => renderCard(element, index)/*(grid.split(' ').length !== 1)
               ? user ? <MakeCard element={element} index={index} user={user} /> : <MakeCard element={element} index={index} />
-              : user ? <MakeOneFrCard element={element} index={index} user={user} /> : <MakeOneFrCard element={element} index={index} />)}
+              : user ? <MakeOneFrCard element={element} index={index} user={user} /> : <MakeOneFrCard element={element} index={index} />*/)}
             {optionalSpace}
           </div>
           <div className='numberPages separador' style={{ display: (pageCount === 1) ? 'none' : 'flex' }}>
@@ -377,14 +388,7 @@ export default function Search () {
           </div>
         </div>
       </div>
-      <ToastContainer
-        position='top-center'
-        autoClose={5000}
-        hideProgressBar={false}
-        pauseOnHover={false}
-        closeOnClick
-        theme='light'
-      />
+      <ToastContainer position='top-center' autoClose={5000} hideProgressBar={false} pauseOnHover={false} closeOnClick theme='light'/>
       <SideInfo />
       <Footer />
     </>

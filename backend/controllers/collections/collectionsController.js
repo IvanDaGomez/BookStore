@@ -1,5 +1,6 @@
 // import { crearCollage } from '../../assets/createCollage.js'
 import { validateCollection, validatePartialCollection } from '../../assets/validate.js'
+import { cambiarGuionesAEspacio } from '../../assets/agregarMas.js'
 import { BooksModel } from '../../models/books/local/booksLocal.js'
 import { CollectionsModel } from '../../models/collections/collectionsModel.js'
 
@@ -71,6 +72,7 @@ class CollectionsController {
       const data = req.body
 
       if (req.file) data.foto = `${req.file.filename}`
+      if (data.saga) data.saga = data.saga === 'true'
 
       // Validación
       const validated = validateCollection(data)
@@ -163,6 +165,112 @@ class CollectionsController {
       res.json({ status: 'Actualizado' })
     } catch (error) {
       console.error('Error en addBookToCollection:', error)
+      res.status(500).json({ error: 'Error en el servidor' })
+    }
+  }
+
+  static async getCollectionByQuery (req, res) {
+    try {
+      let { q, l } = req.query // Obtener el valor del parámetro de consulta 'q'
+      q = cambiarGuionesAEspacio(q)
+
+      if (!q) {
+        return res.status(400).json({ error: 'El parámetro de consulta "q" es requerido' })
+      }
+      if (!l) {
+        l = 24
+      }
+
+      const collections = await CollectionsModel.getCollectionByQuery(q, l) // Asegurarse de implementar este método en BooksModel
+      if (collections.length === 0) {
+        return res.status(404).json({ error: 'No se encontraron libros' })
+      }
+
+      res.json(collections)
+    } catch (err) {
+      console.error('Error al leer libros por consulta:', err)
+      res.status(500).json({ error: 'Error al leer libros' })
+    }
+  }
+
+  static async getCollectionsByQueryWithFilters (req, res) {
+    // Destructure query parameters
+    let { categoria, ubicacion, edad, tapa, fechaPublicacion, idioma, estado, q, l } = req.query
+    // Apply the filter transformation (change hyphens to spaces)
+    categoria = cambiarGuionesAEspacio(categoria)
+    ubicacion = cambiarGuionesAEspacio(ubicacion)
+    edad = cambiarGuionesAEspacio(edad)
+    tapa = cambiarGuionesAEspacio(tapa)
+    fechaPublicacion = cambiarGuionesAEspacio(fechaPublicacion)
+    idioma = cambiarGuionesAEspacio(idioma)
+    estado = cambiarGuionesAEspacio(estado)
+
+    // Validate required query parameter "q"
+    if (!q) {
+      return res.status(400).json({ error: 'El parámetro de consulta "q" es requerido' })
+    }
+
+    // Set default pagination limit if not provided
+    l = parseInt(l) || 24 // Default to 24 if l is not a valid number
+
+    // Prepare filter object for query
+    const filterObj = {
+      categoria,
+      ubicacion,
+      edad,
+      tapa,
+      fechaPublicacion,
+      idioma,
+      estado
+    }
+
+    // Initialize the query object to search for books (adjust according to your database/model)
+    try {
+      // Build the query dynamically based on provided filters
+      const query = {
+        query: q,
+        where: {},
+        limit: l,
+        offset: 0 // Add offset if you want pagination support
+      }
+
+      // Add filters to the query where clause dynamically
+      Object.keys(filterObj).forEach((filterKey) => {
+        const value = filterObj[filterKey]
+        if (value) { // Only add filters with a truthy value
+          query.where[filterKey] = value
+        }
+      })
+
+      const collections = await CollectionsModel.getCollectionsByQueryWithFilters(query)
+
+      // If no books found
+      if (collections.length === 0) {
+        return res.status(404).json({ message: 'No books found matching your filters.' })
+      }
+
+      // Return the books found
+      return res.status(200).json({ collections })
+    } catch (error) {
+      console.error('Error fetching books:', error)
+      return res.status(500).json({ error: 'An error occurred while fetching the books.' })
+    }
+  }
+
+  static async getCollectionSaga (req, res) {
+    try {
+      const { bookId, userId } = req.body
+      if (!bookId || !userId) {
+        return res.status(401).json({ error: 'No se proporcionaron todos los datos' })
+      }
+      const collection = await CollectionsModel.getCollectionSaga(bookId, userId)
+
+      if (!collection) {
+        return res.json({ error: 'No se encontró una colección' })
+      }
+      res.json({ data: collection })
+    } catch (error) {
+      console.error('Error en getCollectionSaga:', error)
       res.status(500).json({ error: 'Error en el servidor' })
     }
   }

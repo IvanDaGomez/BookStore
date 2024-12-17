@@ -12,6 +12,10 @@ collectionsRouter.get('/getBooksByCollection/:collectionId', CollectionsControll
 collectionsRouter.post('/', upload.single('images'), CollectionsController.createCollection)
 collectionsRouter.post('/addToCollection', CollectionsController.addBookToCollection)
 
+collectionsRouter.get('/query', CollectionsController.getCollectionByQuery)
+collectionsRouter.get('/query/filters', CollectionsController.getCollectionsByQueryWithFilters)
+collectionsRouter.post('/collectionSaga', CollectionsController.getCollectionSaga)
+
 collectionsRouter.delete('/:collectionId', CollectionsController.deleteCollection)
 collectionsRouter.patch('/:collectionId', CollectionsController.updateCollection)
 

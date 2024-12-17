@@ -152,7 +152,6 @@ input {
   border: 1px solid var(--using2);
   border-radius: var(--border);;
   background-color: var(--using1);
-  text-align: left;
   color:var(--using3);
 }
 input:focus{
@@ -358,7 +357,7 @@ header .flex-between{
   font-size: 15px;
   outline: none;
   width: 200px; /* You can adjust this */
-  
+  text-align: left;
   background-color: var(--using1);
   
 }
@@ -1856,7 +1855,7 @@ form{
   justify-content: center;
   align-items: center;
 }
-.login-container .aceptoTerminos input[type='checkbox'] {
+input[type='checkbox'] {
   -webkit-appearance: none; /* Compatibilidad con WebKit */
   appearance: none;
   all: unset;
@@ -1868,7 +1867,7 @@ form{
   position: relative;
 }
 
-.login-container .aceptoTerminos input[type='checkbox']:checked::before {
+input[type='checkbox']:checked::before {
   content: '✔';
   position: absolute;
   top: 0;
@@ -2121,15 +2120,38 @@ input[type="range"]::-moz-range-thumb{
   border-radius: var(--border);
   padding: 5px 10px;
 }
+.resultadosContainer .setSearchKind{
+  margin-left: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
 
+.resultadosContainer .setSearchKind div{
+
+  border: 2px solid var(--using4);
+  background: var(--using1);
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--padding-small);
+  padding-inline: var(--padding-big);
+  margin-right: var(--padding-small);
+  cursor: pointer;
+  transition: all .1s ease-in-out;
+}
+.resultadosContainer .setSearchKind div:hover{
+  background: var(--using4);
+  color: var(--using1);
+}
 .resultadosContainer .resultadosYMasFiltros{
   width:100vw;
   height:100%;
   padding: 10px ;
   transition: all .3s ease-in-out;
   transform: translateX(calc(-20vw + 10vw));
-  width: 100vw;
-  
 }
 .resultadosContainer .resultadosYMasFiltros .separar{
   display: flex;
@@ -2394,6 +2416,7 @@ color: var(--using6);
   justify-content: center;
   align-items: start;
   flex-direction: column;
+  text-align: left;
   margin: auto;
 }
 .inputCrear #departamento, .inputCrear #departamento > *{
@@ -2986,7 +3009,8 @@ color: var(--using6);
   margin: 0 10px;
   width: auto;
 }
-.postsContainer .collectionElement{
+
+.collectionElement{
   width: 100%;
   
   margin: auto;
@@ -3001,11 +3025,11 @@ color: var(--using6);
   color: var(--using3);
   
 }
-.postsContainer .collectionElement h2{
+.collectionElement h2{
   text-align: center;
   font-size: 2rem;
 }
-.postsContainer .collectionElement .imageElementCollectionContainer{
+.collectionElement .imageElementCollectionContainer{
   width: 60%;
   aspect-ratio: 2 / 3;
   background: #a6a6a6;
@@ -3015,16 +3039,16 @@ color: var(--using6);
   padding: 0s;
   border-radius: var(--border);
 }
-.postsContainer .collectionElement .imageElementCollectionContainer img{
-  height: 100%;
+.collectionElement .imageElementCollectionContainer img{
+  width: 100%;
 
   aspect-ratio: 2 / 3;
 }
-.postsContainer .collectionElement .info{
+.collectionElement .info{
   background: none;
   color: black;
 }
-.postsContainer .collectionElement .info *{
+.collectionElement .info *{
   width: 100%;
   margin: 5px auto;
 }
@@ -3121,6 +3145,17 @@ color: var(--using6);
 .postsContainer .success-container .flex button{
   width: auto;
   margin: 0 10px;
+}
+.postsContainer .success-container .saga{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  width: 100%;
+}
+.postsContainer .success-container .saga *{
+  width: auto;
+  margin: 0 2px;
 }
 /*-----------------------------------Editar usuario----------------------------*/
 
@@ -3465,6 +3500,7 @@ color: var(--using6);
   background: var(--using1);
   border: 1px solid var(--using3);
   border-radius: 500px;
+  text-align: left;
   color: var(--using3);
   margin: 5px;
   padding: 3px;

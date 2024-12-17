@@ -48,11 +48,13 @@ export default function Colecciones ({ user, permisos }) {
   async function handleSubmit (e) {
     e.preventDefault()
     if (!user) return
-    const { nombre } = e.target
+    const { nombre, checkbox } = e.target
+
     const data = {
       nombre: nombre.value,
       foto: croppedImage?.url || '',
-      userId: user._id
+      userId: user._id,
+      saga: checkbox.checked
     }
     if (!data.nombre) {
       setErrors([...errors, 'El nombre es requerido'])
@@ -187,6 +189,10 @@ export default function Colecciones ({ user, permisos }) {
 }
               </div>
             </div>
+            <div className='saga' ><label>¿Pertenece a una serie de libros?</label>
+                  <input type='checkbox' name='checkbox' />
+                  
+                </div>
             {errors.length !== 0 && <div className='error'>{errors[0]}</div>}
             <div className='flex'>
               <button type='submit'>Crear</button>

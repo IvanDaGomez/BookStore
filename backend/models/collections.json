@@ -115,5 +115,44 @@
     "seguidores": [],
     "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
     "saga": false
+  },
+  {
+    "_id": "b2f978f4-82b9-498d-b31a-3646ab15f0b3",
+    "foto": "",
+    "librosIds": [
+      "31d52487-f746-4951-bf11-7b41febea0a9",
+      "9f8eae32-d2c3-4739-87e5-4c95dc1a665c",
+      "a7358b0d-d158-4df9-a714-9c34d757a752",
+      "3f7ab023-15e7-4626-8890-a71f4f2e221c"
+    ],
+    "nombre": "Crear libro",
+    "descripcion": "",
+    "seguidores": [],
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "saga": false
+  },
+  {
+    "_id": "6e79ebf2-b90e-41ec-815b-9c6637529817",
+    "foto": "",
+    "librosIds": [],
+    "nombre": "Ivan David Gomez Silva",
+    "descripcion": "",
+    "seguidores": [],
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "saga": true
+  },
+  {
+    "_id": "d28dab5f-3a0a-4df4-acc4-a21d50e603aa",
+    "foto": "",
+    "librosIds": [
+      "3f7ab023-15e7-4626-8890-a71f4f2e221c",
+      "31d52487-f746-4951-bf11-7b41febea0a9",
+      "9f8eae32-d2c3-4739-87e5-4c95dc1a665c"
+    ],
+    "nombre": "Ivan David Gomez Silva",
+    "descripcion": "",
+    "seguidores": [],
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "saga": true
   }
 ]

@@ -25,7 +25,7 @@
     "tapa": "",
     "edad": "",
     "fechaPublicacion": "2024-11-21T13:52:00.234Z",
-    "actualizadoEn": "2024-12-16T15:04:10.655Z",
+    "actualizadoEn": "2024-12-17T03:01:27.497Z",
     "disponibilidad": "Disponible",
     "mensajes": [
       [
@@ -61,7 +61,9 @@
       "7db232f9-ec22-4bf2-8b5d-d5bd9480d2c6",
       "e84ead35-ac16-4827-ba37-674394dd7445",
       "df121502-806c-4921-b59b-c94e2492cd19",
-      "61633db1-edf4-4767-be8b-e1d805329196"
+      "61633db1-edf4-4767-be8b-e1d805329196",
+      "b2f978f4-82b9-498d-b31a-3646ab15f0b3",
+      "d28dab5f-3a0a-4df4-acc4-a21d50e603aa"
     ]
   },
   {
@@ -87,7 +89,7 @@
     "tapa": "Sin tapa",
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:24:21.509Z",
-    "actualizadoEn": "2024-12-16T15:02:29.123Z",
+    "actualizadoEn": "2024-12-17T03:01:27.492Z",
     "disponibilidad": "Disponible",
     "mensajes": [
       [
@@ -113,7 +115,9 @@
       "e84ead35-ac16-4827-ba37-674394dd7445",
       "6e76e0c8-e5dc-4d0b-92c2-4ed190a9f5a5",
       "af12dfca-46d4-4679-96a7-f320e2bd5260",
-      "6ed6ea52-79f6-47f7-aec1-2d90cf1fd19d"
+      "6ed6ea52-79f6-47f7-aec1-2d90cf1fd19d",
+      "b2f978f4-82b9-498d-b31a-3646ab15f0b3",
+      "d28dab5f-3a0a-4df4-acc4-a21d50e603aa"
     ]
   },
   {
@@ -139,7 +143,7 @@
     "tapa": "Dura",
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:33:28.373Z",
-    "actualizadoEn": "2024-12-16T15:04:10.660Z",
+    "actualizadoEn": "2024-12-17T03:01:27.501Z",
     "disponibilidad": "Disponible",
     "mensajes": [
       [
@@ -164,7 +168,9 @@
       "66193010-9dcf-42d3-8c86-7cd7c5a3e027",
       "6e76e0c8-e5dc-4d0b-92c2-4ed190a9f5a5",
       "df121502-806c-4921-b59b-c94e2492cd19",
-      "61633db1-edf4-4767-be8b-e1d805329196"
+      "61633db1-edf4-4767-be8b-e1d805329196",
+      "b2f978f4-82b9-498d-b31a-3646ab15f0b3",
+      "d28dab5f-3a0a-4df4-acc4-a21d50e603aa"
     ]
   },
   {
@@ -196,7 +202,7 @@
     "tapa": "Blanda",
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:38:47.585Z",
-    "actualizadoEn": "2024-12-16T15:02:29.127Z",
+    "actualizadoEn": "2024-12-17T01:28:28.160Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
     "librosVendidos": 0,
@@ -204,7 +210,8 @@
       "8213597c-4bac-49cc-95ea-3388f74627d8",
       "66193010-9dcf-42d3-8c86-7cd7c5a3e027",
       "788fcde2-3213-4d3b-bdc3-0480f5152131",
-      "6ed6ea52-79f6-47f7-aec1-2d90cf1fd19d"
+      "6ed6ea52-79f6-47f7-aec1-2d90cf1fd19d",
+      "b2f978f4-82b9-498d-b31a-3646ab15f0b3"
     ]
   },
   {
