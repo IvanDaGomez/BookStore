@@ -1062,5 +1062,117 @@
     "metadata": {
       "photo": "1733253245824-669736538.png"
     }
+  },
+  {
+    "_id": "a475856d-7fdc-4b2b-aa75-57cbd5ea193e",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "input": "",
+    "createdIn": "2024-12-17T19:56:56.384Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-16T19:56:56.384Z",
+    "metadata": {
+      "photo": "1733521219913-952070967.png"
+    }
+  },
+  {
+    "_id": "4711b510-5c4b-4004-92cf-af83f255ed69",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "input": "",
+    "createdIn": "2024-12-17T19:57:01.373Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-16T19:57:01.373Z",
+    "metadata": {
+      "photo": "1733521219913-952070967.png"
+    }
+  },
+  {
+    "_id": "900be9e2-1475-4c76-96f4-6e8856ff1c79",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "input": "",
+    "createdIn": "2024-12-17T19:57:41.295Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-16T19:57:41.295Z",
+    "metadata": {
+      "photo": "1733521219913-952070967.png"
+    }
+  },
+  {
+    "_id": "151cd0a5-abdd-40f3-a90e-9b2ccb985f95",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-17T19:57:57.441Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-16T19:57:57.441Z",
+    "metadata": {
+      "photo": "1733253245824-669736538.png"
+    }
+  },
+  {
+    "_id": "cfabdd1f-3d31-43ca-9737-18e27c38992e",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-17T19:57:58.317Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-16T19:57:58.317Z",
+    "metadata": {
+      "photo": "1733253245824-669736538.png"
+    }
+  },
+  {
+    "_id": "8f6c65bf-15b2-4c4b-97c5-516b4b94a988",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-17T19:58:00.055Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-16T19:58:00.055Z",
+    "metadata": {
+      "photo": "1733253245824-669736538.png"
+    }
+  },
+  {
+    "_id": "a02d3462-61db-47ee-9f7a-9852271fca87",
+    "theme": "",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "input": "",
+    "createdIn": "2024-12-17T19:59:29.734Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-16T19:59:29.734Z",
+    "metadata": {
+      "photo": "1733521219913-952070967.png"
+    }
   }
 ]

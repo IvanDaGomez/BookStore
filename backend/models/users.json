@@ -11,9 +11,9 @@
     "rol": "admin",
     "fechaRegistro": "2024-10-20T18:37:31.276Z",
     "estadoCuenta": "activo",
-    "fotoPerfil": "1733253245824-669736538.png",
+    "fotoPerfil": "1734465782797-561884780.png",
     "_id": "857857d1-afdd-411d-b41a-be427d1ff186",
-    "actualizadoEn": "2024-12-17T15:03:54.162Z",
+    "actualizadoEn": "2024-12-17T20:03:02.800Z",
     "direccionEnvio": {
       "calle": "",
       "ciudad": "",
@@ -115,7 +115,10 @@
       "2d20cf34-6201-4fa1-889c-db691a823563",
       "537a4d28-3ba5-430a-8d5f-d5f968073a16",
       "08e1e564-22a7-48dc-b2d8-09371b9a601f",
-      "4c5c9d30-5036-4e45-bd84-57966d7ee540"
+      "4c5c9d30-5036-4e45-bd84-57966d7ee540",
+      "151cd0a5-abdd-40f3-a90e-9b2ccb985f95",
+      "cfabdd1f-3d31-43ca-9737-18e27c38992e",
+      "8f6c65bf-15b2-4c4b-97c5-516b4b94a988"
     ],
     "validated": true,
     "login": "default",
@@ -353,7 +356,11 @@
       "d1b1217e-f798-4b46-ba48-48f4cb687713",
       "72de218b-def9-4bf2-ad61-0f8ba9f38a03",
       "be972bc7-74fa-4b6e-b39e-cdfc8dbdaf86",
-      "cdf642a0-ebc2-47e3-afd8-da3ce97de1cf"
+      "cdf642a0-ebc2-47e3-afd8-da3ce97de1cf",
+      "a475856d-7fdc-4b2b-aa75-57cbd5ea193e",
+      "4711b510-5c4b-4004-92cf-af83f255ed69",
+      "900be9e2-1475-4c76-96f4-6e8856ff1c79",
+      "a02d3462-61db-47ee-9f7a-9852271fca87"
     ],
     "validated": true,
     "login": "default",

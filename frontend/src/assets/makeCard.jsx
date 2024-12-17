@@ -2,10 +2,12 @@
 /* eslint-disable react/prop-types */
 import { reduceText } from './reduceText'
 import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 import { handleFavoritos } from './handleFavoritos'
 import { toast } from 'react-toastify'
 import { useEffect } from 'react'
 import { renderProfilePhoto } from './renderProfilePhoto.js'
+import { handleFollowers } from './handles/handleFollowers.jsx'
 const anchoDeIconos = 30
 const necesitasIniciarSesion = <div>Necesitas iniciar sesión <Link to='/login' style={{ textDecoration: 'underline', color: 'var(--using4)' }}>aquí</Link></div>
 const MakeCard = ({ element, index, user = '', callback = () => {} }) => {
@@ -282,20 +284,35 @@ const MakeCollectionCard = ({ element, index }) => {
   )
 }
 
-const MakeUserCard = ({ element, index }) => {
+const MakeUserCard = ({ element, index, user, setElement, setUser }) => {
+  const [following, setFollowing] = useState(false)
+  async function handleFollow() {
+
+  }
   return (
-    <Link key={index} style={{ width: '100%', height: '100%' }} to={`/colecciones/${element._id}`}>
-      <div className='userElement'>
-        <h2>{element.nombre}</h2>
-        <div className='imageElementCollectionContainer'>
-          <img src={renderProfilePhoto(element.foto)} alt='' />
+    <Link key={index} style={{ width: '100%', height: '100%' }} to={`/usuarios/${element._id}`}>
+      {console.log(element)}
+      <div className="userElement" >
+        <div className="imageElementUserContainer"> 
+          <img
+            src={renderProfilePhoto(element.fotoPerfil)}
+            alt="Foto de perfil"
+          />
         </div>
-        <div className='info'>
-          Libros: {element.librosIds.length}
-          <button onClick={handleSave}>Guardar</button>
+        <div className="info" >
+          <h2>{element.nombre}</h2>
+          {/*<p>{element.bio || ''}</p>*/}
+          <p>
+            Libros publicados: <strong>{element?.librosIds?.length || 0}</strong>
+          </p>
+          <button onClick={(e) => handleFollowers({ e, user, usuario: element, setUsuario: setElement, setUser})}
+            className={`${user?.siguiendo?.includes(element._id) ? 'botonInverso' : ''}`}>
+          {user?.siguiendo?.includes(element._id) ? 'Siguiendo' : 'Seguir'}
+          </button>
         </div>
       </div>
     </Link>
-  )
-}
-export { MakeCard, MakeOneFrCard, MakeUpdateCard, MakeSmallCard, MakeCollectionCard }
+  );
+};
+
+export { MakeCard, MakeOneFrCard, MakeUpdateCard, MakeSmallCard, MakeCollectionCard, MakeUserCard }

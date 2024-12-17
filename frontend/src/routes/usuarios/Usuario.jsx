@@ -11,6 +11,7 @@ import { renderProfilePhoto } from '../../assets/renderProfilePhoto.js'
 import axios from 'axios'
 import Colecciones from './colecciones.jsx'
 import { UserContext } from '../../context/userContext.jsx'
+import { handleFollowers } from '../../assets/handles/handleFollowers.jsx'
 
 export default function Usuario () {
   const navigate = useNavigate()
@@ -127,38 +128,6 @@ export default function Usuario () {
       alert('Sharing is not supported on this browser.')
     }
   }
-  async function handleFollowers (e) {
-    e.preventDefault()
-    if (!user) {
-      toast.error(<div>Necesitas iniciar sesión <Link
-        to='/login' style={{
-          textDecoration: 'underline',
-          color: 'var(--using4)'
-        }}
-                                                >aquí
-                                                </Link>
-                  </div>)
-      return
-    }
-
-    // Fetch para actualizar el contador de seguidores
-    try {
-      const url = 'http://localhost:3030/api/users/follow'
-      // Seguidor es el otro y user yo
-      const body = {
-        followerId: usuario._id,
-        userId: user._id
-      }
-
-      const response = await axios.post(url, body, { withCredentials: true })
-      if (!response.data.ok) return
-
-      setUsuario(response.data.follower)
-      setUser(response.data.user)
-    } catch (error) {
-      console.error('Error:', error)
-    }
-  }
   return (
     <>
       <Header />
@@ -216,7 +185,7 @@ export default function Usuario () {
                             color: user?.siguiendo?.includes(usuario._id) ? 'white' : ''
                           }}
                           className={`compartir ${user?.seguidores?.includes(usuario._id) ? 'normal' : 'botonInverso'}`}
-                          onClick={handleFollowers}>
+                          onClick={(e)=>handleFollowers({ e, user, usuario, setUser, setUsuario})}>
 
                           {user?.siguiendo?.includes(usuario._id) ? 'Siguiendo' : 'Seguir'}
                         </button>

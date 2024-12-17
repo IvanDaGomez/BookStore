@@ -2235,7 +2235,37 @@ input[type="range"]::-moz-range-thumb{
   justify-content: space-between;
   position: relative;
 }
-
+.resultadosContainer .userElement{
+  width: 100%;
+  height: auto;
+  border: var(--border-width) solid var(--using2);
+  border-radius: var(--border);
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+.resultadosContainer .userElement .imageElementUserContainer{
+  width: 60%;
+  margin-block: 10px;
+}
+.resultadosContainer .userElement .imageElementUserContainer img{
+  width: 100%;
+ aspect-ratio:  1 / 1;
+ border-radius: 50%;
+ border: var(--border) solid var(--using2);
+}
+.resultadosContainer .userElement .info{
+  width: 100% !important;
+  min-height: 150px;
+  background: none;
+  color: var(--using3);
+}
+.resultadosContainer .userElement .info h2{
+  font-size: 2.5rem;
+  text-align: center;
+}
 /*----------------------------------------CUSTOM SELECT COMPONENT----------------------------------------------*/
 
 .select {
@@ -3041,6 +3071,7 @@ color: var(--using6);
 .collectionElement .info{
   background: none;
   color: black;
+  width: 100% !important;
 }
 .collectionElement .info *{
   width: 100%;

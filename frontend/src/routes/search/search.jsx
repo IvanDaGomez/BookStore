@@ -6,7 +6,7 @@ import Footer from '../../components/footer.jsx'
 import Header from '../../components/header.jsx'
 import { useEffect, useState, useRef, useContext } from 'react'
 import { cambiarEspacioAGuiones, cambiarGuionesAEspacio } from '../../assets/agregarMas.js'
-import { MakeCard, MakeCollectionCard, MakeOneFrCard } from '../../assets/makeCard.jsx'
+import { MakeCard, MakeCollectionCard, MakeOneFrCard, MakeUserCard } from '../../assets/makeCard.jsx'
 import useBotonSelect from '../../assets/botonSelect.jsx'
 import DoubleSlider from '../../components/DoubleSlider.jsx'
 import { ToastContainer } from 'react-toastify'
@@ -14,7 +14,7 @@ import { edad, estado, generos, idiomas, tapa, ubicaciones } from '../../assets/
 import { UserContext } from '../../context/userContext.jsx'
 export default function Search () {
   const navigate = useNavigate()
-  const { user } = useContext(UserContext)
+  const { user, setUser } = useContext(UserContext)
 
   const [params] = useSearchParams()
 
@@ -295,6 +295,8 @@ export default function Search () {
       }
       case 'collections':
         return <MakeCollectionCard key={index} element={item} user={user || {}}/> // Tarjeta de colecciones
+      case 'users': 
+        return <MakeUserCard  key={index} element={item} user={user || {}} setUser={setUser}/>
       default:
         return <MakeCard key={index} element={item} user={user || ''}/> // Tarjeta de libros
     }
@@ -336,14 +338,13 @@ export default function Search () {
           <div className='separar'>
             <h2>{results.length} resultados</h2>
             <div className='flex'>
-              <div className='layout'><svg
+              { sk === 'books' && <div className='layout'><svg
                 onClick={() => {
                   setGrid('1fr')
                   localStorage.setItem('grid', '1fr')
-                }} xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width={24} height={24} color='#000000' fill='none'
-                                      ><path d='M20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28248 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12C2.5 7.52166 2.5 5.28248 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088Z' stroke='currentColor' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round' /><path d='M21.5 8.5L2.5 8.5' stroke='currentColor' strokeWidth='1.5' /><path d='M21.5 15.5L2.5 15.5' stroke='currentColor' strokeWidth='1.5' />
+                }} xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width={24} height={24} color='#000000' fill='none'><path d='M20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28248 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12C2.5 7.52166 2.5 5.28248 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088Z' stroke='currentColor' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round' /><path d='M21.5 8.5L2.5 8.5' stroke='currentColor' strokeWidth='1.5' /><path d='M21.5 15.5L2.5 15.5' stroke='currentColor' strokeWidth='1.5' />
               </svg>
-              </div>
+              </div>}
               <div className='layout'><svg
                 onClick={() => {
                   setGrid('1fr 1fr 1fr 1fr')
