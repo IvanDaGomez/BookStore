@@ -99,21 +99,10 @@ export default function Usuario () {
   const confirmDelete = async () => {
     if (libroAEliminar) {
       try {
-        const response = await fetch(`http://localhost:3030/api/books/${libroAEliminar}`, {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          credentials: 'include'
-        })
-        if (response.ok) {
-          // Actualiza el estado para eliminar el libro de la lista
-          setLibrosUsuario((prevBooks) => prevBooks.filter((libro) => libro._id !== libroAEliminar))
-          // Redirigir después de eliminar
-          window.history.pushState({}, '', `/usuarios/${idVendedor}`)
-        } else {
-          console.error('Error al eliminar el libro')
-        }
+        await axios.delete(`http://localhost:3030/api/books/${libroAEliminar}`, { withCredentials: true })
+        setLibrosUsuario((prevBooks) => prevBooks.filter((libro) => libro._id !== libroAEliminar))
+        window.history.pushState({}, '', `/usuarios/${idVendedor}`)
+
       } catch (error) {
         console.error('Error:', error)
       } finally {

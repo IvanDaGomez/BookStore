@@ -282,4 +282,20 @@ const MakeCollectionCard = ({ element, index }) => {
   )
 }
 
+const MakeUserCard = ({ element, index }) => {
+  return (
+    <Link key={index} style={{ width: '100%', height: '100%' }} to={`/colecciones/${element._id}`}>
+      <div className='userElement'>
+        <h2>{element.nombre}</h2>
+        <div className='imageElementCollectionContainer'>
+          <img src={renderProfilePhoto(element.foto)} alt='' />
+        </div>
+        <div className='info'>
+          Libros: {element.librosIds.length}
+          <button onClick={handleSave}>Guardar</button>
+        </div>
+      </div>
+    </Link>
+  )
+}
 export { MakeCard, MakeOneFrCard, MakeUpdateCard, MakeSmallCard, MakeCollectionCard }
