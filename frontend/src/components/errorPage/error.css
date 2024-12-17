@@ -1,0 +1,53 @@
+/*-----------------------------------------------*/
+.errorContainer{
+    height: 100vh;
+    width:100vw;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+.errorContainer > div {
+    width: min(calc(100vw - 10px), 1200px);
+    height: auto;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 50px;
+    place-items: center;
+}
+.errorContainer > div img{
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    background: white;
+    /*border-radius: 300px;*/
+}
+.errorContainer > div > div{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    text-align: left;
+}
+.errorContainer > div > div * {
+    margin-block: 10px;
+}
+.errorContainer > div > div h1{
+    font-size: 8rem;
+}
+
+.errorContainer > div > div h2{
+    font-size: 5rem;
+    margin-block: 5px;
+}
+
+.errorContainer > div > div p{
+    text-decoration: underline;
+    color:cornflowerblue;
+    font-size: 3rem;
+}

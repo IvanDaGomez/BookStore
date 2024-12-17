@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import Header from '../../components/header'
 import SideInfo from '../../components/sideInfo'
 import Footer from '../../components/footer'
-import ErrorPage from '../../components/errorPage'
+import ErrorPage from '../../components/errorPage/errorPage.jsx'
 import { MakeCard, MakeSmallCard } from '../../assets/makeCard'
 import { cambiarEspacioAGuiones } from '../../assets/agregarMas'
 import { toast, ToastContainer } from 'react-toastify'
@@ -15,8 +15,9 @@ import { createNotification } from '../../assets/createNotification'
 import { UserContext } from '../../context/userContext.jsx'
 export default function BookView () {
   const { bookId } = useParams()
-  const [libro, setLibro] = useState(null) // Inicialmente null
+  const [libro, setLibro] = useState([]) // Inicialmente null
   const [loading, setLoading] = useState(true) // Estado de carga
+  const [error, setError] = useState(false)
   const [actualImage, setActualImage] = useState('')
   const [isZoomed, setIsZoomed] = useState(false)
   const [librosRelacionadosVendedor, setLibrosRelacionadosVendedor] = useState([])
@@ -24,7 +25,7 @@ export default function BookView () {
   const actualImageRef = useRef(null)
   const { user } = useContext(UserContext)
   const [sagaLibros, setSagaLibros] = useState([])
-
+  const [nombreSaga, setNombreSaga] = useState('')
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [bookId])
@@ -42,6 +43,7 @@ export default function BookView () {
         setActualImage(imageUrl)
       } catch (error) {
         setLibro({})
+        setError(true)
         console.error('Error fetching book data:', error)
       } finally {
         setLoading(false) // Marcar que la carga ha finalizado
@@ -87,11 +89,9 @@ export default function BookView () {
   useEffect(() => {
     const handleHashChange = () => {
       if (window.location.hash === '#comments') {
-        console.log('AAAAAAAAAAAAAAAAa')
         const comments = document.querySelector('#comments')
 
         if (comments) {
-          console.log(comments)
           setTimeout(window.scrollTo(0, comments.style.top), 300)
         }
       }
@@ -116,11 +116,26 @@ export default function BookView () {
           bookId: libro._id,
           userId: libro.idVendedor
         }
-        console.log(body)
         const response = await axios.post(url, body, {withCredentials: true})
-        console.log(response.data)
+        
         if (response.data) {
-          setSagaLibros(response.data.data)
+          setNombreSaga(response.data.data.nombre)
+          const fetchedBooks = await Promise.all(
+            response.data.data.librosIds.map(async (idLibro) => {
+              const response = await fetch(`http://localhost:3030/api/books/${idLibro}`, {
+                method: 'GET',
+                credentials: 'include'
+              })
+              if (response.ok) {
+                return response.json()
+              } else {
+                console.error('Libro no encontrado')
+                return null
+              }
+            })
+          )
+          const validBooks = fetchedBooks.filter(book => book !== null)
+          setSagaLibros(validBooks)
         }
       } catch  {
         console.error('Error en el servidor')
@@ -129,10 +144,12 @@ export default function BookView () {
     fetchSagaLibros()
   }, [libro])
 
-  if (!libro || Object.keys(libro).length === 0) {
+  if (loading) {
+    return <><Header/><Footer/></>
+  }
+  if (error) {
     return <ErrorPage />
   }
-
   const zoomConst = 3 // Aumento del zoom
 
   const handleZoom = () => {
@@ -251,7 +268,6 @@ export default function BookView () {
             bookId: libro._id
           }
         }
-        console.log(notificationToSend)
         createNotification(notificationToSend)
         toast.success('Pregunta enviada exitosamente')
         inputPregunta.value = ''
@@ -448,7 +464,7 @@ export default function BookView () {
           </div>
         </div>
         {sagaLibros && sagaLibros.length !== 0 && <div className='related'>
-              <h2>Este libro es parte de una colección con libros relacionados</h2>
+              <h2>Este libro es parte de la colección &quot;{nombreSaga}&quot;</h2>
               <div className='leftScrollContainer'>
                 {sagaLibros.filter(element => element._id !== libro._id)
                   .map((element, index) => <MakeCard key={index} element={element} index={index} user={user || ''} />)}
@@ -466,10 +482,7 @@ export default function BookView () {
               <h2>Productos Relacionados</h2>
               <div className='leftScrollContainer'>
                 {librosRelacionados.filter(element => element._id !== libro._id)
-                  .map((element, index) =>
-                    user
-                      ? <MakeCard key={index} element={element} index={index} user={user} />
-                      : <MakeCard key={index} element={element} index={index} />)}
+                  .map((element, index) => <MakeCard key={index} element={element} index={index} user={user || ''} />)}
               </div>
             </div>
             )

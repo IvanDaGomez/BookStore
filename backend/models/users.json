@@ -13,7 +13,7 @@
     "estadoCuenta": "activo",
     "fotoPerfil": "1733253245824-669736538.png",
     "_id": "857857d1-afdd-411d-b41a-be427d1ff186",
-    "actualizadoEn": "2024-12-15T23:10:13.284Z",
+    "actualizadoEn": "2024-12-17T15:03:54.162Z",
     "direccionEnvio": {
       "calle": "",
       "ciudad": "",
@@ -22,8 +22,9 @@
     },
     "favoritos": [
       "33e5e785-cb74-4f4a-9211-25f341b089b4",
+      "88c87f69-4b49-4633-bfba-cd3d29b1a21d",
       "3f7ab023-15e7-4626-8890-a71f4f2e221c",
-      "8269ca96-ed27-4cb3-a919-8967d4f83e9a"
+      "3cd4d6ad-df7c-4e0f-beb9-394de48ce33d"
     ],
     "conversationsIds": [
       "49771105-55f6-4299-b18e-7500a26ed708",
@@ -432,7 +433,7 @@
     "validated": true,
     "login": "Google",
     "correo": "monitatinet@gmail.com",
-    "actualizadoEn": "2024-12-04T17:29:54.719Z",
+    "actualizadoEn": "2024-12-17T15:44:37.425Z",
     "librosIds": [
       "8269ca96-ed27-4cb3-a919-8967d4f83e9a",
       "354037a6-232d-4f28-a2ab-df76dbd70a93"

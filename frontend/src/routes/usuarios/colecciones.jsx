@@ -10,8 +10,10 @@ export default function Colecciones ({ user, permisos }) {
   const [openNewCollection, setOpenNewCollection] = useState(false)
   const [croppedImage, setCroppedImage] = useState({})
   const [librosFav, setLibrosFav] = useState([])
+  const [misLibros, setMisLibros] = useState([])
   const [addedCollections, setAddedCollections] = useState([])
   const [errors, setErrors] = useState([])
+  const [checkbox, setCheckbox] = useState(false)
   useEffect(() => {
     async function fetchColecciones () {
       try {
@@ -45,16 +47,44 @@ export default function Colecciones ({ user, permisos }) {
     }
     fetchFavorites()
   }, [user])
+
+  useEffect(() => {
+    if (user && user.librosIds) {
+      const fetchBooks = async () => {
+        try {
+          const fetchedBooks = await Promise.all(
+            user.librosIds.map(async (idLibro) => {
+              const response = await fetch(`http://localhost:3030/api/books/${idLibro}`, {
+                method: 'GET',
+                credentials: 'include'
+              })
+              if (response.ok) {
+                return response.json()
+              } else {
+                console.error('Libro no encontrado')
+                return null
+              }
+            })
+          )
+          const validBooks = fetchedBooks.filter(book => book !== null)
+          setMisLibros(validBooks)
+        } catch (error) {
+          console.error('Error fetching book data:', error)
+        }
+      }
+      fetchBooks()
+    }
+  }, [user])
   async function handleSubmit (e) {
     e.preventDefault()
     if (!user) return
-    const { nombre, checkbox } = e.target
+    const { nombre } = e.target
 
     const data = {
       nombre: nombre.value,
       foto: croppedImage?.url || '',
       userId: user._id,
-      saga: checkbox.checked
+      saga: checkbox
     }
     if (!data.nombre) {
       setErrors([...errors, 'El nombre es requerido'])
@@ -85,22 +115,27 @@ export default function Colecciones ({ user, permisos }) {
     //   console.log(`${key}: ${value}`)
     // }
     try {
+      let filtered = addedCollections
+      if (checkbox) {
+        const filteredCollections = addedCollections.filter(coleccion=> misLibros.map(l => l._id).includes(coleccion))
+        filtered = filteredCollections
+      }
       const createCollectionUrl = 'http://localhost:3030/api/collections'
       const createCollectionResponse = await axios.post(createCollectionUrl, formData, { withCredentials: true })
       if (createCollectionResponse.data) {
-        setColecciones([...colecciones, {...createCollectionResponse.data.data, librosIds: addedCollections}])
+        setColecciones([...colecciones, {...createCollectionResponse.data.data, librosIds: filtered}])
         
       }
       if (addedCollections.length > 0) {
         const addToCollectionUrl = 'http://localhost:3030/api/collections/addToCollection?collectionId=' + createCollectionResponse.data.data._id
         
+
+
         // Realizar las solicitudes de manera secuencial
-        for (const bookId of addedCollections) {
+        for (const bookId of filtered) {
           const fullUrl = addToCollectionUrl + `&bookId=${bookId}`
           try {
-            const addToCollectionResponse = await axios.post(fullUrl, null, { withCredentials: true })
-            // Puedes manejar la respuesta de cada libro aquí si lo necesitas
-            console.log(addToCollectionResponse.data)
+            await axios.post(fullUrl, null, { withCredentials: true })
           } catch (error) {
             console.error('Error al agregar libro a la colección:', error)
           }
@@ -108,8 +143,10 @@ export default function Colecciones ({ user, permisos }) {
       }
 
       setAddedCollections([])
+      setCheckbox(false)
       setCroppedImage({})
       setOpenNewCollection(false)
+      
     } catch (error){
       console.log(error)
       console.error('Error en el servidor')
@@ -174,9 +211,10 @@ export default function Colecciones ({ user, permisos }) {
             </div>
             <div>
               <h4>Agregar libros:</h4>
-              <div className='librosFav'>{
-                librosFav.length !== 0
-                  ? librosFav.map((libro, index) => (
+              <div className='librosFav'>
+
+                {misLibros.length !== 0 && <><div className="libroFav" style={{justifyContent:'center', padding: '5px'}}>Mis libros</div>
+                   {misLibros.map((libro, index) => (
                     <div className={`libroFav ${addedCollections.includes(libro._id) ? 'reverse' : ''}`} key={index}
                       onClick={()=>handleAddToCollection(libro._id)}
                     >
@@ -184,13 +222,23 @@ export default function Colecciones ({ user, permisos }) {
                       {libro.titulo}
 
                     </div>
-                  ))
-                  : <><h3>No tienes libros en favoritos</h3></>
-}
+                  ))}</>
+                }{
+                  (librosFav.length !== 0 && !checkbox) && <><div className="libroFav" style={{justifyContent:'center', padding: '5px'}}>Mis favoritos</div>
+                     {librosFav.map((libro, index) => (
+                      <div className={`libroFav ${addedCollections.includes(libro._id) ? 'reverse' : ''}`} key={index}
+                        onClick={()=>handleAddToCollection(libro._id)}
+                      >
+                        <img src={renderProfilePhoto(libro.images[0])} alt={`Foto del libro ${libro.titulo}`} />
+                        {libro.titulo}
+  
+                      </div>
+                    ))}</>
+                  }
               </div>
             </div>
-            <div className='saga' ><label>¿Pertenece a una serie de libros?</label>
-                  <input type='checkbox' name='checkbox' />
+            <div className='saga' ><label htmlFor='checkbox'>¿Pertenece a una serie de libros que estás vendiendo?</label>
+                  <input type='checkbox' name='checkbox' id='checkbox' onClick={()=> setCheckbox(!checkbox)}  />
                   
                 </div>
             {errors.length !== 0 && <div className='error'>{errors[0]}</div>}

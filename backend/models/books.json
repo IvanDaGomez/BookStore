@@ -25,7 +25,7 @@
     "tapa": "",
     "edad": "",
     "fechaPublicacion": "2024-11-21T13:52:00.234Z",
-    "actualizadoEn": "2024-12-17T03:01:27.497Z",
+    "actualizadoEn": "2024-12-17T15:34:41.252Z",
     "disponibilidad": "Disponible",
     "mensajes": [
       [
@@ -63,7 +63,24 @@
       "df121502-806c-4921-b59b-c94e2492cd19",
       "61633db1-edf4-4767-be8b-e1d805329196",
       "b2f978f4-82b9-498d-b31a-3646ab15f0b3",
-      "d28dab5f-3a0a-4df4-acc4-a21d50e603aa"
+      "d28dab5f-3a0a-4df4-acc4-a21d50e603aa",
+      "6aef6b20-9ad2-41c9-ac63-0ae9ccba8440",
+      "4a18b1c4-ee5a-4932-b557-4cd44cad0ea9",
+      "8a366b09-f6f8-43b4-adff-10683db07a61",
+      "84c72fdf-a3c5-4bae-8314-5cfe05530967",
+      "1c65c541-7082-430b-a3fa-0bda4ba1b15e",
+      "c8046a75-f7f7-4a3a-9610-1d2ad91df282",
+      "033e2235-1eb8-45e6-acb6-038719e69795",
+      "2467badb-6fee-4a7e-9b24-1051b31be988",
+      "b44e1f30-2a21-44af-82ca-cbe7f2343e93",
+      "ccda55b0-1e60-4ea9-9d2a-95d67bf82940",
+      "0760a9fc-63b1-4e68-84dd-74e1613bc440",
+      "887404e0-f8be-4135-b9f4-d0486d9612d1",
+      "4f73637c-cde0-4311-876d-39e51186dedb",
+      "1c06948f-7efa-4fbd-81f6-1611a39ddb3d",
+      "27b59577-9ea7-4529-b79e-fb2d210d38ca",
+      "37d1953c-4731-4a51-be92-226e827e0a95",
+      "5b27a237-c4bf-47cd-8461-e64ff35da628"
     ]
   },
   {
@@ -89,7 +106,7 @@
     "tapa": "Sin tapa",
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:24:21.509Z",
-    "actualizadoEn": "2024-12-17T03:01:27.492Z",
+    "actualizadoEn": "2024-12-17T15:29:25.006Z",
     "disponibilidad": "Disponible",
     "mensajes": [
       [
@@ -117,7 +134,23 @@
       "af12dfca-46d4-4679-96a7-f320e2bd5260",
       "6ed6ea52-79f6-47f7-aec1-2d90cf1fd19d",
       "b2f978f4-82b9-498d-b31a-3646ab15f0b3",
-      "d28dab5f-3a0a-4df4-acc4-a21d50e603aa"
+      "d28dab5f-3a0a-4df4-acc4-a21d50e603aa",
+      "4a18b1c4-ee5a-4932-b557-4cd44cad0ea9",
+      "8a366b09-f6f8-43b4-adff-10683db07a61",
+      "84c72fdf-a3c5-4bae-8314-5cfe05530967",
+      "1c65c541-7082-430b-a3fa-0bda4ba1b15e",
+      "c8046a75-f7f7-4a3a-9610-1d2ad91df282",
+      "033e2235-1eb8-45e6-acb6-038719e69795",
+      "2467badb-6fee-4a7e-9b24-1051b31be988",
+      "b44e1f30-2a21-44af-82ca-cbe7f2343e93",
+      "ccda55b0-1e60-4ea9-9d2a-95d67bf82940",
+      "3a87c84b-cdae-410f-b88b-bb0ff09f5eef",
+      "0760a9fc-63b1-4e68-84dd-74e1613bc440",
+      "887404e0-f8be-4135-b9f4-d0486d9612d1",
+      "4f73637c-cde0-4311-876d-39e51186dedb",
+      "1c06948f-7efa-4fbd-81f6-1611a39ddb3d",
+      "27b59577-9ea7-4529-b79e-fb2d210d38ca",
+      "37d1953c-4731-4a51-be92-226e827e0a95"
     ]
   },
   {
@@ -237,13 +270,14 @@
     "tapa": "",
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:51:23.575Z",
-    "actualizadoEn": "2024-12-16T15:04:10.665Z",
+    "actualizadoEn": "2024-12-17T15:15:52.489Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
     "librosVendidos": 0,
     "collectionsIds": [
       "6ae813e7-c18a-44ae-ab87-b7f601d4561e",
-      "61633db1-edf4-4767-be8b-e1d805329196"
+      "61633db1-edf4-4767-be8b-e1d805329196",
+      "4a18b1c4-ee5a-4932-b557-4cd44cad0ea9"
     ]
   },
   {
@@ -478,7 +512,7 @@
     "tapa": "Dura",
     "edad": "Adulto",
     "fechaPublicacion": "2024-11-23T19:31:26.489Z",
-    "actualizadoEn": "2024-12-04T00:12:36.198Z",
+    "actualizadoEn": "2024-12-17T15:34:41.259Z",
     "disponibilidad": "Disponible",
     "mensajes": [
       [
@@ -518,7 +552,26 @@
       ]
     ],
     "librosVendidos": 0,
-    "collectionsIds": []
+    "collectionsIds": [
+      "6aef6b20-9ad2-41c9-ac63-0ae9ccba8440",
+      "4a18b1c4-ee5a-4932-b557-4cd44cad0ea9",
+      "8a366b09-f6f8-43b4-adff-10683db07a61",
+      "84c72fdf-a3c5-4bae-8314-5cfe05530967",
+      "1c65c541-7082-430b-a3fa-0bda4ba1b15e",
+      "c8046a75-f7f7-4a3a-9610-1d2ad91df282",
+      "033e2235-1eb8-45e6-acb6-038719e69795",
+      "2467badb-6fee-4a7e-9b24-1051b31be988",
+      "b44e1f30-2a21-44af-82ca-cbe7f2343e93",
+      "ccda55b0-1e60-4ea9-9d2a-95d67bf82940",
+      "3a87c84b-cdae-410f-b88b-bb0ff09f5eef",
+      "0760a9fc-63b1-4e68-84dd-74e1613bc440",
+      "887404e0-f8be-4135-b9f4-d0486d9612d1",
+      "4f73637c-cde0-4311-876d-39e51186dedb",
+      "1c06948f-7efa-4fbd-81f6-1611a39ddb3d",
+      "27b59577-9ea7-4529-b79e-fb2d210d38ca",
+      "37d1953c-4731-4a51-be92-226e827e0a95",
+      "5b27a237-c4bf-47cd-8461-e64ff35da628"
+    ]
   },
   {
     "titulo": "El experimento: Amor Verdadero",
@@ -608,11 +661,13 @@
     "tapa": "",
     "edad": "",
     "fechaPublicacion": "2024-11-23T18:01:19.800Z",
-    "actualizadoEn": "2024-11-23T18:01:56.356Z",
+    "actualizadoEn": "2024-12-17T15:38:49.023Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
     "librosVendidos": 0,
-    "collectionsIds": []
+    "collectionsIds": [
+      "b7f8244b-fc8b-4259-86a1-7228df8c52a2"
+    ]
   },
   {
     "titulo": "Practical React Native",
@@ -641,11 +696,13 @@
     "tapa": "",
     "edad": "",
     "fechaPublicacion": "2024-11-23T19:20:30.241Z",
-    "actualizadoEn": "2024-11-23T19:21:19.492Z",
+    "actualizadoEn": "2024-12-17T15:38:49.031Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
     "librosVendidos": 0,
-    "collectionsIds": []
+    "collectionsIds": [
+      "b7f8244b-fc8b-4259-86a1-7228df8c52a2"
+    ]
   },
   {
     "titulo": "React Practico desde cero a desarrollos web avanzados",
@@ -674,7 +731,7 @@
     "tapa": "Blanda",
     "edad": "",
     "fechaPublicacion": "2024-12-03T04:05:44.005Z",
-    "actualizadoEn": "2024-12-15T23:09:54.630Z",
+    "actualizadoEn": "2024-12-17T15:34:41.265Z",
     "disponibilidad": "Disponible",
     "mensajes": [
       [
@@ -684,7 +741,25 @@
       ]
     ],
     "librosVendidos": 0,
-    "collectionsIds": []
+    "collectionsIds": [
+      "6aef6b20-9ad2-41c9-ac63-0ae9ccba8440",
+      "4a18b1c4-ee5a-4932-b557-4cd44cad0ea9",
+      "8a366b09-f6f8-43b4-adff-10683db07a61",
+      "84c72fdf-a3c5-4bae-8314-5cfe05530967",
+      "1c65c541-7082-430b-a3fa-0bda4ba1b15e",
+      "033e2235-1eb8-45e6-acb6-038719e69795",
+      "2467badb-6fee-4a7e-9b24-1051b31be988",
+      "b44e1f30-2a21-44af-82ca-cbe7f2343e93",
+      "ccda55b0-1e60-4ea9-9d2a-95d67bf82940",
+      "3a87c84b-cdae-410f-b88b-bb0ff09f5eef",
+      "0760a9fc-63b1-4e68-84dd-74e1613bc440",
+      "887404e0-f8be-4135-b9f4-d0486d9612d1",
+      "4f73637c-cde0-4311-876d-39e51186dedb",
+      "1c06948f-7efa-4fbd-81f6-1611a39ddb3d",
+      "27b59577-9ea7-4529-b79e-fb2d210d38ca",
+      "37d1953c-4731-4a51-be92-226e827e0a95",
+      "5b27a237-c4bf-47cd-8461-e64ff35da628"
+    ]
   },
   {
     "titulo": "React Practico desde cero a desarrollos web avanzados",
