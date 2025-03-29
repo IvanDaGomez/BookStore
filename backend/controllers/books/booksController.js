@@ -511,4 +511,25 @@ export class BooksController {
       res.status(500).json({ error: 'Error en el servidor' })
     }
   }
+
+  static async predictInfo (req, res) {
+    try {
+      const file = req.file
+      if (!file) {
+        return res.status(400).json({ error: 'No file uploaded' })
+      }
+      const info = await BooksModel.predictInfo(file)
+
+      res.json({
+        data: {
+          title: info.title,
+          author: info.author
+        },
+        ok: true
+      })
+    } catch (error) {
+      console.error('Error:', error)
+      res.status(500).json({ error: 'Error en el servidor' })
+    }
+  }
 }

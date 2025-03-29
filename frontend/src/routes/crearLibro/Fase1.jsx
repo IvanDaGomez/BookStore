@@ -3,11 +3,13 @@ import { useState, useEffect } from 'react'
 import { validarPublicar1 } from '../../assets/validarPublicar'
 import { toast } from 'react-toastify'
 import { cropImageToAspectRatio } from '../../assets/cropImageToAspectRatio'
+import { predictInfo } from './predictTitleAndDescription'
 // import { ISBNmatch } from "../../assets/ISBNmatch";
 export default function Fase1 ({ form, setForm, setFase, fase }) {
   const [selectedFiles, setSelectedFiles] = useState([])
   const [croppedImages, setCroppedImages] = useState([])
   const [errors, setErrors] = useState([])
+  const [additionalInfo, setAdditionalInfo] = useState(null)
   // ---------------------------------------------FUNCION PARA ELIMINAR UNA IMAGEN EN LA LISTA
   const handleDeleteImage = (index) => {
     // Filtra los archivos y las imágenes recortadas por índice
@@ -24,14 +26,24 @@ export default function Fase1 ({ form, setForm, setFase, fase }) {
 
     if (selectedFiles.length + files.length > 5) {
       toast.error('No puedes subir más de 5 fotos.')
-
       return
     }
-
+    if (croppedImages.length === 0) {
+      const predictedInfo = await predictInfo(files[0])
+      setAdditionalInfo(predictedInfo)
+    }
+    
     setSelectedFiles((prevFiles) => [...prevFiles, ...files]) // Añadir archivos originales
     setCroppedImages((prevImages) => [...prevImages, ...croppedFiles]) // Añadir imágenes recortadas con su tipo
   }
-
+  // This is for updating the info of the title, and author
+  useEffect(() => {
+    if (additionalInfo) {
+      document.querySelector('#titulo').value = additionalInfo.title || '',
+      document.querySelector('#autor').value = additionalInfo.author || ''
+    }
+    
+  }, [additionalInfo])
   const handleDrop = async (e) => {
     e.preventDefault()
     const files = Array.from(e.dataTransfer.files)

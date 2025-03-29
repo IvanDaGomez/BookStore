@@ -7,6 +7,7 @@
   --using2: #c4c3c4; /* Lines, separators, scrollbars */
   --using3: #000000; /* Text color */
   --using4: #3689e7; /* Accent */
+  --using4: #1b78e4; /* Accent */
   --using5: #f4f0f0; /* Buttons, divs */
   --using6: red; /* Errores, acentos */
   
@@ -1255,7 +1256,8 @@ color: var(--using6);
 }
 .footer-section h2 {
   font-size: 3rem;
-  color: #4a90e2;
+  color: white;
+  font-weight: 700;
   margin: auto;
   text-align: center;
 }

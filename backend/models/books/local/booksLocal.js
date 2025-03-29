@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises'
 import { levenshteinDistance } from '../../../assets/levenshteinDistance.js'
-
+import * as tf from '@tensorflow/tfjs'
 const bookObject = (data) => {
   return {
     titulo: data.titulo || '',
@@ -296,6 +296,28 @@ class BooksModel {
     } catch (err) {
       console.error('Error reading book:', err)
       throw new Error('Error fetching books') // Devuelve un mensaje más genérico
+    }
+  }
+
+  static async predictInfo (file) {
+    // Read the file buffer
+    // const imageBuffer = fs.readFileSync(file.path)
+
+    // // Convert buffer to Tensor
+    // const tensor = tf.node.decodeImage(imageBuffer)
+    //   .resizeNearestNeighbor([224, 224]) // Resize for model input (adjust as needed)
+    //   .expandDims() // Add batch dimension
+    //   .toFloat()
+    //   .div(255.0) // Normalize pixel values
+
+    // // Load the model (assuming it's a pre-trained model)
+    // const model = await tf.loadLayersModel('file://path_to_model/model.json')
+
+    // // Make prediction
+    // const prediction = model.predict(tensor)
+    return {
+      title: 'Hola',
+      author: 'soy'
     }
   }
 }
