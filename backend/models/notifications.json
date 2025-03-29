@@ -1072,7 +1072,7 @@
     "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
     "input": "",
     "createdIn": "2024-12-17T19:56:56.384Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/usuarios/undefined",
     "expiresAt": "2025-01-16T19:56:56.384Z",
     "metadata": {
@@ -1088,7 +1088,7 @@
     "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
     "input": "",
     "createdIn": "2024-12-17T19:57:01.373Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/usuarios/undefined",
     "expiresAt": "2025-01-16T19:57:01.373Z",
     "metadata": {
@@ -1104,7 +1104,7 @@
     "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
     "input": "",
     "createdIn": "2024-12-17T19:57:41.295Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/usuarios/undefined",
     "expiresAt": "2025-01-16T19:57:41.295Z",
     "metadata": {
@@ -1120,7 +1120,7 @@
     "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
     "input": "",
     "createdIn": "2024-12-17T19:57:57.441Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/usuarios/undefined",
     "expiresAt": "2025-01-16T19:57:57.441Z",
     "metadata": {
@@ -1136,7 +1136,7 @@
     "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
     "input": "",
     "createdIn": "2024-12-17T19:57:58.317Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/usuarios/undefined",
     "expiresAt": "2025-01-16T19:57:58.317Z",
     "metadata": {
@@ -1168,11 +1168,29 @@
     "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
     "input": "",
     "createdIn": "2024-12-17T19:59:29.734Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/usuarios/undefined",
     "expiresAt": "2025-01-16T19:59:29.734Z",
     "metadata": {
       "photo": "1733521219913-952070967.png"
+    }
+  },
+  {
+    "_id": "72ffd96d-95e9-4900-b0be-fae13ec3afc8",
+    "theme": "",
+    "title": "Tu libro ha sido rechazado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "input": "La foto no coincide",
+    "createdIn": "2024-12-24T03:49:06.156Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/14d11a23-1e26-4e25-8864-d7fb576b2ec0",
+    "expiresAt": "2025-01-23T03:49:06.156Z",
+    "metadata": {
+      "photo": "1735012061588-416368910.png",
+      "bookTitle": "CIEN AÑOS DE SOLEDAD",
+      "bookId": "14d11a23-1e26-4e25-8864-d7fb576b2ec0"
     }
   }
 ]

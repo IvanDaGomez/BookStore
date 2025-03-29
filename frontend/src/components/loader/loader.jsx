@@ -3,7 +3,9 @@ import './loader.css'
 export default function Loader () {
   return (
     <>
-      <img src='/loader.gif' alt='' />
+      <div className="loader">
+        <img src='/loader.gif' alt='' />
+      </div>
     </>
   )
 }

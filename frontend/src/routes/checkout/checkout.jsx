@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import Fase1 from './fase1'
 import Fase2 from './fase2'
 import Fase3 from './fase3'
@@ -9,28 +9,21 @@ import Footer from '../../components/footer'
 import SideInfo from '../../components/sideInfo'
 import { useNavigate, useParams } from 'react-router'
 
+import { UserContext } from '../../context/userContext.jsx'
 import { ToastContainer } from 'react-toastify'
 function Checkout () {
   const navigate = useNavigate()
-  const [user, setUser] = useState(null)
+  const { user, setUser, loading } = useContext(UserContext)
+  useEffect(() => {
+    if (loading) {
+      return <>
+      <Header />
+      </>
+    }
+  })
   const [preferenceId, setPreferenceId] = useState(null)
   // Fetch del usuario primero que todo
-  useEffect(() => {
-    async function fetchUser () {
-      try {
-        const url = 'http://localhost:3030/api/users/userSession'
-        const response = await axios.post(url, null, {
-          withCredentials: true
-        })
-        setUser(response.data.user)
-      } catch (error) {
-        console.error('Error fetching user data:', error)
-        navigate('/popUp/noUser')
-      }
-    };
-    fetchUser()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+
 
   useEffect(() => {
     async function fetchUserBalance () {

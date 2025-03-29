@@ -52,7 +52,8 @@
       "991a622a-1d83-44e4-bc5d-6ead2cc1e6d6",
       "a380c853-0330-438d-9a13-bb16397f0610",
       "276e6fe2-67a9-4b11-ab2b-06daea57d37e",
-      "512e04be-4bea-4138-a6d9-5ce2e9e4bbd1"
+      "512e04be-4bea-4138-a6d9-5ce2e9e4bbd1",
+      "91312697-a5a1-4a18-a5b3-0cfe68c11624"
     ],
     "bio": "Hola me gusta mucho comprar y vender libros",
     "notificationsIds": [
@@ -320,7 +321,7 @@
     "estadoCuenta": "activo",
     "fotoPerfil": "1733521219913-952070967.png",
     "_id": "836e151b-43ae-48a0-8352-17ad309d8068",
-    "actualizadoEn": "2024-12-16T11:58:09.103Z",
+    "actualizadoEn": "2025-03-29T00:00:37.037Z",
     "direccionEnvio": {
       "ciudad": "Floridablanca",
       "pais": "Colombia",
@@ -332,19 +333,19 @@
       "5644390f-de7e-4280-8801-9c6a017bb2b5",
       "03565f92-cb06-4688-a049-d8586ce05ab3",
       "f855175f-d87a-42df-9084-4b9818000ee0",
-      "fb555364-2859-4b6e-b0c6-82fd15a4dfaf"
+      "fb555364-2859-4b6e-b0c6-82fd15a4dfaf",
+      "91312697-a5a1-4a18-a5b3-0cfe68c11624"
     ],
     "bio": "",
     "favoritos": [
       "3f7ab023-15e7-4626-8890-a71f4f2e221c",
       "31d52487-f746-4951-bf11-7b41febea0a9",
-      "9f8eae32-d2c3-4739-87e5-4c95dc1a665c",
       "3c37ef91-d1bb-4c19-ad47-85b9fb147474",
       "a7358b0d-d158-4df9-a714-9c34d757a752",
-      "3cd4d6ad-df7c-4e0f-beb9-394de48ce33d",
       "88c87f69-4b49-4633-bfba-cd3d29b1a21d",
       "ac6773d2-9166-4840-b5cd-995a49b19031",
-      "1f097f12-ce06-4068-a0a1-f37647d38c6a"
+      "1f097f12-ce06-4068-a0a1-f37647d38c6a",
+      "9f8eae32-d2c3-4739-87e5-4c95dc1a665c"
     ],
     "notificationsIds": [
       "eed1b131-50d1-4d63-84a5-c5c9e0abf849",
@@ -360,7 +361,8 @@
       "a475856d-7fdc-4b2b-aa75-57cbd5ea193e",
       "4711b510-5c4b-4004-92cf-af83f255ed69",
       "900be9e2-1475-4c76-96f4-6e8856ff1c79",
-      "a02d3462-61db-47ee-9f7a-9852271fca87"
+      "a02d3462-61db-47ee-9f7a-9852271fca87",
+      "72ffd96d-95e9-4900-b0be-fae13ec3afc8"
     ],
     "validated": true,
     "login": "default",

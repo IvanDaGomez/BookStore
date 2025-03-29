@@ -39,15 +39,15 @@
     "updatedIn": "2024-12-12T14:05:26.124Z"
   },
   {
-    "_id": 1328934723,
-    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "_id": 1329198193,
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
     "sellerId": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
     "bookId": "88c87f69-4b49-4633-bfba-cd3d29b1a21d",
     "fee_details": [],
     "description": "Pago de libro \"Acaba con la inflamación en 7 días\" en Meridian",
     "charges_details": [
       {
-        "id": "1328934723-001",
+        "id": "1329198193-001",
         "name": "mercadopago_fee",
         "type": "fee",
         "accounts": {
@@ -55,8 +55,8 @@
           "to": "mp"
         },
         "client_id": 0,
-        "date_created": "2024-12-15T22:27:05.665-04:00",
-        "last_updated": "2024-12-15T22:27:05.665-04:00",
+        "date_created": "2024-12-27T20:30:30.805-04:00",
+        "last_updated": "2024-12-27T20:30:30.805-04:00",
         "amounts": {
           "original": 4284,
           "refunded": 0
@@ -68,14 +68,14 @@
         "refund_charges": []
       }
     ],
-    "paymentLink": "https://www.mercadopago.com.co/sandbox/payments/1328934723/ticket?caller_id=1883966051&payment_method_id=efecty&payment_id=1328934723&payment_method_reference_id=6005607004&hash=cbb9facd-568b-4a2e-865d-8cb4e78b68af",
+    "paymentLink": "https://www.mercadopago.com.co/sandbox/payments/1329198193/ticket?caller_id=1883966051&payment_method_id=efecty&payment_id=1329198193&payment_method_reference_id=6005675530&hash=c305d332-36e4-4ea5-bf25-9f9aca617b38",
     "transactionId": "",
     "amount": 85000,
     "paymentMethod": "efecty",
     "installments": 1,
     "card": {},
     "status": "pending",
-    "createdIn": "2024-12-16T02:27:06.064Z",
-    "updatedIn": "2024-12-16T02:27:06.064Z"
+    "createdIn": "2024-12-28T00:30:31.308Z",
+    "updatedIn": "2024-12-28T00:30:31.308Z"
   }
 ]

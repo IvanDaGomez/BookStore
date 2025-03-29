@@ -76,11 +76,13 @@ const MakeCard = ({ element, index, user = '', callback = () => {} }) => {
             <svg
               onClick={(event) => {
                 event.preventDefault()
-
-                if (!user) {
+                // user is an object
+                if (Object.keys(user).length == 0) {
                   toast.error(necesitasIniciarSesion)
+                  callback()
                   return
                 }
+                
                 user._id ? handleFavoritos(event, element._id, user._id) : handleFavoritos(event, element._id)
                 callback()
               }} className={'favoritos ' + `favorito-${element._id}`} xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width={anchoDeIconos} height={anchoDeIconos} color='#fff'
@@ -91,8 +93,9 @@ const MakeCard = ({ element, index, user = '', callback = () => {} }) => {
             <div
               className='fastInfoElement' onClick={(e) => {
                 e.preventDefault()
-                if (!user) {
+                if (Object.keys(user).length == 0) {
                   toast.error(necesitasIniciarSesion)
+                  callback()
                   return
                 }
                 window.location.href = `/checkout/${element._id}`
@@ -104,8 +107,9 @@ const MakeCard = ({ element, index, user = '', callback = () => {} }) => {
             <svg
               onClick={(e) => {
                 e.preventDefault()
-                if (!user) {
+                if (Object.keys(user).length == 0) {
                   toast.error(necesitasIniciarSesion)
+                  callback()
                   return
                 }
                 window.location.href = `/mensajes?n=${element.idVendedor}&q=${element._id}`

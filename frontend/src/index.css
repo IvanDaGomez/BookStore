@@ -826,25 +826,32 @@ input:-internal-autofill-selected {
 .carousel {
   position: relative;
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
   width: 100vw;
   margin: auto;
   aspect-ratio: 4/1;
   box-shadow: 0px 0px 7px #666;
-  background: white;
+  background: radial-gradient(circle, #0099ff, #0066cc, #003399);
   overflow: hidden;
 }
 
-.slide {
+.carousel .view .slide {
   height: 100%;  
-  width: 100%;
-  position: relative;
+  width: 100vw;
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
 }
-
+.carousel .view{
+  height: 100%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  background: black;
+  transform: translateX(0px);
+  transition: all .4s ease-in-out;
+}
 .slide-hidden {
   display: none;
 }
@@ -855,7 +862,9 @@ input:-internal-autofill-selected {
   height: 32px;
   transition: all .2s ease-in-out;
 }
-
+.arrow svg{
+  color: white;
+}
 .arrow:hover{
   transform: scale(1.1);
 }
@@ -876,6 +885,8 @@ input:-internal-autofill-selected {
 .indicators {
   display: flex;
   position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   bottom: 1rem;
 }
 

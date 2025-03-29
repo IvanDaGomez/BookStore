@@ -49,5 +49,22 @@
       "_id": "e4b41e4e-03af-47c4-985c-989a037b4d1d",
       "createdIn": "2024-12-16T02:22:55.725Z"
     }
+  },
+  {
+    "_id": "91312697-a5a1-4a18-a5b3-0cfe68c11624",
+    "users": [
+      "836e151b-43ae-48a0-8352-17ad309d8068",
+      "857857d1-afdd-411d-b41a-be427d1ff186"
+    ],
+    "messages": [],
+    "createdIn": "2024-12-24T03:53:13.487Z",
+    "lastMessage": {
+      "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+      "conversationId": "91312697-a5a1-4a18-a5b3-0cfe68c11624",
+      "message": "¡Hola Ivan David Gomez Silva! 😊 \n    \n            Me interesa mucho el libro que estás ofreciendo: *El libro de Bill*. ¿Podrías contarme un poco más al respecto? Aquí está el enlace del libro para que lo tengas a mano: \n            http://localhost:5173/libros/31d52487-f746-4951-bf11-7b41febea0a9\n    \n            ¡Muchas gracias de antemano! Espero tu respuesta. 😊",
+      "read": false,
+      "_id": "ec294dc7-1f74-4e40-95d7-db5f0ed38482",
+      "createdIn": "2024-12-24T03:53:13.500Z"
+    }
   }
 ]
