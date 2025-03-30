@@ -18,10 +18,7 @@ export async function predictInfo(file) {
         })
 
         const data = await response.json()
-        console.log({
-            title: data.data.title,
-            author: data.data.author
-        })
+
         return {
             title: data.data.title,
             author: data.data.author

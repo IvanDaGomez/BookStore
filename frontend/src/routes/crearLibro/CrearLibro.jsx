@@ -203,7 +203,7 @@ export default function CrearLibro () {
           const prices = await Promise.all(response.data.map(info => Number(info.price)))
           setMeanPrice(average(prices))
         } catch {
-
+          console.error('Error')
         }
       }
     }

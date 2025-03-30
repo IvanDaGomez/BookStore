@@ -1,6 +1,9 @@
 import fs from 'node:fs/promises'
-import { levenshteinDistance } from '../../../assets/levenshteinDistance.js'
+import { changeToArray } from './changeToArray.js'
+import { calculateMatchScore } from './calculateMatchScore.js'
 import * as tf from '@tensorflow/tfjs'
+import { getBookKeyInfo } from './getBookKeyInfo.js'
+import { getTrends } from '../../../assets/getTrends.js'
 const bookObject = (data) => {
   return {
     titulo: data.titulo || '',
@@ -65,68 +68,28 @@ class BooksModel {
 
   // Pendiente desarrollar, una buena query para buscar varios patrones
   static async getBookByQuery (query, l, books = []) {
-    console.log(books)
     if (books.length === 0) {
       books = await this.getAllBooks()
-    }
-    function changeToArray (element) {
-      if (typeof element === 'string' && element.trim() !== '') {
-        return element.split(' ').filter(Boolean)
-      }
-      return element || [] // Devuelve un array vacío si el elemento es nulo o indefinido
-    }
-
-    const calculateMatchScore = (book, queryWords) => {
-      const queryWordsArray = changeToArray(queryWords)
-      const valueElements = Object.values(book)
-      const stringValueWords = []
-
-      let score = 0
-      const tolerance = query.length > 3 ? 2 : 0 // Tolerancia de letras equivocadas
-
-      valueElements.forEach((element) => {
-        if (typeof element === 'string') {
-          stringValueWords.push(...changeToArray(element))
-        } else if (Array.isArray(element)) {
-          element.forEach((word) => {
-            stringValueWords.push(...changeToArray(word))
-          })
-        }
-      })
-
-      const matchedWords = new Set() // Usamos un Set para evitar duplicados
-
-      for (const queryWord of queryWordsArray) {
-        stringValueWords.forEach(word => {
-          const distance = levenshteinDistance(word.toLowerCase(), queryWord.toLowerCase())
-          if (distance <= tolerance && !matchedWords.has(word)) {
-            score += 1 // Incrementa el score si la distancia está dentro del umbral de tolerancia
-            matchedWords.add(word) // Agrega la palabra al Set
-          }
-        })
-      }
-
-      return score
     }
 
     const queryWords = changeToArray(query)
 
-    const booksWithScores = books.map(book => {
-      const score = calculateMatchScore(book, queryWords)
+    // Calculamos los scores y filtramos directamente los que no cumplen el umbral
+    const booksWithScores = books
+      .map(book => {
+        const score = calculateMatchScore(book, queryWords, query)
+        return score >= queryWords.length * 0.7 ? { book, score } : null
+      })
+      .filter(item => item !== null)
 
-      // Umbral de coincidencia deseado
-      if (score < queryWords.length * 0.7) return null
-
-      return { book, score } // Devolvemos el libro junto con su puntaje si pasa la validación
-    })
-      .filter(item => item !== null).slice(0, l)
-      .filter(item => item.book.disponibilidad === 'Disponible')
-
-    // Ordenamos los libros por el puntaje en orden descendente
+    // Ordenamos antes de filtrar por cantidad
     booksWithScores.sort((a, b) => b.score - a.score)
 
-    // Solo los datos del libro, no del puntaje
-    return booksWithScores.map(item => bookObject(item.book))
+    // Filtramos por disponibilidad y limitamos la cantidad de resultados
+    return booksWithScores
+      .filter(item => item.book.disponibilidad === 'Disponible')
+      .slice(0, l)
+      .map(item => bookObject(item.book))
   }
 
   static async getBooksByQueryWithFilters (query) {
@@ -262,10 +225,54 @@ class BooksModel {
     }
   }
 
-  static async forYouPage (user = {}, l) {
-    const books = this.getAllBooks()
-    // Mostrar libros en base a preferencias etc
-    return books
+  static async forYouPage (user = {}, l = 24) {
+    const books = await this.getAllBooks()
+    const randomIntArrayInRange = (min, max, l = 1) => {
+      l = Math.min(l, max - min + 1)
+      const uniqueNumbers = new Set()
+
+      while (uniqueNumbers.size < l) {
+        uniqueNumbers.add(Math.floor(Math.random() * (max - min + 1)) + min)
+      }
+
+      return [...uniqueNumbers]
+    }
+    const randomIndexes = randomIntArrayInRange(0, books.length, l) // [ 34, 14, 27, 17, 30, 27, 20, 26, 21, 14 ]
+    const selectedBooks = randomIndexes.map(index => books[index]).filter(element => element !== undefined)
+    // Las querywords sería palabras que el usuario tiene en base a sus gustos
+    const trends = getTrends()
+    const queryWords = [...user?.preferencias || '', ...user?.historialBusqueda || '', ...trends || '']
+    // Calculate the distances in these selected items
+    const booksWithScores = selectedBooks.map((book) => {
+      let score = calculateMatchScore(book, queryWords, 'query') // Query se usa para considerar si la palabra es muy pequeña, por lo que aquí solo agregaré una palabra de más de 4 letras para asegurar la tolerancia
+      const threshold = 0.7
+      const bookKeyInfo = getBookKeyInfo(book)
+      if (score >= queryWords.length * threshold) {
+        // Priorizar las preferencias del usuario
+        if (user?.preferencias?.some(preference => bookKeyInfo.includes(preference))) score += 10
+        return { book, score }
+      } else return null
+    })
+
+    booksWithScores.sort((a, b) => b.score - a.score)
+
+    return booksWithScores
+      .filter(item => item.book.disponibilidad === 'Disponible')
+      .slice(0, l)
+      .map(item => bookObject(item.book))
+    /*
+    keyInfo:
+      keywords,
+      titulo,
+      genero,
+      edad,
+      ubicacion,
+      autor,
+      vendedor,
+      idioma,
+
+    */
+    // Calculate the recommended books based on the distance between its keyInfo
   }
 
   static async getFavoritesByUser (favorites) {
@@ -301,20 +308,22 @@ class BooksModel {
 
   static async predictInfo (file) {
     // Read the file buffer
-    // const imageBuffer = fs.readFileSync(file.path)
+    const imageBuffer = fs.readFileSync(file.path)
 
-    // // Convert buffer to Tensor
-    // const tensor = tf.node.decodeImage(imageBuffer)
-    //   .resizeNearestNeighbor([224, 224]) // Resize for model input (adjust as needed)
-    //   .expandDims() // Add batch dimension
-    //   .toFloat()
-    //   .div(255.0) // Normalize pixel values
+    // Convert buffer to Tensor
+    const tensor = tf.node.decodeImage(imageBuffer)
+      .resizeNearestNeighbor([224, 336]) // Resize for model input (adjust as needed)
+      .expandDims() // Add batch dimension
+      .toFloat()
+      .div(255.0) // Normalize pixel values
 
-    // // Load the model (assuming it's a pre-trained model)
-    // const model = await tf.loadLayersModel('file://path_to_model/model.json')
+    // Load the model (assuming it's a pre-trained model)
+    const model = await tf.loadLayersModel('file://path_to_model/model.json')
 
-    // // Make prediction
-    // const prediction = model.predict(tensor)
+    // Make prediction
+    // eslint-disable-next-line no-unused-vars
+    const prediction = model.predict(tensor)
+
     return {
       title: 'Hola',
       author: 'soy'
