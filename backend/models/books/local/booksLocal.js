@@ -240,7 +240,8 @@ class BooksModel {
     const randomIndexes = randomIntArrayInRange(0, books.length, l) // [ 34, 14, 27, 17, 30, 27, 20, 26, 21, 14 ]
     const selectedBooks = randomIndexes.map(index => books[index]).filter(element => element !== undefined)
     // Las querywords sería palabras que el usuario tiene en base a sus gustos
-    const trends = getTrends()
+    const trends = await getTrends()
+
     const queryWords = [...user?.preferencias || '', ...user?.historialBusqueda || '', ...trends || '']
     // Calculate the distances in these selected items
     const booksWithScores = selectedBooks.map((book) => {

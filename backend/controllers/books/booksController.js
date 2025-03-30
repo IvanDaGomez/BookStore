@@ -12,6 +12,9 @@ import { sendEmail } from '../../assets/email/sendEmail.js'
 import { createEmail } from '../../assets/email/htmlEmails.js'
 import { sendNotification } from '../../assets/notifications/sendNotification.js'
 import { createNotification } from '../../assets/notifications/createNotification.js'
+import { updateTrends } from '../../assets/trends/updateTrends.js'
+import { updateUserSearchHistory } from '../../assets/trends/updateUserSearchHistory.js'
+import { updateUserPreferences } from '../../assets/trends/updateUserPreferences.js'
 export class BooksController {
   static async getAllBooks (req, res) {
     try {
@@ -30,6 +33,11 @@ export class BooksController {
     try {
       const { bookId } = req.params
       const book = await BooksModel.getBookById(bookId)
+      const user = req.session.user
+      // Update user preferences
+      await updateUserPreferences(user, book, 'openedBook')
+      await updateTrends(book, 'openedBook')
+      await updateUserSearchHistory(user, book, 'openedBook')
       if (!book) {
         return res.status(404).json({ error: 'Libro no encontrado' })
       }
@@ -56,7 +64,10 @@ export class BooksController {
       if (books.length === 0) {
         return res.status(404).json({ error: 'No se encontraron libros' })
       }
-
+      const user = req.session.user
+      await updateUserPreferences(user, books, 'query')
+      await updateTrends(books, 'query')
+      await updateUserSearchHistory(user, 'query')
       res.json(books)
     } catch (err) {
       console.error('Error al leer libros por consulta:', err)
@@ -334,6 +345,7 @@ export class BooksController {
   }
 
   static async searchByBookTitle (req, res) {
+    // Web scrapping
     const { bookTitle } = req.params
     const browser = await chromium.launch({ headless: true })
     const context = await browser.newContext()
@@ -487,6 +499,7 @@ export class BooksController {
 
   static async forYouPage (req, res) {
     const { l } = req.query
+    console.log(req.session.user)
     const results = await BooksModel.forYouPage(req.session.user, l)
 
     if (!results) {

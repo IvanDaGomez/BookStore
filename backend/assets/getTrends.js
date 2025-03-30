@@ -17,7 +17,6 @@ export async function getTrends (n = 20) {
     for (const [key, score] of Object.entries(data.librosAbiertos || {})) {
       trends.push({ nombre: key, puntuacion: score * 1.5 })
     }
-
     // Ordenar por puntuación y devolver solo los nombres
     return trends
       .sort((a, b) => b.puntuacion - a.puntuacion)
