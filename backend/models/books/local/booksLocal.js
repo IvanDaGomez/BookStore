@@ -128,17 +128,17 @@ class BooksModel {
     try {
       const books = await this.getAllBooks()
 
-      const bookIndex = books.findIndex(book => book._id === id)
+      const bookIndex = await books.findIndex(book => book._id === id)
       if (bookIndex === -1) {
         return null // Si no se encuentra el usuario, retorna null
       }
       data.actualizadoEn = new Date()
 
       // Actualiza los datos del usuario
-      Object.assign(books[bookIndex], data)
+      await Object.assign(books[bookIndex], data)
 
       // Hacer el path hacia aqui
-      // const filePath = pat h.join()
+      // change writeFile to writeFileSync, which makes it synchronous
       await fs.writeFile('./models/books.json', JSON.stringify(books, null, 2))
 
       return bookObject(books[bookIndex])
@@ -226,8 +226,7 @@ class BooksModel {
     }
   }
 
-  static async forYouPage (userKeyInfo = {}, l = 100) {
-    console.log('l:', l)
+  static async forYouPage (userKeyInfo = {}, sampleSize = 100) {
     let books = await this.getAllBooks()
     const user = await UsersModel.getUserById(userKeyInfo._id)
     const randomIntArrayInRange = (min, max, l = 1) => {
@@ -241,7 +240,7 @@ class BooksModel {
       return [...uniqueNumbers]
     }
     books = books.filter(book => book.disponibilidad === 'Disponible')
-    const randomIndexes = randomIntArrayInRange(0, books.length, l) // [ 34, 14, 27, 17, 30, 27, 20, 26, 21, 14 ]
+    const randomIndexes = randomIntArrayInRange(0, books.length, sampleSize) // [ 34, 14, 27, 17, 30, 27, 20, 26, 21, 14 ]
     const selectedBooks = randomIndexes.map(index => books[index]).filter(element => element !== undefined)
     // Las querywords sería palabras que el usuario tiene en base a sus gustos
     const trends = await getTrends()
@@ -262,21 +261,8 @@ class BooksModel {
 
     booksWithScores.sort((a, b) => b.score - a.score)
     return booksWithScores
-      .slice(0, l)
+      .slice(0, sampleSize)
       .map(item => bookObject(item.book))
-    /*
-    keyInfo:
-      keywords,
-      titulo,
-      genero,
-      edad,
-      ubicacion,
-      autor,
-      vendedor,
-      idioma,
-
-    */
-    // Calculate the recommended books based on the distance between its keyInfo
   }
 
   static async getFavoritesByUser (favorites) {

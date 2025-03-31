@@ -40,38 +40,6 @@ export default function Header () {
     }
     fetchNotifications()
   }, [user])
-
-  /*
-        const abrirMenu = () => {
-            let menu = document.querySelector(".inhamburger");
-            let x = document.querySelector(".cerrar");
-            let hamburguer = document.querySelector(".abrir");
-            if (menu.style.display === "none" || menu.style.display === "") {
-                x.style.display = "block";
-                hamburguer.style.display = "none";
-                menu.style.display = "flex";
-                menu.style.height = "0px";
-                menu.style.animationName = "agrandar";
-                menu.style.animationPlayState = "running";
-                menu.addEventListener("animationend", function handler() {
-                    menu.style.animationPlayState = "paused";
-                    menu.style.height = "calc(60vh + 7px)";
-                    menu.removeEventListener("animationend", handler);
-                });
-            } else {
-                x.style.display = "none";
-                hamburguer.style.display = "block";
-                menu.style.animationName = "reducir";
-                menu.style.animationPlayState = "running";
-                menu.addEventListener("animationend", function handler() {
-                    menu.style.display = "none";
-                    menu.style.height = "0px";
-                    menu.removeEventListener("animationend", handler);
-                });
-            }
-        };
-    */
-
   // This state manages an array of information
   const [arrayInfo, setArrayInfo] = useState([])
 
@@ -147,6 +115,18 @@ export default function Header () {
       const newProfileState = !prevProfile
       return newProfileState
     })
+  }
+  const [openedHamburger, setOpenedHamburger] = useState(false)
+  const handleMenuClick = () => {
+    const sidebar = document.querySelector('.menuSideBar')
+    if (openedHamburger) {
+      sidebar.style.transform = 'translateX(-100%)'
+      setOpenedHamburger(false)
+    }
+    else {
+      sidebar.style.transform = 'translateX(0)'
+      setOpenedHamburger(true)
+    }
   }
   const color = '#42376E'
   return (
@@ -246,7 +226,15 @@ export default function Header () {
               </svg>
               : <img src={renderProfilePhoto(user?.fotoPerfil || '')} alt='Foto' />}
           </div>
+          {window.innerWidth < 700 && <div className='hamburger' onClick={handleMenuClick}>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#000000"} fill={"none"}>
+              <path d="M4 5L20 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M4 12L20 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M4 19L20 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </div>}
         </div>
+        
       </header>
       {profile && <>
         <div className='profileContainer' onMouseLeave={() => { setProfile(!profile) }} ref={profileContainer}>
@@ -320,7 +308,7 @@ export default function Header () {
         </div>
                   </>}
       {(window.innerWidth >= 700 && Object.keys(arrayInfo).length !== 0)
-        ? (
+        && (
           <div className='extraInfoContainer' onMouseLeave={() => setArrayInfo([])}>
             <div className='recomendaciones'>
               <h2>Recomendaciones</h2>
@@ -344,8 +332,7 @@ export default function Header () {
             </div>
 
           </div>
-          )
-        : <></>}
+          )}
       {(notifications && user && notificationOpen) && <div
         className='notificationsContainer' onMouseLeave={() =>
           setNotificationOpen(!notificationOpen)}
@@ -359,10 +346,12 @@ export default function Header () {
         )).reverse()}
         {notifications.length === 0 && 'No tienes notificaciones'}
                                                       </div>}
-      {/* <div className="inhamburger" onMouseLeave={abrirMenu}>
-                 Hamburger menu content
-
-            </div> */}
+      <div className="menuSideBar">
+        <svg onClick={ handleMenuClick } xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#000000"} fill={"none"}>
+              <path d="M14.9994 15L9 9M9.00064 15L15 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z" stroke="currentColor" strokeWidth="1.5" />
+          </svg>
+      </div> 
     </>
   )
 }
