@@ -4,6 +4,7 @@ import { calculateMatchScore } from './calculateMatchScore.js'
 import * as tf from '@tensorflow/tfjs'
 import { getBookKeyInfo } from './getBookKeyInfo.js'
 import { getTrends } from '../../../assets/getTrends.js'
+import { UsersModel } from '../../users/local/usersLocal.js'
 const bookObject = (data) => {
   return {
     titulo: data.titulo || '',
@@ -225,8 +226,10 @@ class BooksModel {
     }
   }
 
-  static async forYouPage (user = {}, l = 24) {
-    const books = await this.getAllBooks()
+  static async forYouPage (userKeyInfo = {}, l = 100) {
+    console.log('l:', l)
+    let books = await this.getAllBooks()
+    const user = await UsersModel.getUserById(userKeyInfo._id)
     const randomIntArrayInRange = (min, max, l = 1) => {
       l = Math.min(l, max - min + 1)
       const uniqueNumbers = new Set()
@@ -237,28 +240,28 @@ class BooksModel {
 
       return [...uniqueNumbers]
     }
+    books = books.filter(book => book.disponibilidad === 'Disponible')
     const randomIndexes = randomIntArrayInRange(0, books.length, l) // [ 34, 14, 27, 17, 30, 27, 20, 26, 21, 14 ]
     const selectedBooks = randomIndexes.map(index => books[index]).filter(element => element !== undefined)
     // Las querywords sería palabras que el usuario tiene en base a sus gustos
     const trends = await getTrends()
-
-    const queryWords = [...user?.preferencias || '', ...user?.historialBusqueda || '', ...trends || '']
+    const preferences = Object.keys(user?.preferencias || {})
+    const historial = Object.keys(user?.historialBusquedas || {})
+    const queryWords = [...preferences, ...historial, ...trends]
     // Calculate the distances in these selected items
     const booksWithScores = selectedBooks.map((book) => {
       let score = calculateMatchScore(book, queryWords, 'query') // Query se usa para considerar si la palabra es muy pequeña, por lo que aquí solo agregaré una palabra de más de 4 letras para asegurar la tolerancia
-      const threshold = 0.7
+      const threshold = 0 // Revisar si es necesario
       const bookKeyInfo = getBookKeyInfo(book)
       if (score >= queryWords.length * threshold) {
         // Priorizar las preferencias del usuario
-        if (user?.preferencias?.some(preference => bookKeyInfo.includes(preference))) score += 10
+        if (preferences.some(preference => bookKeyInfo.includes(preference))) score += 10
         return { book, score }
       } else return null
-    })
+    }).filter(item => item !== null)
 
     booksWithScores.sort((a, b) => b.score - a.score)
-
     return booksWithScores
-      .filter(item => item.book.disponibilidad === 'Disponible')
       .slice(0, l)
       .map(item => bookObject(item.book))
     /*

@@ -8,7 +8,7 @@ export async function updateUserPreferences (userObj, book, action) {
   const decrement = 1
   try {
     if (!userObj) {
-      console.error('User is null, not updating preferences')
+      // console.error('User is null, not updating preferences')
       return
     }
 

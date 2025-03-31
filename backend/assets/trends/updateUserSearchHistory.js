@@ -9,7 +9,7 @@ export async function updateUserSearchHistory (userObj, book, action) {
   const decrement = 2
   try {
     if (!userObj) {
-      console.error('User is null, not updating preferences')
+      // console.error('User is null, not updating preferences')
       return
     }
 

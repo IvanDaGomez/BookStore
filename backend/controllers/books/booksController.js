@@ -34,14 +34,14 @@ export class BooksController {
       const { bookId } = req.params
       // Obtener el libro por ID
       const book = await BooksModel.getBookById(bookId)
-      const updateUser = req.headers.update === book._id
+      const update = req.headers.update === book._id
       const user = req.session.user
       // Update user preferences
-      if (updateUser) {
+      if (update) {
         await updateUserPreferences(user, book, 'openedBook')
         await updateUserSearchHistory(user, book, 'openedBook')
+        await updateTrends(book, 'openedBook')
       }
-      // await updateTrends(book, 'openedBook')
 
       if (!book) {
         return res.status(404).json({ error: 'Libro no encontrado' })
@@ -75,9 +75,8 @@ export class BooksController {
         // Update user preferences
         await updateUserPreferences(user, book, 'query')
         await updateUserSearchHistory(user, book, 'query')
+        await updateTrends(books, 'query')
       }
-      await updateTrends(books, 'query')
-
       res.json(books)
     } catch (err) {
       console.error('Error al leer libros por consulta:', err)
@@ -509,7 +508,6 @@ export class BooksController {
 
   static async forYouPage (req, res) {
     const { l } = req.query
-    console.log(req.session.user)
     const results = await BooksModel.forYouPage(req.session.user, l)
 
     if (!results) {

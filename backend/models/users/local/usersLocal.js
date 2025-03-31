@@ -358,7 +358,6 @@ class UsersModel {
       const books = await BooksModel.getAllBooks()
 
       // Filtrar los libros que pertenecen a la colección
-      console.log(books)
       const colecciones = books.filter(book => collection.librosIds.includes(book._id))
 
       return colecciones
