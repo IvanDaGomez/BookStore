@@ -1,16 +1,20 @@
 export function getBookKeyInfo (book) {
+  if (typeof (book.ubicacion) === 'string') {
+    book.ubicacion = {}
+  }
   return [
-    ...book.keywords, // Palabras clave del libro
+    ...(book?.keywords || []), // Palabras clave del libro
     book.titulo,
     book.genero,
-    book.edad || 'Sin edad especificada',
-    book.ubicacion || 'Ubicación desconocida',
+    book.edad,
+    ...Object.values(book?.ubicacion || {}),
     book.autor,
     book.vendedor,
-    book.idioma || 'Idioma no especificado',
+    book.idioma,
     book.formato,
     book.edicion,
     book.estado,
-    book.fechaPublicacion
+    ...Object.values(book.preferencias || {}),
+    ...Object.values(book?.historialBusquedas || {})
   ].filter(Boolean) // Filtra valores nulos o undefined
 }

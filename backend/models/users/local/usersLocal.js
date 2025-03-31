@@ -23,7 +23,10 @@ function userObject (name) {
     ubicacion: name.ubicacion || {},
     seguidores: name.seguidores || [],
     siguiendo: name.siguiendo || [],
-    coleccionsIds: name.colecciones || []
+    coleccionsIds: name.colecciones || [],
+    preferencias: name.preferencias || {},
+    historialBusquedas: name.historialBusquedas || {},
+    balance: name.balance || 0
     // Avoid exposing sensitive fields like password, email, etc.
   }
 }
@@ -314,7 +317,8 @@ class UsersModel {
 
       // Hacer el path hacia aqui
       // const filePath = pat h.join()
-      await fs.writeFile('./models/users.json', JSON.stringify(users, null, 2))
+      const info = JSON.stringify(users, null, 2)
+      await fs.writeFile('./models/users.json', info, 'utf-8')
 
       return userObject(users[userIndex])
     } catch (err) {

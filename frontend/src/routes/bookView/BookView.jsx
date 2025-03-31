@@ -31,24 +31,31 @@ export default function BookView () {
   }, [bookId])
 
   useEffect(() => {
-    async function fetchLibro (id) {
-      const url = `http://localhost:3030/api/books/${id}`
-      try {
-        const response = await axios.get(url, { withCredentials: true })
-        const book = response.data
-        setLibro(book || {}) // Asegurar que el libro existe o dejar vacío
-        const imageUrl = book.images[0]
-          ? `http://localhost:3030/uploads/${book.images[0]}` // Ruta completa hacia las imagenes
-          : ''
-        setActualImage(imageUrl)
-      } catch (error) {
-        setLibro({})
-        setError(true)
-        console.error('Error fetching book data:', error)
-      } finally {
-        setLoading(false) // Marcar que la carga ha finalizado
-      }
+  if (!bookId) return; // Ensure bookId is valid before fetching
+
+  async function fetchLibro(id) {
+    const url = `http://localhost:3030/api/books/${id}`;
+    try {
+      const response = await axios.get(url, {
+        headers: { 'update': id }, 
+        withCredentials: true
+      });
+
+      const book = response.data || {};
+      setLibro(book);
+
+      const imageUrl = book.images && book.images[0] 
+        ? `http://localhost:3030/uploads/${book.images[0]}` 
+        : '';
+      setActualImage(imageUrl);
+    } catch (error) {
+      console.error('Error fetching book data:', error);
+      setLibro({});
+      setError(true);
+    } finally {
+      setLoading(false);
     }
+  }
 
     fetchLibro(bookId)
   }, [bookId])
@@ -64,7 +71,7 @@ export default function BookView () {
         // Conseguir los libros del usuario
         const urlLibros = 'http://localhost:3030/api/books/'
         for (let i = 0; i < librosIds.length; i++) {
-          const response = await axios.get(urlLibros + librosIds[i])
+          const response = await axios.get(urlLibros + librosIds[i], { withCredentials: true })
           libros.push(response.data)
         }
 
@@ -79,7 +86,7 @@ export default function BookView () {
         // Conseguir los libros del usuario
         const urlLibros = `http://localhost:3030/api/books/query?q=${cambiarEspacioAGuiones(libro.titulo)}&l=12`
 
-        const response = await axios.get(urlLibros)
+        const response = await axios.get(urlLibros, { withCredentials: true })
 
         setLibrosRelacionados(response.data)
       }
@@ -120,21 +127,25 @@ export default function BookView () {
         
         if (response.data) {
           setNombreSaga(response.data.data.nombre)
-          const fetchedBooks = await Promise.all(
-            response.data.data.librosIds.map(async (idLibro) => {
-              const response = await fetch(`http://localhost:3030/api/books/${idLibro}`, {
-                method: 'GET',
-                credentials: 'include'
+
+          const validBooks = []
+          
+          for (const idLibro of response.data.data.librosIds) {
+            try {
+              const response = await axios.get(`http://localhost:3030/api/books/${idLibro}`, {
+                withCredentials: true
               })
               if (response.ok) {
-                return response.json()
+                const book = await response.json()
+                validBooks.push(book)
               } else {
-                console.error('Libro no encontrado')
-                return null
+                console.error(`Libro ${idLibro} no encontrado`)
               }
-            })
-          )
-          const validBooks = fetchedBooks.filter(book => book !== null)
+            } catch (error) {
+              console.error(`Error fetching libro ${idLibro}:`, error)
+            }
+          }
+
           setSagaLibros(validBooks)
         }
       } catch  {

@@ -32,12 +32,17 @@ export class BooksController {
   static async getBookById (req, res) {
     try {
       const { bookId } = req.params
+      // Obtener el libro por ID
       const book = await BooksModel.getBookById(bookId)
+      const updateUser = req.headers.update === book._id
       const user = req.session.user
       // Update user preferences
-      await updateUserPreferences(user, book, 'openedBook')
-      await updateTrends(book, 'openedBook')
-      await updateUserSearchHistory(user, book, 'openedBook')
+      if (updateUser) {
+        await updateUserPreferences(user, book, 'openedBook')
+        await updateUserSearchHistory(user, book, 'openedBook')
+      }
+      // await updateTrends(book, 'openedBook')
+
       if (!book) {
         return res.status(404).json({ error: 'Libro no encontrado' })
       }
@@ -65,9 +70,14 @@ export class BooksController {
         return res.status(404).json({ error: 'No se encontraron libros' })
       }
       const user = req.session.user
-      await updateUserPreferences(user, books, 'query')
+      // Update for first 3 books in the results
+      for (const book of books.slice(0, 3)) {
+        // Update user preferences
+        await updateUserPreferences(user, book, 'query')
+        await updateUserSearchHistory(user, book, 'query')
+      }
       await updateTrends(books, 'query')
-      await updateUserSearchHistory(user, 'query')
+
       res.json(books)
     } catch (err) {
       console.error('Error al leer libros por consulta:', err)
