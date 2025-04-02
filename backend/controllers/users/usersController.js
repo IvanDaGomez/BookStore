@@ -1,8 +1,7 @@
 /* eslint-disable camelcase */
 import { UsersModel } from '../../models/users/local/usersLocal.js'
-import crypto, { randomUUID } from 'node:crypto'
+import { randomUUID } from 'node:crypto'
 import { validateUser, validatePartialUser } from '../../assets/validate.js'
-import { SECRET_KEY, ACCESS_TOKEN } from '../../assets/config.js'
 import jwt from 'jsonwebtoken'
 import { cambiarGuionesAEspacio } from '../../../frontend/src/assets/agregarMas.js'
 import { sendEmail } from '../../assets/email/sendEmail.js'
@@ -16,7 +15,9 @@ import { CreateOrdenDeEnvío } from '../../assets/createOrdenDeEnvio.js'
 import { handlePaymentResponse } from '../../assets/handlePaymentResponse.js'
 import { validateSignature } from '../../assets/validateSignature.js'
 import { processPaymentResponse } from './processPaymentResponse.js'
+import { checkEmailExists, initializeDataCreateUser, jwtPipeline, processUserUpdate, validateUserLogin } from './helperFunctions.js'
 
+const SECRET_KEY = process.env.JWT_SECRET
 export class UsersController {
   static async getAllUsers (req, res) {
     try {
@@ -115,33 +116,11 @@ export class UsersController {
 
       const user = await UsersModel.login(correo, contraseña)
 
-      if (user === 'No encontrado') {
-        return res.status(404).json({ error: 'Usuario no encontrado' })
-      }
-      if (user === 'Contraseña no coincide') {
-        return res.status(404).json({ error: 'La contraseña es incorrecta' })
-      }
-      const tokenToSend = {
-        _id: user._id,
-        nombre: user.nombre
-      }
-      // Token
-      const token = jwt.sign(
-        tokenToSend,
-        SECRET_KEY,
-        {
-          expiresIn: '3h'
-        }
-      )
-      console.log('todogood')
-      res
-        .cookie('access_token', token, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
-          sameSite: 'strict',
-          maxAge: 1000 * 60 * 60 * 3 // 3 horas
-        })
-        .send({ user })
+      validateUserLogin(user, res)
+
+      jwtPipeline(user, res)
+
+      res.json(user)
     } catch (err) {
       console.error('Error leyendo usuario por correo:', err)
       res.status(500).json({ error: 'Error leyendo usuario' })
@@ -156,26 +135,8 @@ export class UsersController {
       if (!user) {
         return res.status(404).json({ error: 'Usuario no encontrado' })
       }
-      const tokenToSend = {
-        _id: user._id,
-        nombre: user.nombre
-      }
-      // Token
-      const token = jwt.sign(
-        tokenToSend,
-        SECRET_KEY,
-        {
-          expiresIn: '3h'
-        }
-      )
-      res
-        .cookie('access_token', token, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
-          sameSite: 'strict',
-          maxAge: 1000 * 60 * 60 * 3 // 3 horas
-        })
-        .send({ user })
+      jwtPipeline(user, res)
+      res.json(user)
     } catch (err) {
       console.error('Error leyendo usuario por correo:', err)
       res.status(500).json({ error: 'Error leyendo usuario' })
@@ -190,26 +151,7 @@ export class UsersController {
       if (!user) {
         return res.status(404).json({ error: 'Usuario no encontrado' })
       }
-      const tokenToSend = {
-        _id: user._id,
-        nombre: user.nombre
-      }
-      // Token
-      const token = jwt.sign(
-        tokenToSend,
-        SECRET_KEY,
-        {
-          expiresIn: '3h'
-        }
-      )
-      res
-        .cookie('access_token', token, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
-          sameSite: 'strict',
-          maxAge: 1000 * 60 * 60 * 3 // 3 horas
-        })
-        .send({ user })
+      res.json(user)
     } catch (err) {
       console.error('Error leyendo usuario por correo:', err)
       res.status(500).json({ error: 'Error leyendo usuario' })
@@ -217,64 +159,29 @@ export class UsersController {
   }
 
   static async createUser (req, res) {
-    const data = req.body
+    let data = req.body
     // Validación
     try {
       const validated = validateUser(data)
       if (!validated.success) {
         return res.status(400).json({ error: validated.error })
       }
-
-      data.validated = false
-      data._id = crypto.randomUUID()
-
       // Revisar si el correo ya está en uso
-      const correo = await UsersModel.getUserByEmail(data.correo)
-      if (correo.correo) {
-        return res.json({ error: 'El correo ya está en uso' })
-      }
-      const time = new Date()
-      data.creadoEn = time
-      data.actualizadoEn = time
-      data.balance = {
-        disponible: 0,
-        pendiente: 0
-      }
+      await checkEmailExists(data.correo, res)
+      // Inicializar los datos
+      data = initializeDataCreateUser(data)
       // Crear usuario
       const user = await UsersModel.createUser(data)
       if (!user) {
         return res.status(500).json({ error: 'Error creando usuario' })
       }
-      const tokenToSend = {
-        _id: user._id,
-        nombre: user.nombre
-      }
-      const token = jwt.sign(
-        tokenToSend,
-        SECRET_KEY,
-        {
-          expiresIn: '3h'
-        }
-      )
-
-      if (!token) {
-        return res.status(500).send({ error: 'Error al generar el token' })
-      }
       // Enviar correo de agradecimiento por unirse a meridian
       await sendEmail(`${data.nombre} ${data.correo}`, 'Bienvenido a Meridian!', createEmail(data, 'thankEmail'))
-
       // Enviar notificación de bienvenida
-
       await sendNotification(createNotification(data, 'welcomeUser'))
       // Si todo es exitoso, devolver el usuario creado
-      res
-        .cookie('access_token', token, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
-          sameSite: 'strict',
-          maxAge: 1000 * 60 * 60 * 3 // 3 Horas
-        })
-        .send({ user })
+      jwtPipeline(user, res)
+      res.json(user)
     } catch (error) {
       console.error(error)
     }
@@ -302,92 +209,22 @@ export class UsersController {
       // Validar datos
       const validated = validatePartialUser(data)
       if (!validated.success) {
-        console.log(validated.error.errors)
         return res.status(400).json({ error: 'Error validando usuario', details: validated.error.errors })
       }
 
-      if (req.file) data.fotoPerfil = `${req.file.filename}`
-      if (data.favoritos && data.accion) {
-        const user = await UsersModel.getUserById(userId)
+      const updatedData = await processUserUpdate(data, userId, req)
 
-        if (!user) {
-          return res.status(404).json({ error: 'No se encontró el usuario' })
-        }
-
-        let updatedFavorites = user.favoritos || []
-
-        if (data.accion === 'agregar') {
-          // Ensure data.favoritos is treated as a string
-          const favoritoId = String(data.favoritos)
-
-          // Add only if it's not already in the array
-          if (!updatedFavorites.includes(favoritoId)) {
-            updatedFavorites = [...updatedFavorites, favoritoId]
-          }
-          data.favoritos = updatedFavorites
-        } else if (data.accion === 'eliminar') {
-          // Ensure data.favoritos is treated as a string
-          const favoritoId = String(data.favoritos)
-
-          // Remove the item from the favorites array
-          updatedFavorites = updatedFavorites.filter(fav => fav !== favoritoId)
-
-          data.favoritos = updatedFavorites
-        }
+      if (updatedData.status) {
+        return res.status(updatedData.status).json(updatedData.json)
       }
-
-      // Comprobar si el correo ya está en uso
-      if (data.correo) {
-        const existingUser = await UsersModel.getUserByEmail(data.correo)
-
-        if (existingUser && existingUser._id !== userId) {
-          return res.status(409).json({ error: 'El correo ya está en uso' })
-        }
-        // Eliminar la validación del correo
-        data.validated = false
-      }
-
-      // Filtrar los campos permitidos
-      const allowedFields = ['nombre', 'correo', 'direccionEnvio', 'fotoPerfil', 'contraseña', 'bio', 'favoritos']
-      const filteredData = {}
-      Object.keys(data).forEach(key => {
-        if (allowedFields.includes(key)) {
-          filteredData[key] = data[key]
-        }
-      })
-
-      filteredData.actualizadoEn = new Date()
-
       // Actualizar usuario
-      const user = await UsersModel.updateUser(userId, filteredData)
+      const user = await UsersModel.updateUser(userId, updatedData)
       if (!user) {
         res.status(404).json({ error: 'Usuario no encontrado o no actualizado' })
       }
-      const tokenToSend = {
-        _id: user._id,
-        nombre: user.nombre
-      }
-      // Generar un nuevo token con los datos actualizados
-      const newToken = jwt.sign(
-        tokenToSend,
-        SECRET_KEY,
-        { expiresIn: '3h' } // Tiempo de expiración del token
-      )
-
-      if (!newToken) {
-        return res.status(500).json({ error: 'Error al generar el token' })
-      }
-
+      jwtPipeline(user, res)
       // Enviar el nuevo token en la cookie
-      res
-        .clearCookie('access_token')
-        .cookie('access_token', newToken, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
-          sameSite: 'strict',
-          maxAge: 1000 * 60 * 60 * 3 // 3 horas
-        })
-        .json(user)
+      res.json(user)
     } catch (err) {
       console.error('Error actualizando usuario:', err)
       res.status(500).json({ error: 'Error del servidor' })
@@ -423,7 +260,10 @@ export class UsersController {
     }
     try {
       // Generate a token with user ID (or email) for validation
-      const token = jwt.sign({ _id: data._id, nombre: data.nombre }, SECRET_KEY, { expiresIn: '1h' })
+      const token = jwt.sign({
+        _id: data._id,
+        nombre: data.nombre
+      }, SECRET_KEY, { expiresIn: '1h' })
 
       // Create the validation code of 6 digits
       const validationCode = Math.floor(100000 + Math.random() * 900000)
@@ -483,27 +323,9 @@ export class UsersController {
       if (!updated) {
         return res.status(500).json({ error: 'Failed to update user validation status' })
       }
-      const tokenToSend = {
-        _id: updated._id,
-        nombre: updated.nombre
-      }
-      // Generate a new token with only essential data
-      const newToken = jwt.sign(
-        tokenToSend,
-        SECRET_KEY,
-        { expiresIn: '3h' }
-      )
-
+      jwtPipeline(user, res)
       // Set the new cookie
-      res
-        .clearCookie('access_token')
-        .cookie('access_token', newToken, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
-          sameSite: 'strict',
-          maxAge: 1000 * 60 * 60 * 3 // 3 hours
-        })
-        .json({ status: 'User successfully validated', updated })
+      res.json({ status: 'User successfully validated', updated })
     } catch (error) {
       console.error('Error validating user:', error)
 
@@ -594,7 +416,7 @@ export class UsersController {
 
   static async getPreferenceId (req, res) {
     const client = new MercadoPagoConfig({
-      accessToken: ACCESS_TOKEN
+      accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN
     })
 
     try {
@@ -636,7 +458,7 @@ export class UsersController {
       }
 
       const XidempotencyKey = randomUUID()
-      const client = new MercadoPagoConfig({ accessToken: ACCESS_TOKEN })
+      const client = new MercadoPagoConfig({ accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN })
       // Hay que agregar el precio del domicilio si aplica
       const payment = new Payment(client)
       // Configuración del pago con split payments
@@ -698,7 +520,7 @@ export class UsersController {
         return res.status(400).json({ error: 'Firma no válida' })
       }
 
-      const client = new MercadoPagoConfig({ accessToken: ACCESS_TOKEN })
+      const client = new MercadoPagoConfig({ accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN })
       const payment = new Payment(client)
 
       if (type === 'payment') {
@@ -802,36 +624,14 @@ export class UsersController {
       if (!followerUpdated || !userUpdated) {
         return res.status(401).json({ ok: false, error: 'No se pudo actualizar el seguidor' })
       }
-      // Update the token
-      const tokenToSend = {
-        _id: user._id,
-        nombre: user.nombre
-      }
-      // Generar un nuevo token con los datos actualizados
-      const newToken = jwt.sign(
-        tokenToSend,
-        SECRET_KEY,
-        { expiresIn: '3h' } // Tiempo de expiración del token
-      )
 
-      if (!newToken) {
-        return res.status(500).json({ ok: false, error: 'Error al generar el token' })
-      }
       // Notificación de nuevo seguidor
       if (action === 'Agregado') {
         await sendNotification(createNotification({ follower, user }, 'newFollower'))
       }
 
-      // Enviar el nuevo token en la cookie
-      res
-        .clearCookie('access_token')
-        .cookie('access_token', newToken, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
-          sameSite: 'strict',
-          maxAge: 1000 * 60 * 60 * 3 // 3 horas
-        })
-        .json({ ok: true, action, follower, user })
+      jwtPipeline(user, res)
+      res.json({ ok: true, action, follower, user })
     } catch (error) {
       console.error('Error:', error)
       res.status(500).json({ ok: false, error: 'Error del servidor' })
@@ -865,28 +665,14 @@ export class UsersController {
 
       // Agregar la nueva colección
       const updated = await UsersModel.updateUser(userId, {
-        colecciones: [...(user.colecciones || []), { nombre: collectionName, librosIds: [] }]
+        colecciones: [...(user?.collectionsIds || []), { nombre: collectionName, librosIds: [] }]
       })
 
       if (!updated) {
         return res.status(500).json({ error: 'No se pudo actualizar el libro' })
       }
-      const tokenToSend = {
-        _id: updated._id,
-        nombre: updated.nombre
-      }
-      const newToken = jwt.sign(tokenToSend, SECRET_KEY, {
-        expiresIn: '3h'
-      })
-      res
-        .clearCookie('access_token')
-        .cookie('access_token', newToken, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
-          sameSite: 'strict',
-          maxAge: 1000 * 60 * 60 * 3 // 3 horas
-        })
-        .json({ data: updated })
+      jwtPipeline(user, res)
+      res.json({ data: updated })
     } catch (error) {
       console.error('Error en createColection:', error)
       res.status(500).json({ error: 'Error en el servidor' })

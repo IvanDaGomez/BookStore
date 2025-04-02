@@ -1192,5 +1192,23 @@
       "bookTitle": "CIEN AÑOS DE SOLEDAD",
       "bookId": "14d11a23-1e26-4e25-8864-d7fb576b2ec0"
     }
+  },
+  {
+    "_id": "1ab3e901-b633-4fd1-b582-c50b5ed17713",
+    "theme": "",
+    "title": "Tienes una nueva pregunta",
+    "priority": "normal",
+    "type": "newQuestion",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "¿En qué estado se encuentra el producto?",
+    "createdIn": "2025-03-31T14:08:26.378Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/31d52487-f746-4951-bf11-7b41febea0a9",
+    "expiresAt": "2025-04-30T14:08:26.378Z",
+    "metadata": {
+      "photo": "1732197120267-615755189.png",
+      "bookTitle": "El libro de Bill",
+      "bookId": "31d52487-f746-4951-bf11-7b41febea0a9"
+    }
   }
 ]

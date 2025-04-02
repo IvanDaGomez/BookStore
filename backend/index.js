@@ -7,7 +7,6 @@ import { conversationsRouter } from './routes/conversations/conversationsRouter.
 import { notificationsRouter } from './routes/notifications/notificationsRouter.js'
 import { transactionsRouter } from './routes/transactions/transactionsRouter.js'
 import { emailsRouter } from './routes/email/emailRouter.js'
-import { SECRET_KEY } from './assets/config.js'
 import cookieParser from 'cookie-parser'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
@@ -25,7 +24,9 @@ const whitelist = [
   'https://localhost:3000',
   'http://localhost:5173',
   'localhost:5173',
-  'https://www.googleapis.com/auth/gmail.send'
+  'https://www.googleapis.com/auth/gmail.send',
+  'https://cbbc-2800-e2-7280-24a-446c-a467-dc81-f31d.ngrok-free.app',
+  'http://cbbc-2800-e2-7280-24a-446c-a467-dc81-f31d.ngrok-free.app'
 ]
 
 // Configuración de CORS
@@ -42,7 +43,7 @@ const corsOptions = {
 }
 
 // Habilitar CORS con las opciones definidas
-app.use(cors(corsOptions))
+app.use(cors(corsOptions))/* corsOptions */
 
 app.use(cookieParser())
 app.use((req, res, next) => {
@@ -52,7 +53,7 @@ app.use((req, res, next) => {
   if (!req.session) req.session = { user: null }
 
   try {
-    const info = jwt.verify(token, SECRET_KEY)
+    const info = jwt.verify(token, process.env.JWT_SECRET)
 
     req.session.user = info // Update session with user info from token
   } catch (error) {

@@ -138,7 +138,7 @@ export default function Login () {
       // En teoría el token se guarda en la cookie desde el backend
       // Si la respuesta es exitosa, puedes manejar la respuesta aquí
 
-      if (isRegister || !data.user?.validated) {
+      if (isRegister || !data?.validated) {
         navigate('/verificar')
         return
       }

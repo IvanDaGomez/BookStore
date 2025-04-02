@@ -25,7 +25,7 @@
     "tapa": "",
     "edad": "",
     "fechaPublicacion": "2024-11-21T13:52:00.234Z",
-    "actualizadoEn": "2024-12-17T15:34:41.252Z",
+    "actualizadoEn": "2025-03-31T14:08:26.366Z",
     "disponibilidad": "Disponible",
     "mensajes": [
       [
@@ -42,6 +42,11 @@
         "¿Qué métodos de pago aceptan?",
         "",
         "9b922eb4-33e8-4781-9863-c066992e1620"
+      ],
+      [
+        "¿En qué estado se encuentra el producto?",
+        "",
+        "836e151b-43ae-48a0-8352-17ad309d8068"
       ]
     ],
     "librosVendidos": 0,

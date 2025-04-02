@@ -11,7 +11,7 @@ export default function Header () {
 
   const navigate = useNavigate()
   const [user, setUser] = useState(null)
-
+  
   useEffect(() => {
     async function fetchUser () {
       try {
@@ -120,14 +120,15 @@ export default function Header () {
   const handleMenuClick = () => {
     const sidebar = document.querySelector('.menuSideBar')
     if (openedHamburger) {
-      sidebar.style.transform = 'translateX(-100%)'
+      sidebar.style.transform = 'translateX(0)'
       setOpenedHamburger(false)
     }
     else {
-      sidebar.style.transform = 'translateX(0)'
+      sidebar.style.transform = 'translateX(-100%)'
       setOpenedHamburger(true)
     }
   }
+  const [isMobile] = useState(window.innerWidth < 700)
   const color = '#42376E'
   return (
     <>
@@ -192,7 +193,7 @@ export default function Header () {
             </div>
 
           </div>
-          {user && <><div
+          {(user && !isMobile) && <><div
             className='notification' onClick={() => {
               setNotificationOpen(!notificationOpen)
             }}
@@ -226,7 +227,7 @@ export default function Header () {
               </svg>
               : <img src={renderProfilePhoto(user?.fotoPerfil || '')} alt='Foto' />}
           </div>
-          {window.innerWidth < 700 && <div className='hamburger' onClick={handleMenuClick}>
+          {isMobile && <div className='hamburger' onClick={handleMenuClick}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#000000"} fill={"none"}>
               <path d="M4 5L20 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               <path d="M4 12L20 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -234,7 +235,7 @@ export default function Header () {
           </svg>
         </div>}
         </div>
-        
+
       </header>
       {profile && <>
         <div className='profileContainer' onMouseLeave={() => { setProfile(!profile) }} ref={profileContainer}>
@@ -307,7 +308,7 @@ export default function Header () {
               </>}
         </div>
                   </>}
-      {(window.innerWidth >= 700 && Object.keys(arrayInfo).length !== 0)
+      {(!isMobile && Object.keys(arrayInfo).length !== 0)
         && (
           <div className='extraInfoContainer' onMouseLeave={() => setArrayInfo([])}>
             <div className='recomendaciones'>
@@ -335,8 +336,7 @@ export default function Header () {
           )}
       {(notifications && user && notificationOpen) && <div
         className='notificationsContainer' onMouseLeave={() =>
-          setNotificationOpen(!notificationOpen)}
-                                                      >
+          setNotificationOpen(!notificationOpen)}>
         {notifications.slice(notifications.length - 4, notifications.length).map((notification, index) => (
           <Link to={`/notificaciones/${notification._id}`} key={index}>
             <div className='notificationElement'>
@@ -345,7 +345,7 @@ export default function Header () {
           </Link>
         )).reverse()}
         {notifications.length === 0 && 'No tienes notificaciones'}
-                                                      </div>}
+      </div>}
       <div className="menuSideBar">
         <svg onClick={ handleMenuClick } xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#000000"} fill={"none"}>
               <path d="M14.9994 15L9 9M9.00064 15L15 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

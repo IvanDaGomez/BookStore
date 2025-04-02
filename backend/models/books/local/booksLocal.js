@@ -5,6 +5,7 @@ import * as tf from '@tensorflow/tfjs'
 import { getBookKeyInfo } from './getBookKeyInfo.js'
 import { getTrends } from '../../../assets/getTrends.js'
 import { UsersModel } from '../../users/local/usersLocal.js'
+import { randomIntArrayInRange } from './randomIntArrayRange.js'
 const bookObject = (data) => {
   return {
     titulo: data.titulo || '',
@@ -227,25 +228,26 @@ class BooksModel {
   }
 
   static async forYouPage (userKeyInfo = {}, sampleSize = 100) {
-    let books = await this.getAllBooks()
-    const user = await UsersModel.getUserById(userKeyInfo._id)
-    const randomIntArrayInRange = (min, max, l = 1) => {
-      l = Math.min(l, max - min + 1)
-      const uniqueNumbers = new Set()
-
-      while (uniqueNumbers.size < l) {
-        uniqueNumbers.add(Math.floor(Math.random() * (max - min + 1)) + min)
-      }
-
-      return [...uniqueNumbers]
-    }
-    books = books.filter(book => book.disponibilidad === 'Disponible')
+    const books = await this.getAllBooks()
     const randomIndexes = randomIntArrayInRange(0, books.length, sampleSize) // [ 34, 14, 27, 17, 30, 27, 20, 26, 21, 14 ]
-    const selectedBooks = randomIndexes.map(index => books[index]).filter(element => element !== undefined)
+    const selectedBooks = randomIndexes.map(index => books[index]).filter(element => element !== undefined && element.disponibilidad === 'Disponible')
     // Las querywords sería palabras que el usuario tiene en base a sus gustos
     const trends = await getTrends()
-    const preferences = Object.keys(user?.preferencias || {})
-    const historial = Object.keys(user?.historialBusquedas || {})
+
+    let historial = []
+    let preferences = []
+    let likes = []
+    if (userKeyInfo?._id) {
+      const user = await UsersModel.getUserById(userKeyInfo._id)
+      preferences = Object.keys(user?.preferencias || {})
+      historial = Object.keys(user?.historialBusquedas || {})
+      likes = user?.librosFavoritos || []
+      // Si el usuario tiene libros favoritos, entonces los agrego a las querywords
+      if (likes.length > 0) {
+        const booksFavorites = await this.getBooksByIdList(likes, 10)
+        preferences = [...preferences, ...booksFavorites.map(book => book.titulo)]
+      }
+    }
     const queryWords = [...preferences, ...historial, ...trends]
     // Calculate the distances in these selected items
     const booksWithScores = selectedBooks.map((book) => {
