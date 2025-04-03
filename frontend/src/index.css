@@ -333,7 +333,7 @@ header .flex-between{
 }
 
 
-.headerDer .input{
+.input{
   width: 40rem;
   all: unset;
   display: flex;
@@ -564,21 +564,6 @@ header svg{
   transform: scale(1.1);
 }
 
-.menuSideBar{
-  position: fixed;
-  top: 0;
-  left: 100%;
-  width: 100vw;
-  height: 100vh;
-  background-color: var(--using1);
-  z-index: 1000;
-  display: flex;
-  flex-direction: column;
-  justify-content: start;
-  align-items: center;
-  padding-top: calc(80px + var(--padding-big));
-  transition: all .3s ease-in-out;
-}
 
 .extraInfoContainer{
   width:100vw;
