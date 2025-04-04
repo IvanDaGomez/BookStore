@@ -3,7 +3,7 @@ import { sendEmail } from '../../assets/email/sendEmail.js'
 import { createNotification } from '../../assets/notifications/createNotification.js'
 import { sendNotification } from '../../assets/notifications/sendNotification.js'
 import { BooksModel } from '../../models/books/local/booksLocal.js'
-import { TransactionsModel } from '../../models/transactions/transactionsModel.js'
+import { TransactionsModel } from '../../models/transactions/local/transactionsModel.js'
 import { UsersModel } from '../../models/users/local/usersLocal.js'
 
 async function processPaymentResponse ({ response, result, sellerId, book, data, res }) {

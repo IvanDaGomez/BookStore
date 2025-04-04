@@ -1,5 +1,5 @@
 import fs from 'node:fs/promises'
-import { levenshteinDistance } from '../../assets/levenshteinDistance.js'
+import { levenshteinDistance } from '../../../assets/levenshteinDistance.js'
 const collectionObject = (data) => {
   return {
     _id: data._id || '',

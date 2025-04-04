@@ -1,4 +1,4 @@
-import { ConversationsModel } from '../../models/conversations/conversationsModel.js'
+import { ConversationsModel } from '../../models/conversations/local/conversationsModel.js'
 import { UsersModel } from '../../models/users/local/usersLocal.js'
 export class ConversationsController {
   static async getAllConversations (req, res) {

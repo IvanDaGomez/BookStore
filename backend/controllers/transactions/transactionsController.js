@@ -1,4 +1,4 @@
-import { TransactionsModel } from '../../models/transactions/transactionsModel.js'
+import { TransactionsModel } from '../../models/transactions/local/transactionsModel.js'
 import { validateTransaction } from '../../assets/validate.js'
 
 export class TransactionsController {

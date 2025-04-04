@@ -1,6 +1,6 @@
-import { MessagesModel } from '../../models/messages/messagesModel.js'
+import { MessagesModel } from '../../models/messages/local/messagesModel.js'
 import { validateMessage } from '../../assets/validate.js'
-import { ConversationsModel } from '../../models/conversations/conversationsModel.js'
+import { ConversationsModel } from '../../models/conversations/local/conversationsModel.js'
 
 export class MessagesController {
   static async getAllMessages (req, res) {

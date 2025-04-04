@@ -2,7 +2,7 @@
 import { validateCollection, validatePartialCollection } from '../../assets/validate.js'
 import { cambiarGuionesAEspacio } from '../../assets/agregarMas.js'
 import { BooksModel } from '../../models/books/local/booksLocal.js'
-import { CollectionsModel } from '../../models/collections/collectionsModel.js'
+import { CollectionsModel } from '../../models/collections/local/collectionsModel.js'
 
 class CollectionsController {
   static async getAllCollections (req, res) {

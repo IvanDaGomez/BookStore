@@ -1,4 +1,4 @@
-import { NotificationsModel } from '../../models/notifications/notificationsModel.js'
+import { NotificationsModel } from '../../models/notifications/local/notificationsModel.js'
 import { UsersModel } from '../../models/users/local/usersLocal.js'
 import { validateNotification } from '../../assets/validate.js'
 

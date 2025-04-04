@@ -9,7 +9,7 @@ import { createEmail } from '../../assets/email/htmlEmails.js'
 import { Preference, MercadoPagoConfig, Payment } from 'mercadopago'
 import { createNotification } from '../../assets/notifications/createNotification.js'
 import { sendNotification } from '../../assets/notifications/sendNotification.js'
-import { TransactionsModel } from '../../models/transactions/transactionsModel.js'
+import { TransactionsModel } from '../../models/transactions/local/transactionsModel.js'
 // eslint-disable-next-line no-unused-vars
 import { CreateOrdenDeEnvío } from '../../assets/createOrdenDeEnvio.js'
 import { handlePaymentResponse } from '../../assets/handlePaymentResponse.js'

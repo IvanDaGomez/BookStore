@@ -1,4 +1,4 @@
-import { EmailsModel } from '../../models/emails/emailsModel.js'
+import { EmailsModel } from '../../models/emails/local/emailsModel.js'
 
 export class EmailsController {
   static async getAllEmails (req, res) {
