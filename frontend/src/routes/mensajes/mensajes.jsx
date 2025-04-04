@@ -12,6 +12,8 @@ import { formatDate } from '../../assets/formatDate'
 
 import axios from 'axios'
 import { renderProfilePhoto } from '../../assets/renderProfilePhoto'
+import { findUserByConversation, handleSubmitMessage, useFetchConversations, useFetchuser } from './helper'
+import { renderFilteredConversations, renderMessageInput, renderNotificationSelector } from './helperComponents'
 
 export default function Mensajes () {
   // Estado para navegar con react router
@@ -19,76 +21,26 @@ export default function Mensajes () {
   const [activeConversation, setActiveConversation] = useState(null)
 
   // --------------------------------------LOGICA DE MENSAJES-------------------------------------------
-  const [user, setUser] = useState({})
-  // Fetch del usuario primero que todo
-  useEffect(() => {
-    async function fetchUser () {
-      try {
-        const response = await fetch('http://localhost:3030/api/users/userSession', {
-          method: 'POST',
-          credentials: 'include'
-        })
-
-        if (response.ok) {
-          const data = await response.json()
-          setUser(data.user)
-        } else {
-          // Esto es exclusivo de los que son usuarios
-          navigate('popUp/noUser')
-        }
-      } catch (error) {
-        console.error('Error fetching user data:', error)
-        navigate('popUp/noUser')
-      }
-    }
-    fetchUser()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  const [user] = useFetchuser()
   const [mensajes, setMensajes] = useState([])
   const [conversaciones, setConversaciones] = useState([])
   const [urlSearchParams] = useSearchParams()
   const newConversationId = urlSearchParams.get('n')
-  useEffect(() => {
-    async function fetchConversations () {
-      if (!user || !user._id) return
-      try {
-        const url = `http://localhost:3030/api/conversations/getConversationsByUser/${user._id}`
-        const response = await fetch(url)
-        const conversations = await response.json()
-        if (conversations.error) {
-          return
-        }
-        setConversaciones(conversations)
-        setFilteredConversations(conversations)
-      } catch (error) {
-        console.error('Error fetching conversations:', error)
-        toast.error('Error fetching conversations')
-      }
-    }
-    fetchConversations()
-  }, [user, newConversationId])
-
   const [filteredConversations, setFilteredConversations] = useState([])
-
   const [activeUser, setActiveUser] = useState({})
   const [reducedUsers, setReducedUsers] = useState([])
+
+  useFetchConversations(user, setConversaciones, setFilteredConversations, newConversationId)
+
   // -------------------------------------------------------------------------
 
   useEffect(() => {
     if (newConversationId && conversaciones && reducedUsers) {
-      setActiveConversation(conversaciones.find(conversacion => findUserByConversation(conversacion)._id === newConversationId))
+      setActiveConversation(conversaciones.find(conversacion => findUserByConversation(conversacion, user, reducedUsers)._id === newConversationId))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newConversationId, conversaciones, reducedUsers])
-  function findUserByConversation (conversation) {
-    const otherUserId = conversation.users.find(u => u !== user._id)
-    if (!otherUserId) return {}
 
-    // Find the user object for the other user in reducedUsers
-    const userMatch = reducedUsers.find(reducedUser => reducedUser._id === otherUserId)
-
-    return userMatch || {}
-  }
 
   // Create a reference for scrolling
   const chatContainerRef = useRef(null)
@@ -101,63 +53,7 @@ export default function Mensajes () {
       setActiveConversation(parsedConversation)
     }
   }, [])
-  // TENGO LA TEORIA DE QUE NO ESTÁ HACIENDO NADA
-  // useEffect(() => {
-  //     if (reducedUsers.length && activeConversation) {
-  //         const otherUserId = activeConversation.users.find(u => u !== user._id);
-  //         const userMatch = reducedUsers.find(u => u._id === otherUserId);
-  //         if (userMatch) {
-  //             setActiveUser(userMatch);
-  //         }
-  //     }
-  // }, [reducedUsers, activeConversation, user._id]);
 
-  async function fetchNewConversation () {
-    // Ensure user, user._id, and newConversationId are defined
-    if (!user || !user._id || !newConversationId || !conversaciones) return
-
-    // Check if the conversation already exists to avoid redundant requests
-    if (conversaciones.some((c) => c._id === newConversationId)) return
-
-    const body = JSON.stringify({ users: [user._id, newConversationId] })
-
-    try {
-      const url = 'http://localhost:3030/api/conversations'
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body,
-        credentials: 'include'
-      })
-
-      if (!response.ok) {
-        console.error('Error in response while creating a new conversation')
-        return
-      }
-
-      const data = await response.json()
-      if (data.error) {
-        return
-      }
-
-      // Replace the last conversation with the new one
-      setConversaciones((prev) => {
-        const updatedConversations = [...prev]
-        // Remove the last conversation if it exists
-        if (updatedConversations.length > 0) {
-          updatedConversations.pop()
-        }
-        // Add the new conversation
-        updatedConversations.push(data.conversation)
-        return updatedConversations
-      })
-
-      return data.conversation
-    } catch (error) {
-      console.error('Error creating a new conversation:', error)
-      toast.error('Error creating a new conversation')
-    }
-  }
 
   // -------------------------------------LOGICA DE CONVERSACIONES-----------------------------------------//EDITAR
   // Crear una conversación local
@@ -167,7 +63,7 @@ export default function Mensajes () {
     // Si el ID no es válido y no existe salir
     if (reducedUsers.length && reducedUsers.find((usuario) => usuario._id === newConversationId) === undefined) return
     // Si hay conversaciones Y si el id de la conversación ya existe volver
-    if (conversaciones.length !== 0 && conversaciones.find(conversacion => findUserByConversation(conversacion)._id === newConversationId) !== undefined) return
+    if (conversaciones.length !== 0 && conversaciones.find(conversacion => findUserByConversation(conversacion, user, reducedUsers)._id === newConversationId) !== undefined) return
     setConversaciones((prevConversaciones) => {
       // Prevent duplicate entries
       const alreadyExists = prevConversaciones?.some((c) =>
@@ -196,11 +92,11 @@ export default function Mensajes () {
   useEffect(() => {
     if (conversaciones && user && newConversationId &&
             activeConversation &&
-            findUserByConversation(activeConversation)._id === newConversationId) {
+            findUserByConversation(activeConversation, user, reducedUsers)._id === newConversationId) {
       setActiveConversation(conversaciones.find(conversacion => conversacion.users.find(u => u !== user._id) === newConversationId))
-      setActiveUser(findUserByConversation(activeConversation))
+      setActiveUser(findUserByConversation(activeConversation, user, reducedUsers))
     }
-  }, [newConversationId, conversaciones, user, activeConversation])
+  }, [newConversationId, conversaciones, user, activeConversation, reducedUsers])
 
   useEffect(() => {
     async function fetchPhotoAndNameUsers () {
@@ -251,87 +147,6 @@ export default function Mensajes () {
     fetchMessages()
   }, [activeConversation])
 
-  async function handleSubmitMessage (e) {
-    e.preventDefault()
-    const messageInput = document.querySelector('#messageInput')
-    const value = messageInput.value.trim() // Trim whitespace
-    const url = 'http://localhost:3030/api/messages'
-
-    if (!(value && activeConversation && user)) return // Validate inputs
-    let newConversation = false
-
-    // Si hay un ID de conversación Y si el usuario ya está en las conversaciones
-    if (newConversationId && conversaciones.find(conversacion => Object.keys(conversacion).length > 1 && findUserByConversation(conversacion)?._id === newConversationId) === undefined) {
-      newConversation = await fetchNewConversation()
-    }
-
-    try {
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json' // Set JSON header
-        },
-        body: JSON.stringify({
-          userId: user._id,
-          conversationId: newConversation?._id || activeConversation._id,
-          message: value,
-          read: false
-        }),
-        credentials: 'include'
-      })
-
-      if (!response.ok) {
-        toast.error('Error en la respuesta')
-        return
-      }
-
-      const responseData = await response.json() // Parse JSON response
-
-      // Add the new message to messages state
-      setMensajes((prevMensajes) => [...prevMensajes, responseData.message])
-
-      // Update conversations and activeConversation lastMessage
-      setConversaciones((prevConversaciones) => {
-        return prevConversaciones.map((conversacion) => {
-          if (conversacion._id === activeConversation._id) {
-            return {
-              ...conversacion,
-              lastMessage: responseData.message // Update lastMessage
-            }
-          }
-          return conversacion // Return the conversation without changes
-        })
-      })
-      // Update conversations and activeConversation lastMessage
-      setFilteredConversations((prevConversaciones) => {
-        return prevConversaciones.map((conversacion) => {
-          if (conversacion._id === activeConversation._id) {
-            return {
-              ...conversacion,
-              lastMessage: responseData.message // Update lastMessage
-            }
-          }
-          return conversacion // Return the conversation without changes
-        })
-      })
-
-      // Set active conversation last message, ensure it's correctly set
-      setActiveConversation(prevActiveConversation => ({
-        ...prevActiveConversation,
-        lastMessage: responseData.message
-      }))
-
-      // Clear input field
-      messageInput.value = ''
-      messageInput.style.height = 'auto'
-      if (newConversationId) {
-        navigate('/mensajes')
-      }
-    } catch (error) {
-      console.error('Error sending message:', error)
-      toast.error('Error al enviar el mensaje')
-    }
-  }
 
   // Scroll to the bottom after adding the message
   useEffect(() => {
@@ -395,9 +210,9 @@ export default function Mensajes () {
             Object.keys(libroAPreguntar).length !== 0 &&
             inputMessage &&
             activeConversation &&
-            libroAPreguntar.idVendedor === findUserByConversation(activeConversation)._id
+            libroAPreguntar.idVendedor === findUserByConversation(activeConversation, user, reducedUsers)._id
     ) {
-      const vendedorNombre = findUserByConversation(activeConversation).nombre
+      const vendedorNombre = findUserByConversation(activeConversation, user, reducedUsers).nombre
       const libroTitulo = libroAPreguntar.titulo
       const libroUrl = `http://localhost:5173/libros/${libroAPreguntar._id}`
 
@@ -429,17 +244,7 @@ export default function Mensajes () {
     <>
       <Header />
       {/* ----------------------------------------SELECCION DE NOTIFICACION----------------------------------------------- */}
-      <div className='sectionMessagesContainer'>
-        <Link to='/notificaciones'><div style={{ borderTopLeftRadius: '5px' }} className='sectionMessage'><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width={20} height={20} color='#000000' fill='none'><path d='M2.52992 14.7696C2.31727 16.1636 3.268 17.1312 4.43205 17.6134C8.89481 19.4622 15.1052 19.4622 19.5679 17.6134C20.732 17.1312 21.6827 16.1636 21.4701 14.7696C21.3394 13.9129 20.6932 13.1995 20.2144 12.5029C19.5873 11.5793 19.525 10.5718 19.5249 9.5C19.5249 5.35786 16.1559 2 12 2C7.84413 2 4.47513 5.35786 4.47513 9.5C4.47503 10.5718 4.41272 11.5793 3.78561 12.5029C3.30684 13.1995 2.66061 13.9129 2.52992 14.7696Z' stroke='currentColor' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round' /><path d='M8 19C8.45849 20.7252 10.0755 22 12 22C13.9245 22 15.5415 20.7252 16 19' stroke='currentColor' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round' /></svg>
-          <span>Notificaciones</span>
-        </div>
-        </Link>
-        <Link to='/mensajes'><div style={{ borderTopRightRadius: '5px' }} className='sectionMessage sectionMessageActive'>
-          <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width={20} height={20} color='#000000' fill='none'><path d='M8.5 14.5H15.5M8.5 9.5H12' stroke='currentColor' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round' /><path d='M14.1706 20.8905C18.3536 20.6125 21.6856 17.2332 21.9598 12.9909C22.0134 12.1607 22.0134 11.3009 21.9598 10.4707C21.6856 6.22838 18.3536 2.84913 14.1706 2.57107C12.7435 2.47621 11.2536 2.47641 9.8294 2.57107C5.64639 2.84913 2.31441 6.22838 2.04024 10.4707C1.98659 11.3009 1.98659 12.1607 2.04024 12.9909C2.1401 14.536 2.82343 15.9666 3.62791 17.1746C4.09501 18.0203 3.78674 19.0758 3.30021 19.9978C2.94941 20.6626 2.77401 20.995 2.91484 21.2351C3.05568 21.4752 3.37026 21.4829 3.99943 21.4982C5.24367 21.5285 6.08268 21.1757 6.74868 20.6846C7.1264 20.4061 7.31527 20.2668 7.44544 20.2508C7.5756 20.2348 7.83177 20.3403 8.34401 20.5513C8.8044 20.7409 9.33896 20.8579 9.8294 20.8905C11.2536 20.9852 12.7435 20.9854 14.1706 20.8905Z' stroke='currentColor' strokeWidth='1.5' strokeLinejoin='round' /></svg>
-          <span>Mensajes</span>
-        </div>
-        </Link>
-      </div>
+      {renderNotificationSelector()}
 
       {/* ----------------------------------------MENSAJES EN PC----------------------------------------------- */}
 
@@ -449,43 +254,7 @@ export default function Mensajes () {
             <input type='text' className='conversationsFilter' onChange={(event) => filterConversations(event)} placeholder='Buscar' />
 
             {/* ----------------------------------------CADA CONVERSACIÓN----------------------------------------------- */}
-            {filteredConversations
-              .sort((a, b) => {
-                const dateA = a?.lastMessage?.createdIn ? new Date(a?.lastMessage?.createdIn) : 0
-                const dateB = b?.lastMessage?.createdIn ? new Date(b?.lastMessage?.createdIn) : 0
-                return dateB - dateA // Sort in descending order by last message date
-              })
-              .map((conversation, index) => (
-                <div
-                  key={index}
-                  className={`conversationSpecific ${activeConversation?._id === conversation._id ? 'active' : ''}`}
-                  onClick={() => {
-                    setActiveConversation(conversation)
-                    setActiveUser(findUserByConversation(conversation))
-                  }}
-                >
-                  <img
-                    src={renderProfilePhoto(findUserByConversation(conversation)?.fotoPerfil || '')}
-                    alt={`${findUserByConversation(conversation).nombre || 'User'}'s avatar`}
-                  />
-                  <div className='conversationSpecificTitleAndMessage'>
-                    <h2>{findUserByConversation(conversation).nombre || ''}</h2>
-                    <span>
-                      {(user && reducedUsers && conversation && conversation?.lastMessage && conversation?.lastMessage?.message) && (
-                        <>
-                          {conversation.lastMessage.userId === user._id
-                            ? 'Tu: '
-                            : `${reduceTextByFirstWord(findUserByConversation(conversation).nombre || '')}: `}
-                          {reduceText(conversation?.lastMessage?.message, 20)}
-                        </>
-                      )}
-
-                    </span>
-                  </div>
-                  {/* 2024-12-21T17:01:32.197Z */}
-                  <span>{formatDate(conversation?.lastMessage?.createdIn) || ''}</span>
-                </div>
-              ))}
+            {renderFilteredConversations(filteredConversations, activeConversation, setActiveConversation, setActiveUser, user, reducedUsers)}
           </div>
           <div className='chat'>
             {/* ----------------------------------------ENCABEZADO DEL CHAT----------------------------------------------- */}
@@ -513,46 +282,7 @@ export default function Mensajes () {
               ))}
             </div>
             {/* ----------------------------------------CONTENEDOR DE ENVIAR MENSAJE----------------------------------------------- */}
-            {activeConversation &&
-              <div className='messageInputContainer'>
-                <textarea
-                  id='messageInput'
-                  rows='1'
-                  onInput={(event) => {
-                    const textarea = event.target
-                    textarea.style.height = 'auto' // Restablece la altura para recalcular
-                    textarea.style.height = `${Math.min(textarea.scrollHeight, 96)}px` // Expande hasta 4 líneas (4 * 24px de altura típica por línea)
-                  }}
-                  onKeyDown={(event) => {
-                    const textarea = event.target
-
-                    // Shift + Enter: Añade un salto de línea
-                    if (event.key === 'Enter' && event.shiftKey) {
-                      event.preventDefault()
-                      const start = textarea.selectionStart
-                      const end = textarea.selectionEnd
-
-                      textarea.value =
-                                                        textarea.value.substring(0, start) +
-                                                        '\n' +
-                                                        textarea.value.substring(end)
-
-                      textarea.selectionStart = textarea.selectionEnd = start + 1
-                      textarea.style.height = 'auto'
-                      textarea.style.height = `${Math.min(textarea.scrollHeight, 96)}px` // Recalcula la altura
-                    }
-                    // Enter: Envía el mensaje
-                    else if (event.key === 'Enter') {
-                      event.preventDefault()
-                      handleSubmitMessage(event)
-                    }
-                  }}
-                />
-
-                <div className='send' onClick={(event) => handleSubmitMessage(event)}>
-                  <img src='/sendMessage.svg' alt='Send Message' />
-                </div>
-              </div>}
+            {renderMessageInput(activeConversation, handleSubmitMessage, user, newConversationId, conversaciones, setConversaciones, setMensajes, setFilteredConversations, reducedUsers, setActiveConversation, navigate)}
           </div>
         </div>}
 
