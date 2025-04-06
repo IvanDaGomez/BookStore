@@ -1,12 +1,14 @@
 import { Router } from 'express'
 import { TransactionsController } from '../../controllers/transactions/transactionsController.js'
 
-const transactionsRouter = Router()
+export const createTransactionsRouter = ({ TransactionsModel }) => {
+  const transactionsController = new TransactionsController({ TransactionsModel })
+  const transactionsRouter = Router()
 
-transactionsRouter.get('/', TransactionsController.getAllTransactions)
-transactionsRouter.get('/transactionById/:transactionId', TransactionsController.getTransactionById)
-transactionsRouter.get('/transactionByUser', TransactionsController.getTransactionsByUser)
-transactionsRouter.post('/', TransactionsController.createTransaction)
-transactionsRouter.delete('/:transactionId', TransactionsController.deleteTransaction)
-
-export { transactionsRouter }
+  transactionsRouter.get('/', transactionsController.getAllTransactions)
+  transactionsRouter.get('/transactionById/:transactionId', transactionsController.getTransactionById)
+  transactionsRouter.get('/transactionByUser', transactionsController.getTransactionsByUser)
+  transactionsRouter.post('/', transactionsController.createTransaction)
+  transactionsRouter.delete('/:transactionId', transactionsController.deleteTransaction)
+  return transactionsRouter
+}

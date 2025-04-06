@@ -3996,6 +3996,7 @@ a[href="/chat"]{
   display: flex;
   flex-direction: column;
   gap: 2px;
+  width: 100%;
 }
 
 .form-container .form-group label {
@@ -4006,8 +4007,8 @@ a[href="/chat"]{
 }
 
 .form-container .form-group input {
-  width: 100%;
-  padding: 12px 16px;
+  width: auto;
+  padding: 12px var(--padding-small);
   border-radius: var(--border);
   font-family: inherit;
   background-color: transparent;

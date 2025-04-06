@@ -1,11 +1,14 @@
-import { NotificationsModel } from '../../models/notifications/local/notificationsModel.js'
-import { UsersModel } from '../../models/users/local/usersLocal.js'
 import { validateNotification } from '../../assets/validate.js'
 
 export class NotificationsController {
-  static async getAllNotifications (req, res) {
+  constructor ({ NotificationsModel, UsersModel }) {
+    this.NotificationsModel = NotificationsModel
+    this.UsersModel = UsersModel
+  }
+
+  getAllNotifications = async (req, res) => {
     try {
-      const notifications = await NotificationsModel.getAllNotifications()
+      const notifications = await this.NotificationsModel.getAllNotifications()
       if (!notifications) {
         return res.status(404).json({ error: 'Error al conseguir las notificaciones' })
       }
@@ -16,13 +19,13 @@ export class NotificationsController {
     }
   }
 
-  static async getAllNotificationsByUserId (req, res) {
+  getAllNotificationsByUserId = async (req, res) => {
     try {
       const { userId } = req.params
       if (!userId) {
         return res.status(404).json({ error: 'Es necesario un usuario' })
       }
-      const notifications = await NotificationsModel.getAllNotificationsByUserId(userId)
+      const notifications = await this.NotificationsModel.getAllNotificationsByUserId(userId)
       if (!notifications) {
         return res.status(500).json({ error: 'No se encontraron notificaciones' })
       }
@@ -33,13 +36,13 @@ export class NotificationsController {
     }
   }
 
-  static async getNotificationById (req, res) {
+  getNotificationById = async (req, res) => {
     try {
       const { notificationId } = req.params
       if (!notificationId) {
         return res.status(404).json({ error: 'Es necesario un usuario' })
       }
-      const notifications = await NotificationsModel.getNotificationById(notificationId)
+      const notifications = await this.NotificationsModel.getNotificationById(notificationId)
       if (!notifications) {
         return res.status(500).json({ error: 'No se encontraron notificaciones' })
       }
@@ -50,14 +53,14 @@ export class NotificationsController {
     }
   }
 
-  static async markNotificationAsRead (req, res) {
+  markNotificationAsRead = async (req, res) => {
     try {
       const { notificationId } = req.params
       console.log(notificationId)
       if (!notificationId) {
         return res.status(404).json({ error: 'No hay ID de notificación' })
       }
-      const notification = await NotificationsModel.markNotificationAsRead(notificationId)
+      const notification = await this.NotificationsModel.markNotificationAsRead(notificationId)
       if (!notification) {
         return res.status(404).json({ error: 'No se encontró la notificación' })
       }
@@ -68,7 +71,7 @@ export class NotificationsController {
     }
   }
 
-  static async createNotification (req, res) {
+  createNotification = async (req, res) => {
     const data = req.body
 
     // Validación
@@ -82,12 +85,12 @@ export class NotificationsController {
     data._id = crypto.randomUUID()
 
     // Agregar el ID del notificacion al usuario
-    const user = await UsersModel.getUserById(data.userId)
+    const user = await this.UsersModel.getUserById(data.userId)
     if (!user) {
       return res.status(404).json({ error: 'Usuario no encontrado' })
     }
 
-    const updated = await UsersModel.updateUser(user._id, {
+    const updated = await this.UsersModel.updateUser(user._id, {
       notificationsIds: [...(user.notificationsIds || []), data._id]
     })
 
@@ -100,7 +103,7 @@ export class NotificationsController {
     data.expiresAt = `${new Date(time.setDate(time.getDate() + 30)).toISOString()}`
     data.read = false
     // Crear el notificacion en la base de datos
-    const notification = await NotificationsModel.createNotification(data)
+    const notification = await this.NotificationsModel.createNotification(data)
     if (typeof notification === 'string' && notification.startsWith('Error')) {
       return res.status(500).json({ error: notification })
     }
@@ -112,18 +115,18 @@ export class NotificationsController {
     res.send(notification)
   }
 
-  static async deleteNotification (req, res) {
+  deleteNotification = async (req, res) => {
     try {
       const { notificationId } = req.params
 
       // Obtener los detalles del notificacion para encontrar al vendedor (idVendedor)
-      const notification = await NotificationsModel.getNotificationById(notificationId)
+      const notification = await this.NotificationsModel.getNotificationById(notificationId)
       if (!notification) {
         return res.status(404).json({ error: 'Notificacion no encontrada' })
       }
 
       // Obtener el usuario asociado con el notificacion
-      const user = await UsersModel.getUserById(notification.userId)
+      const user = await this.UsersModel.getUserById(notification.userId)
       if (!user) {
         return res.status(404).json({ error: 'Usuario no encontrado' })
       }
@@ -132,7 +135,7 @@ export class NotificationsController {
       const updatedNotificationsIds = (user.notificationsIds || []).filter(id => id !== notificationId)
 
       // Actualizar el usuario con los nuevos notificacionsIds
-      const updatedUser = await UsersModel.updateUser(user._id, {
+      const updatedUser = await this.UsersModel.updateUser(user._id, {
         notificationsIds: updatedNotificationsIds
       })
 
@@ -142,7 +145,7 @@ export class NotificationsController {
 
       // Eliminar el notificacion de la base de datos
 
-      const result = await NotificationsModel.deleteNotification(notificationId)
+      const result = await this.NotificationsModel.deleteNotification(notificationId)
       if (!result) {
         return res.status(404).json({ error: 'Notificacion no encontrada' })
       }

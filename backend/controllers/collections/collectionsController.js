@@ -1,13 +1,15 @@
 // import { crearCollage } from '../../assets/createCollage.js'
 import { validateCollection, validatePartialCollection } from '../../assets/validate.js'
 import { cambiarGuionesAEspacio } from '../../assets/agregarMas.js'
-import { BooksModel } from '../../models/books/local/booksLocal.js'
-import { CollectionsModel } from '../../models/collections/local/collectionsModel.js'
 
 class CollectionsController {
-  static async getAllCollections (req, res) {
+  constructor ({ CollectionsModel }) {
+    this.CollectionsModel = CollectionsModel
+  }
+
+  getAllCollections = async (req, res) => {
     try {
-      const collections = await CollectionsModel.getAllCollections()
+      const collections = await this.CollectionsModel.getAllCollections()
       if (!collections) {
         res.status(500).json({ error: 'Error al leer usuarios' })
       }
@@ -18,10 +20,10 @@ class CollectionsController {
     }
   }
 
-  static async getCollectionById (req, res) {
+  getCollectionById = async (req, res) => {
     try {
       const { collectionId } = req.params
-      const collection = await CollectionsModel.getCollectionById(collectionId)
+      const collection = await this.CollectionsModel.getCollectionById(collectionId)
       if (!collection) {
         return res.status(404).json({ error: 'Colección no encontrada' })
       }
@@ -32,13 +34,13 @@ class CollectionsController {
     }
   }
 
-  static async getCollectionsByUser (req, res) {
+  getCollectionsByUser = async (req, res) => {
     try {
       const { userId } = req.params
       if (!userId) {
         return res.status(400).json({ error: 'No se proporcionó el userId' })
       }
-      const collections = await CollectionsModel.getCollectionsByUser(userId)
+      const collections = await this.CollectionsModel.getCollectionsByUser(userId)
       if (!collections) {
         return res.status(404).json({ error: 'Colección no encontrada' })
       }
@@ -49,14 +51,14 @@ class CollectionsController {
     }
   }
 
-  static async getBooksByCollection (req, res) {
+  getBooksByCollection = async (req, res) => {
     try {
       const { collectionId } = req.params
       if (!collectionId) {
         return res.status(400).json({ error: 'No se proporcionó el userId' })
       }
-      const collection = await CollectionsModel.getCollectionById(collectionId)
-      const books = await BooksModel.getBooksByIdList(collection?.librosIds || [])
+      const collection = await this.CollectionsModel.getCollectionById(collectionId)
+      const books = await this.BooksModel.getBooksByIdList(collection?.librosIds || [])
       if (!books) {
         return res.status(404).json({ error: 'Colección no encontrada' })
       }
@@ -67,7 +69,7 @@ class CollectionsController {
     }
   }
 
-  static async createCollection (req, res) {
+  createCollection = async (req, res) => {
     try {
       const data = req.body
 
@@ -82,7 +84,7 @@ class CollectionsController {
       }
 
       // Crear la colección en la base de datos
-      const collection = await CollectionsModel.createCollection(data)
+      const collection = await this.CollectionsModel.createCollection(data)
       if (typeof notification === 'string' && collection.startsWith('Error')) {
         return res.status(500).json({ error: collection })
       }
@@ -98,13 +100,13 @@ class CollectionsController {
     }
   }
 
-  static async deleteCollection (req, res) {
+  deleteCollection = async (req, res) => {
     try {
       const { collectionId } = req.params
 
       // Eliminar el colección de la base de datos
 
-      const result = await CollectionsModel.deleteCollection(collectionId)
+      const result = await this.CollectionsModel.deleteCollection(collectionId)
       if (!result) {
         return res.status(404).json({ error: 'Colección no encontrada' })
       }
@@ -116,7 +118,7 @@ class CollectionsController {
     }
   }
 
-  static async updateCollection (req, res) {
+  updateCollection = async (req, res) => {
     const { collectionId } = req.params
     const data = req.body
     if (!collectionId || !data) {
@@ -127,7 +129,7 @@ class CollectionsController {
     if (!valid) {
       return res.status(404).json({ error: 'No válido' })
     }
-    const updated = await CollectionsModel.updateCollection(collectionId, data)
+    const updated = await this.CollectionsModel.updateCollection(collectionId, data)
 
     if (!updated) {
       return res.status(400).json({ error: 'No se pudo actualizar la colección' })
@@ -135,15 +137,15 @@ class CollectionsController {
     res.json({ data: updated })
   }
 
-  static async addBookToCollection (req, res) {
+  addBookToCollection = async (req, res) => {
     try {
       const { bookId, collectionId } = req.query
 
       if (!bookId || !collectionId) {
         return res.status(400).json({ error: 'No se proporcionó bookId' })
       }
-      const book = await BooksModel.getBookById(bookId)
-      const collection = await CollectionsModel.getCollectionById(collectionId)
+      const book = await this.BooksModel.getBookById(bookId)
+      const collection = await this.CollectionsModel.getCollectionById(collectionId)
       if (!book) {
         return res.status(401).json({ error: 'No se encontró el libro' })
       }
@@ -156,8 +158,8 @@ class CollectionsController {
 
       const newCollectionList = [...(collection?.librosIds || []), bookId]
       const newBookList = [...(book?.collectionsIds || []), collectionId]
-      const collectionUpdated = await CollectionsModel.updateCollection(collectionId, { librosIds: newCollectionList })
-      const bookUpdated = await BooksModel.updateBook(bookId, { collectionsIds: newBookList })
+      const collectionUpdated = await this.CollectionsModel.updateCollection(collectionId, { librosIds: newCollectionList })
+      const bookUpdated = await this.BooksModel.updateBook(bookId, { collectionsIds: newBookList })
 
       if (!collectionUpdated || !bookUpdated) {
         return res.status(401).json({ error: 'No se pudo actualizar la colección' })
@@ -169,7 +171,7 @@ class CollectionsController {
     }
   }
 
-  static async getCollectionByQuery (req, res) {
+  getCollectionByQuery = async (req, res) => {
     try {
       let { q, l } = req.query // Obtener el valor del parámetro de consulta 'q'
       q = cambiarGuionesAEspacio(q)
@@ -181,7 +183,7 @@ class CollectionsController {
         l = 24
       }
 
-      const collections = await CollectionsModel.getCollectionByQuery(q, l) // Asegurarse de implementar este método en BooksModel
+      const collections = await this.CollectionsModel.getCollectionByQuery(q, l) // Asegurarse de implementar este método en BooksModel
       if (collections.length === 0) {
         return res.status(404).json({ error: 'No se encontraron libros' })
       }
@@ -193,7 +195,7 @@ class CollectionsController {
     }
   }
 
-  static async getCollectionsByQueryWithFilters (req, res) {
+  getCollectionsByQueryWithFilters = async (req, res) => {
     // Destructure query parameters
     let { categoria, ubicacion, edad, tapa, fechaPublicacion, idioma, estado, q, l } = req.query
     // Apply the filter transformation (change hyphens to spaces)
@@ -242,7 +244,7 @@ class CollectionsController {
         }
       })
 
-      const collections = await CollectionsModel.getCollectionsByQueryWithFilters(query)
+      const collections = await this.CollectionsModel.getCollectionsByQueryWithFilters(query)
 
       // If no books found
       if (collections.length === 0) {
@@ -257,13 +259,13 @@ class CollectionsController {
     }
   }
 
-  static async getCollectionSaga (req, res) {
+  getCollectionSaga = async (req, res) => {
     try {
       const { bookId, userId } = req.body
       if (!bookId || !userId) {
         return res.status(401).json({ error: 'No se proporcionaron todos los datos' })
       }
-      const collection = await CollectionsModel.getCollectionSaga(bookId, userId)
+      const collection = await this.CollectionsModel.getCollectionSaga(bookId, userId)
 
       if (!collection) {
         return res.json({ error: 'No se encontró una colección' })

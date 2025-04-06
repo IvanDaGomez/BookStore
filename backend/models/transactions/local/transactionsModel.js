@@ -1,5 +1,5 @@
 import fs from 'node:fs/promises'
-import { transactionObject } from '../transactionObject'
+import { transactionObject } from '../transactionObject.js'
 
 class TransactionsModel {
   static async getAllTransactions () {

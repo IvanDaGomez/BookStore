@@ -1,11 +1,14 @@
-import { MessagesModel } from '../../models/messages/local/messagesModel.js'
 import { validateMessage } from '../../assets/validate.js'
-import { ConversationsModel } from '../../models/conversations/local/conversationsModel.js'
 
 export class MessagesController {
-  static async getAllMessages (req, res) {
+  constructor ({ MessagesModel, ConversationsModel }) {
+    this.MessagesModel = MessagesModel
+    this.ConversationsModel = ConversationsModel
+  }
+
+  getAllMessages = async (req, res) => {
     try {
-      const messages = await MessagesModel.getAllMessages()
+      const messages = await this.MessagesModel.getAllMessages()
       if (!messages) {
         res.status(500).json({ error: 'Error al leer mensajes' })
       }
@@ -16,10 +19,10 @@ export class MessagesController {
     }
   }
 
-  static async getAllMessagesByConversation (req, res) {
+  getAllMessagesByConversation = async (req, res) => {
     try {
       const { conversationId } = req.params
-      const message = await MessagesModel.getAllMessagesByConversation(conversationId)
+      const message = await this.MessagesModel.getAllMessagesByConversation(conversationId)
       if (!message) {
         return res.status(404).json({ error: 'Conversación no encontrada' })
       }
@@ -30,10 +33,10 @@ export class MessagesController {
     }
   }
 
-  static async getMessageById (req, res) {
+  getMessageById = async (req, res) => {
     try {
       const { messageId } = req.params
-      const message = await MessagesModel.getMessageById(messageId)
+      const message = await this.MessagesModel.getMessageById(messageId)
       if (!message) {
         return res.status(404).json({ error: 'Mensaje no encontrado' })
       }
@@ -45,7 +48,7 @@ export class MessagesController {
   }
 
   // Filtrar mensajes
-  static async sendMessage (req, res) {
+  sendMessage = async (req, res) => {
     const data = req.body
 
     // Validación
@@ -61,7 +64,7 @@ export class MessagesController {
     data.createdIn = time
 
     // Necesario actualizar la conversación en la que el mensaje se envía
-    const conversation = await ConversationsModel.getConversationById(data.conversationId)
+    const conversation = await this.ConversationsModel.getConversationById(data.conversationId)
 
     if (!conversation) {
       return res.status(404).json({ error: 'No se encontró la conversación' })
@@ -74,7 +77,7 @@ export class MessagesController {
     // Validar el userId
     try {
       conversation.lastMessage = data
-      const changed = await ConversationsModel.updateConversation(conversation._id, conversation)
+      const changed = await this.ConversationsModel.updateConversation(conversation._id, conversation)
       if (!changed) {
         return res.status(500).json({ error: 'Error al actualizar las conversaciones del usuario' })
       }
@@ -84,7 +87,7 @@ export class MessagesController {
     }
 
     // Crear el mensaje en la base de datos
-    const message = await MessagesModel.sendMessage(data)
+    const message = await this.MessagesModel.sendMessage(data)
     if (typeof message === 'string' && message.startsWith('Error')) {
       return res.status(500).json({ error: message })
     }
@@ -96,18 +99,18 @@ export class MessagesController {
     res.send({ message })
   }
 
-  static async deleteMessage (req, res) {
+  deleteMessage = async (req, res) => {
     try {
       const { messageId } = req.params
 
       // Obtener los detalles del mensaje para encontrar al vendedor (idVendedor)
-      const message = await MessagesModel.getMessageById(messageId)
+      const message = await this.MessagesModel.getMessageById(messageId)
       if (!message) {
         return res.status(404).json({ error: 'Mensaje no encontrado' })
       }
 
       // Necesario actualizar la conversación en la que el mensaje se elimine
-      const conversation = await ConversationsModel.getConversationById(message.conversationId)
+      const conversation = await this.ConversationsModel.getConversationById(message.conversationId)
       if (!conversation) {
         return res.json({ error: 'No se encontró la conversación' })
       }
@@ -116,7 +119,7 @@ export class MessagesController {
         // Assign conversation ID to user's conversationsIds
         // Watch pout for the last message
         conversation.messages = conversation.messages.filter(messageArray => messageArray[0] !== message._id)
-        const changed = await ConversationsModel.updateConversation(conversation._id, conversation)
+        const changed = await this.ConversationsModel.updateConversation(conversation._id, conversation)
         if (!changed) {
           return res.status(500).json({ error: 'Error al actualizar los mensajes de la conversación' })
         }
@@ -125,7 +128,7 @@ export class MessagesController {
         return res.status(500).json({ error: 'Error al actualizar las conversaciones del usuario' })
       }
       // Eliminar el mensaje de la base de datos
-      const result = await MessagesModel.deleteMessage(messageId)
+      const result = await this.MessagesModel.deleteMessage(messageId)
       if (!result) {
         return res.status(404).json({ error: 'Mensaje no encontrado' })
       }
@@ -137,14 +140,14 @@ export class MessagesController {
     }
   }
 
-  static async markAsRead (req, res) {
+  markAsRead = async (req, res) => {
     try {
       const { messageId } = req.params
-      const message = await MessagesModel.getMessageById(messageId)
+      const message = await this.MessagesModel.getMessageById(messageId)
       if (!message) {
         return res.status(404).json({ error: 'Mensaje no encontrado' })
       }
-      const updated = await MessagesModel.updateMessage(messageId, { read: true })
+      const updated = await this.MessagesModel.updateMessage(messageId, { read: true })
       if (!updated) {
         res.status(400).json('El mensaje no pudo ser actualizado')
       }

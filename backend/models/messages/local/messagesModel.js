@@ -1,5 +1,5 @@
 import fs from 'node:fs/promises'
-import { messageObject } from '../messageObject'
+import { messageObject } from '../messageObject.js'
 
 class MessagesModel {
   static async getAllMessages () {

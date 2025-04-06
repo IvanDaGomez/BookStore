@@ -1,10 +1,13 @@
-import { ConversationsModel } from '../../models/conversations/local/conversationsModel.js'
-import { UsersModel } from '../../models/users/local/usersLocal.js'
 export class ConversationsController {
-  static async getAllConversations (req, res) {
+  constructor ({ conversationsModel, usersModel }) {
+    this.conversationsModel = conversationsModel
+    this.usersModel = usersModel
+  }
+
+  getAllConversations = async (req, res) => {
     const { l } = req.query
     try {
-      const conversations = await ConversationsModel.getAllConversations(l)
+      const conversations = await this.ConversationsModel.getAllConversations(l)
       if (!conversations) {
         res.status(500).json({ error: 'Error al leer conversaciones' })
       }
@@ -15,19 +18,19 @@ export class ConversationsController {
     }
   }
 
-  static async getConversationsByUser (req, res) {
+  getConversationsByUser = async (req, res) => {
     try {
       // Step 1: Extract userId from request params
       const { userId } = req.params
 
       // Step 2: Fetch user by ID to get conversationsIds
-      const user = await UsersModel.getUserById(userId)
+      const user = await this.UsersModel.getUserById(userId)
       if (!user || !user.conversationsIds) {
         return res.status(404).json({ error: 'Usuario o conversaciones no encontradas' })
       }
 
       // Step 3: Retrieve conversations based on the conversationsIds array
-      const conversations = await ConversationsModel.getConversationsByUser(user.conversationsIds)
+      const conversations = await this.ConversationsModel.getConversationsByUser(user.conversationsIds)
 
       // Step 4: Check if conversations were found
       if (!conversations || conversations.length === 0) {
@@ -42,10 +45,10 @@ export class ConversationsController {
     }
   }
 
-  static async getConversationById (req, res) {
+  getConversationById = async (req, res) => {
     try {
       const { conversationId } = req.params
-      const conversation = await ConversationsModel.getConversationById(conversationId)
+      const conversation = await this.ConversationsModel.getConversationById(conversationId)
       if (!conversation) {
         return res.status(404).json({ error: 'Conversación no encontrada' })
       }
@@ -57,7 +60,7 @@ export class ConversationsController {
   }
 
   // Filtrar mensajes
-  static async createConversation (req, res) {
+  createConversation = async (req, res) => {
     const data = req.body
 
     // Validation: Ensure exactly two users
@@ -70,14 +73,14 @@ export class ConversationsController {
     data.createdIn = new Date()
 
     // Check if conversation already exists
-    const conversations = await ConversationsModel.getAllConversations()
+    const conversations = await this.ConversationsModel.getAllConversations()
     if (conversations.some(conversation => JSON.stringify(conversation.users) === JSON.stringify(data.users))) {
       return res.json({ error: 'Conversación ya agregada' })
     }
 
     try {
       // Create conversation in the database first
-      const conversation = await ConversationsModel.createConversation(data)
+      const conversation = await this.ConversationsModel.createConversation(data)
       if (typeof conversation === 'string' && conversation.startsWith('Error')) {
         return res.status(500).json({ error: conversation })
       }
@@ -87,14 +90,14 @@ export class ConversationsController {
 
       // Only update users' conversation IDs after successful creation
       for (const userId of data.users) {
-        const user = await UsersModel.getUserById(userId)
+        const user = await this.UsersModel.getUserById(userId)
         if (!user) {
           return res.json({ error: 'No se encontró el usuario' })
         }
 
         // Assign conversation ID to user's conversationsIds
         user.conversationsIds = [...(user.conversationsIds ?? []), data._id]
-        const changed = await UsersModel.updateUser(user._id, user)
+        const changed = await this.UsersModel.updateUser(user._id, user)
 
         if (!changed) {
           return res.status(500).json({ error: 'Error al actualizar las conversaciones del usuario' })
@@ -110,12 +113,12 @@ export class ConversationsController {
     }
   }
 
-  static async deleteConversation (req, res) {
+  deleteConversation = async (req, res) => {
     try {
       const { conversationId } = req.params
 
       // Obtener los detalles de la conversación para encontrar al vendedor Eliminar conversacionesIds
-      const conversation = await ConversationsModel.getConversationById(conversationId)
+      const conversation = await this.ConversationsModel.getConversationById(conversationId)
       if (!conversation) {
         return res.status(404).json({ error: 'Conversación no encontrada' })
       }
@@ -123,16 +126,16 @@ export class ConversationsController {
       // Necesario actualizar el usuario en la que la conversación se elimina
       // Iterate through users with a for...of loop for async handling
       for (const userId of conversation.users) {
-        const user = await UsersModel.getUserById(userId)
+        const user = await this.UsersModel.getUserById(userId)
         if (!user) {
           return res.json({ error: 'No se encontró el usuario' })
         }
 
         try {
-        // Assign conversation ID to user's conversationsIds
+          // Assign conversation ID to user's conversationsIds
           user.conversationsIds = user.conversationsIds.filter(id => id !== conversationId)
 
-          const changed = await UsersModel.updateUser(user._id, user)
+          const changed = await this.UsersModel.updateUser(user._id, user)
           if (!changed) {
             return res.status(500).json({ error: 'Error al actualizar las conversaciones del usuario' })
           }
@@ -143,7 +146,7 @@ export class ConversationsController {
       }
 
       // Eliminar el mensaje de la base de datos
-      const result = await ConversationsModel.deleteConversation(conversationId)
+      const result = await this.ConversationsModel.deleteConversation(conversationId)
       if (!result) {
         return res.status(404).json({ error: 'Conversación no encontrada' })
       }

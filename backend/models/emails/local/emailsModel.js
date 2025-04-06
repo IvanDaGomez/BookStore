@@ -2,7 +2,7 @@ import fs from 'node:fs/promises'
 
 const EMAILS_FILE_PATH = './models/emails.json'
 
-export class EmailsModel {
+class EmailsModel {
   static async getAllEmails () {
     try {
       const data = await fs.readFile(EMAILS_FILE_PATH, 'utf-8')
@@ -81,3 +81,4 @@ export class EmailsModel {
     }
   }
 }
+export { EmailsModel }

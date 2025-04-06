@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-import { UsersModel } from '../../models/users/local/usersLocal.js'
 import { randomUUID } from 'node:crypto'
 import { validateUser, validatePartialUser } from '../../assets/validate.js'
 import jwt from 'jsonwebtoken'
@@ -9,7 +8,6 @@ import { createEmail } from '../../assets/email/htmlEmails.js'
 import { Preference, MercadoPagoConfig, Payment } from 'mercadopago'
 import { createNotification } from '../../assets/notifications/createNotification.js'
 import { sendNotification } from '../../assets/notifications/sendNotification.js'
-import { TransactionsModel } from '../../models/transactions/local/transactionsModel.js'
 // eslint-disable-next-line no-unused-vars
 import { CreateOrdenDeEnvío } from '../../assets/createOrdenDeEnvio.js'
 import { handlePaymentResponse } from '../../assets/handlePaymentResponse.js'
@@ -19,9 +17,14 @@ import { checkEmailExists, initializeDataCreateUser, jwtPipeline, processUserUpd
 
 const SECRET_KEY = process.env.JWT_SECRET
 export class UsersController {
-  static async getAllUsers (req, res) {
+  constructor ({ UsersModel, TransactionsModel }) {
+    this.UsersModel = UsersModel
+    this.TransactionsModel = TransactionsModel
+  }
+
+  getAllUsers = async (req, res) => {
     try {
-      const users = await UsersModel.getAllUsers()
+      const users = await this.UsersModel.getAllUsers()
       if (!users) {
         res.status(500).json({ error: 'Error al leer usuarios' })
       }
@@ -32,9 +35,9 @@ export class UsersController {
     }
   }
 
-  static async getAllUsersSafe (req, res) {
+  getAllUsersSafe = async (req, res) => {
     try {
-      const users = await UsersModel.getAllUsersSafe()
+      const users = await this.UsersModel.getAllUsersSafe()
       if (!users) {
         res.status(500).json({ error: 'Error leyendo usuarios' })
       }
@@ -45,10 +48,10 @@ export class UsersController {
     }
   }
 
-  static async getUserById (req, res) {
+  getUserById = async (req, res) => {
     try {
       const { userId } = req.params
-      const user = await UsersModel.getUserById(userId)
+      const user = await this.UsersModel.getUserById(userId)
       if (!user) {
         return res.status(404).json({ error: 'Usuario no encontrado' })
       }
@@ -59,10 +62,10 @@ export class UsersController {
     }
   }
 
-  static async getPhotoAndNameUser (req, res) {
+  getPhotoAndNameUser = async (req, res) => {
     try {
       const { userId } = req.params
-      const user = await UsersModel.getPhotoAndNameUser(userId)
+      const user = await this.UsersModel.getPhotoAndNameUser(userId)
       if (!user) {
         return res.status(404).json({ error: 'Usuario no encontrado' })
       }
@@ -73,10 +76,10 @@ export class UsersController {
     }
   }
 
-  static async getEmailById (req, res) {
+  getEmailById = async (req, res) => {
     try {
       const { userId } = req.params
-      const user = await UsersModel.getEmailById(userId)
+      const user = await this.UsersModel.getEmailById(userId)
       if (!user) {
         return res.status(404).json({ error: 'Usuario no encontrado' })
       }
@@ -87,7 +90,7 @@ export class UsersController {
     }
   }
 
-  static async getUserByQuery (req, res) {
+  getUserByQuery = async (req, res) => {
     try {
       let { q } = req.query // Obtener el valor del parámetro de consulta 'q'
       q = cambiarGuionesAEspacio(q)
@@ -95,7 +98,7 @@ export class UsersController {
         return res.status(400).json({ error: 'El query parameter "q" es requerido' })
       }
 
-      const users = await UsersModel.getUserByQuery(q) // Asegurarse de implementar este método en UsersModel
+      const users = await this.UsersModel.getUserByQuery(q) // Asegurarse de implementar este método en this.UsersModel
       if (users.length === 0) {
         return res.status(404).json({ error: 'No se encontraron usuarios' })
       }
@@ -107,14 +110,14 @@ export class UsersController {
     }
   }
 
-  static async login (req, res) {
+  login = async (req, res) => {
     try {
       const { correo, contraseña } = req.body
       if (!correo || !contraseña) {
         return res.status(400).json({ error: 'Algunos espacios están en blanco' })
       }
 
-      const user = await UsersModel.login(correo, contraseña)
+      const user = await this.UsersModel.login(correo, contraseña)
 
       validateUserLogin(user, res)
 
@@ -127,11 +130,11 @@ export class UsersController {
     }
   }
 
-  static async googleLogin (req, res) {
+  googleLogin = async (req, res) => {
     try {
       const data = req.body
       // If there is a mail, no matter if is manually logged or google, the user is the same
-      const user = await UsersModel.googleLogin(data)
+      const user = await this.UsersModel.googleLogin(data)
       if (!user) {
         return res.status(404).json({ error: 'Usuario no encontrado' })
       }
@@ -143,11 +146,11 @@ export class UsersController {
     }
   }
 
-  static async facebookLogin (req, res) {
+  facebookLogin = async (req, res) => {
     try {
       const data = req.body
       // If there is a mail, no matter if is manually logged or facebook, the user is the same
-      const user = await UsersModel.facebookLogin(data)
+      const user = await this.UsersModel.facebookLogin(data)
       if (!user) {
         return res.status(404).json({ error: 'Usuario no encontrado' })
       }
@@ -158,7 +161,7 @@ export class UsersController {
     }
   }
 
-  static async createUser (req, res) {
+  createUser = async (req, res) => {
     let data = req.body
     // Validación
     try {
@@ -171,7 +174,7 @@ export class UsersController {
       // Inicializar los datos
       data = initializeDataCreateUser(data)
       // Crear usuario
-      const user = await UsersModel.createUser(data)
+      const user = await this.UsersModel.createUser(data)
       if (!user) {
         return res.status(500).json({ error: 'Error creando usuario' })
       }
@@ -187,10 +190,10 @@ export class UsersController {
     }
   }
 
-  static async deleteUser (req, res) {
+  deleteUser = async (req, res) => {
     try {
       const { userId } = req.params
-      const result = await UsersModel.deleteUser(userId)
+      const result = await this.UsersModel.deleteUser(userId)
       if (!result) {
         return res.status(404).json({ error: 'Usuario no encontrado' })
       }
@@ -201,7 +204,7 @@ export class UsersController {
     }
   }
 
-  static async updateUser (req, res) {
+  updateUser = async (req, res) => {
     try {
       const { userId } = req.params
       const data = req.body
@@ -218,7 +221,7 @@ export class UsersController {
         return res.status(updatedData.status).json(updatedData.json)
       }
       // Actualizar usuario
-      const user = await UsersModel.updateUser(userId, updatedData)
+      const user = await this.UsersModel.updateUser(userId, updatedData)
       if (!user) {
         res.status(404).json({ error: 'Usuario no encontrado o no actualizado' })
       }
@@ -231,16 +234,16 @@ export class UsersController {
     }
   }
 
-  static async logout (req, res) {
+  logout = async (req, res) => {
     res
       .clearCookie('access_token')
       .json({ message: 'Se cerró exitosamente la sesión' })
   }
 
-  static async userData (req, res) {
+  userData = async (req, res) => {
     if (req.session.user) {
       // Devolver los datos del usuario
-      const user = await UsersModel.getUserById(req.session.user._id)
+      const user = await this.UsersModel.getUserById(req.session.user._id)
       if (!user) {
         return res.status(401).json({ error: 'Usuario no encontrado' })
       }
@@ -250,7 +253,7 @@ export class UsersController {
     }
   }
 
-  static async sendValidationEmail (req, res) {
+  sendValidationEmail = async (req, res) => {
     const data = req.body
     if (!data || !data.nombre || !data.correo) {
       return res.status(400).json({ error: 'Missing required fields: nombre or correo' })
@@ -288,7 +291,7 @@ export class UsersController {
     }
   }
 
-  static async userValidation (req, res) {
+  userValidation = async (req, res) => {
     const { token } = req.params
 
     if (!token) {
@@ -300,8 +303,8 @@ export class UsersController {
       const data = jwt.verify(token, SECRET_KEY)
 
       // Retrieve the user and their email
-      const user = await UsersModel.getUserById(data._id)
-      const correo = await UsersModel.getEmailById(data._id)
+      const user = await this.UsersModel.getUserById(data._id)
+      const correo = await this.UsersModel.getEmailById(data._id)
 
       if (!user || !correo) {
         return res.status(404).json({ error: 'User not found' })
@@ -318,7 +321,7 @@ export class UsersController {
       // }
 
       // Update the user's validation status
-      const updated = await UsersModel.updateUser(data._id, { validated: true })
+      const updated = await this.UsersModel.updateUser(data._id, { validated: true })
 
       if (!updated) {
         return res.status(500).json({ error: 'Failed to update user validation status' })
@@ -341,7 +344,7 @@ export class UsersController {
     }
   }
 
-  static async sendChangePasswordEmail (req, res) {
+  sendChangePasswordEmail = async (req, res) => {
     const { email } = req.body
 
     try {
@@ -350,7 +353,7 @@ export class UsersController {
       }
 
       // Verificar existencia del correo
-      const user = await UsersModel.getUserByEmail(email)
+      const user = await this.UsersModel.getUserByEmail(email)
       if (!user) {
         return res.status(404).json({ error: 'El correo no está registrado', ok: false })
       }
@@ -371,7 +374,7 @@ export class UsersController {
     }
   }
 
-  static async changePassword (req, res) {
+  changePassword = async (req, res) => {
     const { token, password } = req.body
 
     try {
@@ -395,13 +398,13 @@ export class UsersController {
 
       const { _id } = decodedToken
 
-      const user = await UsersModel.getUserById(_id)
+      const user = await this.UsersModel.getUserById(_id)
       if (!user) {
         return res.status(404).json({ error: 'Usuario no encontrado', ok: false })
       }
 
       // Actualizar la contraseña (el hash se realiza en el modelo)
-      const userUpdated = await UsersModel.updateUser(_id, { contraseña: password })
+      const userUpdated = await this.UsersModel.updateUser(_id, { contraseña: password })
 
       if (!userUpdated) {
         return res.status(500).json({ error: 'Error al actualizar la contraseña', ok: false })
@@ -414,7 +417,7 @@ export class UsersController {
     }
   }
 
-  static async getPreferenceId (req, res) {
+  getPreferenceId = async (req, res) => {
     const client = new MercadoPagoConfig({
       accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN
     })
@@ -450,7 +453,7 @@ export class UsersController {
     }
   }
 
-  static async processPayment (req, res) {
+  processPayment = async (req, res) => {
     try {
       const { sellerId, userId, book, shippingDetails, transaction_amount, application_fee, ...data } = req.body
       if (!sellerId || !userId || !book || !shippingDetails) {
@@ -509,7 +512,7 @@ export class UsersController {
     }
   }
 
-  static async MercadoPagoWebhooks (req, res) {
+  MercadoPagoWebhooks = async (req, res) => {
     try {
       const { type } = req.query
       const paymentData = req.body
@@ -571,13 +574,13 @@ export class UsersController {
         }
         */
         // Verificar si ya se procesó esta transacción
-        const existingTransaction = await TransactionsModel.getTransactionById(data.id)
+        const existingTransaction = await this.TransactionsModel.getTransactionById(data.id)
         if (existingTransaction) {
           console.log('Webhook: transacción ya procesada:', data.id)
           return res.status(200).json({ status: 'success' })
         }
 
-        const book = await TransactionsModel.getBookByTransactionId(paymentData.id)
+        const book = await this.TransactionsModel.getBookByTransactionId(paymentData.id)
         await processPaymentResponse({ result: data, sellerId: book.idVendedor, book, data, res })
       }
 
@@ -588,19 +591,19 @@ export class UsersController {
     }
   }
 
-  static async processDelivery (req, res) {
+  processDelivery = async (req, res) => {
   }
 
-  static async followUser (req, res) {
+  followUser = async (req, res) => {
     const { followerId, userId } = req.body
     try {
       if (!followerId || !userId) {
         return res.status(404).json({ ok: false, error: 'No se proporcionó usuario y seguidor' })
       }
       // Es necesario conseguir el usuario para saber que otros seguidores tenía
-      const follower = await UsersModel.getUserById(followerId)
+      const follower = await this.UsersModel.getUserById(followerId)
 
-      const user = await UsersModel.getUserById(userId)
+      const user = await this.UsersModel.getUserById(userId)
 
       if (!follower || !user) {
         return res.status(401).json({ ok: false, error: 'No se encontró el usuario o el seguidor' })
@@ -618,8 +621,8 @@ export class UsersController {
         action = 'Eliminado'
       }
 
-      const followerUpdated = await UsersModel.updateUser(followerId, follower)
-      const userUpdated = await UsersModel.updateUser(userId, user)
+      const followerUpdated = await this.UsersModel.updateUser(followerId, follower)
+      const userUpdated = await this.UsersModel.updateUser(userId, user)
 
       if (!followerUpdated || !userUpdated) {
         return res.status(401).json({ ok: false, error: 'No se pudo actualizar el seguidor' })
@@ -638,12 +641,12 @@ export class UsersController {
     }
   }
 
-  static async getBalance (req, res) {
+  getBalance = async (req, res) => {
     const { userId } = req.params
 
     if (!userId) return res.status(404).json({ error: 'No se proporcionó id de usuario' })
 
-    const balance = await UsersModel.getBalance(userId)
+    const balance = await this.UsersModel.getBalance(userId)
 
     if (!balance) {
       return res.json({ error: 'No se pudo encontrar el balance' })
@@ -651,20 +654,20 @@ export class UsersController {
     res.json({ balance })
   }
 
-  static async createColection (req, res) {
+  createColection = async (req, res) => {
     const { collectionName, userId } = req.body
     try {
       if (!userId || !collectionName) {
         return res.status(400).json({ error: 'No se entregaron todos los campos' })
       }
 
-      const user = await UsersModel.getUserById(userId)
+      const user = await this.UsersModel.getUserById(userId)
       if (!user) {
         return res.status(404).json({ error: 'No se encontró el libro' })
       }
 
       // Agregar la nueva colección
-      const updated = await UsersModel.updateUser(userId, {
+      const updated = await this.UsersModel.updateUser(userId, {
         colecciones: [...(user?.collectionsIds || []), { nombre: collectionName, librosIds: [] }]
       })
 
@@ -679,14 +682,14 @@ export class UsersController {
     }
   }
 
-  static async addToColection (req, res) {
+  addToColection = async (req, res) => {
     const { bookId, collectionName, userId } = req.body
     try {
       if (!userId || !collectionName) {
         return res.status(400).json({ error: 'No se entregaron todos los campos' })
       }
 
-      const user = await UsersModel.getUserById(userId)
+      const user = await this.UsersModel.getUserById(userId)
       if (!user) {
         return res.status(404).json({ error: 'No se encontró el usuario' })
       }
@@ -702,7 +705,7 @@ export class UsersController {
       }
 
       // Actualizar colección
-      const updated = await UsersModel.updateUser(userId, {
+      const updated = await this.UsersModel.updateUser(userId, {
         colecciones: [
           ...user.colecciones.filter((coleccion) => coleccion.nombre !== collectionName),
           {
@@ -723,14 +726,14 @@ export class UsersController {
     }
   }
 
-  static async getBooksByCollection (req, res) {
+  getBooksByCollection = async (req, res) => {
     const { collection } = req.body
     try {
       if (!collection) {
         return res.status(400).json({ error: 'No se proporcionó la colección' })
       }
 
-      const books = await UsersModel.getBooksByCollection(collection)
+      const books = await this.UsersModel.getBooksByCollection(collection)
       if (!books || books.length === 0) {
         return res.status(404).json({ error: 'No hay libros en esta colección' })
       }

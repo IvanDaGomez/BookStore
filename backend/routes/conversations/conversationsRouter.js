@@ -1,12 +1,17 @@
 import { Router } from 'express'
 import { ConversationsController } from '../../controllers/conversations/conversationsController.js'
-const conversationsRouter = Router()
 
-// Rutas de conversaciones
-conversationsRouter.get('/', ConversationsController.getAllConversations) // Obtener todas las conversaciones
-conversationsRouter.get('/getConversationsByUser/:userId', ConversationsController.getConversationsByUser)
-conversationsRouter.get('/getConversationById/:conversationId', ConversationsController.getConversationById) // Obtener mensajes en una conversación
-conversationsRouter.post('/', ConversationsController.createConversation) // Crea conversación
-conversationsRouter.delete('/:conversationId', ConversationsController.deleteConversation) // Eliminar una conversación
+export const createConversationsRouter = ({ ConversationsModel, UsersModel }) => {
+  // Crear una instancia del controlador de conversaciones
+  const conversationsController = new ConversationsController({ conversationsModel: ConversationsModel, usersModel: UsersModel })
+  const conversationsRouter = Router()
 
-export { conversationsRouter }
+  // Rutas de conversaciones
+  conversationsRouter.get('/', conversationsController.getAllConversations) // Obtener todas las conversaciones
+  conversationsRouter.get('/getConversationsByUser/:userId', conversationsController.getConversationsByUser)
+  conversationsRouter.get('/getConversationById/:conversationId', conversationsController.getConversationById) // Obtener mensajes en una conversación
+  conversationsRouter.post('/', conversationsController.createConversation) // Crea conversación
+  conversationsRouter.delete('/:conversationId', conversationsController.deleteConversation) // Eliminar una conversación
+
+  return conversationsRouter
+}

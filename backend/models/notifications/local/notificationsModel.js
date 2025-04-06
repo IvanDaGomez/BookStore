@@ -1,5 +1,5 @@
 import fs from 'node:fs/promises'
-import { notificationObject } from '../notificationObject'
+import { notificationObject } from '../notificationObject.js'
 
 // Tu libro ha sido vendido
 // Tu libro ha sido publicado con éxito

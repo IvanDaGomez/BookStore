@@ -5,9 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "test",
-    "dev": "node --watch index.js"
-  },
+  "dev": "node --watch createServer/createServerLocal.js",
+  "dev:local": "node --watch createServer/createServerLocal.js",
+  "dev:postgres": "node --watch createServer/createServerPostgreSQL.js"
+},
   "author": "Ivan Gomez",
   "license": "ISC",
   "dependencies": {

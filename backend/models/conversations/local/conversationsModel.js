@@ -1,5 +1,5 @@
 import fs from 'node:fs/promises'
-import { conversationObject } from '../conversationObject'
+import { conversationObject } from '../conversationObject.js'
 
 export class ConversationsModel {
   static async getAllConversations (l = 0) {

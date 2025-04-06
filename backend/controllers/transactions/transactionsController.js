@@ -1,10 +1,14 @@
-import { TransactionsModel } from '../../models/transactions/local/transactionsModel.js'
 import { validateTransaction } from '../../assets/validate.js'
 
 export class TransactionsController {
-  static async getAllTransactions (req, res) {
+  constructor ({ TransactionsModel }) {
+    this.TransactionsModel = TransactionsModel
+  }
+
+  // Obtener todas las transacciones
+  getAllTransactions = async (req, res) => {
     try {
-      const transactions = await TransactionsModel.getAllTransactions()
+      const transactions = await this.TransactionsModel.getAllTransactions()
       if (!transactions) {
         res.status(500).json({ error: 'Error al leer las transacciones' })
       }
@@ -15,10 +19,10 @@ export class TransactionsController {
     }
   }
 
-  static async getTransactionsByUser (req, res) {
+  getTransactionsByUser = async (req, res) => {
     try {
       const { userId } = req.params
-      const transaction = await TransactionsModel.getTransactionsByUser(userId)
+      const transaction = await this.TransactionsModel.getTransactionsByUser(userId)
       if (!transaction) {
         return res.status(404).json({ error: 'Conversación no encontrada' })
       }
@@ -29,10 +33,10 @@ export class TransactionsController {
     }
   }
 
-  static async getTransactionById (req, res) {
+  getTransactionById = async (req, res) => {
     try {
       const { transactionId } = req.params
-      const transaction = await TransactionsModel.getTransactionById(transactionId)
+      const transaction = await this.TransactionsModel.getTransactionById(transactionId)
       if (!transaction) {
         return res.status(404).json({ error: 'Transacción no encontrada' })
       }
@@ -44,7 +48,7 @@ export class TransactionsController {
   }
 
   // Filtrar transaccións
-  static async createTransaction (req, res) {
+  createTransaction = async (req, res) => {
     const data = req.body
 
     // Validación
@@ -61,9 +65,9 @@ export class TransactionsController {
     let transaction
     // Crear el transacción en la base de datos
     if (data.status === 'approved') {
-      transaction = await TransactionsModel.createSuccessfullTransaction(data)
+      transaction = await this.TransactionsModel.createSuccessfullTransaction(data)
     } else {
-      transaction = await TransactionsModel.createFailureTransaction(data)
+      transaction = await this.TransactionsModel.createFailureTransaction(data)
     }
 
     if (typeof transaction === 'string' && transaction.startsWith('Error')) {
@@ -77,18 +81,18 @@ export class TransactionsController {
     res.send({ transaction })
   }
 
-  static async deleteTransaction (req, res) {
+  deleteTransaction = async (req, res) => {
     try {
       const { transactionId } = req.params
 
       // Obtener los detalles del transacción para encontrar al vendedor (idVendedor)
-      const transaction = await TransactionsModel.getTransactionById(transactionId)
+      const transaction = await this.TransactionsModel.getTransactionById(transactionId)
       if (!transaction) {
         return res.status(404).json({ error: 'Transacción no encontrada' })
       }
 
       // Eliminar el transacción de la base de datos
-      const result = await TransactionsModel.deleteTransaction(transactionId)
+      const result = await this.TransactionsModel.deleteTransaction(transactionId)
       if (!result) {
         return res.status(404).json({ error: 'Transacción no encontrada' })
       }

@@ -2,26 +2,30 @@ import { Router } from 'express'
 import { BooksController } from '../../controllers/books/booksController.js'
 import { upload } from '../../assets/config.js'
 import { generateResponse } from '../../controllers/separated/generateResponse.js'
-const booksRouter = Router()
 
-booksRouter.get('/', BooksController.getAllBooks) // R
-booksRouter.get('/review', BooksController.getAllReviewBooks)
-// booksRouter.get('/safe', BooksController.getAllBooksSafe) // R
-booksRouter.post('/', upload.array('images', 5), BooksController.createBook)
-booksRouter.post('/review', upload.array('images', 5), BooksController.createReviewBook)
-booksRouter.post('/predictInfo', upload.single('image'), BooksController.predictInfo)
-booksRouter.get('/fyp', BooksController.forYouPage)
-booksRouter.get('/query', BooksController.getBookByQuery)
-booksRouter.get('/query/filters', BooksController.getBooksByQueryWithFilters)
-booksRouter.get('/search/:bookTitle', BooksController.searchByBookTitle)
-booksRouter.get('/getFavoritesByUser/:userId', BooksController.getFavoritesByUser)
+export const createBooksRouter = ({ BooksModel, UsersModel }) => {
+  const booksRouter = Router()
+  const booksController = new BooksController({ BooksModel, UsersModel })
+  booksRouter.get('/', booksController.getAllBooks) // R
+  booksRouter.get('/review', booksController.getAllReviewBooks)
+  // booksRouter.get('/safe', booksController.getAllBooksSafe) // R
+  booksRouter.post('/', upload.array('images', 5), booksController.createBook)
+  booksRouter.post('/review', upload.array('images', 5), booksController.createReviewBook)
+  booksRouter.post('/predictInfo', upload.single('image'), booksController.predictInfo)
+  booksRouter.post('/generateDescription', generateResponse)
 
-booksRouter.get('/:bookId', BooksController.getBookById) // R
-booksRouter.put('/review/:bookId', upload.array('images', 5), BooksController.updateReviewBook) // U
-booksRouter.put('/:bookId', upload.array('images', 5), BooksController.updateBook) // U
+  booksRouter.get('/fyp', booksController.forYouPage)
+  booksRouter.get('/query', booksController.getBookByQuery)
+  booksRouter.get('/query/filters', booksController.getBooksByQueryWithFilters)
+  booksRouter.get('/search/:bookTitle', booksController.searchByBookTitle)
+  booksRouter.get('/getFavoritesByUser/:userId', booksController.getFavoritesByUser)
 
-booksRouter.delete('/review/:bookId', BooksController.deleteReviewBook)
-booksRouter.delete('/:bookId', BooksController.deleteBook)
+  booksRouter.get('/:bookId', booksController.getBookById) // R
+  booksRouter.put('/review/:bookId', upload.array('images', 5), booksController.updateReviewBook) // U
+  booksRouter.put('/:bookId', upload.array('images', 5), booksController.updateBook) // U
 
-booksRouter.post('/generateDescription', generateResponse)
-export { booksRouter }
+  booksRouter.delete('/review/:bookId', booksController.deleteReviewBook)
+  booksRouter.delete('/:bookId', booksController.deleteBook)
+
+  return booksRouter
+}

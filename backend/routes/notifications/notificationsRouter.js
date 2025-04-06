@@ -1,13 +1,16 @@
 import Router from 'express'
 import { NotificationsController } from '../../controllers/notifications/notificationsController.js'
-const notificationsRouter = Router()
+export const createNotificationsRouter = ({ NotificationsModel, UsersModel }) => {
+  const notificationsRouter = Router()
+  const notificationsController = new NotificationsController({ NotificationsModel, UsersModel })
 
-notificationsRouter.get('/', NotificationsController.getAllNotifications) // Conseguir todas la notificaciones
-notificationsRouter.post('/', NotificationsController.createNotification)
-notificationsRouter.get('/getNotificationsByUser/:userId', NotificationsController.getAllNotificationsByUserId) // Notificaciones por usuario
-notificationsRouter.put('/:notificationId/read', NotificationsController.markNotificationAsRead)
-notificationsRouter.get('/:notificationId', NotificationsController.getNotificationById) // No
+  notificationsRouter.get('/', notificationsController.getAllNotifications) // Conseguir todas la notificaciones
+  notificationsRouter.post('/', notificationsController.createNotification)
+  notificationsRouter.get('/getNotificationsByUser/:userId', notificationsController.getAllNotificationsByUserId) // Notificaciones por usuario
+  notificationsRouter.put('/:notificationId/read', notificationsController.markNotificationAsRead)
+  notificationsRouter.get('/:notificationId', notificationsController.getNotificationById) // No
 
-notificationsRouter.delete('/:notificationId', NotificationsController.deleteNotification)
+  notificationsRouter.delete('/:notificationId', notificationsController.deleteNotification)
 
-export { notificationsRouter }
+  return notificationsRouter
+}

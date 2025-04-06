@@ -1,9 +1,11 @@
-import { EmailsModel } from '../../models/emails/local/emailsModel.js'
-
 export class EmailsController {
-  static async getAllEmails (req, res) {
+  constructor ({ EmailsModel }) {
+    this.EmailsModel = EmailsModel
+  }
+
+  getAllEmails = async (req, res) => {
     try {
-      const emails = await EmailsModel.getAllEmails()
+      const emails = await this.EmailsModel.getAllEmails()
       res.json(emails)
     } catch (error) {
       console.error('Error al obtener las notificaciones:', error)
@@ -11,14 +13,14 @@ export class EmailsController {
     }
   }
 
-  static async getEmailById (req, res) {
+  getEmailById = async (req, res) => {
     try {
       const { emailId } = req.params
       if (!emailId) {
         return res.status(400).json({ error: 'ID de notificación requerido' })
       }
 
-      const email = await EmailsModel.getEmailById(emailId)
+      const email = await this.EmailsModel.getEmailById(emailId)
       if (!email) {
         return res.status(404).json({ error: 'Notificación no encontrada' })
       }
@@ -30,7 +32,7 @@ export class EmailsController {
     }
   }
 
-  static async createEmail (req, res) {
+  createEmail = async (req, res) => {
     try {
       const data = req.body
 
@@ -38,7 +40,7 @@ export class EmailsController {
         return res.status(400).json({ error: 'Datos inválidos: Se requiere email' })
       }
 
-      const email = await EmailsModel.createEmail(data)
+      const email = await this.EmailsModel.createEmail(data)
       if (!email) {
         return res.status(400).json({ error: 'Este correo ya fue ingresado' })
       }
@@ -50,14 +52,14 @@ export class EmailsController {
     }
   }
 
-  static async deleteEmail (req, res) {
+  deleteEmail = async (req, res) => {
     try {
       const { emailId } = req.params
       if (!emailId) {
         return res.status(400).json({ error: 'ID de notificación requerido' })
       }
 
-      const result = await EmailsModel.deleteEmail(emailId)
+      const result = await this.EmailsModel.deleteEmail(emailId)
       if (!result) {
         return res.status(404).json({ error: 'Notificación no encontrada' })
       }
