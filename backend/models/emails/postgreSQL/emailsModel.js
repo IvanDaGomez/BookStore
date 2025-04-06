@@ -1,13 +1,4 @@
-import { Pool } from 'pg'
-
-// Configuración de conexión a PostgreSQL
-const pool = new Pool({
-  user: 'tu_usuario',
-  host: 'tu_host',
-  database: 'tu_base_de_datos',
-  password: 'tu_contraseña',
-  port: 5432 // Asegúrate de usar el puerto correcto
-})
+import { pool } from '../../../assets/pool.js'
 /*
 
 CREATE TABLE emails (

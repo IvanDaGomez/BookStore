@@ -1,12 +1,5 @@
-import { Pool } from 'pg'
-
-const pool = new Pool({
-  user: 'tu_usuario',
-  host: 'localhost',
-  database: 'bookstore',
-  password: 'tu_contraseña',
-  port: 5432
-})
+import { pool } from '../../../assets/pool.js'
+import { bookObject } from '../bookObject.js'
 /*
  CREATE TABLE books (
     id SERIAL PRIMARY KEY,            -- Identificador único autoincremental

@@ -1,5 +1,5 @@
-import { Pool } from 'pg'
-
+import pkg from 'pg'
+const { Pool } = pkg
 export const pool = new Pool({
   user: process.env.POSTGRESQL_USERNAME,
   host: process.env.POSTGRESQL_HOST,

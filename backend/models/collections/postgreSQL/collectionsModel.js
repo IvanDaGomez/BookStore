@@ -1,16 +1,6 @@
-import { pool } from '../../config/db.js' // Importa la conexión a PostgreSQL
+import { pool } from '../../../assets/pool.js' // Importa la conexión a PostgreSQL
 // import { levenshteinDistance } from '../../../assets/levenshteinDistance.js'
-
-const collectionObject = (data) => ({
-  _id: data.id,
-  foto: data.foto,
-  librosIds: data.libros_ids || [],
-  nombre: data.nombre,
-  descripcion: data.descripcion,
-  seguidores: data.seguidores || [],
-  userId: data.user_id,
-  saga: data.saga
-})
+import { collectionObject } from '../collectionObject.js'
 /*
 CREATE TABLE collections (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,

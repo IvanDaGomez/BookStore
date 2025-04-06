@@ -1,4 +1,6 @@
-import { pool } from '../db.js' // Asegúrate de tener un archivo db.js con la conexión a PostgreSQL
+import { pool } from '../../../assets/pool.js'
+import { transactionObject } from '../transactionObject.js'
+
 
 export class TransactionsModel {
   static async getAllTransactions () {

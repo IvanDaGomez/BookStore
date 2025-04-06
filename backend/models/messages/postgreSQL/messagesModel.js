@@ -1,13 +1,5 @@
-import { Pool } from 'pg'
-
-// Configuración de la base de datos PostgreSQL
-const pool = new Pool({
-  user: 'tu_usuario',
-  host: 'tu_host',
-  database: 'tu_base_de_datos',
-  password: 'tu_contraseña',
-  port: 5432
-})
+import { pool } from '../../../assets/pool.js'
+import { messageObject } from '../messageObject.js'
 /*
 
 CREATE TABLE messages (
@@ -18,15 +10,6 @@ CREATE TABLE messages (
   created_in TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   read BOOLEAN DEFAULT FALSE
 ); */
-
-const messageObject = (data) => ({
-  _id: data.id || '',
-  userId: data.user_id || '',
-  message: data.message || '',
-  conversationId: data.conversation_id || '',
-  createdIn: data.created_in || new Date().toISOString(),
-  read: data.read || false
-})
 
 export class MessagesModel {
   static async getAllMessages () {

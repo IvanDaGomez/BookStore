@@ -8,9 +8,10 @@ import { createNotificationsRouter } from './routes/notifications/notificationsR
 import { createTransactionsRouter } from './routes/transactions/transactionsRouter.js'
 import { createEmailsRouter } from './routes/email/emailRouter.js'
 import cookieParser from 'cookie-parser'
-import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 import { createCollectionsRouter } from './routes/collections/collectionsRouter.js'
+import { jwtMiddleware } from './middlewares/jwtMiddleware.js'
+import { trackRequests } from './middlewares/trackRequests.js'
 dotenv.config()
 // import { handleStats } from './assets/handleStats.js'
 export const createApp = ({ BooksModel, UsersModel, MessagesModel, CollectionsModel, ConversationsModel, NotificationsModel, TransactionsModel, EmailsModel }) => {
@@ -49,27 +50,9 @@ export const createApp = ({ BooksModel, UsersModel, MessagesModel, CollectionsMo
   // Habilitar el manejo de cookies
   app.use(cookieParser())
   // Middleware para manejar las cookies y el token JWT
-  app.use((req, res, next) => {
-    // eslint-disable-next-line dot-notation
-    const token = req.cookies.access_token
-    // Only reset req.session.user if it doesn't already exist
-    if (!req.session) req.session = { user: null }
-
-    try {
-      const info = jwt.verify(token, process.env.JWT_SECRET)
-
-      req.session.user = info // Update session with user info from token
-    } catch (error) {
-      // Do nothing if an error occurs
-    }
-
-    next()
-  })
+  app.use(jwtMiddleware)
   // Middleware para trackear las solicitudes
-  app.use((req, res, next) => {
-    console.log(`Request URL: ${req.url}, Method: ${req.method}`)
-    next()
-  })
+  app.use(trackRequests)
   // habilitar req.body
   app.use(express.urlencoded({ extended: true }))
   // Habilitar respuestas solo en json
@@ -78,9 +61,10 @@ export const createApp = ({ BooksModel, UsersModel, MessagesModel, CollectionsMo
   // Estadísticas
   // app.use((req, res, next) => handleStats(req, res, next))
 
-  // Archivos para uploads y optimizados
+  // Archivos estáticos para uploads y optimized
   app.use('/uploads', express.static('uploads'))
   app.use('/optimized', express.static('optimized'))
+
   const models = {
     BooksModel,
     UsersModel,

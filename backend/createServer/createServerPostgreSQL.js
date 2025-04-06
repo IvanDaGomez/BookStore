@@ -1,4 +1,4 @@
-import { createApp } from '../createApp.js'
+import { createApp } from '../index.js'
 import { BooksModel } from '../models/books/postgreSQL/booksModel.js'
 import { UsersModel } from '../models/users/postgreSQL/usersModel.js'
 import { MessagesModel } from '../models/messages/postgreSQL/messagesModel.js'

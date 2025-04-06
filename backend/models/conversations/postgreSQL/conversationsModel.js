@@ -1,5 +1,5 @@
-import { pool } from '../database/db.js'
-
+import { pool } from '../../../assets/pool.js'
+import { conversationObject } from '../conversationObject.js'
 /*
 
 CREATE TABLE conversations (
