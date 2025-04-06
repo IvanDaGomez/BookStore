@@ -1,15 +1,5 @@
 import fs from 'node:fs/promises'
-
-const messageObject = (data) => {
-  return {
-    _id: data._id || '',
-    userId: data.userId || '',
-    message: data.message || '',
-    conversationId: data.conversationId || '',
-    createdIn: data.createdIn || new Date().toISOString(),
-    read: data.read || false
-  }
-}
+import { messageObject } from '../messageObject'
 
 class MessagesModel {
   static async getAllMessages () {

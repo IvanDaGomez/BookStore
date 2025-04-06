@@ -106,6 +106,8 @@ export default function Header () {
   const [openedHamburger, setOpenedHamburger] = useState(false)
   const handleMenuClick = () => {
     const sidebar = document.querySelector('.menuSideBar')
+    
+    sidebar.style.display = 'flex'
     if (openedHamburger) {
       sidebar.style.transform = 'translateX(0)'
       setOpenedHamburger(false)
@@ -115,7 +117,14 @@ export default function Header () {
       setOpenedHamburger(true)
     }
   }
-  const [isMobile] = useState(window.innerWidth < 700)
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 700)
+  useEffect(() => {
+    window.addEventListener('resize', () => setIsMobile((window.innerWidth < 700)))
+    return () => {
+      window.removeEventListener('resize', setIsMobile((window.innerWidth < 700)))
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
   const color = '#42376E'
 
   const logout = async () => {

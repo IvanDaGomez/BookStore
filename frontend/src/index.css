@@ -830,7 +830,7 @@ input:-internal-autofill-selected {
   align-items: center;
   width: 100vw;
   margin: auto;
-  aspect-ratio: 4/1;
+  aspect-ratio: 16/9;
   box-shadow: 0px 0px 7px #666;
   background: radial-gradient(circle, #0099ff, #0066cc, #003399);
   overflow: hidden;

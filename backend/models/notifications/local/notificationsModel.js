@@ -1,4 +1,5 @@
 import fs from 'node:fs/promises'
+import { notificationObject } from '../notificationObject'
 
 // Tu libro ha sido vendido
 // Tu libro ha sido publicado con éxito
@@ -10,26 +11,6 @@ import fs from 'node:fs/promises'
 // Algunos de tus seguidores hicieron una nueva publicación
 // Puede que te guste este tema
 // Hay nuevos libros de x tema
-const notificationObject = (data) => {
-  return {
-    _id: data._id || '',
-    theme: data.theme || '',
-    title: data.title || '',
-    priority: data.priority || '',
-    type: data.type || '',
-    userId: data.userId || '',
-    input: data.input || '',
-    createdIn: data.createdIn || new Date().toISOString(),
-    read: data.read || false,
-    actionUrl: data.actionUrl || '',
-    expiresAt: data.expiresAt || new Date().toISOString(),
-    metadata: data.metadata || {
-      photo: '',
-      bookTitle: '',
-      bookId: ''
-    }
-  }
-}
 
 export class NotificationsModel {
   static async getAllNotifications (l = 0) {

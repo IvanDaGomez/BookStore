@@ -1,18 +1,7 @@
 import fs from 'node:fs/promises'
 import { levenshteinDistance } from '../../../assets/levenshteinDistance.js'
-const collectionObject = (data) => {
-  return {
-    _id: data._id || '',
-    foto: data.foto || '',
-    librosIds: data.librosIds || [],
-    nombre: data.nombre || '',
-    descripcion: data.descripcion || '',
-    seguidores: data.seguidores || [],
-    userId: data.userId || '',
-    saga: data.saga || false
+import { collectionObject } from '../collectionObject.js'
 
-  }
-}
 class CollectionsModel {
   static async getAllCollections () {
     try {

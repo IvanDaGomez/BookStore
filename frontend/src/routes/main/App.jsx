@@ -34,8 +34,14 @@ function App () {
       photo: '/customPlantilla3.png',
       alt: 'Imagen 3'
     }, {
-      photo: '/customPlantilla3.png',
+      photo: '/customPlantilla4.png',
       alt: 'Imagen 3'
+    }, {
+      photo: '/customPlantilla6.png',
+      alt: 'Imagen 6'
+    }, {
+      photo: '/customPlantilla7.png',
+      alt: 'Imagen 7'
     }]
   // Plantilla como coleccione, novedades, etc.
   const plantillas = [

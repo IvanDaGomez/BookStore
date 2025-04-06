@@ -133,7 +133,41 @@
         "nombre": "Aña",
         "librosIds": []
       }
-    ]
+    ],
+    "preferencias": {
+      "Recupera tu mente, reconquista tu vida": 13,
+      "Autoayuda": 29,
+      "Buscar": 49,
+      "Marian Rojas Estapé": 13,
+      "Monica Silva": 25,
+      "Nuevo": 45,
+      "Alvaro Gómez": 6,
+      "Deja de ser tú": 3,
+      "Joe Dispenza": 3,
+      "Demasiado tarde para despertar": 4,
+      "Filosofía": 4,
+      "Slavoj Zizek": 4
+    },
+    "historialBusquedas": {
+      "Autoayuda": 17,
+      "Buscar": 30,
+      "Monica Silva": 7,
+      "Nuevo": 30,
+      "Demasiado tarde para despertar": 1,
+      "Filosofía": 1,
+      "Slavoj Zizek": 1,
+      "Alvaro Gómez": 1,
+      "Recupera tu mente, reconquista tu vida": 3,
+      "Marian Rojas Estapé": 3,
+      "Premio Booker Internacional": 5,
+      "El encuentro de cuatro imperios": 5,
+      "Adulto": 5,
+      "Javier Fernandez Aguado": 5,
+      "Ivan David Gomez Silva": 5,
+      "Español": 5,
+      "Físico": 5,
+      "2da Edición": 5
+    }
   },
   {
     "nombre": "Monica Silva",

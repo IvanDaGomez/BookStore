@@ -24,11 +24,6 @@ export default function MenuSideBar({ callback, user, logoutFn }) {
       title: "Libros",
       icon: <FaList />,
       link: "/libros",
-    },
-    {
-      title: "Customers",
-      icon: <FaList />,
-      link: "/customers",
     }
   ]
   function handleDropwdown() {
@@ -57,7 +52,7 @@ export default function MenuSideBar({ callback, user, logoutFn }) {
     queryInput.current.value = ''
   }
   return (
-    <div className='menuSideBar' onMouseLeave={callback} >{/* */}
+    <div className='menuSideBar' onMouseOut={callback} onMouseLeave={callback} >{/* */}
       {/* Profile Section */}
       {user &&
         <div className="nav-profile" onClick={()=> navigate(`/usuarios/${user._id}`)}>
