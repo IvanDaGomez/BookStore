@@ -1,7 +1,6 @@
 import bcrypt from 'bcrypt'
-import { SALT_ROUNDS } from '../../../assets/config.js'
+import { pool, SALT_ROUNDS } from '../../../assets/config.js'
 import crypto from 'node:crypto'
-import { pool } from '../../../assets/pool.js'
 import { userObject } from '../userObject.js'
 
 export class UsersModel {

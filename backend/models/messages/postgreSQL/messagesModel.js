@@ -1,5 +1,6 @@
-import { pool } from '../../../assets/pool.js'
+import { pool } from '../../../assets/config.js'
 import { messageObject } from '../messageObject.js'
+import crypto from 'node:crypto'
 /*
 
 CREATE TABLE messages (
@@ -15,7 +16,7 @@ export class MessagesModel {
   static async getAllMessages () {
     try {
       const result = await pool.query('SELECT * FROM messages')
-      return result.rows.map(messageObject)
+      return result.rows.map(message => messageObject(message))
     } catch (err) {
       console.error('Error retrieving messages:', err)
       throw new Error('Error loading messages data')
@@ -25,7 +26,10 @@ export class MessagesModel {
   static async getAllMessagesByConversation (id) {
     try {
       const result = await pool.query('SELECT * FROM messages WHERE conversation_id = $1', [id])
-      return result.rows.map(messageObject)
+      if (result.rows.length === 0) {
+        return null
+      }
+      return result.rows.map(message => messageObject(message))
     } catch (err) {
       console.error('Error retrieving messages by conversation:', err)
       throw new Error('Error retrieving messages by conversation')
@@ -35,7 +39,10 @@ export class MessagesModel {
   static async getMessageById (id) {
     try {
       const result = await pool.query('SELECT * FROM messages WHERE id = $1', [id])
-      return result.rows.length ? messageObject(result.rows[0]) : null
+      if (result.rows.length === 0) {
+        return null
+      }
+      return messageObject(result.rows[0]) // The database returns an array of rows, so we take the first one
     } catch (err) {
       console.error('Error retrieving message by ID:', err)
       throw new Error('Error retrieving message by ID')
@@ -44,42 +51,45 @@ export class MessagesModel {
 
   static async sendMessage (data) {
     try {
+      data._id = crypto.randomUUID()
+      const time = new Date()
+      data.createdIn = time.toISOString()
       const newMessage = messageObject(data)
 
-      const result = await pool.query(
-        `INSERT INTO messages (user_id, message, conversation_id, created_in, read)
-         VALUES ($1, $2, $3, $4, $5) RETURNING *`,
-        [newMessage.userId, newMessage.message, newMessage.conversationId, newMessage.createdIn, newMessage.read]
+      await pool.query(
+        `INSERT INTO messages (id, user_id, message, conversation_id, created_in, read)
+         VALUES ($1, $2, $3, $4, $5, $6)`,
+        [newMessage._id, newMessage.userId, newMessage.message, newMessage.conversationId, newMessage.createdIn, newMessage.read]
       )
 
-      return messageObject(result.rows[0])
+      return true
     } catch (err) {
       console.error('Error sending message:', err)
-      throw new Error('Error sending message')
+      return false
     }
   }
 
   static async deleteMessage (id) {
     try {
-      const result = await pool.query('DELETE FROM messages WHERE id = $1 RETURNING *', [id])
-      return result.rowCount > 0 ? { message: 'Message deleted successfully' } : null
+      await pool.query('DELETE FROM messages WHERE id = $1', [id])
+      return true
     } catch (err) {
       console.error('Error deleting message:', err)
-      throw new Error('Error deleting message')
+      return false
     }
   }
 
   static async updateMessage (id, data) {
     try {
-      const result = await pool.query(
+      await pool.query(
         'UPDATE messages SET message = $1, read = $2 WHERE id = $3 RETURNING *',
         [data.message, data.read, id]
       )
 
-      return result.rowCount > 0 ? messageObject(result.rows[0]) : null
+      return true
     } catch (err) {
       console.error('Error updating message:', err)
-      throw new Error('Error updating message')
+      return false
     }
   }
 }

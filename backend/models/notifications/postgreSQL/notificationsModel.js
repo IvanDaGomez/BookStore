@@ -1,4 +1,4 @@
-import { pool } from '../../../assets/pool.js'
+import { pool } from '../../../assets/config.js'
 import { notificationObject } from '../notificationObject.js'
 /*
 

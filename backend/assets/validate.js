@@ -90,7 +90,7 @@ export const bookSchema = z.object({
   edicion: z.string().optional(),
   idioma: z.string().optional(),
   ubicacion: z
-    .object({
+    .any({
       ciudad: z.string(),
       departamento: z.string(),
       pais: z.string()

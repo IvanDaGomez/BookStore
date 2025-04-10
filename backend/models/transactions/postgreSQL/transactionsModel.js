@@ -1,4 +1,4 @@
-import { pool } from '../../../assets/pool.js'
+import { pool } from '../../../assets/config.js'
 import { transactionObject } from '../transactionObject.js'
 
 

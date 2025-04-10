@@ -1,4 +1,4 @@
-import { pool } from '../../../assets/pool.js' // Importa la conexión a PostgreSQL
+import { pool } from '../../../assets/config.js' // Importa la conexión a PostgreSQL
 // import { levenshteinDistance } from '../../../assets/levenshteinDistance.js'
 import { collectionObject } from '../collectionObject.js'
 /*

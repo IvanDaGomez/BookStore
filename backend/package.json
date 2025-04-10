@@ -7,8 +7,9 @@
   "scripts": {
     "dev": "node --watch createServer/createServerLocal.js",
     "dev:local": "node --watch createServer/createServerLocal.js",
-    "dev:postgre": "node --watch createServer/createServerPostgreSQL.js"
-  },
+    "dev:postgre": "node --watch createServer/createServerPostgreSQL.js",
+    "updateDataBase": "node assets/updateDB.js"
+    },
   "author": "Ivan Gomez",
   "license": "ISC",
   "dependencies": {

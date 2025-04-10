@@ -58,11 +58,6 @@ export class MessagesController {
       return res.status(400).json({ error: validated.error })
     }
 
-    // Asignar un ID único al mensaje
-    data._id = crypto.randomUUID()
-    const time = new Date()
-    data.createdIn = time
-
     // Necesario actualizar la conversación en la que el mensaje se envía
     const conversation = await this.ConversationsModel.getConversationById(data.conversationId)
 
@@ -88,9 +83,6 @@ export class MessagesController {
 
     // Crear el mensaje en la base de datos
     const message = await this.MessagesModel.sendMessage(data)
-    if (typeof message === 'string' && message.startsWith('Error')) {
-      return res.status(500).json({ error: message })
-    }
     if (!message) {
       return res.status(500).json({ error: 'Error al crear mensaje' })
     }
@@ -130,7 +122,7 @@ export class MessagesController {
       // Eliminar el mensaje de la base de datos
       const result = await this.MessagesModel.deleteMessage(messageId)
       if (!result) {
-        return res.status(404).json({ error: 'Mensaje no encontrado' })
+        return res.status(404).json({ error: 'El mensaje no pudo ser eliminado' })
       }
 
       res.json({ message: 'Mensaje eliminado con éxito' })

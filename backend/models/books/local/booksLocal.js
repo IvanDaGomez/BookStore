@@ -37,7 +37,6 @@ class BooksModel {
     }
   }
 
-  // Pendiente desarrollar, una buena query para buscar varios patrones
   static async getBookByQuery (query, l, books = []) {
     if (books.length === 0) {
       books = await this.getAllBooks()
