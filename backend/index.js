@@ -83,6 +83,12 @@ export const createApp = ({ BooksModel, UsersModel, MessagesModel, CollectionsMo
   app.use('/api/collections', createCollectionsRouter(models))
   app.use('/api/emails', createEmailsRouter(models))
   app.use('/api/transactions', createTransactionsRouter(models))
+
+  app.use((err, req, res, next) => {
+    console.error(err.stack)
+    res.status(500).json({ error: 'Internal Server Error' })
+    next()
+  })
   app.listen(PORT, () => {
     console.log('Server is listening on http://localhost:' + PORT)
   })

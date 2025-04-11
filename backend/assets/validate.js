@@ -103,7 +103,7 @@ export const bookSchema = z.object({
   disponibilidad: z.enum(['Disponible', 'No Disponible', 'Vendido']).optional(),
   mensajes: z.array(z.tuple([z.string(), z.string(), z.string()])).optional(),
   mensaje: z.string().optional(),
-  tipo: z.string().optional(),
+  tipo: z.array().optional(),
   pregunta: z.string().optional(),
   librosVendidos: z.number().optional(),
   collectionsIds: z.array(z.any()).optional() // z.string() si sabes que son strings

@@ -2,26 +2,24 @@
 
 import crypto from 'node:crypto'
 import { validateBook, validatePartialBook } from '../../assets/validate.js'
-
 import { cambiarGuionesAEspacio } from '../../../frontend/src/assets/agregarMas.js'
 import { chromium } from 'playwright'
 import { scrapingFunctions } from '../../assets/scrappingConfig.js'
-// import { helperImg } from '../../assets/helperImg.js'
-
 import { sendEmail } from '../../assets/email/sendEmail.js'
 import { createEmail } from '../../assets/email/htmlEmails.js'
 import { sendNotification } from '../../assets/notifications/sendNotification.js'
 import { createNotification } from '../../assets/notifications/createNotification.js'
-import { updateTrends } from '../../assets/trends/updateTrends.js'
-import { updateUserSearchHistory } from '../../assets/trends/updateUserSearchHistory.js'
-import { updateUserPreferences } from '../../assets/trends/updateUserPreferences.js'
+import { filterData, prepareCreateBookData, prepareUpdateBookData } from './prepareCreateBookData.js'
+import { updateData } from './updateData.js'
+// import { helperImg } from '../../assets/helperImg.js'
+
 export class BooksController {
   constructor ({ UsersModel, BooksModel }) {
     this.UsersModel = UsersModel
     this.BooksModel = BooksModel
   }
 
-  getAllBooks = async (req, res) => {
+  getAllBooks = async (req, res, next) => {
     try {
       const books = await this.BooksModel.getAllBooks()
       if (!books) {
@@ -29,12 +27,11 @@ export class BooksController {
       }
       res.json(books)
     } catch (err) {
-      console.error('Error al leer libros:', err)
-      res.status(500).json({ error: 'Error al leer libros' })
+      next(err)
     }
   }
 
-  getBookById = async (req, res) => {
+  getBookById = async (req, res, next) => {
     try {
       const { bookId } = req.params
       const book = await this.BooksModel.getBookById(bookId)
@@ -47,22 +44,15 @@ export class BooksController {
       const user = req.session.user
       if (update) {
         const bookCopy = JSON.parse(JSON.stringify(book)) // asegurás que es limpio y plano
-        await updateUserPreferences(user, bookCopy, 'openedBook')
-        await updateUserSearchHistory(user, bookCopy, 'openedBook')
-        await updateTrends(bookCopy, 'openedBook')
-      }
-
-      if (!book) {
-        return res.status(404).json({ error: 'Libro no encontrado' })
+        await updateData(user, bookCopy, 'openedBook')
       }
       res.json(book)
     } catch (err) {
-      console.error('Error al leer el libro:', err)
-      res.status(500).json({ error: 'Error al leer el libro' })
+      next(err)
     }
   }
 
-  getBookByQuery = async (req, res) => {
+  getBookByQuery = async (req, res, next) => {
     try {
       let { q, l } = req.query
       q = cambiarGuionesAEspacio(q)
@@ -80,44 +70,41 @@ export class BooksController {
       const user = req.session.user
       for (const book of books.slice(0, 3)) {
         const bookCopy = JSON.parse(JSON.stringify(book))
-        await updateUserPreferences(user, bookCopy, 'query')
-        await updateUserSearchHistory(user, bookCopy, 'query')
-        await updateTrends(bookCopy, 'query')
+        await updateData(user, bookCopy, 'query')
       }
       res.json(books)
     } catch (err) {
-      console.error('Error al leer libros por consulta:', err)
-      res.status(500).json({ error: 'Error al leer libros' })
+      next(err)
     }
   }
 
-  getBooksByQueryWithFilters = async (req, res) => {
-    let { categoria, ubicacion, edad, tapa, fechaPublicacion, idioma, estado, q, l } = req.query
-    categoria = cambiarGuionesAEspacio(categoria)
-    ubicacion = cambiarGuionesAEspacio(ubicacion)
-    edad = cambiarGuionesAEspacio(edad)
-    tapa = cambiarGuionesAEspacio(tapa)
-    fechaPublicacion = cambiarGuionesAEspacio(fechaPublicacion)
-    idioma = cambiarGuionesAEspacio(idioma)
-    estado = cambiarGuionesAEspacio(estado)
-
-    if (!q) {
-      return res.status(400).json({ error: 'El parámetro de consulta "q" es requerido' })
-    }
-
-    l = parseInt(l) || 24
-
-    const filterObj = {
-      categoria,
-      ubicacion,
-      edad,
-      tapa,
-      fechaPublicacion,
-      idioma,
-      estado
-    }
-
+  getBooksByQueryWithFilters = async (req, res, next) => {
     try {
+      let { categoria, ubicacion, edad, tapa, fechaPublicacion, idioma, estado, q, l } = req.query
+      categoria = cambiarGuionesAEspacio(categoria)
+      ubicacion = cambiarGuionesAEspacio(ubicacion)
+      edad = cambiarGuionesAEspacio(edad)
+      tapa = cambiarGuionesAEspacio(tapa)
+      fechaPublicacion = cambiarGuionesAEspacio(fechaPublicacion)
+      idioma = cambiarGuionesAEspacio(idioma)
+      estado = cambiarGuionesAEspacio(estado)
+
+      if (!q) {
+        return res.status(400).json({ error: 'El parámetro de consulta "q" es requerido' })
+      }
+
+      l = parseInt(l) || 24
+
+      const filterObj = {
+        categoria,
+        ubicacion,
+        edad,
+        tapa,
+        fechaPublicacion,
+        idioma,
+        estado
+      }
+
       const query = {
         query: q,
         where: {},
@@ -139,24 +126,15 @@ export class BooksController {
       }
 
       return res.status(200).json({ books })
-    } catch (error) {
-      console.error('Error fetching books:', error)
-      return res.status(500).json({ error: 'An error occurred while fetching the books.' })
+    } catch (err) {
+      next(err)
     }
   }
 
-  createBook = async (req, res) => {
-    const data = req.body
+  createBook = async (req, res, next) => {
+    let data = req.body
     try {
-      if (data.oferta) data.oferta = parseInt(data.oferta)
-      data.precio = parseInt(data.precio)
-      if (data.keywords && typeof data.keywords === 'string') {
-        data.keywords = data.keywords.split(',').map(keyword => keyword.trim()).filter(keyword => keyword)
-      } else {
-        data.keywords = []
-      }
-
-      if (req.files) data.images = req.files.map(file => `${file.filename}`)
+      data = prepareCreateBookData(data, req)
 
       const validated = validateBook(data)
       if (!validated.success) {
@@ -167,12 +145,13 @@ export class BooksController {
       if (!user) {
         return res.status(404).json({ error: 'Usuario no encontrado' })
       }
+      // Turn user to Vendedor if not already
       if (!user.rol || user.rol === 'usuario') {
         user.rol = 'Vendedor'
       }
       const updated = await this.UsersModel.updateUser(user._id, {
         librosIds: [...(user?.librosIds || []), data._id],
-        rol: user?.rol || 'Usuario'
+        rol: user.rol
       })
 
       if (!updated) {
@@ -180,9 +159,7 @@ export class BooksController {
       }
 
       const book = await this.BooksModel.createBook(data)
-      if (typeof book === 'string' && book.startsWith('Error')) {
-        return res.status(500).json({ error: book })
-      }
+
       if (!book) {
         return res.status(500).json({ error: 'Error al crear libro' })
       }
@@ -195,13 +172,12 @@ export class BooksController {
       }
       await sendEmail(`${data.vendedor} ${correo.correo}`, 'Libro publicado con éxito', createEmail(data, 'bookPublished'))
       res.send({ book })
-    } catch (error) {
-      console.error('Error al crear el libro:', error)
-      res.status(500).json({ error: error.message })
+    } catch (err) {
+      next(err)
     }
   }
 
-  deleteBook = async (req, res) => {
+  deleteBook = async (req, res, next) => {
     try {
       const { bookId } = req.params
 
@@ -232,67 +208,26 @@ export class BooksController {
 
       res.json({ message: 'Libro eliminado con éxito', result })
     } catch (err) {
-      console.error('Error al eliminar el libro:', err)
-      res.status(500).json({ error: 'Error al eliminar el libro' })
+      next(err)
     }
   }
 
-  updateBook = async (req, res) => {
+  updateBook = async (req, res, next) => {
     try {
       const { bookId } = req.params
-      const data = req.body
+      let data = req.body
       const existingBook = await this.BooksModel.getBookById(bookId)
       if (!existingBook) {
         return res.status(404).json({ error: 'Libro no encontrado' })
       }
 
-      if (data.oferta) data.oferta = parseInt(data.oferta)
-      if (data.precio) data.precio = parseInt(data.precio)
-
-      if (data.keywords && typeof data.keywords === 'string') {
-        data.keywords = data.keywords.split(',').map(keyword => keyword.trim()).filter(keyword => keyword)
-      }
-
-      if (req.files) {
-        data.images = req.files.map(file => `${file.filename}`)
-      }
+      data = prepareUpdateBookData(data, req, existingBook)
       const validated = validatePartialBook(data)
       if (!validated.success) {
         return res.status(400).json({ error: validated.error.errors })
       }
 
-      if (data.mensaje && data.tipo) {
-        const messagesArray = existingBook.mensajes || []
-        if (data.tipo === 'pregunta') {
-          const questionIndex = messagesArray.findIndex(item => item[0] === data.mensaje)
-
-          if (questionIndex === -1) {
-            messagesArray.push([data.mensaje, '', data.senderId])
-          }
-        } else if (data.tipo === 'respuesta' && data.pregunta) {
-          const questionIndex = messagesArray.findIndex(
-            item => item[0] === data.pregunta
-          )
-          if (questionIndex !== -1) {
-            messagesArray[questionIndex][1] = data.mensaje
-          }
-        }
-
-        data.mensajes = messagesArray
-      }
-      const allowedFields = [
-        'titulo', 'autor', 'precio', 'oferta', 'formato', 'images', 'keywords', 'descripcion',
-        'estado', 'genero', 'vendedor', 'idVendedor', 'edicion', 'idioma',
-        'ubicacion', 'tapa', 'edad', 'fechaPublicacion', 'actualizadoEn', 'disponibilidad', 'mensajes', 'isbn'
-      ]
-
-      const filteredData = {}
-      Object.keys(data).forEach(key => {
-        if (allowedFields.includes(key)) {
-          filteredData[key] = data[key]
-        }
-      })
-
+      const filteredData = filterData(data)
       const book = await this.BooksModel.updateBook(bookId, filteredData)
       if (!book) {
         return res.status(404).json({ error: 'Libro no encontrado o no actualizado' })
@@ -304,18 +239,17 @@ export class BooksController {
 
       res.status(200).json(book)
     } catch (err) {
-      console.error('Error al actualizar el libro:', err)
-      res.status(500).json({ error: err.message })
+      next(err)
     }
   }
 
-  searchByBookTitle = async (req, res) => {
-    const { bookTitle } = req.params
+  searchByBookTitle = async (req, res, next) => {
     const browser = await chromium.launch({ headless: true })
-    const context = await browser.newContext()
-    const page = await context.newPage()
-
     try {
+      const { bookTitle } = req.params
+      const context = await browser.newContext()
+      const page = await context.newPage()
+
       let results = []
 
       for (const scrapeFunction of scrapingFunctions) {
@@ -325,13 +259,13 @@ export class BooksController {
 
       await browser.close()
       res.json(results)
-    } catch (error) {
+    } catch (err) {
       await browser.close()
-      res.status(500).json({ error: error.message })
+      next(err)
     }
   }
 
-  getAllReviewBooks = async (req, res) => {
+  getAllReviewBooks = async (req, res, next) => {
     try {
       const books = await this.BooksModel.getAllReviewBooks()
       if (!books) {
@@ -339,45 +273,37 @@ export class BooksController {
       }
       res.json(books)
     } catch (err) {
-      console.error('Error al leer libros:', err)
-      res.status(500).json({ error: 'Error al leer libros' })
+      next(err)
     }
   }
 
-  createReviewBook = async (req, res) => {
-    const data = req.body
-    if (data.oferta) data.oferta = parseInt(data.oferta)
-    data.precio = parseInt(data.precio)
-    if (data.keywords && typeof data.keywords === 'string') {
-      data.keywords = data.keywords.split(',').map(keyword => keyword.trim()).filter(keyword => keyword)
-    } else {
-      data.keywords = []
-    }
+  createReviewBook = async (req, res, next) => {
+    try {
+      let data = req.body
 
-    data.images = req.files.map(file => `${file.filename}`)
+      const validated = validateBook(data)
+      if (!validated.success) {
+        console.error('Error de validación:', validated.error)
+        return res.status(400).json({ error: validated.error })
+      }
+      data = prepareCreateBookData(data, req)
+      if (!data._id) {
+        data._id = crypto.randomUUID()
+      }
 
-    const validated = validateBook(data)
-    if (!validated.success) {
-      console.error('Error de validación:', validated.error)
-      return res.status(400).json({ error: validated.error })
-    }
+      const book = await this.BooksModel.createReviewBook(data)
 
-    if (!data._id) {
-      data._id = crypto.randomUUID()
-    }
+      if (!book) {
+        return res.status(500).json({ error: 'Error al crear libro' })
+      }
 
-    const book = await this.BooksModel.createReviewBook(data)
-    if (typeof book === 'string' && book.startsWith('Error')) {
-      return res.status(500).json({ error: book })
+      res.send({ book })
+    } catch (err) {
+      next(err)
     }
-    if (!book) {
-      return res.status(500).json({ error: 'Error al crear libro' })
-    }
-
-    res.send({ book })
   }
 
-  deleteReviewBook = async (req, res) => {
+  deleteReviewBook = async (req, res, next) => {
     try {
       const { bookId } = req.params
       const result = await this.BooksModel.deleteReviewBook(bookId)
@@ -387,51 +313,27 @@ export class BooksController {
 
       res.json({ message: 'Libro revisión eliminado con éxito', result })
     } catch (err) {
-      console.error('Error al eliminar el libro:', err)
-      res.status(500).json({ error: 'Error al eliminar el libro' })
+      next(err)
     }
   }
 
-  updateReviewBook = async (req, res) => {
+  updateReviewBook = async (req, res, next) => {
     try {
       const { bookId } = req.params
-      const data = req.body
+      let data = req.body
       const existingBook = await this.BooksModel.getBookById(bookId)
       if (!existingBook) {
         return res.status(404).json({ error: 'Libro no encontrado' })
       }
 
-      if (data.oferta) data.oferta = parseInt(data.oferta)
-      if (data.precio) data.precio = parseInt(data.precio)
-
-      if (data.keywords && typeof data.keywords === 'string') {
-        data.keywords = data.keywords.split(',').map(keyword => keyword.trim()).filter(keyword => keyword)
-      }
-      if (data.keywords === '') data.keywords = []
-      if (req.files) {
-        data.images = req.files.map(file => `${file.filename}`)
-      }
-
+      data = prepareUpdateBookData(data, req, existingBook)
       const validated = validatePartialBook(data)
       if (!validated.success) {
         console.error(validated)
         return res.status(400).json({ error: validated.error.errors })
       }
-
-      const allowedFields = [
-        'titulo', 'autor', 'precio', 'oferta', 'formato', 'images', 'keywords', 'descripcion',
-        'estado', 'genero', 'vendedor', 'idVendedor', 'edicion', 'idioma',
-        'ubicacion', 'tapa', 'edad', 'fechaPublicacion', 'actualizadoEn', 'disponibilidad', 'mensajes', 'isbn'
-      ]
-
-      const filteredData = {}
-      Object.keys(data).forEach(key => {
-        if (allowedFields.includes(key)) {
-          filteredData[key] = data[key]
-        }
-      })
-
-      filteredData.actualizadoEn = new Date()
+      const filteredData = filterData(data)
+      filteredData.actualizadoEn = new Date().toISOString()
       filteredData.method = 'PUT'
       const book = await this.BooksModel.updateReviewBook(bookId, filteredData)
       if (!book) {
@@ -439,23 +341,26 @@ export class BooksController {
       }
       res.status(200).json(book)
     } catch (err) {
-      console.error('Error al actualizar el libro:', err)
-      res.status(500).json({ error: err.message })
+      next(err)
     }
   }
 
-  forYouPage = async (req, res) => {
-    const { l } = req.query
-    const results = await this.BooksModel.forYouPage(req.session.user, l)
+  forYouPage = async (req, res, next) => {
+    try {
+      const { l } = req.query
+      const results = await this.BooksModel.forYouPage(req.session.user, l)
 
-    if (!results) {
-      return res.status(400).json({ ok: false, error: 'No se encontraron resultados' })
+      if (!results) {
+        return res.status(400).json({ ok: false, error: 'No se encontraron resultados' })
+      }
+
+      res.json({ books: results, ok: true })
+    } catch (err) {
+      next(err)
     }
-
-    res.json({ books: results, ok: true })
   }
 
-  getFavoritesByUser = async (req, res) => {
+  getFavoritesByUser = async (req, res, next) => {
     const { userId } = req.params
     try {
       if (!userId) return res.status(401).json({ error: 'No se proporcionó userId' })
@@ -465,13 +370,12 @@ export class BooksController {
       if (!favorites) return res.status(400).json({ error: 'No hay favoritos' })
 
       res.json({ data: favorites })
-    } catch (error) {
-      console.error('Error:', error)
-      res.status(500).json({ error: 'Error en el servidor' })
+    } catch (err) {
+      next(err)
     }
   }
 
-  predictInfo = async (req, res) => {
+  predictInfo = async (req, res, next) => {
     try {
       const file = req.file
       if (!file) {
@@ -486,9 +390,8 @@ export class BooksController {
         },
         ok: true
       })
-    } catch (error) {
-      console.error('Error:', error)
-      res.status(500).json({ error: 'Error en el servidor' })
+    } catch (err) {
+      next(err)
     }
   }
 }

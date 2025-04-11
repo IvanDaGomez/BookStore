@@ -10,31 +10,20 @@ import { bookObject } from '../bookObject.js'
 
 class BooksModel {
   static async getAllBooks () {
-    try {
-      const data = await fs.readFile('./models/books.json', 'utf-8')
-      const books = JSON.parse(data)
-
-      return books
-    } catch (err) {
-      console.error('Error reading books:', err)
-      throw new Error(err)
-    }
+    const data = await fs.readFile('./models/books.json', 'utf-8')
+    const books = JSON.parse(data)
+    return books
   }
 
   static async getBookById (id) {
-    try {
-      const books = await this.getAllBooks()
-      const book = books.find(book => book._id === id)
-      if (!book) {
-        return null
-      }
-
-      // Return book with limited public information
-      return bookObject(book)
-    } catch (err) {
-      console.error('Error reading book:', err)
-      throw new Error(err)
+    const books = await this.getAllBooks()
+    const book = books.find(book => book._id === id)
+    if (!book) {
+      return null
     }
+
+    // Return book with limited public information
+    return bookObject(book)
   }
 
   static async getBookByQuery (query, l, books = []) {
@@ -79,120 +68,87 @@ class BooksModel {
   }
 
   static async createBook (data) {
-    try {
-      const books = await this.getAllBooks()
-      const time = new Date()
-      data.fechaPublicacion = time
-      data.actualizadoEn = time
+    const books = await this.getAllBooks()
+    const time = new Date()
+    data.fechaPublicacion = time
+    data.actualizadoEn = time
 
-      books.push(bookObject(data))
-      await fs.writeFile('./models/books.json', JSON.stringify(books, null, 2))
-      return bookObject(data)
-    } catch (err) {
-      return err
-    }
+    books.push(bookObject(data))
+    await fs.writeFile('./models/books.json', JSON.stringify(books, null, 2))
+    return bookObject(data)
   }
 
   static async updateBook (id, data) {
-    try {
-      const books = await this.getAllBooks()
+    const books = await this.getAllBooks()
 
-      const bookIndex = await books.findIndex(book => book._id === id)
-      if (bookIndex === -1) {
-        return null // Si no se encuentra el usuario, retorna null
-      }
-      data.actualizadoEn = new Date()
-
-      // Actualiza los datos del usuario
-      await Object.assign(books[bookIndex], data)
-
-      // Hacer el path hacia aqui
-      // change writeFile to writeFileSync, which makes it synchronous
-      await fs.writeFile('./models/books.json', JSON.stringify(books, null, 2))
-
-      return bookObject(books[bookIndex])
-    } catch (err) {
-      console.error('Error updating book:', err)
-      throw new Error(err)
+    const bookIndex = await books.findIndex(book => book._id === id)
+    if (bookIndex === -1) {
+      return null // Si no se encuentra el usuario, retorna null
     }
+    data.actualizadoEn = new Date()
+
+    // Actualiza los datos del usuario
+    await Object.assign(books[bookIndex], data)
+
+    // Hacer el path hacia aqui
+    // change writeFile to writeFileSync, which makes it synchronous
+    await fs.writeFile('./models/books.json', JSON.stringify(books, null, 2))
+
+    return bookObject(books[bookIndex])
   }
 
   static async deleteBook (id) {
-    try {
-      const books = await this.getAllBooks()
-      const bookIndex = books.findIndex(book => book._id === id)
-      if (bookIndex === -1) {
-        return null // Si no se encuentra el usuario, retorna null
-      }
-      books.splice(bookIndex, 1)
-      await fs.writeFile('./models/books.json', JSON.stringify(books, null, 2))
-      return { message: 'Book deleted successfully' } // Mensaje de éxito
-    } catch (err) {
-      console.error('Error deleting book:', err)
-      throw new Error('Error deleting book')
+    const books = await this.getAllBooks()
+    const bookIndex = books.findIndex(book => book._id === id)
+    if (bookIndex === -1) {
+      return null // Si no se encuentra el usuario, retorna null
     }
+    books.splice(bookIndex, 1)
+    await fs.writeFile('./models/books.json', JSON.stringify(books, null, 2))
+    return { message: 'Book deleted successfully' } // Mensaje de éxito
   }
 
   static async getAllReviewBooks () {
-    try {
-      const data = await fs.readFile('./models/booksBackStage.json', 'utf-8')
-      const books = JSON.parse(data)
+    const data = await fs.readFile('./models/booksBackStage.json', 'utf-8')
+    const books = JSON.parse(data)
 
-      return books
-    } catch (err) {
-      console.error('Error reading books:', err)
-      throw new Error(err)
-    }
+    return books
   }
 
   static async createReviewBook (data) {
-    try {
-      const books = await this.getAllReviewBooks()
+    const books = await this.getAllReviewBooks()
 
-      books.push(bookObject(data))
-      await fs.writeFile('./models/booksBackStage.json', JSON.stringify(books, null, 2))
-      return bookObject(data)
-    } catch (err) {
-      return err
-    }
+    books.push(bookObject(data))
+    await fs.writeFile('./models/booksBackStage.json', JSON.stringify(books, null, 2))
+    return bookObject(data)
   }
 
   static async deleteReviewBook (id) {
-    try {
-      const books = await this.getAllReviewBooks()
-      const bookIndex = books.findIndex(book => book._id === id)
+    const books = await this.getAllReviewBooks()
+    const bookIndex = books.findIndex(book => book._id === id)
 
-      if (bookIndex === -1) {
-        return null // Si no se encuentra el usuario, retorna null
-      }
-
-      books.splice(bookIndex, 1)
-      await fs.writeFile('./models/booksBackStage.json', JSON.stringify(books, null, 2))
-      return { message: 'Book deleted successfully' } // Mensaje de éxito
-    } catch (err) {
-      console.error('Error deleting book:', err)
-      throw new Error('Error deleting book')
+    if (bookIndex === -1) {
+      return null // Si no se encuentra el usuario, retorna null
     }
+
+    books.splice(bookIndex, 1)
+    await fs.writeFile('./models/booksBackStage.json', JSON.stringify(books, null, 2))
+    return { message: 'Book deleted successfully' } // Mensaje de éxito
   }
 
   static async updateReviewBook (id, data) {
-    try {
-      const book = await this.getBookById(id)
+    const book = await this.getBookById(id)
 
-      const reviewBooks = await this.getAllReviewBooks()
+    const reviewBooks = await this.getAllReviewBooks()
 
-      // Actualiza los datos del usuario
-      Object.assign(book, data)
-      reviewBooks.push(book)
-      // Hacer el path hacia aqui
-      // const filePath = pat h.join()
-      await fs.writeFile('./models/booksBackStage.json', JSON.stringify(reviewBooks, null, 2))
+    // Actualiza los datos del usuario
+    Object.assign(book, data)
+    reviewBooks.push(book)
+    // Hacer el path hacia aqui
+    // const filePath = pat h.join()
+    await fs.writeFile('./models/booksBackStage.json', JSON.stringify(reviewBooks, null, 2))
 
-      return book
-    } catch (err) {
-      console.error('Error updating book:', err)
-      throw new Error(err)
-    }
+    return book
   }
 
   static async forYouPage (userKeyInfo = {}, sampleSize = 100) {
@@ -236,34 +192,25 @@ class BooksModel {
   }
 
   static async getFavoritesByUser (favorites) {
-    try {
-      const books = await this.getAllBooks()
+    const books = await this.getAllBooks()
 
-      const elements = books.filter(book => favorites.includes(book._id))
-      if (!elements) return null
-      return elements
-    } catch (error) {
-      console.error('Error getting favorites:', error)
-    }
+    const elements = books.filter(book => favorites.includes(book._id))
+    if (!elements) return null
+    return elements
   }
 
   static async getBooksByIdList (list, l) {
-    try {
-      const books = await this.getAllBooks()
-      const filteredBooks = books.filter((book, index) => {
-        if (index >= l) return false
-        return list.includes(book._id)
-      })
+    const books = await this.getAllBooks()
+    const filteredBooks = books.filter((book, index) => {
+      if (index >= l) return false
+      return list.includes(book._id)
+    })
 
-      if (!filteredBooks || filteredBooks.length === 0) {
-        return [] // Devuelve un arreglo vacío si no hay coincidencias
-      }
-      // Return book with limited public information
-      return filteredBooks.map((book) => bookObject(book)) // Suponiendo que `bookObject` formatea el resultado
-    } catch (err) {
-      console.error('Error reading book:', err)
-      throw new Error('Error fetching books') // Devuelve un mensaje más genérico
+    if (!filteredBooks || filteredBooks.length === 0) {
+      return [] // Devuelve un arreglo vacío si no hay coincidencias
     }
+    // Return book with limited public information
+    return filteredBooks.map((book) => bookObject(book)) // Suponiendo que `bookObject` formatea el resultado
   }
 
   static async predictInfo (file) {

@@ -52,7 +52,7 @@ export default function MenuSideBar({ callback, user, logoutFn }) {
     queryInput.current.value = ''
   }
   return (
-    <div className='menuSideBar' onMouseOut={callback} onMouseLeave={callback} >{/* */}
+    <div className='menuSideBar' onMouseLeave={callback} >{/* */}
       {/* Profile Section */}
       {user &&
         <div className="nav-profile" onClick={()=> navigate(`/usuarios/${user._id}`)}>
