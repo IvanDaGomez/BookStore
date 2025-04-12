@@ -84,9 +84,12 @@ export const createApp = ({ BooksModel, UsersModel, MessagesModel, CollectionsMo
   app.use('/api/emails', createEmailsRouter(models))
   app.use('/api/transactions', createTransactionsRouter(models))
 
+  // Middleware para manejar errores
   app.use((err, req, res, next) => {
     console.error(err.stack)
-    res.status(500).json({ error: 'Internal Server Error' })
+    res.status(500).json({
+      error: process.env.NODE_ENV === 'production' ? 'Internal Server Error' : err.message
+    })
     next()
   })
   app.listen(PORT, () => {

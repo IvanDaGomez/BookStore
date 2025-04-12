@@ -15,11 +15,19 @@ import { updateData } from './updateData.js'
 
 export class BooksController {
   constructor ({ UsersModel, BooksModel }) {
+    /*
+      Utilizamos este estilo de importación para hacer inyecciones de dependencias
+      en lugar de importar directamente los modelos en este archivo
+    */
     this.UsersModel = UsersModel
     this.BooksModel = BooksModel
   }
 
   getAllBooks = async (req, res, next) => {
+    /*
+      Aquí se obtiene todos los libros de la base de datos y se envían como respuesta.
+      Si no se encuentran libros, se envía un error 500.
+    */
     try {
       const books = await this.BooksModel.getAllBooks()
       if (!books) {
@@ -32,6 +40,10 @@ export class BooksController {
   }
 
   getBookById = async (req, res, next) => {
+    /*
+      Aquí se obtiene un libro específico por su ID y se envía como respuesta.
+      Si no se encuentra el libro, se envía un error 404.
+    */
     try {
       const { bookId } = req.params
       const book = await this.BooksModel.getBookById(bookId)
@@ -53,24 +65,37 @@ export class BooksController {
   }
 
   getBookByQuery = async (req, res, next) => {
+    /*
+      Aquí se obtiene libros específicos por su query y se envía como respuesta.
+      Si no se encuentra el libro, se envía un error 404.
+      Las consultas actualizan las estadísticas de los libros y los usuarios.
+    */
     try {
       let { q, l } = req.query
-      q = cambiarGuionesAEspacio(q)
 
-      if (!q) {
+      // Validación de la query
+      if (q) {
+        q = cambiarGuionesAEspacio(q)
+      } else {
         return res.status(400).json({ error: 'El parámetro de consulta "q" es requerido' })
       }
-      if (!l) {
-        l = 24
+      l = parseInt(l) || 24
+
+      if (l > 100) {
+        l = 100
       }
+      // Consigue los libros del modelo
       const books = await this.BooksModel.getBookByQuery(q, l)
       if (books.length === 0) {
         return res.status(404).json({ error: 'No se encontraron libros' })
       }
+      // Si hay usuario en la sesión, actualiza las estadísticas de los libros
       const user = req.session.user
-      for (const book of books.slice(0, 3)) {
-        const bookCopy = JSON.parse(JSON.stringify(book))
-        await updateData(user, bookCopy, 'query')
+      if (user) {
+        for (const book of books.slice(0, 3)) {
+          const bookCopy = JSON.parse(JSON.stringify(book))
+          await updateData(user, bookCopy, 'query')
+        }
       }
       res.json(books)
     } catch (err) {
@@ -79,15 +104,22 @@ export class BooksController {
   }
 
   getBooksByQueryWithFilters = async (req, res, next) => {
+    /*
+      Aquí se obtiene libros específicos por su query y se envía como respuesta.
+      Si no se encuentra el libro, se envía un error 404.
+      Las consultas actualizan las estadísticas de los libros y los usuarios.
+      Se pueden aplicar filtros como categoría, ubicación, edad, tapa, fecha de publicación, idioma y estado.
+    */
     try {
       let { categoria, ubicacion, edad, tapa, fechaPublicacion, idioma, estado, q, l } = req.query
-      categoria = cambiarGuionesAEspacio(categoria)
-      ubicacion = cambiarGuionesAEspacio(ubicacion)
-      edad = cambiarGuionesAEspacio(edad)
-      tapa = cambiarGuionesAEspacio(tapa)
-      fechaPublicacion = cambiarGuionesAEspacio(fechaPublicacion)
-      idioma = cambiarGuionesAEspacio(idioma)
-      estado = cambiarGuionesAEspacio(estado)
+
+      const filters = { categoria, ubicacion, edad, tapa, fechaPublicacion, idioma, estado }
+      Object.keys(filters).forEach(key => {
+        if (filters[key]) {
+          filters[key] = cambiarGuionesAEspacio(filters[key])
+        }
+      })
+      ;({ categoria, ubicacion, edad, tapa, fechaPublicacion, idioma, estado } = filters)
 
       if (!q) {
         return res.status(400).json({ error: 'El parámetro de consulta "q" es requerido' })
@@ -122,32 +154,37 @@ export class BooksController {
       const books = await this.BooksModel.getBooksByQueryWithFilters(query)
 
       if (books.length === 0) {
-        return res.status(404).json({ message: 'No books found matching your filters.' })
+        return res.status(404).json({ error: 'No se encontraron libros' })
       }
 
-      return res.status(200).json({ books })
+      res.status(200).json({ books })
     } catch (err) {
       next(err)
     }
   }
 
   createBook = async (req, res, next) => {
+    /*
+      Aquí se crea un libro nuevo con el modelo.
+      Si no se encuentra el libro, se envía un error 500.
+      Se valida el libro y se envía una notificación al vendedor.
+    */
     let data = req.body
     try {
       data = prepareCreateBookData(data, req)
-
       const validated = validateBook(data)
       if (!validated.success) {
         console.error('Error de validación:', validated.error)
         return res.status(400).json({ error: validated.error })
       }
+      // Recibe el usuario para actualizar sus librosIds
       const user = await this.UsersModel.getUserById(data.idVendedor)
       if (!user) {
         return res.status(404).json({ error: 'Usuario no encontrado' })
       }
       // Turn user to Vendedor if not already
       if (!user.rol || user.rol === 'usuario') {
-        user.rol = 'Vendedor'
+        user.rol = 'vendedor'
       }
       const updated = await this.UsersModel.updateUser(user._id, {
         librosIds: [...(user?.librosIds || []), data._id],

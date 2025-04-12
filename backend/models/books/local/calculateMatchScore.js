@@ -1,8 +1,8 @@
 import { levenshteinDistance } from '../../../assets/levenshteinDistance.js'
 import { changeToArray } from './changeToArray.js'
-export const calculateMatchScore = (book, queryWords, query) => {
+export const calculateMatchScore = (infoObject, queryWords, query) => {
   const queryWordsArray = changeToArray(queryWords)
-  const valueElements = Object.values(book)
+  const valueElements = Object.values(infoObject)
   const stringValueWords = []
 
   let score = 0

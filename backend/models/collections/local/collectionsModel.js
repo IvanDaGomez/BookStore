@@ -1,108 +1,78 @@
 import fs from 'node:fs/promises'
-import { levenshteinDistance } from '../../../assets/levenshteinDistance.js'
 import { collectionObject } from '../collectionObject.js'
+import { calculateMatchScore } from '../../books/local/calculateMatchScore.js'
 
 class CollectionsModel {
   static async getAllCollections () {
-    try {
-      const data = await fs.readFile('./models/collections.json', 'utf-8')
-      const collections = JSON.parse(data)
+    const data = await fs.readFile('./models/collections.json', 'utf-8')
+    const collections = JSON.parse(data)
 
-      return collections
-    } catch (err) {
-      console.error('Error reading collections:', err)
-      throw new Error(err)
-    }
+    return collections
   }
 
   static async getCollectionById (id) {
-    try {
-      const collections = await this.getAllCollections()
-      const collection = collections.find(collection => collection._id === id)
-      if (!collection) {
-        return null
-      }
-
-      // Return collection with limited public information
-      return collectionObject(collection)
-    } catch (err) {
-      console.error('Error reading collection:', err)
-      throw new Error(err)
+    const collections = await this.getAllCollections()
+    const collection = collections.find(collection => collection._id === id)
+    if (!collection) {
+      return null
     }
+
+    // Return collection with limited public information
+    return collectionObject(collection)
   }
 
   static async getCollectionsByUser (id) {
-    try {
-      const collections = await this.getAllCollections()
-      const filteredCollections = collections.filter(collection => collection.userId === id)
-      if (!filteredCollections) {
-        return null
-      }
-
-      // Return collection with limited public information
-      return filteredCollections.map(collection => collectionObject(collection))
-    } catch (err) {
-      console.error('Error reading collection:', err)
-      throw new Error(err)
+    const collections = await this.getAllCollections()
+    const filteredCollections = collections.filter(collection => collection.userId === id)
+    if (!filteredCollections) {
+      return null
     }
+
+    // Return collection with limited public information
+    return filteredCollections.map(collection => collectionObject(collection))
   }
 
   static async createCollection (data) {
-    try {
-      const collections = await this.getAllCollections()
+    const collections = await this.getAllCollections()
 
-      // Crear valores por defecto
-      // Asignar un ID único al colección
-      data._id = crypto.randomUUID()
-      const time = new Date()
-      data.createdIn = `${time.toISOString()}`
-      const newCollection = collectionObject(data)
-      collections.push(newCollection)
-      await fs.writeFile('./models/collections.json', JSON.stringify(collections, null, 2))
-      return newCollection
-    } catch (err) {
-      return err
-    }
+    // Crear valores por defecto
+    // Asignar un ID único al colección
+    data._id = crypto.randomUUID()
+    const time = new Date()
+    data.createdIn = `${time.toISOString()}`
+    const newCollection = collectionObject(data)
+    collections.push(newCollection)
+    await fs.writeFile('./models/collections.json', JSON.stringify(collections, null, 2))
+    return newCollection
   }
 
   static async deleteCollection (id) {
-    try {
-      const collections = await this.getAllCollections()
-      const collectionIndex = collections.findIndex(collection => collection._id === id)
-      if (collectionIndex === -1) {
-        return null // Si no se encuentra el usuario, retorna null
-      }
-      collections.splice(collectionIndex, 1)
-      await fs.writeFile('./models/collections.json', JSON.stringify(collections, null, 2))
-      return { collection: 'Collection deleted successfully' } // Mensaje de éxito
-    } catch (err) {
-      console.error('Error deleting collection:', err)
-      throw new Error('Error deleting collection')
+    const collections = await this.getAllCollections()
+    const collectionIndex = collections.findIndex(collection => collection._id === id)
+    if (collectionIndex === -1) {
+      return null // Si no se encuentra el usuario, retorna null
     }
+    collections.splice(collectionIndex, 1)
+    await fs.writeFile('./models/collections.json', JSON.stringify(collections, null, 2))
+    return { collection: 'Collection deleted successfully' } // Mensaje de éxito
   }
 
   static async updateCollection (id, data) {
-    try {
-      const collections = await this.getAllCollections()
+    const collections = await this.getAllCollections()
 
-      const collectionIndex = collections.findIndex(collection => collection._id === id)
-      if (collectionIndex === -1) {
-        return null // Si no se encuentra la colección, retorna null
-      }
-      // Actualiza los datos directamente en el objeto de la colección
-      Object.assign(collections[collectionIndex], data) // Modifica directamente el objeto en el array
-      await fs.writeFile('./models/collections.json', JSON.stringify(collections, null, 2))
-
-      return collectionObject(collections[collectionIndex]) // Devuelve la colección actualizada
-    } catch (err) {
-      console.error('Error updating collection:', err)
-      throw new Error(err)
+    const collectionIndex = collections.findIndex(collection => collection._id === id)
+    if (collectionIndex === -1) {
+      return null // Si no se encuentra la colección, retorna null
     }
+    // Actualiza los datos directamente en el objeto de la colección
+    Object.assign(collections[collectionIndex], data) // Modifica directamente el objeto en el array
+    await fs.writeFile('./models/collections.json', JSON.stringify(collections, null, 2))
+
+    return collectionObject(collections[collectionIndex]) // Devuelve la colección actualizada
   }
 
   // Pendiente desarrollar, una buena query para buscar varios patrones
   static async getCollectionByQuery (query, l, collections = []) {
-    console.log(collections)
     if (collections.length === 0) {
       collections = await this.getAllCollections()
     }
@@ -113,50 +83,16 @@ class CollectionsModel {
       return element || [] // Devuelve un array vacío si el elemento es nulo o indefinido
     }
 
-    const calculateMatchScore = (collection, queryWords) => {
-      const queryWordsArray = changeToArray(queryWords)
-      const valueElements = Object.values(collection)
-      const stringValueWords = []
-
-      let score = 0
-      const tolerance = query.length > 3 ? 2 : 0 // Tolerancia de letras equivocadas
-
-      valueElements.forEach((element) => {
-        if (typeof element === 'string') {
-          stringValueWords.push(...changeToArray(element))
-        } else if (Array.isArray(element)) {
-          element.forEach((word) => {
-            stringValueWords.push(...changeToArray(word))
-          })
-        }
-      })
-
-      const matchedWords = new Set() // Usamos un Set para evitar duplicados
-
-      for (const queryWord of queryWordsArray) {
-        stringValueWords.forEach(word => {
-          const distance = levenshteinDistance(word.toLowerCase(), queryWord.toLowerCase())
-          if (distance <= tolerance && !matchedWords.has(word)) {
-            score += 1 // Incrementa el score si la distancia está dentro del umbral de tolerancia
-            matchedWords.add(word) // Agrega la palabra al Set
-          }
-        })
-      }
-
-      return score
-    }
-
     const queryWords = changeToArray(query)
 
     const collectionsWithScores = collections.map(collection => {
-      const score = calculateMatchScore(collection, queryWords)
+      const score = calculateMatchScore(collection, queryWords, query)
 
       // Umbral de coincidencia deseado
       if (score < queryWords.length * 0.7) return null
 
       return { collection, score } // Devolvemos el libro junto con su puntaje si pasa la validación
-    })
-      .filter(item => item !== null).slice(0, l)
+    }).filter(item => item !== null).slice(0, l)
 
     // Ordenamos los libros por el puntaje en orden descendente
     collectionsWithScores.sort((a, b) => b.score - a.score)
@@ -183,7 +119,6 @@ class CollectionsModel {
 
   static async getCollectionSaga (bookId, userId) {
     const collections = await this.getAllCollections()
-    console.log(userId, bookId)
 
     for (let i = 0; i < collections.length; i++) {
       const collection = collections[i]
