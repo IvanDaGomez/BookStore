@@ -102,13 +102,14 @@ const idiomas = [
   'Tamil',
   'Telugu',
   'Gujarati',
-  'Punjabi'
+  'Punjabi',
+  'Otro'
 ]
 const estado = ['Nuevo Sellado', 'Un solo Uso', 'Usado', 'Con detalles y Rayones']
 const formato = ['Físico', 'Digital', 'AudioLibro']
 const edicion = ['1ra Edición', '2da Edición', 'Edición Especial', 'Edición de Coleccionista', 'Reimpresión', 'Edición Limitada']
 const tapa = ['Dura', 'Blanda', 'Semi-Dura', 'Edición de bolsillo', 'Sin tapa']
-const edad = ['Niños (0-5)', 'Infantil (6-12)', 'Adolescente (13-17)', 'Adulto', 'Mayores de 65']
+const edad = ['Menor de 12 años', '13-18 años', '19-45 años', '46-65 años', 'Más de 65 años'];
 const ubicaciones = []
 export {
   generos,

@@ -1,0 +1,1143 @@
+[
+  {
+    "_id": "f60c325b-cb26-48e7-a08b-18a7ddc5ab1c",
+    "title": "Tienes una nueva pregunta",
+    "priority": "normal",
+    "type": "newQuestion",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "¿En qué estado se encuentra el producto?",
+    "createdIn": "2024-12-03T17:37:14.371Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/e93345c4-ca50-4919-ba85-4dcf00882673",
+    "expiresAt": "2025-01-02T17:37:14.371Z",
+    "metadata": {
+      "photo": "1733198744024-545526866.png",
+      "bookTitle": "React Practico desde cero a desarrollos web avanzados",
+      "bookId": "e93345c4-ca50-4919-ba85-4dcf00882673"
+    }
+  },
+  {
+    "_id": "69643157-9ddb-47e1-8ace-e5d02e17478d",
+    "title": "Tienes una nueva pregunta",
+    "priority": "normal",
+    "type": "newQuestion",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "¿En qué estado se encuentra el producto?",
+    "createdIn": "2024-12-04T00:12:36.217Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/78c534c0-2fa8-40d0-b72a-c5ee34d0a883",
+    "expiresAt": "2025-01-03T00:12:36.217Z",
+    "metadata": {
+      "photo": "1732390286751-856618092.png",
+      "bookTitle": "El encuentro de cuatro imperios",
+      "bookId": "78c534c0-2fa8-40d0-b72a-c5ee34d0a883"
+    }
+  },
+  {
+    "_id": "32c6afd8-f11c-4e81-adb9-bedc2fd303df",
+    "title": "Tu libro ha sido publicado con éxito",
+    "priority": "high",
+    "type": "bookPublished",
+    "userId": "192c8f5f-4c9b-431b-a3b6-d4f93ba871aa",
+    "input": "",
+    "createdIn": "2024-12-05T23:18:43.050Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/8cf89699-cc2b-4216-998d-a8031fe5fe79",
+    "expiresAt": "2025-01-04T23:18:43.050Z",
+    "metadata": {
+      "photo": "1733440696073-961967320.png",
+      "bookTitle": "React Practico desde cero a desarrollos web avanzados",
+      "bookId": "8cf89699-cc2b-4216-998d-a8031fe5fe79"
+    }
+  },
+  {
+    "_id": "482b4345-d251-4a49-8936-189e2d74302a",
+    "title": "Tu libro ha sido publicado con éxito",
+    "priority": "high",
+    "type": "bookPublished",
+    "userId": "192c8f5f-4c9b-431b-a3b6-d4f93ba871aa",
+    "input": "",
+    "createdIn": "2024-12-05T23:23:57.795Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/80f63656-b199-47e8-9d49-16826153ed63",
+    "expiresAt": "2025-01-04T23:23:57.795Z",
+    "metadata": {
+      "photo": "1733441018344-166312992.png",
+      "bookTitle": "React Practico desde cero a desarrollos web avanzados",
+      "bookId": "80f63656-b199-47e8-9d49-16826153ed63"
+    }
+  },
+  {
+    "_id": "8633acbd-50c2-49b2-8db6-64dd24abaf1b",
+    "title": "Tu libro ha sido publicado con éxito",
+    "priority": "high",
+    "type": "bookPublished",
+    "userId": "08750a7d-4d35-458b-ae1c-2273f04390e9",
+    "input": "",
+    "createdIn": "2024-12-06T22:51:24.411Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/df9478ae-6ffb-4b52-9fe1-81e17e434e47",
+    "expiresAt": "2025-01-05T22:51:24.411Z",
+    "metadata": {
+      "photo": "1733525295775-121853063.png",
+      "bookTitle": "React Practico desde cero a desarrollos web avanzados",
+      "bookId": "df9478ae-6ffb-4b52-9fe1-81e17e434e47"
+    }
+  },
+  {
+    "_id": "ab8813ca-d2fa-4fc0-b356-a05452d9b900",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "welcomeUser",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-10T20:00:29.855Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-09T20:00:29.855Z",
+    "metadata": {
+      "photo": ""
+    }
+  },
+  {
+    "_id": "de4de205-96d7-4256-9e21-fd092803b3d4",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "welcomeUser",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-10T20:00:37.444Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-09T20:00:37.444Z",
+    "metadata": {
+      "photo": ""
+    }
+  },
+  {
+    "_id": "6b73415c-8452-4958-87e1-20a457ea3eb3",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-10T20:05:45.164Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-09T20:05:45.164Z",
+    "metadata": {
+      "photo": "1733253245824-669736538.png"
+    }
+  },
+  {
+    "_id": "24ef83f6-fdca-4d61-a500-58d5a3632e87",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-10T20:06:29.633Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-09T20:06:29.633Z",
+    "metadata": {
+      "photo": ""
+    }
+  },
+  {
+    "_id": "0fb050f8-e64b-4b2e-941a-970bad0b9e20",
+    "title": "Tu libro ha sido vendido con éxito",
+    "priority": "high",
+    "type": "bookSold",
+    "userId": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
+    "input": "",
+    "createdIn": "2024-12-11T20:35:33.234Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/3cd4d6ad-df7c-4e0f-beb9-394de48ce33d",
+    "expiresAt": "2025-01-10T20:35:33.234Z",
+    "metadata": {
+      "photo": "1729453883736-303865584.png",
+      "bookTitle": "Demasiado tarde para despertar",
+      "bookId": "3cd4d6ad-df7c-4e0f-beb9-394de48ce33d"
+    }
+  },
+  {
+    "_id": "e2636ae1-6244-46e8-8731-0c6e693c3f87",
+    "title": "Tu libro ha sido vendido con éxito",
+    "priority": "high",
+    "type": "bookSold",
+    "userId": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
+    "input": "",
+    "createdIn": "2024-12-11T20:37:10.759Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/3cd4d6ad-df7c-4e0f-beb9-394de48ce33d",
+    "expiresAt": "2025-01-10T20:37:10.759Z",
+    "metadata": {
+      "photo": "1729453883736-303865584.png",
+      "bookTitle": "Demasiado tarde para despertar",
+      "bookId": "3cd4d6ad-df7c-4e0f-beb9-394de48ce33d"
+    }
+  },
+  {
+    "_id": "6f4a6399-80c3-48fc-a658-5cc02fa7f324",
+    "title": "Tu libro ha sido vendido con éxito",
+    "priority": "high",
+    "type": "bookSold",
+    "userId": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
+    "input": "",
+    "createdIn": "2024-12-11T20:50:41.126Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/3cd4d6ad-df7c-4e0f-beb9-394de48ce33d",
+    "expiresAt": "2025-01-10T20:50:41.126Z",
+    "metadata": {
+      "photo": "1729453883736-303865584.png",
+      "bookTitle": "Demasiado tarde para despertar",
+      "bookId": "3cd4d6ad-df7c-4e0f-beb9-394de48ce33d"
+    }
+  },
+  {
+    "_id": "94ec3250-7aba-4ad2-b8cf-afaab823f049",
+    "title": "Tu libro ha sido vendido con éxito",
+    "priority": "high",
+    "type": "bookSold",
+    "userId": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
+    "input": "",
+    "createdIn": "2024-12-11T20:54:03.256Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/3cd4d6ad-df7c-4e0f-beb9-394de48ce33d",
+    "expiresAt": "2025-01-10T20:54:03.256Z",
+    "metadata": {
+      "photo": "1729453883736-303865584.png",
+      "bookTitle": "Demasiado tarde para despertar",
+      "bookId": "3cd4d6ad-df7c-4e0f-beb9-394de48ce33d"
+    }
+  },
+  {
+    "_id": "11226648-b511-4d1c-af5d-8a9d54ad0920",
+    "title": "Tu libro ha sido vendido con éxito",
+    "priority": "high",
+    "type": "bookSold",
+    "userId": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
+    "input": "",
+    "createdIn": "2024-12-11T20:55:38.602Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/3cd4d6ad-df7c-4e0f-beb9-394de48ce33d",
+    "expiresAt": "2025-01-10T20:55:38.602Z",
+    "metadata": {
+      "photo": "1729453883736-303865584.png",
+      "bookTitle": "Demasiado tarde para despertar",
+      "bookId": "3cd4d6ad-df7c-4e0f-beb9-394de48ce33d"
+    }
+  },
+  {
+    "_id": "6631a28c-b909-4cbb-9c6d-700d1091f4d4",
+    "title": "Tu libro ha sido vendido con éxito",
+    "priority": "high",
+    "type": "bookSold",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-11T20:58:32.250Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/31d52487-f746-4951-bf11-7b41febea0a9",
+    "expiresAt": "2025-01-10T20:58:32.250Z",
+    "metadata": {
+      "photo": "1732197120267-615755189.png",
+      "bookTitle": "El libro de Bill",
+      "bookId": "31d52487-f746-4951-bf11-7b41febea0a9"
+    }
+  },
+  {
+    "_id": "8553414f-dc88-49cf-b311-4c731333d768",
+    "title": "Tu libro ha sido vendido con éxito",
+    "priority": "high",
+    "type": "bookSold",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-11T21:06:01.892Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/31d52487-f746-4951-bf11-7b41febea0a9",
+    "expiresAt": "2025-01-10T21:06:01.892Z",
+    "metadata": {
+      "photo": "1732197120267-615755189.png",
+      "bookTitle": "El libro de Bill",
+      "bookId": "31d52487-f746-4951-bf11-7b41febea0a9"
+    }
+  },
+  {
+    "_id": "b3e8ff2c-719a-45dc-b784-b76b6b61fab8",
+    "title": "Tu libro ha sido vendido con éxito",
+    "priority": "high",
+    "type": "bookSold",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-11T21:06:47.301Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/31d52487-f746-4951-bf11-7b41febea0a9",
+    "expiresAt": "2025-01-10T21:06:47.301Z",
+    "metadata": {
+      "photo": "1732197120267-615755189.png",
+      "bookTitle": "El libro de Bill",
+      "bookId": "31d52487-f746-4951-bf11-7b41febea0a9"
+    }
+  },
+  {
+    "_id": "788c6e1f-03f6-43f4-bf94-9944f5fee630",
+    "title": "Tu libro ha sido vendido con éxito",
+    "priority": "high",
+    "type": "bookSold",
+    "userId": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
+    "input": "",
+    "createdIn": "2024-12-11T21:20:37.014Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/ac6773d2-9166-4840-b5cd-995a49b19031",
+    "expiresAt": "2025-01-10T21:20:37.014Z",
+    "metadata": {
+      "photo": "1729454260508-386087744.png",
+      "bookTitle": "100 sopas colombianas",
+      "bookId": "ac6773d2-9166-4840-b5cd-995a49b19031"
+    }
+  },
+  {
+    "_id": "88030a56-9447-4f65-8268-669113efc90c",
+    "title": "Tu libro ha sido vendido con éxito",
+    "priority": "high",
+    "type": "bookSold",
+    "userId": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
+    "input": "",
+    "createdIn": "2024-12-11T21:24:04.385Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/ac6773d2-9166-4840-b5cd-995a49b19031",
+    "expiresAt": "2025-01-10T21:24:04.385Z",
+    "metadata": {
+      "photo": "1729454260508-386087744.png",
+      "bookTitle": "100 sopas colombianas",
+      "bookId": "ac6773d2-9166-4840-b5cd-995a49b19031"
+    }
+  },
+  {
+    "_id": "b21b8f96-d41a-4e9a-9f82-3cd85e62ba58",
+    "title": "Tu libro ha sido vendido con éxito",
+    "priority": "high",
+    "type": "bookSold",
+    "userId": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
+    "input": "",
+    "createdIn": "2024-12-11T21:28:33.390Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/ac6773d2-9166-4840-b5cd-995a49b19031",
+    "expiresAt": "2025-01-10T21:28:33.390Z",
+    "metadata": {
+      "photo": "1729454260508-386087744.png",
+      "bookTitle": "100 sopas colombianas",
+      "bookId": "ac6773d2-9166-4840-b5cd-995a49b19031"
+    }
+  },
+  {
+    "_id": "a14d4903-ff75-49d6-bb2d-f6203460279c",
+    "title": "Tu libro ha sido vendido con éxito",
+    "priority": "high",
+    "type": "bookSold",
+    "userId": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
+    "input": "",
+    "createdIn": "2024-12-11T21:30:58.456Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/ac6773d2-9166-4840-b5cd-995a49b19031",
+    "expiresAt": "2025-01-10T21:30:58.456Z",
+    "metadata": {
+      "photo": "1729454260508-386087744.png",
+      "bookTitle": "100 sopas colombianas",
+      "bookId": "ac6773d2-9166-4840-b5cd-995a49b19031"
+    }
+  },
+  {
+    "_id": "8468523a-690e-4c4e-affb-10cfb91c41bd",
+    "title": "Tu libro ha sido vendido con éxito",
+    "priority": "high",
+    "type": "bookSold",
+    "userId": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
+    "input": "",
+    "createdIn": "2024-12-11T21:37:49.969Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/ac6773d2-9166-4840-b5cd-995a49b19031",
+    "expiresAt": "2025-01-10T21:37:49.969Z",
+    "metadata": {
+      "photo": "1729454260508-386087744.png",
+      "bookTitle": "100 sopas colombianas",
+      "bookId": "ac6773d2-9166-4840-b5cd-995a49b19031"
+    }
+  },
+  {
+    "_id": "8a730390-f246-4f22-b11f-642e47d49919",
+    "title": "Tu libro ha sido vendido con éxito",
+    "priority": "high",
+    "type": "bookSold",
+    "userId": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
+    "input": "",
+    "createdIn": "2024-12-11T21:42:33.554Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/ac6773d2-9166-4840-b5cd-995a49b19031",
+    "expiresAt": "2025-01-10T21:42:33.554Z",
+    "metadata": {
+      "photo": "1729454260508-386087744.png",
+      "bookTitle": "100 sopas colombianas",
+      "bookId": "ac6773d2-9166-4840-b5cd-995a49b19031"
+    }
+  },
+  {
+    "_id": "eed1b131-50d1-4d63-84a5-c5c9e0abf849",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "input": "",
+    "createdIn": "2024-12-11T21:44:34.986Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-10T21:44:34.986Z",
+    "metadata": {
+      "photo": "1733521219913-952070967.png"
+    }
+  },
+  {
+    "_id": "daee5ae0-ada7-44a8-a4d1-d287ad47550e",
+    "title": "Tu libro ha sido vendido con éxito",
+    "priority": "high",
+    "type": "bookSold",
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "input": "",
+    "createdIn": "2024-12-11T21:45:16.312Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/23768e73-2ee5-4134-961a-3c08bb3cad34",
+    "expiresAt": "2025-01-10T21:45:16.312Z",
+    "metadata": {
+      "photo": "1729461161367-827651725.png",
+      "bookTitle": "Nexus",
+      "bookId": "23768e73-2ee5-4134-961a-3c08bb3cad34"
+    }
+  },
+  {
+    "_id": "edb0f216-b752-4cc0-9241-b8582e92170e",
+    "title": "Tu libro ha sido vendido con éxito",
+    "priority": "high",
+    "type": "bookSold",
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "input": "",
+    "createdIn": "2024-12-11T21:52:14.760Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/23768e73-2ee5-4134-961a-3c08bb3cad34",
+    "expiresAt": "2025-01-10T21:52:14.760Z",
+    "metadata": {
+      "photo": "1729461161367-827651725.png",
+      "bookTitle": "Nexus",
+      "bookId": "23768e73-2ee5-4134-961a-3c08bb3cad34"
+    }
+  },
+  {
+    "_id": "06af8942-309f-412a-b443-d4fab547e9ee",
+    "title": "Tu libro ha sido vendido con éxito",
+    "priority": "high",
+    "type": "bookSold",
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "input": "",
+    "createdIn": "2024-12-11T21:55:16.731Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/23768e73-2ee5-4134-961a-3c08bb3cad34",
+    "expiresAt": "2025-01-10T21:55:16.731Z",
+    "metadata": {
+      "photo": "1729461161367-827651725.png",
+      "bookTitle": "Nexus",
+      "bookId": "23768e73-2ee5-4134-961a-3c08bb3cad34"
+    }
+  },
+  {
+    "_id": "faea3f55-5326-4eca-9fe3-587770b7ed0c",
+    "title": "Tu libro ha sido vendido con éxito",
+    "priority": "high",
+    "type": "bookSold",
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "input": "",
+    "createdIn": "2024-12-11T21:56:42.950Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/23768e73-2ee5-4134-961a-3c08bb3cad34",
+    "expiresAt": "2025-01-10T21:56:42.950Z",
+    "metadata": {
+      "photo": "1729461161367-827651725.png",
+      "bookTitle": "Nexus",
+      "bookId": "23768e73-2ee5-4134-961a-3c08bb3cad34"
+    }
+  },
+  {
+    "_id": "6dcc1a13-b49a-42b0-8ef8-71b6df6188d1",
+    "title": "Tu libro ha sido vendido con éxito",
+    "priority": "high",
+    "type": "bookSold",
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "input": "",
+    "createdIn": "2024-12-11T22:05:50.143Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/23768e73-2ee5-4134-961a-3c08bb3cad34",
+    "expiresAt": "2025-01-10T22:05:50.143Z",
+    "metadata": {
+      "photo": "1729461161367-827651725.png",
+      "bookTitle": "Nexus",
+      "bookId": "23768e73-2ee5-4134-961a-3c08bb3cad34"
+    }
+  },
+  {
+    "_id": "19194fb5-57d9-4046-abfc-d5391622afee",
+    "title": "Tu libro ha sido vendido con éxito",
+    "priority": "high",
+    "type": "bookSold",
+    "userId": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
+    "input": "",
+    "createdIn": "2024-12-12T14:06:31.371Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/88c87f69-4b49-4633-bfba-cd3d29b1a21d",
+    "expiresAt": "2025-01-11T14:06:31.371Z",
+    "metadata": {
+      "photo": "1729454065315-576691826.png",
+      "bookTitle": "Acaba con la inflamación en 7 días",
+      "bookId": "88c87f69-4b49-4633-bfba-cd3d29b1a21d"
+    }
+  },
+  {
+    "_id": "b67a2d35-0a21-4fdb-a93b-9eaaf5bc2db5",
+    "title": "Tu libro ha sido vendido con éxito",
+    "priority": "high",
+    "type": "bookSold",
+    "userId": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
+    "input": "",
+    "createdIn": "2024-12-12T14:10:25.842Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/88c87f69-4b49-4633-bfba-cd3d29b1a21d",
+    "expiresAt": "2025-01-11T14:10:25.842Z",
+    "metadata": {
+      "photo": "1729454065315-576691826.png",
+      "bookTitle": "Acaba con la inflamación en 7 días",
+      "bookId": "88c87f69-4b49-4633-bfba-cd3d29b1a21d"
+    }
+  },
+  {
+    "_id": "7013d948-ff9d-441b-902a-2cfd706cefe2",
+    "title": "Tu libro ha sido vendido con éxito",
+    "priority": "high",
+    "type": "bookSold",
+    "userId": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
+    "input": "",
+    "createdIn": "2024-12-12T14:11:39.467Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/88c87f69-4b49-4633-bfba-cd3d29b1a21d",
+    "expiresAt": "2025-01-11T14:11:39.467Z",
+    "metadata": {
+      "photo": "1729454065315-576691826.png",
+      "bookTitle": "Acaba con la inflamación en 7 días",
+      "bookId": "88c87f69-4b49-4633-bfba-cd3d29b1a21d"
+    }
+  },
+  {
+    "_id": "15ebce0f-c2da-4014-98b1-f7d665c89dd5",
+    "title": "Tu libro ha sido vendido con éxito",
+    "priority": "high",
+    "type": "bookSold",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-12T14:42:23.466Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/31d52487-f746-4951-bf11-7b41febea0a9",
+    "expiresAt": "2025-01-11T14:42:23.466Z",
+    "metadata": {
+      "photo": "1732197120267-615755189.png",
+      "bookTitle": "El libro de Bill",
+      "bookId": "31d52487-f746-4951-bf11-7b41febea0a9"
+    }
+  },
+  {
+    "_id": "d1b1217e-f798-4b46-ba48-48f4cb687713",
+    "title": "Tu libro ha sido actualizado con éxito",
+    "priority": "high",
+    "type": "bookUpdated",
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "input": "",
+    "createdIn": "2024-12-12T16:49:45.935Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/23768e73-2ee5-4134-961a-3c08bb3cad34",
+    "expiresAt": "2025-01-11T16:49:45.935Z",
+    "metadata": {
+      "photo": "1734022157820-23916145.png",
+      "bookTitle": "Nexus",
+      "bookId": "23768e73-2ee5-4134-961a-3c08bb3cad34"
+    }
+  },
+  {
+    "_id": "72de218b-def9-4bf2-ad61-0f8ba9f38a03",
+    "title": "Tu pregunta ha sido respondida!",
+    "priority": "normal",
+    "type": "questionAnswered",
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "input": "El libro sólamente tiene un uso",
+    "createdIn": "2024-12-12T16:50:51.428Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/23768e73-2ee5-4134-961a-3c08bb3cad34",
+    "expiresAt": "2025-01-11T16:50:51.428Z",
+    "metadata": {
+      "photo": "1734022157820-23916145.png",
+      "bookTitle": "Nexus",
+      "bookId": "23768e73-2ee5-4134-961a-3c08bb3cad34",
+      "question": "¿En qué estado se encuentra el producto?"
+    }
+  },
+  {
+    "_id": "fc77ea6c-e527-469f-9438-07db503c90ac",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-13T22:15:29.677Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-12T22:15:29.677Z",
+    "metadata": {
+      "photo": ""
+    }
+  },
+  {
+    "_id": "368d6444-3abb-4952-8279-fe39efcb9a07",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-13T22:18:42.758Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-12T22:18:42.758Z",
+    "metadata": {
+      "photo": ""
+    }
+  },
+  {
+    "_id": "4b9aec26-c6b6-4ef1-b077-fe33e7b34953",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-13T22:18:44.872Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-12T22:18:44.872Z",
+    "metadata": {
+      "photo": ""
+    }
+  },
+  {
+    "_id": "160f16ef-7ed7-4168-a69e-e021c51c7f2f",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-13T22:18:45.213Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-12T22:18:45.213Z",
+    "metadata": {
+      "photo": ""
+    }
+  },
+  {
+    "_id": "0f5715dd-ddae-40bf-a1a0-8a99b337a746",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-13T22:18:45.536Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-12T22:18:45.536Z",
+    "metadata": {
+      "photo": ""
+    }
+  },
+  {
+    "_id": "de81c254-3ed6-4117-a1fd-c0d0568abd18",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-13T22:18:45.883Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-12T22:18:45.883Z",
+    "metadata": {
+      "photo": ""
+    }
+  },
+  {
+    "_id": "8a4cf6f5-b80c-499b-a388-a3b7ea62bc82",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-13T22:18:46.353Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-12T22:18:46.353Z",
+    "metadata": {
+      "photo": ""
+    }
+  },
+  {
+    "_id": "2e52b41d-4b3f-4220-a8ed-87ac54f2c2d9",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-13T22:18:48.672Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-12T22:18:48.672Z",
+    "metadata": {
+      "photo": ""
+    }
+  },
+  {
+    "_id": "0aed0bde-6692-4ffe-97a5-3931fbff61a5",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-15T16:37:53.000Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-14T16:37:53.000Z",
+    "metadata": {
+      "photo": ""
+    }
+  },
+  {
+    "_id": "a00e27f1-e40d-41e8-b011-4d12f17c433c",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-15T16:37:53.705Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-14T16:37:53.705Z",
+    "metadata": {
+      "photo": ""
+    }
+  },
+  {
+    "_id": "be972bc7-74fa-4b6e-b39e-cdfc8dbdaf86",
+    "title": "Tu libro no ha podido ser actualizado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "input": "",
+    "createdIn": "2024-12-15T22:41:03.003Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/221f695c-69a3-4dee-98e1-0ab4565a734c",
+    "expiresAt": "2025-01-14T22:41:03.003Z",
+    "metadata": {
+      "photo": "1734124472771-278938377.png",
+      "bookTitle": "Si lo crees lo puedes lograr",
+      "bookId": "221f695c-69a3-4dee-98e1-0ab4565a734c"
+    }
+  },
+  {
+    "_id": "cdf642a0-ebc2-47e3-afd8-da3ce97de1cf",
+    "title": "Tu libro no ha podido ser actualizado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "input": "",
+    "createdIn": "2024-12-15T22:41:12.813Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/221f695c-69a3-4dee-98e1-0ab4565a734c",
+    "expiresAt": "2025-01-14T22:41:12.813Z",
+    "metadata": {
+      "photo": "1734127290036-83717320.png",
+      "bookTitle": "Si lo crees lo puedes lograr",
+      "bookId": "221f695c-69a3-4dee-98e1-0ab4565a734c"
+    }
+  },
+  {
+    "_id": "369989bc-c49c-4acb-adb7-32c5bba2b1dd",
+    "title": "Tu libro no ha podido ser actualizado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-15T22:45:26.540Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/e93345c4-ca50-4919-ba85-4dcf00882673",
+    "expiresAt": "2025-01-14T22:45:26.540Z",
+    "metadata": {
+      "photo": "1734302451134-693795767.png",
+      "bookTitle": "React Practico desde cero a desarrollos web avanzados",
+      "bookId": "e93345c4-ca50-4919-ba85-4dcf00882673"
+    }
+  },
+  {
+    "_id": "dd9a2a3b-05a3-4042-a33b-8e65cecedee8",
+    "title": "Tu libro ha sido actualizado con éxito",
+    "priority": "high",
+    "type": "bookUpdated",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-15T23:08:20.732Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/e93345c4-ca50-4919-ba85-4dcf00882673",
+    "expiresAt": "2025-01-14T23:08:20.732Z",
+    "metadata": {
+      "photo": "1734304084508-767749665.png",
+      "bookTitle": "React Practico desde cero a desarrollos web avanzados",
+      "bookId": "e93345c4-ca50-4919-ba85-4dcf00882673"
+    }
+  },
+  {
+    "_id": "16c206be-aa74-44fa-8a62-4b846fb7d496",
+    "title": "Tu pregunta ha sido respondida!",
+    "priority": "normal",
+    "type": "questionAnswered",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "El libro se encuentra en perfecto estado con un solo uso",
+    "createdIn": "2024-12-15T23:09:54.654Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/e93345c4-ca50-4919-ba85-4dcf00882673",
+    "expiresAt": "2025-01-14T23:09:54.654Z",
+    "metadata": {
+      "photo": "1734304084508-767749665.png",
+      "bookTitle": "React Practico desde cero a desarrollos web avanzados",
+      "bookId": "e93345c4-ca50-4919-ba85-4dcf00882673",
+      "question": "¿En qué estado se encuentra el producto?"
+    }
+  },
+  {
+    "_id": "f4d08807-1a78-49ea-b058-10a17709c3bc",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-15T23:59:05.626Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-14T23:59:05.626Z",
+    "metadata": {
+      "photo": "1733253245824-669736538.png"
+    }
+  },
+  {
+    "_id": "f1078af2-187a-42d7-a34b-2ffa8f2cd755",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-15T23:59:08.225Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-14T23:59:08.225Z",
+    "metadata": {
+      "photo": "1733253245824-669736538.png"
+    }
+  },
+  {
+    "_id": "2d880b74-898d-4bb7-99eb-7ccc7a1a9ca2",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-15T23:59:10.518Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-14T23:59:10.518Z",
+    "metadata": {
+      "photo": "1733253245824-669736538.png"
+    }
+  },
+  {
+    "_id": "59b6ae97-181a-4509-9643-6eae5204de8f",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-15T23:59:11.190Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-14T23:59:11.190Z",
+    "metadata": {
+      "photo": "1733253245824-669736538.png"
+    }
+  },
+  {
+    "_id": "dbf1574b-69d0-4def-8878-635d5e59cff1",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-15T23:59:16.210Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-14T23:59:16.210Z",
+    "metadata": {
+      "photo": "1733253245824-669736538.png"
+    }
+  },
+  {
+    "_id": "69e9632d-9a9a-444c-aa20-d1712e3c414a",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-16T02:23:25.463Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-15T02:23:25.463Z",
+    "metadata": {
+      "photo": ""
+    }
+  },
+  {
+    "_id": "c7172f62-3606-499c-abe4-fbc8e3bdea89",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "input": "",
+    "createdIn": "2024-12-16T02:23:28.019Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-15T02:23:28.019Z",
+    "metadata": {
+      "photo": ""
+    }
+  },
+  {
+    "_id": "7b6113c7-128b-4cf0-8de6-78fecd81ccbb",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-16T03:39:26.587Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-15T03:39:26.587Z",
+    "metadata": {
+      "photo": "1733253245824-669736538.png"
+    }
+  },
+  {
+    "_id": "2d20cf34-6201-4fa1-889c-db691a823563",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-16T03:39:28.566Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-15T03:39:28.566Z",
+    "metadata": {
+      "photo": "1733253245824-669736538.png"
+    }
+  },
+  {
+    "_id": "537a4d28-3ba5-430a-8d5f-d5f968073a16",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-16T03:39:30.050Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-15T03:39:30.050Z",
+    "metadata": {
+      "photo": "1733253245824-669736538.png"
+    }
+  },
+  {
+    "_id": "08e1e564-22a7-48dc-b2d8-09371b9a601f",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-16T03:39:32.624Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-15T03:39:32.624Z",
+    "metadata": {
+      "photo": "1733253245824-669736538.png"
+    }
+  },
+  {
+    "_id": "4c5c9d30-5036-4e45-bd84-57966d7ee540",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-16T03:39:35.097Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-15T03:39:35.097Z",
+    "metadata": {
+      "photo": "1733253245824-669736538.png"
+    }
+  },
+  {
+    "_id": "a475856d-7fdc-4b2b-aa75-57cbd5ea193e",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "input": "",
+    "createdIn": "2024-12-17T19:56:56.384Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-16T19:56:56.384Z",
+    "metadata": {
+      "photo": "1733521219913-952070967.png"
+    }
+  },
+  {
+    "_id": "4711b510-5c4b-4004-92cf-af83f255ed69",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "input": "",
+    "createdIn": "2024-12-17T19:57:01.373Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-16T19:57:01.373Z",
+    "metadata": {
+      "photo": "1733521219913-952070967.png"
+    }
+  },
+  {
+    "_id": "900be9e2-1475-4c76-96f4-6e8856ff1c79",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "input": "",
+    "createdIn": "2024-12-17T19:57:41.295Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-16T19:57:41.295Z",
+    "metadata": {
+      "photo": "1733521219913-952070967.png"
+    }
+  },
+  {
+    "_id": "151cd0a5-abdd-40f3-a90e-9b2ccb985f95",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-17T19:57:57.441Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-16T19:57:57.441Z",
+    "metadata": {
+      "photo": "1733253245824-669736538.png"
+    }
+  },
+  {
+    "_id": "cfabdd1f-3d31-43ca-9737-18e27c38992e",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-17T19:57:58.317Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-16T19:57:58.317Z",
+    "metadata": {
+      "photo": "1733253245824-669736538.png"
+    }
+  },
+  {
+    "_id": "8f6c65bf-15b2-4c4b-97c5-516b4b94a988",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "",
+    "createdIn": "2024-12-17T19:58:00.055Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-16T19:58:00.055Z",
+    "metadata": {
+      "photo": "1733253245824-669736538.png"
+    }
+  },
+  {
+    "_id": "a02d3462-61db-47ee-9f7a-9852271fca87",
+    "title": "Tienes un nuevo seguidor",
+    "priority": "low",
+    "type": "newFollower",
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "input": "",
+    "createdIn": "2024-12-17T19:59:29.734Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/usuarios/undefined",
+    "expiresAt": "2025-01-16T19:59:29.734Z",
+    "metadata": {
+      "photo": "1733521219913-952070967.png"
+    }
+  },
+  {
+    "_id": "72ffd96d-95e9-4900-b0be-fae13ec3afc8",
+    "title": "Tu libro ha sido rechazado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "input": "La foto no coincide",
+    "createdIn": "2024-12-24T03:49:06.156Z",
+    "read": true,
+    "actionUrl": "http://localhost:5173/libros/14d11a23-1e26-4e25-8864-d7fb576b2ec0",
+    "expiresAt": "2025-01-23T03:49:06.156Z",
+    "metadata": {
+      "photo": "1735012061588-416368910.png",
+      "bookTitle": "CIEN AÑOS DE SOLEDAD",
+      "bookId": "14d11a23-1e26-4e25-8864-d7fb576b2ec0"
+    }
+  },
+  {
+    "_id": "1ab3e901-b633-4fd1-b582-c50b5ed17713",
+    "title": "Tienes una nueva pregunta",
+    "priority": "normal",
+    "type": "newQuestion",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "input": "¿En qué estado se encuentra el producto?",
+    "createdIn": "2025-03-31T14:08:26.378Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/31d52487-f746-4951-bf11-7b41febea0a9",
+    "expiresAt": "2025-04-30T14:08:26.378Z",
+    "metadata": {
+      "photo": "1732197120267-615755189.png",
+      "bookTitle": "El libro de Bill",
+      "bookId": "31d52487-f746-4951-bf11-7b41febea0a9"
+    }
+  }
+]

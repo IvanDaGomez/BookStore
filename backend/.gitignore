@@ -3,3 +3,10 @@
 .env
 /controllers/users/req.body.txt
 /controllers/users/transactionResponseSample.txt
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

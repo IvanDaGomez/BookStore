@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "ESNext",           // Allow ES module syntax (import/export)
+    "moduleResolution": "node",   // Resolve modules like Node.js does (required for resolveJsonModule)
+    "outDir": "./dist",           // Output compiled JS files in 'dist' folder
+    "rootDir": "./src",           // All TS files are in 'src' folder
+    "esModuleInterop": true,      // Enable compatibility with CommonJS
+    "strict": true,               // Enable strict type-checking
+    "skipLibCheck": true,         // Skip type checking for declaration files
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,    // Allow importing JSON files
+    "allowJs": true               // Allow JavaScript files if needed
+  },
+  "include": [
+    "src/**/*.ts"                 // Include all TypeScript files in 'src' folder
+  ],
+  "exclude": [
+    "node_modules"                // Exclude node_modules
+  ]
+}
