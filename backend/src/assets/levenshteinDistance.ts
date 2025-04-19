@@ -1,4 +1,4 @@
-const levenshteinDistance = (a, b) => {
+const levenshteinDistance = (a: string, b: string): number  => {
   const matrix = Array.from({ length: a.length + 1 }, () =>
     Array(b.length + 1).fill(0)
   )

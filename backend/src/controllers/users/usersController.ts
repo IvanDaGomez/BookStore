@@ -424,7 +424,7 @@ export class UsersController {
 
       const validationLink = `${process.env.FRONTEND_URL}/opciones/cambiarContraseña/${token}`
       const emailContent = createEmail(
-        { correo: email, validationLink, nombre: user.nombre },
+        { validationLink, nombre: user.nombre },
         'changePassword'
       )
 
@@ -594,8 +594,11 @@ export class UsersController {
     try {
       const { type } = req.query
       const paymentData = req.body
-      const signature = req.headers['x-signature']
-      const reqId = req.headers['x-request-id']
+      const signature = req.headers['x-signature'] ?? '' 
+      const reqId = req.headers['x-request-id'] ?? '' 
+      if (Array.isArray(signature) || Array.isArray(reqId)) {
+        return res.status(400).json({ error: 'Firma no válida' })
+      }
       const isValid = validateSignature({ signature, reqId, body: paymentData })
       if (!isValid) {
         return res.status(400).json({ error: 'Firma no válida' })

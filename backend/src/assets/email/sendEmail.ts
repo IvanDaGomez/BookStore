@@ -2,6 +2,7 @@
 import nodemailer from 'nodemailer'
 import dotenv from 'dotenv'
 import { google } from 'googleapis'
+import SMTPPool from 'nodemailer/lib/smtp-pool'
 dotenv.config()
 
 const yourEmail = process.env.EMAIL
@@ -21,10 +22,11 @@ const senderEmail = process.env.EMAIL
 const oAuth2Client = new google.auth.OAuth2(process.env.EMAIL_CLIENT_ID, process.env.EMAIL_CLIENT_SECRET, 'https://developers.google.com/oauthplayground')
 oAuth2Client.setCredentials({ refresh_token: process.env.EMAIL_REFRESH_TOKEN })
 
-const sendEmail = async (to, subject, htmlContent) => {
+const sendEmail = async (to: string, subject: string, htmlContent: string): Promise<SMTPPool.SentMessageInfo> => {
   const accessToken = await oAuth2Client.getAccessToken()
   const transporter = nodemailer.createTransport({
     host: gmailHost,
+    // service: 'gmail',
     port: mailPort,
     secure: false, // use SSL - TLS
     auth: {

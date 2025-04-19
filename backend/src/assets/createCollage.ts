@@ -2,12 +2,13 @@ import sharp from 'sharp'
 import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
 import { existsSync, mkdirSync } from 'fs'
+import { ImageType } from '../types/objects'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 // Función para asegurarse de que la carpeta "uploads" existe
 
 // Función para crear el collage
-async function crearCollage (imagenes, outputFileName) {
+async function crearCollage (imagenes: ImageType[], outputFileName: string): Promise<string> {
   const size = 200 // Tamaño del collage
   const uploadsPath = join(__dirname, '../', 'uploads')
   const outputPath = join(uploadsPath, outputFileName) // Ruta del archivo generado

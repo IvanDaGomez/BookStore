@@ -27,6 +27,6 @@ for (const filePath of filePaths) {
     }
     console.log(`Data from ${file} inserted successfully`)
   } catch (err) {
-    console.error(`Error inserting data from ${file}:`, err)
+    throw new Error(`Error inserting data from ${file}: ${err}`)
   }
 }

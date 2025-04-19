@@ -1,4 +1,5 @@
 import dotenv from 'dotenv'
+import { ISOString } from '../../types/objects'
 dotenv.config()
 
 const styles = `
@@ -66,7 +67,39 @@ const styles = `
                   color: white;
                 }
                 `
-function createEmail (data, template) {
+type emailToSendType =
+  | 'thankEmail'
+  | 'bookPublished'
+  | 'newQuestion'
+  | 'validationEmail'
+  | 'changePassword'
+  | 'paymentDoneBill'
+  | 'paymentDoneThank'
+  | 'bookSold'
+  | 'efectyPendingPayment'
+function createEmail (data: {
+  nombre: string
+  vendedor?: string
+  titulo?: string
+  pregunta?: string
+  validationCode?: number
+  validationLink?: string
+  _id?: string
+  transaction_amount?: number
+  paymentDetails?: {
+    amount: number
+    method: string
+  }
+  guia?: string
+  nombreVendedor?: string
+  date_of_expiration?: Date
+  barcode?: {
+    content: string
+  }
+  fecha?: ISOString
+  guía?: string 
+
+}, template: emailToSendType) {
   switch (template) {
     case 'thankEmail': {
       return `
@@ -238,11 +271,11 @@ function createEmail (data, template) {
                 </tr>
                 <tr>
                   <td><strong>Monto:</strong></td>
-                  <td>$${data.paymentDetails.amount}</td>
+                  <td>$${data.paymentDetails?.amount ?? 'N/A'}</td>
                 </tr>
                 <tr>
                   <td><strong>Método de pago:</strong></td>
-                  <td>${data.paymentDetails.method}</td>
+                  <td>${data.paymentDetails?.method ?? 'N/A'}</td>
                 </tr>
               </table>
               <p>Gracias por tu confianza en ${process.env.BRAND_NAME}.</p>
@@ -304,8 +337,8 @@ function createEmail (data, template) {
               <p>Por favor, prepáralo para el envío lo antes posible y llévalo al punto de "Empresa" más cercano. Aquí tienes algunos detalles importantes:</p>
               <ul>
                 <li><strong>Comprador:</strong> ${data.nombreVendedor}</li>
-                <li><strong>Guía de envío:</strong> ${data.guía || ''}</li>
-                <li><strong>Fecha de la compra:</strong> ${new Date(data.fecha).toLocaleString('es-CO', {
+                <li><strong>Guía de envío:</strong> ${data.guía ?? ''}</li>
+                <li><strong>Fecha de la compra:</strong> ${new Date(data.fecha ?? '').toLocaleString('es-CO', {
                   weekday: 'long',
                   year: 'numeric',
                   month: 'long',
@@ -344,7 +377,7 @@ function createEmail (data, template) {
               <p>Indica al operador de Efecty que deseas realizar un pago y proporciona el código de pago junto con el monto exacto.</p>
                   <ul>
                     <li><strong>Monto a pagar:</strong> $${data.transaction_amount}</li>
-                    <li><strong>Vencimiento:</strong> ${new Date(data.date_of_expiration).toLocaleString('es-CO', {
+                    <li><strong>Vencimiento:</strong> ${new Date(data.date_of_expiration ?? '').toLocaleString('es-CO', {
                       weekday: 'long',
                       year: 'numeric',
                       month: 'long',
@@ -354,7 +387,7 @@ function createEmail (data, template) {
                     })}</li>
                   </ul>
                   <p>
-                    Presenta este código de pago en el punto de Efecty: <strong>${data.barcode.content}</strong>
+                    Presenta este código de pago en el punto de Efecty: <strong>${data.barcode?.content}</strong>
                   </p>
               <p>Si necesitas ayuda con el proceso de envío o tienes alguna pregunta, no dudes en contactarnos.</p>
             </main>

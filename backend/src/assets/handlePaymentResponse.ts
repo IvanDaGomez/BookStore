@@ -1,5 +1,18 @@
+import { PaymentResponse } from "mercadopago/dist/clients/payment/commonTypes"
+import { BookObjectType } from "../types/book"
+import { TransactionObjectType } from "../types/transaction"
+import { ISOString } from "../types/objects"
+
 /* eslint-disable camelcase */
-export function handlePaymentResponse (response) {
+// TODO: Cambiar el nombre de la función a handlePaymentResponse
+export function handlePaymentResponse (response:
+  PaymentResponse & {
+    sellerId: string
+    userId: string
+    book: Partial<BookObjectType>
+    // Shipping details is the response from Envia or Servientrega API
+    shippingDetails: any
+}): TransactionObjectType {
   const {
     userId,
     sellerId,
@@ -30,7 +43,7 @@ export function handlePaymentResponse (response) {
       success = true
       break
     case 'pending':
-      message = `El pago está pendiente. Por favor, realiza el pago utilizando el enlace proporcionado: ${transaction_details.external_resource_url || 'No disponible'}`
+      message = `El pago está pendiente. Por favor, realiza el pago utilizando el enlace proporcionado: ${transaction_details?.external_resource_url ?? 'No disponible'}`
       break
     case 'rejected':
       message = 'El pago fue rechazado. Razón: ' + (status_detail || 'Razón desconocida.')
@@ -59,8 +72,8 @@ export function handlePaymentResponse (response) {
       type: payment_type_id,
       amount: transaction_amount,
       description,
-      createdIn: date_created,
-      paymentLink: transaction_details.external_resource_url
+      createdIn: date_created as ISOString ?? new Date().toISOString() as ISOString,
+      paymentLink: transaction_details?.external_resource_url ?? 'No disponible'
     }
   }
 }

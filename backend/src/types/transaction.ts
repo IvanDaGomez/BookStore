@@ -22,5 +22,7 @@ export type TransactionObjectType = {
     paymentLink?: string
     amount?: number
     method?: string
+    type: string
+    createdIn?: ISOString
   }
 }

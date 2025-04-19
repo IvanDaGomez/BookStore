@@ -1,7 +1,6 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import Papa from 'papaparse'
-
+import express from 'express'
 // File paths for different events
 const files = {
   signups: './data/signups.csv',
@@ -12,7 +11,9 @@ const files = {
 }
 
 // Helper to append data to a CSV
-async function appendToCSV (filePath, data) {
+async function appendToCSV (filePath: string, data:
+  { [key: string]: string | number | boolean | undefined}
+) {
   const fullPath = path.resolve(filePath)
 
   // Check if file exists
@@ -34,7 +35,7 @@ async function appendToCSV (filePath, data) {
   await fs.appendFile(fullPath, row, 'utf-8')
 }
 
-async function handleStats (req, res, next) {
+async function handleStats (req: express.Request, res: express.Response, next: express.NextFunction) {
   try {
     const now = new Date().toISOString() // Current timestamp
 
@@ -61,7 +62,8 @@ async function handleStats (req, res, next) {
 
       case (req.url.includes('/api/books/query') && req.method === 'GET'): {
         // Record searches
-        const data = { date: now, query: req.query.q }
+        const q = req.query.q as string
+        const data = { date: now, query: q }
         await appendToCSV(files.searches, data)
         break
       }
@@ -85,9 +87,8 @@ async function handleStats (req, res, next) {
     }
 
     next() // Pass control to the next middleware
-  } catch (error) {
-    console.error('Error handling stats:', error)
-    next(error) // Pass the error to the error-handling middleware
+  } catch (err) {
+    next(err)
   }
 }
 export { handleStats }

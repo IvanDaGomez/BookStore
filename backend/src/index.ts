@@ -11,9 +11,9 @@ import cookieParser from 'cookie-parser'
 import dotenv from 'dotenv'
 import { createCollectionsRouter } from './routes/collections/collectionsRouter.js'
 import { jwtMiddleware } from './middlewares/jwtMiddleware.js'
-import { trackRequests } from './middlewares/trackRequests.js'
 import swaggerUI from 'swagger-ui-express'
 import swaggerDoc from './data/swagger.json'
+import { handleStats } from './middlewares/handleStats.js'
 dotenv.config()
 // import { handleStats } from './assets/handleStats.js'
 export const createApp = ({
@@ -74,7 +74,7 @@ export const createApp = ({
   // Middleware para manejar las cookies y el token JWT
   app.use(jwtMiddleware)
   // Middleware para trackear las solicitudes
-  app.use(trackRequests)
+  app.use(handleStats)
   // habilitar req.body
   app.use(express.urlencoded({ extended: true }))
   // Habilitar respuestas solo en json

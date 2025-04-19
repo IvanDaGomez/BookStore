@@ -1,7 +1,8 @@
 import fetch from 'node-fetch'
-async function generateResponse (req, res) {
+import express from 'express'
+async function generateResponse (req: express.Request, res: express.Response, next: express.NextFunction) {
   try {
-    const { titulo, autor } = req.body // Destructure the data from the request body
+    const { titulo, autor } = req.body as { titulo: string | undefined, autor: string | undefined}// Destructure the data from the request body
 
     // Validate input
     if (!titulo || !autor) {
@@ -38,9 +39,8 @@ async function generateResponse (req, res) {
     } else {
       throw new Error(data.error.message || 'Error generating description')
     }
-  } catch (error) {
-    console.error('Error:', error.message || error)
-    res.status(500).json({ error: error.message || error })
+  } catch (err) {
+    next(err)
   }
 }
 

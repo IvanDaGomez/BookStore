@@ -21,8 +21,8 @@ export const calculateMatchScore = (infoObject: object, queryWords: string[], qu
   const valueElements = Object.values(infoObject)
   const stringValueWords: string[] = []
 
-  let score = 0
-  const tolerance = query.length > 3 ? 2 : 0 // Tolerancia de letras equivocadas
+  let score: number = 0
+  const tolerance: number = query.length > 3 ? 2 : 0 // Tolerancia de letras equivocadas
 
   valueElements.forEach((element) => {
     if (typeof element === 'string') {
@@ -34,11 +34,11 @@ export const calculateMatchScore = (infoObject: object, queryWords: string[], qu
     }
   })
 
-  const matchedWords = new Set() // Usamos un Set para evitar duplicados
+  const matchedWords: Set<string> = new Set() // Usamos un Set para evitar duplicados
 
   for (const queryWord of queryWordsArray) {
     stringValueWords.forEach(word => {
-      const distance = levenshteinDistance(word.toLowerCase(), queryWord.toLowerCase())
+      const distance: number = levenshteinDistance(word.toLowerCase(), queryWord.toLowerCase())
       if (distance <= tolerance && !matchedWords.has(word)) {
         score += 1 // Incrementa el score si la distancia está dentro del umbral de tolerancia
         matchedWords.add(word) // Agrega la palabra al Set

@@ -2,9 +2,10 @@ import dotenv from 'dotenv'
 import { BookObjectType } from '../../types/book'
 import { NotificationToSendType, NotificationType } from '../../types/notification'
 import { TypeType } from '../../types/notificationCategories'
+import { ID } from '../../types/objects'
 dotenv.config()
 // PROBLEMS I HAVE WITH THE TYPE OF NOTIFICATION
-export function createNotification (data: BookObjectType, template: TypeType): NotificationToSendType {
+export function createNotification (data: BookObjectType & { follower: ID}, template: TypeType): NotificationToSendType {
   /*   {
     "_id": "f60c325b-cb26-48e7-a08b-18a7ddc5ab1c",
     "theme": "",
