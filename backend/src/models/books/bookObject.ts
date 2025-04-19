@@ -15,7 +15,7 @@ function bookObject(data: BookObjectType | Partial<BookObjectType>, fullInfo = t
       isbn: data.isbn ?? '',
       images: data.images ?? [],
       keywords: data.keywords ?? [],
-      _id: data._id ?? '',
+      _id: data._id ?? crypto.randomUUID(),
       descripcion: data.descripcion ?? '',
       estado: data.estado ?? 'Nuevo',
       genero: data.genero ?? '',

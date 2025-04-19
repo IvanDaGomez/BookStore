@@ -1,27 +1,20 @@
-import { ID, ImageType } from "../../types/objects"
+import { CollectionObjectType } from '../../types/collection'
+import { ISOString } from '../../types/objects'
 
-type CollectionObjectType = {
-  _id: ID
-  foto?: ImageType | ''
-  librosIds: ID[]
-  nombre: string
-  descripcion?: string
-  seguidores: ID[]
-  userId: ID
-  saga: boolean
-}
-
-const collectionObject = (data: CollectionObjectType): CollectionObjectType => {
+const collectionObject = (
+  data: Partial<CollectionObjectType>
+): CollectionObjectType => {
   return {
-    _id: data._id,
-    foto: data.foto || '',
-    librosIds: data.librosIds,
-    nombre: data.nombre,
+    _id: data._id ?? crypto.randomUUID(),
+    foto: data.foto ?? '',
+    librosIds: data.librosIds ?? [],
+    nombre: data.nombre ?? '',
     descripcion: data.descripcion || '',
     seguidores: data.seguidores || [],
-    userId: data.userId,
-    saga: data.saga || false
+    userId: data.userId ?? crypto.randomUUID(),
+    saga: data.saga || false,
+    creadoEn: data.creadoEn || (new Date().toISOString() as ISOString)
   }
 }
 
-export { collectionObject, CollectionObjectType}
+export { collectionObject }

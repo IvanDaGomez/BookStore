@@ -1,6 +1,6 @@
-import { CollectionObjectType } from '../models/collections/collectionObject'
 import { AuthToken } from './authToken'
 import { BookObjectType } from './book'
+import { CollectionObjectType } from './collection'
 import { ID, ImageType } from './objects'
 import { PartialUserInfoType, UserInfoType } from './user'
 
@@ -77,11 +77,22 @@ export interface IBooksModel {
 export interface ICollectionsModel {
   getAllCollections(): Promise<CollectionObjectType[]>
   getCollectionById(id: ID): Promise<CollectionObjectType>
+  getCollectionsByUser(id: ID): Promise<CollectionObjectType[]>
+  createCollection (data: Partial<CollectionObjectType>): Promise<CollectionObjectType>
+  deleteCollection (id: ID): Promise<{ message: string }>
+  updateCollection (id: ID, data: Partial<CollectionObjectType>): Promise<CollectionObjectType>
   getCollectionByQuery(
     query: string,
     l: number,
     collections?: CollectionObjectType[]
   ): Promise<Partial<CollectionObjectType>[]>
+  getCollectionsByQueryWithFilters (query: {
+      query: string
+      where: Record<string, string> | {}
+      l: number
+    }): Promise<CollectionObjectType[]>
+  getCollectionSaga (bookId: ID, userId: ID): Promise<CollectionObjectType>
+}
 export interface ITransactionsModel {
   // Define the methods and properties of TransactionsModel
   // Example:

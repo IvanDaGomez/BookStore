@@ -23,11 +23,11 @@ export type BookObjectType = {
     departamento?: string;
     pais?: string;
   };
-  tapa?: '' | CoverType;
-  edad?: '' | AgeType;
+  tapa?: CoverType;
+  edad?: AgeType;
   fechaPublicacion: ISOString; // Date().toISOString()
   actualizadoEn: ISOString;
-  disponibilidad?: AvailabilityType;
+  disponibilidad: AvailabilityType;
   mensajes?: string[][];
-  collectionsIds?: ID[];
+  collectionsIds: ID[];
 }

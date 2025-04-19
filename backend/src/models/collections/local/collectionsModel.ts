@@ -1,68 +1,66 @@
 import fs from 'node:fs/promises'
-import { collectionObject } from '../collectionObject.js'
-import { calculateMatchScore } from '../../../assets/calculateMatchScore.ts/index.js'
+import { collectionObject } from '../collectionObject'
+import { calculateMatchScore } from '../../../assets/calculateMatchScore'
+import { CollectionObjectType } from '../../../types/collection'
+import { ID, ISOString } from '../../../types/objects'
+import { changeToArray } from '../../../assets/changeToArray'
 
 class CollectionsModel {
-  static async getAllCollections () {
+  static async getAllCollections (): Promise<CollectionObjectType[]> {
     const data = await fs.readFile('./models/collections.json', 'utf-8')
-    const collections = JSON.parse(data)
+    const collections: CollectionObjectType[] = JSON.parse(data)
 
     return collections
   }
 
-  static async getCollectionById (id) {
+  static async getCollectionById (id: ID): Promise<CollectionObjectType> {
     const collections = await this.getAllCollections()
     const collection = collections.find(collection => collection._id === id)
     if (!collection) {
-      return null
+      throw new Error('Colección no encontrada')
     }
 
-    // Return collection with limited public information
     return collectionObject(collection)
   }
 
-  static async getCollectionsByUser (id) {
+  static async getCollectionsByUser (id: ID): Promise<CollectionObjectType[]> {
     const collections = await this.getAllCollections()
     const filteredCollections = collections.filter(collection => collection.userId === id)
     if (!filteredCollections) {
-      return null
+      throw new Error('No se encontraron colecciones para este usuario')
     }
 
     // Return collection with limited public information
     return filteredCollections.map(collection => collectionObject(collection))
   }
 
-  static async createCollection (data) {
+  static async createCollection (data: Partial<CollectionObjectType>): Promise<CollectionObjectType> {
     const collections = await this.getAllCollections()
 
     // Crear valores por defecto
-    // Asignar un ID único al colección
-    data._id = crypto.randomUUID()
-    const time = new Date()
-    data.createdIn = `${time.toISOString()}`
     const newCollection = collectionObject(data)
     collections.push(newCollection)
     await fs.writeFile('./models/collections.json', JSON.stringify(collections, null, 2))
     return newCollection
   }
 
-  static async deleteCollection (id) {
+  static async deleteCollection (id: ID): Promise<{ message: string }> {
     const collections = await this.getAllCollections()
     const collectionIndex = collections.findIndex(collection => collection._id === id)
     if (collectionIndex === -1) {
-      return null // Si no se encuentra el usuario, retorna null
+      throw new Error('Colección no encontrada')
     }
     collections.splice(collectionIndex, 1)
     await fs.writeFile('./models/collections.json', JSON.stringify(collections, null, 2))
-    return { collection: 'Collection deleted successfully' } // Mensaje de éxito
+    return { message: 'Collection deleted successfully' } // Mensaje de éxito
   }
 
-  static async updateCollection (id, data) {
+  static async updateCollection (id: ID, data: Partial<CollectionObjectType>): Promise<CollectionObjectType> {
     const collections = await this.getAllCollections()
 
     const collectionIndex = collections.findIndex(collection => collection._id === id)
     if (collectionIndex === -1) {
-      return null // Si no se encuentra la colección, retorna null
+      throw new Error('Colección no encontrada')
     }
     // Actualiza los datos directamente en el objeto de la colección
     Object.assign(collections[collectionIndex], data) // Modifica directamente el objeto en el array
@@ -72,16 +70,11 @@ class CollectionsModel {
   }
 
   // Pendiente desarrollar, una buena query para buscar varios patrones
-  static async getCollectionByQuery (query, l, collections = []) {
+  static async getCollectionByQuery (query: string, l: number, collections: CollectionObjectType[] = []): Promise<CollectionObjectType[]> {
     if (collections.length === 0) {
       collections = await this.getAllCollections()
     }
-    function changeToArray (element) {
-      if (typeof element === 'string' && element.trim() !== '') {
-        return element.split(' ').filter(Boolean)
-      }
-      return element || [] // Devuelve un array vacío si el elemento es nulo o indefinido
-    }
+
 
     const queryWords = changeToArray(query)
 
@@ -101,23 +94,29 @@ class CollectionsModel {
     return collectionsWithScores.map(item => collectionObject(item.collection))
   }
 
-  static async getCollectionsByQueryWithFilters (query) {
+  static async getCollectionsByQueryWithFilters (query: {
+    query: string
+    where: Record<string, string> | {}
+    l: number
+  }): Promise<CollectionObjectType[]> {
     let collections = await this.getAllCollections() // Fetch all collections (local data)
-    if (Object.keys(query.where).length === 0) return []
-
+    if (Object.keys(query.where).length === 0) throw new Error('No se encontraron colecciones para este usuario')
     collections = collections.filter((collection) => {
-      return Object.keys(query.where).some(filter => collection[filter] === query.where[filter])
+      return Object.keys(query.where).some((filter) => {
+        const key = filter as keyof CollectionObjectType
+        return collection[key] === (query.where as Record<string, string>)[filter]
+      })
     })
 
     // Perform search based on the query
     collections = await this.getCollectionByQuery(query.query, query.l, collections)
     if (collections === undefined || !collections) {
-      return []
+      throw new Error('No se encontraron colecciones para este usuario')
     }
     return collections.map((collection) => collectionObject(collection))
   }
 
-  static async getCollectionSaga (bookId, userId) {
+  static async getCollectionSaga (bookId: ID, userId: ID): Promise<CollectionObjectType> {
     const collections = await this.getAllCollections()
 
     for (let i = 0; i < collections.length; i++) {
@@ -126,7 +125,7 @@ class CollectionsModel {
         return collection
       }
     }
-    return null
+    throw new Error('No se encontró una saga para este libro')
   }
 }
 

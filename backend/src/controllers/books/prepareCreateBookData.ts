@@ -35,7 +35,7 @@ function prepareCreateBookData (
   } else {
     data.keywords = []
   }
-
+  data._id = crypto.randomUUID()
   if (req.files)
     data.images = (req.files as Express.Multer.File[]).map(
       file => `${file.filename}`

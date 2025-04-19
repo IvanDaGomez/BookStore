@@ -115,14 +115,14 @@ type LanguageType = typeof languagesArr[number];
 const statesArr = ['Nuevo Sellado', 'Un solo Uso', 'Usado', 'Con detalles y Rayones'] as const
 type StateType = typeof statesArr[number];
 
-const editionArr = ['1ra Edición', '2da Edición', 'Edición Especial',
+const editionArr = ['', '1ra Edición', '2da Edición', 'Edición Especial',
     'Edición de Coleccionista', 'Reimpresión', 'Edición Limitada'] as const
 type EditionType = typeof editionArr[number];
 
-const coverArr = ['Dura', 'Blanda', 'Semi-Dura', 'Edición de bolsillo', 'Sin tapa'] as const
+const coverArr = ['', 'Dura', 'Blanda', 'Semi-Dura', 'Edición de bolsillo', 'Sin tapa'] as const
 type CoverType = typeof coverArr[number];
 
-const ageArr = ['Menor de 12 años', '13-18 años', '19-45 años', '46-65 años', 'Más de 65 años'] as const
+const ageArr = ['', 'Menor de 12 años', '13-18 años', '19-45 años', '46-65 años', 'Más de 65 años'] as const
 type AgeType = typeof ageArr[number];
 
 const availabilityArr = ['Disponible', 'No disponible', 'Vendido'] as const

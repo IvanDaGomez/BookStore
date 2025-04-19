@@ -9,7 +9,7 @@ import { randomIntArrayInRange } from './randomIntArrayRange.js'
 import { bookObject, BookObjectType } from '../bookObject.js'
 import { ID, ISOString } from '../../../types/objects.js'
 import { AuthToken } from '../../../types/authToken.js'
-import { CollectionObjectType } from '../../collections/collectionObject.js'
+import { CollectionObjectType } from '../../../types/collection'
 
 class BooksModel {
   static async getAllBooks (): Promise<BookObjectType[]> {
@@ -97,9 +97,6 @@ class BooksModel {
 
   static async createBook (data: BookObjectType): Promise<BookObjectType> {
     const books = await this.getAllBooks()
-    const time = new Date().toISOString() as ISOString
-    data.fechaPublicacion = time
-    data.actualizadoEn = time
     const bookToAdd = bookObject(data, true)
     books.push(bookToAdd)
     await fs.writeFile('./models/books.json', JSON.stringify(books, null, 2))

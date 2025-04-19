@@ -24,7 +24,8 @@ import { ParsedQs } from 'qs'
 import { ID, ISOString } from '../../types/objects'
 import { AuthToken } from '../../types/authToken'
 import { BookObjectType } from '../../types/book'
-import { CollectionObjectType } from '../../models/collections/collectionObject'
+import { CollectionObjectType } from '../../types/collection'
+
 // import { helperImg } from '../../assets/helperImg.js'
 
 export class BooksController {
@@ -388,10 +389,7 @@ export class BooksController {
         return res.status(400).json({ error: validated.error })
       }
       data = prepareCreateBookData(data, req)
-      if (!data._id) {
-        data._id = crypto.randomUUID()
-      }
-
+      
       const book = await this.BooksModel.createReviewBook(data)
 
       res.send(book)
