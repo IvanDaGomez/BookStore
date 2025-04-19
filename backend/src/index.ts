@@ -12,14 +12,33 @@ import dotenv from 'dotenv'
 import { createCollectionsRouter } from './routes/collections/collectionsRouter.js'
 import { jwtMiddleware } from './middlewares/jwtMiddleware.js'
 import { trackRequests } from './middlewares/trackRequests.js'
+import swaggerUI from 'swagger-ui-express'
+import swaggerDoc from './data/swagger.json' assert { type: 'json' }
 dotenv.config()
 // import { handleStats } from './assets/handleStats.js'
-export const createApp = ({ BooksModel, UsersModel, MessagesModel, CollectionsModel, ConversationsModel, NotificationsModel, TransactionsModel, EmailsModel }:
-  { BooksModel: any, UsersModel: any, MessagesModel: any, CollectionsModel: any, ConversationsModel: any, NotificationsModel: any, TransactionsModel: any, EmailsModel: any }) => {
+export const createApp = ({
+  BooksModel,
+  UsersModel,
+  MessagesModel,
+  CollectionsModel,
+  ConversationsModel,
+  NotificationsModel,
+  TransactionsModel,
+  EmailsModel
+}: {
+  BooksModel: any
+  UsersModel: any
+  MessagesModel: any
+  CollectionsModel: any
+  ConversationsModel: any
+  NotificationsModel: any
+  TransactionsModel: any
+  EmailsModel: any
+}) => {
   // Configuración de la aplicación Express
   const app: express.Application = express()
   // Puerto
-  const PORT: number = parseInt(process.env.PORT ?? '3030', 10);
+  const PORT: number = parseInt(process.env.PORT ?? '3030', 10)
   // Lista de orígenes permitidos
   const whitelist: string[] = [
     `http://localhost:${PORT}`,
@@ -33,21 +52,23 @@ export const createApp = ({ BooksModel, UsersModel, MessagesModel, CollectionsMo
     'http://cbbc-2800-e2-7280-24a-446c-a467-dc81-f31d.ngrok-free.app'
   ]
 
-
   const corsOptions: cors.CorsOptions = {
-    origin: function (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void): void {
+    origin: function (
+      origin: string | undefined,
+      callback: (err: Error | null, allow?: boolean) => void
+    ): void {
       // Permitir solicitudes con 'undefined' origin (como las de Postman)
       if (!origin || whitelist.indexOf(origin) !== -1) {
-        callback(null, true);
+        callback(null, true)
       } else {
-        callback(new Error('Not allowed by CORS'));
+        callback(new Error('Not allowed by CORS'))
       }
     },
     credentials: true // Habilitar el envío de credenciales (cookies)
-  };
+  }
 
   // Habilitar CORS con las opciones definidas
-  app.use(cors(corsOptions))/* corsOptions */
+  app.use(cors(corsOptions)) /* corsOptions */
   // Habilitar el manejo de cookies
   app.use(cookieParser())
   // Middleware para manejar las cookies y el token JWT
@@ -59,6 +80,7 @@ export const createApp = ({ BooksModel, UsersModel, MessagesModel, CollectionsMo
   // Habilitar respuestas solo en json
   app.use(express.json())
 
+  app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDoc))
   // Estadísticas
   // app.use((req, res, next) => handleStats(req, res, next))
 
@@ -86,13 +108,23 @@ export const createApp = ({ BooksModel, UsersModel, MessagesModel, CollectionsMo
   app.use('/api/transactions', createTransactionsRouter(models))
 
   // Middleware para manejar errores
-  app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
-    console.error(err.stack)
-    res.status(500).json({
-      error: process.env.NODE_ENV === 'production' ? 'Internal Server Error' : err.message
-    })
-    next()
-  })
+  app.use(
+    (
+      err: Error,
+      req: express.Request,
+      res: express.Response,
+      next: express.NextFunction
+    ) => {
+      console.error(err.stack)
+      res.status(500).json({
+        error:
+          process.env.NODE_ENV === 'production'
+            ? 'Internal Server Error'
+            : err.message
+      })
+      next()
+    }
+  )
   app.listen(PORT, () => {
     console.log('Server is listening on http://localhost:' + PORT)
   })

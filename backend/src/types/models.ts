@@ -73,6 +73,15 @@ export interface IBooksModel {
     collection: CollectionObjectType
   ): Promise<BookObjectType[]>
 }
+
+export interface ICollectionsModel {
+  getAllCollections(): Promise<CollectionObjectType[]>
+  getCollectionById(id: ID): Promise<CollectionObjectType>
+  getCollectionByQuery(
+    query: string,
+    l: number,
+    collections?: CollectionObjectType[]
+  ): Promise<Partial<CollectionObjectType>[]>
 export interface ITransactionsModel {
   // Define the methods and properties of TransactionsModel
   // Example:

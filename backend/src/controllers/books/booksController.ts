@@ -49,7 +49,7 @@ export class BooksController {
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
-  ) => {
+  ): Promise<express.Response | void> => {
     /*
       Aquí se obtiene todos los libros de la base de datos y se envían como respuesta.
       Si no se encuentran libros, se envía un error 500.
@@ -67,7 +67,7 @@ export class BooksController {
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
-  ) => {
+  ): Promise<express.Response | void> => {
     /*
       Aquí se obtiene un libro específico por su ID y se envía como respuesta.
       Si no se encuentra el libro, se envía un error 404.
@@ -92,7 +92,7 @@ export class BooksController {
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
-  ) => {
+  ): Promise<express.Response | void> => {
     /*
       Aquí se obtiene libros específicos por su query y se envía como respuesta.
       Si no se encuentra el libro, se envía un error 404.
@@ -135,7 +135,7 @@ export class BooksController {
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
-  ) => {
+  ): Promise<express.Response | void> => {
     /*
       Aquí se obtiene libros específicos por su query y se envía como respuesta.
       Si no se encuentra el libro, se envía un error 404.
@@ -233,7 +233,7 @@ export class BooksController {
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
-  ) => {
+  ): Promise<express.Response | void> => {
     /*
       Aquí se crea un libro nuevo con el modelo.
       Si no se encuentra el libro, se envía un error 500.
@@ -259,8 +259,10 @@ export class BooksController {
       })
 
       const book = await this.BooksModel.createBook(data)
-
-      await sendNotification(createNotification(data, 'bookPublished'))
+      const notificationData = {}
+      await sendNotification(
+        createNotification(notificationData, 'bookPublished')
+      )
 
       const correo = await this.UsersModel.getEmailById(data.idVendedor)
 
@@ -279,7 +281,7 @@ export class BooksController {
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
-  ) => {
+  ): Promise<express.Response | void> => {
     try {
       const bookId = req.params.bookId as ID
 
@@ -305,7 +307,7 @@ export class BooksController {
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
-  ) => {
+  ): Promise<express.Response | void> => {
     try {
       const bookId = req.params.bookId as ID
       const rawData = req.body
@@ -321,7 +323,10 @@ export class BooksController {
       const book = await this.BooksModel.updateBook(bookId, filteredData)
 
       if (!rawData.mensaje && !rawData.tipo) {
-        await sendNotification(createNotification(data, 'bookUpdated'))
+        const notificationData = {}
+        await sendNotification(
+          createNotification(notificationData, 'bookUpdated')
+        )
       }
 
       res.status(200).json(book)
@@ -334,7 +339,7 @@ export class BooksController {
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
-  ) => {
+  ): Promise<express.Response | void> => {
     const browser = await chromium.launch({ headless: true })
     try {
       const bookTitle = req.params.bookTitle as string
@@ -360,7 +365,7 @@ export class BooksController {
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
-  ) => {
+  ): Promise<express.Response | void> => {
     try {
       const books = await this.BooksModel.getAllReviewBooks()
       res.json(books)
@@ -373,7 +378,7 @@ export class BooksController {
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
-  ) => {
+  ): Promise<express.Response | void> => {
     try {
       let data = req.body as Partial<BookObjectType>
 
@@ -399,7 +404,7 @@ export class BooksController {
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
-  ) => {
+  ): Promise<express.Response | void> => {
     try {
       const bookId = req.params.bookId as ID
       const result = await this.BooksModel.deleteReviewBook(bookId)
@@ -414,7 +419,7 @@ export class BooksController {
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
-  ) => {
+  ): Promise<express.Response | void> => {
     try {
       const bookId = req.params.bookId as ID
       let rawData = req.body as Partial<BookObjectType>
@@ -443,7 +448,7 @@ export class BooksController {
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
-  ) => {
+  ): Promise<express.Response | void> => {
     /*
       Aquí se obtiene libros específicos por su query y se envía como respuesta.
       Las consultas actualizan las estadísticas de los libros y los usuarios.
@@ -465,8 +470,8 @@ export class BooksController {
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
-  ) => {
-    const userId = req.params.userId as ID
+  ): Promise<express.Response | void> => {
+    const userId = req.params.userId as ID | undefined
     try {
       if (!userId)
         return res.status(401).json({ error: 'No se proporcionó userId' })
@@ -487,7 +492,7 @@ export class BooksController {
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
-  ) => {
+  ): Promise<express.Response | void> => {
     try {
       const file = req.file as Express.Multer.File | undefined
       if (!file) {
@@ -511,8 +516,8 @@ export class BooksController {
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
-  ) => {
-    const { collection }: { collection: CollectionObjectType } = req.body
+  ): Promise<express.Response | void> => {
+    const collection = req.body.collection as CollectionObjectType | undefined
     try {
       if (!collection) {
         return res.status(400).json({ error: 'No se proporcionó la colección' })

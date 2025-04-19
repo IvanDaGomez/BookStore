@@ -8,7 +8,8 @@
     "dev": "ts-node-dev --respawn --transpile-only createServer/createServerLocal.ts",
     "dev:local": "ts-node-dev --watch createServer/createServerLocal.ts",
     "dev:postgre": "ts-node-dev --watch createServer/createServerPostgreSQL.ts",
-    "updateDataBase": "ts-node-dev assets/updateDB.ts"
+    "updateDataBase": "ts-node-dev assets/updateDB.ts",
+    "document": "node src/assets/swagger.js"
   },
   "author": "Ivan Gomez",
   "license": "ISC",
@@ -31,6 +32,7 @@
     "pg": "^8.14.1",
     "playwright": "^1.49.0",
     "sharp": "^0.33.5",
+    "swagger-ui-express": "^5.0.1",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -46,7 +48,9 @@
     "@types/nodemailer": "^6.4.17",
     "@types/papaparse": "^5.3.15",
     "@types/pg": "^8.11.13",
+    "@types/swagger-ui-express": "^4.1.8",
     "standard": "^17.1.2",
+    "swagger-autogen": "^2.23.7",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.3"
   },

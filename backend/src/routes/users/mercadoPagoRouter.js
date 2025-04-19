@@ -40,10 +40,10 @@ const webHooks = async (req, res) => {
     console.error('Error al procesar el webhook:', error.message)
     res.status(500).json({ error: 'Error interno al procesar el webhook' })
   }
-})
+}
 
 // Función para validar la firma de la notificación (opcional)
-function validateSignature(signature, body) {
+function validateSignature (signature, body) {
   // Aquí deberías implementar la lógica para validar la firma usando el secreto de tu cuenta
   // Esto depende de la documentación de Mercado Pago para verificar la autenticidad de las solicitudes.
   return signature === 'firma_valida_generada'

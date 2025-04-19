@@ -12,26 +12,40 @@ import { CreateOrdenDeEnvío } from '../../assets/createOrdenDeEnvio.js'
 import { handlePaymentResponse } from '../../assets/handlePaymentResponse.js'
 import { validateSignature } from '../../assets/validateSignature.js'
 import { processPaymentResponse } from './processPaymentResponse.js'
-import { checkEmailExists, initializeDataCreateUser, jwtPipeline, processUserUpdate } from './helperFunctions.js'
+import {
+  checkEmailExists,
+  initializeDataCreateUser,
+  jwtPipeline,
+  processUserUpdate
+} from './helperFunctions.js'
 import express from 'express'
-import { cambiarGuionesAEspacio } from '../../assets/agregarMas.js'
-import { CollectionObjectType } from '../../models/collections/collectionObject.js'
+import { cambiarGuionesAEspacio } from '../../assets/agregarMas'
 import { PartialUserInfoType, UserInfoType } from '../../types/user.js'
 import { ID, ImageType } from '../../types/objects.js'
 import { IUsersModel } from '../../types/models.js'
 import { AuthToken } from '../../types/authToken.js'
 const SECRET_KEY: string = process.env.JWT_SECRET ?? ''
 export class UsersController {
-  private UsersModel: IUsersModel;
-  private TransactionsModel: any;
+  private UsersModel: IUsersModel
+  private TransactionsModel: any
 
-  constructor ({ UsersModel, TransactionsModel }: { UsersModel: IUsersModel; TransactionsModel: any }) {
-    this.UsersModel = UsersModel as typeof UsersModel;
-    this.TransactionsModel = TransactionsModel as typeof TransactionsModel;
-    this.TransactionsModel = TransactionsModel;
+  constructor ({
+    UsersModel,
+    TransactionsModel
+  }: {
+    UsersModel: IUsersModel
+    TransactionsModel: any
+  }) {
+    this.UsersModel = UsersModel as typeof UsersModel
+    this.TransactionsModel = TransactionsModel as typeof TransactionsModel
+    this.TransactionsModel = TransactionsModel
   }
 
-  getAllUsers = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  getAllUsers = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
     try {
       const users = await this.UsersModel.getAllUsers()
 
@@ -41,7 +55,11 @@ export class UsersController {
     }
   }
 
-  getAllUsersSafe = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  getAllUsersSafe = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
     try {
       const users = await this.UsersModel.getAllUsersSafe()
 
@@ -51,7 +69,11 @@ export class UsersController {
     }
   }
 
-  getUserById = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  getUserById = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
     try {
       const userId = req.params.userId as ID
       const user = await this.UsersModel.getUserById(userId)
@@ -62,7 +84,11 @@ export class UsersController {
     }
   }
 
-  getPhotoAndNameUser = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  getPhotoAndNameUser = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
     try {
       const userId = req.params.userId as ID
 
@@ -74,10 +100,14 @@ export class UsersController {
     }
   }
 
-  getEmailById = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  getEmailById = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
     try {
       const userId = req.params.userId as ID
-      const email= await this.UsersModel.getEmailById(userId)
+      const email = await this.UsersModel.getEmailById(userId)
 
       res.json(email)
     } catch (err) {
@@ -85,12 +115,18 @@ export class UsersController {
     }
   }
 
-  getUserByQuery = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  getUserByQuery = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
     try {
       let q = req.query.q as string | undefined // Obtener el valor del parámetro de consulta 'q'
       q = cambiarGuionesAEspacio(q)
       if (!q) {
-        return res.status(400).json({ error: 'El query parameter "q" es requerido' })
+        return res
+          .status(400)
+          .json({ error: 'El query parameter "q" es requerido' })
       }
 
       const users = await this.UsersModel.getUserByQuery(q) // Asegurarse de implementar este método en this.UsersModel
@@ -101,11 +137,18 @@ export class UsersController {
     }
   }
 
-  login = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  login = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
     try {
-      const { correo, contraseña }: { correo: string, contraseña: string} = req.body
+      const { correo, contraseña }: { correo: string; contraseña: string } =
+        req.body
       if (!correo || !contraseña) {
-        return res.status(400).json({ error: 'Algunos espacios están en blanco' })
+        return res
+          .status(400)
+          .json({ error: 'Algunos espacios están en blanco' })
       }
 
       const user = await this.UsersModel.login(correo, contraseña)
@@ -118,7 +161,11 @@ export class UsersController {
     }
   }
 
-  googleLogin = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  googleLogin = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
     try {
       const data = req.body
       // If there is a mail, no matter if is manually logged or google, the user is the same
@@ -131,7 +178,11 @@ export class UsersController {
     }
   }
 
-  facebookLogin = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  facebookLogin = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
     try {
       const data = req.body
       // If there is a mail, no matter if is manually logged or facebook, the user is the same
@@ -143,7 +194,11 @@ export class UsersController {
     }
   }
 
-  createUser = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  createUser = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
     let data: UserInfoType = req.body
     // Validación
     try {
@@ -159,7 +214,11 @@ export class UsersController {
       const user = await this.UsersModel.createUser(data)
 
       // Enviar correo de agradecimiento por unirse a meridian
-      await sendEmail(`${data.nombre} ${data.correo}`, 'Bienvenido a Meridian!', createEmail(data, 'thankEmail'))
+      await sendEmail(
+        `${data.nombre} ${data.correo}`,
+        'Bienvenido a Meridian!',
+        createEmail(data, 'thankEmail')
+      )
       // Enviar notificación de bienvenida
       await sendNotification(createNotification(data, 'welcomeUser'))
       // Si todo es exitoso, devolver el usuario creado
@@ -170,7 +229,11 @@ export class UsersController {
     }
   }
 
-  deleteUser = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  deleteUser = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
     try {
       const userId = req.params.userId as ID
       const result = await this.UsersModel.deleteUser(userId)
@@ -180,14 +243,21 @@ export class UsersController {
     }
   }
 
-  updateUser = async (req: express.Request, res: express.Response, next: express.NextFunction)=> {
+  updateUser = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
     try {
       const userId = req.params.userId as ID
-      const data: UserInfoType = req.body 
+      const data: UserInfoType = req.body
       // Validar datos
       const validated = validatePartialUser(data)
       if (!validated.success) {
-        return res.status(400).json({ error: 'Error validando usuario', details: validated.error.errors })
+        return res.status(400).json({
+          error: 'Error validando usuario',
+          details: validated.error.errors
+        })
       }
 
       const updatedData = await processUserUpdate(data, userId, req)
@@ -203,13 +273,20 @@ export class UsersController {
     }
   }
 
-  logout = async (req: express.Request, res: express.Response) => {
+  logout = async (
+    req: express.Request,
+    res: express.Response
+  ): Promise<express.Response | void> => {
     res
       .clearCookie('access_token')
       .json({ message: 'Se cerró exitosamente la sesión' })
   }
 
-  userData = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  userData = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
     try {
       if (req.session.user) {
         // Devolver los datos del usuario
@@ -224,7 +301,11 @@ export class UsersController {
     }
   }
 
-  sendValidationEmail = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  sendValidationEmail = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
     const data: {
       _id: ID
       nombre: string
@@ -232,17 +313,24 @@ export class UsersController {
       validated: boolean
     } = req.body
     if (!data || !data.nombre || !data.correo) {
-      return res.status(400).json({ error: 'Missing required fields: nombre or correo' })
+      return res
+        .status(400)
+        .json({ error: 'Missing required fields: nombre or correo' })
     }
-    if (data.validated) { // Si el usuario ya está validado, no se envía el correo
+    if (data.validated) {
+      // Si el usuario ya está validado, no se envía el correo
       return res.json({ verified: true })
     }
     try {
       // Generate a token with user ID (or email) for validation
-      const token = jwt.sign({
-        _id: data._id,
-        nombre: data.nombre
-      }, SECRET_KEY, { expiresIn: '1h' })
+      const token = jwt.sign(
+        {
+          _id: data._id,
+          nombre: data.nombre
+        },
+        SECRET_KEY,
+        { expiresIn: '1h' }
+      )
 
       // Create the validation code of 6 digits
       const validationCode = Math.floor(100000 + Math.random() * 900000)
@@ -260,13 +348,22 @@ export class UsersController {
         emailContent
       )
 
-      res.json({ ok: true, status: 'Validation email sent successfully', token, code: validationCode })
+      res.json({
+        ok: true,
+        status: 'Validation email sent successfully',
+        token,
+        code: validationCode
+      })
     } catch (err) {
       next(err)
     }
   }
 
-  userValidation = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  userValidation = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
     const { token } = req.params
 
     if (!token) {
@@ -278,9 +375,10 @@ export class UsersController {
       const data = jwt.verify(token, SECRET_KEY) as AuthToken
 
       // Retrieve the user and their email
-      const user: PartialUserInfoType = await this.UsersModel.getUserById(data._id)
+      const user: PartialUserInfoType = await this.UsersModel.getUserById(
+        data._id
+      )
       const correo = await this.UsersModel.getEmailById(data._id)
-
 
       // Verify that the email matches
       if (data.nombre !== correo.nombre) {
@@ -293,7 +391,9 @@ export class UsersController {
       // }
 
       // Update the user's validation status
-      const updated = await this.UsersModel.updateUser(data._id, { validated: true })
+      const updated = await this.UsersModel.updateUser(data._id, {
+        validated: true
+      })
 
       jwtPipeline(user, res)
       // Set the new cookie
@@ -303,8 +403,12 @@ export class UsersController {
     }
   }
 
-  sendChangePasswordEmail = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    const { email }: { email: string} = req.body
+  sendChangePasswordEmail = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
+    const { email }: { email: string } = req.body
 
     try {
       if (!email) {
@@ -319,7 +423,10 @@ export class UsersController {
       const token = jwt.sign(tokenPayload, SECRET_KEY, { expiresIn: '15m' })
 
       const validationLink = `${process.env.FRONTEND_URL}/opciones/cambiarContraseña/${token}`
-      const emailContent = createEmail({ correo: email, validationLink, nombre: user.nombre }, 'changePassword')
+      const emailContent = createEmail(
+        { correo: email, validationLink, nombre: user.nombre },
+        'changePassword'
+      )
 
       await sendEmail(email, 'Correo de reinicio de contraseña', emailContent)
 
@@ -329,20 +436,27 @@ export class UsersController {
     }
   }
 
-  changePassword = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  changePassword = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
     const { token, password } = req.body
 
     try {
       if (!token) {
-        return res.status(400).json({ error: 'Token no proporcionado', ok: false })
+        return res
+          .status(400)
+          .json({ error: 'Token no proporcionado', ok: false })
       }
 
       if (!password) {
-        return res.status(400).json({ error: 'Contraseña no proporcionada', ok: false })
+        return res
+          .status(400)
+          .json({ error: 'Contraseña no proporcionada', ok: false })
       }
 
       const decodedToken = jwt.verify(token, SECRET_KEY) as AuthToken
-
 
       const _id = decodedToken._id
       // Actualizar la contraseña (el hash se realiza en el modelo)
@@ -354,7 +468,11 @@ export class UsersController {
     }
   }
 
-  getPreferenceId = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  getPreferenceId = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
     const client = new MercadoPagoConfig({
       accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN ?? ''
     })
@@ -368,7 +486,6 @@ export class UsersController {
             unit_price: Number(req.body.price),
             currency_id: 'COP'
           }
-
         ] as any
         // Dont know if it works
         /* ,
@@ -389,15 +506,31 @@ export class UsersController {
     }
   }
 
-  processPayment = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  processPayment = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
     try {
-      const { sellerId, userId, book, shippingDetails, transaction_amount, application_fee, ...data } = req.body
+      const {
+        sellerId,
+        userId,
+        book,
+        shippingDetails,
+        transaction_amount,
+        application_fee,
+        ...data
+      } = req.body
       if (!sellerId || !userId || !book || !shippingDetails) {
-        return res.status(400).json({ error: 'Faltan datos requeridos en la solicitud' })
+        return res
+          .status(400)
+          .json({ error: 'Faltan datos requeridos en la solicitud' })
       }
 
       const XidempotencyKey = randomUUID()
-      const client = new MercadoPagoConfig({ accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN ?? ''})
+      const client = new MercadoPagoConfig({
+        accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN ?? ''
+      })
       // Hay que agregar el precio del domicilio si aplica
       const payment = new Payment(client)
       // Configuración del pago con split payments
@@ -410,9 +543,7 @@ export class UsersController {
           installments: data.installments || 1,
           token: data.token || null,
           issuer_id: data.issuer_id || null,
-          additional_info: data.additional_info || {
-
-          },
+          additional_info: data.additional_info || {},
           callback_url: data.callback_url || null,
           application_fee: application_fee || 0, // Tarifa de la aplicación
           /* marketplace: {
@@ -436,14 +567,30 @@ export class UsersController {
         requestOptions: { idempotencyKey: XidempotencyKey }
       })
 
-      const result = handlePaymentResponse({ ...response, sellerId, userId, book, shippingDetails })
-      await processPaymentResponse({ result: response, sellerId, book, data, res })
+      const result = handlePaymentResponse({
+        ...response,
+        sellerId,
+        userId,
+        book,
+        shippingDetails
+      })
+      await processPaymentResponse({
+        result: response,
+        sellerId,
+        book,
+        data,
+        res
+      })
     } catch (err) {
       next(err)
     }
   }
 
-  MercadoPagoWebhooks = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  MercadoPagoWebhooks = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
     try {
       const { type } = req.query
       const paymentData = req.body
@@ -453,10 +600,15 @@ export class UsersController {
       if (!isValid) {
         return res.status(400).json({ error: 'Firma no válida' })
       }
-      
-      const client = new MercadoPagoConfig({ accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN ?? '' })
+
+      const client = new MercadoPagoConfig({
+        accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN ?? ''
+      })
       const payment = new Payment(client)
-      let paymentResponse = { status: 'error', message: 'Error al procesar el pago' }
+      let paymentResponse = {
+        status: 'error',
+        message: 'Error al procesar el pago'
+      }
       if (type === 'payment') {
         const data = await payment.get({ id: paymentData.id })
         /* Modelo de respuesta
@@ -505,13 +657,16 @@ export class UsersController {
         }
         */
         // Verificar si ya se procesó esta transacción
-        const existingTransaction = await this.TransactionsModel.getTransactionById(data.id)
+        const existingTransaction =
+          await this.TransactionsModel.getTransactionById(data.id)
         if (existingTransaction) {
           console.log('Webhook: transacción ya procesada:', data.id)
           return res.status(200).json({ status: 'success' })
         }
 
-        const book = await this.TransactionsModel.getBookByTransactionId(paymentData.id)
+        const book = await this.TransactionsModel.getBookByTransactionId(
+          paymentData.id
+        )
         paymentResponse = await processPaymentResponse({
           result: data,
           sellerId: book.idVendedor,
@@ -527,24 +682,37 @@ export class UsersController {
     }
   }
 
-  processDelivery = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  processDelivery = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
     try {
-      
     } catch (err) {
       next(err)
     }
   }
 
-  followUser = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    const { followerId, userId }: { followerId: ID, userId: ID} = req.body
+  followUser = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
+    const { followerId, userId }: { followerId: ID; userId: ID } = req.body
     try {
       if (!followerId || !userId) {
-        return res.status(404).json({ ok: false, error: 'No se proporcionó usuario y seguidor' })
+        return res
+          .status(404)
+          .json({ ok: false, error: 'No se proporcionó usuario y seguidor' })
       }
       // Es necesario conseguir el usuario para saber que otros seguidores tenía
-      const follower: PartialUserInfoType = await this.UsersModel.getUserById(followerId)
+      const follower: PartialUserInfoType = await this.UsersModel.getUserById(
+        followerId
+      )
 
-      const user: PartialUserInfoType = await this.UsersModel.getUserById(userId)
+      const user: PartialUserInfoType = await this.UsersModel.getUserById(
+        userId
+      )
 
       let action
       // Agregar el seguidor
@@ -554,17 +722,27 @@ export class UsersController {
         action = 'Agregado'
         // Eliminar el seguidor
       } else {
-        follower.seguidores = follower.seguidores.filter(seguidorId => seguidorId !== userId)
-        user.siguiendo = follower.seguidores.filter(siguiendoId => siguiendoId !== followerId)
+        follower.seguidores = follower.seguidores.filter(
+          seguidorId => seguidorId !== userId
+        )
+        user.siguiendo = follower.seguidores.filter(
+          siguiendoId => siguiendoId !== followerId
+        )
         action = 'Eliminado'
       }
 
-      const followerUpdated: PartialUserInfoType= await this.UsersModel.updateUser(followerId, follower)
-      const userUpdated: PartialUserInfoType = await this.UsersModel.updateUser(userId, user)
+      const followerUpdated: PartialUserInfoType =
+        await this.UsersModel.updateUser(followerId, follower)
+      const userUpdated: PartialUserInfoType = await this.UsersModel.updateUser(
+        userId,
+        user
+      )
 
       // Notificación de nuevo seguidor
       if (action === 'Agregado') {
-        await sendNotification(createNotification({ follower, user }, 'newFollower'))
+        await sendNotification(
+          createNotification({ follower, user }, 'newFollower')
+        )
       }
 
       jwtPipeline(user, res)
@@ -574,33 +752,49 @@ export class UsersController {
     }
   }
 
-  getBalance = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  getBalance = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
     try {
-      
       const userId = req.params.userId as ID
 
-      if (!userId) return res.status(404).json({ error: 'No se proporcionó id de usuario' })
+      if (!userId)
+        return res
+          .status(404)
+          .json({ error: 'No se proporcionó id de usuario' })
 
       const balance = await this.UsersModel.getBalance(userId)
 
       res.json({ balance })
     } catch (err) {
-      next(err)  
+      next(err)
     }
   }
 
-  createColection = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    const { collectionName, userId }: { collectionName: string, userId: ID} = req.body
+  createColection = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    const { collectionName, userId }: { collectionName: string; userId: ID } =
+      req.body
     try {
       if (!userId || !collectionName) {
-        return res.status(400).json({ error: 'No se entregaron todos los campos' })
+        return res
+          .status(400)
+          .json({ error: 'No se entregaron todos los campos' })
       }
 
       const user = await this.UsersModel.getUserById(userId)
 
       // Agregar la nueva colección
       const updated = await this.UsersModel.updateUser(userId, {
-        coleccionsIds: [...(user?.coleccionsIds || []), { nombre: collectionName, librosIds: [] }]
+        coleccionsIds: [
+          ...(user?.coleccionsIds || []),
+          { nombre: collectionName, librosIds: [] }
+        ]
       })
 
       jwtPipeline(user, res)
@@ -610,30 +804,41 @@ export class UsersController {
     }
   }
 
-  addToColection = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  addToColection = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
     const { bookId, collectionName, userId } = req.body
     try {
       if (!userId || !collectionName) {
-        return res.status(400).json({ error: 'No se entregaron todos los campos' })
+        return res
+          .status(400)
+          .json({ error: 'No se entregaron todos los campos' })
       }
 
       const user = await this.UsersModel.getUserById(userId)
 
-
-      const collection = user.coleccionsIds.find((coleccion) => coleccion.nombre === collectionName)
+      const collection = user.coleccionsIds.find(
+        coleccion => coleccion.nombre === collectionName
+      )
       if (!collection) {
         return res.status(404).json({ error: 'No se encontró la colección' })
       }
 
       // Verificar si el libro ya está en la colección
       if (collection.librosIds.includes(bookId)) {
-        return res.status(200).json({ message: 'El libro ya está en la colección', data: user })
+        return res
+          .status(200)
+          .json({ message: 'El libro ya está en la colección', data: user })
       }
 
       // Actualizar colección
       const updated = await this.UsersModel.updateUser(userId, {
         coleccionsIds: [
-          ...user.coleccionsIds.filter((coleccion) => coleccion.nombre !== collectionName),
+          ...user.coleccionsIds.filter(
+            coleccion => coleccion.nombre !== collectionName
+          ),
           {
             nombre: collection.nombre,
             librosIds: [...collection.librosIds, bookId]
@@ -646,5 +851,4 @@ export class UsersController {
       next(err)
     }
   }
-
 }
