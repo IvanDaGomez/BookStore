@@ -1,28 +1,14 @@
-import { ID, ISOString } from "../../types/objects"
+import { ConversationObjectType } from "../../types/conversation"
+import { ISOString } from "../../types/objects"
 
-type lastMessageType = {
-  _id: ID
-  userId: ID
-  message: string
-  createdIn: ISOString
-  conversationID: ID
-  read: boolean
-}
 
-type ConversationObjectType = {
-  _id: ID
-  users: ID[]
-  createdIn: string
-  lastMessage: lastMessageType | null
-}
-
-const conversationObject = (data: ConversationObjectType): ConversationObjectType => {
+const conversationObject = (data: Partial<ConversationObjectType>): ConversationObjectType => {
   return {
-    _id: data._id || '',
-    users: data.users || [],
-    createdIn: data.createdIn || new Date().toISOString(),
-    lastMessage: data.lastMessage || null
+    _id: data._id ?? crypto.randomUUID(),
+    users: data.users ?? [crypto.randomUUID(), crypto.randomUUID()],
+    createdIn: data.createdIn ?? new Date().toISOString() as ISOString,
+    lastMessage: data.lastMessage ?? null
   }
 }
 
-export { conversationObject, ConversationObjectType }
+export { conversationObject }

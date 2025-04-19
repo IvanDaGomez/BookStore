@@ -1,6 +1,7 @@
 import { AuthToken } from './authToken'
 import { BookObjectType } from './book'
 import { CollectionObjectType } from './collection'
+import { ConversationObjectType } from './conversation'
 import { ID, ImageType } from './objects'
 import { PartialUserInfoType, UserInfoType } from './user'
 
@@ -92,6 +93,15 @@ export interface ICollectionsModel {
       l: number
     }): Promise<CollectionObjectType[]>
   getCollectionSaga (bookId: ID, userId: ID): Promise<CollectionObjectType>
+}
+
+export interface IConversationsModel {
+  getAllConversations(l?: number): Promise<ConversationObjectType[]>
+  getConversationsByList(conversationsIds: ID[]): Promise<ConversationObjectType[]>
+  getConversationById(conversationId: ID): Promise<ConversationObjectType>
+  createConversation(data: Partial<ConversationObjectType>): Promise<ConversationObjectType>
+  deleteConversation(id: ID): Promise<{ message: string }>
+  updateConversation(id: ID, data: Partial<ConversationObjectType>): Promise<ConversationObjectType>
 }
 export interface ITransactionsModel {
   // Define the methods and properties of TransactionsModel
