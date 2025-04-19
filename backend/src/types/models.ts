@@ -103,6 +103,13 @@ export interface IConversationsModel {
   deleteConversation(id: ID): Promise<{ message: string }>
   updateConversation(id: ID, data: Partial<ConversationObjectType>): Promise<ConversationObjectType>
 }
+
+export interface IEmailsModel {
+  getAllEmails(): Promise<string[]>
+  getEmailById(id: ID): Promise<string>
+  createEmail (data: { email: string }): Promise<{ email: string }>
+  deleteEmail (emailGiven: string): Promise<{ message: string }>
+}
 export interface ITransactionsModel {
   // Define the methods and properties of TransactionsModel
   // Example:
