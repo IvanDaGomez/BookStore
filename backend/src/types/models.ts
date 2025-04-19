@@ -1,9 +1,11 @@
+import e from 'express'
 import { AuthToken } from './authToken'
 import { BookObjectType } from './book'
 import { CollectionObjectType } from './collection'
 import { ConversationObjectType } from './conversation'
 import { ID, ImageType } from './objects'
 import { PartialUserInfoType, UserInfoType } from './user'
+import { MessageObjectType } from './message'
 
 export interface IUsersModel {
   getAllUsers(): Promise<UserInfoType[]>
@@ -109,6 +111,15 @@ export interface IEmailsModel {
   getEmailById(id: ID): Promise<string>
   createEmail (data: { email: string }): Promise<{ email: string }>
   deleteEmail (emailGiven: string): Promise<{ message: string }>
+}
+
+export interface IMessagesModel {
+  getAllMessages(): Promise<MessageObjectType[]>
+  getAllMessagesByConversation (id: ID): Promise<MessageObjectType[]>
+  getMessageById (id: ID): Promise<MessageObjectType> 
+  sendMessage (data: Partial<MessageObjectType>): Promise<MessageObjectType>
+  deleteMessage (id: ID): Promise<{ message: string }>
+  updateMessage (id: ID, data: Partial<MessageObjectType>): Promise<MessageObjectType>
 }
 export interface ITransactionsModel {
   // Define the methods and properties of TransactionsModel

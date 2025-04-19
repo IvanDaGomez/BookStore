@@ -1,24 +1,15 @@
-import { ID, ISOString } from "../../types/objects"
+import { MessageObjectType } from "../../types/message"
+import { ISOString } from "../../types/objects"
 
-type MessageObjectType = {
-  _id: ID
-  userId: ID
-  message: string
-  conversationId: ID
-  createdIn: ISOString
-  read: boolean
-}
-
-
-const messageObject = (data: MessageObjectType): MessageObjectType => {
+const messageObject = (data: Partial<MessageObjectType>): MessageObjectType => {
   return {
-    _id: data._id,
-    userId: data.userId,
-    message: data.message,
-    conversationId: data.conversationId,
-    createdIn: data.createdIn || new Date().toISOString(),
+    _id: data._id ?? crypto.randomUUID(),
+    userId: data.userId ?? crypto.randomUUID(),
+    message: data.message ?? '',
+    conversationId: data.conversationId ?? crypto.randomUUID(),
+    createdIn: data.createdIn || new Date().toISOString() as ISOString,
     read: data.read || false
   }
 }
 
-export { messageObject, MessageObjectType }
+export { messageObject }
