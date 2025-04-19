@@ -1,25 +1,6 @@
-import { PriorityType, TypeType } from "../../types/notificationCategories"
-import { ID, ImageType, ISOString } from "../../types/objects"
+import { NotificationType } from "../../types/notification"
 
-type NotificationObjectType = {
-  _id: ID
-  title: string
-  priority: PriorityType
-  type: TypeType
-  userId: ID
-  input: string
-  createdIn: ISOString
-  read: boolean
-  actionUrl: string
-  expiresAt: ISOString
-  metadata?: {
-    photo?: ImageType | ''
-    bookTitle?: string
-    bookId?: ID
-  }
-}
-
-const notificationObject = (data: NotificationObjectType): NotificationObjectType => {
+const notificationObject = (data: NotificationType): NotificationType => {
   return {
     _id: data._id || '',
     title: data.title || '',
@@ -35,4 +16,4 @@ const notificationObject = (data: NotificationObjectType): NotificationObjectTyp
   }
 }
 
-export { notificationObject, NotificationObjectType }
+export { notificationObject }

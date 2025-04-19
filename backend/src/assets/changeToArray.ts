@@ -1,9 +1,12 @@
-export function changeToArray (element) {
+export function changeToArray (element: string | string[]): string[] {
   /*
   Converts a string of text or array into an array
   */
   if (typeof element === 'string' && element.trim() !== '') {
     return element.split(' ').filter(Boolean)
   }
-  return element || [] // Devuelve un array vacío si el elemento es nulo o indefinido
+  else if (Array.isArray(element)) {
+    return element.filter(Boolean)
+  }
+  return []
 }

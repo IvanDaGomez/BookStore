@@ -6,6 +6,8 @@ import crypto from 'node:crypto'
 import { userObject } from '../userObject.js'
 import { PartialUserInfoType, UserInfoType } from '../../../types/user.js'
 import { ID, ImageType } from '../../../types/objects.js'
+import { calculateMatchScore } from '../../../assets/calculateMatchScore.js'
+import { changeToArray } from '../../../assets/changeToArray.js'
 
 class UsersModel {
   static async getAllUsers(): Promise<UserInfoType[]> {
@@ -95,47 +97,13 @@ class UsersModel {
     const users = await this.getAllUsersSafe()
 
     // Funcion para calcular el nivel de coincidencia entre la query y los resultados
-    const calculateMatchScore = (user: PartialUserInfoType, queryWords: string[]): number => {
-      let score = 0
-      const tolerance = 2 // Máxima distancia de Levenshtein permitida para considerar una coincidencia
-
-      for (const value of Object.values(user)) {
-        if (typeof value === 'string') {
-          const valueWords = value.split(' ')
-          for (const queryWord of queryWords) {
-            valueWords.forEach(word => {
-              const distance = levenshteinDistance(word.toLowerCase(), queryWord.toLowerCase())
-              if (distance <= tolerance) {
-                score += 1 // Incrementa el score si la distancia está dentro del umbral de tolerancia
-              }
-            })
-          }
-        } else if (Array.isArray(value)) {
-          value.forEach(item => {
-            if (typeof item === 'string') {
-              const itemWords = item.split(' ')
-              for (const queryWord of queryWords) {
-                itemWords.forEach(word => {
-                  const distance = levenshteinDistance(word.toLowerCase(), queryWord.toLowerCase())
-                  if (distance <= tolerance) {
-                    score += 1
-                  }
-                })
-              }
-            }
-          })
-        }
-      }
-
-      return score
-    }
 
     // Dividimos la query en palabras
-    const queryWords = query.split(' ')
+    const queryWords = changeToArray(query)
 
     // Recorremos todos los libros y calculamos el puntaje de coincidencia
     const usersWithScores = users.map((user: PartialUserInfoType) => {
-      const score = calculateMatchScore(user, queryWords)
+      const score = calculateMatchScore(user, queryWords, query)
 
       // Validamos si el score es suficiente, por ejemplo si es menor a 2 no lo devolvemos
 

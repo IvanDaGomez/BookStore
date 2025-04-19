@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises'
 import { collectionObject } from '../collectionObject.js'
-import { calculateMatchScore } from '../../books/local/calculateMatchScore.js'
+import { calculateMatchScore } from '../../../assets/calculateMatchScore.ts/index.js'
 
 class CollectionsModel {
   static async getAllCollections () {

@@ -1,86 +1,57 @@
-import { AgeType, AvailabilityType, CoverType, EditionType, FormatType, StateType } from '../../types/bookCategories';
-import { ID, ImageType, ISOString } from '../../types/objects';
+import { BookObjectType } from "../../types/book";
 
-type BookObjectType = {
-  titulo: string;
-  autor: string;
-  precio: number;
-  oferta: number | null;
-  isbn: string;
-  images: ImageType[];
-  keywords: string[];
-  _id: ID;
-  descripcion: string;
-  estado: StateType;
-  genero: string;
-  formato: FormatType;
-  vendedor: string;
-  idVendedor: ID;
-  edicion?: EditionType;
-  idioma?: string;
-  ubicacion?: {
-    ciudad?: string;
-    departamento?: string;
-    pais?: string;
-  };
-  tapa?: '' | CoverType;
-  edad?: '' | AgeType;
-  fechaPublicacion: ISOString; // Date().toISOString()
-  actualizadoEn: ISOString;
-  disponibilidad?: AvailabilityType;
-  mensajes?: string[][];
-  collectionsIds?: ID[];
-}
+// Overload signatures
+function bookObject(data: BookObjectType | Partial<BookObjectType>, fullInfo: true): BookObjectType;
+function bookObject(data: BookObjectType | Partial<BookObjectType>, fullInfo: false): Partial<BookObjectType>;
 
-
-
-const bookObject = (data: BookObjectType, fullInfo = true): Partial<BookObjectType> => {
+// Implementation
+function bookObject(data: BookObjectType | Partial<BookObjectType>, fullInfo = true): BookObjectType | Partial<BookObjectType> {
   if (fullInfo) {
     return {
-      titulo: data.titulo,
-      autor: data.autor,
-      precio: data.precio,
-      oferta: data.oferta || null,
-      isbn: data.isbn,
-      images: data.images || [],
-      keywords: data.keywords || [],
-      _id: data._id,
-      descripcion: data.descripcion,
-      estado: data.estado,
-      genero: data.genero,
-      formato: data.formato,
-      vendedor: data.vendedor,
-      idVendedor: data.idVendedor,
-      edicion: data.edicion,
-      idioma: data.idioma,
-      ubicacion: data.ubicacion || {
+      titulo: data.titulo ?? '',
+      autor: data.autor ?? '',
+      precio: data.precio ?? 0,
+      oferta: data.oferta ?? null,
+      isbn: data.isbn ?? '',
+      images: data.images ?? [],
+      keywords: data.keywords ?? [],
+      _id: data._id ?? '',
+      descripcion: data.descripcion ?? '',
+      estado: data.estado ?? 'Nuevo',
+      genero: data.genero ?? '',
+      formato: data.formato ?? '',
+      vendedor: data.vendedor ?? '',
+      idVendedor: data.idVendedor ?? '',
+      edicion: data.edicion ?? '',
+      idioma: data.idioma ?? '',
+      ubicacion: data.ubicacion ?? {
         ciudad: '',
         departamento: '',
         pais: ''
       },
-      tapa: data.tapa || '',
-      edad: data.edad || '',
-      fechaPublicacion: data.fechaPublicacion || new Date().toISOString(),
-      actualizadoEn: data.actualizadoEn || new Date().toISOString(),
-      disponibilidad: data.disponibilidad || 'Disponible',
-      mensajes: data.mensajes || [],
-      collectionsIds: data.collectionsIds || []
-    };
+      tapa: data.tapa ?? '',
+      edad: data.edad ?? '',
+      fechaPublicacion: data.fechaPublicacion ?? new Date().toISOString(),
+      actualizadoEn: data.actualizadoEn ?? new Date().toISOString(),
+      disponibilidad: data.disponibilidad ?? 'Disponible',
+      mensajes: data.mensajes ?? [],
+      collectionsIds: data.collectionsIds ?? []
+    } as BookObjectType;
   }
   return {
-      titulo: data.titulo,
-      autor: data.autor,
-      precio: data.precio,
-      oferta: data.oferta || null,
-      isbn: data.isbn,
-      images: data.images || [],
-      _id: data._id,
-      descripcion: data.descripcion,
-      estado: data.estado || 'Nuevo sellado',
-      genero: data.genero,
-      disponibilidad: data.disponibilidad || 'Disponible',
-      collectionsIds: data.collectionsIds || []
-  };
-};
+    titulo: data.titulo ?? '',
+    autor: data.autor ?? '',
+    precio: data.precio ?? 0,
+    oferta: data.oferta ?? null,
+    isbn: data.isbn ?? '',
+    keywords: data.keywords ?? [],
+    images: data.images ?? [],
+    _id: data._id ?? '',
+    estado: data.estado ?? 'Nuevo sellado',
+    genero: data.genero ?? '',
+    disponibilidad: data.disponibilidad ?? 'Disponible',
+    collectionsIds: data.collectionsIds ?? []
+  } as Partial<BookObjectType>;
+}
 
 export { bookObject, BookObjectType };

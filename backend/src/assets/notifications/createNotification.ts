@@ -1,7 +1,10 @@
 import dotenv from 'dotenv'
+import { BookObjectType } from '../../types/book'
+import { NotificationToSendType, NotificationType } from '../../types/notification'
+import { TypeType } from '../../types/notificationCategories'
 dotenv.config()
-
-export function createNotification (data, template) {
+// PROBLEMS I HAVE WITH THE TYPE OF NOTIFICATION
+export function createNotification (data: BookObjectType, template: TypeType): NotificationToSendType {
   /*   {
     "_id": "f60c325b-cb26-48e7-a08b-18a7ddc5ab1c",
     "theme": "",
@@ -39,7 +42,7 @@ export function createNotification (data, template) {
         userId: data.follower._id,
         read: false,
         actionUrl: `${process.env.FRONTEND_URL}/usuarios/${data.follower_id}`,
-        metadata: data.metadata || {
+        metadata: {
           photo: data.follower.fotoPerfil || ''
         }
       }
@@ -53,7 +56,7 @@ export function createNotification (data, template) {
         userId: data.idVendedor,
         read: false,
         actionUrl: `${process.env.FRONTEND_URL}/libros/${data._id}`,
-        metadata: data.metadata || {
+        metadata: {
           photo: data.images[0],
           bookTitle: data.titulo,
           bookId: data._id
@@ -69,7 +72,7 @@ export function createNotification (data, template) {
         userId: data.idVendedor,
         read: false,
         actionUrl: `${process.env.FRONTEND_URL}/libros/${data._id}`,
-        metadata: data.metadata || {
+        metadata: {
           photo: data.images[0],
           bookTitle: data.titulo,
           bookId: data._id
@@ -84,7 +87,7 @@ export function createNotification (data, template) {
         userId: data.idVendedor,
         read: false,
         actionUrl: `${process.env.FRONTEND_URL}/libros/${data._id}`,
-        metadata: data.metadata || {
+        metadata: {
           photo: data.images[0],
           bookTitle: data.titulo,
           bookId: data._id

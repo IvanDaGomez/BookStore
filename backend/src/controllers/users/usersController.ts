@@ -19,6 +19,7 @@ import { CollectionObjectType } from '../../models/collections/collectionObject.
 import { PartialUserInfoType, UserInfoType } from '../../types/user.js'
 import { ID, ImageType } from '../../types/objects.js'
 import { IUsersModel } from '../../types/models.js'
+import { AuthToken } from '../../types/authToken.js'
 const SECRET_KEY: string = process.env.JWT_SECRET ?? ''
 export class UsersController {
   private UsersModel: IUsersModel;
@@ -274,7 +275,7 @@ export class UsersController {
 
     try {
       // Verify the token
-      const data = jwt.verify(token, SECRET_KEY) as { _id: ID, nombre: string }
+      const data = jwt.verify(token, SECRET_KEY) as AuthToken
 
       // Retrieve the user and their email
       const user: PartialUserInfoType = await this.UsersModel.getUserById(data._id)
@@ -340,7 +341,7 @@ export class UsersController {
         return res.status(400).json({ error: 'Contraseña no proporcionada', ok: false })
       }
 
-      const decodedToken = jwt.verify(token, SECRET_KEY) as { _id: ID, nombre: string}
+      const decodedToken = jwt.verify(token, SECRET_KEY) as AuthToken
 
 
       const _id = decodedToken._id

@@ -1,6 +1,7 @@
 import fetch from 'node-fetch'
+import { BookObjectType } from '../../types/book'
 
-export async function sendNotification (body) {
+export async function sendNotification (body: BookObjectType) {
   // La url es definida
 
   /* Estructura de las notificaciones

@@ -1,5 +1,6 @@
 // Define scraping functions for each site
-import { cambiarGuionesAEspacio } from '../../frontend/src/assets/agregarMas.js'
+import { Page } from 'playwright'
+import { cambiarGuionesAEspacio } from './agregarMas'
 /* const scrapePage = async (page, url, limit = 12, selectors = {}, platform = 'Unknown') => {
   await page.goto(url)
 
@@ -32,9 +33,16 @@ import { cambiarGuionesAEspacio } from '../../frontend/src/assets/agregarMas.js'
     return results
   }, { limit, selectors, platform })
 } */
-
+export type ScrapeResponseType = {
+  platform: string
+  domain: string
+  title: string
+  price: string
+  url: string
+  image: string
+}
 // Helper function for scraping MercadoLibre
-const scrapeMercadoLibre = async (page, bookTitle, limit = 12) => {
+const scrapeMercadoLibre = async (page: Page, bookTitle: string, limit: number = 12) => {
   const domain = 'https://listado.mercadolibre.com.co'
   const url = `${domain}/${bookTitle}`
   await page.goto(url)
@@ -43,7 +51,7 @@ const scrapeMercadoLibre = async (page, bookTitle, limit = 12) => {
   await page.waitForSelector('.ui-search-layout')
 
   // Pass limit and bookTitle as properties of a single object
-  const searchPageObject = await page.evaluate(({ limit, bookTitle, domain }) => {
+  const searchPageObject = await page.evaluate(({ limit, bookTitle, domain }): ScrapeResponseType[] => {
     // const cambiarGuionesAEspacio = (text) => text.replace(/-/g, ' ') // Define function in browser context
 
     const infoContainers = document.querySelectorAll('.poly-card--list')
@@ -55,7 +63,7 @@ const scrapeMercadoLibre = async (page, bookTitle, limit = 12) => {
       const urlElement = infoContainers[i].querySelector('.poly-component__title a')
       const imgElement = infoContainers[i].querySelector('.poly-card__portada img')
       if (titleElement && priceElement && urlElement && imgElement) {
-        const titleText = titleElement.textContent.trim()
+        const titleText = (titleElement.textContent ?? '').trim()
 
         // Use cambiarGuionesAEspacio to check for the processed book title
         if (!titleText.toLowerCase().includes(bookTitle.toLowerCase())) continue
@@ -63,10 +71,10 @@ const scrapeMercadoLibre = async (page, bookTitle, limit = 12) => {
         objects.push({
           platform: 'Mercado libre',
           domain,
-          title: titleText,
-          price: priceElement.textContent.trim(),
-          url: urlElement.getAttribute('href'),
-          image: imgElement.getAttribute('src')
+          title: titleText ?? '',
+          price: (priceElement.textContent ?? '').trim(),
+          url: urlElement.getAttribute('href') ?? '',
+          image: imgElement.getAttribute('src') ?? ''
         })
       }
     }
@@ -75,7 +83,7 @@ const scrapeMercadoLibre = async (page, bookTitle, limit = 12) => {
 
   return searchPageObject
 }
-const scrapeAmazon = async (page, bookTitle, limit = 12) => {
+const scrapeAmazon = async (page: Page, bookTitle: string, limit: number = 12): Promise<ScrapeResponseType[]> => {
   const domain = 'https://www.amazon.com'
   const url = `${domain}/s?k=${encodeURIComponent(bookTitle)}`
   await page.goto(url, { waitUntil: 'domcontentloaded' }) // Navigate to the Amazon search page
@@ -95,7 +103,7 @@ const scrapeAmazon = async (page, bookTitle, limit = 12) => {
       const imgElement = infoContainers[i].querySelector('.s-image') // Image selector
 
       if (titleElement && priceElement && urlElement && imgElement) {
-        const titleText = titleElement.textContent.trim()
+        const titleText = (titleElement.textContent ?? '').trim()
 
         // Check if the title includes the book title being searched for
         if (!titleText.toLowerCase().includes(bookTitle.toLowerCase())) continue
@@ -103,10 +111,10 @@ const scrapeAmazon = async (page, bookTitle, limit = 12) => {
         objects.push({
           platform: 'Amazon',
           domain,
-          title: titleText,
-          price: priceElement.textContent.trim(),
+          title: titleText ?? '',
+          price: (priceElement.textContent ?? '').trim(),
           url: `${domain}${urlElement.getAttribute('href')}`, // Construct full URL
-          image: imgElement.getAttribute('src')
+          image: imgElement.getAttribute('src') ?? ''
         })
       }
     }
