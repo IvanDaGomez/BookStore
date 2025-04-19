@@ -7,6 +7,7 @@ import { ID, ImageType } from './objects'
 import { PartialUserInfoType, UserInfoType } from './user'
 import { MessageObjectType } from './message'
 import { NotificationType } from './notification'
+import { TransactionObjectType } from './transaction'
 
 export interface IUsersModel {
   getAllUsers(): Promise<UserInfoType[]>
@@ -135,6 +136,13 @@ export interface INotificationsModel {
 export interface ITransactionsModel {
   // Define the methods and properties of TransactionsModel
   // Example:
-  getTransactionById(id: string): Promise<any>
+  getAllTransactions(): Promise<TransactionObjectType[]>
+  getAllTransactionsByUser(id: ID): Promise<TransactionObjectType[]>
+  getTransactionById(id: number): Promise<TransactionObjectType>
+  createSuccessfullTransaction (data: Partial<TransactionObjectType>): Promise<TransactionObjectType>
+  createFailureTransaction (data: Partial<TransactionObjectType>): Promise<TransactionObjectType>
+  deleteTransaction (id: number): Promise<{ message: string }>
+  updateTransaction (id: number, data: Partial<TransactionObjectType>): Promise<TransactionObjectType>
+  getBookByTransactionId (id: string): Promise<TransactionObjectType>
   // Add other methods from TransactionsModel as needed
 }

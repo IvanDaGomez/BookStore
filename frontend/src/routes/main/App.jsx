@@ -9,6 +9,7 @@ import { Carousel } from '../../components/photoCarrousel.jsx'
 import { ToastContainer } from 'react-toastify'
 import CustomDesigns from '../../components/customDesigns.jsx'
 import Loader from '../../components/loader/loader.jsx'
+import GoogleOneTapLogin from '../../components/googleOneTap.jsx'
 
 function App () {
   const [notification, setNotification] = useState('')
@@ -64,7 +65,7 @@ function App () {
       {loading && <Loader />}
       {renderNotification(notification)}
       <Header />
-
+      {/* <GoogleOneTapLogin /> */}
       <Carousel data={slides} />
 
       <Sections filter='Para ti' />
