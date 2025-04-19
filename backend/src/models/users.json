@@ -108,19 +108,6 @@
     "balance": {
       "porLlegar": 90000
     },
-    "colecciones": [
-      {
-        "nombre": "Aña",
-        "librosIds": [
-          "221f695c-69a3-4dee-98e1-0ab4565a734c",
-          "836e151b-43ae-48a0-8352-17ad309d8068"
-        ]
-      },
-      {
-        "nombre": "Aña",
-        "librosIds": []
-      }
-    ],
     "coleccionsIds": [
       {
         "nombre": "Aña",
@@ -530,10 +517,6 @@
     "actualizadoEn": "2024-12-06T00:52:35.976Z",
     "librosIds": [
       "80f63656-b199-47e8-9d49-16826153ed63"
-    ],
-    "fotoPerfil": "1733446355974-592149507.png"
-  }
-]47e8-9d49-16826153ed63"
     ],
     "fotoPerfil": "1733446355974-592149507.png"
   }

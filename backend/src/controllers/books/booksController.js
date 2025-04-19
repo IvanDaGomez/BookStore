@@ -431,4 +431,38 @@ export class BooksController {
       next(err)
     }
   }
+
+  static async getBooksByCollection (collection: CollectionObjectType): Promise<BookObjectType[]> {
+    // Esta función devuelve todos los libros de una colección específica
+    try {
+      // Obtener todos los libros
+      const books: BookObjectType[] = await BooksModel.getAllBooks()
+
+      // Filtrar los libros que pertenecen a la colección
+      const colecciones = books.filter(book => collection.librosIds.includes(book._id))
+
+      if (colecciones.length === 0) {
+        throw new Error('No se encontraron libros en esta colección')
+      }
+      return colecciones
+    } catch (error) {
+      console.error('Error en getBooksByCollection:', error)
+      throw new Error('No se pudieron obtener los libros de la colección')
+    }
+  }
+
+  getBooksByCollection = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const { collection }: {collection: CollectionObjectType} = req.body
+    try {
+      if (!collection) {
+        return res.status(400).json({ error: 'No se proporcionó la colección' })
+      }
+
+      const books = await this.BooksModel.getBooksByCollection(collection)
+
+      res.json({ data: books })
+    } catch (err) {
+      next(err)
+    }
+  }
 }

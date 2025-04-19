@@ -15,8 +15,7 @@ import { trackRequests } from './middlewares/trackRequests.js'
 dotenv.config()
 // import { handleStats } from './assets/handleStats.js'
 export const createApp = ({ BooksModel, UsersModel, MessagesModel, CollectionsModel, ConversationsModel, NotificationsModel, TransactionsModel, EmailsModel }:
-  // TODO: Tengo que hacer un tipo para esto
-  { BooksModel: void, UsersModel: void, MessagesModel: void, CollectionsModel: void, ConversationsModel: void, NotificationsModel: void, TransactionsModel: void, EmailsModel: void }) => {
+  { BooksModel: any, UsersModel: any, MessagesModel: any, CollectionsModel: any, ConversationsModel: any, NotificationsModel: any, TransactionsModel: any, EmailsModel: any }) => {
   // Configuración de la aplicación Express
   const app: express.Application = express()
   // Puerto

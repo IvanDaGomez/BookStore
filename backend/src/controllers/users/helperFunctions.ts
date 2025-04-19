@@ -2,23 +2,19 @@ import { UsersModel } from '../../models/users/local/usersLocal.js'
 import crypto from 'node:crypto'
 import jwt from 'jsonwebtoken'
 import { AuthToken } from '../../types/authToken.js'
-function validateUserLogin (user, res) {
-  if (user === 'No encontrado') {
-    return res.status(404).json({ error: 'Usuario no encontrado' })
-  }
-  if (user === 'Contraseña no coincide') {
-    return res.status(404).json({ error: 'La contraseña es incorrecta' })
-  }
-}
-async function checkEmailExists (email, res) {
+import express from 'express'
+import { PartialUserInfoType, UserInfoType } from '../../types/user.js'
+import { ID, ImageType } from '../../types/objects.js'
+
+async function checkEmailExists (email: string) {
   const correo = await UsersModel.getUserByEmail(email)
   if (correo.correo) {
-    return { status: 400, json: { error: 'El correo ya está en uso' } }
+    throw new Error('El correo ya existe')
   }
 }
-async function initializeDataCreateUser (data) {
-  const time = new Date()
-  data.creadoEn = time
+function initializeDataCreateUser (data: UserInfoType) {
+  const time = new Date().toISOString()
+  data.fechaRegistro = time
   data.actualizadoEn = time
   data.validated = false
   data._id = crypto.randomUUID()
@@ -28,28 +24,28 @@ async function initializeDataCreateUser (data) {
   }
   return data
 }
-async function processUserUpdate (data, userId, req) {
-  if (req.file) data.fotoPerfil = req.file.filename
+async function processUserUpdate(data: UserInfoType & { accion?: string }, userId: ID, req: express.Request) {
+  if (req.file) data.fotoPerfil = req.file.filename as ImageType;
 
   if (data.favoritos && data.accion) {
-    data.favoritos = await updateUserFavorites(userId, data.favoritos, data.accion)
+    // TODO
+    data.favoritos = await updateUserFavorites(userId, data.favoritos, data.accion);
   }
 
   if (data.correo) {
-    const emailError = await checkEmailExists(data.correo)
-    if (emailError) return emailError
-    data.validated = false
+    await checkEmailExists(data.correo);
+    data.validated = false;
   }
 
-  return filterAllowedFields(data)
+  return filterAllowedFields(data);
 }
 
-async function updateUserFavorites (userId, favoritoId, accion) {
+async function updateUserFavorites (userId: ID, favoritoId: ID, accion: string): Promise<ID[]> {
   const user = await UsersModel.getUserById(userId)
-  if (!user) throw new Error({ status: 404, message: 'No se encontró el usuario' })
+  if (!user) throw new Error('Usuario no encontrado')
 
   let updatedFavorites = user.favoritos || []
-  favoritoId = String(favoritoId)
+  favoritoId = String(favoritoId) as ID
 
   if (accion === 'agregar' && !updatedFavorites.includes(favoritoId)) {
     updatedFavorites.push(favoritoId)
@@ -60,32 +56,31 @@ async function updateUserFavorites (userId, favoritoId, accion) {
   return updatedFavorites
 }
 
-function filterAllowedFields (data) {
-  const allowedFields = ['nombre', 'correo', 'direccionEnvio', 'fotoPerfil', 'contraseña', 'bio', 'favoritos']
-  const filteredData = {}
+function filterAllowedFields (data: UserInfoType) {
+  const allowedFields: (keyof UserInfoType)[] = ['nombre', 'correo', 'direccionEnvio', 'fotoPerfil', 'contraseña', 'bio', 'favoritos']
+  const filteredData: Partial<UserInfoType> = {}
 
   allowedFields.forEach(key => {
-    if (data[key] !== undefined) filteredData[key] = data[key]
+    if (data[key] !== undefined) filteredData[key] = data[key] as any
   })
 
-  filteredData.actualizadoEn = new Date()
-  return filteredData
+  filteredData.actualizadoEn = new Date().toISOString()
+  return filteredData as UserInfoType
 }
 
-function generateAuthToken (user) {
+function generateAuthToken (user: PartialUserInfoType | UserInfoType): string {
   try {
     const tokenPayload: AuthToken = {
       _id: user._id,
       nombre: user.nombre
     }
-    return jwt.sign(tokenPayload, process.env.JWT_SECRET, { expiresIn: '3h' })
+    return jwt.sign(tokenPayload, process.env.JWT_SECRET ?? '', { expiresIn: '3h' })
   } catch (error) {
-    console.error('Error generando token:', error)
-    return null
+    throw new Error('Error generando el token')
   }
 }
 
-function setAuthCookie (res, token) {
+function setAuthCookie (res: express.Response, token: string) {
   res
     .clearCookie('access_token')
     .cookie('access_token', token, {
@@ -95,7 +90,7 @@ function setAuthCookie (res, token) {
       maxAge: 1000 * 60 * 60 * 3 // 3 horas
     })
 }
-function jwtPipeline (user, res) {
+function jwtPipeline (user: PartialUserInfoType | UserInfoType, res: express.Response) {
   const newToken = generateAuthToken(user)
   if (!newToken) {
     throw new Error('Error generando el token')
@@ -103,7 +98,6 @@ function jwtPipeline (user, res) {
   setAuthCookie(res, newToken)
 }
 export {
-  validateUserLogin,
   checkEmailExists,
   initializeDataCreateUser,
   processUserUpdate,

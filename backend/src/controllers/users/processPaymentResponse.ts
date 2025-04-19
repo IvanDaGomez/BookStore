@@ -5,8 +5,18 @@ import { sendNotification } from '../../assets/notifications/sendNotification.js
 import { BooksModel } from '../../models/books/local/booksLocal.js'
 import { TransactionsModel } from '../../models/transactions/local/transactionsModel.js'
 import { UsersModel } from '../../models/users/local/usersLocal.js'
+import { ID } from '../../types/objects.js'
 
-async function processPaymentResponse ({ response, result, sellerId, book, data, res }) {
+// TODO: No esta correcta la lógica
+async function processPaymentResponse({ result, sellerId, book, data, res }:
+  {
+    result: any
+    sellerId: ID
+    book: any
+    data: any
+    res: any
+  }
+) {
   try {
     const existingTransaction = await TransactionsModel.getTransactionById(result.id)
     if (existingTransaction) {
@@ -57,32 +67,28 @@ async function processPaymentResponse ({ response, result, sellerId, book, data,
       // Ejecutar correos y notificaciones en paralelo
       await Promise.all([...emailPromises, ...notificationPromises])
 
-      return res.json({
+      return {
         status: 'success',
         message: 'Pago procesado exitosamente!',
         id: result._id,
         paymentDetails: result.paymentDetails
-      })
+      }
     }
 
     // Manejar pagos no exitosos
     if (data.payment_method_id === 'efecty' && data.payer.email) {
-      await sendEmail(data.payer.email, 'Información de tu pago en Efecty', createEmail(response, 'efectyPendingPayment'))
+      await sendEmail(data.payer.email, 'Información de tu pago en Efecty', createEmail(result, 'efectyPendingPayment'))
     }
 
     // Respuesta cuando el pago no ha tenido éxito
-    res.json({
+    return {
       status: result.status,
       message: 'Pago pendiente o rechazado!',
       id: result._id,
       paymentDetails: result.paymentDetails
-    })
-  } catch (error) {
-    console.error('Error procesando la respuesta del pago:', error.message)
-    res.status(500).json({
-      status: 'error',
-      message: 'Hubo un error procesando el pago.'
-    })
+    }
+  } catch (error: any) {
+    throw new Error(`Error al procesar la respuesta del pago: ${error.message}`)
   }
 }
 

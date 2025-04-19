@@ -7,6 +7,7 @@ import { NotificationsModel } from '../models/notifications/postgreSQL/notificat
 import { TransactionsModel } from '../models/transactions/postgreSQL/transactionsModel.js'
 import { EmailsModel } from '../models/emails/postgreSQL/emailsModel.js'
 import { CollectionsModel } from '../models/collections/postgreSQL/collectionsModel.js'
+
 createApp({
   BooksModel,
   UsersModel,

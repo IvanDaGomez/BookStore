@@ -1,21 +1,22 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "ESNext",           // Allow ES module syntax (import/export)
-    "moduleResolution": "node",   // Resolve modules like Node.js does (required for resolveJsonModule)
-    "outDir": "./dist",           // Output compiled JS files in 'dist' folder
-    "rootDir": "./src",           // All TS files are in 'src' folder
-    "esModuleInterop": true,      // Enable compatibility with CommonJS
-    "strict": true,               // Enable strict type-checking
-    "skipLibCheck": true,         // Skip type checking for declaration files
+    "target": "ES2020",                   // Compilación a ES2020
+    "module": "ESNext",                   // Usar módulos ES
+    "moduleResolution": "node",           // Resolución de módulos estilo Node.js
+    "outDir": "./dist",                   // Compilación en carpeta 'dist'
+    "rootDir": ".",                       // Permite trabajar fuera de la carpeta 'src'
+    "esModuleInterop": true,              // Compatibilidad con CommonJS
+    "strict": true,                       // Habilitar comprobación estricta
+    "skipLibCheck": true,                 // Omite comprobaciones en archivos de definición
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true,    // Allow importing JSON files
-    "allowJs": true               // Allow JavaScript files if needed
+    "resolveJsonModule": true,            // Permite importar archivos JSON
+    "allowJs": true                       // Permite incluir archivos JS
   },
   "include": [
-    "src/**/*.ts"                 // Include all TypeScript files in 'src' folder
+    "src/**/*.ts",                         // Archivos TS en la carpeta 'src'
+    "backend/**/*.ts"                      // Archivos TS en la carpeta 'backend'
   ],
   "exclude": [
-    "node_modules"                // Exclude node_modules
+    "node_modules"
   ]
 }

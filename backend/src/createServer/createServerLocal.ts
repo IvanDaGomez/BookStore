@@ -1,4 +1,4 @@
-import { createApp } from '../index'
+import { createApp } from '../index.js'
 import { BooksModel } from '../models/books/local/booksLocal.js'
 import { UsersModel } from '../models/users/local/usersLocal.js'
 import { MessagesModel } from '../models/messages/local/messagesModel.js'

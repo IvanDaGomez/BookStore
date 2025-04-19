@@ -2,7 +2,6 @@
 import { randomUUID } from 'node:crypto'
 import { validateUser, validatePartialUser } from '../../assets/validate.js'
 import jwt from 'jsonwebtoken'
-import { cambiarGuionesAEspacio } from '../../../frontend/src/assets/agregarMas.js'
 import { sendEmail } from '../../assets/email/sendEmail.js'
 import { createEmail } from '../../assets/email/htmlEmails.js'
 import { Preference, MercadoPagoConfig, Payment } from 'mercadopago'
@@ -13,156 +12,138 @@ import { CreateOrdenDeEnvío } from '../../assets/createOrdenDeEnvio.js'
 import { handlePaymentResponse } from '../../assets/handlePaymentResponse.js'
 import { validateSignature } from '../../assets/validateSignature.js'
 import { processPaymentResponse } from './processPaymentResponse.js'
-import { checkEmailExists, initializeDataCreateUser, jwtPipeline, processUserUpdate, validateUserLogin } from './helperFunctions.js'
-
-const SECRET_KEY = process.env.JWT_SECRET
+import { checkEmailExists, initializeDataCreateUser, jwtPipeline, processUserUpdate } from './helperFunctions.js'
+import express from 'express'
+import { cambiarGuionesAEspacio } from '../../assets/agregarMas.js'
+import { CollectionObjectType } from '../../models/collections/collectionObject.js'
+import { PartialUserInfoType, UserInfoType } from '../../types/user.js'
+import { ID, ImageType } from '../../types/objects.js'
+import { IUsersModel } from '../../types/models.js'
+const SECRET_KEY: string = process.env.JWT_SECRET ?? ''
 export class UsersController {
-  constructor ({ UsersModel, TransactionsModel }) {
-    this.UsersModel = UsersModel
-    this.TransactionsModel = TransactionsModel
+  private UsersModel: IUsersModel;
+  private TransactionsModel: any;
+
+  constructor ({ UsersModel, TransactionsModel }: { UsersModel: IUsersModel; TransactionsModel: any }) {
+    this.UsersModel = UsersModel as typeof UsersModel;
+    this.TransactionsModel = TransactionsModel as typeof TransactionsModel;
+    this.TransactionsModel = TransactionsModel;
   }
 
-  getAllUsers = async (req, res) => {
+  getAllUsers = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
       const users = await this.UsersModel.getAllUsers()
-      if (!users) {
-        res.status(500).json({ error: 'Error al leer usuarios' })
-      }
+
       res.json(users)
     } catch (err) {
-      console.error('Error reading users:', err)
-      res.status(500).json({ error: 'Error leyendo usuarios' })
+      next(err)
     }
   }
 
-  getAllUsersSafe = async (req, res) => {
+  getAllUsersSafe = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
       const users = await this.UsersModel.getAllUsersSafe()
-      if (!users) {
-        res.status(500).json({ error: 'Error leyendo usuarios' })
-      }
+
       res.json(users)
     } catch (err) {
-      console.error('Error leyendo usuarios:', err)
-      res.status(500).json({ error: 'Error leyendo usuarios' })
+      next(err)
     }
   }
 
-  getUserById = async (req, res) => {
+  getUserById = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
-      const { userId } = req.params
+      const userId = req.params.userId as ID
       const user = await this.UsersModel.getUserById(userId)
-      if (!user) {
-        return res.status(404).json({ error: 'Usuario no encontrado' })
-      }
+
       res.json(user)
     } catch (err) {
-      console.error('Error leyendo usuario:', err)
-      res.status(500).json({ error: 'Error leyendo usuario' })
+      next(err)
     }
   }
 
-  getPhotoAndNameUser = async (req, res) => {
+  getPhotoAndNameUser = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
-      const { userId } = req.params
+      const userId = req.params.userId as ID
+
       const user = await this.UsersModel.getPhotoAndNameUser(userId)
-      if (!user) {
-        return res.status(404).json({ error: 'Usuario no encontrado' })
-      }
+
       res.json(user)
     } catch (err) {
-      console.error('Error leyendo usuario:', err)
-      res.status(500).json({ error: 'Error leyendo usuario' })
+      next(err)
     }
   }
 
-  getEmailById = async (req, res) => {
+  getEmailById = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
-      const { userId } = req.params
-      const user = await this.UsersModel.getEmailById(userId)
-      if (!user) {
-        return res.status(404).json({ error: 'Usuario no encontrado' })
-      }
-      res.json(user)
+      const userId = req.params.userId as ID
+      const email= await this.UsersModel.getEmailById(userId)
+
+      res.json(email)
     } catch (err) {
-      console.error('Error leyendo usuario:', err)
-      res.status(500).json({ error: 'Error leyendo usuario' })
+      next(err)
     }
   }
 
-  getUserByQuery = async (req, res) => {
+  getUserByQuery = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
-      let { q } = req.query // Obtener el valor del parámetro de consulta 'q'
+      let q = req.query.q as string | undefined // Obtener el valor del parámetro de consulta 'q'
       q = cambiarGuionesAEspacio(q)
       if (!q) {
         return res.status(400).json({ error: 'El query parameter "q" es requerido' })
       }
 
       const users = await this.UsersModel.getUserByQuery(q) // Asegurarse de implementar este método en this.UsersModel
-      if (users.length === 0) {
-        return res.status(404).json({ error: 'No se encontraron usuarios' })
-      }
 
       res.json(users)
     } catch (err) {
-      console.error('Error leyendo usuarios por query:', err)
-      res.status(500).json({ error: 'Error leyendo usuarios' })
+      next(err)
     }
   }
 
-  login = async (req, res) => {
+  login = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
-      const { correo, contraseña } = req.body
+      const { correo, contraseña }: { correo: string, contraseña: string} = req.body
       if (!correo || !contraseña) {
         return res.status(400).json({ error: 'Algunos espacios están en blanco' })
       }
 
       const user = await this.UsersModel.login(correo, contraseña)
 
-      validateUserLogin(user, res)
-
       jwtPipeline(user, res)
 
       res.json(user)
     } catch (err) {
-      console.error('Error leyendo usuario por correo:', err)
-      res.status(500).json({ error: 'Error leyendo usuario' })
+      next(err)
     }
   }
 
-  googleLogin = async (req, res) => {
+  googleLogin = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
       const data = req.body
       // If there is a mail, no matter if is manually logged or google, the user is the same
       const user = await this.UsersModel.googleLogin(data)
-      if (!user) {
-        return res.status(404).json({ error: 'Usuario no encontrado' })
-      }
+
       jwtPipeline(user, res)
       res.json(user)
     } catch (err) {
-      console.error('Error leyendo usuario por correo:', err)
-      res.status(500).json({ error: 'Error leyendo usuario' })
+      next(err)
     }
   }
 
-  facebookLogin = async (req, res) => {
+  facebookLogin = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
       const data = req.body
       // If there is a mail, no matter if is manually logged or facebook, the user is the same
       const user = await this.UsersModel.facebookLogin(data)
-      if (!user) {
-        return res.status(404).json({ error: 'Usuario no encontrado' })
-      }
+
       res.json(user)
     } catch (err) {
-      console.error('Error leyendo usuario por correo:', err)
-      res.status(500).json({ error: 'Error leyendo usuario' })
+      next(err)
     }
   }
 
-  createUser = async (req, res) => {
-    let data = req.body
+  createUser = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    let data: UserInfoType = req.body
     // Validación
     try {
       const validated = validateUser(data)
@@ -170,14 +151,12 @@ export class UsersController {
         return res.status(400).json({ error: validated.error })
       }
       // Revisar si el correo ya está en uso
-      await checkEmailExists(data.correo, res)
+      await checkEmailExists(data.correo)
       // Inicializar los datos
       data = initializeDataCreateUser(data)
       // Crear usuario
       const user = await this.UsersModel.createUser(data)
-      if (!user) {
-        return res.status(500).json({ error: 'Error creando usuario' })
-      }
+
       // Enviar correo de agradecimiento por unirse a meridian
       await sendEmail(`${data.nombre} ${data.correo}`, 'Bienvenido a Meridian!', createEmail(data, 'thankEmail'))
       // Enviar notificación de bienvenida
@@ -185,30 +164,25 @@ export class UsersController {
       // Si todo es exitoso, devolver el usuario creado
       jwtPipeline(user, res)
       res.json(user)
-    } catch (error) {
-      console.error(error)
+    } catch (err) {
+      next(err)
     }
   }
 
-  deleteUser = async (req, res) => {
+  deleteUser = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
-      const { userId } = req.params
+      const userId = req.params.userId as ID
       const result = await this.UsersModel.deleteUser(userId)
-      if (!result) {
-        return res.status(404).json({ error: 'Usuario no encontrado' })
-      }
       res.json(result)
     } catch (err) {
-      console.error('Error eliminando usuario:', err)
-      res.status(500).json({ error: 'Error eliminando usuario' })
+      next(err)
     }
   }
 
-  updateUser = async (req, res) => {
+  updateUser = async (req: express.Request, res: express.Response, next: express.NextFunction)=> {
     try {
-      const { userId } = req.params
-      const data = req.body
-
+      const userId = req.params.userId as ID
+      const data: UserInfoType = req.body 
       // Validar datos
       const validated = validatePartialUser(data)
       if (!validated.success) {
@@ -217,48 +191,49 @@ export class UsersController {
 
       const updatedData = await processUserUpdate(data, userId, req)
 
-      if (updatedData.status) {
-        return res.status(updatedData.status).json(updatedData.json)
-      }
       // Actualizar usuario
       const user = await this.UsersModel.updateUser(userId, updatedData)
-      if (!user) {
-        res.status(404).json({ error: 'Usuario no encontrado o no actualizado' })
-      }
+
       jwtPipeline(user, res)
       // Enviar el nuevo token en la cookie
       res.json(user)
     } catch (err) {
-      console.error('Error actualizando usuario:', err)
-      res.status(500).json({ error: 'Error del servidor' })
+      next(err)
     }
   }
 
-  logout = async (req, res) => {
+  logout = async (req: express.Request, res: express.Response) => {
     res
       .clearCookie('access_token')
       .json({ message: 'Se cerró exitosamente la sesión' })
   }
 
-  userData = async (req, res) => {
-    if (req.session.user) {
-      // Devolver los datos del usuario
-      const user = await this.UsersModel.getUserById(req.session.user._id)
-      if (!user) {
-        return res.status(401).json({ error: 'Usuario no encontrado' })
+  userData = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    try {
+      if (req.session.user) {
+        // Devolver los datos del usuario
+        const user = await this.UsersModel.getUserById(req.session.user._id)
+
+        res.json({ user })
+      } else {
+        res.status(401).json({ message: 'No autenticado' })
       }
-      res.json({ user })
-    } else {
-      res.status(401).json({ message: 'No autenticado' })
+    } catch (err) {
+      next(err)
     }
   }
 
-  sendValidationEmail = async (req, res) => {
-    const data = req.body
+  sendValidationEmail = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const data: {
+      _id: ID
+      nombre: string
+      correo: string
+      validated: boolean
+    } = req.body
     if (!data || !data.nombre || !data.correo) {
       return res.status(400).json({ error: 'Missing required fields: nombre or correo' })
     }
-    if (data.validated) {
+    if (data.validated) { // Si el usuario ya está validado, no se envía el correo
       return res.json({ verified: true })
     }
     try {
@@ -285,13 +260,12 @@ export class UsersController {
       )
 
       res.json({ ok: true, status: 'Validation email sent successfully', token, code: validationCode })
-    } catch (error) {
-      console.error('Error sending validation email:', error)
-      res.status(500).json({ ok: false, error: 'Failed to send validation email' })
+    } catch (err) {
+      next(err)
     }
   }
 
-  userValidation = async (req, res) => {
+  userValidation = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const { token } = req.params
 
     if (!token) {
@@ -300,15 +274,12 @@ export class UsersController {
 
     try {
       // Verify the token
-      const data = jwt.verify(token, SECRET_KEY)
+      const data = jwt.verify(token, SECRET_KEY) as { _id: ID, nombre: string }
 
       // Retrieve the user and their email
-      const user = await this.UsersModel.getUserById(data._id)
+      const user: PartialUserInfoType = await this.UsersModel.getUserById(data._id)
       const correo = await this.UsersModel.getEmailById(data._id)
 
-      if (!user || !correo) {
-        return res.status(404).json({ error: 'User not found' })
-      }
 
       // Verify that the email matches
       if (data.nombre !== correo.nombre) {
@@ -323,29 +294,16 @@ export class UsersController {
       // Update the user's validation status
       const updated = await this.UsersModel.updateUser(data._id, { validated: true })
 
-      if (!updated) {
-        return res.status(500).json({ error: 'Failed to update user validation status' })
-      }
       jwtPipeline(user, res)
       // Set the new cookie
       res.json({ status: 'User successfully validated', updated })
-    } catch (error) {
-      console.error('Error validating user:', error)
-
-      // Handle token expiration or invalidity
-      if (error.name === 'TokenExpiredError') {
-        return res.status(401).json({ error: 'Token has expired' })
-      }
-      if (error.name === 'JsonWebTokenError') {
-        return res.status(400).json({ error: 'Invalid token' })
-      }
-
-      res.status(500).json({ error: 'Server error during validation' })
+    } catch (err) {
+      next(err)
     }
   }
 
-  sendChangePasswordEmail = async (req, res) => {
-    const { email } = req.body
+  sendChangePasswordEmail = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const { email }: { email: string} = req.body
 
     try {
       if (!email) {
@@ -354,9 +312,6 @@ export class UsersController {
 
       // Verificar existencia del correo
       const user = await this.UsersModel.getUserByEmail(email)
-      if (!user) {
-        return res.status(404).json({ error: 'El correo no está registrado', ok: false })
-      }
 
       // Generar token
       const tokenPayload = { _id: user._id } // No incluir información sensible
@@ -368,13 +323,12 @@ export class UsersController {
       await sendEmail(email, 'Correo de reinicio de contraseña', emailContent)
 
       return res.json({ ok: true, message: 'Correo enviado con éxito' })
-    } catch (error) {
-      console.error('Error en sendChangePasswordEmail:', error)
-      return res.status(500).json({ ok: false, error: 'Error en el servidor' })
+    } catch (err) {
+      next(err)
     }
   }
 
-  changePassword = async (req, res) => {
+  changePassword = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const { token, password } = req.body
 
     try {
@@ -386,40 +340,22 @@ export class UsersController {
         return res.status(400).json({ error: 'Contraseña no proporcionada', ok: false })
       }
 
-      let decodedToken
-      try {
-        decodedToken = jwt.verify(token, SECRET_KEY)
-      } catch (err) {
-        if (err.name === 'TokenExpiredError') {
-          return res.status(401).json({ error: 'El token ha expirado', ok: false })
-        }
-        return res.status(401).json({ error: 'Token inválido', ok: false })
-      }
+      const decodedToken = jwt.verify(token, SECRET_KEY) as { _id: ID, nombre: string}
 
-      const { _id } = decodedToken
 
-      const user = await this.UsersModel.getUserById(_id)
-      if (!user) {
-        return res.status(404).json({ error: 'Usuario no encontrado', ok: false })
-      }
-
+      const _id = decodedToken._id
       // Actualizar la contraseña (el hash se realiza en el modelo)
-      const userUpdated = await this.UsersModel.updateUser(_id, { contraseña: password })
-
-      if (!userUpdated) {
-        return res.status(500).json({ error: 'Error al actualizar la contraseña', ok: false })
-      }
+      await this.UsersModel.updateUser(_id, { contraseña: password })
 
       return res.json({ ok: true, message: 'Contraseña actualizada con éxito' })
-    } catch (error) {
-      console.error('Error en changePassword:', error)
-      return res.status(500).json({ ok: false, error: 'Error en el servidor' })
+    } catch (err) {
+      next(err)
     }
   }
 
-  getPreferenceId = async (req, res) => {
+  getPreferenceId = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const client = new MercadoPagoConfig({
-      accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN
+      accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN ?? ''
     })
 
     try {
@@ -432,7 +368,9 @@ export class UsersController {
             currency_id: 'COP'
           }
 
-        ]/* ,
+        ] as any
+        // Dont know if it works
+        /* ,
         back_urls: {
           success: 'localhost/popUp/successBuying',
           failure: 'localhost/popUp/failureBuying',
@@ -445,15 +383,12 @@ export class UsersController {
       res.json({
         id: result.id
       })
-    } catch (error) {
-      console.log(error)
-      res.status(500).json({
-        error: 'Error al crear la preferencia'
-      })
+    } catch (err) {
+      next(err)
     }
   }
 
-  processPayment = async (req, res) => {
+  processPayment = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
       const { sellerId, userId, book, shippingDetails, transaction_amount, application_fee, ...data } = req.body
       if (!sellerId || !userId || !book || !shippingDetails) {
@@ -461,7 +396,7 @@ export class UsersController {
       }
 
       const XidempotencyKey = randomUUID()
-      const client = new MercadoPagoConfig({ accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN })
+      const client = new MercadoPagoConfig({ accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN ?? ''})
       // Hay que agregar el precio del domicilio si aplica
       const payment = new Payment(client)
       // Configuración del pago con split payments
@@ -501,18 +436,13 @@ export class UsersController {
       })
 
       const result = handlePaymentResponse({ ...response, sellerId, userId, book, shippingDetails })
-      await processPaymentResponse({ response, result, sellerId, book, data, res })
-    } catch (error) {
-      console.error('Error processing payment:', error.message, { error })
-      res.status(500).json({
-        status: 'error',
-        message: 'No se pudo procesar el pago.',
-        error: error.message
-      })
+      await processPaymentResponse({ result: response, sellerId, book, data, res })
+    } catch (err) {
+      next(err)
     }
   }
 
-  MercadoPagoWebhooks = async (req, res) => {
+  MercadoPagoWebhooks = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
       const { type } = req.query
       const paymentData = req.body
@@ -522,10 +452,10 @@ export class UsersController {
       if (!isValid) {
         return res.status(400).json({ error: 'Firma no válida' })
       }
-
-      const client = new MercadoPagoConfig({ accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN })
+      
+      const client = new MercadoPagoConfig({ accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN ?? '' })
       const payment = new Payment(client)
-
+      let paymentResponse = { status: 'error', message: 'Error al procesar el pago' }
       if (type === 'payment') {
         const data = await payment.get({ id: paymentData.id })
         /* Modelo de respuesta
@@ -581,33 +511,40 @@ export class UsersController {
         }
 
         const book = await this.TransactionsModel.getBookByTransactionId(paymentData.id)
-        await processPaymentResponse({ result: data, sellerId: book.idVendedor, book, data, res })
+        paymentResponse = await processPaymentResponse({
+          result: data,
+          sellerId: book.idVendedor,
+          book,
+          data,
+          res
+        })
       }
 
-      res.status(200).json({ status: 'success' })
-    } catch (error) {
-      console.error('Error al procesar el webhook:', error.message)
-      res.status(500).json({ error: 'Error interno al procesar el webhook' })
+      res.status(200).json(paymentResponse)
+    } catch (err) {
+      next(err)
     }
   }
 
-  processDelivery = async (req, res) => {
+  processDelivery = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    try {
+      
+    } catch (err) {
+      next(err)
+    }
   }
 
-  followUser = async (req, res) => {
-    const { followerId, userId } = req.body
+  followUser = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const { followerId, userId }: { followerId: ID, userId: ID} = req.body
     try {
       if (!followerId || !userId) {
         return res.status(404).json({ ok: false, error: 'No se proporcionó usuario y seguidor' })
       }
       // Es necesario conseguir el usuario para saber que otros seguidores tenía
-      const follower = await this.UsersModel.getUserById(followerId)
+      const follower: PartialUserInfoType = await this.UsersModel.getUserById(followerId)
 
-      const user = await this.UsersModel.getUserById(userId)
+      const user: PartialUserInfoType = await this.UsersModel.getUserById(userId)
 
-      if (!follower || !user) {
-        return res.status(401).json({ ok: false, error: 'No se encontró el usuario o el seguidor' })
-      }
       let action
       // Agregar el seguidor
       if (!follower.seguidores.includes(userId)) {
@@ -621,12 +558,8 @@ export class UsersController {
         action = 'Eliminado'
       }
 
-      const followerUpdated = await this.UsersModel.updateUser(followerId, follower)
-      const userUpdated = await this.UsersModel.updateUser(userId, user)
-
-      if (!followerUpdated || !userUpdated) {
-        return res.status(401).json({ ok: false, error: 'No se pudo actualizar el seguidor' })
-      }
+      const followerUpdated: PartialUserInfoType= await this.UsersModel.updateUser(followerId, follower)
+      const userUpdated: PartialUserInfoType = await this.UsersModel.updateUser(userId, user)
 
       // Notificación de nuevo seguidor
       if (action === 'Agregado') {
@@ -635,54 +568,48 @@ export class UsersController {
 
       jwtPipeline(user, res)
       res.json({ ok: true, action, follower, user })
-    } catch (error) {
-      console.error('Error:', error)
-      res.status(500).json({ ok: false, error: 'Error del servidor' })
+    } catch (err) {
+      next(err)
     }
   }
 
-  getBalance = async (req, res) => {
-    const { userId } = req.params
+  getBalance = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    try {
+      
+      const userId = req.params.userId as ID
 
-    if (!userId) return res.status(404).json({ error: 'No se proporcionó id de usuario' })
+      if (!userId) return res.status(404).json({ error: 'No se proporcionó id de usuario' })
 
-    const balance = await this.UsersModel.getBalance(userId)
+      const balance = await this.UsersModel.getBalance(userId)
 
-    if (!balance) {
-      return res.json({ error: 'No se pudo encontrar el balance' })
+      res.json({ balance })
+    } catch (err) {
+      next(err)  
     }
-    res.json({ balance })
   }
 
-  createColection = async (req, res) => {
-    const { collectionName, userId } = req.body
+  createColection = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const { collectionName, userId }: { collectionName: string, userId: ID} = req.body
     try {
       if (!userId || !collectionName) {
         return res.status(400).json({ error: 'No se entregaron todos los campos' })
       }
 
       const user = await this.UsersModel.getUserById(userId)
-      if (!user) {
-        return res.status(404).json({ error: 'No se encontró el libro' })
-      }
 
       // Agregar la nueva colección
       const updated = await this.UsersModel.updateUser(userId, {
-        colecciones: [...(user?.collectionsIds || []), { nombre: collectionName, librosIds: [] }]
+        coleccionsIds: [...(user?.coleccionsIds || []), { nombre: collectionName, librosIds: [] }]
       })
 
-      if (!updated) {
-        return res.status(500).json({ error: 'No se pudo actualizar el libro' })
-      }
       jwtPipeline(user, res)
       res.json({ data: updated })
-    } catch (error) {
-      console.error('Error en createColection:', error)
-      res.status(500).json({ error: 'Error en el servidor' })
+    } catch (err) {
+      next(err)
     }
   }
 
-  addToColection = async (req, res) => {
+  addToColection = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     const { bookId, collectionName, userId } = req.body
     try {
       if (!userId || !collectionName) {
@@ -690,11 +617,9 @@ export class UsersController {
       }
 
       const user = await this.UsersModel.getUserById(userId)
-      if (!user) {
-        return res.status(404).json({ error: 'No se encontró el usuario' })
-      }
 
-      const collection = user.colecciones.find((coleccion) => coleccion.nombre === collectionName)
+
+      const collection = user.coleccionsIds.find((coleccion) => coleccion.nombre === collectionName)
       if (!collection) {
         return res.status(404).json({ error: 'No se encontró la colección' })
       }
@@ -706,8 +631,8 @@ export class UsersController {
 
       // Actualizar colección
       const updated = await this.UsersModel.updateUser(userId, {
-        colecciones: [
-          ...user.colecciones.filter((coleccion) => coleccion.nombre !== collectionName),
+        coleccionsIds: [
+          ...user.coleccionsIds.filter((coleccion) => coleccion.nombre !== collectionName),
           {
             nombre: collection.nombre,
             librosIds: [...collection.librosIds, bookId]
@@ -715,33 +640,10 @@ export class UsersController {
         ]
       })
 
-      if (!updated) {
-        return res.status(500).json({ error: 'No se pudo actualizar el libro' })
-      }
-
       res.json({ data: updated })
-    } catch (error) {
-      console.error('Error en addToColection:', error)
-      res.status(500).json({ error: 'Error en el servidor' })
+    } catch (err) {
+      next(err)
     }
   }
 
-  getBooksByCollection = async (req, res) => {
-    const { collection } = req.body
-    try {
-      if (!collection) {
-        return res.status(400).json({ error: 'No se proporcionó la colección' })
-      }
-
-      const books = await this.UsersModel.getBooksByCollection(collection)
-      if (!books || books.length === 0) {
-        return res.status(404).json({ error: 'No hay libros en esta colección' })
-      }
-
-      res.json({ data: books })
-    } catch (error) {
-      console.error('Error en getBooksByCollection:', error)
-      res.status(500).json({ error: 'Error en el servidor' })
-    }
-  }
 }

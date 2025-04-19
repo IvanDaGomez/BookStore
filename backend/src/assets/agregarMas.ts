@@ -1,10 +1,11 @@
 // Reemplaza espacios con guiones
-function cambiarEspacioAGuiones (input) {
+function cambiarEspacioAGuiones(input: string | undefined): string {
+  if (input === undefined) return ''
   return input.replace(/\s+/g, '-')
 }
 
 // Devuelve guiones a espacios
-function cambiarGuionesAEspacio (input) {
+function cambiarGuionesAEspacio (input: string | undefined): string {
   if (input === undefined) return ''
   return input.replace(/-/g, ' ')
 }

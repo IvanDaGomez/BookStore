@@ -3,58 +3,65 @@ import bcrypt from 'bcrypt'
 import { SALT_ROUNDS } from '../../../assets/config.js'
 import { levenshteinDistance } from '../../../assets/levenshteinDistance.js'
 import crypto from 'node:crypto'
-import { BooksModel } from '../../books/local/booksLocal.js'
 import { userObject } from '../userObject.js'
+import { PartialUserInfoType, UserInfoType } from '../../../types/user.js'
+import { ID, ImageType } from '../../../types/objects.js'
 
 class UsersModel {
-  static async getAllUsers () {
+  static async getAllUsers(): Promise<UserInfoType[]> {
+    // Esta función devuelve todos los usuarios, incluyendo información sensible como la contraseña
     try {
       const data = await fs.readFile('./models/users.json', 'utf-8')
       if (!data) {
-        throw new Error('User data is empty or missing.')
+        throw new Error('No se encontraron usuarios')
       }
-      const users = JSON.parse(data)
-      return users
-    } catch (err) {
-      console.error('Error reading users:', err)
-      throw err
-    }
-  }
-
-  static async getAllUsersSafe () {
-    try {
-      const data = await fs.readFile('./models/users.json', 'utf-8')
-      const users = JSON.parse(data)
-
-      return users.map(user => userObject(user))
-    } catch (err) {
-      console.error('Error reading users:', err)
+      const users: UserInfoType[] = JSON.parse(data)
+      return users.map(user => userObject(user, true) as UserInfoType)
+    } catch (err: any) {
       throw new Error(err)
     }
   }
 
-  static async getUserById (id) {
+  static async getAllUsersSafe (): Promise<PartialUserInfoType[]> {
+    // Esta función devuelve todos los usuarios, pero sin información sensible como la contraseña
     try {
-      const users = await this.getAllUsers()
+      const data = await fs.readFile('./models/users.json', 'utf-8')
+      const users: PartialUserInfoType[] = JSON.parse(data)
+      if (!data) {
+        throw new Error('No se encontraron usuarios')
+      }
+      return users.map(user => userObject(user, false) as PartialUserInfoType)
+    } catch (err: any) {
+      throw new Error(err)
+    }
+  }
+
+  static async getUserById (id: ID): Promise<PartialUserInfoType> {
+    // Esta función devuelve un usuario específico por su ID, pero sin información sensible como la contraseña
+    try {
+      const users = await this.getAllUsersSafe()
       const user = users.find(user => user._id === id)
       if (!user) {
-        return null
+        throw new Error('Usuario no encontrado')
       }
 
       // Return user with limited public information
-      return userObject(user)
-    } catch (err) {
-      console.error('Error reading user:', err)
+      return userObject(user, false) as PartialUserInfoType
+    } catch (err: any) {
       throw new Error(err)
     }
   }
 
-  static async getPhotoAndNameUser (id) {
+  static async getPhotoAndNameUser(id: ID): Promise<{
+    _id: ID
+    fotoPerfil: ImageType
+    nombre: string
+  }> {
     try {
-      const users = await this.getAllUsers()
+      const users = await this.getAllUsersSafe()
       const user = users.find(user => user._id === id)
       if (!user) {
-        return null
+        throw new Error('Usuario no encontrado')
       }
 
       // Return user with limited public information
@@ -63,34 +70,32 @@ class UsersModel {
         fotoPerfil: user.fotoPerfil,
         nombre: user.nombre
       }
-    } catch (err) {
-      console.error('Error reading user:', err)
-      return { error: 'Error reading user' }
+    } catch (err: any) {
+      throw new Error(err)
     }
   }
 
-  static async getEmailById (id) {
+  static async getEmailById (id: ID): Promise<{ correo: string, nombre: string }> {
     try {
       const users = await this.getAllUsers()
       const user = users.find(user => user._id === id)
       if (!user) {
-        return null
+        throw new Error('Usuario no encontrado')
       }
 
       // Return user with limited public information
-      return { correo: user.correo }
-    } catch (err) {
-      console.error('Error reading user:', err)
+      return { correo: user.correo, nombre: user.nombre }
+    } catch (err: any) {
       throw new Error(err)
     }
   }
 
   // Pendiente desarrollar, una buena query para buscar varios patrones
-  static async getUserByQuery (query) {
-    const users = await this.getAllUsers()
+  static async getUserByQuery (query: string): Promise<PartialUserInfoType[]> {
+    const users = await this.getAllUsersSafe()
 
     // Funcion para calcular el nivel de coincidencia entre la query y los resultados
-    const calculateMatchScore = (user, queryWords) => {
+    const calculateMatchScore = (user: PartialUserInfoType, queryWords: string[]): number => {
       let score = 0
       const tolerance = 2 // Máxima distancia de Levenshtein permitida para considerar una coincidencia
 
@@ -129,7 +134,7 @@ class UsersModel {
     const queryWords = query.split(' ')
 
     // Recorremos todos los libros y calculamos el puntaje de coincidencia
-    const usersWithScores = users.map(user => {
+    const usersWithScores = users.map((user: PartialUserInfoType) => {
       const score = calculateMatchScore(user, queryWords)
 
       // Validamos si el score es suficiente, por ejemplo si es menor a 2 no lo devolvemos
@@ -139,6 +144,9 @@ class UsersModel {
       return { user, score } // Devolvemos el libro junto con su puntaje si pasa la validación
     }).filter(item => item !== null) // Filtramos los resultados nulos
 
+    if (usersWithScores.length === 0) {
+      throw new Error('No se encontraron usuarios que coincidan con la búsqueda')
+    }
     // Ordenamos los libros por el puntaje en orden descendente
     usersWithScores.sort((a, b) => b.score - a.score)
 
@@ -146,32 +154,31 @@ class UsersModel {
     return usersWithScores.map(item => item.user)
   }
 
-  static async login (correo, contraseña) {
+  static async login(correo: string, contraseña: string): Promise<PartialUserInfoType> {
     try {
       const users = await this.getAllUsers()
       const user = users.find(usuario => usuario.correo === correo)
       if (!user) {
-        return 'No encontrado'
+        throw new Error('El correo no existe')
       }
       const validated = await bcrypt.compare(contraseña, user.contraseña)
       // Validar que la contraseña sea
       if (!validated) {
-        return 'Contraseña no coincide'
+        throw new Error('La contraseña es incorrecta')
       }
 
       // Return user info, but avoid password or sensitive data
-      return userObject(user)
-    } catch (err) {
-      console.error('Error reading user:', err)
+      return userObject(user) as PartialUserInfoType
+    } catch (err: any) {
       throw new Error(err)
     }
   }
 
-  static async googleLogin (data) {
+  static async googleLogin (data: { nombre: string, correo: string }): Promise<UserInfoType> {
     try {
       // Validate input data
       if (!data.nombre || !data.correo) {
-        throw new Error('Invalid data: Email and name are required')
+        throw new Error('Data inválida: El correo y el nombre son obligatorios')
       }
 
       const users = await this.getAllUsers()
@@ -181,7 +188,7 @@ class UsersModel {
 
       if (!user) {
         // Google sign-up flow
-        const newUser = userObject(data) // Ensure `userObject` sanitizes and structures the input
+        const newUser = userObject(data, true) as UserInfoType// Ensure `userObject` sanitizes and structures the input
         newUser.login = 'Google' // Mark this as a Google user
         // userObject() elimina el correo y la contraseña (que no hay)
         newUser.correo = data.correo
@@ -194,14 +201,13 @@ class UsersModel {
         await fs.writeFile('./models/users.json', JSON.stringify(users, null, 2), 'utf8')
         return newUser
       }
-      return userObject(user)
-    } catch (err) {
-      console.error('Error handling Google login:', err.message || err)
-      throw new Error('An error occurred while processing your request')
+      return userObject(user, true) as UserInfoType
+    } catch (err: any) {
+      throw new Error(err)
     }
   }
 
-  static async facebookLogin (data) {
+  static async facebookLogin (data: { nombre: string, correo: string }): Promise<UserInfoType> {
     try {
       // Validate input data
       if (!data.nombre || !data.correo) {
@@ -215,7 +221,7 @@ class UsersModel {
 
       if (!user) {
         // Google sign-up flow
-        const newUser = userObject(data) // Ensure `userObject` sanitizes and structures the input
+        const newUser = userObject(data, true) as UserInfoType// Ensure `userObject` sanitizes and structures the input
         newUser.login = 'Facebook' // Mark this as a Facebook user
         // userObject() elimina el correo y la contraseña (que no hay)
         newUser.correo = data.correo
@@ -230,52 +236,49 @@ class UsersModel {
         return newUser
       }
       // Si ya existe el usuario solo devolverlo
-      return userObject(user)
-    } catch (err) {
-      console.error('Error handling Facebook login:', err.message || err)
-      throw new Error('An error occurred while processing your request')
-    }
-  }
-
-  static async getUserByEmail (correo) {
-    try {
-      const users = await this.getAllUsers()
-      const user = users.find(usuario => usuario.correo === correo)
-      if (!user) {
-        return 'No encontrado'
-      }
-      // Return user info, but avoid password or sensitive data
-      return userObject(user)
-    } catch (err) {
-      console.error('Error reading user:', err)
+      return userObject(user, true) as UserInfoType
+    } catch (err: any) {
       throw new Error(err)
     }
   }
 
-  static async createUser (data) {
+  static async getUserByEmail (correo: string): Promise<UserInfoType> {
+    try {
+      const users = await this.getAllUsers()
+      const user = users.find(usuario => usuario.correo === correo)
+      if (!user) {
+        throw new Error('El correo no existe')
+      }
+      // Return user info, but avoid password or sensitive data
+      return userObject(user, true) as UserInfoType
+    } catch (err: any) {
+      throw new Error(err)
+    }
+  }
+
+  static async createUser (data: { nombre: string, correo: string, contraseña: string }): Promise<UserInfoType> {
     try {
       const users = await this.getAllUsers()
 
       // Crear valores por defecto
-      const newUser = { ...userObject(data), contraseña: data.contraseña, correo: data.correo }
+      const newUser = userObject(data, true) as UserInfoType// Ensure `userObject` sanitizes and structures the input
 
       newUser.contraseña = await bcrypt.hash(newUser.contraseña, SALT_ROUNDS)
       users.push(newUser)
       await fs.writeFile('./models/users.json', JSON.stringify(users, null, 2))
-      return userObject(newUser)
+      return newUser
     } catch (err) {
-      console.error('Error creating user:', err)
       throw new Error('Error creating user')
     }
   }
 
-  static async updateUser (id, data) {
+  static async updateUser (id: ID, data: Partial<UserInfoType>): Promise<PartialUserInfoType> {
     try {
       const users = await this.getAllUsers()
 
       const userIndex = users.findIndex(user => user._id.toString() === id.toString())
       if (userIndex === -1) {
-        return null // Si no se encuentra el usuario, retorna null
+        throw new Error('Usuario no encontrado')
       }
       if (data.correo !== undefined && data.correo) {
         const emailRepeated = users
@@ -296,52 +299,44 @@ class UsersModel {
       const info = JSON.stringify(users, null, 2)
       await fs.writeFile('./models/users.json', info, 'utf-8')
 
-      return userObject(users[userIndex])
-    } catch (err) {
-      console.error('Error:', err)
+      return userObject(users[userIndex], false) as PartialUserInfoType
+    } catch (err: any) {
       throw new Error(err)
     }
   }
 
-  static async deleteUser (id) {
+  static async deleteUser (id: ID): Promise<{ message: string }> {
     try {
-      const users = await this.getAllUsers()
+      const users = await this.getAllUsersSafe()
       const userIndex = users.findIndex(user => user._id === id)
       if (userIndex === -1) {
-        return null // Si no se encuentra el usuario, retorna null
+         throw new Error('Usuario no encontrado')
       }
       users.splice(userIndex, 1)
       await fs.writeFile('./models/users.json', JSON.stringify(users, null, 2))
-      return { message: 'User deleted successfully' } // Mensaje de éxito
-    } catch (err) {
-      console.error('Error deleting user:', err)
-      throw new Error('Error deleting user')
+      return { message: 'Usuario eliminado con éxito' } // Mensaje de éxito
+    } catch (err: any) {
+      throw new Error(err)
     }
   }
 
-  static async getBalance (id) {
+  static async getBalance(id: ID): Promise<{
+    pendiente?: number
+    disponible?: number
+    porLlegar?: number
+  }> {
     const users = await this.getAllUsers()
 
     const user = users.find((usuario) => usuario._id === id)
 
-    if (!user) return null
-    return user.balance
-  }
-
-  static async getBooksByCollection (collection) {
-    try {
-      // Obtener todos los libros
-      const books = await BooksModel.getAllBooks()
-
-      // Filtrar los libros que pertenecen a la colección
-      const colecciones = books.filter(book => collection.librosIds.includes(book._id))
-
-      return colecciones
-    } catch (error) {
-      console.error('Error en getBooksByCollection:', error)
-      throw new Error('No se pudieron obtener los libros de la colección')
+    if (!user) throw new Error('Usuario no encontrado')
+    const userObj = userObject(user, false) as PartialUserInfoType
+    if (!userObj.balance) {
+      throw new Error('El usuario no tiene balance')
     }
+    return userObj.balance
   }
+
 }
 
 export { UsersModel }

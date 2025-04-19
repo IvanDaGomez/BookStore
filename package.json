@@ -2,18 +2,18 @@
   "name": "bookstore",
   "version": "1.0.0",
   "scripts": {
-  "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
-  "start:frontend": "cd frontend && npm run dev",
-
-  "start:backend": "cd backend && npm run dev",
-  "start:backend:local": "cd backend && npm run dev:local",
-  "start:backend:postgre": "cd backend && npm run dev:postgre",
-
-  "start:local": "concurrently \"npm run start:frontend\" \"npm run start:backend:local\"",
-  "start:postgre": "concurrently \"npm run start:frontend\" \"npm run start:backend:postgre\""
-},
+    "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
+    "start:frontend": "cd frontend && npm run dev",
+    "start:backend": "cd backend && npm run dev",
+    "start:backend:local": "cd backend && npm run dev:local",
+    "start:backend:postgre": "cd backend && npm run dev:postgre",
+    "start:local": "concurrently \"npm run start:frontend\" \"npm run start:backend:local\"",
+    "start:postgre": "concurrently \"npm run start:frontend\" \"npm run start:backend:postgre\""
+  },
   "devDependencies": {
-    "concurrently": "^7.0.0"
+    "concurrently": "^7.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
