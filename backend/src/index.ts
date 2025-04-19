@@ -13,7 +13,7 @@ import { createCollectionsRouter } from './routes/collections/collectionsRouter.
 import { jwtMiddleware } from './middlewares/jwtMiddleware.js'
 import { trackRequests } from './middlewares/trackRequests.js'
 import swaggerUI from 'swagger-ui-express'
-import swaggerDoc from './data/swagger.json' assert { type: 'json' }
+import swaggerDoc from './data/swagger.json'
 dotenv.config()
 // import { handleStats } from './assets/handleStats.js'
 export const createApp = ({
