@@ -9,7 +9,8 @@
     "dev:local": "ts-node-dev --watch createServer/createServerLocal.ts",
     "dev:postgre": "ts-node-dev --watch createServer/createServerPostgreSQL.ts",
     "updateDataBase": "ts-node-dev assets/updateDB.ts",
-    "document": "node src/assets/swagger.js"
+    "document": "node src/assets/swagger.js",
+    "build": "tsc"
   },
   "author": "Ivan Gomez",
   "license": "ISC",

@@ -6,6 +6,7 @@ import { ConversationObjectType } from './conversation'
 import { ID, ImageType } from './objects'
 import { PartialUserInfoType, UserInfoType } from './user'
 import { MessageObjectType } from './message'
+import { NotificationType } from './notification'
 
 export interface IUsersModel {
   getAllUsers(): Promise<UserInfoType[]>
@@ -120,6 +121,16 @@ export interface IMessagesModel {
   sendMessage (data: Partial<MessageObjectType>): Promise<MessageObjectType>
   deleteMessage (id: ID): Promise<{ message: string }>
   updateMessage (id: ID, data: Partial<MessageObjectType>): Promise<MessageObjectType>
+}
+
+export interface INotificationsModel {
+  getAllNotifications(l?: number): Promise<NotificationType[]>
+  getAllNotificationsByUserId(userId: ID): Promise<NotificationType[]>
+  getNotificationById(id: ID): Promise<NotificationType>
+  createNotification(data: Partial<NotificationType>): Promise<NotificationType>
+  updateNotification (id: ID, data: Partial<NotificationType>): Promise<NotificationType>
+  deleteNotification (id: ID): Promise<{ message: string }>
+  markNotificationAsRead (id: ID): Promise<NotificationType>
 }
 export interface ITransactionsModel {
   // Define the methods and properties of TransactionsModel

@@ -10,9 +10,9 @@ export type NotificationType = {
   input: string
   createdIn: ISOString
   read: boolean
-  actionUrl: string
+  actionUrl?: string
   expiresAt: ISOString
-  message: string
+  message?: string
   metadata?: {
     photo?: ImageType
     bookTitle?: string
