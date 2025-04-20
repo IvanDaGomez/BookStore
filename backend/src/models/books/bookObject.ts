@@ -54,4 +54,4 @@ function bookObject(data: BookObjectType | Partial<BookObjectType>, fullInfo = t
   } as Partial<BookObjectType>;
 }
 
-export { bookObject, BookObjectType };
+export { bookObject };

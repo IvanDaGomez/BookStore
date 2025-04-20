@@ -21,8 +21,8 @@ export interface IUsersModel {
   getEmailById(id: ID): Promise<{ correo: string; nombre: string }>
   getUserByQuery(query: string): Promise<PartialUserInfoType[]>
   login(correo: string, contraseña: string): Promise<PartialUserInfoType>
-  googleLogin(data: { nombre: string; correo: string }): Promise<UserInfoType>
-  facebookLogin(data: { nombre: string; correo: string }): Promise<UserInfoType>
+  googleLogin(data: { nombre: string; correo: string }): Promise<PartialUserInfoType>
+  facebookLogin (data: { nombre: string, correo: string, fotoPerfil: ImageType }): Promise<PartialUserInfoType>
   getUserByEmail(correo: string): Promise<UserInfoType>
   createUser(data: {
     nombre: string

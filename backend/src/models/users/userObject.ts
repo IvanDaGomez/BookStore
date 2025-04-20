@@ -1,6 +1,10 @@
+import { ISOString } from "../../types/objects";
 import { PartialUserInfoType, UserInfoType } from "../../types/user"
 
-export function userObject(name: Partial<UserInfoType>, fullInfo: boolean = false) {
+function userObject(name: UserInfoType | Partial<UserInfoType>, fullInfo: false): PartialUserInfoType;
+function userObject(name: UserInfoType | Partial<UserInfoType>, fullInfo: true): UserInfoType;
+
+function userObject(name: UserInfoType | Partial<UserInfoType>, fullInfo = false): UserInfoType | PartialUserInfoType {
   if (fullInfo) {
     const fullAnswer: UserInfoType = {
       _id: name._id ?? crypto.randomUUID(),
@@ -12,14 +16,14 @@ export function userObject(name: Partial<UserInfoType>, fullInfo: boolean = fals
       fotoPerfil: name.fotoPerfil ?? '',
       librosIds: name.librosIds ?? [],
       estadoCuenta: name.estadoCuenta ?? 'Activo',
-      fechaRegistro: name.fechaRegistro ?? '',
-      actualizadoEn: name.actualizadoEn ?? '',
+      fechaRegistro: name.fechaRegistro ?? new Date().toISOString() as ISOString,
+      actualizadoEn: name.actualizadoEn ?? new Date().toISOString() as ISOString,
       bio: name.bio ?? '',
       favoritos: name.favoritos ?? [],
       conversationsIds: name.conversationsIds ?? [],
       notificationsIds: name.notificationsIds ?? [],
       validated: name.validated ?? false,
-      login: name.login ?? 'default',
+      login: name.login ?? 'Default',
       ubicacion: name.ubicacion ?? {
         calle: '',
         ciudad: '',
@@ -38,7 +42,7 @@ export function userObject(name: Partial<UserInfoType>, fullInfo: boolean = fals
       },
       librosVendidos: name.librosVendidos ?? [],
     };
-    return fullAnswer;
+    return fullAnswer
   } else {
     const partialAnswer: PartialUserInfoType = {
       _id: name._id ?? crypto.randomUUID(),
@@ -47,14 +51,14 @@ export function userObject(name: Partial<UserInfoType>, fullInfo: boolean = fals
       fotoPerfil: name.fotoPerfil ?? '',
       librosIds: name.librosIds ?? [],
       estadoCuenta: name.estadoCuenta ?? 'Activo',
-      fechaRegistro: name.fechaRegistro ?? '',
-      actualizadoEn: name.actualizadoEn ?? '',
+      fechaRegistro: name.fechaRegistro ?? new Date().toISOString() as ISOString,
+      actualizadoEn: name.actualizadoEn ?? new Date().toISOString() as ISOString,
       bio: name.bio ?? '',
       favoritos: name.favoritos ?? [],
       conversationsIds: name.conversationsIds ?? [],
       notificationsIds: name.notificationsIds ?? [],
       validated: name.validated ?? false,
-      login: name.login ?? 'default',
+      login: name.login ?? 'Default',
       ubicacion: name.ubicacion ?? {
         calle: '',
         ciudad: '',
@@ -75,3 +79,5 @@ export function userObject(name: Partial<UserInfoType>, fullInfo: boolean = fals
     return partialAnswer;
   }
 }
+
+export { userObject };

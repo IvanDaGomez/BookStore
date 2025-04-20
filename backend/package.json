@@ -5,10 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only createServer/createServerLocal.ts",
-    "dev:local": "ts-node-dev --watch createServer/createServerLocal.ts",
-    "dev:postgre": "ts-node-dev --watch createServer/createServerPostgreSQL.ts",
-    "updateDataBase": "ts-node-dev assets/updateDB.ts",
+    "dev": "tsc && node --watch dist/createServer/createServerLocal.js",
+    "dev:local": "tsc && node --watch dist/createServer/createServerLocal.js",
+    "dev:postgre": "tsc && node --watch dist/createServer/createServerPostgreSQL.js",
+    "updateDataBase": "tsc && node dist/assets/updateDB.ts",
     "document": "node src/assets/swagger.js",
     "build": "tsc"
   },

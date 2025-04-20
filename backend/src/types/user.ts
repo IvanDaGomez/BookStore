@@ -10,17 +10,17 @@ export type PartialUserInfoType = {
   _id: ID
   nombre: string
   rol: RoleType
-  fotoPerfil: ImageType | ''
+  fotoPerfil: ImageType
   librosIds: ID[]
   estadoCuenta: EstadoCuentaType
-  fechaRegistro: string
-  actualizadoEn: string
+  fechaRegistro: ISOString
+  actualizadoEn: ISOString
   bio: string
   favoritos: ID[]
   conversationsIds: ID[]
   notificationsIds: ID[]
   validated: boolean
-  login: string
+  login: 'Google' | 'Facebook' | 'Default'
   ubicacion: {
     calle: string
     ciudad: string
@@ -53,21 +53,21 @@ export type UserInfoType = {
   _id: ID
   nombre: string
   rol: RoleType
-  fotoPerfil: ImageType | ''
+  fotoPerfil: ImageType 
   correo: string
   contraseña: string
   direccionEnvio?: LocationType[]
   librosIds: ID[]
   librosVendidos: ID[]
   estadoCuenta: EstadoCuentaType
-  fechaRegistro: string
-  actualizadoEn: string
+  fechaRegistro: ISOString
+  actualizadoEn: ISOString
   bio: string
   favoritos: ID[]
   conversationsIds: ID[]
   notificationsIds: ID[]
   validated: boolean
-  login: string
+  login: 'Google' | 'Facebook' | 'Default'
   ubicacion?: LocationType
   seguidores?: ID[]
   siguiendo?: ID[],

@@ -47,11 +47,11 @@ export const createUsersRouter = ({
 
   usersRouter.post(
     '/newCollection',
-    usersController.createColection as RequestHandler
+    usersController.createCollection as RequestHandler
   )
   usersRouter.post(
     '/addToCollection',
-    usersController.addToColection as RequestHandler
+    usersController.addToCollection as RequestHandler
   )
 
   usersRouter.post('/follow', usersController.followUser as RequestHandler)

@@ -167,7 +167,11 @@ export class UsersController {
     next: express.NextFunction
   ): Promise<express.Response | void> => {
     try {
-      const data = req.body
+      const data = req.body as { 
+        correo: string
+        nombre: string
+        fotoPerfil: ImageType
+      }
       // If there is a mail, no matter if is manually logged or google, the user is the same
       const user = await this.UsersModel.googleLogin(data)
 
@@ -184,10 +188,14 @@ export class UsersController {
     next: express.NextFunction
   ): Promise<express.Response | void> => {
     try {
-      const data = req.body
-      // If there is a mail, no matter if is manually logged or facebook, the user is the same
+      const data = req.body as {
+        correo: string
+        nombre: string
+        fotoPerfil: ImageType
+      }
       const user = await this.UsersModel.facebookLogin(data)
 
+      jwtPipeline(user, res)
       res.json(user)
     } catch (err) {
       next(err)
@@ -292,7 +300,7 @@ export class UsersController {
         // Devolver los datos del usuario
         const user = await this.UsersModel.getUserById(req.session.user._id)
 
-        res.json({ user })
+        res.json(user)
       } else {
         res.status(401).json({ message: 'No autenticado' })
       }
@@ -310,14 +318,14 @@ export class UsersController {
       _id: ID
       nombre: string
       correo: string
-      validated: boolean
+      validated: string
     } = req.body
     if (!data || !data.nombre || !data.correo) {
       return res
         .status(400)
-        .json({ error: 'Missing required fields: nombre or correo' })
+        .json({ error: 'No se proporcionaron todos los campos: nombre or correo' })
     }
-    if (data.validated) {
+    if (data.validated === 'true') {
       // Si el usuario ya está validado, no se envía el correo
       return res.json({ verified: true })
     }
@@ -391,13 +399,13 @@ export class UsersController {
       // }
 
       // Update the user's validation status
-      const updated = await this.UsersModel.updateUser(data._id, {
+      await this.UsersModel.updateUser(data._id, {
         validated: true
       })
 
       jwtPipeline(user, res)
       // Set the new cookie
-      res.json({ status: 'User successfully validated', updated })
+      res.json({ message: 'User successfully validated' })
     } catch (err) {
       next(err)
     }
@@ -581,6 +589,7 @@ export class UsersController {
         data,
         res
       })
+      res.json(result)
     } catch (err) {
       next(err)
     }
@@ -709,21 +718,19 @@ export class UsersController {
           .json({ ok: false, error: 'No se proporcionó usuario y seguidor' })
       }
       // Es necesario conseguir el usuario para saber que otros seguidores tenía
-      const follower: PartialUserInfoType = await this.UsersModel.getUserById(
-        followerId
-      )
-
-      const user: PartialUserInfoType = await this.UsersModel.getUserById(
-        userId
-      )
+      const [follower, user] = await Promise.all([
+        this.UsersModel.getUserById(followerId),
+        this.UsersModel.getUserById(userId)
+      ])
 
       let action
       // Agregar el seguidor
       if (!follower.seguidores.includes(userId)) {
-        follower.seguidores = [...(follower?.seguidores || []), userId]
-        user.siguiendo = [...(user?.siguiendo || []), followerId]
+        follower.seguidores = [...follower.seguidores, userId]
+        user.siguiendo = [...user.siguiendo, followerId]
         action = 'Agregado'
-        // Eliminar el seguidor
+
+      // Eliminar el seguidor
       } else {
         follower.seguidores = follower.seguidores.filter(
           seguidorId => seguidorId !== userId
@@ -734,12 +741,11 @@ export class UsersController {
         action = 'Eliminado'
       }
 
-      const followerUpdated: PartialUserInfoType =
-        await this.UsersModel.updateUser(followerId, follower)
-      const userUpdated: PartialUserInfoType = await this.UsersModel.updateUser(
-        userId,
-        user
-      )
+      
+      await Promise.all([
+        this.UsersModel.updateUser(followerId, follower),
+        this.UsersModel.updateUser(userId, user)
+      ])
 
       // Notificación de nuevo seguidor
       if (action === 'Agregado') {
@@ -767,7 +773,7 @@ export class UsersController {
         return res
           .status(404)
           .json({ error: 'No se proporcionó id de usuario' })
-
+f
       const balance = await this.UsersModel.getBalance(userId)
 
       res.json({ balance })
@@ -776,7 +782,7 @@ export class UsersController {
     }
   }
 
-  createColection = async (
+  createCollection = async (
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
@@ -795,19 +801,19 @@ export class UsersController {
       // Agregar la nueva colección
       const updated = await this.UsersModel.updateUser(userId, {
         coleccionsIds: [
-          ...(user?.coleccionsIds || []),
+          ...user.coleccionsIds,
           { nombre: collectionName, librosIds: [] }
         ]
       })
 
       jwtPipeline(user, res)
-      res.json({ data: updated })
+      res.json(updated)
     } catch (err) {
       next(err)
     }
   }
 
-  addToColection = async (
+  addToCollection = async (
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
@@ -833,11 +839,11 @@ export class UsersController {
       if (collection.librosIds.includes(bookId)) {
         return res
           .status(200)
-          .json({ message: 'El libro ya está en la colección', data: user })
+          .json({ message: 'El libro ya está en la colección' })
       }
 
       // Actualizar colección
-      const updated = await this.UsersModel.updateUser(userId, {
+      await this.UsersModel.updateUser(userId, {
         coleccionsIds: [
           ...user.coleccionsIds.filter(
             coleccion => coleccion.nombre !== collectionName
@@ -849,7 +855,7 @@ export class UsersController {
         ]
       })
 
-      res.json({ data: updated })
+      res.json({ message: 'Libro agregado a la colección' })
     } catch (err) {
       next(err)
     }

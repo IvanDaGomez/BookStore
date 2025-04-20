@@ -136,13 +136,13 @@ class UsersModel {
       }
 
       // Return user info, but avoid password or sensitive data
-      return userObject(user) as PartialUserInfoType
+      return userObject(user, false) as PartialUserInfoType
     } catch (err: any) {
       throw new Error(err)
     }
   }
 
-  static async googleLogin (data: { nombre: string, correo: string }): Promise<UserInfoType> {
+  static async googleLogin (data: { nombre: string, correo: string, fotoPerfil: ImageType }): Promise<PartialUserInfoType> {
     try {
       // Validate input data
       if (!data.nombre || !data.correo) {
@@ -156,7 +156,7 @@ class UsersModel {
 
       if (!user) {
         // Google sign-up flow
-        const newUser = userObject(data, true) as UserInfoType// Ensure `userObject` sanitizes and structures the input
+        const newUser = userObject(data, true)// Ensure `userObject` sanitizes and structures the input
         newUser.login = 'Google' // Mark this as a Google user
         // userObject() elimina el correo y la contraseña (que no hay)
         newUser.correo = data.correo
@@ -167,15 +167,15 @@ class UsersModel {
         users.push(newUser)
         // Write the new user to the file
         await fs.writeFile('./models/users.json', JSON.stringify(users, null, 2), 'utf8')
-        return newUser
+        return userObject(newUser, false)
       }
-      return userObject(user, true) as UserInfoType
+      return userObject(user, false) 
     } catch (err: any) {
       throw new Error(err)
     }
   }
 
-  static async facebookLogin (data: { nombre: string, correo: string }): Promise<UserInfoType> {
+  static async facebookLogin (data: { nombre: string, correo: string, fotoPerfil: ImageType }): Promise<PartialUserInfoType> {
     try {
       // Validate input data
       if (!data.nombre || !data.correo) {
@@ -201,10 +201,10 @@ class UsersModel {
         users.push(newUser)
         // Write the new user to the file
         await fs.writeFile('./models/users.json', JSON.stringify(users, null, 2), 'utf8')
-        return newUser
+        return userObject(newUser, false)
       }
       // Si ya existe el usuario solo devolverlo
-      return userObject(user, true) as UserInfoType
+      return userObject(user, false)
     } catch (err: any) {
       throw new Error(err)
     }
