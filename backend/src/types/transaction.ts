@@ -1,7 +1,7 @@
 import { ID, ISOString } from "./objects"
 
 export type TransactionObjectType = {
-  _id: number // ID único de la transacción
+  _id?: number | string// ID único de la transacción
   userId: ID // ID del usuario que realiza la compra
   sellerId: ID
   bookId: ID
@@ -14,7 +14,7 @@ export type TransactionObjectType = {
   paymentMethod: string | undefined
   installments: number
   card: any
-  status: 'pending' | 'completed' | 'failed' // Estado de la transacción
+  status: 'pending' | 'approved' | 'failed' // Estado de la transacción
   createdIn: ISOString // Fecha de creación de la transacción
   updatedIn: ISOString // Fecha de la última actualización (cuando cambie el estado)
   paymentDetails?: {

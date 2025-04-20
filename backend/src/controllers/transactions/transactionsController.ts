@@ -2,6 +2,8 @@ import { validateTransaction } from '../../assets/validate.js'
 import { ITransactionsModel } from '../../types/models.js'
 import express from 'express'
 import { ID } from '../../types/objects.js'
+import { TransactionObjectType } from '../../types/transaction.js'
+// TODO
 export class TransactionsController {
   private TransactionsModel: ITransactionsModel
   constructor ({ TransactionsModel }: { TransactionsModel: ITransactionsModel }) {
@@ -47,14 +49,14 @@ export class TransactionsController {
 
   // Filtrar transaccións
   createTransaction = async (req: express.Request, res: express.Response, next:express.NextFunction) => {
-    const data = req.body
+    const data = req.body as TransactionObjectType
 
     // Validación
     const validated = validateTransaction(data)
     if (!validated.success) {
       return res.status(400).json({ error: validated.error })
     }
-
+    // TODO: No se si el id es necesario, ya que se genera en mercadoPago
     data._id = crypto.randomUUID()
     let transaction
 
@@ -79,14 +81,13 @@ export class TransactionsController {
       if (!transaction) {
         return res.status(404).json({ error: 'Transacción no encontrada' })
       }
+      // Verificar si el usuario es el vendedor
+      const userId = transaction.userId
 
       // Eliminar el transacción de la base de datos
       const result = await this.TransactionsModel.deleteTransaction(transactionId)
-      if (!result) {
-        return res.status(404).json({ error: 'Transacción no encontrada' })
-      }
 
-      res.json({ transaction: 'Transacción eliminada con éxito' })
+      res.json(result)
     } catch (err) {
       next(err)
     }

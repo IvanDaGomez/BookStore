@@ -8,7 +8,7 @@ export const createTransactionsRouter = ({ TransactionsModel }: { TransactionsMo
 
   transactionsRouter.get('/', transactionsController.getAllTransactions as RequestHandler)
   transactionsRouter.get('/transactionById/:transactionId', transactionsController.getTransactionById as RequestHandler)
-  transactionsRouter.get('/transactionByUser', transactionsController.getTransactionsByUser as RequestHandler)
+  transactionsRouter.get('/transactionByUser/:userId', transactionsController.getTransactionsByUser as RequestHandler)
   transactionsRouter.post('/', transactionsController.createTransaction as RequestHandler)
   transactionsRouter.delete('/:transactionId', transactionsController.deleteTransaction as RequestHandler)
   return transactionsRouter
