@@ -20,7 +20,7 @@ export class EmailsController {
     try {
       const emailId = req.params.emailId as ID | undefined
       if (!emailId) {
-        return res.status(400).json({ error: 'ID de notificación requerido' })
+        return res.status(400).json({ error: 'ID de correo requerido' })
       }
       const email = await this.EmailsModel.getEmailById(emailId)
 
@@ -35,7 +35,7 @@ export class EmailsController {
       const data = req.body as { email: string }
 
       if (!data.email) {
-        return res.status(400).json({ error: 'Datos inválidos: Se requiere email' })
+        return res.status(400).json({ error: 'Datos inválidos: Se requiere correo' })
       }
       const email = await this.EmailsModel.createEmail(data)
       res.status(201).json(email)
@@ -49,13 +49,13 @@ export class EmailsController {
       const email = req.params.email as string | undefined
 
       if (!email) {
-        return res.status(400).json({ error: 'ID de notificación requerido' })
+        return res.status(400).json({ error: 'ID de correo requerido' })
       }
 
       await this.EmailsModel.deleteEmail(email)
 
 
-      res.status(200).json({ message: 'Notificación eliminada con éxito' })
+      res.status(200).json({ message: 'Correo eliminado con éxito' })
     } catch (err) {
       next(err)
     }

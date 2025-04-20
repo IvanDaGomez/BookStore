@@ -40,7 +40,7 @@ class CollectionsController {
 
       const collections = await this.CollectionsModel.getCollectionsByUser(userId)
 
-      res.json({ data: collections })
+      res.json(collections)
     } catch (err) {
       next(err)
     }
@@ -53,7 +53,7 @@ class CollectionsController {
         return res.status(400).json({ error: 'No se proporcionó el collectionId' })
       }
       const collection = await this.CollectionsModel.getCollectionById(collectionId)
-      const books = await this.BooksModel.getBooksByIdList(collection?.librosIds || [], 24)
+      const books = await this.BooksModel.getBooksByIdList(collection.librosIds, 24)
 
       res.json(books)
     } catch (err) {
@@ -63,7 +63,7 @@ class CollectionsController {
 
   createCollection = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
-      const rawData = req.body as Partial<CollectionObjectType> | { saga: string } | undefined
+      const rawData = req.body as CollectionObjectType | { saga: string } | undefined
 
       if (!rawData) {
         return res.status(400).json({ error: 'No se proporcionó la colección' })
@@ -94,7 +94,7 @@ class CollectionsController {
 
       const result = await this.CollectionsModel.deleteCollection(collectionId)
 
-      res.json({ message: 'Colección eliminada con éxito', result })
+      res.json(result)
     } catch (err) {
       next(err)
     }
@@ -131,7 +131,7 @@ class CollectionsController {
       const collection = await this.CollectionsModel.getCollectionById(collectionId)
 
       if (book.collectionsIds.includes(collectionId) && collection.librosIds.includes(bookId)) {
-        return res.status(200).json({ status: 'Ya se agregó el libro' })
+        return res.status(200).json({ message: 'Ya se agregó el libro' })
       }
 
       const newCollectionList = [...collection.librosIds, bookId]
@@ -140,7 +140,7 @@ class CollectionsController {
        this.CollectionsModel.updateCollection(collectionId, { librosIds: newCollectionList }),
        this.BooksModel.updateBook(bookId, { collectionsIds: newBookList })
       ])
-      res.json({ status: 'Actualizado' })
+      res.json({ message: 'Actualizado' })
     } catch (err) {
       next(err)
     }
@@ -241,7 +241,7 @@ class CollectionsController {
       }
 
       // Return the books found
-      return res.status(200).json({ collections })
+      return res.status(200).json(collections)
     } catch (err) {
       next(err)
     }
@@ -255,7 +255,7 @@ class CollectionsController {
       }
       const collection = await this.CollectionsModel.getCollectionSaga(bookId, userId)
 
-      res.json({ data: collection })
+      res.json(collection)
     } catch (err) {
       next(err)
     }

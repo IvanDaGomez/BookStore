@@ -14,7 +14,7 @@ export type TransactionObjectType = {
   paymentMethod: string | undefined
   installments: number
   card: any
-  status: string // Estado del pago (pendiente, confirmado, entregado)
+  status: 'pending' | 'completed' | 'failed' // Estado de la transacción
   createdIn: ISOString // Fecha de creación de la transacción
   updatedIn: ISOString // Fecha de la última actualización (cuando cambie el estado)
   paymentDetails?: {

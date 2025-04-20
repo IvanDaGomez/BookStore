@@ -1,6 +1,7 @@
 import { IConversationsModel, IUsersModel } from "../../types/models"
 import express from "express"
 import { ID } from "../../types/objects"
+import { ConversationObjectType } from "../../types/conversation"
 export class ConversationsController {
   private ConversationsModel: IConversationsModel
   private UsersModel: IUsersModel
@@ -54,7 +55,7 @@ export class ConversationsController {
   // Filtrar mensajes
   createConversation = async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<express.Response | void>  => {
     try {
-      const data = req.body
+      const data = req.body as ConversationObjectType
 
       // Validation: Ensure exactly two users
       if (data.users.length !== 2) {
@@ -74,8 +75,7 @@ export class ConversationsController {
       for (const userId of data.users) {
         const user = await this.UsersModel.getUserById(userId)
 
-        // Assign conversation ID to user's conversationsIds
-        user.conversationsIds = [...user.conversationsIds, data._id]
+        user.conversationsIds = [...user.conversationsIds, conversation._id]
         await this.UsersModel.updateUser(user._id, user)
 
       }

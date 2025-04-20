@@ -54,9 +54,9 @@ export class NotificationsController {
       if (!notificationId) {
         return res.status(404).json({ error: 'No hay ID de notificación' })
       }
-      const notification = await this.NotificationsModel.markNotificationAsRead(notificationId)
+      await this.NotificationsModel.markNotificationAsRead(notificationId)
 
-      res.json(notification)
+      res.json({ message: 'Notificación marcada como leída' })
     } catch (err) {
       next(err)
     }
