@@ -2,6 +2,7 @@ import { validateMessage } from '../../assets/validate.js'
 import { IConversationsModel, IMessagesModel } from '../../types/models.js'
 import express from 'express'
 import { ID } from '../../types/objects.js'
+import { MessageObjectType } from '../../types/message.js'
 export class MessagesController {
   private MessagesModel: IMessagesModel
   private ConversationsModel: IConversationsModel
@@ -49,11 +50,8 @@ export class MessagesController {
 
   // Filtrar mensajes
   sendMessage = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    const data = req.body
+    const data = req.body as MessageObjectType
     try {
-      
-
-      // Validación
       const validated = validateMessage(data)
       if (!validated.success) {
         return res.status(400).json({ error: validated.error })
@@ -62,16 +60,14 @@ export class MessagesController {
       // Necesario actualizar la conversación en la que el mensaje se envía
       const conversation = await this.ConversationsModel.getConversationById(data.conversationId)
       // Validar el userId
-          
-      conversation.lastMessage = data
-      await this.ConversationsModel.updateConversation(conversation._id, conversation)
       if (!conversation.users.includes(data.userId)) {
         return res.status(404).json({ error: 'El usuario no se encuentra en la conversación' })
-      }
-      // Crear el mensaje en la base de datos
+      }          
+      conversation.lastMessage = data
+      await this.ConversationsModel.updateConversation(conversation._id, conversation)
+
       const message = await this.MessagesModel.sendMessage(data)
 
-      // Si todo es exitoso, devolver el mensaje creado
       res.json(message)
     } catch (err) {
       next(err)

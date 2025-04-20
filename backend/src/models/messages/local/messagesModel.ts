@@ -5,7 +5,6 @@ import { ID } from '../../../types/objects.js'
 
 class MessagesModel {
   static async getAllMessages (): Promise<MessageObjectType[]> {
-
       const data = await fs.readFile('./models/messages.json', 'utf-8')
       const messages: MessageObjectType[] = JSON.parse(data)
       if (!messages) {
