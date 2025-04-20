@@ -6,10 +6,11 @@ import { getBookKeyInfo } from './getBookKeyInfo.js'
 import { getTrends } from '../../../assets/getTrends.js'
 import { UsersModel } from '../../users/local/usersLocal.js'
 import { randomIntArrayInRange } from './randomIntArrayRange.js'
-import { bookObject, BookObjectType } from '../bookObject.js'
+import { bookObject } from '../bookObject.js'
 import { ID, ISOString } from '../../../types/objects.js'
 import { AuthToken } from '../../../types/authToken.js'
 import { CollectionObjectType } from '../../../types/collection'
+import { BookObjectType } from '../../../types/book.js'
 
 class BooksModel {
   static async getAllBooks (): Promise<BookObjectType[]> {
@@ -28,7 +29,7 @@ class BooksModel {
       throw new Error('Libro no encontrado')
     }
     // Return book with limited public information
-    return bookObject(book, true) as BookObjectType
+    return bookObject(book, true)
   }
 
   static async getBookByQuery (
@@ -174,7 +175,7 @@ class BooksModel {
   static async updateReviewBook (
     id: ID,
     data: Partial<BookObjectType>
-  ): Promise<BookObjectType> {
+  ): Promise<Partial<BookObjectType>> {
     const book = await this.getBookById(id)
 
     const reviewBooks = await this.getAllReviewBooks()
@@ -188,7 +189,7 @@ class BooksModel {
       JSON.stringify(reviewBooks, null, 2)
     )
 
-    return book
+    return bookObject(book, false)
   }
 
   static async forYouPage (
@@ -255,7 +256,6 @@ class BooksModel {
     const books = await this.getAllBooks()
 
     const elements = books.filter(book => favorites.includes(book._id))
-    if (!elements) throw new Error('No hay libros disponibles')
     return elements
   }
 

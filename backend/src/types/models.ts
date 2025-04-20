@@ -63,7 +63,7 @@ export interface IBooksModel {
   updateReviewBook(
     id: ID,
     data: Partial<BookObjectType>
-  ): Promise<BookObjectType>
+  ): Promise<Partial<BookObjectType>>
   deleteReviewBook(id: ID): Promise<{ message: string }>
   forYouPage(
     userKeyInfo: AuthToken | undefined,

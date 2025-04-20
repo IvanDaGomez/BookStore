@@ -272,7 +272,7 @@ export class BooksController {
         'Libro publicado con éxito',
         createEmail(data, 'bookPublished')
       )
-      res.send({ book })
+      res.send(book)
     } catch (err) {
       next(err)
     }
@@ -298,7 +298,7 @@ export class BooksController {
 
       const result = await this.BooksModel.deleteBook(bookId)
 
-      res.json({ message: 'Libro eliminado con éxito', result })
+      res.json(result)
     } catch (err) {
       next(err)
     }
@@ -406,8 +406,7 @@ export class BooksController {
     try {
       const bookId = req.params.bookId as ID
       const result = await this.BooksModel.deleteReviewBook(bookId)
-
-      res.json({ message: 'Libro revisión eliminado con éxito', result })
+      res.json(result)
     } catch (err) {
       next(err)
     }
@@ -458,7 +457,7 @@ export class BooksController {
 
       const results = await this.BooksModel.forYouPage(user, lParsed)
 
-      res.json({ books: results, ok: true })
+      res.json(results)
     } catch (err) {
       next(err)
     }
@@ -475,12 +474,9 @@ export class BooksController {
         return res.status(401).json({ error: 'No se proporcionó userId' })
       const user = await this.UsersModel.getUserById(userId)
 
-      const favorites = await this.BooksModel.getFavoritesByUser(
-        user?.favoritos || []
-      )
-      if (!favorites) return res.status(400).json({ error: 'No hay favoritos' })
+      const favorites = await this.BooksModel.getFavoritesByUser(user.favoritos)
 
-      res.json({ data: favorites })
+      res.json(favorites)
     } catch (err) {
       next(err)
     }
@@ -499,11 +495,8 @@ export class BooksController {
       const info = await this.BooksModel.predictInfo(file)
 
       res.json({
-        data: {
           title: info.title,
           author: info.author
-        },
-        ok: true
       })
     } catch (err) {
       next(err)
@@ -523,7 +516,7 @@ export class BooksController {
 
       const books = await this.BooksModel.getBooksByCollection(collection)
 
-      res.json({ data: books })
+      res.json(books)
     } catch (err) {
       next(err)
     }

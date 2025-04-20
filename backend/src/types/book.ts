@@ -25,7 +25,7 @@ export type BookObjectType = {
   };
   tapa?: CoverType;
   edad?: AgeType;
-  fechaPublicacion: ISOString; // Date().toISOString()
+  fechaPublicacion: ISOString;
   actualizadoEn: ISOString;
   disponibilidad: AvailabilityType;
   mensajes?: string[][];
