@@ -1,7 +1,7 @@
 import { PaymentResponse } from "mercadopago/dist/clients/payment/commonTypes"
 import { BookObjectType } from "../types/book"
 import { TransactionObjectType } from "../types/transaction"
-import { ISOString } from "../types/objects"
+import { ID, ISOString } from "../types/objects"
 
 /* eslint-disable camelcase */
 // TODO: Cambiar el nombre de la función a handlePaymentResponse
@@ -56,8 +56,8 @@ export function handlePaymentResponse (response:
   // Retornar el resultado procesado
   return {
     _id: id,
-    userId,
-    sellerId,
+    userId: userId as ID,
+    sellerId: sellerId,
     bookId: book._id,
     success,
     status,
