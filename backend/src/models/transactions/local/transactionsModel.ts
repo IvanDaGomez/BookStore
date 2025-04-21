@@ -4,9 +4,8 @@ import { TransactionObjectType } from '../../../types/transaction.js'
 import { ID } from '../../../types/objects.js'
 import path from 'node:path'
 // __dirname is not available in ES modules, so we need to use import.meta.url
-import { fileURLToPath } from 'node:url'
-const __filename = fileURLToPath(import.meta.url)
-const transactionsPath = path.join(__filename, 'dist', 'models', 'transactions.json')
+
+const transactionsPath = path.join('.', 'data', 'transactions.json')
 class TransactionsModel {
   static async getAllTransactions (): Promise<TransactionObjectType[]> {
     const data = await fs.readFile(transactionsPath, 'utf-8')

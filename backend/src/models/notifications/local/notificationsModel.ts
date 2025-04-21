@@ -4,9 +4,8 @@ import { NotificationType } from '../../../types/notification.js'
 import { ID } from '../../../types/objects.js'
 import path from 'node:path'
 // __dirname is not available in ES modules, so we need to use import.meta.url
-import { fileURLToPath } from 'node:url'
-const __filename = fileURLToPath(import.meta.url)
-const notificationsPath = path.join(__filename, 'dist', 'models', 'notifications.json')
+
+const notificationsPath = path.join('.', 'data', 'notifications.json')
 export class NotificationsModel {
   static async getAllNotifications (l: number = 0): Promise<NotificationType[]> {
     const data = await fs.readFile(notificationsPath, 'utf-8')

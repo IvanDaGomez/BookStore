@@ -79,7 +79,7 @@ export const createApp = async ({
   app.use(express.urlencoded({ extended: true }))
   // Habilitar respuestas solo en json
   app.use(express.json())
-  const swaggerDoc = await fs.readFile('./dist/data/swagger.json', 'utf-8').then(data => JSON.parse(data))
+  const swaggerDoc = await fs.readFile('./data/swagger.json', 'utf-8').then(data => JSON.parse(data))
   app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDoc))
   // Estadísticas
   // app.use((req, res, next) => handleStats(req, res, next))

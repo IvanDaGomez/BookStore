@@ -4,9 +4,8 @@ import { MessageObjectType } from '../../../types/message.js'
 import { ID } from '../../../types/objects.js'
 import path from 'node:path'
 // __dirname is not available in ES modules, so we need to use import.meta.url
-import { fileURLToPath } from 'node:url'
-const __filename = fileURLToPath(import.meta.url)
-const messagesPath = path.join(__filename, 'dist', 'models', 'messages.json')
+
+const messagesPath = path.join('.', 'data', 'messages.json')
 class MessagesModel {
   static async getAllMessages (): Promise<MessageObjectType[]> {
       const data = await fs.readFile(messagesPath, 'utf-8')

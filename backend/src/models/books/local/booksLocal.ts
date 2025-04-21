@@ -13,10 +13,9 @@ import { CollectionObjectType } from '../../../types/collection'
 import { BookObjectType } from '../../../types/book.js'
 import path from 'node:path'
 // __dirname is not available in ES modules, so we need to use import.meta.url
-import { fileURLToPath } from 'node:url'
-const __filename = fileURLToPath(import.meta.url)
-const bookPath = path.join(__filename, 'dist', 'models', 'books.json')
-const booksBackStagePath = path.join(__filename, 'dist', 'models', 'booksBackStage.json')
+
+const bookPath = path.join('.', 'data', 'books.json')
+const booksBackStagePath = path.join('.', 'data', 'booksBackStage.json')
 class BooksModel {
   static async getAllBooks (): Promise<BookObjectType[]> {
     const data = await fs.readFile(bookPath, 'utf-8')
