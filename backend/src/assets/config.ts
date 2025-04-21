@@ -17,7 +17,7 @@ const pool = new Pool({
   connectionTimeoutMillis: 2000 // return an error after 2 seconds if connection could not be established
 })
 
-const SALT_ROUNDS: number = 10
+const SALT_ROUNDS: number = 10 
 // Crear el directorio de subida si no existe
 // Configurar Multer para guardar en una carpeta 'uploads' y con nombre único
 const storage = multer.diskStorage({

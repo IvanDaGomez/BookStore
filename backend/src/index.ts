@@ -71,6 +71,13 @@ export const createApp = async ({
   app.use(cors(corsOptions)) /* corsOptions */
   // Habilitar el manejo de cookies
   app.use(cookieParser())
+
+  app.use((req: express.Request, res: express.Response, next: NextFunction) => {
+    if (process.env.NODE_ENV === 'development') {
+      console.log(req.method, 'request at:', req.url)
+    }
+    next()
+  })
   // Middleware para manejar las cookies y el token JWT
   app.use(jwtMiddleware)
   // Middleware para trackear las solicitudes

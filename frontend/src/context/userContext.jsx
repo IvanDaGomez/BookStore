@@ -9,6 +9,7 @@ const UserProvider = ({ children }) => {
 
   useEffect(() => {
     async function fetchUser () {
+
       try {
         const url = 'http://localhost:3030/api/users/userSession'
         const response = await axios.post(url, null, {

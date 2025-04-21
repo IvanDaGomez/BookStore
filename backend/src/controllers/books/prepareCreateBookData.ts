@@ -24,7 +24,7 @@ function prepareCreateBookData (
   data: any,
   req: express.Request
 ): BookObjectType {
-  if (data.oferta)
+  if (data.oferta) 
     data.oferta = parseInt(data.oferta) as BookObjectType['oferta']
   data.precio = parseInt(data.precio) as BookObjectType['precio']
   if (data.keywords && typeof data.keywords === 'string') {
