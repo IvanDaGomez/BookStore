@@ -1,13 +1,13 @@
 /* eslint-disable camelcase */
 
 import crypto from 'node:crypto'
-import { validateBook, validatePartialBook } from '../../assets/validate'
-import { cambiarGuionesAEspacio } from '../../assets/agregarMas'
+import { validateBook, validatePartialBook } from '../../assets/validate.js'
+import { cambiarGuionesAEspacio } from '../../assets/agregarMas.js'
 import { chromium } from 'playwright'
 import {
   ScrapeResponseType,
   scrapingFunctions
-} from '../../assets/scrappingConfig'
+} from '../../assets/scrappingConfig.js'
 import { sendEmail } from '../../assets/email/sendEmail.js'
 import { createEmail } from '../../assets/email/htmlEmails.js'
 import { sendNotification } from '../../assets/notifications/sendNotification.js'
@@ -16,7 +16,7 @@ import {
   filterData,
   prepareCreateBookData,
   prepareUpdateBookData
-} from './prepareCreateBookData'
+} from './prepareCreateBookData.js'
 import { updateData } from './updateData.js'
 import { IBooksModel, IUsersModel } from '../../types/models'
 import express from 'express'

@@ -1,9 +1,9 @@
 import fs from 'node:fs/promises'
-import { collectionObject } from '../collectionObject'
-import { calculateMatchScore } from '../../../assets/calculateMatchScore'
+import { collectionObject } from '../collectionObject.js'
+import { calculateMatchScore } from '../../../assets/calculateMatchScore.js'
 import { CollectionObjectType } from '../../../types/collection'
-import { ID, ISOString } from '../../../types/objects'
-import { changeToArray } from '../../../assets/changeToArray'
+import { ID } from '../../../types/objects'
+import { changeToArray } from '../../../assets/changeToArray.js'
 
 class CollectionsModel {
   static async getAllCollections (): Promise<CollectionObjectType[]> {

@@ -1,7 +1,7 @@
 import { BookObjectType } from '../../types/book'
 import express from 'express'
 import { ImageType } from '../../types/objects'
-import { bookObject } from '../../models/books/bookObject'
+import { bookObject } from '../../models/books/bookObject.js'
 /**
  * Prepares and formats the book data for creation by parsing and transforming
  * specific fields from the incoming request. This function ensures that numeric

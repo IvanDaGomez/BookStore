@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises'
 import { changeToArray } from '../../../assets/changeToArray.js'
-import { calculateMatchScore } from '../../../assets/calculateMatchScore'
+import { calculateMatchScore } from '../../../assets/calculateMatchScore.js'
 import * as tf from '@tensorflow/tfjs'
 import { getBookKeyInfo } from './getBookKeyInfo.js'
 import { getTrends } from '../../../assets/getTrends.js'

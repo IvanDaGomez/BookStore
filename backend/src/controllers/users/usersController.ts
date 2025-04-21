@@ -19,7 +19,7 @@ import {
   processUserUpdate
 } from './helperFunctions.js'
 import express from 'express'
-import { cambiarGuionesAEspacio } from '../../assets/agregarMas'
+import { cambiarGuionesAEspacio } from '../../assets/agregarMas.js'
 import { PartialUserInfoType, UserInfoType } from '../../types/user.js'
 import { ID, ImageType } from '../../types/objects.js'
 import { IUsersModel } from '../../types/models.js'

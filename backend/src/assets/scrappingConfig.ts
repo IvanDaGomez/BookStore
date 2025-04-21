@@ -1,6 +1,6 @@
 // Define scraping functions for each site
 import { Page } from 'playwright'
-import { cambiarGuionesAEspacio } from './agregarMas'
+import { cambiarGuionesAEspacio } from './agregarMas.js'
 /* const scrapePage = async (page, url, limit = 12, selectors = {}, platform = 'Unknown') => {
   await page.goto(url)
 
@@ -33,7 +33,7 @@ import { cambiarGuionesAEspacio } from './agregarMas'
     return results
   }, { limit, selectors, platform })
 } */
-export type ScrapeResponseType = {
+type ScrapeResponseType = {
   platform: string
   domain: string
   title: string
@@ -128,4 +128,4 @@ const scrapingFunctions = [
   scrapeMercadoLibre,
   scrapeAmazon
 ]
-export { scrapingFunctions }
+export { scrapingFunctions, ScrapeResponseType }

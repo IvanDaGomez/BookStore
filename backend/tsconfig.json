@@ -4,7 +4,7 @@
     "module": "ESNext",                   // Usar módulos ES
     "moduleResolution": "node",           // Resolución de módulos estilo Node.js
     "outDir": "./dist",                   // Compilación en carpeta 'dist'
-    "rootDir": ".",                       // Permite trabajar fuera de la carpeta 'src'
+    "rootDir": "./src",                       // Permite trabajar fuera de la carpeta 'src'
     "esModuleInterop": true,              // Compatibilidad con CommonJS
     "strict": true,                       // Habilitar comprobación estricta
     "skipLibCheck": true,                 // Omite comprobaciones en archivos de definición

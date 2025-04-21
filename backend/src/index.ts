@@ -12,12 +12,11 @@ import dotenv from 'dotenv'
 import { createCollectionsRouter } from './routes/collections/collectionsRouter.js'
 import { jwtMiddleware } from './middlewares/jwtMiddleware.js'
 import swaggerUI from 'swagger-ui-express'
-import swaggerDoc from './data/swagger.json'
 import { handleStats } from './middlewares/handleStats.js'
-import { IBooksModel, ICollectionsModel, IConversationsModel, IEmailsModel, IMessagesModel, INotificationsModel, ITransactionsModel, IUsersModel } from './types/models.js'
+import fs from 'fs/promises'
 dotenv.config()
 // import { handleStats } from './assets/handleStats.js'
-export const createApp = ({
+export const createApp = async ({
   BooksModel,
   UsersModel,
   MessagesModel,
@@ -27,14 +26,14 @@ export const createApp = ({
   TransactionsModel,
   EmailsModel
 }: {
-  BooksModel: IBooksModel
-  UsersModel: IUsersModel
-  MessagesModel: IMessagesModel
-  CollectionsModel: ICollectionsModel
-  ConversationsModel: IConversationsModel
-  NotificationsModel: INotificationsModel
-  TransactionsModel: ITransactionsModel
-  EmailsModel: IEmailsModel
+  BooksModel: any
+  UsersModel: any
+  MessagesModel: any
+  CollectionsModel: any
+  ConversationsModel: any
+  NotificationsModel: any
+  TransactionsModel: any
+  EmailsModel: any
 }) => {
   // Configuración de la aplicación Express
   const app: express.Application = express()
@@ -80,7 +79,7 @@ export const createApp = ({
   app.use(express.urlencoded({ extended: true }))
   // Habilitar respuestas solo en json
   app.use(express.json())
-
+  const swaggerDoc = await fs.readFile('./dist/data/swagger.json', 'utf-8').then(data => JSON.parse(data))
   app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDoc))
   // Estadísticas
   // app.use((req, res, next) => handleStats(req, res, next))
