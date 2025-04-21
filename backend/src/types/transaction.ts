@@ -14,7 +14,17 @@ export type TransactionObjectType = {
   paymentMethod: string | undefined
   installments: number
   card: any
-  status: 'pending' | 'approved' | 'failed' // Estado de la transacción
+  success: boolean
+  message: string
+  shippingDetails: {
+    receiverAddress: string
+    receiverCity: string
+    receiverState: string
+    receiverCountry: string
+    receiverPhone: string
+    receiverName: string
+  }
+  status: 'pending' | 'approved' | 'failed' | 'unknown' // Estado de la transacción
   createdIn: ISOString // Fecha de creación de la transacción
   updatedIn: ISOString // Fecha de la última actualización (cuando cambie el estado)
   paymentDetails?: {

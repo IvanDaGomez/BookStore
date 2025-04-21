@@ -14,6 +14,7 @@ import { jwtMiddleware } from './middlewares/jwtMiddleware.js'
 import swaggerUI from 'swagger-ui-express'
 import swaggerDoc from './data/swagger.json'
 import { handleStats } from './middlewares/handleStats.js'
+import { IBooksModel, ICollectionsModel, IConversationsModel, IEmailsModel, IMessagesModel, INotificationsModel, ITransactionsModel, IUsersModel } from './types/models.js'
 dotenv.config()
 // import { handleStats } from './assets/handleStats.js'
 export const createApp = ({
@@ -26,14 +27,14 @@ export const createApp = ({
   TransactionsModel,
   EmailsModel
 }: {
-  BooksModel: any
-  UsersModel: any
-  MessagesModel: any
-  CollectionsModel: any
-  ConversationsModel: any
-  NotificationsModel: any
-  TransactionsModel: any
-  EmailsModel: any
+  BooksModel: IBooksModel
+  UsersModel: IUsersModel
+  MessagesModel: IMessagesModel
+  CollectionsModel: ICollectionsModel
+  ConversationsModel: IConversationsModel
+  NotificationsModel: INotificationsModel
+  TransactionsModel: ITransactionsModel
+  EmailsModel: IEmailsModel
 }) => {
   // Configuración de la aplicación Express
   const app: express.Application = express()
@@ -108,13 +109,7 @@ export const createApp = ({
   app.use('/api/transactions', createTransactionsRouter(models))
 
   // Middleware para manejar errores
-  app.use(
-    (
-      err: Error,
-      req: express.Request,
-      res: express.Response,
-      next: express.NextFunction
-    ) => {
+  app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
       console.error(err.stack)
       res.status(500).json({
         error:

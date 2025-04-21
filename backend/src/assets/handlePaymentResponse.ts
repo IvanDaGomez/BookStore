@@ -12,7 +12,7 @@ export function handlePaymentResponse (response:
     book: Partial<BookObjectType>
     // Shipping details is the response from Envia or Servientrega API
     shippingDetails: any
-}): TransactionObjectType {
+}): Partial<TransactionObjectType> {
   const {
     userId,
     sellerId,
@@ -57,19 +57,19 @@ export function handlePaymentResponse (response:
   return {
     _id: id,
     userId: userId as ID,
-    sellerId: sellerId,
-    bookId: book._id,
+    sellerId: sellerId as ID,
+    bookId: book._id as ID,
     success,
-    status,
-    fee_details,
-    charges_details,
+    status: status as TransactionObjectType['status'] ?? 'unknown',
+    fee_details: fee_details ?? [],
+    charges_details: charges_details ?? [],
     message,
     shippingDetails,
-    installments,
+    installments : installments ?? 1,
     card,
     paymentDetails: {
       method: payment_method_id,
-      type: payment_type_id,
+      type: payment_type_id ?? 'credit_card',
       amount: transaction_amount,
       description,
       createdIn: date_created as ISOString ?? new Date().toISOString() as ISOString,

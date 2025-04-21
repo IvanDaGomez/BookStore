@@ -25,18 +25,18 @@ oAuth2Client.setCredentials({ refresh_token: process.env.EMAIL_REFRESH_TOKEN })
 const sendEmail = async (to: string, subject: string, htmlContent: string): Promise<SMTPPool.SentMessageInfo> => {
   const accessToken = await oAuth2Client.getAccessToken()
   const transporter = nodemailer.createTransport({
-    host: gmailHost,
+    // host: gmailHost,
     // service: 'gmail',
-    port: mailPort,
-    secure: false, // use SSL - TLS
-    auth: {
-      type: 'OAuth2',
-      user: yourEmail,
-      clientId: process.env.EMAIL_CLIENT_ID,
-      clientSecret: process.env.EMAIL_CLIENT_SECRET,
-      refreshToken: process.env.EMAIL_REFRESH_TOKEN,
-      accessToken: accessToken.token
-    }
+    // port: mailPort,
+    // secure: false, // use SSL - TLS
+    // auth: {
+    //   type: 'OAuth2',
+    //   user: yourEmail,
+    //   clientId: process.env.EMAIL_CLIENT_ID,
+    //   clientSecret: process.env.EMAIL_CLIENT_SECRET,
+    //   refreshToken: process.env.EMAIL_REFRESH_TOKEN,
+    //   accessToken: accessToken.token
+    // }
   })
 
   const mailOptions = {
@@ -46,7 +46,7 @@ const sendEmail = async (to: string, subject: string, htmlContent: string): Prom
     html: htmlContent
   }
   const res = await transporter.sendMail(mailOptions) // promise
-  return res
+  return res as any
 }
 
 export { sendEmail }

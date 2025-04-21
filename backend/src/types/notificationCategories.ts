@@ -1,7 +1,7 @@
 const priorityArr = ['low', 'normal', 'high'] as const
 type PriorityType = typeof priorityArr[number]
 
-const typeArr = [  
+const notificationTypeArr = [  
     'newMessage',
     'bookUpdated',
     'bookPublished',
@@ -14,8 +14,8 @@ const typeArr = [
     'welcomeUser',
     'newFollower',
     'invalidNotification'] as const
-type TypeType = typeof typeArr[number]
+type TypeType = typeof notificationTypeArr[number]
 export { 
     priorityArr, PriorityType,
-    typeArr, TypeType
+    notificationTypeArr, TypeType
 }

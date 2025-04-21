@@ -1,7 +1,7 @@
 import { z } from 'zod'
-import { notificationArr } from './notifications/notificationTypes.js'
 import { ageArr, availabilityArr, coverArr, editionArr, formatsArr, genresArr, languagesArr, statesArr } from '../types/bookCategories.js'
 import { estadoCuentaArr, roleArr } from '../types/userCategories.js'
+import { notificationTypeArr } from '../types/notificationCategories.js'
 // PENDIENTE EL PATCH
 
 const userSchema = z.object({
@@ -138,7 +138,7 @@ const notificationSchema = z.object({
   _id: z.string().optional(),
 
   theme: z.enum(['light', 'dark']).default('light'),
-  type: z.enum(notificationArr),
+  type: z.enum(notificationTypeArr),
   userId: z.string().min(1, 'userId is required'),
 
   title: z.string().optional(),
