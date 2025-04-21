@@ -1,11 +1,15 @@
 import fs from 'node:fs/promises'
 import { notificationObject } from '../notificationObject.js'
 import { NotificationType } from '../../../types/notification.js'
-import { ID, ISOString } from '../../../types/objects.js'
-
+import { ID } from '../../../types/objects.js'
+import path from 'node:path'
+// __dirname is not available in ES modules, so we need to use import.meta.url
+import { fileURLToPath } from 'node:url'
+const __filename = fileURLToPath(import.meta.url)
+const notificationsPath = path.join(__filename, 'dist', 'models', 'notifications.json')
 export class NotificationsModel {
   static async getAllNotifications (l: number = 0): Promise<NotificationType[]> {
-    const data = await fs.readFile('./models/notifications.json', 'utf-8')
+    const data = await fs.readFile(notificationsPath, 'utf-8')
 
     if (!data.trim()) {
       throw new Error('No se encontraron notificaciones')
@@ -49,7 +53,7 @@ export class NotificationsModel {
       }
       return true
     })
-    await fs.writeFile('./models/notifications.json', JSON.stringify(notifications, null, 2))
+    await fs.writeFile(notificationsPath, JSON.stringify(notifications, null, 2))
     return newNotification
 
   }
@@ -61,7 +65,7 @@ export class NotificationsModel {
       throw new Error('No se encontró la notificación')
     }
     notifications.splice(notificationIndex, 1)
-    await fs.writeFile('./models/notifications.json', JSON.stringify(notifications, null, 2))
+    await fs.writeFile(notificationsPath, JSON.stringify(notifications, null, 2))
     return { message: 'Notificación eliminada con éxito' } // Mensaje de éxito
 
   }
@@ -76,7 +80,7 @@ export class NotificationsModel {
     Object.assign(notifications[notificationIndex], data)
     // Hacer el path hacia aqui
     // const filePath = pat h.join()
-    await fs.writeFile('./models/notifications.json', JSON.stringify(notifications, null, 2))
+    await fs.writeFile(notificationsPath, JSON.stringify(notifications, null, 2))
     return notifications[notificationIndex]
   }
 
@@ -91,7 +95,7 @@ export class NotificationsModel {
     // Actualiza los datos de la conversación
     notifications[notificationIndex].read = true
 
-    await fs.writeFile('./models/notifications.json', JSON.stringify(notifications, null, 2))
+    await fs.writeFile(notificationsPath, JSON.stringify(notifications, null, 2))
     return notifications[notificationIndex]
   }
 }

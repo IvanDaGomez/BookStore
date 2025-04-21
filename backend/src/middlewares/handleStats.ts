@@ -3,11 +3,11 @@ import path from 'node:path'
 import express from 'express'
 // File paths for different events
 const files = {
-  signups: './data/signups.csv',
-  booksUploaded: './data/booksUploaded.csv',
-  searches: './data/searches.csv',
-  messages: './data/messages.csv',
-  transactions: './data/transactions.csv'
+  signups: './dist/data/signups.csv',
+  booksUploaded: './dist/data/booksUploaded.csv',
+  searches: './dist/data/searches.csv',
+  messages: './dist/data/messages.csv',
+  transactions: './dist/data/transactions.csv'
 }
 
 // Helper to append data to a CSV

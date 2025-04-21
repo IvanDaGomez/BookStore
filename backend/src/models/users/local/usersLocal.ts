@@ -8,11 +8,15 @@ import { PartialUserInfoType, UserInfoType } from '../../../types/user.js'
 import { ID, ImageType } from '../../../types/objects.js'
 import { calculateMatchScore } from '../../../assets/calculateMatchScore.js'
 import { changeToArray } from '../../../assets/changeToArray.js'
-
+import path from 'node:path'
+// __dirname is not available in ES modules, so we need to use import.meta.url
+import { fileURLToPath } from 'node:url'
+const __filename = fileURLToPath(import.meta.url)
+const usersPath = path.join(__filename, 'dist', 'models', 'users.json')
 class UsersModel {
   static async getAllUsers(): Promise<UserInfoType[]> {
     // Esta función devuelve todos los usuarios, incluyendo información sensible como la contraseña
-    const data = await fs.readFile('./models/users.json', 'utf-8')
+    const data = await fs.readFile(usersPath, 'utf-8')
     if (!data) {
       throw new Error('No se encontraron usuarios')
     }
@@ -22,7 +26,7 @@ class UsersModel {
 
   static async getAllUsersSafe (): Promise<PartialUserInfoType[]> {
     // Esta función devuelve todos los usuarios, pero sin información sensible como la contraseña
-    const data = await fs.readFile('./models/users.json', 'utf-8')
+    const data = await fs.readFile(usersPath, 'utf-8')
     const users: PartialUserInfoType[] = JSON.parse(data)
     if (!data) {
       throw new Error('No se encontraron usuarios')
@@ -134,7 +138,7 @@ class UsersModel {
       newUser._id = crypto.randomUUID()
       users.push(newUser)
       // Write the new user to the file
-      await fs.writeFile('./models/users.json', JSON.stringify(users, null, 2), 'utf8')
+      await fs.writeFile(usersPath, JSON.stringify(users, null, 2), 'utf8')
       return userObject(newUser, false)
     }
     return userObject(user, false) 
@@ -154,90 +158,69 @@ class UsersModel {
       newUser.validated = true
       users.push(newUser)
       // Write the new user to the file
-      await fs.writeFile('./models/users.json', JSON.stringify(users, null, 2), 'utf8')
+      await fs.writeFile(usersPath, JSON.stringify(users, null, 2), 'utf8')
       return userObject(newUser, false)
     }
     // Si ya existe el usuario solo devolverlo
     return userObject(user, false)
-
   }
 
   static async getUserByEmail (correo: string): Promise<UserInfoType> {
-    try {
-      const users = await this.getAllUsers()
-      const user = users.find(usuario => usuario.correo === correo)
-      if (!user) {
-        throw new Error('El correo no existe')
-      }
-      // Return user info, but avoid password or sensitive data
-      return userObject(user, true) as UserInfoType
-    } catch (err: any) {
-      throw new Error(err)
+    const users = await this.getAllUsers()
+    const user = users.find(usuario => usuario.correo === correo)
+    if (!user) {
+      throw new Error('El correo no existe')
     }
+    // Return user info, but avoid password or sensitive data
+    return userObject(user, true) as UserInfoType
   }
 
   static async createUser (data: { nombre: string, correo: string, contraseña: string }): Promise<UserInfoType> {
-    try {
-      const users = await this.getAllUsers()
-
-      // Crear valores por defecto
-      const newUser = userObject(data, true) as UserInfoType// Ensure `userObject` sanitizes and structures the input
-
-      newUser.contraseña = await bcrypt.hash(newUser.contraseña, SALT_ROUNDS)
-      users.push(newUser)
-      await fs.writeFile('./models/users.json', JSON.stringify(users, null, 2))
-      return newUser
-    } catch (err) {
-      throw new Error('Error creating user')
-    }
+    const users = await this.getAllUsers()
+    // Crear valores por defecto
+    const newUser = userObject(data, true) as UserInfoType// Ensure `userObject` sanitizes and structures the input
+    newUser.contraseña = await bcrypt.hash(newUser.contraseña, SALT_ROUNDS)
+    users.push(newUser)
+    await fs.writeFile(usersPath, JSON.stringify(users, null, 2))
+    return newUser
   }
 
   static async updateUser (id: ID, data: Partial<UserInfoType>): Promise<PartialUserInfoType> {
-    try {
-      const users = await this.getAllUsers()
-
-      const userIndex = users.findIndex(user => user._id.toString() === id.toString())
-      if (userIndex === -1) {
-        throw new Error('Usuario no encontrado')
-      }
-      if (data.correo !== undefined && data.correo) {
-        const emailRepeated = users
-          .filter(user => user._id.toString() !== id.toString())
-          .some(user => user.correo === data.correo)
-        if (emailRepeated) {
-          throw new Error('El correo ya está en uso')
-        }
-      }
-      if (data.contraseña) {
-        data.contraseña = await bcrypt.hash(data.contraseña, SALT_ROUNDS)
-      }
-      // Actualiza los datos del usuario
-      Object.assign(users[userIndex], data)
-
-      // Hacer el path hacia aqui
-      // const filePath = pat h.join()
-      const info = JSON.stringify(users, null, 2)
-      await fs.writeFile('./models/users.json', info, 'utf-8')
-
-      return userObject(users[userIndex], false) as PartialUserInfoType
-    } catch (err: any) {
-      throw new Error(err)
+    const users = await this.getAllUsers()
+    const userIndex = users.findIndex(user => user._id.toString() === id.toString())
+    if (userIndex === -1) {
+      throw new Error('Usuario no encontrado')
     }
+    if (data.correo !== undefined && data.correo) {
+      const emailRepeated = users
+        .filter(user => user._id.toString() !== id.toString())
+        .some(user => user.correo === data.correo)
+      if (emailRepeated) {
+        throw new Error('El correo ya está en uso')
+      }
+    }
+    if (data.contraseña) {
+      data.contraseña = await bcrypt.hash(data.contraseña, SALT_ROUNDS)
+    }
+    // Actualiza los datos del usuario
+    Object.assign(users[userIndex], data)
+    // Hacer el path hacia aqui
+    // const filePath = pat h.join()
+    const info = JSON.stringify(users, null, 2)
+    await fs.writeFile(usersPath, info, 'utf-8')
+    return userObject(users[userIndex], false) as PartialUserInfoType
+
   }
 
   static async deleteUser (id: ID): Promise<{ message: string }> {
-    try {
-      const users = await this.getAllUsersSafe()
-      const userIndex = users.findIndex(user => user._id === id)
-      if (userIndex === -1) {
-         throw new Error('Usuario no encontrado')
-      }
-      users.splice(userIndex, 1)
-      await fs.writeFile('./models/users.json', JSON.stringify(users, null, 2))
-      return { message: 'Usuario eliminado con éxito' } // Mensaje de éxito
-    } catch (err: any) {
-      throw new Error(err)
+    const users = await this.getAllUsersSafe()
+    const userIndex = users.findIndex(user => user._id === id)
+    if (userIndex === -1) {
+       throw new Error('Usuario no encontrado')
     }
+    users.splice(userIndex, 1)
+    await fs.writeFile(usersPath, JSON.stringify(users, null, 2))
+    return { message: 'Usuario eliminado con éxito' } // Mensaje de éxito
   }
 
   static async getBalance(id: ID): Promise<{
@@ -245,16 +228,8 @@ class UsersModel {
     disponible?: number
     porLlegar?: number
   }> {
-    const users = await this.getAllUsers()
-
-    const user = users.find((usuario) => usuario._id === id)
-
-    if (!user) throw new Error('Usuario no encontrado')
-    const userObj = userObject(user, false) as PartialUserInfoType
-    if (!userObj.balance) {
-      throw new Error('El usuario no tiene balance')
-    }
-    return userObj.balance
+    const user = await this.getUserById(id)
+    return user.balance
   }
 
 }

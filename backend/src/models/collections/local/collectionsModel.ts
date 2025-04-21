@@ -4,10 +4,14 @@ import { calculateMatchScore } from '../../../assets/calculateMatchScore.js'
 import { CollectionObjectType } from '../../../types/collection'
 import { ID } from '../../../types/objects'
 import { changeToArray } from '../../../assets/changeToArray.js'
-
+import path from 'node:path'
+// __dirname is not available in ES modules, so we need to use import.meta.url
+import { fileURLToPath } from 'node:url'
+const __filename = fileURLToPath(import.meta.url)
+const collectionPath = path.join(__filename, 'dist', 'models', 'collections.json')
 class CollectionsModel {
   static async getAllCollections (): Promise<CollectionObjectType[]> {
-    const data = await fs.readFile('./models/collections.json', 'utf-8')
+    const data = await fs.readFile(collectionPath, 'utf-8')
     const collections: CollectionObjectType[] = JSON.parse(data)
 
     return collections
@@ -40,7 +44,7 @@ class CollectionsModel {
     // Crear valores por defecto
     const newCollection = collectionObject(data)
     collections.push(newCollection)
-    await fs.writeFile('./models/collections.json', JSON.stringify(collections, null, 2))
+    await fs.writeFile(collectionPath, JSON.stringify(collections, null, 2))
     return newCollection
   }
 
@@ -51,8 +55,8 @@ class CollectionsModel {
       throw new Error('Colección no encontrada')
     }
     collections.splice(collectionIndex, 1)
-    await fs.writeFile('./models/collections.json', JSON.stringify(collections, null, 2))
-    return { message: 'Collection deleted successfully' } // Mensaje de éxito
+    await fs.writeFile(collectionPath, JSON.stringify(collections, null, 2))
+    return { message: 'Colección eliminada con éxito' } // Mensaje de éxito
   }
 
   static async updateCollection (id: ID, data: Partial<CollectionObjectType>): Promise<CollectionObjectType> {
@@ -64,7 +68,7 @@ class CollectionsModel {
     }
     // Actualiza los datos directamente en el objeto de la colección
     Object.assign(collections[collectionIndex], data) // Modifica directamente el objeto en el array
-    await fs.writeFile('./models/collections.json', JSON.stringify(collections, null, 2))
+    await fs.writeFile(collectionPath, JSON.stringify(collections, null, 2))
 
     return collectionObject(collections[collectionIndex]) // Devuelve la colección actualizada
   }

@@ -5,9 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "tsc && node --watch dist/createServer/createServerLocal.js",
-    "dev:local": "tsc && node --watch dist/createServer/createServerLocal.js",
-    "dev:postgre": "tsc && node --watch dist/createServer/createServerPostgreSQL.js",
+    "dev": "tsc --watch & node --watch dist/createServer/createServerLocal.js",
+"dev:local": "tsc --watch & node --watch dist/createServer/createServerLocal.js",
+"dev:postgre": "tsc --watch & node --watch dist/createServer/createServerPostgreSQL.js",
     "updateDataBase": "tsc && node dist/assets/updateDB.ts",
     "document": "node src/assets/swagger.js",
     "build": "tsc"

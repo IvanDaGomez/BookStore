@@ -15,11 +15,13 @@ declare module 'express-session' {
 
 // Middleware to add JWT information to the session
 export const jwtMiddleware = (req: Request, res: Response, next: NextFunction) => {
-  const token: string = req.cookies.access_token;
+  const token = req.cookies.access_token as string | undefined
 
   // Only initialize session if it doesn't exist
   if (!req.session) req.session = Object.assign(req.session || {}, { user: null });
-
+  if (!token) {
+    return next()
+  }
   try {
     // This has other information like timeout, etc
     const info = jwt.verify(token || '', process.env.JWT_SECRET || '') as AuthToken // Replace with a more specific type if needed

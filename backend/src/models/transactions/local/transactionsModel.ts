@@ -2,10 +2,14 @@ import fs from 'node:fs/promises'
 import { transactionObject } from '../transactionObject.js'
 import { TransactionObjectType } from '../../../types/transaction.js'
 import { ID } from '../../../types/objects.js'
-
+import path from 'node:path'
+// __dirname is not available in ES modules, so we need to use import.meta.url
+import { fileURLToPath } from 'node:url'
+const __filename = fileURLToPath(import.meta.url)
+const transactionsPath = path.join(__filename, 'dist', 'models', 'transactions.json')
 class TransactionsModel {
   static async getAllTransactions (): Promise<TransactionObjectType[]> {
-    const data = await fs.readFile('./models/transactions.json', 'utf-8')
+    const data = await fs.readFile(transactionsPath, 'utf-8')
     const transactions: TransactionObjectType[] = JSON.parse(data)
     return transactions.map(transaction => transactionObject(transaction))
   }
@@ -36,7 +40,7 @@ class TransactionsModel {
     // Crear valores por defecto
     const newTransaction = transactionObject(data)
     transactions.push(newTransaction)
-    await fs.writeFile('./models/transactions.json', JSON.stringify(transactions, null, 2))
+    await fs.writeFile(transactionsPath, JSON.stringify(transactions, null, 2))
     return newTransaction
   }
 
@@ -45,7 +49,7 @@ class TransactionsModel {
     // Crear valores por defecto
     const newTransaction = transactionObject(data)
     transactions.push(newTransaction)
-    await fs.writeFile('./models/failedTransactions.json', JSON.stringify(transactions, null, 2))
+    await fs.writeFile(transactionsPath, JSON.stringify(transactions, null, 2))
     return newTransaction
   }
 
@@ -56,7 +60,7 @@ class TransactionsModel {
       throw new Error('No se encontró la transacción')
     }
     transactions.splice(transactionIndex, 1)
-    await fs.writeFile('./models/transactions.json', JSON.stringify(transactions, null, 2))
+    await fs.writeFile(transactionsPath, JSON.stringify(transactions, null, 2))
     return { message: 'Transacción eliminada con éxito' } // Mensaje de éxito
   }
 
@@ -67,7 +71,7 @@ class TransactionsModel {
       throw new Error('No se encontró la transacción')
     }
     Object.assign(transactions[transactionIndex], data)
-    await fs.writeFile('./models/transactions.json', JSON.stringify(transactions, null, 2))
+    await fs.writeFile(transactionsPath, JSON.stringify(transactions, null, 2))
     return transactions[transactionIndex]
 
   }

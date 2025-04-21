@@ -2,10 +2,14 @@ import fs from 'node:fs/promises'
 import { conversationObject } from '../conversationObject.js'
 import { ConversationObjectType } from '../../../types/conversation.js'
 import { ID } from '../../../types/objects.js'
-
+import path from 'node:path'
+// __dirname is not available in ES modules, so we need to use import.meta.url
+import { fileURLToPath } from 'node:url'
+const __filename = fileURLToPath(import.meta.url)
+const conversationPath = path.join(__filename, 'dist', 'models', 'conversations.json')
 export class ConversationsModel {
   static async getAllConversations (l: number = 0): Promise<ConversationObjectType[]> {
-    const data = await fs.readFile('./models/conversations.json', 'utf-8')
+    const data = await fs.readFile(conversationPath, 'utf-8')
     // Handle empty file case
     let conversations: ConversationObjectType[] = []
     if (!data.trim()) { // Only parse if data is not an empty string
@@ -49,7 +53,7 @@ export class ConversationsModel {
     // Crear valores por defecto
     const newConversation = conversationObject(data)
     conversations.push(newConversation)
-    await fs.writeFile('./models/conversations.json', JSON.stringify(conversations, null, 2))
+    await fs.writeFile(conversationPath, JSON.stringify(conversations, null, 2))
     return newConversation
 
   }
@@ -62,7 +66,7 @@ export class ConversationsModel {
         throw new Error('No se encontró la conversación')
       }
       conversations.splice(conversationIndex, 1)
-      await fs.writeFile('./models/conversations.json', JSON.stringify(conversations, null, 2))
+      await fs.writeFile(conversationPath, JSON.stringify(conversations, null, 2))
       return { message: 'Conversación eliminada con éxito' }
 
   }
@@ -78,7 +82,7 @@ export class ConversationsModel {
     Object.assign(conversations[conversationIndex], data)
     // Hacer el path hacia aqui
     // const filePath = pat h.join()
-    await fs.writeFile('./models/conversations.json', JSON.stringify(conversations, null, 2))
+    await fs.writeFile(conversationPath, JSON.stringify(conversations, null, 2))
     return conversationObject(conversations[conversationIndex])
   }
 }

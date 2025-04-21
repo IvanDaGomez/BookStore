@@ -2,10 +2,14 @@ import fs from 'node:fs/promises'
 import { messageObject } from '../messageObject.js'
 import { MessageObjectType } from '../../../types/message.js'
 import { ID } from '../../../types/objects.js'
-
+import path from 'node:path'
+// __dirname is not available in ES modules, so we need to use import.meta.url
+import { fileURLToPath } from 'node:url'
+const __filename = fileURLToPath(import.meta.url)
+const messagesPath = path.join(__filename, 'dist', 'models', 'messages.json')
 class MessagesModel {
   static async getAllMessages (): Promise<MessageObjectType[]> {
-      const data = await fs.readFile('./models/messages.json', 'utf-8')
+      const data = await fs.readFile(messagesPath, 'utf-8')
       const messages: MessageObjectType[] = JSON.parse(data)
       if (!messages) {
         throw new Error('No se pudieron encontrar los mensajes')
@@ -39,20 +43,20 @@ class MessagesModel {
     // Crear valores por defecto
     const newMessage = messageObject(data)
     messages.push(newMessage)
-    await fs.writeFile('./models/messages.json', JSON.stringify(messages, null, 2))
+    await fs.writeFile(messagesPath, JSON.stringify(messages, null, 2))
     return newMessage
 
   }
 
   static async deleteMessage (id: ID): Promise<{ message: string }> {
-      const messages = await this.getAllMessages()
-      const messageIndex = messages.findIndex(message => message._id === id)
-      if (messageIndex === -1) {
-        throw new Error('No se pudo encontrar el mensaje')
-      }
-      messages.splice(messageIndex, 1)
-      await fs.writeFile('./models/messages.json', JSON.stringify(messages, null, 2))
-      return { message: 'Message deleted successfully' } // Mensaje de éxito
+    const messages = await this.getAllMessages()
+    const messageIndex = messages.findIndex(message => message._id === id)
+    if (messageIndex === -1) {
+      throw new Error('No se pudo encontrar el mensaje')
+    }
+    messages.splice(messageIndex, 1)
+    await fs.writeFile(messagesPath, JSON.stringify(messages, null, 2))
+    return { message: 'Mensaje eliminado con éxito' } // Mensaje de éxito
   }
 
   static async updateMessage (id: ID, data: Partial<MessageObjectType>): Promise<MessageObjectType> {
@@ -65,7 +69,7 @@ class MessagesModel {
     Object.assign(messages[messageIndex], data)
     // Hacer el path hacia aqui
     // const filePath = pat h.join()
-    await fs.writeFile('./models/messages.json', JSON.stringify(messages, null, 2))
+    await fs.writeFile(messagesPath, JSON.stringify(messages, null, 2))
     return messages[messageIndex]
   }
 }

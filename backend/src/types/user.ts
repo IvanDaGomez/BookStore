@@ -37,7 +37,7 @@ export type PartialUserInfoType = {
   historialBusquedas: {
     [key: string]: number
   }
-  balance?: {
+  balance: {
     pendiente?: number
     disponible?: number
     porLlegar?: number

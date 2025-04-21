@@ -11,10 +11,15 @@ import { ID, ISOString } from '../../../types/objects.js'
 import { AuthToken } from '../../../types/authToken.js'
 import { CollectionObjectType } from '../../../types/collection'
 import { BookObjectType } from '../../../types/book.js'
-
+import path from 'node:path'
+// __dirname is not available in ES modules, so we need to use import.meta.url
+import { fileURLToPath } from 'node:url'
+const __filename = fileURLToPath(import.meta.url)
+const bookPath = path.join(__filename, 'dist', 'models', 'books.json')
+const booksBackStagePath = path.join(__filename, 'dist', 'models', 'booksBackStage.json')
 class BooksModel {
   static async getAllBooks (): Promise<BookObjectType[]> {
-    const data = await fs.readFile('./models/books.json', 'utf-8')
+    const data = await fs.readFile(bookPath, 'utf-8')
     const books: BookObjectType[] = JSON.parse(data)
     if (!books) {
       throw new Error('No hay libros disponibles')
@@ -100,7 +105,7 @@ class BooksModel {
     const books = await this.getAllBooks()
     const bookToAdd = bookObject(data, true)
     books.push(bookToAdd)
-    await fs.writeFile('./models/books.json', JSON.stringify(books, null, 2))
+    await fs.writeFile(bookPath, JSON.stringify(books, null, 2))
     return bookToAdd
   }
 
@@ -121,7 +126,7 @@ class BooksModel {
 
     // Hacer el path hacia aqui
     // change writeFile to writeFileSync, which makes it synchronous
-    await fs.writeFile('./models/books.json', JSON.stringify(books, null, 2))
+    await fs.writeFile(bookPath, JSON.stringify(books, null, 2))
 
     return bookObject(books[bookIndex], false)
   }
@@ -133,12 +138,12 @@ class BooksModel {
       throw new Error('Libro no encontrado')
     }
     books.splice(bookIndex, 1)
-    await fs.writeFile('./models/books.json', JSON.stringify(books, null, 2))
+    await fs.writeFile(bookPath, JSON.stringify(books, null, 2))
     return { message: 'Book deleted successfully' } // Mensaje de éxito
   }
 
   static async getAllReviewBooks (): Promise<BookObjectType[]> {
-    const data = await fs.readFile('./models/booksBackStage.json', 'utf-8')
+    const data = await fs.readFile(booksBackStagePath, 'utf-8')
     const books = JSON.parse(data) as BookObjectType[]
     return books
   }
@@ -149,10 +154,7 @@ class BooksModel {
     const books = await this.getAllReviewBooks()
     const bookToAdd = bookObject(data, true)
     books.push(bookToAdd)
-    await fs.writeFile(
-      './models/booksBackStage.json',
-      JSON.stringify(books, null, 2)
-    )
+    await fs.writeFile(booksBackStagePath, JSON.stringify(books, null, 2))
     return bookToAdd
   }
 
@@ -165,10 +167,7 @@ class BooksModel {
     }
 
     books.splice(bookIndex, 1)
-    await fs.writeFile(
-      './models/booksBackStage.json',
-      JSON.stringify(books, null, 2)
-    )
+    await fs.writeFile(booksBackStagePath, JSON.stringify(books, null, 2))
     return { message: 'Book deleted successfully' } // Mensaje de éxito
   }
 
@@ -184,10 +183,7 @@ class BooksModel {
     Object.assign(book, data)
     reviewBooks.push(book)
 
-    await fs.writeFile(
-      './models/booksBackStage.json',
-      JSON.stringify(reviewBooks, null, 2)
-    )
+    await fs.writeFile(booksBackStagePath, JSON.stringify(reviewBooks, null, 2))
 
     return bookObject(book, false)
   }
