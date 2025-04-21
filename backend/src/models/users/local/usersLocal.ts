@@ -12,46 +12,33 @@ import { changeToArray } from '../../../assets/changeToArray.js'
 class UsersModel {
   static async getAllUsers(): Promise<UserInfoType[]> {
     // Esta función devuelve todos los usuarios, incluyendo información sensible como la contraseña
-    try {
-      const data = await fs.readFile('./models/users.json', 'utf-8')
-      if (!data) {
-        throw new Error('No se encontraron usuarios')
-      }
-      const users: UserInfoType[] = JSON.parse(data)
-      return users.map(user => userObject(user, true) as UserInfoType)
-    } catch (err: any) {
-      throw new Error(err)
+    const data = await fs.readFile('./models/users.json', 'utf-8')
+    if (!data) {
+      throw new Error('No se encontraron usuarios')
     }
+    const users: UserInfoType[] = JSON.parse(data)
+    return users.map(user => userObject(user, true) as UserInfoType)
   }
 
   static async getAllUsersSafe (): Promise<PartialUserInfoType[]> {
     // Esta función devuelve todos los usuarios, pero sin información sensible como la contraseña
-    try {
-      const data = await fs.readFile('./models/users.json', 'utf-8')
-      const users: PartialUserInfoType[] = JSON.parse(data)
-      if (!data) {
-        throw new Error('No se encontraron usuarios')
-      }
-      return users.map(user => userObject(user, false) as PartialUserInfoType)
-    } catch (err: any) {
-      throw new Error(err)
+    const data = await fs.readFile('./models/users.json', 'utf-8')
+    const users: PartialUserInfoType[] = JSON.parse(data)
+    if (!data) {
+      throw new Error('No se encontraron usuarios')
     }
+    return users.map(user => userObject(user, false) as PartialUserInfoType)
   }
 
   static async getUserById (id: ID): Promise<PartialUserInfoType> {
     // Esta función devuelve un usuario específico por su ID, pero sin información sensible como la contraseña
-    try {
-      const users = await this.getAllUsersSafe()
-      const user = users.find(user => user._id === id)
-      if (!user) {
-        throw new Error('Usuario no encontrado')
-      }
-
-      // Return user with limited public information
-      return userObject(user, false) as PartialUserInfoType
-    } catch (err: any) {
-      throw new Error(err)
+    const users = await this.getAllUsersSafe()
+    const user = users.find(user => user._id === id)
+    if (!user) {
+      throw new Error('Usuario no encontrado')
     }
+    // Return user with limited public information
+    return userObject(user, false) as PartialUserInfoType
   }
 
   static async getPhotoAndNameUser(id: ID): Promise<{
@@ -59,37 +46,28 @@ class UsersModel {
     fotoPerfil: ImageType
     nombre: string
   }> {
-    try {
-      const users = await this.getAllUsersSafe()
-      const user = users.find(user => user._id === id)
-      if (!user) {
-        throw new Error('Usuario no encontrado')
-      }
-
-      // Return user with limited public information
-      return {
-        _id: user._id,
-        fotoPerfil: user.fotoPerfil,
-        nombre: user.nombre
-      }
-    } catch (err: any) {
-      throw new Error(err)
+    const users = await this.getAllUsersSafe()
+    const user = users.find(user => user._id === id)
+    if (!user) {
+      throw new Error('Usuario no encontrado')
     }
+    // Return user with limited public information
+    return {
+      _id: user._id,
+      fotoPerfil: user.fotoPerfil,
+      nombre: user.nombre
+    }
+
   }
 
   static async getEmailById (id: ID): Promise<{ correo: string, nombre: string }> {
-    try {
-      const users = await this.getAllUsers()
-      const user = users.find(user => user._id === id)
-      if (!user) {
-        throw new Error('Usuario no encontrado')
-      }
-
-      // Return user with limited public information
-      return { correo: user.correo, nombre: user.nombre }
-    } catch (err: any) {
-      throw new Error(err)
+    const users = await this.getAllUsers()
+    const user = users.find(user => user._id === id)
+    if (!user) {
+      throw new Error('Usuario no encontrado')
     }
+    // Return user with limited public information
+    return { correo: user.correo, nombre: user.nombre }
   }
 
   // Pendiente desarrollar, una buena query para buscar varios patrones
@@ -123,91 +101,65 @@ class UsersModel {
   }
 
   static async login(correo: string, contraseña: string): Promise<PartialUserInfoType> {
-    try {
-      const users = await this.getAllUsers()
-      const user = users.find(usuario => usuario.correo === correo)
-      if (!user) {
-        throw new Error('El correo no existe')
-      }
-      const validated = await bcrypt.compare(contraseña, user.contraseña)
-      // Validar que la contraseña sea
-      if (!validated) {
-        throw new Error('La contraseña es incorrecta')
-      }
-
-      // Return user info, but avoid password or sensitive data
-      return userObject(user, false) as PartialUserInfoType
-    } catch (err: any) {
-      throw new Error(err)
+    const users = await this.getAllUsers()
+    const user = users.find(usuario => usuario.correo === correo)
+    if (!user) {
+      throw new Error('El correo no existe')
     }
+    const validated = await bcrypt.compare(contraseña, user.contraseña)
+    // Validar que la contraseña sea
+    if (!validated) {
+      throw new Error('La contraseña es incorrecta')
+    }
+    // Return user info, but avoid password or sensitive data
+    return userObject(user, false) as PartialUserInfoType
   }
 
   static async googleLogin (data: { nombre: string, correo: string, fotoPerfil: ImageType }): Promise<PartialUserInfoType> {
-    try {
-      // Validate input data
-      if (!data.nombre || !data.correo) {
-        throw new Error('Data inválida: El correo y el nombre son obligatorios')
-      }
-
-      const users = await this.getAllUsers()
-
-      // Check if the user exists
-      const user = users.find(usuario => usuario.correo === data.correo)
-
-      if (!user) {
-        // Google sign-up flow
-        const newUser = userObject(data, true)// Ensure `userObject` sanitizes and structures the input
-        newUser.login = 'Google' // Mark this as a Google user
-        // userObject() elimina el correo y la contraseña (que no hay)
-        newUser.correo = data.correo
-
-        // La validación es por defecto true si se hace este método
-        newUser.validated = true
-        newUser._id = crypto.randomUUID()
-        users.push(newUser)
-        // Write the new user to the file
-        await fs.writeFile('./models/users.json', JSON.stringify(users, null, 2), 'utf8')
-        return userObject(newUser, false)
-      }
-      return userObject(user, false) 
-    } catch (err: any) {
-      throw new Error(err)
+    // Validate input data
+    if (!data.nombre || !data.correo) {
+      throw new Error('Data inválida: El correo y el nombre son obligatorios')
     }
+    const users = await this.getAllUsers()
+    // Check if the user exists
+    const user = users.find(usuario => usuario.correo === data.correo)
+    if (!user) {
+      // Google sign-up flow
+      const newUser = userObject(data, true)// Ensure `userObject` sanitizes and structures the input
+      newUser.login = 'Google' // Mark this as a Google user
+      // userObject() elimina el correo y la contraseña (que no hay)
+      newUser.correo = data.correo
+      // La validación es por defecto true si se hace este método
+      newUser.validated = true
+      newUser._id = crypto.randomUUID()
+      users.push(newUser)
+      // Write the new user to the file
+      await fs.writeFile('./models/users.json', JSON.stringify(users, null, 2), 'utf8')
+      return userObject(newUser, false)
+    }
+    return userObject(user, false) 
   }
 
   static async facebookLogin (data: { nombre: string, correo: string, fotoPerfil: ImageType }): Promise<PartialUserInfoType> {
-    try {
-      // Validate input data
-      if (!data.nombre || !data.correo) {
-        throw new Error('Invalid data: Email and name are required')
-      }
-
-      const users = await this.getAllUsers()
-
-      // Check if the user exists
-      const user = users.find(usuario => usuario.correo === data.correo)
-
-      if (!user) {
-        // Google sign-up flow
-        const newUser = userObject(data, true) as UserInfoType// Ensure `userObject` sanitizes and structures the input
-        newUser.login = 'Facebook' // Mark this as a Facebook user
-        // userObject() elimina el correo y la contraseña (que no hay)
-        newUser.correo = data.correo
-
-        // La validación es por defecto true si se hace este método
-        newUser.validated = true
-
-        newUser._id = crypto.randomUUID()
-        users.push(newUser)
-        // Write the new user to the file
-        await fs.writeFile('./models/users.json', JSON.stringify(users, null, 2), 'utf8')
-        return userObject(newUser, false)
-      }
-      // Si ya existe el usuario solo devolverlo
-      return userObject(user, false)
-    } catch (err: any) {
-      throw new Error(err)
+    const users = await this.getAllUsers()
+    // Check if the user exists
+    const user = users.find(usuario => usuario.correo === data.correo)
+    if (!user) {
+      // Google sign-up flow
+      const newUser = userObject(data, true) as UserInfoType// Ensure `userObject` sanitizes and structures the input
+      newUser.login = 'Facebook' // Mark this as a Facebook user
+      // userObject() elimina el correo y la contraseña (que no hay)
+      newUser.correo = data.correo
+      // La validación es por defecto true si se hace este método
+      newUser.validated = true
+      users.push(newUser)
+      // Write the new user to the file
+      await fs.writeFile('./models/users.json', JSON.stringify(users, null, 2), 'utf8')
+      return userObject(newUser, false)
     }
+    // Si ya existe el usuario solo devolverlo
+    return userObject(user, false)
+
   }
 
   static async getUserByEmail (correo: string): Promise<UserInfoType> {

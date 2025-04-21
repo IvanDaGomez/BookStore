@@ -1,4 +1,4 @@
-import { BookObjectType } from "../bookObject";
+import { BookObjectType } from "../../../types/book";
 
 export function getBookKeyInfo (book: Partial<BookObjectType>): string[] {
   return [

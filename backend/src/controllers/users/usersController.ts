@@ -188,12 +188,18 @@ export class UsersController {
     next: express.NextFunction
   ): Promise<express.Response | void> => {
     try {
-      const data = req.body as {
-        correo: string
-        nombre: string
-        fotoPerfil: ImageType
+      const { nombre, correo, fotoPerfil } = req.body as {
+        correo: string | undefined
+        nombre: string | undefined
+        fotoPerfil?: ImageType
       }
-      const user = await this.UsersModel.facebookLogin(data)
+      if (!nombre || !correo) {
+        return res.status(400).json({
+          error: 'Algunos espacios están en blanco',
+          details: 'Nombre y correo son requeridos'
+        })
+      }
+      const user = await this.UsersModel.facebookLogin({ nombre, correo, fotoPerfil: fotoPerfil ?? ''})
 
       jwtPipeline(user, res)
       res.json(user)
@@ -750,7 +756,7 @@ export class UsersController {
       // Notificación de nuevo seguidor
       if (action === 'Agregado') {
         await sendNotification(
-          createNotification({ follower, user }, 'newFollower')
+          createNotification({ follower }, 'newFollower')
         )
       }
 
@@ -773,7 +779,7 @@ export class UsersController {
         return res
           .status(404)
           .json({ error: 'No se proporcionó id de usuario' })
-f
+          
       const balance = await this.UsersModel.getBalance(userId)
 
       res.json({ balance })

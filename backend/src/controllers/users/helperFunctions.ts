@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken'
 import { AuthToken } from '../../types/authToken.js'
 import express from 'express'
 import { PartialUserInfoType, UserInfoType } from '../../types/user.js'
-import { ID, ImageType } from '../../types/objects.js'
+import { ID, ImageType, ISOString } from '../../types/objects.js'
 
 async function checkEmailExists (email: string) {
   const correo = await UsersModel.getUserByEmail(email)
@@ -13,7 +13,7 @@ async function checkEmailExists (email: string) {
   }
 }
 function initializeDataCreateUser (data: UserInfoType) {
-  const time = new Date().toISOString()
+  const time = new Date().toISOString() as ISOString
   data.fechaRegistro = time
   data.actualizadoEn = time
   data.validated = false
@@ -75,7 +75,7 @@ function filterAllowedFields (data: UserInfoType) {
     if (data[key] !== undefined) filteredData[key] = data[key] as any
   })
 
-  filteredData.actualizadoEn = new Date().toISOString()
+  filteredData.actualizadoEn = new Date().toISOString() as ISOString
   return filteredData as UserInfoType
 }
 

@@ -270,7 +270,7 @@ export class BooksController {
       await sendEmail(
         `${data.vendedor} ${correo.correo}`,
         'Libro publicado con éxito',
-        createEmail(data, 'bookPublished')
+        createEmail({ nombre: data.titulo, ...data}, 'bookPublished')
       )
       res.send(book)
     } catch (err) {

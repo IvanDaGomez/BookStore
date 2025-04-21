@@ -38,10 +38,17 @@ export class NotificationsModel {
 
   static async createNotification (data: Partial<NotificationType>): Promise<NotificationType> {
 
-    const notifications = await this.getAllNotifications()
+    let notifications = await this.getAllNotifications()
     // Crear valores por defecto
     const newNotification = notificationObject(data)
     notifications.push(newNotification)
+    // Elimina las notificaciones que ya han expirado
+    notifications = notifications.filter(notification => {
+      if (new Date(notification.expiresAt) < new Date()) {
+        return false
+      }
+      return true
+    })
     await fs.writeFile('./models/notifications.json', JSON.stringify(notifications, null, 2))
     return newNotification
 

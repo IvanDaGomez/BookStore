@@ -7,7 +7,7 @@ const notificationObject = (data: Partial<NotificationType>): NotificationType =
     _id: data._id ?? crypto.randomUUID(),
     title: data.title ?? '',
     priority: data.priority ?? 'low',
-    type: data.type ?? 'notRegistered',
+    type: data.type ?? 'invalidNotification',
     userId: data.userId ?? crypto.randomUUID(),
     input: data.input ?? '',
     createdIn: data.createdIn ?? new Date().toISOString() as ISOString,
