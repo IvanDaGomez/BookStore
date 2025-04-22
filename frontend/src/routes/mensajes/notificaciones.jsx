@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Footer from '../../components/footer'
-import Header from '../../components/header'
+import Header from '../../components/header/header.jsx'
 import SideInfo from '../../components/sideInfo'
 import { ToastContainer } from 'react-toastify'
 import { Link, useParams } from 'react-router-dom'

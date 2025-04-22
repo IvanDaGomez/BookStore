@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Footer from '../../components/footer'
-import Header from '../../components/header'
+import Header from '../../components/header/header.jsx'
 import SideInfo from '../../components/sideInfo'
 import Fase1 from './Fase1'
 import Fase2 from './Fase2'

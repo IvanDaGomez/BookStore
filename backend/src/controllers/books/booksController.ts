@@ -80,7 +80,7 @@ export class BooksController {
       const user = req.session.user as AuthToken | undefined
       if (update && user) {
         const bookCopy = JSON.parse(JSON.stringify(book)) // aseguro que es limpio y plano
-        await updateData(user, bookCopy, 'openedBook')
+        // await updateData(user, bookCopy, 'openedBook')
       }
       return res.json(book)
     } catch (err) {
@@ -98,10 +98,10 @@ export class BooksController {
       Si no se encuentra el libro, se envía un error 404.
       Las consultas actualizan las estadísticas de los libros y los usuarios.
     */
-   console.log('hola')
+
     try {
       let { q, l } = req.query as { q: string | ParsedQs; l: string | ParsedQs }
-      console.log('check1')
+
       // Validación de la query
       if (q) {
         q = cambiarGuionesAEspacio(q as string)
@@ -122,8 +122,8 @@ export class BooksController {
         for (const book of books.slice(0, 3)) {
           const bookCopy: Partial<BookObjectType> = JSON.parse(
             JSON.stringify(book)
-          )
-          await updateData(user, bookCopy, 'query')
+          ) 
+          // await updateData(user, bookCopy, 'query')
         }
       }
       return res.json(books)

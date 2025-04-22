@@ -1,4 +1,4 @@
-import Header from '../../components/header.jsx'
+import Header from '../../components/header/header.jsx'
 import Footer from '../../components/footer.jsx'
 import { useParams } from 'react-router-dom'
 import { renderNotification } from './renderNotification.jsx'

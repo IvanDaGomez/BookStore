@@ -1,9 +1,10 @@
 import fs from 'node:fs/promises'
 import { getBookKeyInfo } from '../../models/books/local/getBookKeyInfo.js'
 import { BookObjectType } from '../../types/book.js'
-
+import path from 'node:path'
+import { __dirname } from '../config.js'
 export async function updateTrends (book: Partial<BookObjectType>, action: 'query' | 'openedBook') {
-  /*
+  /* 
   * 🔹 Función para actualizar tendencias globales en la app
   *  🔹 Parámetros
   * - book: Objeto de libro que contiene información sobre el libro
@@ -19,18 +20,21 @@ export async function updateTrends (book: Partial<BookObjectType>, action: 'quer
   const decrement = 1
   const incrementSeenBook = 6
   const incrementOpenedBook = 10
-  const TRENDS_FILE = './models/trends.json'
+  const TRENDS_FILE = path.join(__dirname, 'data', 'trends.json')
   const MAX_TREND_SCORE = 10000
   let trends: {
     [key: string]: number
   } = {}
   // 🔹 Lee trends.json y si no existe lo crea
+  while (true) {
   try {
-    const data = await fs.readFile(TRENDS_FILE, 'utf-8')
-    trends = JSON.parse(data)
-  } catch (error) {
-    console.log('📂 No trend file found. Creating a new one...')
-    await fs.writeFile(TRENDS_FILE, JSON.stringify({}, null, 2)) // Ensure file exists
+      const data = await fs.readFile(TRENDS_FILE, 'utf-8')
+      trends = JSON.parse(data)
+      break
+    } catch (error) {
+      console.log('📂 No trend file found. Creating a new one...')
+      await fs.writeFile(TRENDS_FILE, JSON.stringify({}, null, 2)) // Ensure file exists
+    }
   }
 
   // 🔹 Reducción

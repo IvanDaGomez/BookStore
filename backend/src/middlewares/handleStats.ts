@@ -30,7 +30,7 @@ async function appendToCSV (filePath: string, data:
     await fs.writeFile(fullPath, header, 'utf-8')
   }
 
-  // Append the new data as a row
+  // Append the new data as a row 
   const row = Object.values(data).join(',') + '\n'
   await fs.appendFile(fullPath, row, 'utf-8')
 }
@@ -61,7 +61,7 @@ async function handleStats (req: express.Request, res: express.Response, next: e
         const data = { date: now, bookTitle: titulo }
         await appendToCSV(files.booksUploaded, data)
         break
-      }
+      }  
 
       case (req.url.includes('/api/books/query') && req.method === 'GET'): {
         // Record searches

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import Footer from '../../components/footer'
-import Header from '../../components/header'
+import Header from '../../components/header/header.jsx'
 import SideInfo from '../../components/sideInfo'
 // ARREGLAR EL BUG DE QUE SE ABRE TODOS LOS INDICES
 export default function Faq () {

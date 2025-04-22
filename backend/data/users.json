@@ -1,25 +1,26 @@
 [
   {
+    "_id": "857857d1-afdd-411d-b41a-be427d1ff186",
     "nombre": "Ivan David Gomez Silva",
-    "librosIds": [
-      "31d52487-f746-4951-bf11-7b41febea0a9",
-      "78c534c0-2fa8-40d0-b72a-c5ee34d0a883",
-      "e93345c4-ca50-4919-ba85-4dcf00882673"
-    ],
     "correo": "ivandavidgomezsilva@hotmail.com",
     "contraseña": "$2b$10$NcQtM/8q3L3kjBYtdqW4Y.80B8Bri28DC.PPfk0bf3c4TjLgt54Xa",
-    "rol": "admin",
-    "fechaRegistro": "2024-10-20T18:37:31.276Z",
-    "estadoCuenta": "activo",
-    "fotoPerfil": "1734465782797-561884780.png",
-    "_id": "857857d1-afdd-411d-b41a-be427d1ff186",
-    "actualizadoEn": "2024-12-17T20:03:02.800Z",
     "direccionEnvio": {
       "calle": "",
       "ciudad": "",
       "pais": "",
       "codigoPostal": ""
     },
+    "rol": "admin",
+    "fotoPerfil": "1734465782797-561884780.png",
+    "librosIds": [
+      "31d52487-f746-4951-bf11-7b41febea0a9",
+      "78c534c0-2fa8-40d0-b72a-c5ee34d0a883",
+      "e93345c4-ca50-4919-ba85-4dcf00882673"
+    ],
+    "estadoCuenta": "activo",
+    "fechaRegistro": "2024-10-20T18:37:31.276Z",
+    "actualizadoEn": "2024-12-17T20:03:02.800Z",
+    "bio": "Hola me gusta mucho comprar y vender libros",
     "favoritos": [
       "33e5e785-cb74-4f4a-9211-25f341b089b4",
       "88c87f69-4b49-4633-bfba-cd3d29b1a21d",
@@ -55,7 +56,6 @@
       "512e04be-4bea-4138-a6d9-5ce2e9e4bbd1",
       "91312697-a5a1-4a18-a5b3-0cfe68c11624"
     ],
-    "bio": "Hola me gusta mucho comprar y vender libros",
     "notificationsIds": [
       "9a167ca8-bfc7-41a2-80b3-ce5c170b9898",
       "2269e9d5-30ec-4953-b356-2b2efb4dce8d",
@@ -104,10 +104,6 @@
       "9b922eb4-33e8-4781-9863-c066992e1620"
     ],
     "siguiendo": [],
-    "librosVendidos": 1,
-    "balance": {
-      "porLlegar": 90000
-    },
     "coleccionsIds": [
       {
         "nombre": "Aña",
@@ -154,10 +150,25 @@
       "Español": 5,
       "Físico": 5,
       "2da Edición": 5
-    }
+    },
+    "balance": {
+      "porLlegar": 90000
+    },
+    "librosVendidos": 1
   },
   {
+    "_id": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
     "nombre": "Monica Silva",
+    "correo": "monitatinet@hotmail.com",
+    "contraseña": "$2b$10$6qRtEPsjefBY320hnAJnt.okgCSlh2otZ8D86ckYqVy7CgxFwAiGi",
+    "direccionEnvio": {
+      "calle": "",
+      "ciudad": "",
+      "pais": "",
+      "codigoPostal": ""
+    },
+    "rol": "usuario",
+    "fotoPerfil": "",
     "librosIds": [
       "3f7ab023-15e7-4626-8890-a71f4f2e221c",
       "9f8eae32-d2c3-4739-87e5-4c95dc1a665c",
@@ -165,28 +176,17 @@
       "6e275338-a3b5-4dff-b8ea-c0a6f34fff7b",
       "b0382e02-8de4-4143-bd18-da49c63961d2"
     ],
-    "correo": "monitatinet@hotmail.com",
-    "contraseña": "$2b$10$6qRtEPsjefBY320hnAJnt.okgCSlh2otZ8D86ckYqVy7CgxFwAiGi",
-    "rol": "usuario",
-    "fechaRegistro": "2024-10-20T19:20:31.196Z",
     "estadoCuenta": "activo",
-    "fotoPerfil": "",
-    "_id": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
+    "fechaRegistro": "2024-10-20T19:20:31.196Z",
     "actualizadoEn": "2024-10-20T19:20:31.197Z",
-    "direccionEnvio": {
-      "calle": "",
-      "ciudad": "",
-      "pais": "",
-      "codigoPostal": ""
-    },
+    "bio": "",
+    "favoritos": [],
     "conversationsIds": [
       "a6a3abf3-4cdf-4767-bfb9-3997dd5e2872",
       "22d0264e-fd98-47b8-957e-9ffe599095ee",
       "5644390f-de7e-4280-8801-9c6a017bb2b5",
       "322f7970-66d4-407a-904f-cca903bd8e49"
     ],
-    "bio": "",
-    "favoritos": [],
     "notificationsIds": [
       "484ec389-f6ec-4dc0-ac3f-fe1e391e458a",
       "51390817-4724-445a-98e1-7c40eac0892c",
@@ -202,15 +202,27 @@
       "836e151b-43ae-48a0-8352-17ad309d8068"
     ],
     "siguiendo": [],
-    "colecciones": [],
-    "librosVendidos": 1,
+    "coleccionsIds": [],
+    "preferencias": {},
+    "historialBusquedas": {},
     "balance": {
       "porLlegar": null
     },
-    "coleccionsIds": []
+    "librosVendidos": 1
   },
   {
+    "_id": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
     "nombre": "Alvaro Gómez",
+    "correo": "alvaroivangomez1@hotmail.com",
+    "contraseña": "$2b$10$4POHtpVhJ7UiMNroCfmnteLOOpAm2gqI7yy3Cco8ubz61YoPy/WYy",
+    "direccionEnvio": {
+      "calle": "",
+      "ciudad": "",
+      "pais": "",
+      "codigoPostal": ""
+    },
+    "rol": "usuario",
+    "fotoPerfil": "",
     "librosIds": [
       "3cd4d6ad-df7c-4e0f-beb9-394de48ce33d",
       "88c87f69-4b49-4633-bfba-cd3d29b1a21d",
@@ -218,20 +230,11 @@
       "1f097f12-ce06-4068-a0a1-f37647d38c6a",
       "3c37ef91-d1bb-4c19-ad47-85b9fb147474"
     ],
-    "correo": "alvaroivangomez1@hotmail.com",
-    "contraseña": "$2b$10$4POHtpVhJ7UiMNroCfmnteLOOpAm2gqI7yy3Cco8ubz61YoPy/WYy",
-    "rol": "usuario",
-    "fechaRegistro": "2024-10-20T19:46:09.788Z",
     "estadoCuenta": "activo",
-    "fotoPerfil": "",
-    "_id": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
+    "fechaRegistro": "2024-10-20T19:46:09.788Z",
     "actualizadoEn": "2024-10-20T19:46:09.788Z",
-    "direccionEnvio": {
-      "calle": "",
-      "ciudad": "",
-      "pais": "",
-      "codigoPostal": ""
-    },
+    "bio": "",
+    "favoritos": [],
     "conversationsIds": [
       "a1daa0dd-0598-4cbc-802a-df08d09c2d11",
       "4e75b761-1d6c-4c9d-979a-10db354a2fe5",
@@ -248,8 +251,6 @@
       "a380c853-0330-438d-9a13-bb16397f0610",
       "512e04be-4bea-4138-a6d9-5ce2e9e4bbd1"
     ],
-    "bio": "",
-    "favoritos": [],
     "notificationsIds": [
       "a399d081-cd02-41d3-8ce1-68046db22ba8",
       "27342e88-5204-48a2-9bc5-33313d46dd8f",
@@ -284,39 +285,33 @@
       "857857d1-afdd-411d-b41a-be427d1ff186"
     ],
     "siguiendo": [],
-    "librosVendidos": 1,
+    "coleccionsIds": [],
+    "preferencias": {},
+    "historialBusquedas": {},
     "balance": {
       "porLlegar": null
-    }
+    },
+    "librosVendidos": 1
   },
   {
+    "_id": "836e151b-43ae-48a0-8352-17ad309d8068",
     "nombre": "Ivan David Gomez",
-    "librosIds": [
-      "23768e73-2ee5-4134-961a-3c08bb3cad34",
-      "221f695c-69a3-4dee-98e1-0ab4565a734c"
-    ],
     "correo": "ivandavidgomezsilva@gmail.com",
     "contraseña": "$2b$10$qv9ej6wDYcmw75zmWGjmtep4XVJxyNZh8uRDOsvdbMfNoW5xhXUQq",
-    "rol": "admin",
-    "fechaRegistro": "2024-10-20T21:47:37.859Z",
-    "estadoCuenta": "activo",
-    "fotoPerfil": "1733521219913-952070967.png",
-    "_id": "836e151b-43ae-48a0-8352-17ad309d8068",
-    "actualizadoEn": "2025-04-02T12:37:00.156Z",
     "direccionEnvio": {
       "ciudad": "Floridablanca",
       "pais": "Colombia",
       "departamento": "Santander"
     },
-    "conversationsIds": [
-      "e51f7131-171d-4723-95a2-e6fea54890f5",
-      "0413aa19-5e92-4833-9ae7-bf9f00ea06c6",
-      "5644390f-de7e-4280-8801-9c6a017bb2b5",
-      "03565f92-cb06-4688-a049-d8586ce05ab3",
-      "f855175f-d87a-42df-9084-4b9818000ee0",
-      "fb555364-2859-4b6e-b0c6-82fd15a4dfaf",
-      "91312697-a5a1-4a18-a5b3-0cfe68c11624"
+    "rol": "admin",
+    "fotoPerfil": "1733521219913-952070967.png",
+    "librosIds": [
+      "23768e73-2ee5-4134-961a-3c08bb3cad34",
+      "221f695c-69a3-4dee-98e1-0ab4565a734c"
     ],
+    "estadoCuenta": "activo",
+    "fechaRegistro": "2024-10-20T21:47:37.859Z",
+    "actualizadoEn": "2025-04-02T12:37:00.156Z",
     "bio": "",
     "favoritos": [
       "3f7ab023-15e7-4626-8890-a71f4f2e221c",
@@ -325,6 +320,15 @@
       "88c87f69-4b49-4633-bfba-cd3d29b1a21d",
       "ac6773d2-9166-4840-b5cd-995a49b19031",
       "1f097f12-ce06-4068-a0a1-f37647d38c6a"
+    ],
+    "conversationsIds": [
+      "e51f7131-171d-4723-95a2-e6fea54890f5",
+      "0413aa19-5e92-4833-9ae7-bf9f00ea06c6",
+      "5644390f-de7e-4280-8801-9c6a017bb2b5",
+      "03565f92-cb06-4688-a049-d8586ce05ab3",
+      "f855175f-d87a-42df-9084-4b9818000ee0",
+      "fb555364-2859-4b6e-b0c6-82fd15a4dfaf",
+      "91312697-a5a1-4a18-a5b3-0cfe68c11624"
     ],
     "notificationsIds": [
       "eed1b131-50d1-4d63-84a5-c5c9e0abf849",
@@ -350,88 +354,116 @@
     "siguiendo": [
       "9b922eb4-33e8-4781-9863-c066992e1620"
     ],
-    "librosVendidos": 1,
     "coleccionsIds": [],
     "preferencias": {
       "Nuevo": 50,
-      "Físico": 49,
-      "Ivan David Gomez Silva": 49,
-      "2da Edición": 49,
-      "Autoayuda": 48,
-      "Buscar": 8,
-      "Alvaro Gómez": 50,
-      "Monica Silva": 38,
-      "Tecnología": 50,
-      "Inteligencia Artifical": 19,
-      "Ética": 19,
-      "Sociedad": 19,
-      "Futuro": 19,
-      "IA más allá de los algoritmos": 19,
-      "Victor Muñoz, Maria Paula Mujica": 19,
-      "Premio Booker Internacional": 4,
-      "El encuentro de cuatro imperios": 4,
-      "Adulto": 4,
-      "Javier Fernandez Aguado": 4,
-      "Español": 4,
-      "El libro de bill": 4,
-      "Gravity Falls": 4,
-      "El libro de Bill": 4,
-      "Ciencia ficción": 4,
-      "Alex Hirsch": 4,
-      "Reacondicionado": 4
+      "Físico": 17,
+      "Ivan David Gomez Silva": 17,
+      "2da Edición": 17,
+      "Autoayuda": 50,
+      "Alvaro Gómez": 18,
+      "Monica Silva": 6,
+      "Tecnología": 42,
+      "Inteligencia Artifical": 7,
+      "Ética": 7,
+      "Sociedad": 7,
+      "Futuro": 7,
+      "IA más allá de los algoritmos": 7,
+      "Victor Muñoz, Maria Paula Mujica": 7,
+      "Recupera tu mente, reconquista tu vida": 21,
+      "": 50,
+      "Marian Rojas Estapé": 21,
+      "El libro de bill": 2,
+      "Gravity Falls": 2,
+      "El libro de Bill": 2,
+      "Ciencia ficción": 2,
+      "Alex Hirsch": 2,
+      "Reacondicionado": 2
     },
     "historialBusquedas": {
       "Nuevo": 28,
-      "Autoayuda": 18,
-      "Alvaro Gómez": 21,
-      "Tecnología": 24,
-      "Inteligencia Artifical": 11,
-      "Ética": 11,
-      "Sociedad": 11,
-      "Futuro": 11,
-      "IA más allá de los algoritmos": 11,
-      "Victor Muñoz, Maria Paula Mujica": 11,
-      "Ivan David Gomez Silva": 18,
-      "Físico": 18,
-      "2da Edición": 18,
+      "Autoayuda": 27,
+      "Tecnología": 18,
+      "": 30,
+      "Inteligencia Artifical": 1,
+      "Ética": 1,
+      "Sociedad": 1,
+      "Futuro": 1,
+      "IA más allá de los algoritmos": 1,
+      "Victor Muñoz, Maria Paula Mujica": 1,
       "Premio Booker Internacional": 3,
       "El encuentro de cuatro imperios": 3,
-      "Adulto": 3,
       "Javier Fernandez Aguado": 3,
-      "Español": 3,
       "El libro de bill": 5,
       "Gravity Falls": 5,
       "El libro de Bill": 5,
       "Ciencia ficción": 5,
       "Alex Hirsch": 5,
       "Reacondicionado": 5
-    }
+    },
+    "balance": {
+      "pendiente": 0,
+      "disponible": 0,
+      "porLlegar": 0
+    },
+    "librosVendidos": 1
   },
   {
+    "_id": "bda285c8-e1fe-4b88-a310-e8c48ebc73d9",
     "nombre": "Monica Silva",
-    "librosIds": [],
     "correo": "monitatinet@cmail.com",
     "contraseña": "$2b$10$Iz9CG4F/Kg6gJxW0Muj0LOFAyKE1ti4ufcfeXUL1KCSOdhgN15Ugq",
-    "rol": "usuario",
-    "fechaRegistro": "2024-10-23T10:39:20.154Z",
-    "estadoCuenta": "activo",
-    "fotoPerfil": "1729453883736-303865584.png",
-    "_id": "bda285c8-e1fe-4b88-a310-e8c48ebc73d9",
-    "actualizadoEn": "2024-10-23T10:39:20.155Z",
     "direccionEnvio": {
       "calle": "",
       "ciudad": "",
       "pais": "",
       "codigoPostal": ""
     },
-    "conversationsIds": [],
+    "rol": "usuario",
+    "fotoPerfil": "1729453883736-303865584.png",
+    "librosIds": [],
+    "estadoCuenta": "activo",
+    "fechaRegistro": "2024-10-23T10:39:20.154Z",
+    "actualizadoEn": "2024-10-23T10:39:20.155Z",
     "bio": "",
-    "favoritos": []
+    "favoritos": [],
+    "conversationsIds": [],
+    "notificationsIds": [],
+    "validated": false,
+    "login": "Default",
+    "ubicacion": {
+      "calle": "",
+      "ciudad": "",
+      "pais": "",
+      "codigoPostal": ""
+    },
+    "seguidores": [],
+    "siguiendo": [],
+    "coleccionsIds": [],
+    "preferencias": {},
+    "historialBusquedas": {},
+    "balance": {
+      "pendiente": 0,
+      "disponible": 0,
+      "porLlegar": 0
+    },
+    "librosVendidos": []
   },
   {
     "_id": "9b922eb4-33e8-4781-9863-c066992e1620",
     "nombre": "Mónica Tatiana Silva Gonzalez",
+    "correo": "monitatinet@gmail.com",
+    "contraseña": "",
+    "direccionEnvio": [],
+    "rol": "usuario",
     "fotoPerfil": "1733333394714-237900940.png",
+    "librosIds": [
+      "8269ca96-ed27-4cb3-a919-8967d4f83e9a",
+      "354037a6-232d-4f28-a2ab-df76dbd70a93"
+    ],
+    "estadoCuenta": "Activo",
+    "fechaRegistro": "2025-04-22T20:34:27.097Z",
+    "actualizadoEn": "2024-12-17T15:44:37.425Z",
     "bio": "Esta es mi bio",
     "favoritos": [
       "ac6773d2-9166-4840-b5cd-995a49b19031",
@@ -474,25 +506,35 @@
     ],
     "validated": true,
     "login": "Google",
-    "correo": "monitatinet@gmail.com",
-    "actualizadoEn": "2024-12-17T15:44:37.425Z",
-    "librosIds": [
-      "8269ca96-ed27-4cb3-a919-8967d4f83e9a",
-      "354037a6-232d-4f28-a2ab-df76dbd70a93"
-    ],
-    "rol": "usuario",
-    "estadoCuenta": "Activo",
     "ubicacion": {},
     "seguidores": [],
     "siguiendo": [
       "857857d1-afdd-411d-b41a-be427d1ff186"
-    ]
+    ],
+    "coleccionsIds": [],
+    "preferencias": {},
+    "historialBusquedas": {},
+    "balance": {
+      "pendiente": 0,
+      "disponible": 0,
+      "porLlegar": 0
+    },
+    "librosVendidos": []
   },
   {
     "_id": "192c8f5f-4c9b-431b-a3b6-d4f93ba871aa",
     "nombre": "Ivan David Gomez Silva",
+    "correo": "ivan.gomez@sanpedro.edu.co",
+    "contraseña": "$2b$10$KJ5IPpTXkMmttqSYCNhyseZROgQBzZQDBRYWR6xeNPR8uLZ8zHPrC",
+    "direccionEnvio": [],
     "rol": "Vendedor",
+    "fotoPerfil": "1733446355974-592149507.png",
+    "librosIds": [
+      "80f63656-b199-47e8-9d49-16826153ed63"
+    ],
     "estadoCuenta": "Activo",
+    "fechaRegistro": "2025-04-22T20:34:27.097Z",
+    "actualizadoEn": "2024-12-06T00:52:35.976Z",
     "bio": "",
     "favoritos": [
       "3f7ab023-15e7-4626-8890-a71f4f2e221c"
@@ -512,12 +554,15 @@
       "departamento": "Santander"
     },
     "seguidores": [],
-    "contraseña": "$2b$10$KJ5IPpTXkMmttqSYCNhyseZROgQBzZQDBRYWR6xeNPR8uLZ8zHPrC",
-    "correo": "ivan.gomez@sanpedro.edu.co",
-    "actualizadoEn": "2024-12-06T00:52:35.976Z",
-    "librosIds": [
-      "80f63656-b199-47e8-9d49-16826153ed63"
-    ],
-    "fotoPerfil": "1733446355974-592149507.png"
+    "siguiendo": [],
+    "coleccionsIds": [],
+    "preferencias": {},
+    "historialBusquedas": {},
+    "balance": {
+      "pendiente": 0,
+      "disponible": 0,
+      "porLlegar": 0
+    },
+    "librosVendidos": []
   }
 ]

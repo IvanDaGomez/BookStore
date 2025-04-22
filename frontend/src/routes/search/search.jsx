@@ -3,7 +3,7 @@
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import SideInfo from '../../components/sideInfo.jsx'
 import Footer from '../../components/footer.jsx'
-import Header from '../../components/header.jsx'
+import Header from '../../components/header/header.jsx'
 import { useEffect, useState, useRef, useContext } from 'react'
 import { cambiarEspacioAGuiones, cambiarGuionesAEspacio } from '../../assets/agregarMas.js'
 import { MakeCard, MakeCollectionCard, MakeOneFrCard, MakeUserCard } from '../../assets/makeCard.jsx'

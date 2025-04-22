@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { ToastContainer } from 'react-toastify'
 import Footer from '../../components/footer'
-import Header from '../../components/header'
+import Header from '../../components/header/header.jsx'
 import SideInfo from '../../components/sideInfo'
 import { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'

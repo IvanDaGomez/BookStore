@@ -1,6 +1,6 @@
 import { ToastContainer } from 'react-toastify'
 import Footer from '../../components/footer'
-import Header from '../../components/header'
+import Header from '../../components/header/header'
 import SideInfo from '../../components/sideInfo'
 import { useEffect, useState } from 'react'
 import axios from 'axios'

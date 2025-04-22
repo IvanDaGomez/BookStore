@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from 'react-router'
-import Header from '../../components/header'
+import Header from '../../components/header/header.jsx'
 import Footer from '../../components/footer'
 import SideInfo from '../../components/sideInfo'
 import { useState, useEffect, useContext } from 'react'

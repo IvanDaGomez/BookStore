@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import emailjs from '@emailjs/browser'
-import Header from '../../components/header'
+import Header from '../../components/header/header.jsx'
 import SideInfo from '../../components/sideInfo'
 import Footer from '../../components/footer'
 import { toast, ToastContainer } from 'react-toastify'

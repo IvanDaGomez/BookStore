@@ -1,7 +1,7 @@
 import { useParams } from 'react-router'
 import { useState, useEffect, useRef, useContext } from 'react'
 import { Link } from 'react-router-dom'
-import Header from '../../components/header'
+import Header from '../../components/header/header.jsx'
 import SideInfo from '../../components/sideInfo'
 import Footer from '../../components/footer'
 import ErrorPage from '../../components/errorPage/errorPage.jsx'
