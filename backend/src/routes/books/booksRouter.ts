@@ -34,6 +34,5 @@ export const createBooksRouter = ({
 
   booksRouter.delete('/review/:bookId', booksController.deleteReviewBook as RequestHandler )
   booksRouter.delete('/:bookId', booksController.deleteBook as RequestHandler)
- 
   return booksRouter
 }

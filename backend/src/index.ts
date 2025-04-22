@@ -15,12 +15,9 @@ import swaggerUI from 'swagger-ui-express'
 import { handleStats } from './middlewares/handleStats.js'
 import fs from 'node:fs'
 import path from 'node:path'
-import { fileURLToPath } from 'node:url';
-import { PORT } from './assets/config.js'
+import { PORT, __dirname } from './assets/config.js'
 import { corsOptions } from './assets/corsOptions.js'
 // Get the current file's directory
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 dotenv.config()
 // import { handleStats } from './assets/handleStats.js'
 export const createApp = ({
@@ -67,8 +64,8 @@ export const createApp = ({
 
 
   // // Archivos estáticos para uploads y optimized
-  const uploadsDir = path.join(__dirname, '..', 'uploads')
-  const optimizedDir = path.join(__dirname, '..', 'optimized') 
+  const uploadsDir = path.join(__dirname, 'uploads')
+  const optimizedDir = path.join(__dirname, 'optimized') 
   app.use('/uploads', express.static(uploadsDir))
   app.use('/optimized', express.static(optimizedDir))
 
@@ -81,7 +78,7 @@ export const createApp = ({
   app.use('/api/emails', createEmailsRouter({ EmailsModel }))
   app.use('/api/transactions', createTransactionsRouter({ TransactionsModel }))
 
-  const swaggerDoc = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'swagger.json'), 'utf-8'))
+  const swaggerDoc = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'swagger.json'), 'utf-8'))
   app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDoc))
   // // Middleware para manejar errores
   app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction): void => {

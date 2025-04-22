@@ -39,7 +39,9 @@ async function handleStats (req: express.Request, res: express.Response, next: e
   try {
     const now = new Date().toISOString() // Current timestamp
     const { titulo, price } = req.body ?? { titulo: '', price: ''}// Extracting title and price from request body
-
+    if (!titulo || !price) {
+      return next()
+    }
     switch (true) {
       case (req.url.includes('/api/users')): {
         // Record user signups

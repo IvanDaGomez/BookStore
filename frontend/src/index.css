@@ -279,7 +279,7 @@ header .flex-between{
   display: flex;
   flex-direction: column;
   height:45px;
-  
+
 }
 
 .headerDer .resultsContainer{
@@ -287,6 +287,7 @@ header .flex-between{
   max-width: 40rem;
   transform:translateY(20px);
   z-index: 1000;
+  
 }
 .headerDer .resultsContainer .result{
   width: 100%;
@@ -354,9 +355,10 @@ header .flex-between{
   background-color: white;
   border-radius: var(--border-radius);
   color:var(--using3);
-  border: var(--border-width) solid var(--using2);
+
   margin: 0;
   margin-left: auto;
+
 }
 
 .search {
@@ -365,6 +367,7 @@ header .flex-between{
   padding-left: var(--padding-large);
   border-radius: var(--circular-radius) 0 0 var(--circular-radius); /* Round corners on the left side */
   font-size: var(--font-size-medium);
+  
   outline: none;
   width: 100%; 
   text-align: left;
