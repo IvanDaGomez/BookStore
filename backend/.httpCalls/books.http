@@ -1,216 +1,90 @@
+# Get all books
 GET http://localhost:3030/api/books
 
-###
-GET http://localhost:3030/api/books/search/lavadora
+### Get all review books
+GET http://localhost:3030/api/books/review
 
-###
-GET http://localhost:3030/api/books/3df96bd0-c058-472e-9cc9-c41279d2fa19
-
-
-
-###
-
-GET http://localhost:3030/api/books/query?q=localhost:3030/api/books/query?q=harry-potter
-###
+### Create a new book
 POST http://localhost:3030/api/books
 Content-Type: application/json
 
 {
-    "titulo": "El libro de Bill",
-    "autor": "Alex Hirsch",
-    "precio": 100000,
-    "oferta": 90000,
-    "isbn": "",
-    "images": [
-      "1732197120267-615755189.png"
-    ],
-    "keywords": [
-      "El libro de bill",
-      "Gravity Falls"
-    ],
-    "_id": "31d52487-f746-4951-bf11-7b41febea0a9",
-    "descripcion": "El libro de Bill es una fascinante obra que se sumerge en el mundo de Bill Cipher, el enigmático y carismático villano de la popular serie de televisión Gravity Falls. A través de ilustraciones vibrantes y un estilo narrativo envolvente, Alex Hirsch nos presenta la historia de Bill y sus aventuras, así como su intrincada personalidad. Con un tono lleno de humor oscuro y giros inesperados, el libro explora los temas de la amistad, la traición y el poder, ofreciendo a los fanáticos de la serie una mirada única a la mente de uno de sus personajes más intrigantes. La obra combina elementos de fantasía y misterio, haciéndola accesible tanto para jóvenes como para adultos.",
-    "estado": "Reacondicionado",
-    "genero": "Ciencia ficción",
-    "formato": "Físico",
-    "vendedor": "Ivan David Gomez Silva",
-    "idVendedor": "857857d1-afdd-411d-b41a-be427d1ff186",
-    "edicion": "2da Edición",
-    "idioma": "",
-    "ubicacion": "Buscar",
-    "tapa": "",
-    "edad": "",
-    "fechaPublicacion": "2024-11-21T13:52:00.234Z",
-    "actualizadoEn": "2025-03-31T14:08:26.366Z",
-    "disponibilidad": "Disponible",
-    "mensajes": [
-      [
-        "¿Cuál es el costo del producto?",
-        "",
-        ""
-      ],
-      [
-        "Tienes un mensaje",
-        "|15",
-        ""
-      ],
-      [
-        "¿Qué métodos de pago aceptan?",
-        "",
-        "9b922eb4-33e8-4781-9863-c066992e1620"
-      ],
-      [
-        "¿En qué estado se encuentra el producto?",
-        "",
-        "836e151b-43ae-48a0-8352-17ad309d8068"
-      ]
-    ],
-    "librosVendidos": 0,
-    "collectionsIds": [
-      "c3b5ef11-6cca-4ecc-a40d-888dab4d961d",
-      "8213597c-4bac-49cc-95ea-3388f74627d8",
-      "f5d689ea-4fd7-4c7b-8f77-583694d0302b",
-      "89a54f0c-db1a-46a3-bd12-5a266d92c8de",
-      "6eff6aec-8efd-471f-8ce7-b5c278fb1884",
-      "596c9b2f-b195-4add-ba61-ca3cdb701258",
-      "4574d737-95bc-4d4d-8d8a-ee45ec154e54",
-      "f24fe9d2-9c78-43e2-96e1-ed04d7207739",
-      "1f9b8650-03ec-4931-9400-7e5c6ecb7f40",
-      "3b959d88-b1b0-4679-84a2-9b0c1e72fb9e",
-      "66193010-9dcf-42d3-8c86-7cd7c5a3e027",
-      "788fcde2-3213-4d3b-bdc3-0480f5152131",
-      "7db232f9-ec22-4bf2-8b5d-d5bd9480d2c6",
-      "e84ead35-ac16-4827-ba37-674394dd7445",
-      "df121502-806c-4921-b59b-c94e2492cd19",
-      "61633db1-edf4-4767-be8b-e1d805329196",
-      "b2f978f4-82b9-498d-b31a-3646ab15f0b3",
-      "d28dab5f-3a0a-4df4-acc4-a21d50e603aa",
-      "6aef6b20-9ad2-41c9-ac63-0ae9ccba8440",
-      "4a18b1c4-ee5a-4932-b557-4cd44cad0ea9",
-      "8a366b09-f6f8-43b4-adff-10683db07a61",
-      "84c72fdf-a3c5-4bae-8314-5cfe05530967",
-      "1c65c541-7082-430b-a3fa-0bda4ba1b15e",
-      "c8046a75-f7f7-4a3a-9610-1d2ad91df282",
-      "033e2235-1eb8-45e6-acb6-038719e69795",
-      "2467badb-6fee-4a7e-9b24-1051b31be988",
-      "b44e1f30-2a21-44af-82ca-cbe7f2343e93",
-      "ccda55b0-1e60-4ea9-9d2a-95d67bf82940",
-      "0760a9fc-63b1-4e68-84dd-74e1613bc440",
-      "887404e0-f8be-4135-b9f4-d0486d9612d1",
-      "4f73637c-cde0-4311-876d-39e51186dedb",
-      "1c06948f-7efa-4fbd-81f6-1611a39ddb3d",
-      "27b59577-9ea7-4529-b79e-fb2d210d38ca",
-      "37d1953c-4731-4a51-be92-226e827e0a95",
-      "5b27a237-c4bf-47cd-8461-e64ff35da628"
-    ]
-  }
-
-###
-
-PUT http://localhost:3030/api/books/33e5e785-cb74-4f4a-9211-25f341b089b4
-Content-Type: application/json
-
-{
-    "titulo": "Como hacer que te pasen cosas buenas?",
-    "autor": "Marian Rojas Estapé",
-    "precio": 50000,
-    "oferta": 40000,
-    "images": [
-        "1729450515494-223105547.png"
-    ],
-    "keywords": [
-        "Mentalidad",
-        "Optimismo",
-        "Resiliencia",
-        "Autoconocimiento",
-        "Transformación"
-    ],
-    "_id": "33e5e785-cb74-4f4a-9211-25f341b089b4",
-    "descripcion": "Cómo hacer que te pasen cosas buenas es una obra inspiradora de la psicóloga y conferencista Marian Rojas Estapé, en la que comparte su experiencia y conocimientos sobre cómo transformar nuestra mentalidad para atraer experiencias positivas a nuestras vidas. A través de un enfoque basado en la psicología y la neurociencia, Rojas Estapé nos invita a reflexionar sobre nuestros pensamientos, emociones y hábitos, ofreciéndonos herramientas prácticas para cultivar una actitud optimista y resiliente.\r\n\r\nEl libro está diseñado para guiarnos en un viaje de autodescubrimiento, donde aprenderemos a identificar y superar creencias limitantes que nos impiden alcanzar nuestro potencial. Con anécdotas, ejercicios prácticos y consejos accesibles, la autora nos motiva a asumir la responsabilidad de nuestras vidas y a adoptar una perspectiva proactiva que nos ayude a crear oportunidades y mejorar nuestras relaciones personales y profesionales.\r\n\r\nCómo hacer que te pasen cosas buenas es una lectura esencial para todos aquellos que buscan un cambio positivo en su vida, brindando esperanza y herramientas efectivas para construir un futuro más brillante y pleno.",
-    "estado": "Nuevo",
-    "genero": "Autoayuda",
-    "vendedor": "Ivan David Gomez Silva",
-    "idVendedor": "857857d1-afdd-411d-b41a-be427d1ff186",
-    "edicion": "",
-    "idioma": "Español",
-    "ubicacion": "Buscar",
-    "tapa": "Dura",
-    "edad": "",
-    "formato": "Fisico",
-    "fechaPublicacion": "2024-10-20T18:55:15.234Z",
-    "actualizadoEn": "2024-10-21T16:09:23.476Z",
-    "disponibilidad": "Disponible"
-}
-###
-
-DELETE http://localhost:3030/api/books/review/335bf807-091a-44da-9c92-d29899e29e66
-
-###
-
-POST http://localhost:3030/api/books/getPreferenceId
-Content-Type: application/json
-
-{
-    "title": "yo no soy así",
-    "price": 50000
+  "titulo": "Sample Book",
+  "autor": "Sample Author",
+  "precio": 100,
+  "images": ["sample-image.png"]
 }
 
-
-###
-
+### Create a new review book
 POST http://localhost:3030/api/books/review
 Content-Type: application/json
 
 {
-    "titulo": "Harry Potter y la Cámara Secreta",
-    "autor": "Warner Bros",
-    "precio": 100000,
-    "images":  ["https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg", "https://images.cdn2.buscalibre.com/fit-in/360x360/ad/4d/ad4df4ba516014a9fc39a0288a70957f.jpg", "https://images.cdn3.buscalibre.com/fit-in/360x360/61/8d/618d227e8967274cd9589a549adff52d.jpg" ],
-    "keywords": ["fantasía", "Harry Potter", "J.K. Rowling"],
-    "descripcion": "Esta es la descripción",
-    "estado" : "Usado",
-    "genero": "Novela",
-    "vendedor": "Ivan Gómez",
-    "idVendedor" : "31b2c3d4-e5f6-7g8h-9i10-j11k-12l1-3321",
-    "edicion": "1",
-    "idioma": "Español",
-    "ubicacion": "Bucaramanga",
-    "tapa":"Dura",
-    "edad":"Jóvenes",
-    "fechaPublicacion": "2024-10-01",
-    "disponibilidad" : "Disponible"
-
+  "titulo": "Sample Review Book",
+  "autor": "Sample Author",
+  "precio": 100,
+  "images": ["sample-image.png"]
 }
 
-###
-PUT http://localhost:3030/api/books/review/78c534c0-2fa8-40d0-b72a-c5ee34d0a883
-Content-Type: application/json
+### Predict book info
+POST http://localhost:3030/api/books/predictInfo
+Content-Type: multipart/form-data
 
-{
-    "titulo": "Como hacer que te pasen cosas buenas?",
-    "estado": "Usado",
-    "genero": "Autoayuda",
-    "vendedor": "Ivan David Gomez Silva",
-    "idVendedor": "857857d1-afdd-411d-b41a-be427d1ff186",
-    "edicion": "",
-    "idioma": "Español",
-    "ubicacion": "Buscar",
-    "tapa": "Dura",
-    "edad": "",
-    "formato": "Fisico",
-    "fechaPublicacion": "2024-10-20T18:55:15.234Z",
-    "actualizadoEn": "2024-10-21T16:09:23.476Z",
-    "disponibilidad": "Disponible"
-}
-
-###
-
+### Generate book description
 POST http://localhost:3030/api/books/generateDescription
+
+Content-Type: application/json
+{
+  "titulo": "Sample Title",
+  "autor": "Sample Author"
+}
+
+### Get books by collection
+POST http://localhost:3030/api/books/getBooksByCollection
 Content-Type: application/json
 
 {
-    "titulo": "Harry Potter y la Cámara Secreta",
-    "autor": "Warner Bros"
+  "collectionId": "sample-collection-id"
 }
 
+### For You Page
+GET http://localhost:3030/api/books/fyp
 
+# Get book by query
+GET http://localhost:3030/api/books/query?q=sample-query
+
+# Get books by query with filters
+GET http://localhost:3030/api/books/query/filters?q=sample-query&filter=sample-filter
+
+# Search book by title
+GET http://localhost:3030/api/books/search/sample-title
+
+# Get favorites by user
+GET http://localhost:3030/api/books/getFavoritesByUser/sample-user-id
+
+# Get book by ID
+GET http://localhost:3030/api/books/sample-book-id
+
+# Update review book
+PUT http://localhost:3030/api/books/review/sample-book-id
+Content-Type: application/json
+
+{
+  "titulo": "Updated Review Book",
+  "estado": "Updated"
+}
+
+# Update book
+PUT http://localhost:3030/api/books/sample-book-id
+Content-Type: application/json
+
+{
+  "titulo": "Updated Book",
+  "estado": "Updated"
+}
+
+# Delete review book
+DELETE http://localhost:3030/api/books/review/sample-book-id
+
+# Delete book
+DELETE http://localhost:3030/api/books/sample-book-id

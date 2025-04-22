@@ -85,11 +85,10 @@ export const createApp = async ({
   // habilitar req.body
   app.use(express.urlencoded({ extended: true }))
   // Habilitar respuestas solo en json
-  app.use(express.json())
+  app.use(express.json()) 
   const swaggerDoc = await fs.readFile('./data/swagger.json', 'utf-8').then(data => JSON.parse(data))
   app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDoc))
-  // Estadísticas
-  // app.use((req, res, next) => handleStats(req, res, next))
+
 
   // Archivos estáticos para uploads y optimized
   app.use('/uploads', express.static('uploads'))
@@ -97,7 +96,7 @@ export const createApp = async ({
 
   const models = {
     BooksModel,
-    UsersModel,
+    UsersModel, 
     MessagesModel,
     CollectionsModel,
     ConversationsModel,
@@ -105,27 +104,27 @@ export const createApp = async ({
     TransactionsModel,
     EmailsModel
   }
-  app.use('/api/users', createUsersRouter(models))
-  app.use('/api/books', createBooksRouter(models))
-  app.use('/api/messages', createMessagesRouter(models))
-  app.use('/api/conversations', createConversationsRouter(models))
-  app.use('/api/notifications', createNotificationsRouter(models))
-  app.use('/api/collections', createCollectionsRouter(models))
-  app.use('/api/emails', createEmailsRouter(models))
-  app.use('/api/transactions', createTransactionsRouter(models))
+  app.use('/api/books', createBooksRouter({ BooksModel, UsersModel}))
+  app.use('/api/users', createUsersRouter({ UsersModel, TransactionsModel}))
+  app.use('/api/messages', createMessagesRouter({ MessagesModel, ConversationsModel}))
+  app.use('/api/conversations', createConversationsRouter({ ConversationsModel, UsersModel }))
+  app.use('/api/notifications', createNotificationsRouter({ NotificationsModel, UsersModel }))
+  app.use('/api/collections', createCollectionsRouter({ CollectionsModel, BooksModel }))
+  app.use('/api/emails', createEmailsRouter({ EmailsModel }))
+  app.use('/api/transactions', createTransactionsRouter({ TransactionsModel }))
 
   // Middleware para manejar errores
-  app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
-      console.error(err.stack)
+  app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction): void => {
+    console.error(err.stack);
+    console.log('headersSent:', res.headersSent);
+    if (!res.headersSent) {
       res.status(500).json({
-        error:
-          process.env.NODE_ENV === 'production'
-            ? 'Internal Server Error'
-            : err.message
-      })
-      next()
+        error: process.env.NODE_ENV === 'production' ? 'Internal Server Error' : err.message,
+        stack: process.env.NODE_ENV === 'production' ? undefined : err.stack, // Include stack trace in development
+      });
     }
-  )
+  });
+
   app.listen(PORT, () => {
     console.log('Server is listening on http://localhost:' + PORT)
   })

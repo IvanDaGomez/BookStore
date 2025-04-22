@@ -31,7 +31,7 @@ import { CollectionObjectType } from '../../types/collection'
 export class BooksController {
   private UsersModel: IUsersModel
   private BooksModel: IBooksModel
-  constructor ({
+  constructor ({ 
     UsersModel,
     BooksModel
   }: {
@@ -45,26 +45,26 @@ export class BooksController {
     this.UsersModel = UsersModel
     this.BooksModel = BooksModel
   }
-
+ 
   getAllBooks = async (
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
-  ): Promise<express.Response | void> => {
+  ): Promise<void> => {
     /*
       Aquí se obtiene todos los libros de la base de datos y se envían como respuesta.
       Si no se encuentran libros, se envía un error 500.
     */
     try {
       const books = await this.BooksModel.getAllBooks()
-
-      res.json(books)
+      res.status(200).json(books)
     } catch (err) {
+      console.error('Error al obtener todos los libros:', err)
       next(err)
     }
   }
 
-  getBookById = async (
+  getBookById = async ( 
     req: express.Request,
     res: express.Response,
     next: express.NextFunction

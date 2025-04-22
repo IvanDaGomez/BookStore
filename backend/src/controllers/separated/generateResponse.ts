@@ -3,7 +3,7 @@ import express from 'express'
 async function generateResponse (req: express.Request, res: express.Response, next: express.NextFunction) {
   try {
     const { titulo, autor } = req.body as { titulo: string | undefined, autor: string | undefined}// Destructure the data from the request body
-
+    console.log('Request body:', req.body) // Log the request body for debugging
     // Validate input
     if (!titulo || !autor) {
       return res.status(400).json({ error: 'Both "titulo" and "autor" are required.' })

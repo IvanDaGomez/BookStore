@@ -1444,7 +1444,7 @@ color: var(--using6);
 .libroContenedor .comprarContainer span{
   color: var(--using4);
   cursor: pointer;
-  font-size: 2.5rem;
+  font-size: var(--font-size-large);
 
 }
 .separarConFoto{
@@ -1453,7 +1453,7 @@ color: var(--using6);
   justify-content: center;
   align-items: start ;
   flex-direction: column;
-  font-size: 2rem;
+  font-size: var(--font-size-medium);
 }
 .separarConFoto div{
   height: 20px;
@@ -1480,7 +1480,7 @@ color: var(--using6);
   align-items: center;
   border: 2px solid var(--using2);
   border-radius: var(--border-radius);;
-  font-size: 2.5rem;
+  font-size: var(--font-size-large);
   cursor: pointer;
 }
 .libroContenedor .comprarContainer button:not(.botonInverso){
@@ -1538,7 +1538,7 @@ color: var(--using6);
   border-radius: var(--border-radius);;
 }
 .extraBookViewContainer h2{
-  font-size: 3rem;
+  font-size: var(--font-size-large);
 }
 .extraBookViewContainer .comments, .extraBookViewContainer .related, .extraBookViewContainer .description{
   border: 1px solid var(--using2);
@@ -1566,7 +1566,7 @@ color: var(--using6);
   width: auto;
   margin: 0 10px 10px 0;
  padding: 5px;
- font-size: 2.5rem;
+ font-size: var(--font-size-large);
 }
 .comments .ask-section{
   width: 100%;
@@ -1578,7 +1578,7 @@ color: var(--using6);
 
 .comments .ask-section textarea{
    all: unset;
-   font-size: 2.5rem;
+   font-size: var(--font-size-large);
    border-radius: var(--border-radius);;
    background: var(--using1);
    border: 1px solid var(--using2);
@@ -1617,7 +1617,7 @@ color: var(--using6);
 }
 
 .respuesta {
-  font-size: 14px;
+  font-size: var(--font-size-small);
   color: #555;
   margin-top: 0;
   border-top: 1px dashed #ddd;
@@ -1652,7 +1652,7 @@ color: var(--using6);
   
 }
 .smallCardContainer .sectionElement h2{
-  font-size: 2rem;
+  font-size: var(--font-size-medium);
   text-align: center;
 }
 .related > h2{
@@ -1681,7 +1681,7 @@ color: var(--using6);
   margin: 0;
 }
 .related .leftScrollContainer .sectionElement h2{
-  font-size: 2.2rem;
+  font-size: var(--font-size-medium);
 }
 .related .leftScrollContainer .sectionElement .imageElementContainer{
   width: 75%;
@@ -1730,7 +1730,7 @@ form{
 }
 .login-form h2 {
   margin-bottom: 20px;
-  font-size: 2rem;
+  font-size: var(--font-size-medium);
   text-align: center;
 }
 
@@ -1743,14 +1743,14 @@ form{
   all:unset;
   display: block;
   margin-bottom: 3px;
-  font-size: 2rem;
+  font-size: var(--font-size-medium);
   color: var(--using3);
   width:100%;
 }
 
 .input-group input {
   all:unset;
-  font-size: 2rem;
+  font-size: var(--font-size-medium);
   width: min(100%, 300px);
   padding: 10px;
   border: 1px solid var(--using5);
@@ -1768,7 +1768,7 @@ form{
   color: var(--using1);
   border: none;
   border-radius: var(--border-radius);;
-  font-size: 2rem;
+  font-size: var(--font-size-medium);
   font-weight: 550;
   cursor: pointer;
   
@@ -1785,7 +1785,7 @@ form{
 .forgot-password a {
   color: #4682b4;
   text-decoration: none;
-  font-size: 2rem;
+  font-size: var(--font-size-medium);
 }
 .forgot-password a:hover{
   text-decoration: underline;
@@ -1794,7 +1794,7 @@ form{
 .register-link {
   
   text-align: center;
-  font-size: 2rem;
+  font-size: var(--font-size-medium);
 }
 
 .register-link a {
@@ -2022,7 +2022,7 @@ input[type='checkbox']:checked::before {
   width: 100%;
   height: 100%;
   outline: none;
-  font-size: 19px;
+  font-size: var(--font-size-medium);
   margin-left: 12px;
   border-radius: var(--border-radius);;
   text-align: center;
@@ -2037,7 +2037,7 @@ input[type="number"]::-webkit-inner-spin-button {
 .price-input .separator{
   width: 130px;
   display: flex;
-  font-size: 19px;
+  font-size: var(--font-size-medium);
   align-items: center;
   justify-content: center;
 }
@@ -2251,7 +2251,7 @@ input[type="range"]::-moz-range-thumb{
   color: var(--using3);
 }
 .resultadosContainer .userElement .info h2{
-  font-size: 2.5rem;
+  font-size: var(--font-size-large);
   text-align: center;
 }
 /*----------------------------------------CUSTOM SELECT COMPONENT----------------------------------------------*/
@@ -2398,7 +2398,7 @@ input[type="range"]::-moz-range-thumb{
   border: none;
   padding: 12px 24px;
   border-radius: var(--border-radius);;
-  font-size: 16px;
+  font-size: var(--font-size-small);
   cursor: pointer;
   
   transition: all .2s ease-in-out;
@@ -2414,13 +2414,13 @@ input[type="range"]::-moz-range-thumb{
 
 .uploadHint {
 color: var(--using6);
-  font-size: 14px;
+  font-size: var(--font-size-small);
   cursor: pointer;
 }
 
 .fileError {
   margin-top: 20px;
-  font-size: 12px;
+  font-size: var(--font-size-small);
   color: #555;
 }
 
@@ -2447,7 +2447,7 @@ color: var(--using6);
   margin: auto;
 }
 .inputCrear label, .inputCrear label{
-  font-size: 3rem;
+  font-size: var(--font-size-large);
 }
 
 .inputCrear input, .inputCrear textarea{
@@ -2457,7 +2457,7 @@ color: var(--using6);
   background: var(--using1);
   border: 2px solid var(--using2);
   border-radius: var(--border-radius);;
-  font-size: 2rem;
+  font-size: var(--font-size-medium);
   font-family: inherit;
   color:var(--using3)
 }
@@ -2467,7 +2467,7 @@ color: var(--using6);
 .inputCrear .automaticDescription{
   margin: 0;
   padding: 3px;
-  font-size: 2.5rem;
+  font-size: var(--font-size-large);
   background: var(--using1);
   border: 2px solid #228B22;
   color: #228B22;
@@ -2483,7 +2483,7 @@ color: var(--using6);
   color:var(--using1);
   border:none;
   border-radius: var(--border-radius);;
-  font-size: 3rem;
+  font-size: var(--font-size-large);
   font-weight: 600;
   font-family: inherit;
   cursor: pointer;
@@ -2585,7 +2585,7 @@ color: var(--using6);
   box-shadow: 0 4px 6px var(--using3);
 }
 .dropdown .flex{
-  font-size: 2.5rem;
+  font-size: var(--font-size-large);
   width: 100%;
   margin-bottom: 0;
   text-align: left;
@@ -2631,7 +2631,7 @@ color: var(--using6);
   
   overflow-y: hidden;
   overflow-x: hidden;
-  font-size: 3rem;
+  font-size: var(--font-size-large);
   gap: 10px; /* Añade un espacio de 10px entre los spans */
 }
 
@@ -2659,7 +2659,7 @@ color: var(--using6);
   width: 100%;
   font-family: inherit;
   font-weight: 600;
-  font-size: 2rem;
+  font-size: var(--font-size-medium);
   background: white;
   color: black;
   border: none;
@@ -2701,7 +2701,7 @@ color: var(--using6);
   border: 2px solid var(--using2);
   background: var(--using1);
   width:40px;
-  font-size: 2rem;
+  font-size: var(--font-size-medium);
   aspect-ratio: 1/1;
   border-radius: 50%;
 }
@@ -2803,7 +2803,7 @@ color: var(--using6);
   height: 100%;
   padding: 3px;
   margin: 0;
-  font-size: 1.5rem;
+  font-size: var(--font-size-medium);
 }
 /*-------------------------------------SUCCESS CREATING BOOK------------------------*/
 
@@ -2827,7 +2827,7 @@ color: var(--using6);
 }
 
 .success-container h2 {
-  font-size: 3rem; /* Tamaño de la fuente del título */
+  font-size: var(--font-size-large); /* Tamaño de la fuente del título */
   margin-bottom: 1rem; /* Espacio inferior */
 }
 
@@ -2835,7 +2835,7 @@ color: var(--using6);
 
 .back-button {
   padding: 10px ; /* Espaciado del botón */
-  font-size: 2rem;
+  font-size: var(--font-size-medium);
   margin: var(--margin-medium);
   color: white; /* Color del texto del botón */
   background-color: var(--using4); /* Color de fondo del botón */
@@ -2885,7 +2885,7 @@ color: var(--using6);
   padding:10px;
   border-radius: var(--border-radius);;
   border: 2px solid var(--using4);
-  font-size: 3rem;
+  font-size: var(--font-size-large);
   font-weight: 600;
   width:200px;
   margin:10px;
@@ -2903,10 +2903,10 @@ color: var(--using6);
   text-align: center;
 }
 .card-info h1{
-  font-size: 4rem;
+  font-size: var(--font-size-xlarge);
 }
 .card-info h2{
-  font-size: 2.5rem;
+  font-size: var(--font-size-large);
 }
 .card-info p {
   margin: var(--margin-small) 0;
@@ -2987,7 +2987,7 @@ color: var(--using6);
 .editarOEliminar button{
   margin: 0px;
   padding: 5px;
-  font-size: 2rem;
+  font-size: var(--font-size-medium);
   width: 80px;
   height: 100%;
 }
@@ -3010,7 +3010,7 @@ color: var(--using6);
   border-radius: var(--border-radius);
   background: var(--using1);
   color: var(--using3);
-  font-size: 2rem;
+  font-size: var(--font-size-medium);
   grid-column: 1 / 5;
   display: flex;
   justify-content: space-around;
@@ -3039,7 +3039,7 @@ color: var(--using6);
 }
 .collectionElement h2{
   text-align: center;
-  font-size: 2rem;
+  font-size: var(--font-size-medium);
 }
 .collectionElement .imageElementCollectionContainer{
   width: 60%;
@@ -3136,7 +3136,7 @@ color: var(--using6);
   padding: 0;
   margin: 0;
   padding-inline: var(--padding-small);
-  font-size: 1.5rem;
+  font-size: var(--font-size-medium);
   cursor: pointer;
 }
 .postsContainer .success-container .librosFav .libroFav.reverse{
@@ -3274,7 +3274,7 @@ color: var(--using6);
   color: var(--using3);
   border: 2px solid var(--using2);
   border-radius: var(--border-radius);;
-  font-size: 2rem;
+  font-size: var(--font-size-medium);
   font-family: inherit;
   margin: 1px;
 }
@@ -3312,7 +3312,7 @@ color: var(--using6);
 }
 
 .paymentMethodsLabel{
-  font-size: 3rem;
+  font-size: var(--font-size-large);
 
 }
 
@@ -3371,14 +3371,14 @@ color: var(--using6);
   height: 30px;
 }
 .gridTarjeta .tarjetaContainer div span{
-  font-size: 2.5rem;
+  font-size: var(--font-size-large);
 }
 .gridTarjeta .tarjetaContainer #UIcardExpiryDate{
-  font-size: 3rem;
+  font-size: var(--font-size-large);
 }
 .gridTarjeta .tarjetaContainer #UIcardNumber{
   margin: auto;
-  font-size: 5.5rem;
+  font-size: var(--font-size-xlarge);
   font-weight: 400;
 }
 .payWithBalance{
@@ -3413,7 +3413,7 @@ color: var(--using6);
   font-size:15px;
 }
 .payWithBalance h3{
-  font-size: 12px;
+  font-size: var(--font-size-small);
   color: #737373;
 }
 .payWithBalance input{
@@ -3555,10 +3555,10 @@ color: var(--using6);
   padding: 0 5px;
 }
 .conversationSpecificTitleAndMessage h2{
-  font-size: 2rem;
+  font-size: var(--font-size-medium);
 }
 .conversationSpecificTitleAndMessage span{
-  font-size: 1.5rem;
+  font-size: var(--font-size-medium);
 }
 
 .conversationSpecific img{
@@ -3593,7 +3593,7 @@ color: var(--using6);
   margin: 0 5px;
 }
 .headerMessage h2{
-  font-size: 3rem;
+  font-size: var(--font-size-large);
 }
 .messagesViewContainer{
   width: 100%;
@@ -3645,7 +3645,7 @@ color: var(--using6);
   border-radius: var(--border-radius);
   background: var(--using1) ;
   color: var(--using3);
-  font-size: 3rem;
+  font-size: var(--font-size-large);
   padding: var(--padding-small);
   padding-left: 10px;
   margin-right: 5px;
@@ -3757,7 +3757,7 @@ color: var(--using6);
 .notification-content div h2{
   text-align:start;
   font-weight: 500;
-  font-size: 2.5rem;
+  font-size: var(--font-size-large);
 }
 .notification-content img{
   aspect-ratio: 2 / 3;
@@ -3772,10 +3772,10 @@ color: var(--using6);
 }
 .downNotification span{
   color: var(--using2);
-  font-size: 2rem;
+  font-size: var(--font-size-medium);
 }
 .notification-date {
-  font-size: 12px;
+  font-size: var(--font-size-small);
   color: #888;
 }
 
@@ -3802,10 +3802,10 @@ color: var(--using6);
   flex-direction: column;
 }
 .book-review h2{
-  font-size: 4rem;
+  font-size: var(--font-size-xlarge);
 }
 .book-review p{
-  font-size: 2rem;
+  font-size: var(--font-size-medium);
 }
 .book-review .imageWrapper{
   width: min(300px, 40vw);
@@ -3874,7 +3874,7 @@ color: var(--using6);
   color: var(--using3);
 }
 .extraFooterInfoContainer h2{
-  font-size: 2.5rem;
+  font-size: var(--font-size-large);
   margin: var(--margin-medium) 0;
 }
 
@@ -3895,7 +3895,7 @@ color: var(--using6);
   color: var(--using4);
 }
 a[href="/chat"]{
-  font-size: 3rem;
+  font-size: var(--font-size-large);
 }
 .paraFondo a:hover{
   text-decoration: underline;
@@ -3931,7 +3931,7 @@ a[href="/chat"]{
   gap:30px;
 }
 .contactContainer .boton{
-  font-size: 2rem;
+  font-size: var(--font-size-medium);
   width: 150px;
   height: 40px;
   margin-top: 0px;
@@ -3979,7 +3979,7 @@ a[href="/chat"]{
   display: block;
   margin: var(--margin-medium);
   font-weight: 600;
-  font-size: 3rem;
+  font-size: var(--font-size-large);
 }
 
 .form-container .form-group input {
@@ -4128,7 +4128,7 @@ a[href="/chat"]{
   width: 100%;
 }
 .sidebar .headerOption{
-  font-size: 2.3rem;
+  font-size: var(--font-size-medium);
 }
 
 .team-info h2 {
@@ -4170,7 +4170,7 @@ a[href="/chat"]{
 }
 
 .org-settings h3 {
-  font-size: 12px;
+  font-size: var(--font-size-small);
   color: gray;
   text-transform: uppercase;
 }
@@ -4239,7 +4239,7 @@ a[href="/chat"]{
 
 .info-row h4 {
   margin: var(--margin-small) 0 0;
-  font-size: 16px;
+  font-size: var(--font-size-small);
 }
 
 .account-dashboard .main-content .link{
@@ -4268,10 +4268,10 @@ a[href="/chat"]{
   margin-right: 20px;
 }
 .account-dashboard .main-content .userInfo h2{
-  font-size: 3rem;
+  font-size: var(--font-size-large);
 }
 .account-dashboard .main-content .userInfo h3{
-  font-size: 2rem;
+  font-size: var(--font-size-medium);
 }
 .account-dashboard .main-content .userInfo div{
   display: flex;
@@ -4284,7 +4284,7 @@ a[href="/chat"]{
 }
 .account-dashboard .main-content .userInfo button{
   width: 15rem;
-  font-size: 2rem;
+  font-size: var(--font-size-medium);
   padding: var(--padding-small);
   margin: var(--margin-small) 0;
 }
@@ -4301,10 +4301,10 @@ a[href="/chat"]{
   padding-block: var(--padding-small);
 }
 .account-dashboard .main-content .userExtraInfo h2{
-  font-size: 3rem;
+  font-size: var(--font-size-large);
 }
 .account-dashboard .main-content .userExtraInfo h3{
-  font-size: 2rem;
+  font-size: var(--font-size-medium);
 }
 .account-dashboard .main-content .userExtraInfo .box{
   width: min(100%, 800px);
@@ -4332,7 +4332,7 @@ a[href="/chat"]{
   padding: var(--padding-big);
 }
 .account-dashboard .main-content .container h1{
-  font-size: 3.5rem;
+  font-size: var(--font-size-xlarge);
 }
 
 .account-dashboard .main-content .container.balanceContainer{
@@ -4357,7 +4357,7 @@ a[href="/chat"]{
 }
 .account-dashboard .main-content .bigNumber{
   text-align: left;
-  font-size: 5rem;
+  font-size: var(--font-size-xlarge);
 }
 .account-dashboard .main-content .container.balanceContainer .numbers{
   width: 100%;
@@ -4375,10 +4375,10 @@ a[href="/chat"]{
   flex-direction: column;
 }
 .account-dashboard .main-content .container.balanceContainer .numbers div h2{
-  font-size: 3rem;
+  font-size: var(--font-size-large);
 }
 .account-dashboard .main-content .container.balanceContainer .numbers div h3{
-  font-size: 2.5rem;
+  font-size: var(--font-size-large);
 }
 .account-dashboard .main-content .container.balanceContainer button{
   width: 150px;
@@ -4508,7 +4508,7 @@ a[href="/chat"]{
 }
 .notification-settings .switch {
   --circle-dim: 1.4em;
-  font-size: 17px;
+  font-size: var(--font-size-small);
   position: relative;
   display: inline-block;
   width: 40px;
@@ -4666,16 +4666,16 @@ a[href="/chat"]{
   border-radius: var(--border-radius);
   background: white;
   color: var(--using3);
-  font-size: 5.5rem;
+  font-size: var(--font-size-xlarge);
   text-align: center;
 }
 .verifyContainer p{
-  font-size: 2rem;
+  font-size: var(--font-size-medium);
 }
 .verifyContainer a{
   color: var(--using4);
   margin-top: 15px;
-  font-size: 3rem;
+  font-size: var(--font-size-large);
   cursor: pointer;
   
 }
@@ -4687,13 +4687,13 @@ a[href="/chat"]{
   color: red;
 }
 .verifyContainer h2{
-  font-size: 4rem;
+  font-size: var(--font-size-xlarge);
 }
 /*-------------------------------------------------CAMBIAR CONTRASEÑA------------------------------------------*/
 .cambiarContraseñaDiv input[type='email'] {
   width: 40rem;
   margin: auto;
-  font-size: 2rem;
+  font-size: var(--font-size-medium);
   background: white;
   color: black;
   padding: var(--padding-small);
@@ -4746,7 +4746,7 @@ a[href="/chat"]{
 
 .cambiarContraseñaDiv .input-field input {
   padding: 10px 15px;
-  font-size: 2rem;
+  font-size: var(--font-size-medium);
   border-radius: var(--border-radius);
   border: solid 1px var(--using3);
   letter-spacing: 1px;
