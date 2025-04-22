@@ -96,8 +96,8 @@ Content-Type: application/json
 ### For You Page
 GET http://localhost:3030/api/books/fyp
 
-### Get book by query
-GET http://localhost:3030/api/books/query?q=sample-query
+### Get book by query 
+GET http://localhost:3030/api/books/query?q=Para-ti&l=6
 
 ### Get books by query with filters
 GET http://localhost:3030/api/books/query/filters?q=sample-query&filter=sample-filter
