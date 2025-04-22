@@ -9,12 +9,12 @@ import { EmailsModel } from '../models/emails/postgreSQL/emailsModel.js'
 import { CollectionsModel } from '../models/collections/postgreSQL/collectionsModel.js'
 
 createApp({
-  BooksModel,
-  UsersModel,
-  MessagesModel,
-  ConversationsModel,
-  NotificationsModel,
-  TransactionsModel,
-  EmailsModel,
-  CollectionsModel
-})
+    BooksModel,
+    UsersModel,
+    MessagesModel,
+    ConversationsModel,
+    NotificationsModel,
+    TransactionsModel,
+    EmailsModel,
+    CollectionsModel
+  })

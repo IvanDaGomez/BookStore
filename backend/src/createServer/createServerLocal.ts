@@ -9,13 +9,12 @@ import { EmailsModel } from '../models/emails/local/emailsModel.js'
 import { CollectionsModel } from '../models/collections/local/collectionsModel.js'
 
 createApp({
-  BooksModel,
-  UsersModel,
-  MessagesModel,
-  ConversationsModel,
-  NotificationsModel,
-  TransactionsModel,
-  EmailsModel,
-  CollectionsModel
-})
-
+    BooksModel,
+    UsersModel,
+    MessagesModel,
+    ConversationsModel,
+    NotificationsModel,
+    TransactionsModel,
+    EmailsModel,
+    CollectionsModel
+  })

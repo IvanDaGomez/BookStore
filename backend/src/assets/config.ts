@@ -29,10 +29,10 @@ const storage = multer.diskStorage({
     cb(null, uniqueSuffix + path.extname(file.originalname)) // Nombre único
   }
 })
-
+const PORT: number = parseInt(process.env.PORT ?? '3030', 10)
 // Limitar el tamaño del archivo a 5 MB 
 const upload = multer({
   storage,
   limits: { fileSize: 5 * 1024 * 1024 } // 5 MB
 })
-export { SALT_ROUNDS, upload, pool }
+export { SALT_ROUNDS, upload, pool, PORT }

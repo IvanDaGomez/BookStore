@@ -50,14 +50,14 @@ export class BooksController {
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
-  ): Promise<void> => {
+  ): Promise<express.Response | void> => {
     /*
       Aquí se obtiene todos los libros de la base de datos y se envían como respuesta.
       Si no se encuentran libros, se envía un error 500.
     */
     try {
       const books = await this.BooksModel.getAllBooks()
-      res.status(200).json(books)
+      return res.status(200).json(books)
     } catch (err) {
       console.error('Error al obtener todos los libros:', err)
       next(err)
@@ -83,7 +83,7 @@ export class BooksController {
         const bookCopy = JSON.parse(JSON.stringify(book)) // aseguro que es limpio y plano
         await updateData(user, bookCopy, 'openedBook')
       }
-      res.json(book)
+      return res.json(book)
     } catch (err) {
       next(err)
     }
@@ -126,7 +126,7 @@ export class BooksController {
           await updateData(user, bookCopy, 'query')
         }
       }
-      res.json(books)
+      return res.json(books)
     } catch (err) {
       next(err)
     }
@@ -298,7 +298,7 @@ export class BooksController {
 
       const result = await this.BooksModel.deleteBook(bookId)
 
-      res.json(result)
+      return res.json(result)
     } catch (err) {
       next(err)
     }
@@ -355,7 +355,7 @@ export class BooksController {
       }
 
       await browser.close()
-      res.json(results)
+      return res.json(results)
     } catch (err) {
       await browser.close()
       next(err)
@@ -369,7 +369,7 @@ export class BooksController {
   ): Promise<express.Response | void> => {
     try {
       const books = await this.BooksModel.getAllReviewBooks()
-      res.json(books)
+      return res.json(books)
     } catch (err) {
       next(err)
     }
@@ -406,7 +406,7 @@ export class BooksController {
     try {
       const bookId = req.params.bookId as ID
       const result = await this.BooksModel.deleteReviewBook(bookId)
-      res.json(result)
+      return res.json(result)
     } catch (err) {
       next(err)
     }
@@ -457,7 +457,7 @@ export class BooksController {
 
       const results = await this.BooksModel.forYouPage(user, lParsed)
 
-      res.json(results)
+      return res.json(results)
     } catch (err) {
       next(err)
     }
@@ -476,7 +476,7 @@ export class BooksController {
 
       const favorites = await this.BooksModel.getFavoritesByUser(user.favoritos)
 
-      res.json(favorites)
+      return res.json(favorites)
     } catch (err) {
       next(err)
     }
@@ -494,7 +494,7 @@ export class BooksController {
       }
       const info = await this.BooksModel.predictInfo(file)
 
-      res.json({
+      return res.json({
           title: info.title,
           author: info.author
       })
@@ -516,7 +516,7 @@ export class BooksController {
 
       const books = await this.BooksModel.getBooksByCollection(collection)
 
-      res.json(books)
+      return res.json(books)
     } catch (err) {
       next(err)
     }

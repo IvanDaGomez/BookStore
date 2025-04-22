@@ -4,10 +4,10 @@ GET http://localhost:3030/api/books
 ### Get all review books
 GET http://localhost:3030/api/books/review
 
-### Create a new book
+### 
 POST http://localhost:3030/api/books
-Content-Type: application/json
 
+Content-Type: application/json
 {
   "titulo": "Sample Book",
   "autor": "Sample Author",
@@ -50,22 +50,22 @@ Content-Type: application/json
 ### For You Page
 GET http://localhost:3030/api/books/fyp
 
-# Get book by query
+### Get book by query
 GET http://localhost:3030/api/books/query?q=sample-query
 
-# Get books by query with filters
+### Get books by query with filters
 GET http://localhost:3030/api/books/query/filters?q=sample-query&filter=sample-filter
 
-# Search book by title
+### Search book by title
 GET http://localhost:3030/api/books/search/sample-title
 
-# Get favorites by user
+### Get favorites by user
 GET http://localhost:3030/api/books/getFavoritesByUser/sample-user-id
 
-# Get book by ID
+### Get book by ID
 GET http://localhost:3030/api/books/sample-book-id
 
-# Update review book
+### Update review book
 PUT http://localhost:3030/api/books/review/sample-book-id
 Content-Type: application/json
 
@@ -88,3 +88,6 @@ DELETE http://localhost:3030/api/books/review/sample-book-id
 
 # Delete book
 DELETE http://localhost:3030/api/books/sample-book-id
+###
+
+GET http://localhost:3030/uploads/1729454065315-576691826.png

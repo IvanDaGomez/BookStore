@@ -38,6 +38,7 @@ async function appendToCSV (filePath: string, data:
 async function handleStats (req: express.Request, res: express.Response, next: express.NextFunction) {
   try {
     const now = new Date().toISOString() // Current timestamp
+    const { titulo, price } = req.body ?? { titulo: '', price: ''}// Extracting title and price from request body
 
     switch (true) {
       case (req.url.includes('/api/users')): {
@@ -55,7 +56,7 @@ async function handleStats (req: express.Request, res: express.Response, next: e
 
       case (req.url === '/api/books' && req.method === 'POST'): {
         // Record book uploads
-        const data = { date: now, bookTitle: req.body.titulo }
+        const data = { date: now, bookTitle: titulo }
         await appendToCSV(files.booksUploaded, data)
         break
       }
@@ -77,7 +78,7 @@ async function handleStats (req: express.Request, res: express.Response, next: e
 
       case (req.url === '/api/transactions' && req.method === 'POST'): {
         // Record transactions
-        const data = { date: now, amount: req.body.price }
+        const data = { date: now, amount: price }
         await appendToCSV(files.transactions, data)
         break
       }
@@ -86,7 +87,6 @@ async function handleStats (req: express.Request, res: express.Response, next: e
       }
     }
 
-    next() // Pass control to the next middleware
   } catch (err) {
     next(err)
   }

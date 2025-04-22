@@ -24,7 +24,7 @@ export const jwtMiddleware = (req: Request, res: Response, next: NextFunction) =
   }
   try {
     // This has other information like timeout, etc
-    const info = jwt.verify(token || '', process.env.JWT_SECRET || '') as AuthToken // Replace with a more specific type if needed
+    const info = jwt.verify(token ?? '', process.env.JWT_SECRET ?? '') as AuthToken // Replace with a more specific type if needed
 
     req.session.user = info; // Add user info from JWT to the session
   } catch (error) {

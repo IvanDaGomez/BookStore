@@ -13,10 +13,17 @@ import { createCollectionsRouter } from './routes/collections/collectionsRouter.
 import { jwtMiddleware } from './middlewares/jwtMiddleware.js'
 import swaggerUI from 'swagger-ui-express'
 import { handleStats } from './middlewares/handleStats.js'
-import fs from 'fs/promises'
+import fs from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url';
+import { PORT } from './assets/config.js'
+import { corsOptions } from './assets/corsOptions.js'
+// Get the current file's directory
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 dotenv.config()
 // import { handleStats } from './assets/handleStats.js'
-export const createApp = async ({
+export const createApp = ({
   BooksModel,
   UsersModel,
   MessagesModel,
@@ -34,38 +41,9 @@ export const createApp = async ({
   NotificationsModel: any
   TransactionsModel: any
   EmailsModel: any
-}) => {
+}): void => {
   // Configuración de la aplicación Express
   const app: express.Application = express()
-  // Puerto
-  const PORT: number = parseInt(process.env.PORT ?? '3030', 10)
-  // Lista de orígenes permitidos
-  const whitelist: string[] = [
-    `http://localhost:${PORT}`,
-    `https://localhost:${PORT}`,
-    'http://localhost:3000',
-    'https://localhost:3000',
-    'http://localhost:5173',
-    'localhost:5173',
-    'https://www.googleapis.com/auth/gmail.send',
-    'https://cbbc-2800-e2-7280-24a-446c-a467-dc81-f31d.ngrok-free.app',
-    'http://cbbc-2800-e2-7280-24a-446c-a467-dc81-f31d.ngrok-free.app'
-  ]
-
-  const corsOptions: cors.CorsOptions = {
-    origin: function (
-      origin: string | undefined,
-      callback: (err: Error | null, allow?: boolean) => void
-    ): void {
-      // Permitir solicitudes con 'undefined' origin (como las de Postman)
-      if (!origin || whitelist.indexOf(origin) !== -1) {
-        callback(null, true)
-      } else {
-        callback(new Error('Not allowed by CORS'))
-      }
-    },
-    credentials: true // Habilitar el envío de credenciales (cookies)
-  }
 
   // Habilitar CORS con las opciones definidas
   app.use(cors(corsOptions)) /* corsOptions */
@@ -78,46 +56,39 @@ export const createApp = async ({
     }
     next()
   })
-  // Middleware para manejar las cookies y el token JWT
+  // // Middleware para manejar las cookies y el token JWT
   app.use(jwtMiddleware)
-  // Middleware para trackear las solicitudes
+  // // Middleware para trackear las solicitudes
   app.use(handleStats)
-  // habilitar req.body
+  // // habilitar req.body
   app.use(express.urlencoded({ extended: true }))
   // Habilitar respuestas solo en json
   app.use(express.json()) 
-  const swaggerDoc = await fs.readFile('./data/swagger.json', 'utf-8').then(data => JSON.parse(data))
-  app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDoc))
 
 
-  // Archivos estáticos para uploads y optimized
-  app.use('/uploads', express.static('uploads'))
-  app.use('/optimized', express.static('optimized'))
+  // // Archivos estáticos para uploads y optimized
+  const uploadsDir = path.join(__dirname, '..', 'uploads')
+  const optimizedDir = path.join(__dirname, '..', 'optimized') 
+  app.use('/uploads', express.static(uploadsDir))
+  app.use('/optimized', express.static(optimizedDir))
 
-  const models = {
-    BooksModel,
-    UsersModel, 
-    MessagesModel,
-    CollectionsModel,
-    ConversationsModel,
-    NotificationsModel,
-    TransactionsModel,
-    EmailsModel
-  }
-  app.use('/api/books', createBooksRouter({ BooksModel, UsersModel}))
-  app.use('/api/users', createUsersRouter({ UsersModel, TransactionsModel}))
-  app.use('/api/messages', createMessagesRouter({ MessagesModel, ConversationsModel}))
+  app.use('/api/books', createBooksRouter({ BooksModel, UsersModel }))
+  app.use('/api/users', createUsersRouter({ UsersModel, TransactionsModel }))
+  app.use('/api/messages', createMessagesRouter({ MessagesModel, ConversationsModel }))
   app.use('/api/conversations', createConversationsRouter({ ConversationsModel, UsersModel }))
   app.use('/api/notifications', createNotificationsRouter({ NotificationsModel, UsersModel }))
   app.use('/api/collections', createCollectionsRouter({ CollectionsModel, BooksModel }))
   app.use('/api/emails', createEmailsRouter({ EmailsModel }))
   app.use('/api/transactions', createTransactionsRouter({ TransactionsModel }))
 
-  // Middleware para manejar errores
+  const swaggerDoc = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'swagger.json'), 'utf-8'))
+  app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDoc))
+  // // Middleware para manejar errores
   app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction): void => {
-    console.error(err.stack);
-    console.log('headersSent:', res.headersSent);
+
     if (!res.headersSent) {
+      console.error(err.stack);
+      console.log('headersSent:', res.headersSent);
       res.status(500).json({
         error: process.env.NODE_ENV === 'production' ? 'Internal Server Error' : err.message,
         stack: process.env.NODE_ENV === 'production' ? undefined : err.stack, // Include stack trace in development
