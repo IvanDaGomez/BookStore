@@ -1,1 +1,34 @@
-[]
+[
+  {
+    "titulo": "Sample Book",
+    "autor": "Sample Author",
+    "precio": 10000,
+    "oferta": null,
+    "isbn": "1234567890123",
+    "images": [
+      "1729450515494-223105547.png"
+    ],
+    "keywords": [],
+    "_id": "ff5eb29c-4239-4684-a1d3-f5a0506c8a95",
+    "descripcion": "Sample description",
+    "estado": "Nuevo Sellado",
+    "genero": "Novela",
+    "formato": "Físico",
+    "vendedor": "Sample Seller",
+    "idVendedor": "sample-seller-id",
+    "edicion": "",
+    "idioma": "Español",
+    "ubicacion": {
+      "ciudad": "Sample City",
+      "departamento": "Sample Province",
+      "pais": "Sample Country"
+    },
+    "tapa": "Dura",
+    "edad": "",
+    "fechaPublicacion": "2023-10-01T00:00:00.000Z",
+    "actualizadoEn": "2023-10-01T00:00:00.000Z",
+    "disponibilidad": "Disponible",
+    "mensajes": [],
+    "collectionsIds": []
+  }
+]

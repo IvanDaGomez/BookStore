@@ -57,9 +57,8 @@ export class BooksController {
     */
     try {
       const books = await this.BooksModel.getAllBooks()
-      return res.status(200).json(books)
+      return res.json(books)
     } catch (err) {
-      console.error('Error al obtener todos los libros:', err)
       next(err)
     }
   }
@@ -240,16 +239,19 @@ export class BooksController {
       Si no se encuentra el libro, se envía un error 500.
       Se valida el libro y se envía una notificación al vendedor.
     */
+   console.log('reqBody:', req.body)
     let data: BookObjectType = req.body
     try {
       data = prepareCreateBookData(data, req)
+      console.log('check1')
       const validated = validateBook(data)
       if (!validated.success) {
         return res.status(400).json({ error: validated.error })
       }
+      console.log('check2')
       // Recibe el usuario para actualizar sus librosIds
       const user = await this.UsersModel.getUserById(data.idVendedor)
-
+      console.log('check3')
       // Turn user to Vendedor if not already
       if (user.rol === 'usuario') {
         user.rol = 'vendedor'
@@ -258,13 +260,13 @@ export class BooksController {
         librosIds: [...(user.librosIds ?? []), data._id],
         rol: user.rol
       })
-
+      console.log('check4')
       const book = await this.BooksModel.createBook(data)
       const notificationData = {}
       await sendNotification(
         createNotification(notificationData, 'bookPublished')
       )
-
+      console.log('check5')
       const correo = await this.UsersModel.getEmailById(data.idVendedor)
 
       await sendEmail(
@@ -272,7 +274,8 @@ export class BooksController {
         'Libro publicado con éxito',
         createEmail({ nombre: data.titulo, ...data}, 'bookPublished')
       )
-      res.send(book)
+      console.log('check6')
+      res.json(book)
     } catch (err) {
       next(err)
     }

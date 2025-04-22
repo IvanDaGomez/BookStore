@@ -11,8 +11,31 @@ Content-Type: application/json
 {
   "titulo": "Sample Book",
   "autor": "Sample Author",
-  "precio": 100,
-  "images": ["sample-image.png"]
+  "precio": 10000,
+  "oferta": null,
+  "isbn": "1234567890123",
+  "images": ["1729450515494-223105547.png"],
+  "keywords": ["sample", "book"],
+  "descripcion": "Sample description",
+  "estado": "Nuevo Sellado",
+  "genero": "Novela",
+  "formato": "Físico",
+  "vendedor": "Sample Seller",
+  "idVendedor": "sample-seller-id",
+  "edicion": "",
+  "idioma": "Español",
+  "ubicacion": {
+    "ciudad": "Sample City",
+    "provincia": "Sample Province",
+    "pais": "Sample Country"
+  },
+  "tapa": "Dura",
+  "edad": "",
+  "fechaPublicacion": "2023-10-01T00:00:00.000Z",
+  "actualizadoEn": "2023-10-01T00:00:00.000Z",
+  "disponibilidad": "Disponible",
+  "mensajes": [],
+  "collectionsIds": []
 }
 
 ### Create a new review book
@@ -20,10 +43,33 @@ POST http://localhost:3030/api/books/review
 Content-Type: application/json
 
 {
-  "titulo": "Sample Review Book",
+  "titulo": "Sample Book",
   "autor": "Sample Author",
-  "precio": 100,
-  "images": ["sample-image.png"]
+  "precio": 10000,
+  "oferta": null,
+  "isbn": "1234567890123",
+  "images": ["1729450515494-223105547.png"],
+  "keywords": ["sample", "book"],
+  "descripcion": "Sample description",
+  "estado": "Nuevo Sellado",
+  "genero": "Novela",
+  "formato": "Físico",
+  "vendedor": "Sample Seller",
+  "idVendedor": "sample-seller-id",
+  "edicion": "",
+  "idioma": "Español",
+  "ubicacion": {
+    "ciudad": "Sample City",
+    "departamento": "Sample Province",
+    "pais": "Sample Country"
+  },
+  "tapa": "Dura",
+  "edad": "",
+  "fechaPublicacion": "2023-10-01T00:00:00.000Z",
+  "actualizadoEn": "2023-10-01T00:00:00.000Z",
+  "disponibilidad": "Disponible",
+  "mensajes": [],
+  "collectionsIds": []
 }
 
 ### Predict book info

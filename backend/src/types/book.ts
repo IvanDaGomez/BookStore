@@ -1,4 +1,4 @@
-import { AgeType, AvailabilityType, CoverType, EditionType, FormatType, LanguageType, StateType } from "./bookCategories";
+import { AgeType, AvailabilityType, CoverType, EditionType, FormatType, GenreType, LanguageType, StateType } from "./bookCategories";
 import { ID, ImageType, ISOString } from "./objects";
 
 export type BookObjectType = {
@@ -12,7 +12,7 @@ export type BookObjectType = {
   _id: ID;
   descripcion: string;
   estado: StateType;
-  genero: string;
+  genero: GenreType;
   formato: FormatType;
   vendedor: string;
   idVendedor: ID;
