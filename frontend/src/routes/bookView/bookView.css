@@ -14,7 +14,10 @@
   gap:var(--margin-medium);
   margin: auto;
   margin-top: 20px;
-  
+  border: 1px solid var(--using2);
+  border-radius: var(--border-radius);
+  background: var(--using1);
+  padding: var(--padding-medium);
 }
 
 .libroContenedor .imagesContainer{
@@ -198,7 +201,8 @@
 
 .extraBookViewContainer > div{
   margin: var(--margin-medium) 0;
-  border-radius: var(--border-radius);;
+  border-radius: var(--border-radius);
+  background: var(--using1);
 }
 .extraBookViewContainer h2{
   font-size: var(--font-size-large);
@@ -213,23 +217,33 @@
   padding: 0;
 }
 .extraBookViewContainer .description{
-  height:150px;
+  min-height:5ch;
+  max-height: 20ch;
   overflow-y: auto;
-
+  
+}
+.extraBookViewContainer .description p{
+  margin-inline: var(--margin-medium);
+  text-align: justify;
 }
 .comments .separar{
   display: grid;
   grid-template-columns: 1fr 1fr;
-  place-items: center;
+  place-items: start;
   gap:10px;
   overflow: hidden; /* Prevents content from overflowing */
   min-width: 0;     /* Allow columns to shrink properly */
 }
+.comments .question-buttons{
+  margin: var(--margin-medium);
+  margin-top: none;
+}
 .comments button{
   width: auto;
-  margin: 0 10px 10px 0;
+  margin-inline: 0 10px 10px 0;
  padding: 5px;
- font-size: var(--font-size-large);
+ font-size: var(--font-size-medium);
+
 }
 .comments .ask-section{
   width: 100%;
@@ -239,16 +253,23 @@
   height: auto;
 }
 
-.comments .ask-section textarea{
-   all: unset;
-   font-size: var(--font-size-large);
-   border-radius: var(--border-radius);;
-   background: var(--using1);
-   border: 1px solid var(--using2);
-   padding: 7px;
-   width: 100%;
+.comments .ask-section textarea {
+  color: var(--using3);
+  font-family: inherit;
+  font-size: var(--font-size-medium);
+  border-radius: var(--border-radius);
+  background: var(--using1);
+  border: 1px solid var(--using2);
+  padding: var(--padding-small) var(--padding-medium);
+  width: 100%;
+  box-shadow: 0 0 5px var(--using4);
+  margin-inline: var(--margin-medium);
+}
 
-  margin-right: 20px;
+.comments .ask-section textarea:active,
+.comments .ask-section textarea:focus {
+  outline: none;
+  border: none;
 }
 .comments .comentarios{
   height: 180px;

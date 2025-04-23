@@ -65,7 +65,7 @@
   
   color-scheme: light dark;
   color: var(--using3);
-  background-color: var(--using1);
+  background-color: var(--morado5);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -92,7 +92,11 @@ html, body {
 body{
   transition: all .5s ease-in-out;
   height: 100%;
-  
+
+}
+::selection {/* Cuando hay selección del texto */
+  background-color: var(--using4); /* Cambia el color de fondo */
+  color: white; /* Cambia el color del texto seleccionado */
 }
 *{
   box-sizing: border-box;
@@ -3488,9 +3492,10 @@ a[href="/chat"]{
   transform: translate(-50%, -50%);
   width: min(500px, 60vw);
   height: 60vh;
-  padding: var(--padding-big);
+  padding: var(--padding-large);
   border-radius: var(--border-radius);
   box-shadow: 0 0 5px var(--using3);
+  background: var(--using1);
   display: flex;
   justify-content: space-evenly;
   align-items: center;
