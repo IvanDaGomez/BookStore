@@ -11,7 +11,8 @@ import { handleFollowers } from './handles/handleFollowers.jsx'
 import RenderImageHeader from './makeCard/renderImageHeader.jsx'
 import RenderMidText from './makeCard/renderMidText.jsx'
 import RenderBottomText from './makeCard/renderBottomText.jsx'
-const necesitasIniciarSesion = <div>Necesitas iniciar sesión <Link to='/login' style={{ textDecoration: 'underline', color: 'var(--using4)' }}>aquí</Link></div>
+import { necesitasIniciarSesion } from './jsxConstants.jsx'
+
 const MakeCard = ({ element, index, user = '', callback = () => {} }) => {
   // Aplicar la clase "favoritoActivo" después de renderizar las tarjetas
   useEffect(() => {

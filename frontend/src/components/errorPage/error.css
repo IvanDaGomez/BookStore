@@ -8,7 +8,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+    background: var(--using1);
 }
 .errorContainer > div {
     width: min(calc(100vw - 10px), 1200px);
@@ -42,12 +42,12 @@
 }
 
 .errorContainer > div > div h2{
-    font-size: 5rem;
+    font-size: var(--font-size-xlarge);
     margin-block: 5px;
 }
 
 .errorContainer > div > div p{
     text-decoration: underline;
     color:cornflowerblue;
-    font-size: 3rem;
+    font-size: var(--font-size-large);
 }

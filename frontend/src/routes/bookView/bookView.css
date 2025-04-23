@@ -1,12 +1,12 @@
 /*-----------------------------CONTENEDOR DE LOS LIBROS-------------------------*/
 
-.anuncio{
+.bookViewContainer .anuncio{
   width:100%;
   height:max(50px);
   background: var(--using1);
 }
 
-.libroContenedor{
+.bookViewContainer .libroContenedor{
   width:min(1000px, calc(100vw - var(--padding-medium) * 2));
   height:auto;
   display: grid;
@@ -20,7 +20,7 @@
   padding: var(--padding-medium);
 }
 
-.libroContenedor .imagesContainer{
+.bookViewContainer .libroContenedor .imagesContainer{
   width:100%;
   height:auto;
   min-height: 400px;
@@ -32,14 +32,14 @@
   left:0;
   
 }
-.libroContenedor .imagesContainer .imagesVariable{
+.bookViewContainer .libroContenedor .imagesContainer .imagesVariable{
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   width:100%;
 }
-.libroContenedor .imagesContainer .imagesVariable .imageElement{
+.bookViewContainer .libroContenedor .imagesContainer .imagesVariable .imageElement{
   width:100%;
   aspect-ratio: 2 / 3;
   margin-bottom: var(--margin-small);
@@ -49,12 +49,12 @@
   align-items: center;
   cursor: pointer;
 }
-.libroContenedor .imagesContainer .imagesVariable .imageElement img{
+.bookViewContainer .libroContenedor .imagesContainer .imagesVariable .imageElement img{
   width:100%;
   aspect-ratio: 2 / 3;
   
 }
-.libroContenedor .imagesContainer .actualImage {
+.bookViewContainer .libroContenedor .imagesContainer .actualImage {
   width:100%;
   aspect-ratio: 2 / 3;
   margin-bottom: 10px;
@@ -64,29 +64,29 @@
   cursor: zoom-in;
   overflow: hidden;
 }
-.libroContenedor .imagesContainer .actualImage img{
+.bookViewContainer .libroContenedor .imagesContainer .actualImage img{
   width: 100%;
   aspect-ratio: 2/3;  
 }
 
-.libroContenedor h2{
+.bookViewContainer .libroContenedor h2{
   font-size: var(--font-size-large);
   line-height: var(--font-size-large);
 }
 
-.libroContenedor .infoContainer{
+.bookViewContainer .libroContenedor .infoContainer{
   width:100%;
 
 }
-.libroContenedor .infoContainer *{
+.bookViewContainer .libroContenedor .infoContainer *{
   margin-block: 5px;
   text-align: left;
 }
-.libroContenedor .infoContainer h1{
+.bookViewContainer .libroContenedor .infoContainer h1{
   font-size: var(--font-size-xlarge);
   color: var(--using4);
 }
-.libroContenedor .infoContainer .informacion{
+.bookViewContainer .libroContenedor .infoContainer .informacion{
   padding: 5px;
   border-radius: var(--border-radius);;
   border: 1px solid var(--using2);
@@ -96,7 +96,7 @@
   align-items: center;
   color: var(--using2);
 }
-.libroContenedor .comprarContainer{
+.bookViewContainer .libroContenedor .comprarContainer{
   width:100%;
   height: auto;
   border: 1px solid var(--using2);
@@ -107,13 +107,14 @@
   min-width: 0;     /* Allow columns to shrink properly */
 }
 
-.libroContenedor .comprarContainer span{
+.bookViewContainer .libroContenedor .comprarContainer span{
   color: var(--using4);
   cursor: pointer;
   font-size: var(--font-size-medium);
   line-height: var(--font-size-medium);
 }
-.separarConFoto{
+
+.bookViewContainer .separarConFoto{
   width: 100%;
   display: inline-flex;
   justify-content: center;
@@ -121,22 +122,22 @@
   flex-direction: column;
   font-size: var(--font-size-medium);
 }
-.separarConFoto div{
+.bookViewContainer .separarConFoto div{
   height: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.separarConFoto svg, .separarConFoto img{
+.bookViewContainer .separarConFoto svg, .separarConFoto img{
   width: 20px;
   margin-right: 4px;
 
 }
 
-.libroContenedor .comprarContainer span:hover{
+.bookViewContainer .libroContenedor .comprarContainer span:hover{
   text-decoration: underline;
 }
-.libroContenedor .comprarContainer button{
+.bookViewContainer .libroContenedor .comprarContainer button{
   all: unset;
   width: 100%;
   height: 30px;
@@ -147,30 +148,32 @@
   border: 2px solid var(--using2);
   border-radius: var(--border-radius);;
   font-size: var(--font-size-large);
+  padding: var(--padding-xsmall) 0;
   cursor: pointer;
 }
-.libroContenedor .comprarContainer button:not(.botonInverso){
+.bookViewContainer .libroContenedor .comprarContainer button:not(.botonInverso){
   background: var(--using4);
   color: var(--using1);
 }
-.libroContenedor .comprarContainer  .botonInverso, .botonInverso{
+.bookViewContainer .libroContenedor .comprarContainer  .botonInverso, .botonInverso{
   border: 2px solid var(--using4);
   color: var(--using4);
   background: var(--using1);
 }
-.botonInverso:hover{
+
+.bookViewContainer .botonInverso:hover{
   color: var(--using1);
   background: #041dbe;
 }
-.actualImageContainer {
+.bookViewContainer .actualImageContainer {
   position: relative;
 }
-.libroContenedor svg{
+.bookViewContainer .libroContenedor svg{
   cursor: auto;
   color: var(--using4);
 }
 
-.img-zoom-lens {
+.bookViewContainer .img-zoom-lens {
   position: absolute;
   border: 1px solid #d4d4d4;
   width: 100px; /* Ajusta el tamaño de la lente */
@@ -180,7 +183,7 @@
   cursor: none;
 }
 
-.zoom-result {
+.bookViewContainer .zoom-result {
   width: 400px; /* Ajusta el tamaño del zoom */
   height: 400px;
   border: 1px solid #d4d4d4;
@@ -188,7 +191,7 @@
   margin-top: 10px;
 }
 
-.extraBookViewContainer{
+.bookViewContainer .extraBookViewContainer{
   width: min(calc(100vw - 10px), 1000px);
   margin: auto;
   
@@ -199,34 +202,31 @@
   flex-direction: column;
 }
 
-.extraBookViewContainer > div{
+.bookViewContainer .extraBookViewContainer > div{
   margin: var(--margin-medium) 0;
   border-radius: var(--border-radius);
   background: var(--using1);
 }
-.extraBookViewContainer h2{
-  font-size: var(--font-size-large);
-}
-.extraBookViewContainer .comments, .extraBookViewContainer .related, .extraBookViewContainer .description{
+
+.bookViewContainer .extraBookViewContainer .comments, .extraBookViewContainer .related, .extraBookViewContainer .description{
   border: 1px solid var(--using2);
   width:100%;
   padding: 10px;
   text-align: left;
 }
-.extraBookViewContainer .related{
+.bookViewContainer .extraBookViewContainer .related{
   padding: 0;
 }
-.extraBookViewContainer .description{
+.bookViewContainer .extraBookViewContainer .description{
   min-height:5ch;
   max-height: 20ch;
   overflow-y: auto;
-  
 }
-.extraBookViewContainer .description p{
+.bookViewContainer .extraBookViewContainer .description p{
   margin-inline: var(--margin-medium);
   text-align: justify;
 }
-.comments .separar{
+.bookViewContainer .comments .separar{
   display: grid;
   grid-template-columns: 1fr 1fr;
   place-items: start;
@@ -234,18 +234,17 @@
   overflow: hidden; /* Prevents content from overflowing */
   min-width: 0;     /* Allow columns to shrink properly */
 }
-.comments .question-buttons{
+.bookViewContainer .comments .question-buttons{
   margin: var(--margin-medium);
   margin-top: none;
 }
-.comments button{
-  width: auto;
-  margin-inline: 0 10px 10px 0;
- padding: 5px;
- font-size: var(--font-size-medium);
-
+.bookViewContainer .comments .question-buttons button{
+  margin-right: var(--margin-medium);
+  margin-bottom: var(--margin-small);
+  margin-top: none;
 }
-.comments .ask-section{
+
+.bookViewContainer .comments .ask-section{
   width: 100%;
   display: flex;
   justify-content: flex-start;
@@ -253,7 +252,7 @@
   height: auto;
 }
 
-.comments .ask-section textarea {
+.bookViewContainer .comments .ask-section textarea {
   color: var(--using3);
   font-family: inherit;
   font-size: var(--font-size-medium);
@@ -262,16 +261,15 @@
   border: 1px solid var(--using2);
   padding: var(--padding-small) var(--padding-medium);
   width: 100%;
-  box-shadow: 0 0 5px var(--using4);
   margin-inline: var(--margin-medium);
 }
 
-.comments .ask-section textarea:active,
-.comments .ask-section textarea:focus {
+.bookViewContainer .comments .ask-section textarea:active,
+.bookViewContainer .comments .ask-section textarea:focus {
   outline: none;
-  border: none;
+  border: var(--border-width) solid var(--using7);
 }
-.comments .comentarios{
+.bookViewContainer .comments .comentarios{
   height: 180px;
   overflow-y: auto;
   width: 100%;
@@ -283,7 +281,7 @@
 }
 
 
-.mensajeContainer {
+.bookViewContainer .mensajeContainer {
   width: 100%;
   margin-bottom: 15px;
   padding: 10px;
@@ -294,13 +292,13 @@
   
 }
 
-.mensaje {
+.bookViewContainer .mensaje {
   font-weight: 500;
   color: #333;
   margin-bottom: 5px;
 }
 
-.respuesta {
+.bookViewContainer .respuesta {
   font-size: var(--font-size-small);
   color: #555;
   margin-top: 0;
@@ -308,7 +306,7 @@
   padding-top: 5px;
 }
 
-.extraBookViewContainer h1 {
+.bookViewContainer .extraBookViewContainer h1 {
   margin-left: var(--margin-medium);
 
 }

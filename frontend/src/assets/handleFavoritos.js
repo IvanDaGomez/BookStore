@@ -1,10 +1,13 @@
 import { toast } from 'react-toastify'
+import { necesitasIniciarSesion } from './jsxConstants'
 
 const handleFavoritos = (event, id, userId) => {
   event.stopPropagation()
-
   async function updateFavorites () {
-    if (!id || !userId) return
+    if (!id || !userId) {
+      toast.error(necesitasIniciarSesion)
+      return
+    }
 
     const url = `http://localhost:3030/api/users/${userId}`
     // Select the <path> inside the SVG using its unique className

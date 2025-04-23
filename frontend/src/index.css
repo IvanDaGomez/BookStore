@@ -6,7 +6,7 @@
   --using2: #c4c3c4; /* Lines, separators, scrollbars */
   --using3: #000000; /* Text color */
   --using4: #3689e7; /* Accent */
-  --using7: #1b78e4; /* Accent */
+  --using7: #0258ba; /* Accent */
   --using5: #f4f0f0; /* Buttons, divs */
   --using6: red; /* Errores, acentos */
   
@@ -164,7 +164,7 @@ button{
   transition: all var(--animation-timing) ease-in-out;
 }
 button:hover{
-  background: #041dbe;
+  background: var(--using7);
 }
 
 input {
@@ -3522,7 +3522,7 @@ a[href="/chat"]{
 .verifyContainer .inputContainer .codeInput{
 
   height: 100%;
-  width: 5.5rem;
+  width: calc(var(--font-size-xlarge) * 2);
   border: 1px solid var(--using2);
   border-radius: var(--border-radius);
   background: white;
