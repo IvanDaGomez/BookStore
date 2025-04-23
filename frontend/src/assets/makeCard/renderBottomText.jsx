@@ -16,7 +16,7 @@ export default function RenderBottomText({ element, user, callback }) {
   // Helper function to handle user authentication check
   const handleAuthCheck = (event, action) => {
     event.preventDefault();
-    if (Object.keys(user).length === 0) {
+    if (!user || Object.keys(user).length === 0) {
       toast.error(necesitasIniciarSesion);
       callback();
       return false;
@@ -43,11 +43,9 @@ export default function RenderBottomText({ element, user, callback }) {
   // Render the "Mensajes" icon
   const renderMensajesIcon = () => (
     <svg
-      onClick={(e) =>
-        handleAuthCheck(e, () => {
-          window.location.href = `/mensajes?n=${element.idVendedor}&q=${element._id}`;
-        })
-      }
+      onClick={() =>window.location.href = `/libros/${element._id}#comments`
+          // window.location.href = `/mensajes?n=${element.idVendedor}&q=${element._id}`;
+          }
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       width={20}
@@ -62,7 +60,9 @@ export default function RenderBottomText({ element, user, callback }) {
     <svg
       onClick={(event) =>
         handleAuthCheck(event, () => {
-          handleFavoritos(event, element._id, user._id ?? null);
+          user ?
+            handleFavoritos(event, element._id, user._id)
+          : handleFavoritos(event, element._id);
         })
       }
       className={`favoritos favorito-${element._id}`} xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width={20}height={20}color="#fff">

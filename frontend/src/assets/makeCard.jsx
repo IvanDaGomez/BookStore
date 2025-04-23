@@ -188,11 +188,12 @@ const MakeSmallCard = ({ element, index }) => {
             </div>
             : <div style={{ padding: 'calc(10px + 1rem)' }} />}
         </div>
-
+          <div className="sectionElementTextDiv">
         <h2>{reduceText(element.titulo, 33)}</h2>
-
-        <div className='precioSections'>{(element.oferta) ? <><h2>${element.oferta.toLocaleString('es-CO')}</h2></> : <><h2>${element.precio.toLocaleString('es-CO')}</h2></>}
+        
+        {(element.oferta) ? <h2 className='red'>${element.oferta.toLocaleString('es-CO')}</h2> : <h2 className='red'>${element.precio.toLocaleString('es-CO')}</h2>}
         </div>
+
 
       </div>
     </Link>

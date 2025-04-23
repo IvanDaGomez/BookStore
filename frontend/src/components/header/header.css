@@ -200,7 +200,7 @@ header .searchButton button::after{
   bottom: 0;
 }
 header .searchButton button:hover {
-  background-color: var(--using2); /* Slightly darker blue on hover */
+  background-color: var(--using7); /* Slightly darker blue on hover */
   cursor: pointer;
 }
 header .profile, .heart, .notification, .hamburger{

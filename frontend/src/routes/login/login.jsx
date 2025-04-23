@@ -1,5 +1,5 @@
 import { GoogleOAuthProvider } from '@react-oauth/google'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router'
 import { ToastContainer } from 'react-toastify'
 import GoogleLogin from './googleLogin'
@@ -8,60 +8,25 @@ import { LoginSocialFacebook } from 'reactjs-social-login'
 import handleFacebookSubmit from './facebookLogin'
 import Loader from '../cambiarContraseña/loader.jsx'
 import '../cambiarContraseña/loader.css'
+import { quotes } from './quotes.js'
+import useUpdateBreakpoint from '../../assets/useUpdateBreakPoint.js'
+import { desktopBreakpoint } from '../../assets/config.js'
+import { validateErrors } from './validateLoginErrors.js'
+
 export default function Login () {
   const navigate = useNavigate()
-  const mobileSep = window.innerWidth < 1280
-
+  const [quote] = useState(quotes)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('') // Para registro
   const [name, setName] = useState('')
-  const [isMobile, setIsMobile] = useState(mobileSep)
+  const isMobile = useUpdateBreakpoint(desktopBreakpoint)
   const [isRegister, setIsRegister] = useState(false) // Estado para alternar entre login y signup
   const [loading, setLoading] = useState(false)
-  const handleResize = () => {
-    setIsMobile(mobileSep)
-  }
 
-  useEffect(() => {
-    window.addEventListener('resize', handleResize)
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
   const [errors, setErrors] = useState([])
 
-  const validateErrors = (formData) => {
-    const { name, email, password, confirmPassword } = formData
-    const errorMessages = [] // Array para almacenar mensajes de error
 
-    // Verificar campos vacíos
-    if (!email) errorMessages.push('El correo es obligatorio.')
-    if (!password) errorMessages.push('La contraseña es obligatoria.')
-
-    // Validar formato de correo electrónico
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (email && !emailPattern.test(email)) {
-      errorMessages.push('El correo no tiene un formato válido.')
-    }
-
-    // Validar longitud de la contraseña
-    if (password && password.length < 8) {
-      errorMessages.push('La contraseña debe tener al menos 8 caracteres.')
-    }
-
-    // Verificar coincidencia de contraseñas (solo para registro)
-    if (isRegister && password !== confirmPassword) {
-      errorMessages.push('Las contraseñas no coinciden.')
-    }
-    if (isRegister && !name) {
-      errorMessages.push('El nombre es requerido')
-    }
-    // Actualizar estado de errores
-    setErrors(errorMessages)
-    return errorMessages.length === 0 // Retornar verdadero si no hay errores
-  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -73,7 +38,7 @@ export default function Login () {
       confirmPassword
     }
 
-    const validated = validateErrors(formData)
+    const validated = validateErrors(formData, isRegister, setErrors)
     if (isRegister && !document.querySelector('.aceptoTerminos input').checked) {
       setErrors((prevErrors) => [...prevErrors, 'Necesitas aceptar los términos y condiciones'])
       return
@@ -220,9 +185,7 @@ export default function Login () {
         <div className='login-form'>
           <h1>{isRegister ? 'Crea una cuenta' : 'Bienvenido de vuelta'}</h1>
           <h2>
-            {isRegister
-              ? 'Accede a un mundo infinito de conocimiento, ¡Todo depende de ti!'
-              : 'Leer es el primer paso hacia un mundo lleno de posibilidades. ¿Te atreves a comenzar?'}
+            {quote[Math.floor(Math.random() * quote.length)]}
           </h2>
 
           <form onSubmit={handleSubmit} noValidate>

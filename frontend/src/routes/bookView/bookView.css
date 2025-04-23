@@ -1,0 +1,293 @@
+/*-----------------------------CONTENEDOR DE LOS LIBROS-------------------------*/
+
+.anuncio{
+  width:100%;
+  height:max(50px);
+  background: var(--using1);
+}
+
+.libroContenedor{
+  width:min(1000px, calc(100vw - var(--padding-medium) * 2));
+  height:auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap:var(--margin-medium);
+  margin: auto;
+  margin-top: 20px;
+  
+}
+
+.libroContenedor .imagesContainer{
+  width:100%;
+  height:auto;
+  min-height: 400px;
+  display: grid;
+  grid-template-columns: 1fr 7fr;
+  gap:var(--margin-small);
+  position: sticky;
+  top:90px;
+  left:0;
+  
+}
+.libroContenedor .imagesContainer .imagesVariable{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width:100%;
+}
+.libroContenedor .imagesContainer .imagesVariable .imageElement{
+  width:100%;
+  aspect-ratio: 2 / 3;
+  margin-bottom: var(--margin-small);
+  border: var(--border-width) solid var(--using2);
+  padding: 1px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.libroContenedor .imagesContainer .imagesVariable .imageElement img{
+  width:100%;
+  aspect-ratio: 2 / 3;
+  
+}
+.libroContenedor .imagesContainer .actualImage {
+  width:100%;
+  aspect-ratio: 2 / 3;
+  margin-bottom: 10px;
+  border: var(--border-width) solid var(--using2);
+  display: flex;
+  align-items: center;
+  cursor: zoom-in;
+  overflow: hidden;
+}
+.libroContenedor .imagesContainer .actualImage img{
+  width: 100%;
+  aspect-ratio: 2/3;  
+}
+
+.libroContenedor h2{
+  font-size: var(--font-size-large);
+  line-height: var(--font-size-large);
+}
+
+.libroContenedor .infoContainer{
+  width:100%;
+
+}
+.libroContenedor .infoContainer *{
+  margin-block: 5px;
+  text-align: left;
+}
+.libroContenedor .infoContainer h1{
+  font-size: var(--font-size-xlarge);
+  color: var(--using4);
+}
+.libroContenedor .infoContainer .informacion{
+  padding: 5px;
+  border-radius: var(--border-radius);;
+  border: 1px solid var(--using2);
+  width:min(70px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--using2);
+}
+.libroContenedor .comprarContainer{
+  width:100%;
+  height: auto;
+  border: 1px solid var(--using2);
+  border-radius: var(--border-radius);;
+  text-align: left;
+  padding: var(--padding-medium);
+  overflow: hidden; /* Prevents content from overflowing */
+  min-width: 0;     /* Allow columns to shrink properly */
+}
+
+.libroContenedor .comprarContainer span{
+  color: var(--using4);
+  cursor: pointer;
+  font-size: var(--font-size-medium);
+  line-height: var(--font-size-medium);
+}
+.separarConFoto{
+  width: 100%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: start ;
+  flex-direction: column;
+  font-size: var(--font-size-medium);
+}
+.separarConFoto div{
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.separarConFoto svg, .separarConFoto img{
+  width: 20px;
+  margin-right: 4px;
+
+}
+
+.libroContenedor .comprarContainer span:hover{
+  text-decoration: underline;
+}
+.libroContenedor .comprarContainer button{
+  all: unset;
+  width: 100%;
+  height: 30px;
+  margin: var(--margin-medium) auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--using2);
+  border-radius: var(--border-radius);;
+  font-size: var(--font-size-large);
+  cursor: pointer;
+}
+.libroContenedor .comprarContainer button:not(.botonInverso){
+  background: var(--using4);
+  color: var(--using1);
+}
+.libroContenedor .comprarContainer  .botonInverso, .botonInverso{
+  border: 2px solid var(--using4);
+  color: var(--using4);
+  background: var(--using1);
+}
+.botonInverso:hover{
+  color: var(--using1);
+  background: #041dbe;
+}
+.actualImageContainer {
+  position: relative;
+}
+.libroContenedor svg{
+  cursor: auto;
+  color: var(--using4);
+}
+
+.img-zoom-lens {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  width: 100px; /* Ajusta el tamaño de la lente */
+  height: 100px;
+  opacity: 0.4;
+  background-color: white;
+  cursor: none;
+}
+
+.zoom-result {
+  width: 400px; /* Ajusta el tamaño del zoom */
+  height: 400px;
+  border: 1px solid #d4d4d4;
+  background-repeat: no-repeat;
+  margin-top: 10px;
+}
+
+.extraBookViewContainer{
+  width: min(calc(100vw - 10px), 1000px);
+  margin: auto;
+  
+  border-radius: var(--border-radius);;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.extraBookViewContainer > div{
+  margin: var(--margin-medium) 0;
+  border-radius: var(--border-radius);;
+}
+.extraBookViewContainer h2{
+  font-size: var(--font-size-large);
+}
+.extraBookViewContainer .comments, .extraBookViewContainer .related, .extraBookViewContainer .description{
+  border: 1px solid var(--using2);
+  width:100%;
+  padding: 10px;
+  text-align: left;
+}
+.extraBookViewContainer .related{
+  padding: 0;
+}
+.extraBookViewContainer .description{
+  height:150px;
+  overflow-y: auto;
+
+}
+.comments .separar{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
+  gap:10px;
+  overflow: hidden; /* Prevents content from overflowing */
+  min-width: 0;     /* Allow columns to shrink properly */
+}
+.comments button{
+  width: auto;
+  margin: 0 10px 10px 0;
+ padding: 5px;
+ font-size: var(--font-size-large);
+}
+.comments .ask-section{
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  height: auto;
+}
+
+.comments .ask-section textarea{
+   all: unset;
+   font-size: var(--font-size-large);
+   border-radius: var(--border-radius);;
+   background: var(--using1);
+   border: 1px solid var(--using2);
+   padding: 7px;
+   width: 100%;
+
+  margin-right: 20px;
+}
+.comments .comentarios{
+  height: 180px;
+  overflow-y: auto;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+
+.mensajeContainer {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: var(--border-radius);
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  
+}
+
+.mensaje {
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.respuesta {
+  font-size: var(--font-size-small);
+  color: #555;
+  margin-top: 0;
+  border-top: 1px dashed #ddd;
+  padding-top: 5px;
+}
+
+.extraBookViewContainer h1 {
+  margin-left: var(--margin-medium);
+
+}

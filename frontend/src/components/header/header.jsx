@@ -13,7 +13,7 @@ import NotificationsRendering from './notificationsRendering.jsx'
 import RenderResults from './renderResults.jsx'
 import useToggleState from './useToggleState.js'
 import RenderIcons from './renderIcons.jsx'
-import useUpdateBreakpoint from './useUpdateBreakPoint.js'
+import useUpdateBreakpoint from '../../assets/useUpdateBreakPoint.js'
 import './header.css'
 // import useFetchUser from "../assets/useFetchUser";
 export default function Header () {

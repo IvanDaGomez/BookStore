@@ -34,6 +34,7 @@
   align-items: center;
   min-height: 100%;
   min-width: 20ch;
+  max-width: 20ch;
   background: var(--using1);
   padding: var(--padding-xsmall);
   cursor: pointer;
@@ -55,7 +56,9 @@
   text-align: center;
   margin-top: var(--margin-small);
 }
-
+.sectionsContainer .sectionElement h3{
+  text-align: center;
+}
 
 .sectionsContainer .precioSections h2{
   color: var(--using6);
@@ -69,6 +72,7 @@
   background: var(--using4);
   color:var(--using1);
   filter: opacity(0.9);
+  text-align: center;
 }
 .sectionsContainer .sectionElement div{
   width: 90%;
@@ -109,10 +113,15 @@
   color: var(--using1);
 }
 .sectionsContainer .sectionElement .extraInfoElement{
-  width: calc(100% - 20px);
+  width: calc(100% - var(--margin-medium));
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.sectionsContainer .sectionElement .extraInfoElement svg{
+  width: var(--font-size-large);
+  height: var(--font-size-large);
+
 }
 .sectionsContainer .sectionElement .extraInfoElement .fastInfoElement{
   margin-inline: var(--margin-xsmall);
