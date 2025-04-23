@@ -195,7 +195,7 @@ input:focus{
 ::-webkit-scrollbar{
   background: #00000010;
   width:var(--font-size-small);
-  height: var(--font-size-medium);
+  height: var(--font-size-xsmall);
   z-index: 1000;
 }
 ::-webkit-scrollbar-thumb{
@@ -221,125 +221,6 @@ input:-internal-autofill-selected {
   appearance: none;
 }
 
-
-/*----------------------------------SECTIONS-FILTERS------------------*/
-.sectionsContainer{
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap:var(--margin-small);
-  align-items: stretch; /* Asegúrate de que todos los elementos tengan la misma altura */
-  min-height: 30rem;
-  padding: var(--padding-medium);
-  height:auto;
-  isolation:isolate;
-  position:relative;
-  color:var(--using1);
-}
-
-.sectionElement{
-  width:100%;
-  border: var(--border-width) solid var(--using2);
-  border-radius: var(--border-radius);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  height: 100%; /* Ajusta este valor según sea necesario */
-  background: var(--using5);
-  cursor: pointer;
-  color:var(--using3);
-  padding: 5px;
-  
-}
-.sectionElement *{
-  text-align: center;
-  
-}
-.sectionElement h2{
-  font-size: var(--font-size-large);
-  margin-top: var(--margin-small);
-}
-
-/* Asegúrate de que la sección de contenido crezca para llenar el espacio */
-.sectionElement .contentElement {
-  flex-grow: 1;
-
-}
-
-.precioSections{
-  margin: auto;
-}
-.precioSections h2{
-  font-size: var(--font-size-large);
-  text-align: left;
-  color: var(--using6);
-  margin: 0;
-}
-
-/* Resto de los estilos */
-.sectionElement .percentageElement{
-  width:100%;
-  padding:1px 0;
-  background: var(--using4);
-  color:var(--using1);
-  filter: opacity(0.9);
-}
-.sectionElement div{
-  width: 90%;
-}
-.sectionElement .imageElementContainer{
-  
-  width:90%;
-  aspect-ratio: 2 / 3;
-  margin:0 auto;
-  position: relative;
-  background-position: center;
-  background-size: contain;
-  border-radius: var(--border-radius);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  overflow: hidden; 
-}
-
-
-.sectionElement .fastInfoElement{
-  background: var(--using4);
-  width: auto;
-  margin: auto;
-  border-radius: var(--border-radius);;
-  padding: var(--padding-small);
-  color: var(--using1);
-}
-.sectionElement .extraInfoElement{
-  width: calc(100% - 20px);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.sectionElement .extraInfoElement .fastInfoElement{
-  margin-inline: var(--margin-medium);
-}
-.favoritos {
-  
-  fill: none;
-
-}
-
-.favoritos.favoritoActivo {
-  fill: var(--using6) ;
-  
-}
-
-.favoritos.favoritoActivo path{
-  stroke: none;
-}
-@media only screen and (max-width: 734px) {
-  .sectionsContainer{
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-}
 /*--------------------------------CUSTOM DESIGNS PLANTILLAS-----------------------------*/
 
 .customDesignsContainer{
