@@ -7,7 +7,7 @@ export default function SearchButton ({ submitInputValue, queryInput, setResults
               <input
                 type='text'
                 ref={queryInput}
-                autoComplete='books'
+                autoComplete='off'
                 placeholder='Buscar'
                 onChange={() => handleSearchInput(queryInput, setResults)}
                 onKeyDown={(event) => (event.key === 'Enter') ? submitInputValue() : null}

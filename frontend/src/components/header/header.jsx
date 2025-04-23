@@ -3,8 +3,8 @@ import { Link, useNavigate } from 'react-router-dom'
 import { cambiarEspacioAGuiones } from '../../assets/agregarMas.js'
 import MenuSideBar from '../sidebar/menuSideBar.jsx'
 import { UserContext } from '../../context/userContext.jsx'
+
 import useFetchNotifications from './useFetchNotifications.jsx'
-import './header.css'
 import { mobileBreakpoint } from '../../assets/config.js'
 import SearchButton from './searchButton.jsx'
 import logout from '../../assets/logout.js'
@@ -14,6 +14,7 @@ import RenderResults from './renderResults.jsx'
 import useToggleState from './useToggleState.js'
 import RenderIcons from './renderIcons.jsx'
 import useUpdateBreakpoint from './useUpdateBreakPoint.js'
+import './header.css'
 // import useFetchUser from "../assets/useFetchUser";
 export default function Header () {
   // const user = useFetchUser('http://localhost:3030/api/users/userSession')
@@ -61,7 +62,7 @@ export default function Header () {
           <Link to='/'>
             <div>
               <img loading='lazy' src='/logo.png' alt='' />
-              <h1 style={{ fontFamily: 'Gentium Book Plus' }}>  Meridian</h1>
+              <h1 style={{ fontFamily: 'Gentium Book Plus' }}>Meridian</h1>
             </div>
           </Link>
 
@@ -73,20 +74,16 @@ export default function Header () {
             {/* <Link to='/autores'><p>Autores</p></Link> */}
           </div>
         <div className='headerDer'>
-          <div>
             <SearchButton submitInputValue={submitInputValue} queryInput={queryInput} setResults={setResults} />
-            <RenderResults results={results} />
-
-          </div>
-          <RenderIcons
-            user={user}
-            isMobile={isMobile}
-            setNotificationOpen={setNotificationOpen}
-            notificationOpen={notificationOpen}
-            notifications={notifications}
-            openProfile={openProfile}
-            handleMenuClick={handleMenuClick}
-          />
+            <RenderIcons
+              user={user}
+              isMobile={isMobile}
+              setNotificationOpen={setNotificationOpen}
+              notificationOpen={notificationOpen}
+              notifications={notifications}
+              openProfile={openProfile}
+              handleMenuClick={handleMenuClick}
+            />
         </div>
 
       </header>
@@ -103,6 +100,7 @@ export default function Header () {
         notificationOpen={notificationOpen}
         setNotificationOpen={setNotificationOpen} 
       />
+      <RenderResults results={results} />
       <MenuSideBar callback={handleMenuClick} user={ user } logoutFn = { logout } />
       
     </>

@@ -34,7 +34,6 @@ header::before {
   align-items: center;
   width:auto;
   text-align: center;
-  
 }
 .headerIzq{
   cursor: pointer;
@@ -42,14 +41,14 @@ header::before {
 .headerIzq div {
   display: flex;
   align-items: center;
-  justify-content: center;
-  height: 100%;
+}
+.headerIzq h1{
+  font-size: var(--font-size-xlarge);
 }
 .headerIzq img{
-  height:50px;
+  height:calc(var(--font-size-large) * 1.6 * 1.6);
+  aspect-ratio: 1/1;
   margin-right: var(--margin-small);
-  border-radius: var(--border-radius);
-  cursor: pointer;
 }
 .headerCen{
   width: 30vw;
@@ -67,14 +66,13 @@ header::before {
   text-decoration: underline;
   transform: scale(1.1);
 }
-
 .headerDer{
+  width: auto;
   display: flex;
-  flex-direction: column;
-  height:45px;
-
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
-
 .headerDer .resultsContainer{
   width: 100%;
   max-width: 40rem;
@@ -138,100 +136,85 @@ header::before {
 }
 
 
-header .searchButton{
-  width: 40rem;
-
+header .headerDer .searchButton{
   all: unset;
+  width: auto;
+  height: var(--font-size-xlarge);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-right: var(--margin-medium);
+}
+
+header .searchButton input {
+  border: var(--border-width) solid var(--using2);
+  border-right: none;
+  padding: 0;
+  padding-left: var(--padding-medium);
+  border-radius: var(--circular-radius) 0 0 var(--circular-radius) ; /* Round corners on the left side */
+  font-size: var(--font-size-medium);
+  width: 15ch; 
+  height: 100%;
+  text-align: left;
+  background-color: var(--using1);
+  z-index: 1001;
+  transform: translateX(var(--border-width));
+}
+header .searchButton input :focus{
+  border: none;
+}
+header .searchButton button  {
+  outline: var(--border-width) solid var(--using2);
+  height: 100%;
+  background-color: var(--using4); /* Dark blue color */
+  padding: var(--padding-small);
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  background-color: white;
-  border-radius: var(--border-radius);
-  color:var(--using3);
-
-  margin: 0;
-  margin-left: auto;
-
-}
-
-header .searchbutton input {
-  border: none;
-  padding: 0;
-  padding-left: var(--padding-large);
-  border-radius: var(--circular-radius) 0 0 var(--circular-radius); /* Round corners on the left side */
-  font-size: var(--font-size-medium);
-  
-  outline: none;
-  width: 100%; 
-  text-align: left;
-  background-color: var(--using1);
-  
-}
-header .searchbutton input :focus{
-  border: none;
-}
-header .searchbutton button  {
-  all:unset;
-  border: none;
-  background-color: var(--using4); /* Dark blue color */
-  color: var(--using1);
-  padding: var(--padding-medium);
-  padding-left: var(--padding-xlarge);
-  
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
   border-radius: 0 var(--circular-radius) var(--circular-radius) 0; /* Round corners on the right side */
   position: relative;
-  z-index: 0;
   isolation: isolate;
   transition: all var(--animation-timing) ease-in-out;
 }
-header .searchbutton button svg{
+header .searchButton button svg{
   color: var(--using1);
+  height: calc(var(--font-size-large) * 0.8);
+  width: calc(var(--font-size-large) * 0.8);
+  margin-left: calc(1.5vw);
 }
-header .headerDer .searchbutton button::before{
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background-color: var(--using1);
-  height: 50%;
-  aspect-ratio: 1/1;
-  border-radius: 0 var(--circular-radius) 0 0;
-}
-header .searchbutton button::after{
+header .headerDer .searchButton button::before,
+header .headerDer .searchButton button::after{
   content: "";
   position: absolute;
   left: 0;
-  bottom: 0;
-  z-index: 1;
   background-color: var(--using1);
   height: 50%;
   aspect-ratio: 1/1;
-  border-radius: 0 0 var(--circular-radius) 0;
 }
-header .searchbutton button:hover {
+header .headerDer .searchButton button::before{
+  border-radius: 0 var(--circular-radius) 0 0;
+  top: 0;
+}
+header .searchButton button::after{
+  border-radius: 0 0 var(--circular-radius) 0;
+  bottom: 0;
+}
+header .searchButton button:hover {
   background-color: var(--using2); /* Slightly darker blue on hover */
   cursor: pointer;
 }
 header .profile, .heart, .notification, .hamburger{
   margin: auto var(--margin-medium);
-  height: 30px;
-  width: 30px;
+  height: var(--font-size-large);
+  width: var(--font-size-large);
 }
 header .profile img{
-  height: 30px;
-  aspect-ratio:  1 / 1;
   border-radius: 50%;
 }
 header .notification{
   position: relative;
   isolation: isolate;
   cursor: pointer;
-  width: 30px;
-  height: 30px;
   margin: auto var(--margin-small);
 
 }
@@ -343,7 +326,16 @@ header .heart:hover , header .like:hover, header .profile:hover, header .notific
   /*Pendiente esto box-shadow: inset 0 0 5px black;*/
 }
 
-
+header .loginButton{
+  padding-inline: var(--padding-small);
+  background: var(--using1);
+  color: var(--using4);
+  outline: var(--border-width) solid var(--using4);
+}
+header .loginButton:hover{
+  background: var(--using4);
+  color: var(--using1);
+}
 @keyframes tambaleo {
   0% {
     transform: rotate(0deg) ;
@@ -364,6 +356,7 @@ header .clickear{
   display: none;
 }
 header .hamburger{
+  height: 100% !important;
   color:var(--using2);
   transition: all var(--animation-timing) ease-in-out;
 }
@@ -371,7 +364,9 @@ header .hamburger:hover{
   cursor: pointer;
   transform: scale(1.1);
 }
-
+header .hamburger svg{
+  height: 100%;
+}
 
 header .extraInfoContainer{
   width:100vw;
@@ -463,7 +458,7 @@ header .pestañas:first-of-type{
   border-top: var(--border-width) solid var(--using2);
 }
 
-@media  only screen and (max-width:var(--mobile-breakpoint)) {
+@media  only screen and (max-width:734px) {
 
   header .clickear{
     display: block;
