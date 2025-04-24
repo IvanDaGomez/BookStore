@@ -12,6 +12,7 @@ import { quotes } from './quotes.js'
 import useUpdateBreakpoint from '../../assets/useUpdateBreakPoint.js'
 import { desktopBreakpoint } from '../../assets/config.js'
 import { validateErrors } from './validateLoginErrors.js'
+import SubmitForm from './submitForm.jsx'
 
 export default function Login () {
   const navigate = useNavigate()
@@ -19,7 +20,7 @@ export default function Login () {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('') // Para registro
-  const [name, setName] = useState('')
+  const [name , setName] = useState('')
   const isMobile = useUpdateBreakpoint(desktopBreakpoint)
   const [isRegister, setIsRegister] = useState(false) // Estado para alternar entre login y signup
   const [loading, setLoading] = useState(false)
@@ -39,19 +40,10 @@ export default function Login () {
     }
 
     const validated = validateErrors(formData, isRegister, setErrors)
-    if (isRegister && !document.querySelector('.aceptoTerminos input').checked) {
-      setErrors((prevErrors) => [...prevErrors, 'Necesitas aceptar los términos y condiciones'])
-      return
-    } else {
-      // If the condition is not met, remove the error if it exists
-      setErrors((prevErrors) => prevErrors.filter(error => error !== 'Necesitas aceptar los términos y condiciones'))
-    }
-    if (isRegister && strengthLevel <= 3) {
-      setErrors((prevErrors) => [...prevErrors, 'La contraseña es demasiado débil'])
+    if (!validated) {
+      // Si hay errores, no continuar con el envíoz
       return
     }
-    if (!validated) return
-
     const domain = 'http://localhost:3030'
     const url = isRegister ? `${domain}/api/users` : `${domain}/api/users/login`
     const ubicacion = {}
@@ -154,20 +146,7 @@ export default function Login () {
     window.history.back()
   }
 
-  const [strengthLevel, setStrengthLevel] = useState(0) // Estado para el nivel de fortaleza
 
-  // Calcular la fortaleza de la contraseña
-  const calculateStrength = (password) => {
-    let strength = 0
-
-    if (password.length >= 8) strength++ // Longitud mínima
-    if (/[A-Z]/.test(password)) strength++ // Mayúsculas
-    if (/[a-z]/.test(password)) strength++ // Minúsculas
-    if (/\d/.test(password)) strength++ // Números
-    if (/[@$!%*?&.]/.test(password)) strength++ // Caracteres especiales
-
-    setStrengthLevel(strength) // Actualizar el nivel
-  }
 
   return (
     <>
@@ -188,93 +167,22 @@ export default function Login () {
             {quote[Math.floor(Math.random() * quote.length)]}
           </h2>
 
-          <form onSubmit={handleSubmit} noValidate>
-            {isRegister && (<div className='input-group'>
-              <label>Nombre</label>
-              <input
-                type='text'
-                name='nombre'
-                placeholder='Ingresa tu nombre'
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </div>)}
-            <div className='input-group'>
-              <label>Correo</label>
-              <input
-                type='email'
-                name='email'
-                placeholder='Ingresa tu correo'
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div className='input-group'>
-              <label>Contraseña</label>
-              <input
-                type='password'
-                name='password'
-                placeholder='Ingresa tu contraseña'
-                value={password}
-                onChange={(e) => {
-                  calculateStrength(e.target.value)
-                  setPassword(e.target.value)
-                }}
-                required
-              />
-            </div>
-            {isRegister && (
-              <div className='input-group'>
-                <label>Confirma tu contraseña</label>
-                <input
-                  type='password'
-                  name='passwordConfirm'
-                  placeholder='Confirma tu contraseña'
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
-                />
-              </div>
-            )}
-            {isRegister && (<div className='strengthMeter'>
-              <span>Fortaleza:</span>
-              {Array(5)
-                .fill(null)
-                .map((_, index) => (
-                  <div
-                    className='strengthDiv'
-                    key={index}
-                    style={{
-                      width: '20%',
-                      height: '10px',
-                      margin: '2px',
-                      backgroundColor:
-                                                strengthLevel > index
-                                                  ? strengthLevel <= 2
-                                                    ? 'red'
-                                                    : strengthLevel <= 4
-                                                      ? 'orange'
-                                                      : 'green'
-                                                  : '#e0e0e0'
-                    }}
-                  />
-                ))}
-            </div>)}
-            {isRegister && <div className='aceptoTerminos'>
-              <input type='checkbox' />
-              <span>Acepto los <a href='/terminos-y-condiciones' target='_blank'> términos y condiciones</a></span>
-            </div>}
-            <button type='submit' className='login-button'>
-              {isRegister ? 'Registro' : 'Inicio de sesión'}
-            </button>
-          </form>
-          {(errors.length != 0)
-            ? <div className='error'>
-              {errors[0]}
-            </div>
-            : <></>}
+          
+          <SubmitForm 
+            handleSubmit={handleSubmit}
+            email={email}
+            setEmail={setEmail}
+            password={password}
+            setPassword={setPassword}
+            confirmPassword={confirmPassword}
+            setConfirmPassword={setConfirmPassword}
+            name={name}
+            setName={setName}
+            isRegister={isRegister}
+            setIsRegister={setIsRegister}
+            errors={errors}
+            setErrors={setErrors}
+          />
           <div className='alternativasLogin'>
             <GoogleOAuthProvider clientId='116098868999-7vlh6uf4e7c7ctsif1kl8nnsqvrk7831.apps.googleusercontent.com'>
               <GoogleLogin callback={handleGoogleSubmit} />

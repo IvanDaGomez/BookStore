@@ -73,14 +73,14 @@ header::before {
   align-items: center;
   height: 100%;
 }
-.headerDer .resultsContainer{
+.resultsContainer{
   width: 100%;
   max-width: 40rem;
   transform:translateY(20px);
   z-index: 1000;
   
 }
-.headerDer .resultsContainer .result{
+.resultsContainer .result{
   width: 100%;
   background-color: var(--using5);
   color: var(--using3);
@@ -160,6 +160,7 @@ header .searchButton input {
   z-index: 1001;
   transform: translateX(var(--border-width));
 }
+
 header .searchButton input :focus{
   border: none;
 }
@@ -208,14 +209,16 @@ header .profile, .heart, .notification, .hamburger{
   height: var(--font-size-large);
   width: var(--font-size-large);
 }
+
 header .profile img{
+  height: 100%;
   border-radius: 50%;
 }
 header .notification{
   position: relative;
   isolation: isolate;
   cursor: pointer;
-  margin: auto var(--margin-small);
+  margin-inline: auto var(--margin-small);
 
 }
 header .notification .notificationIconCount{
@@ -237,57 +240,63 @@ header .heart{
   position: relative;
   isolation: isolate;
   cursor: pointer;
-  width: 30px;
-  height: 30px;
+
+  height: var(--font-size-large);
+  width: var(--font-size-large);
+  aspect-ratio: 1/1;
   margin: auto;
 }
 header .heart .heartIconCount{
-  width: 15px;
-  height: 15px;
+  width: var(--font-size-medium);
+  height: var(--font-size-medium);
   aspect-ratio: 1 / 1;
   background-color: red;
   position: absolute;
   font-size: var(--font-size-small);
   top: 0;
-  right: -0.25rem;
+  right: 0;
   color: white;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-header .profileContainer {
+.profileContainer {
   position: fixed;
   top: 90px;
-  left: calc(100vw - 170px);
+  right: var(--margin-large);
   width: 150px;
-  height: auto;
+  height: 200px;
   color: var(--using3);
   background-color: var(--using1);
   cursor: pointer;
   z-index: 100;
   border-radius: var(--border-radius);
   border: var(--border-width) solid var(--using2);
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
 }
 
-header .profileElement {
+.profileContainer .profileElement {
   display: flex;
   align-items: center;
   padding: var(--padding-small);
   height:auto;
   text-align: left;
 }
-header .profileElement:hover{
+.profileContainer .profileElement:hover{
   text-decoration: underline;
 }
-header .profileElement svg{
+.profileContainer .profileElement svg{
   margin-right: var(--margin-medium);
   color: var(--using4);
 }
-header .notificationsContainer{
+.notificationsContainer{
   position: fixed;
   top: 90px;
-  left: calc(100vw - 270px); /*-Width -padding*/
+  right: calc(var(--margin-large)); /*-Width -padding*/
   width: 250px;
   height: auto;
   color: var(--using3);
@@ -298,7 +307,7 @@ header .notificationsContainer{
   border-radius: var(--border-radius);
   flex-direction: column;
 }
-header .notificationElement{
+.notificationElement{
   padding: var(--padding-small);
   width: 100%;
 
@@ -307,7 +316,7 @@ header .notificationElement{
   align-items: center;
 }
 
-header .notificationElement span{
+.notificationElement span{
   width: 100%;
   font-size: var(--font-size-small);
   padding-left: auto;

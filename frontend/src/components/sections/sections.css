@@ -1,10 +1,10 @@
 /*----------------------------------SECTIONS-FILTERS------------------*/
-.sectionsBigContainer{
-  h1, h2 {
+.sectionsBigContainer > h1, 
+.sectionsBigContainer > h2{
     text-align: left;
     margin-top: var(--margin-medium);
     margin-left: var(--padding-medium);
-  }
+  
 
 }
   
@@ -17,7 +17,7 @@
   align-items: stretch; /* Asegúrate de que todos los elementos tengan la misma altura */
   min-height: calc(var(--font-size-large) * 4);
   margin: var(--padding-medium);
-  height:auto;
+  height: auto;
   isolation:isolate;
   position:relative;
   color:var(--using1);
@@ -32,9 +32,11 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+
   min-height: 100%;
-  min-width: 20ch;
-  max-width: 20ch;
+
+  min-width: 25ch;
+  max-width: 25ch;
   background: var(--using1);
   padding: var(--padding-xsmall);
   cursor: pointer;
@@ -79,7 +81,7 @@
 }
 .sectionsContainer .sectionElement .imageElementContainer{
   
-  width:90%;
+  width:70%;
   height: 100%;
   aspect-ratio: 2 / 3;
   margin:0 auto;

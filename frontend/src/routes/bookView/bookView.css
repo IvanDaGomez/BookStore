@@ -310,3 +310,16 @@
   margin-left: var(--margin-medium);
 
 }
+
+/* @media only screen and (max-width: 734px) {
+  .bookViewContainer .libroContenedor{
+    grid-template-columns: 1fr;
+    gap:0;
+  }
+  .bookViewContainer .libroContenedor .imagesContainer{
+    grid-template-columns: 1fr;
+    position: static;
+    top:0;
+    left:0;
+  }
+} */

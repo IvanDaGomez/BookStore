@@ -302,11 +302,11 @@ export class UsersController {
     next: express.NextFunction
   ): Promise<express.Response | void> => {
     try {
+      
       if (req.session.user) {
         // Devolver los datos del usuario
         const user = await this.UsersModel.getUserById(req.session.user._id)
-
-        res.json(user)
+        return res.json(user)
       } else {
         res.status(401).json({ message: 'No autenticado' })
       }

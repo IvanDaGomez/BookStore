@@ -1,32 +1,37 @@
 import axios from "axios"
+import { cambiarEspacioAGuiones } from "../../assets/agregarMas"
 
-export function handleSearchInput (queryInput, setResults) {
+let fetchTimeout = null // Variable to store the timeout ID
+
+export function handleSearchInput(queryInput, setResults) {
   if (!queryInput.current.value) {
     setResults([])
     return
   }
 
-  // Función para obtener los resultados de búsqueda
-  async function fetchResults () {
+  // Clear the previous timeout if it exists
+  if (fetchTimeout) {
+    clearTimeout(fetchTimeout)
+  }
+
+  // Set a new timeout for the cooldown period (e.g., 500ms)
+  fetchTimeout = setTimeout(async () => {
     try {
       // Verificamos que la query no esté vacía o sea solo espacios
       if (queryInput.current.value && queryInput.current.value.trim()) {
-        const url = `http://localhost:3030/api/books/query?q=${queryInput.current.value}`
+        console.log('Fetching...')
+        const url = `http://localhost:3030/api/books/query?q=${cambiarEspacioAGuiones(queryInput.current.value)}`
         const response = await axios.get(url, { withCredentials: true })
-        console.log(response.data)
-        return response.data
-      }
-    } catch (error) {
-      console.error('Error fetching book data:', error)
-      return [] // Retorna un array vacío en caso de error
-    }
-  }
+        const bookResults = response.data
 
-  // Llama a la función para obtener los resultados
-  fetchResults().then(bookResults => {
-    // Convertir `bookResults` a un array antes de aplicar `slice`
-    if (Array.isArray(bookResults)) {
-      setResults(bookResults.slice(0, 5)) // Obtener los primeros 5 resultados
+        // Convertir `bookResults` a un array antes de aplicar `slice`
+        if (Array.isArray(bookResults)) {
+          setResults(bookResults.slice(0, 5)) // Obtener los primeros 5 resultados
+        }
+      }
+    } catch {
+      // console.error('Error fetching book data:', error)
+      setResults([]) // Retorna un array vacío en caso de error
     }
-  })
+  }, 500) // Cooldown period in milliseconds
 }

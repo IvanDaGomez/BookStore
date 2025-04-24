@@ -1,4 +1,4 @@
-export const validateErrors = (formData, isRegister, setErrors) => {
+export const validateErrors = (formData, isRegister, setErrors, strengthLevel) => {
   const { name, email, password, confirmPassword } = formData
   const errorMessages = [] // Array para almacenar mensajes de error
 
@@ -23,6 +23,17 @@ export const validateErrors = (formData, isRegister, setErrors) => {
   }
   if (isRegister && !name) {
     errorMessages.push('El nombre es requerido')
+  }
+  if (isRegister && !document.querySelector('.aceptoTerminos input').checked) {
+    setErrors((prevErrors) => [...prevErrors, 'Necesitas aceptar los términos y condiciones'])
+    return
+  } else {
+    // If the condition is not met, remove the error if it exists
+    setErrors((prevErrors) => prevErrors.filter(error => error !== 'Necesitas aceptar los términos y condiciones'))
+  }
+  if (isRegister && strengthLevel <= 3) {
+    setErrors((prevErrors) => [...prevErrors, 'La contraseña es demasiado débil'])
+    return
   }
   // Actualizar estado de errores
   setErrors(errorMessages)

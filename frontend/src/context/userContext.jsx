@@ -15,7 +15,8 @@ const UserProvider = ({ children }) => {
         const response = await axios.post(url, null, {
           withCredentials: true
         })
-        setUser(response.data.user)
+        console.log('User data:', response.data)
+        setUser(response.data)
       } catch (error) {
         console.error('Error fetching user data:', error)
         setUser(null) // En caso de error, usuario no autenticado
