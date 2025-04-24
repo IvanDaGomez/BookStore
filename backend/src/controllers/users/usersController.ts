@@ -145,6 +145,7 @@ export class UsersController {
     try {
       const { correo, contraseña }: { correo: string; contraseña: string } =
         req.body
+
       if (!correo || !contraseña) {
         return res
           .status(400)

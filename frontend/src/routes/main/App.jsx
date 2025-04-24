@@ -1,5 +1,5 @@
 import Header from '../../components/header/header.jsx'
-import Footer from '../../components/footer.jsx'
+import Footer from '../../components/footer/footer.jsx'
 import { useParams } from 'react-router-dom'
 import { renderNotification } from './renderNotification.jsx'
 import SideInfo from '../../components/sideInfo.jsx'
@@ -54,6 +54,11 @@ function App () {
       alt: 'Imagen 1'
     }
   ]
+  useEffect(() => {
+    if (document.referrer.includes('/login')) {
+      window.location.reload()
+    }
+  },[])
   return (
     <>
       {loading && <Loader />}
@@ -65,7 +70,7 @@ function App () {
       <Sections filter='Para ti' />
 
       <img src='/customPlantilla3.png' style={{ width: '100vw' }} alt='' />
-      <Sections filter='Nuevo' backgroundColor='#00ff00' />
+      <Sections filter='Nuevo' />
       <CustomDesigns plantillas={plantillas} />
 
       <SideInfo />

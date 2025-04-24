@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router'
 import Header from '../../components/header/header.jsx'
-import Footer from '../../components/footer'
+import Footer from '../../components/footer/footer.jsx'
 import SideInfo from '../../components/sideInfo'
 import { useState, useEffect, useContext } from 'react'
 import { MakeCard, MakeUpdateCard } from '../../assets/makeCard'

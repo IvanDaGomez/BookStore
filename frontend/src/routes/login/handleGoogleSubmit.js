@@ -1,16 +1,9 @@
 export const handleGoogleSubmit = async ({
   userData,
   setLoading,
-  setErrors,
-  navigate
+  setErrors
 }) => {
     setLoading(true)
-    // const { pais, ciudad, departamento } = await getLocation()
-    // userData.ubicacion = {
-    //   pais,
-    //   ciudad,
-    //   departamento
-    // }
 
     document.body.style.cursor = 'wait'
     const url = 'http://localhost:3030/api/users/google-login'
@@ -32,7 +25,7 @@ export const handleGoogleSubmit = async ({
     document.body.style.cursor = 'auto'
     // Si no hay una pagina anterior, redirigir a inicio, si si redirigir a la pagina que estaba
     if (!document.referrer || !document.referrer.includes(window.location.hostname)) {
-      navigate('/')
+      window.location.href = '/'
       return
     }
     window.history.back()

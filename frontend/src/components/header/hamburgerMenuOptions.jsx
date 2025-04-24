@@ -6,11 +6,6 @@ import { useState } from "react"
 export default function HamburgerMenuOptions ({ profile, setProfile, user, color, profileContainer}) {
   const [values] = useState([
     {
-      name: 'Inicio de sesión',
-      href: '/login',
-      svg: <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width={20} height={20} color={color} fill='none'><path d='M10 3L9.33744 3.23384C6.75867 4.144 5.46928 4.59908 4.73464 5.63742C4 6.67576 4 8.0431 4 10.7778V13.2222C4 15.9569 4 17.3242 4.73464 18.3626C5.46928 19.4009 6.75867 19.856 9.33744 20.7662L10 21' stroke='currentColor' strokeWidth='1.5' strokeLinecap='round' /><path d='M10 12L20 12M10 12C10 11.2998 11.9943 9.99153 12.5 9.5M10 12C10 12.7002 11.9943 14.0085 12.5 14.5' stroke='currentColor' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round' /></svg>
-    },
-    {
       name: 'Mi cuenta',
       href: '/cuenta',
       svg: <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width={20} height={20} color={color} fill='none'><path d='M6.57757 15.4816C5.1628 16.324 1.45336 18.0441 3.71266 20.1966C4.81631 21.248 6.04549 22 7.59087 22H16.4091C17.9545 22 19.1837 21.248 20.2873 20.1966C22.5466 18.0441 18.8372 16.324 17.4224 15.4816C14.1048 13.5061 9.89519 13.5061 6.57757 15.4816Z' stroke='currentColor' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round' /><path d='M16.5 6.5C16.5 8.98528 14.4853 11 12 11C9.51472 11 7.5 8.98528 7.5 6.5C7.5 4.01472 9.51472 2 12 2C14.4853 2 16.5 4.01472 16.5 6.5Z' stroke='currentColor' strokeWidth='1.5' /></svg>
@@ -49,7 +44,7 @@ export default function HamburgerMenuOptions ({ profile, setProfile, user, color
           </Link>
         </>
         : values.map((values, index) => (
-          <Link to={values.href ?? null} key={index} onClick={values.callback ?? null} style={{ all: 'inherit' }}>
+          <Link to={values.href ?? null} key={index} onClick={values.callback ?? null}>
             <div className='profileElement'>
               {values.svg}
               <span>{values.name}</span>

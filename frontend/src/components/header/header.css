@@ -74,11 +74,11 @@ header::before {
   height: 100%;
 }
 .resultsContainer{
-  width: 100%;
+  position: fixed;
+  top: calc(var(--font-size-large) * 4 + var(--margin-medium));
+  right: calc(var(--margin-large) - var(--border-width));
   max-width: 40rem;
-  transform:translateY(20px);
   z-index: 1000;
-  
 }
 .resultsContainer .result{
   width: 100%;
@@ -91,10 +91,11 @@ header::before {
   padding: var(--padding-small);
   height:90px;
   border: var(--border-width) solid var(--using2);
+  border-bottom: none;
 }
-.result:not(.result:first-of-type){
-  border-top: none;
-}
+
+
+
 .result-photo {
   height: 100%;
   aspect-ratio: 2/3;
@@ -263,10 +264,10 @@ header .heart .heartIconCount{
 }
 .profileContainer {
   position: fixed;
-  top: 90px;
-  right: var(--margin-large);
-  width: 150px;
-  height: 200px;
+  top: calc(var(--font-size-large) * 4 + var(--margin-medium));
+  right: calc(var(--margin-large) - var(--border-width));
+  width: auto;
+  height: auto;
   color: var(--using3);
   background-color: var(--using1);
   cursor: pointer;
@@ -275,7 +276,8 @@ header .heart .heartIconCount{
   border: var(--border-width) solid var(--using2);
   display: flex;
   justify-content: start;
-  align-items: center;
+  align-items: start;
+  padding: auto;
   flex-direction: column;
 }
 
@@ -283,6 +285,7 @@ header .heart .heartIconCount{
   display: flex;
   align-items: center;
   padding: var(--padding-small);
+  margin: auto;
   height:auto;
   text-align: left;
 }
@@ -295,8 +298,8 @@ header .heart .heartIconCount{
 }
 .notificationsContainer{
   position: fixed;
-  top: 90px;
-  right: calc(var(--margin-large)); /*-Width -padding*/
+  top: calc(var(--font-size-large) * 4 + var(--margin-medium));
+  right: calc(var(--margin-large) - var(--border-width));
   width: 250px;
   height: auto;
   color: var(--using3);

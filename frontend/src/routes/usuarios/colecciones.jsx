@@ -39,9 +39,8 @@ export default function Colecciones ({ user, permisos }) {
         try {
           const fetchedBooks = await Promise.all(
             user.librosIds.map(async (idLibro) => {
-              const response = await fetch(`http://localhost:3030/api/books/${idLibro}`, {
-                method: 'GET',
-                credentials: 'include'
+              const response = await axios.get(`http://localhost:3030/api/books/${idLibro}`,{
+                withCredentials: true
               })
               if (response.ok) {
                 return response.json()

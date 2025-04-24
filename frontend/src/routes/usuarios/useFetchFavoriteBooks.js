@@ -13,10 +13,16 @@ export function useFetchFavoriteBooks (vendedor) {
 
         const response = await axios.get(url, { withCredentials: true })
 
+        if (response.data.error) {
+          console.error('Error in the server:', response.data.error)
+          setLibrosFavoritos([])
+          return
+        }
         setLibrosFavoritos(response.data)
 
       } catch (error) {
         console.error('Error in the server:', error)
+        setLibrosFavoritos([])
       }
     }
     fetchLibrosFavoritos()

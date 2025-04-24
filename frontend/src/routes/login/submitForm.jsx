@@ -1,7 +1,11 @@
 import { useState } from "react"
 
 /* eslint-disable react/prop-types */
-export default function SubmitForm({ handleSubmit, isRegister, email, setEmail, password, setPassword, confirmPassword, setConfirmPassword, name, setName, errors }) { 
+export default function SubmitForm({ handleSubmit, isRegister, errors, setErrors, setLoading}) { 
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('') // Para registro
+  const [name , setName] = useState('')
   const [strengthLevel, setStrengthLevel] = useState(0) // Estado para el nivel de fortaleza
   // Calcular la fortaleza de la contraseña
   const calculateStrength = (password) => {
@@ -12,17 +16,39 @@ export default function SubmitForm({ handleSubmit, isRegister, email, setEmail, 
     if (/[a-z]/.test(password)) strength++ // Minúsculas
     if (/\d/.test(password)) strength++ // Números
     if (/[@$!%*?&.]/.test(password)) strength++ // Caracteres especiales
-
     setStrengthLevel(strength) // Actualizar el nivel
   }
+  const strengthColor = (index) => {
+    if (strengthLevel > 0 && index < strengthLevel) {
+      if (strengthLevel <= 2) {
+        return 'red'
+      }
+      if (strengthLevel <= 4) {
+        return 'orange'
+      }
+      return 'green'
+    }
+    return '#e0e0e0'
+  }
+
   return(<>
 
-  <form onSubmit={handleSubmit} noValidate>
+  <form onSubmit={(e) => handleSubmit({
+      e,
+      isRegister,
+      email,
+      password,
+      confirmPassword,
+      name,
+      setErrors,
+      setLoading
+  })} noValidate>
             {isRegister && (<div className='input-group'>
               <label>Nombre</label>
               <input
                 type='text'
                 name='nombre'
+                autoComplete="name"
                 placeholder='Ingresa tu nombre'
                 value={name}
                 onChange={(e) => setName(e.target.value)}
@@ -34,6 +60,7 @@ export default function SubmitForm({ handleSubmit, isRegister, email, setEmail, 
               <input
                 type='email'
                 name='email'
+                autoComplete="email"
                 placeholder='Ingresa tu correo'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -45,6 +72,7 @@ export default function SubmitForm({ handleSubmit, isRegister, email, setEmail, 
               <input
                 type='password'
                 name='password'
+                autoComplete="current-password"
                 placeholder='Ingresa tu contraseña'
                 value={password}
                 onChange={(e) => {
@@ -79,14 +107,7 @@ export default function SubmitForm({ handleSubmit, isRegister, email, setEmail, 
                       width: '20%',
                       height: '10px',
                       margin: '2px',
-                      backgroundColor:
-                                                strengthLevel > index
-                                                  ? strengthLevel <= 2
-                                                    ? 'red'
-                                                    : strengthLevel <= 4
-                                                      ? 'orange'
-                                                      : 'green'
-                                                  : '#e0e0e0'
+                      backgroundColor: strengthColor(index)
                     }}
                   />
                 ))}

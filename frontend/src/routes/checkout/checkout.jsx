@@ -5,7 +5,7 @@ import Fase3 from './fase3'
 import axios from 'axios'
 import UseStep from '../../components/UseStep'
 import Header from '../../components/header/header.jsx'
-import Footer from '../../components/footer'
+import Footer from '../../components/footer/footer.jsx'
 import SideInfo from '../../components/sideInfo'
 import { useNavigate, useParams } from 'react-router'
 

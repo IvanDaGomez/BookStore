@@ -10,7 +10,7 @@
   
 .sectionsContainer{
   display: flex;
-  justify-content: space-around;
+  justify-content: start;
   overflow-x: auto;
   gap: var(--margin-xsmall);
   /* gap:var(--margin-small); */
@@ -23,7 +23,7 @@
   color:var(--using1);
 }
 
-.sectionsContainer .sectionElement{
+.sectionElement{
   border: var(--border-width) solid var(--using2);
   border-radius: var(--border-radius);
   /* border-radius: var(--border-radius); */
@@ -44,8 +44,8 @@
   /* padding: 5px; */
   
 }
-.sectionsContainer .viewMore,
-.sectionsContainer .viewMore > *{
+.viewMore,
+.viewMore > *{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,11 +54,11 @@
   width: 100%;
   color: black;
 }
-.sectionsContainer .sectionElement h2{
+.sectionElement h2{
   text-align: center;
   margin-top: var(--margin-small);
 }
-.sectionsContainer .sectionElement h3{
+.sectionElement h3{
   text-align: center;
 }
 
@@ -68,7 +68,7 @@
 }
 
 /* Resto de los estilos */
-.sectionsContainer .sectionElement .bookLabel{
+.sectionElement .bookLabel{
   width:100%;
   padding:1px 0;
   background: var(--using4);
@@ -76,10 +76,10 @@
   filter: opacity(0.9);
   text-align: center;
 }
-.sectionsContainer .sectionElement div{
-  width: 90%;
+.sectionElement div{
+  width: 100%;
 }
-.sectionsContainer .sectionElement .imageElementContainer{
+.sectionElement .imageElementContainer{
   
   width:70%;
   height: 100%;
@@ -97,7 +97,7 @@
   overflow: hidden; 
 }
 
-.sectionsContainer .sectionElement .sectionElementTextDiv{
+.sectionElement .sectionElementTextDiv{
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
@@ -106,7 +106,7 @@
   width: 100%; /* Ensure it spans the full width */
   height: auto; /* Let the height adjust based on content */
 }
-.sectionsContainer .sectionElement .fastInfoElement{
+.sectionElement .fastInfoElement{
   background: var(--using4);
   width: auto;
   margin: auto;
@@ -114,31 +114,37 @@
   padding: var(--padding-small);
   color: var(--using1);
 }
-.sectionsContainer .sectionElement .extraInfoElement{
+.sectionElement .extraInfoElement{
   width: calc(100% - var(--margin-medium));
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.sectionsContainer .sectionElement .extraInfoElement svg{
+.sectionElement .extraInfoElement svg{
   width: var(--font-size-large);
   height: var(--font-size-large);
 
 }
-.sectionsContainer .sectionElement .extraInfoElement .fastInfoElement{
+.sectionElement .extraInfoElement .fastInfoElement{
   margin-inline: var(--margin-xsmall);
 }
-.sectionsContainer .favoritos {
+.sectionElement .favoritos {
   
   fill: none;
 
 }
 
-.sectionsContainer .favoritos.favoritoActivo {
+.sectionElement .favoritos.favoritoActivo {
   fill: var(--using6) ;
   
 }
 
-.sectionsContainer .favoritos.favoritoActivo path{
+.sectionElement .favoritos.favoritoActivo path{
   stroke: none;
+}
+.sectionElement .editarOEliminar {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }

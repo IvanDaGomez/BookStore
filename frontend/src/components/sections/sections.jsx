@@ -14,14 +14,13 @@ export default function Sections ({ filter, backgroundColor, description }) {
 
   return (
     <>
-      <div className='sectionsBigContainer' style={{ backgroundColor: { backgroundColor }}}>
+      <div className='sectionsBigContainer' style={{ backgroundColor}}>
 
         <h1>{filter}</h1>
         <h2>{description}</h2>
         <div className='sectionsContainer'>
-          {libros.map((element, index) => <>
+          {libros.map((element, index) => 
           <MakeCard key={index} element={element} index={index} user={user ?? null} /> 
-          </>
           )}
           
             <div className='viewMore'>

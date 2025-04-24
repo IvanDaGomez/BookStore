@@ -1,22 +1,81 @@
-import axios from 'axios'
-import { toast } from 'react-toastify'
-import FooterInfo from './footerInfo/footerInfo'
+
+import FooterInfo from '../footerInfo/footerInfo.jsx'
+import { handleSubmitEmail } from './handleSubmitEmail'
 const Footer = () => {
   // const AppStoreIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={40} height={40} color={"#ffffff"} fill={"none"}><path d="M2.5 12C2.5 7.52166 2.5 5.28249 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28249 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" /><path d="M11 7L12 8.66667M17 17L13.4 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /><path d="M13 7L7 17" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /><path d="M6.5 14H12.5M17.5 14L15.5 14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-  async function handleSubmitEmail (e) {
-    e.preventDefault()
-    const { email } = e.target
-    const URL = 'http://localhost:3030/api/emails'
-    const response = await axios.post(URL, JSON.stringify({ email: email.value }), { withCredentials: true})
-
-    if (response.data.error) {
-      toast.error('Error al enviar el correo')
-      // toast.success(data.error)
-      return
+  const footerSections = [
+    {
+      title: 'Explora',
+      components: [
+        {
+          name: 'Categorías de Libros',
+          href: '/categories',
+        },
+        {
+          name: 'Más Vendidos',
+          href: '/best-sellers',
+        },
+        {
+          name: 'Nuevas Llegadas',
+          href: '/new-arrivals',
+        },
+        {
+          name: 'Ofertas Especiales',
+          href: '/sale',
+        },
+        {
+          name: 'Eventos y Firmas',
+          href: '/events',
+        }
+      ]
+    },
+    {
+      title: 'Nosotros',
+      components: [
+          {
+            name: 'Sobre Nosotros',
+            href: '/sobre-nosotros',
+          },
+          {
+            name: 'Política de Privacidad',
+            href: '/politica-privacidad',
+          },
+          {
+            name: 'Términos de Servicio',
+            href: '/terminos-y-condiciones',
+          },
+          {
+            name: 'Preguntas Frecuentes',
+            href: '/faq',
+          },
+          {
+            name: 'Contáctanos',
+            href: '/contacto',
+          }
+        ]
+    },
+    {
+      title: 'Legal',
+      components: [
+        {
+          name: 'Términos y Condiciones',
+          href: '/terminos-y-condiciones',
+        },
+        {
+          name: 'Aviso de Privacidad',
+          href: '/aviso-de-privacidad',
+        },
+        {
+          name: 'Uso de Cookies',
+          href: '/uso-cookies',
+        },
+        {
+          name: 'Política de Datos Personales',
+          href: '/politica-de-datos-personales',
+        }
+      ]
     }
-    toast.success('Correo enviado exitosamente')
-    document.querySelector('.inputFooter').value = ''
-  }
+  ]
   return (<>
     <footer className='footer'>
       <div className='footer-content'>
@@ -33,37 +92,18 @@ const Footer = () => {
           */}
         </div>
 
-        <div className='footer-section explore'>
-          <h2>Explora</h2>
-          <ul>
-            <li><a href='/categories'>Categorías de Libros</a></li>
-            <li><a href='/best-sellers'>Más Vendidos</a></li>
-            <li><a href='/new-arrivals'>Nuevas Llegadas</a></li>
-            <li><a href='/sale'>Ofertas Especiales</a></li>
-            <li><a href='/events'>Eventos y Firmas</a></li>
-          </ul>
-        </div>
-
-        <div className='footer-section know-more'>
-          <h2>Nosotros</h2>
-          <ul>
-            <li><a href='/sobre-nosotros'>Sobre Nosotros</a></li>
-            <li><a href='/politica-privacidad'>Política de Privacidad</a></li>
-            <li><a href='/terminos-y-condiciones'>Términos de Servicio</a></li>
-            <li><a href='/faq'>Preguntas Frecuentes</a></li>
-            <li><a href='/contacto'>Contáctanos</a></li>
-          </ul>
-        </div>
-
-        <div className='footer-section legal'>
-          <h2>Legal</h2>
-          <ul>
-            <li><a href='/terminos-y-condiciones'>Términos y Condiciones</a></li>
-            <li><a href='/aviso-de-privacidad'>Aviso de Privacidad</a></li>
-            <li><a href='/uso-cookies'>Uso de Cookies</a></li>
-            <li><a href='/politica-de-datos-personales'>Política de Datos Personales</a></li>
-          </ul>
-        </div>
+        {footerSections.map((section, index) => (
+          <div className='footer-section' key={index}>
+            <h2>{section.title}</h2>
+            <ul>
+              {section.components.map((component, index) => (
+                <li key={index}>
+                  <a href={component.href}>{component.name}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
 
       <div className='footer-bottom'>

@@ -1,5 +1,5 @@
 import { ToastContainer } from 'react-toastify'
-import Footer from '../../components/footer'
+import Footer from '../../components/footer/footer.jsx'
 import Header from '../../components/header/header'
 import SideInfo from '../../components/sideInfo'
 import { useContext, useEffect, useState } from 'react'

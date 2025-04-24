@@ -1,4 +1,4 @@
-import Footer from '../../components/footer'
+import Footer from '../../components/footer/footer.jsx'
 import Header from '../../components/header/header.jsx'
 import SideInfo from '../../components/sideInfo'
 

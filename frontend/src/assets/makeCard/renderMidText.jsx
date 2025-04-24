@@ -15,14 +15,14 @@ export default function RenderMidText({ element }) {
           <h3 style={{ display: 'inline', marginRight: '10px' }}>
             <s>${element.precio.toLocaleString('es-CO')}</s>
           </h3>
-          <h2 style={{ display: 'inline' }}>
+          <h2 className="red" style={{ display: 'inline' }}>
             ${element.oferta.toLocaleString('es-CO')}
           </h2>
         </>
       );
     }
     return (
-      <h2>
+      <h2 className="red">
         ${element.precio.toLocaleString('es-CO')}
       </h2>
     );

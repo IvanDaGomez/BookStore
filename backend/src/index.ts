@@ -84,9 +84,8 @@ export const createApp = ({
   app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction): void => {
 
     if (!res.headersSent) {
-      console.error(err.stack);
-      console.log('headersSent:', res.headersSent);
-      res.status(500).json({
+
+      res.json({
         error: process.env.NODE_ENV === 'production' ? 'Internal Server Error' : err.message,
         stack: process.env.NODE_ENV === 'production' ? undefined : err.stack, // Include stack trace in development
       });

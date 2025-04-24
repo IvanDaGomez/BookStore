@@ -4,7 +4,7 @@
 import { useState, useEffect, useRef } from 'react'
 import Header from '../../components/header/header.jsx'
 import SideInfo from '../../components/sideInfo'
-import Footer from '../../components/footer'
+import Footer from '../../components/footer/footer.jsx'
 import { toast, ToastContainer } from 'react-toastify'
 import { useNavigate, useSearchParams, Link } from 'react-router-dom'
 import { reduceText, reduceTextByFirstWord } from '../../assets/reduceText'

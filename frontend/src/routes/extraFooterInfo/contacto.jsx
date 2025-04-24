@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import emailjs from '@emailjs/browser'
 import Header from '../../components/header/header.jsx'
 import SideInfo from '../../components/sideInfo'
-import Footer from '../../components/footer'
+import Footer from '../../components/footer/footer.jsx'
 import { toast, ToastContainer } from 'react-toastify'
 
 export default function Contacto () {

@@ -7,6 +7,9 @@ if (notification === 'exitoCreandoLibro') {
         <div className='success-container'>
         <h2>¡Publicación enviada con éxito!</h2>
         <p>Tu publicación será revisada para su lanzamiento.</p>
+        <Link to='/libros/crear'>
+            <button className='back-button'>Crear otro libro</button>
+        </Link>
         <Link to='/'>
             <button className='back-button'>Volver</button>
         </Link>

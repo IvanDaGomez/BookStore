@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Header from '../../components/header/header.jsx'
 import SideInfo from '../../components/sideInfo'
-import Footer from '../../components/footer'
+import Footer from '../../components/footer/footer.jsx'
 import useBotonSelect from '../../assets/botonSelect'
 import { validarActualizarUsuario } from '../../assets/validarPublicar'
 import titleCase from '../../assets/toTitleCase'

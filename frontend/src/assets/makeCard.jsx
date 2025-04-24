@@ -41,8 +41,8 @@ const MakeCard = ({ element, index, user = '', callback = () => {} }) => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
-    <Link to={`/libros/${element._id}`}>
-      <div className='sectionElement' key={index} 
+    <Link to={`/libros/${element._id}`} key={index} >
+      <div className='sectionElement' 
         style={{ filter: `opacity(${element.disponibilidad === 'Vendido' ? '0.6' : '1'})`, 
                  width: `${width}px`
       }}
@@ -136,7 +136,7 @@ const MakeUpdateCard = ({ element, index }) => {
           {(element.disponibilidad === 'Vendido')
             ? (
               <div
-                className='bookLabel'
+               className='bookLabel'
                 style={{ background: 'red' }}
               >
                 Vendido
@@ -145,26 +145,25 @@ const MakeUpdateCard = ({ element, index }) => {
             : null}
         </div>
 
-        <div style={{ padding: '5px' }}>
-          <h2 style={{ textAlign: 'center' }}>{reduceText(element.titulo, 25)}</h2>
-          <h3>
-            {[element.autor && reduceText(element.autor, 30),
-              element.genero && reduceText(element.genero, 15)]
-              .filter(Boolean) // Filtra los elementos que no son null/undefined/false
-              .join(' | ')}
-          </h3>
-          <h3 style={{ color: 'var(--using4)', fontSize: '1.8rem' }}>{element.estado}</h3>
-          <div className='precioSections'>{(element.oferta) ? <><h3 style={{ display: 'inline', marginRight: '10px' }}><s>${element.precio.toLocaleString('es-CO')}</s></h3><h2 style={{ display: 'inline' }}>${element.oferta.toLocaleString('es-CO')}</h2></> : <><h2 style={{ textAlign: 'center' }}>${element.precio.toLocaleString('es-CO')}</h2></>}
-          </div>
+        <div>
+          <RenderMidText element={element}/>
           <div className='editarOEliminar'>
 
-              <button onClick={()=>navigate(`/libros/crear?vendedor=${element.idVendedor}&libro=${element._id}`)}>
+              <button onClick={(e)=> {
+                e.preventDefault()
+                e.stopPropagation()
+                navigate(`/libros/crear?vendedor=${element.idVendedor}&libro=${element._id}`)}
+                }>
                 Editar
               </button>
 
 
               <button
-                onClick={()=> navigate(`/usuarios/${element.idVendedor}?eliminar=y&libro=${element._id}`)}
+                onClick={(e)=> {
+                  e.preventDefault()
+                  e.stopPropagation()
+                  navigate(`/usuarios/${element.idVendedor}?eliminar=y&libro=${element._id}`)}
+                }
                 className='eliminar'
               >
                 Eliminar
