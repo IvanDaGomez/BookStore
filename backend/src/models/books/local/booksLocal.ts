@@ -32,7 +32,7 @@ class BooksModel {
     if (!book) {
       throw new Error('Libro no encontrado')
     }
-    // Return book with limited public information
+
     return bookObject(book, true)
   }
 
@@ -260,9 +260,8 @@ class BooksModel {
   ): Promise<Partial<BookObjectType>[]> {
     const books = await this.getAllBooks()
     const filteredBooks = books.filter((book, index) => {
-      if (index >= l) return false
       return list.includes(book._id)
-    })
+    }).slice(0, l)
 
     if (!filteredBooks || filteredBooks.length === 0) {
       throw new Error('No hay libros disponibles')

@@ -42,7 +42,7 @@ export default function BuyContainer({ libro, user }) {
               <hr />
               <div className='informacionDelVendedor'>
   
-                {librosRelacionadosVendedor &&
+                {librosRelacionadosVendedor.length != 0 &&
                         librosRelacionadosVendedor.filter(element => element._id !== libro._id).length !== 0 &&
                         libro && (
                           <>

@@ -87,7 +87,29 @@ export class BooksController {
       next(err)
     }
   }
+  getBooksByIdList = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
+    /*
+      Aquí se obtiene libros específicos por su ID y se envía como respuesta.
+      Si no se encuentra el libro, se envía un error 404.
+    */
+    try {
+      const ids = req.params.ids
+      
+      const idsArray = ids.split(',').map(id => id.trim()) as ID[]
+      if (!ids || ids.length === 0) {
+        return res.status(400).json({ error: 'No se proporcionaron IDs' })
+      }
 
+      const books = await this.BooksModel.getBooksByIdList(idsArray, idsArray.length)
+      return res.json(books)
+    } catch (err) {
+      next(err)
+    }
+  }
   getBookByQuery = async (
     req: express.Request,
     res: express.Response,
@@ -101,7 +123,7 @@ export class BooksController {
 
     try {
       let { q, l } = req.query as { q: string | ParsedQs; l: string | ParsedQs }
-
+      console.log(q)
       // Validación de la query
       if (q) {
         q = cambiarGuionesAEspacio(q as string)
@@ -110,10 +132,11 @@ export class BooksController {
           .status(400)
           .json({ error: 'El parámetro de consulta "q" es requerido' })
       }
-      let lParsed: number = parseInt(l as string, 10) ?? 24
+      let lParsed: number = parseInt(l as string ?? '24', 10)
 
       if (lParsed > 100) lParsed = 100
       // Consigue los libros del modelo
+
       const books = await this.BooksModel.getBookByQuery(q, lParsed)
 
       // Si hay usuario en la sesión, actualiza las estadísticas de los libros

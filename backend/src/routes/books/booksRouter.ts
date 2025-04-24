@@ -29,6 +29,7 @@ export const createBooksRouter = ({
   booksRouter.get( '/getFavoritesByUser/:userId', booksController.getFavoritesByUser as RequestHandler )
 
   booksRouter.get('/:bookId', booksController.getBookById as RequestHandler) // R
+  booksRouter.get('/idList/:ids', booksController.getBooksByIdList as RequestHandler) // R
   booksRouter.put('/review/:bookId', upload.array('images', 5), booksController.updateReviewBook as RequestHandler ) // U
   booksRouter.put('/:bookId', upload.array('images', 5), booksController.updateBook as RequestHandler) // U
 

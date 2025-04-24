@@ -2,31 +2,13 @@ import { ToastContainer } from 'react-toastify'
 import Footer from '../../components/footer'
 import Header from '../../components/header/header'
 import SideInfo from '../../components/sideInfo'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { MakeCard, MakeOneFrCard } from '../../assets/makeCard'
+import { UserContext } from '../../context/userContext'
 
 export default function Fyp () {
-  const [user, setUser] = useState(null)
-
-  useEffect(() => {
-    async function fetchUser () {
-      try {
-        const response = await fetch('http://localhost:3030/api/users/userSession', {
-          method: 'POST',
-          credentials: 'include' // Asegúrate de enviar las cookies
-        })
-        if (response.ok) {
-          const data = await response.json()
-          setUser(data.user) // Establece el usuario en el estado
-        }
-      } catch (error) {
-        console.error('Error fetching user data:', error)
-      }
-    };
-
-    fetchUser() // Llama a la función para obtener el usuario
-  }, []) // Dependencias vacías para ejecutar solo una vez al montar el componente
+  const { user } = useContext(UserContext)
 
   const [books, setBooks] = useState([])
   const [grid, setGrid] = useState(/* localStorage.getItem("grid")|| */'1fr')
@@ -35,10 +17,7 @@ export default function Fyp () {
       try {
         const url = 'http://localhost:3030/api/books/fyp?l=24'
         const response = await axios.get(url, { withCredentials: true })
-
-        if (response.data.ok) {
-          setBooks(response.data.books)
-        }
+        setBooks(response.data)
       } catch (error) {
         console.error('Error:', error)
       }

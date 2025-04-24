@@ -70,14 +70,15 @@ const MakeOneFrCard = ({ element, index, user = '' }) => {
           <img
             src={`http://localhost:3030/uploads/${element.images[0]}`}
             alt={element.titulo}
+            title={element.titulo}
           />
         </div>
 
         {/* Nombre del producto */}
         <div className='infoContainer'>
-          <h2 className='productName'>
+          <h1 className='productName'>
             {reduceText(element.titulo, 50)}
-          </h2>
+          </h1>
 
           {/* Estrellas de rating y número de reseñas
         <div className="ratings">

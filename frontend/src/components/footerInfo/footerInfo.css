@@ -19,13 +19,16 @@
   font-size: var(--font-size-large);
 }
 
-.footerInfo div,
-.footerInfo a {
-  height: 100%;
+.footerInfo div{
   display: flex;
   justify-content: space-between;
   align-items: center;
   text-align: left;
+}
+
+.footerInfo svg{
+  width: var(--font-size-large);
+  height: var(--font-size-large);
 }
 .footerInfo .allRightsReserved{
   width: 30vw;

@@ -43,8 +43,8 @@ export default function RenderBottomText({ element, user, callback }) {
   // Render the "Mensajes" icon
   const renderMensajesIcon = () => (
     <svg
-      onClick={() =>window.location.href = `/libros/${element._id}#comments`
-          // window.location.href = `/mensajes?n=${element.idVendedor}&q=${element._id}`;
+      onClick={() =>// window.location.href = `/libros/${element._id}#comments`
+          window.location.href = `/mensajes?n=${element.idVendedor}&q=${element._id}`
           }
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"

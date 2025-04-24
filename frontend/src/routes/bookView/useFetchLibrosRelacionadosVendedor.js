@@ -11,7 +11,6 @@ function useRelatedBooksBySeller(libro, loading) {
 
   useEffect(() => {
     async function fetchLibroRelacionadoVendedor() {
-      const libros = [];
       console.log('Fetching related books for seller:', libro);
       if (libro || !loading) {
         const url = `http://localhost:3030/api/users/${libro.idVendedor}`;
@@ -20,13 +19,11 @@ function useRelatedBooksBySeller(libro, loading) {
           const librosIds = response.data.librosIds;
 
           // Fetch the books of the user
-          const urlLibros = 'http://localhost:3030/api/books/';
-          for (let i = 0; i < librosIds.length; i++) {
-            const bookResponse = await axios.get(urlLibros + librosIds[i], { withCredentials: true });
-            libros.push(bookResponse.data);
-          }
+          const urlLibros = `http://localhost:3030/api/books/idList/${librosIds.join(',')}`;
+          const bookResponse = await axios.get(urlLibros, { withCredentials: true });
 
-          setLibrosRelacionadosVendedor(libros);
+
+          setLibrosRelacionadosVendedor(bookResponse.data);
         } catch (error) {
           console.error("Error fetching related books:", error);
         }
