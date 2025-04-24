@@ -4,12 +4,13 @@ import axios from 'axios'
 import { MakeCollectionCard } from '../../assets/makeCard'
 import { cropImageToAspectRatio } from '../../assets/cropImageToAspectRatio'
 import { renderProfilePhoto } from '../../assets/renderProfilePhoto'
+import { useFetchFavoriteBooks } from './useFetchFavoriteBooks'
 
 export default function Colecciones ({ user, permisos }) {
   const [colecciones, setColecciones] = useState([])
   const [openNewCollection, setOpenNewCollection] = useState(false)
   const [croppedImage, setCroppedImage] = useState({})
-  const [librosFav, setLibrosFav] = useState([])
+  const [librosFav] = useFetchFavoriteBooks(user)
   const [misLibros, setMisLibros] = useState([])
   const [addedCollections, setAddedCollections] = useState([])
   const [errors, setErrors] = useState([])
@@ -21,9 +22,9 @@ export default function Colecciones ({ user, permisos }) {
         const url = 'http://localhost:3030/api/collections/getCollectionsByUser/' + user._id
         const response = await axios.get(url, { withCredentials: true })
 
-        if (response.data) {
-          setColecciones(response.data.data)
-        }
+
+        setColecciones(response.data)
+
       } catch {
         console.error('Error')
       }
@@ -31,22 +32,6 @@ export default function Colecciones ({ user, permisos }) {
     fetchColecciones()
   }, [user])
 
-  useEffect(() => {
-    async function fetchFavorites () {
-      if (!user) return
-      const url = 'http://localhost:3030/api/books/getFavoritesByUser/' + user._id
-      try {
-        const response = await axios.get(url, { withCredentials: true })
-        
-        if (response.data) {
-          setLibrosFav(response.data.data)
-        }
-      } catch {
-        console.error('Error en el servidor')
-      }
-    }
-    fetchFavorites()
-  }, [user])
 
   useEffect(() => {
     if (user && user.librosIds) {

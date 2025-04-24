@@ -223,7 +223,7 @@ export default function Usuario () {
                   {librosUsuario.length === 0 && <>No hay libros por aquí</>}
                 </>
             : myPosts === 'favoritos'
-              ? <Favorites vendedor={usuario} />
+              ? <Favorites user={user} vendedor={usuario} />
               : <Colecciones user={usuario} permisos={permisos} />}
         </div>
       </div>

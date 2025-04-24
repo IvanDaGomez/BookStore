@@ -11,7 +11,6 @@ function useRelatedBooksBySeller(libro, loading) {
 
   useEffect(() => {
     async function fetchLibroRelacionadoVendedor() {
-      console.log('Fetching related books for seller:', libro);
       if (libro || !loading) {
         const url = `http://localhost:3030/api/users/${libro.idVendedor}`;
         try {
