@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export default function useFetchActualBook (bookId, setActualImage) {
+export default function useFetchActualBook (bookId, externalSet, setActualImage = null) {
   const [libro, setLibro] = useState({});
 
   const [loading, setLoading] = useState(true);
@@ -19,11 +19,15 @@ export default function useFetchActualBook (bookId, setActualImage) {
   
         const book = response.data || {};
         setLibro(book);
-  
-        const imageUrl = book.images && book.images[0] 
-          ? `http://localhost:3030/uploads/${book.images[0]}` 
-          : '';
-        setActualImage(imageUrl);
+        if (externalSet) {
+          externalSet(book);
+        }
+        if (setActualImage) {
+          const imageUrl = book.images && book.images[0] 
+            ? `http://localhost:3030/uploads/${book.images[0]}` 
+            : '';
+          setActualImage(imageUrl);
+        }
       } catch (error) {
         console.error('Error fetching book data:', error);
         setLibro({});
