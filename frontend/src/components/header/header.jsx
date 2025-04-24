@@ -4,7 +4,7 @@ import { cambiarEspacioAGuiones } from '../../assets/agregarMas.js'
 import MenuSideBar from '../sidebar/menuSideBar.jsx'
 import { UserContext } from '../../context/userContext.jsx'
 
-import useFetchNotifications from './useFetchNotifications.jsx'
+import useFetchNotifications from './useFetchNotifications.js'
 import { mobileBreakpoint } from '../../assets/config.js'
 import SearchButton from './searchButton.jsx'
 import logout from '../../assets/logout.js'

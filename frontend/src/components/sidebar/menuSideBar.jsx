@@ -54,6 +54,7 @@ export default function MenuSideBar({ callback, user, logoutFn }) {
   return (
     <div className='menuSideBar' onMouseLeave={callback} >{/* */}
       {/* Profile Section */}
+      {console.log(user.favoritos)}
       {user &&
         <div className="nav-profile" onClick={()=> navigate(`/usuarios/${user._id}`)}>
           <img src={renderProfilePhoto(user?.fotoPerfil || '')} alt="User" className="avatar" />

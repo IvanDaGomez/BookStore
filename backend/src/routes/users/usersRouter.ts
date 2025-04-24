@@ -83,7 +83,7 @@ export const createUsersRouter = ({
     usersController.getPhotoAndNameUser as RequestHandler
   ) // R
   usersRouter.get('/:userId', usersController.getUserById as RequestHandler) // R
-
+  usersRouter.patch('/favorites/:userId', usersController.updateFavorites as RequestHandler) // U
   usersRouter.patch(
     '/:userId',
     upload.single('images'),

@@ -25,16 +25,13 @@ function initializeDataCreateUser (data: UserInfoType) {
   return data
 }
 async function processUserUpdate (
-  data: UserInfoType & { accion?: string },
+  data: Partial<UserInfoType> & { accion?: string },
   userId: ID,
   req: express.Request
 ) {
   if (req.file) data.fotoPerfil = req.file.filename as ImageType
 
-  if (data.favoritos && data.accion) {
-    // TODO
-    data.favoritos = await updateUserFavorites(userId, data.accion)
-  }
+
 
   if (data.correo) {
     await checkEmailExists(data.correo)
@@ -44,22 +41,22 @@ async function processUserUpdate (
   return filterAllowedFields(data)
 }
 
-async function updateUserFavorites (userId: ID, accion: string): Promise<ID[]> {
+async function updateUserFavorites (userId: ID, bookId: ID, accion: string): Promise<ID[]> {
   const user = await UsersModel.getUserById(userId)
   if (!user) throw new Error('Usuario no encontrado')
 
   let updatedFavorites = user.favoritos || []
 
-  if (accion === 'agregar' && !updatedFavorites.includes(userId)) {
-    updatedFavorites.push(userId)
+  if (accion === 'agregar' && !updatedFavorites.includes(bookId)) {
+    updatedFavorites.push(bookId)
   } else if (accion === 'eliminar') {
-    updatedFavorites = updatedFavorites.filter(fav => fav !== userId)
+    updatedFavorites = updatedFavorites.filter(fav => fav !== bookId)
   }
 
   return updatedFavorites
 }
 
-function filterAllowedFields (data: UserInfoType) {
+function filterAllowedFields (data: Partial<UserInfoType>): Partial<UserInfoType> {
   const allowedFields: (keyof UserInfoType)[] = [
     'nombre',
     'correo',
@@ -76,7 +73,7 @@ function filterAllowedFields (data: UserInfoType) {
   })
 
   filteredData.actualizadoEn = new Date().toISOString() as ISOString
-  return filteredData as UserInfoType
+  return filteredData
 }
 
 function generateAuthToken (user: PartialUserInfoType | UserInfoType): string {
@@ -115,5 +112,6 @@ export {
   checkEmailExists,
   initializeDataCreateUser,
   processUserUpdate,
-  jwtPipeline
+  jwtPipeline,
+  updateUserFavorites
 }

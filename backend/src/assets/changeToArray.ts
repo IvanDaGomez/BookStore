@@ -10,3 +10,4 @@ export function changeToArray (element: string | string[]): string[] {
   }
   return []
 }
+ 

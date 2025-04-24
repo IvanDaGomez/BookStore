@@ -58,7 +58,20 @@ const MakeCard = ({ element, index, user = '', callback = () => {} }) => {
 
   )
 }
+const MakeCardPlaceHolder = ({ l }) => {
+  return (<>
+    {Array.from({ length: l }).map((_, index) => (
+    <div className='sectionElement placeholder' key={index}>
 
+        <div className='imageElementContainer'/>
+        <div className='sectionElementTextDiv'></div>
+          <div className='textPlaceholder'></div>
+          <div className='textPlaceholder'></div>
+        
+
+    </div>
+  ))}</>)
+}
 const MakeOneFrCard = ({ element, index, user = '' }) => {
   const navigate = useNavigate()
   return (
@@ -252,4 +265,4 @@ const MakeUserCard = ({ element, index, user, setElement, setUser }) => {
   );
 };
 
-export { MakeCard, MakeOneFrCard, MakeUpdateCard, MakeSmallCard, MakeCollectionCard, MakeUserCard }
+export { MakeCard, MakeCardPlaceHolder, MakeOneFrCard, MakeUpdateCard, MakeSmallCard, MakeCollectionCard, MakeUserCard }

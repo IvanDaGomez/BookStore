@@ -1,5 +1,6 @@
 import { toast } from 'react-toastify'
 import { necesitasIniciarSesion } from './jsxConstants'
+import axios from 'axios'
 
 const handleFavoritos = (event, id, userId) => {
   event.stopPropagation()
@@ -9,26 +10,19 @@ const handleFavoritos = (event, id, userId) => {
       return
     }
 
-    const url = `http://localhost:3030/api/users/${userId}`
+    const url = `http://localhost:3030/api/users/favorites/${userId}`
     // Select the <path> inside the SVG using its unique className
     const favoritoIconPath = document.querySelectorAll(`.favorito-${id}`)
 
     try {
-      const response = await fetch(url, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          favoritos: id,
-          accion: (favoritoIconPath.length > 0 && favoritoIconPath[0].classList.contains('favoritoActivo')) ? 'eliminar' : 'agregar'
-        }),
-        credentials: 'include'
-      })
+      const response = await axios.patch(url, {
+        bookId: id,
+        accion: (favoritoIconPath.length > 0 && favoritoIconPath[0].classList.contains('favoritoActivo')) ? 'eliminar' : 'agregar'
+      }, { withCredentials: true })
 
-      const { error } = await response.json()
-      if (error) {
-        console.error(error)
+
+      if (response.data.error) {
+        console.error(response.data.error)
         toast.error('Hubo un problema al agregar a favoritos')
         return
       }
@@ -41,6 +35,8 @@ const handleFavoritos = (event, id, userId) => {
           favoritoIconPath[0].classList.add('favoritoActivo')
           toast.success('Agregado a favoritos exitosamente')
         }
+      } else {
+        toast.success('Agregado a favoritos exitosamente')
       }
     } catch (err) {
       console.error('Error agregando a favoritos:', err)

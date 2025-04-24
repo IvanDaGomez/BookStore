@@ -16,7 +16,8 @@ import {
   checkEmailExists,
   initializeDataCreateUser,
   jwtPipeline,
-  processUserUpdate
+  processUserUpdate,
+  updateUserFavorites
 } from './helperFunctions.js'
 import express from 'express'
 import { cambiarGuionesAEspacio } from '../../assets/agregarMas.js'
@@ -265,8 +266,9 @@ export class UsersController {
   ): Promise<express.Response | void> => {
     try {
       const userId = req.params.userId as ID
-      const data: UserInfoType = req.body
+      const data: Partial<UserInfoType> = req.body
       // Validar datos
+      console.log(data)
       const validated = validatePartialUser(data)
       if (!validated.success) {
         return res.status(400).json({
@@ -283,6 +285,29 @@ export class UsersController {
       jwtPipeline(user, res)
       // Enviar el nuevo token en la cookie
       res.json(user)
+    } catch (err) {
+      next(err)
+    }
+  }
+  updateFavorites = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
+    try {
+      const userId = req.params.userId as ID
+      const { accion, bookId } = req.body as { accion: string, bookId: ID}
+
+      if (!accion) {
+        return res.status(400).json({ error: 'Acción no proporcionada' })
+      }
+
+      const updatedFavorites = await updateUserFavorites(userId, bookId,  accion)
+
+      await this.UsersModel.updateUser(userId, {
+        favoritos: updatedFavorites
+      })
+      res.json(updatedFavorites)
     } catch (err) {
       next(err)
     }

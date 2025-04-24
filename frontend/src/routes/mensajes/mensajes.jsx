@@ -8,7 +8,7 @@ import Footer from '../../components/footer/footer.jsx'
 import { ToastContainer } from 'react-toastify'
 import { useNavigate, useSearchParams, Link } from 'react-router-dom'
 import { findUserByConversation, handleSubmitMessage, useFetchConversations, useFetchuser } from './helper'
-import { renderFilteredConversations, renderNotificationSelector } from './helperComponents'
+import { renderFilteredConversations } from './helperComponents'
 import { UserContext } from '../../context/userContext.jsx'
 import NotificationsHeader from './notificationsHeader.jsx'
 import useUpdateBreakpoint from '../../assets/useUpdateBreakPoint.js'
@@ -129,10 +129,9 @@ export default function Mensajes () {
     <>
       <Header />
       {/* ----------------------------------------SELECCION DE NOTIFICACION----------------------------------------------- */}
-      {renderNotificationSelector()}
-
-      {/* ----------------------------------------MENSAJES EN PC----------------------------------------------- */}
       <NotificationsHeader active={'messages'} />
+      {/* ----------------------------------------MENSAJES EN PC----------------------------------------------- */}
+      
       {!isMobile &&
         <div className='messagesContainer'>
           <div className='conversationsContainer'>

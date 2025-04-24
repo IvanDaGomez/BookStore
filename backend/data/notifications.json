@@ -7,7 +7,7 @@
     "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
     "input": "¿En qué estado se encuentra el producto?",
     "createdIn": "2025-03-31T14:08:26.378Z",
-    "read": false,
+    "read": true,
     "actionUrl": "http://localhost:5173/libros/31d52487-f746-4951-bf11-7b41febea0a9",
     "expiresAt": "2025-04-30T14:08:26.378Z",
     "metadata": {
@@ -27,6 +27,58 @@
     "read": false,
     "actionUrl": "http://localhost:5173/libros/undefined",
     "expiresAt": "2026-04-24T04:32:28.524Z",
+    "metadata": {}
+  },
+  {
+    "_id": "c528e840-381c-4234-b700-586fa69c41b4",
+    "title": "Notificación no válida",
+    "priority": "low",
+    "type": "invalidNotification",
+    "userId": "f07ba079-279e-4962-8b91-883076225e9d",
+    "input": "",
+    "createdIn": "2025-04-24T15:20:06.047Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/undefined",
+    "expiresAt": "2026-04-24T15:20:06.047Z",
+    "metadata": {}
+  },
+  {
+    "_id": "f2f71b43-d8a2-42c4-b238-c18323862ce1",
+    "title": "Notificación no válida",
+    "priority": "low",
+    "type": "invalidNotification",
+    "userId": "daa83d25-b565-4971-a498-f463de89825b",
+    "input": "",
+    "createdIn": "2025-04-24T15:20:09.047Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/undefined",
+    "expiresAt": "2026-04-24T15:20:09.047Z",
+    "metadata": {}
+  },
+  {
+    "_id": "a77bf75c-fba1-466f-8530-c4056b5a1a58",
+    "title": "Notificación no válida",
+    "priority": "low",
+    "type": "invalidNotification",
+    "userId": "7963fffc-5efb-43c6-abc7-c2f4ed797ddd",
+    "input": "",
+    "createdIn": "2025-04-24T15:20:14.064Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/undefined",
+    "expiresAt": "2026-04-24T15:20:14.064Z",
+    "metadata": {}
+  },
+  {
+    "_id": "1c0a3241-5e67-4138-ba57-89b907949b57",
+    "title": "Notificación no válida",
+    "priority": "low",
+    "type": "invalidNotification",
+    "userId": "03e823cd-5b94-4a17-ae79-0ac311bba920",
+    "input": "",
+    "createdIn": "2025-04-24T15:21:31.078Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/undefined",
+    "expiresAt": "2026-04-24T15:21:31.078Z",
     "metadata": {}
   }
 ]

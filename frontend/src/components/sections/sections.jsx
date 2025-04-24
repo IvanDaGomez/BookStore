@@ -1,5 +1,5 @@
-import { useContext } from 'react'
-import { MakeCard } from '../../assets/makeCard'
+import { useContext, useState } from 'react'
+import { MakeCard, MakeCardPlaceHolder } from '../../assets/makeCard'
 
 import { UserContext } from '../../context/userContext'
 import useFetchBooksByQuery from '../../assets/useFetchBooksByQuery'
@@ -19,9 +19,10 @@ export default function Sections ({ filter, backgroundColor, description }) {
         <h1>{filter}</h1>
         <h2>{description}</h2>
         <div className='sectionsContainer'>
-          {libros.map((element, index) => 
+          {libros && libros.length !== 0 ? libros.map((element, index) => 
           <MakeCard key={index} element={element} index={index} user={user ?? null} /> 
-          )}
+          )
+          :<MakeCardPlaceHolder l={6} />}
           
             <div className='viewMore'>
               <Link to={`/buscar?q=${cambiarEspacioAGuiones(filter)}`}>
