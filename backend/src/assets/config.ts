@@ -24,7 +24,7 @@ const pool = new Pool({
 const SALT_ROUNDS: number = 10 
 // Crear el directorio de subida si no existe
 // Configurar Multer para guardar en una carpeta 'uploads' y con nombre único
-const uploadsPath = path.join(__dirname, '..', '..', 'uploads')
+const uploadsPath = path.join(__dirname, 'uploads')
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, uploadsPath)

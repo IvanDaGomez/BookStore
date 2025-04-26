@@ -57,6 +57,12 @@
   box-shadow: 0 0 5px var(--using4);
   background: var(--using1);
 }
+@media only screen and (max-width:734px) {
+  .messagesContainer{
+    transform: translateX(0);
+  }
+  
+}
 .conversationsContainer{
   height: 100%;
   width: 100%;

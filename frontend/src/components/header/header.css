@@ -137,7 +137,7 @@ header::before {
 }
 
 
-header .headerDer .searchButton{
+.searchButton{
   all: unset;
   width: auto;
   height: var(--font-size-xlarge);
@@ -147,7 +147,7 @@ header .headerDer .searchButton{
   margin-right: var(--margin-medium);
 }
 
-header .searchButton input {
+.searchButton input {
   border: var(--border-width) solid var(--using2);
   border-right: none;
   padding: 0;
@@ -162,10 +162,11 @@ header .searchButton input {
   transform: translateX(var(--border-width));
 }
 
-header .searchButton input :focus{
-  border: none;
+.searchButton input:focus{
+  border: var(--border-width) solid var(--using2);
+  border-right: none;
 }
-header .searchButton button  {
+.searchButton button  {
   outline: var(--border-width) solid var(--using2);
   height: 100%;
   background-color: var(--using4); /* Dark blue color */
@@ -178,14 +179,14 @@ header .searchButton button  {
   isolation: isolate;
   transition: all var(--animation-timing) ease-in-out;
 }
-header .searchButton button svg{
+.searchButton button svg{
   color: var(--using1);
   height: calc(var(--font-size-large) * 0.8);
   width: calc(var(--font-size-large) * 0.8);
   margin-left: calc(1.5vw);
 }
-header .headerDer .searchButton button::before,
-header .headerDer .searchButton button::after{
+.searchButton button::before,
+.searchButton button::after{
   content: "";
   position: absolute;
   left: 0;
@@ -193,36 +194,36 @@ header .headerDer .searchButton button::after{
   height: 50%;
   aspect-ratio: 1/1;
 }
-header .headerDer .searchButton button::before{
+.searchButton button::before{
   border-radius: 0 var(--circular-radius) 0 0;
   top: 0;
 }
-header .searchButton button::after{
+.searchButton button::after{
   border-radius: 0 0 var(--circular-radius) 0;
   bottom: 0;
 }
-header .searchButton button:hover {
+.searchButton button:hover {
   background-color: var(--using7); /* Slightly darker blue on hover */
   cursor: pointer;
 }
-header .profile, .heart, .notification, .hamburger{
+.profile, .heart, .notification, .hamburger{
   margin: auto var(--margin-medium);
   height: var(--font-size-large);
   width: var(--font-size-large);
 }
 
-header .profile img{
+.profile img{
   height: 100%;
   border-radius: 50%;
 }
-header .notification{
+.notification{
   position: relative;
   isolation: isolate;
   cursor: pointer;
   margin-inline: auto var(--margin-small);
 
 }
-header .notification .notificationIconCount{
+.notification .notificationIconCount{
   width: 15px;
   height: 15px;
   aspect-ratio: 1 / 1;
@@ -236,8 +237,8 @@ header .notification .notificationIconCount{
   display: flex;
   justify-content: center;
   align-items: center;
-}
-header .heart{
+} 
+.heart{
   position: relative;
   isolation: isolate;
   cursor: pointer;
@@ -247,7 +248,7 @@ header .heart{
   aspect-ratio: 1/1;
   margin: auto;
 }
-header .heart .heartIconCount{
+.heart .heartIconCount{
   width: var(--font-size-medium);
   height: var(--font-size-medium);
   aspect-ratio: 1 / 1;
@@ -331,7 +332,7 @@ header svg{
   color:var(--using3);
   height:100%;
 }
-header .heart:hover , header .like:hover, header .profile:hover, header .notification:hover{
+.heart:hover , .like:hover, .profile:hover, .notification:hover{
   animation: tambaleo var(--animation-timing) ease-in-out 1;
   cursor: pointer;
   transform: scale(1.2);

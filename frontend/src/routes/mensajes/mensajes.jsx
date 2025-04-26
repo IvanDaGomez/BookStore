@@ -6,7 +6,7 @@ import Header from '../../components/header/header.jsx'
 import SideInfo from '../../components/sideInfo'
 import Footer from '../../components/footer/footer.jsx'
 import { ToastContainer } from 'react-toastify'
-import { useNavigate, useSearchParams, Link } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { findUserByConversation, handleSubmitMessage, useFetchConversations, useFetchuser } from './helper'
 import { renderFilteredConversations } from './helperComponents'
 import { UserContext } from '../../context/userContext.jsx'
@@ -23,7 +23,7 @@ import MessageInput from './messagesFunctions/messageInput.jsx'
 import './messages.css'
 import './notifications.css'
 export default function Mensajes () {
-  const navigate = useNavigate()
+
   const [activeConversation, setActiveConversation] = useState(null)
 
   // --------------------------------------LOGICA DE MENSAJES-------------------------------------------

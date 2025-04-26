@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react'
 import { validarPublicar3 } from '../../assets/validarPublicar'
-
+import { calculateComission } from '../../assets/calculateComission'
+import { formatPrice } from '../../assets/formatPrice'
 export default function Fase3 ({ form, setForm, fase, setFase, meanPrice }) {
   const [errors, setErrors] = useState([])
   const [keywords, setKeywords] = useState([])
@@ -145,6 +146,8 @@ export default function Fase3 ({ form, setForm, fase, setFase, meanPrice }) {
           />
         </div>
         {(!isNaN(meanPrice)) && <label>El precio promedio de este libro en internet es de: $ {meanPrice} pesos</label>}
+        {console.log(form.precio)}
+        {form.precio && <p>Comisión estimada: {formatPrice(calculateComission(form.precio))}</p>}
         {errors.length !== 0 && <div className='error'>{errors[0]}</div>}
         <div className='center'>
           <div className='atras' onClick={() => setFase(fase - 1)}>

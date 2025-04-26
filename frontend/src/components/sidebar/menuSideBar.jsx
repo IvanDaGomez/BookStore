@@ -5,6 +5,8 @@ import './sideBar.css'
 import { Link, useNavigate } from "react-router-dom";
 import { renderProfilePhoto } from "../../assets/renderProfilePhoto";
 import { cambiarEspacioAGuiones } from "../../assets/agregarMas";
+import { handleDropwdown } from "./handleDropdown";
+import SearchButton from "../header/searchButton";
 export default function MenuSideBar({ callback, user, logoutFn }) {
   const navigate = useNavigate()
   const [showDropdown, setShowDropdown] = useState(false);
@@ -26,24 +28,6 @@ export default function MenuSideBar({ callback, user, logoutFn }) {
       link: "/libros",
     }
   ]
-  function handleDropwdown() {
-    const dropdown = document.querySelector('.nav-dropdown')
-    if (showDropdown) {
-      dropdown.style.filter = 'opacity(0)'
-      setTimeout(() => {
-      dropdown.style.display = 'none'
-    },100)
-      setShowDropdown(false)
-    }
-    else {
-      dropdown.style.filter = 'opacity(100%)'
-      setTimeout(() => {
-      dropdown.style.display = 'flex'
-    },100)
-      setShowDropdown(true)
-    }
-    
-  }
 
   function submitInputValue () {
     if (!queryInput.current.value) return
@@ -53,8 +37,9 @@ export default function MenuSideBar({ callback, user, logoutFn }) {
   }
   return (
     <div className='menuSideBar' onMouseLeave={callback} >{/* */}
+    {console.log(user)}
       {/* Profile Section */}
-      {console.log(user.favoritos)}
+
       {user &&
         <div className="nav-profile" onClick={()=> navigate(`/usuarios/${user._id}`)}>
           <img src={renderProfilePhoto(user?.fotoPerfil || '')} alt="User" className="avatar" />
@@ -66,34 +51,20 @@ export default function MenuSideBar({ callback, user, logoutFn }) {
         {mainInfo.map((item, index) => (
           <Link key={index} to={item.link}>
           <div className={`nav-item ${window.location.pathname === item.link ? 'nav-active' : ''}`} >
-            <div className="nav-icon">{item.icon}</div>
+            <div className="nav-icon"><p>{item.icon}</p></div>
             {item.title}
             </div>
           </Link>))}
       </div>
       {/* Buscar */}
 
-      <div className='input'>
-              <input
-                type='text'
-          name='query'
-          ref={queryInput}
-                autoComplete='off'
-                className='search'
-                placeholder='Buscar'
-                onKeyDown={(event) => (event.key === 'Enter') ? submitInputValue() : <></>}
-              />
-              <button type='submit' className='icon' onClick={submitInputValue}>
-                <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width={20} height={20} fill='none'>
-                  <path d='M17.5 17.5L22 22' stroke='currentColor' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round' />
-                  <path d='M20 11C20 6.02944 15.9706 2 11 2C6.02944 2 2 6.02944 2 11C2 15.9706 6.02944 20 11 20C15.9706 20 20 15.9706 20 11Z' stroke='currentColor' strokeWidth='1.5' strokeLinejoin='round' />
-                </svg>
-
-              </button>
-            </div>
+      <SearchButton
+      submitInputValue={submitInputValue}
+      queryInput={queryInput}
+      setResults={null} />
       {/* User Dropdown Menu */}
       {user ? <>
-        <div className="user-section" onClick={() => handleDropwdown()}>
+        <div className="user-section" onClick={() => handleDropwdown(showDropdown, setShowDropdown)}>
           <div>
             <img src={renderProfilePhoto(user?.fotoPerfil || '')} alt={user.nombre + "'s photo"} title={user.nombre + "'s photo"} className="avatar-small" />
           </div>

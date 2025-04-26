@@ -3,9 +3,11 @@ import { cambiarEspacioAGuiones } from "../../assets/agregarMas"
 
 let fetchTimeout = null // Variable to store the timeout ID
 
-export function handleSearchInput(queryInput, setResults) {
+export function handleSearchInput(queryInput, setResults = null) {
   if (!queryInput.current.value) {
-    setResults([])
+    if (setResults) {
+      setResults([]) // Clear results if the input is empty
+    }
     return
   }
 
@@ -25,13 +27,18 @@ export function handleSearchInput(queryInput, setResults) {
         const bookResults = response.data
 
         // Convertir `bookResults` a un array antes de aplicar `slice`
-        if (Array.isArray(bookResults)) {
-          setResults(bookResults.slice(0, 5)) // Obtener los primeros 5 resultados
+        if (Array.isArray(bookResults )) {
+          if (setResults) {
+
+            setResults(bookResults.slice(0, 5)) // Obtener los primeros 5 resultados
+          }
         }
       }
     } catch {
       // console.error('Error fetching book data:', error)
-      setResults([]) // Retorna un array vacío en caso de error
+      if (setResults) {
+        setResults([]) // Retorna un array vacío en caso de error
+      }
     }
   }, 500) // Cooldown period in milliseconds
 }

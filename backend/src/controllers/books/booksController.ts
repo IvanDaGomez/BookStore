@@ -509,27 +509,6 @@ export class BooksController {
     }
   }
 
-  predictInfo = async (
-    req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
-  ): Promise<express.Response | void> => {
-    try {
-      const file = req.file as Express.Multer.File | undefined
-      if (!file) {
-        return res.status(400).json({ error: 'No file uploaded' })
-      }
-      const info = await this.BooksModel.predictInfo(file)
-
-      return res.json({
-          title: info.title,
-          author: info.author
-      })
-    } catch (err) {
-      next(err)
-    }
-  }
-
   getBooksByCollection = async (
     req: express.Request,
     res: express.Response,

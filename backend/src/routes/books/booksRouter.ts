@@ -3,6 +3,7 @@ import { BooksController } from '../../controllers/books/booksController.js'
 import { upload } from '../../assets/config.js'
 import { generateResponse } from '../../controllers/separated/generateResponse.js'
 import { IBooksModel, IUsersModel } from '../../types/models.js'
+import { AIMode } from '../../controllers/books/aiMode.js'
 
 export const createBooksRouter = ({
   BooksModel,
@@ -18,7 +19,7 @@ export const createBooksRouter = ({
   // booksRouter.get('/safe', booksController.getAllBooksSafe) // R
   booksRouter.post('/', upload.array('images', 5), booksController.createBook as RequestHandler)
   booksRouter.post('/review', upload.array('images', 5), booksController.createReviewBook as RequestHandler)
-  booksRouter.post('/predictInfo', upload.single('image'), booksController.predictInfo as RequestHandler)
+  booksRouter.post('/ai/aiMode', upload.single('image'), AIMode as RequestHandler)
   booksRouter.post('/generateDescription', generateResponse as RequestHandler)
   booksRouter.post('/getBooksByCollection', booksController.getBooksByCollection as RequestHandler )
 
