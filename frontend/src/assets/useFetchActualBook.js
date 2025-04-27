@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export default function useFetchActualBook (bookId, externalSet, setActualImage = null) {
+export default function useFetchActualBook (bookId, externalSet = null, setActualImage = null) {
   const [libro, setLibro] = useState({});
 
   const [loading, setLoading] = useState(true);

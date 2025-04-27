@@ -12,6 +12,7 @@ import DoubleSlider from '../../components/DoubleSlider.jsx'
 import { ToastContainer } from 'react-toastify'
 import { edad, estado, generos, idiomas, tapa, ubicaciones } from '../../assets/categorias.js'
 import { UserContext } from '../../context/userContext.jsx'
+import './search.css'
 export default function Search () {
   const navigate = useNavigate()
   const { user, setUser } = useContext(UserContext)

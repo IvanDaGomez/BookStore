@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import Header from '../../components/header/header.jsx'
 import SideInfo from '../../components/sideInfo'
 import Footer from '../../components/footer/footer.jsx'
@@ -7,39 +7,17 @@ import { validarActualizarUsuario } from '../../assets/validarPublicar'
 import titleCase from '../../assets/toTitleCase'
 import { renderProfilePhoto } from '../../assets/renderProfilePhoto'
 import { cropImageToAspectRatio } from '../../assets/cropImageToAspectRatio'
+import './usuario.css'
+import { UserContext } from '../../context/userContext.jsx'
 export default function EditarUsuario () {
-  const [user, setUser] = useState(null)
+  const { user } = useContext(UserContext)
   const [fotoPerfil, setFotoPerfil] = useState('')
   const [estadoCuenta, setEstadoCuenta] = useState('')
   const [filtros, setFiltros] = useState({})
   const [form, setForm] = useState({})
   const [errors, setErrors] = useState([])
 
-  // Fetch user session on mount
-  useEffect(() => {
-    async function fetchUser () {
-      try {
-        const response = await fetch('http://localhost:3030/api/users/userSession', {
-          method: 'POST',
-          credentials: 'include'
-        })
 
-        if (response.ok) {
-          const data = await response.json()
-
-          setForm()
-          setUser(data.user)
-          setEstadoCuenta(titleCase(data.user.estadoCuenta))
-        } else {
-          window.location.href = '/popUp/noUser'
-        }
-      } catch (error) {
-        console.error('Error fetching user data:', error)
-      }
-    }
-
-    fetchUser()
-  }, [])
 
   useEffect(() => {
     if (user) {

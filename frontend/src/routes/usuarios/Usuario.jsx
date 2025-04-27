@@ -12,7 +12,7 @@ import axios from 'axios'
 import Colecciones from './colecciones.jsx'
 import { UserContext } from '../../context/userContext.jsx'
 import { handleFollowers } from '../../assets/handles/handleFollowers.jsx'
-
+import './usuario.css'
 export default function Usuario () {
   const navigate = useNavigate()
   const { idVendedor } = useParams()

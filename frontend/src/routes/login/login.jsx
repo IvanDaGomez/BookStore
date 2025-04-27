@@ -12,7 +12,7 @@ import { desktopBreakpoint } from '../../assets/config.js'
 import SubmitForm from './submitForm.jsx'
 import { handleGoogleSubmit } from './handleGoogleSubmit.js'
 import { handleSubmit } from './handleSubmitForm.js'
-
+import './login.css'
 export default function Login () {
 
   const [quote] = useState(quotes[Math.floor(Math.random() * quotes.length)])

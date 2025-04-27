@@ -32,7 +32,7 @@ const UserProvider = ({ children }) => {
 
     fetchUser()
   }, [])
-
+  
   return (
     <UserContext.Provider value={{ user, setUser, loading }}>
       {children}

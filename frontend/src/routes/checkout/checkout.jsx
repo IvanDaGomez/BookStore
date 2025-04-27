@@ -7,10 +7,12 @@ import UseStep from '../../components/UseStep'
 import Header from '../../components/header/header.jsx'
 import Footer from '../../components/footer/footer.jsx'
 import SideInfo from '../../components/sideInfo'
+import './checkout.css'
 import { useNavigate, useParams } from 'react-router'
 
 import { UserContext } from '../../context/userContext.jsx'
 import { ToastContainer } from 'react-toastify'
+import useFetchActualBook from '../../assets/useFetchActualBook.js'
 function Checkout () {
   const navigate = useNavigate()
   const { user, setUser, loading } = useContext(UserContext)
@@ -30,9 +32,7 @@ function Checkout () {
       if (!user) return
       try {
         const url = `http://localhost:3030/api/users/balance/${user._id}`
-        const response = await axios.post(url, null, {
-          withCredentials: true
-        })
+        const response = await axios.post(url, null, {withCredentials: true})
         setUser({
           ...user,
           balance: response.data.balance || 0
@@ -48,30 +48,10 @@ function Checkout () {
 
   const { bookId } = useParams()
   // Fetch book
-  const [libro, setLibro] = useState(null)
 
-  useEffect(() => {
-    async function fetchLibro (id) {
-      if (!user) return
-      const url = `http://localhost:3030/api/books/${id}`
-      try {
-        const response = await axios.get(url, { withCredentials: true })
-        if (response.data.idVendedor === user._id) {
-          navigate('/popUp/errorAutoPayment')
-        }
-        if (response.data.disponibilidad === 'Vendido') {
-          navigate('/popUp/libroVendido')
-        }
-        setLibro(response.data) // Asegurar que el libro existe o dejar vacío
-      } catch (error) {
-        console.error('Error fetching book data:', error)
-        navigate('/popUp/libroNoEncontrado')
-      }
-    }
 
-    fetchLibro(bookId)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bookId, user])
+  const { libro } = useFetchActualBook(bookId)
+
 
   const [fase, setFase] = useState(1) // Estado para la fase actual
   const [form, setForm] = useState({
@@ -122,9 +102,6 @@ function Checkout () {
     fetchPreferenceId()
   }, [libro]) // Dependency array ensures this runs when `libro` changes
 
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [fase])
   const renderFase = () => {
     switch (fase) {
       case 1:
