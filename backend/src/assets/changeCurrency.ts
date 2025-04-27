@@ -11,7 +11,7 @@ async function convertCurrency (amount: number, fromCurrency: string, toCurrency
   try {
     // Fetch the conversion rate from the API
     const response = await fetch(`${host}/latest?amount=${amount}&from=${fromCurrency}&to=${toCurrency}`)
-    const data = await response.json()
+    const data = await response.json() 
 
     // Extract and return the converted value
     const convertedValue = data.rates[toCurrency]

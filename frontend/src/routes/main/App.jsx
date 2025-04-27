@@ -9,8 +9,8 @@ import { Carousel } from '../../components/slider/photoCarrousel.jsx'
 import { ToastContainer } from 'react-toastify'
 import CustomDesigns from '../../components/customDesigns.jsx'
 import Loader from '../../components/loader/loader.jsx'
-import GoogleOneTapLogin from '../../components/googleOneTap.jsx'
 import BigPhoto from './bigPhoto.jsx'
+import useGoogleOneTap from './oneTap.js'
 
 function App () {
   const [notification, setNotification] = useState('')
@@ -58,6 +58,8 @@ function App () {
       window.location.reload()
     }
   },[])
+
+  useGoogleOneTap()
   return (
     <>
       <Loader />
