@@ -409,13 +409,14 @@ export class BooksController {
   ): Promise<express.Response | void> => {
     try {
       let data = req.body as Partial<BookObjectType>
-
+      
+      data = prepareCreateBookData(data, req)
       const validated = validateBook(data)
       if (!validated.success) {
         console.error('Error de validación:', validated.error)
         return res.status(400).json({ error: validated.error })
       }
-      data = prepareCreateBookData(data, req)
+      
       
       const book = await this.BooksModel.createReviewBook(data)
 

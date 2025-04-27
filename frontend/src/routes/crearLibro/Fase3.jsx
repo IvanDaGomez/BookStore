@@ -145,7 +145,7 @@ export default function Fase3 ({ form, setForm, fase, setFase, meanPrice }) {
             onKeyDown={handleKeyPress}
           />
         </div>
-        {(!isNaN(meanPrice)) && <label>El precio promedio de este libro en internet es de: $ {meanPrice} pesos</label>}
+        {(!isNaN(meanPrice) && meanPrice > 0) && <label>El precio promedio de este libro en internet es de: $ {meanPrice} pesos</label>}
         {console.log(form.precio)}
         {form.precio && <p>Comisión estimada: {formatPrice(calculateComission(form.precio))}</p>}
         {errors.length !== 0 && <div className='error'>{errors[0]}</div>}

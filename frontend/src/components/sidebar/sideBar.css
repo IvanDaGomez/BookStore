@@ -109,10 +109,25 @@
   cursor: pointer;
   transition: background 0.3s ease-in-out;
 }
+.menuSideBar .user-section .user-icon:hover {
+  transform: scale(1.1);
+}
 .menuSideBar .user-section div{
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all var(--animation-timing) ease-in-out;
+}
+.menuSideBar .user-section > div > svg{
+  width: 20px;
+  height: 20px;
+
+  background: var(--using1);
+  border: var(--border-width) solid var(--using2);
+  border-radius: 50%;
+  color: var(--using3);
+  position: absolute;
+  transform: translate(50%, -50%);
 }
 .menuSideBar .user-section:hover {
   background: rgba(255, 255, 255, 0.2);

@@ -1,0 +1,367 @@
+
+/*--------------------------------------Cuenta-------------------------------------*/
+
+
+.account-dashboard {
+  display: flex;
+  height: auto;
+}
+.account-dashboard .main-content{
+  width: 100%;
+}
+/* Sidebar Styles */
+.sidebar {
+  width: 250px;
+  background-color: #ffffff;
+  border-right: 1px solid #eaeaea;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+.sidebar > *{
+  width: 100%;
+}
+.sidebar .headerOption{
+  font-size: var(--font-size-medium);
+}
+
+.team-info h2 {
+  text-align: center;
+  margin: auto;
+}
+
+.team-info p {
+  color: gray;
+  margin: var(--margin-small) 0 20px;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+}
+
+.menu .headerOption {
+  padding: 10px;
+  margin-bottom: 5px;
+  color: #333;
+  cursor: pointer;
+  border-radius: var(--border-radius);;
+}
+
+.menu div.active {
+  background-color: #eef4ff !important;
+  color: #007bff !important;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.menu .headerOption.delete {
+  color: red;
+}
+
+.org-settings {
+  margin-top: 20px;
+}
+
+.org-settings h3 {
+  font-size: var(--font-size-small);
+  color: gray;
+  text-transform: uppercase;
+}
+
+.org-settings ul {
+  list-style: none;
+  padding: 0;
+}
+
+.create-contract {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);;
+  cursor: pointer;
+}
+
+/* Main Content Styles */
+.main-content {
+  padding: 40px;
+  background: #e0dee170;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.profile-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+.profile-section {
+  margin-bottom: 30px;
+  background-color: white;
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.profile-section h3 {
+  margin-bottom: 15px;
+}
+
+.info-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.info-row div {
+  flex: 1 1 calc(50% - 20px);
+  min-width: 200px;
+}
+
+.info-row p {
+  margin: 0;
+  color: gray;
+}
+
+.info-row h4 {
+  margin: var(--margin-small) 0 0;
+  font-size: var(--font-size-small);
+}
+
+.account-dashboard .main-content .link{
+  font-weight: 1000;
+  text-decoration: underline;
+  color: var(--using4);
+}
+
+.account-dashboard .main-content .userInfo{
+  width: min(100%, 800px);
+  height: auto;
+  border-radius: var(--border-radius);
+  background: var(--using1);
+  margin: var(--margin-medium) auto;
+  padding: var(--padding-big);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  
+}
+
+.account-dashboard .main-content .userInfo img{
+  height: 100px;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.account-dashboard .main-content .userInfo div{
+  display: flex;
+  justify-content: flex-start;
+  align-items: start;
+  flex-direction: column;
+}
+.account-dashboard .main-content .userExtraInfo svg{
+  color: #009EE3;
+}
+.account-dashboard .main-content .userInfo button{
+  width: 15rem;
+  font-size: var(--font-size-medium);
+  padding: var(--padding-small);
+  margin: var(--margin-small) 0;
+}
+.account-dashboard .main-content .userExtraInfo{
+  width: min(100%, 800px);
+  height: auto;
+  border-radius: var(--border-radius);
+  background: var(--using1);
+  margin: var(--margin-medium) auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: start;
+  flex-direction: column;
+  padding-block: var(--padding-small);
+}
+
+.account-dashboard .main-content .userExtraInfo .box{
+  width: min(100%, 800px);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
+  border-bottom: 1px solid var(--using2);
+  padding: var(--padding-big);
+}
+.account-dashboard .main-content .userExtraInfo .box:last-of-type{
+  border-bottom: none;
+}
+.account-dashboard .main-content .userExtraInfo .box .iconContainer svg{
+  height:60%;
+}
+.account-dashboard .main-content .userExtraInfo .box .iconContainer{
+  width: 100px;
+  height: 100%;
+  margin-right: 20px;
+}
+.account-dashboard .main-content .container{
+  background: var(--using1);
+  border-radius: var(--border-radius);
+  padding: var(--padding-big);
+}
+.account-dashboard .main-content .container h1{
+  font-size: var(--font-size-xlarge);
+}
+
+.account-dashboard .main-content .container.balanceContainer{
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  padding: var(--padding-big);
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  flex-direction: column;
+  background: var(--using4);
+  color: var(--using1);
+}
+
+.account-dashboard .main-content .flexBalance{
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  place-items: center;
+  gap: var(--padding-big)
+}
+.account-dashboard .main-content .bigNumber{
+  text-align: left;
+  font-size: var(--font-size-xlarge);
+}
+.account-dashboard .main-content .container.balanceContainer .numbers{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.account-dashboard .main-content .container.balanceContainer .numbers div{
+  width: auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: start;
+  flex-direction: column;
+}
+
+.account-dashboard .main-content .container.balanceContainer button{
+  width: 150px;
+  background: var(--using1);
+  color: var(--using4);
+  transition: all .3s ease-in-out;
+}
+.account-dashboard .main-content .container.balanceContainer button:hover{
+  background: var(--using4);
+  color: var(--using1);
+  outline: 3px solid var(--using1);
+}
+.account-dashboard .main-content > h1{
+  margin-block: 10px;
+}
+
+.account-dashboard .main-content .graphContainer{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+.account-dashboard .main-content .graphContainer .chartBalance{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+.account-dashboard .main-content .graphContainer .axisPicker{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  margin-inline: 20px;
+}
+.account-dashboard .main-content .graphContainer .axisPicker div{
+  width: 100%;
+  padding: var(--padding-small);
+  background-color: var(--using1);
+  border: 3px solid var(--using4);
+  border-radius: 200px;
+  margin: var(--margin-medium);
+  cursor: pointer;
+  transition: all .3s ease-in-out;
+}
+
+.account-dashboard .main-content .graphContainer .axisPicker div.active{
+  background: var(--using4);
+  color: var(--using1);
+}
+@media only screen and (max-width:1024px) {
+  .account-dashboard .main-content .flexBalance{
+    grid-template-columns: 1fr;
+  }
+}
+
+.account-dashboard .main-content .cobrarContainer{
+  width: min(calc(100vw - 10px), 1000px);
+  margin: var(--margin-medium) auto;
+  padding: 20px;
+  background: white;
+}
+.account-dashboard .main-content .balanceTransactionHistorialContainer{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.account-dashboard .main-content .balanceTransactionHistorialContainer .balanceTransactionHeader{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--using5);
+  text-align: center;
+  padding: var(--padding-big);
+}
+.account-dashboard .main-content .balanceTransactionHistorialContainer .balanceTransactionHeader div{
+  width: 100%;
+}
+.account-dashboard .main-content .balanceTransactionHistorialContainer .balanceTransactionHistorial{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+.account-dashboard .main-content .balanceTransactionHistorialContainer .balanceTransactionHistorial .transactionLine{
+  width: 100%;
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--using1);
+  margin-block: var(--padding-small);
+  padding: var(--padding-big);
+  border-radius: var(--border-radius);
+}
+.account-dashboard .main-content .balanceTransactionHistorialContainer .balanceTransactionHistorial .transactionLine div{
+  width: 100%;
+}

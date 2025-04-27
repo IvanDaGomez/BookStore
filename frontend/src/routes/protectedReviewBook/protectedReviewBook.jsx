@@ -1,39 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { createNotification } from '../../assets/createNotification'
+import { UserContext } from '../../context/userContext'
 
 export default function ProtectedReviewBook () {
-  const [user, setUser] = useState(null)
+  const { user } = useContext(UserContext)
   const [books, setBooks] = useState([])
   const [currentBook, setCurrentBook] = useState(null)
-
-  // Fetch the user session on mount
-  useEffect(() => {
-    async function fetchUser () {
-      try {
-        const response = await fetch('http://localhost:3030/api/users/userSession', {
-          method: 'POST',
-          credentials: 'include'
-        })
-
-        if (response.ok) {
-          const data = await response.json()
-          if (data?.user?.rol === 'admin') {
-            setUser(data.user)
-            return
-          }
-        }
-        // Redirect if user is not authorized
-        window.location.href = '/'
-      } catch (error) {
-        console.error('Error fetching user data:', error)
-        window.location.href = '/popUp/noUser'
-      }
-    }
-
-    fetchUser()
-  }, [])
 
   // Fetch books once the user is validated
   useEffect(() => {

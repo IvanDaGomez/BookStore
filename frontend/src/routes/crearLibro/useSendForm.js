@@ -1,4 +1,5 @@
 import { useEffect } from "react"
+import { toast } from "react-toastify"
 
 export default function useSendForm ({
   fase,
@@ -59,6 +60,7 @@ export default function useSendForm ({
           const data = await response.json()
           if (data.error) {
             console.error(data.error)
+            toast.error('Se ha producido un error al crear el libro')
             return
           }
 

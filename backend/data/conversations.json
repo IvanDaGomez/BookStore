@@ -23,10 +23,8 @@
     "lastMessage": {
       "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
       "conversationId": "512e04be-4bea-4138-a6d9-5ce2e9e4bbd1",
-      "message": "¡Hola Alvaro Gómez! 😊\n    \n            Me interesa mucho el libro que estás ofreciendo: *Acaba con la inflamación en 7 días*. ¿Podrías contarme un poco más al respecto? Aquí está el enlace del libro para que lo tengas a mano: \n            http://localhost:5173/libros/88c87f69-4b49-4633-bfba-cd3d29b1a21d\n    \n            ¡Muchas gracias de antemano! Espero tu respuesta. 😊",
-      "read": false,
-      "_id": "9d91caa1-6741-40f9-8e6b-f41acfda9bc2",
-      "createdIn": "2024-12-08T20:27:37.754Z"
+      "message": "¡Hola Alvaro Gómez! 😊\n    \n            Me interesa mucho el libro que estás ofreciendo: *Demasiado tarde para despertar*. ¿Podrías contarme un poco más al respecto? Aquí está el enlace del libro para que lo tengas a mano: \n            http://localhost:5173/libros/3cd4d6ad-df7c-4e0f-beb9-394de48ce33d\n    \n            ¡Muchas gracias de antemano! Espero tu respuesta. 😊",
+      "read": false
     }
   },
   {

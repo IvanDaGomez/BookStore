@@ -23,7 +23,7 @@ export default function Header () {
   const { user } = useContext(UserContext)
 
   // Fetch notificacione
-  const [notifications, ] = useFetchNotifications(user)
+  const [notifications] = useFetchNotifications(user)
   const [notificationOpen, setNotificationOpen] = useState(false)
   // This state manages an array of information
 

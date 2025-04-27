@@ -7,12 +7,14 @@ if (notification === 'exitoCreandoLibro') {
         <div className='success-container'>
         <h2>¡Publicación enviada con éxito!</h2>
         <p>Tu publicación será revisada para su lanzamiento.</p>
-        <Link to='/libros/crear'>
-            <button className='back-button'>Crear otro libro</button>
-        </Link>
-        <Link to='/'>
-            <button className='back-button'>Volver</button>
-        </Link>
+        <div className="button-container">
+            <Link to='/libros/crear'>
+                <button className='back-button'>Crear otro libro</button>
+            </Link>
+            <Link to='/'>
+                <button className='back-button'>Volver</button>
+            </Link>
+        </div>
         </div>
     </>
     )
@@ -24,7 +26,7 @@ if (notification === 'noUser') {
         <div className='success-container'>
         <h2>No puedes hacer esto si no has iniciado sesión</h2>
         <p>Inicia sesión para poder publicar tu contenido o acceder a tu cuenta</p>
-        <div>
+        <div className="button-container">
 
             <Link to='/login'>
             <button className='back-button'>Iniciar Sesión</button>

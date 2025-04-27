@@ -3,9 +3,8 @@ import Footer from '../../components/footer/footer.jsx'
 import Header from '../../components/header/header.jsx'
 import SideInfo from '../../components/sideInfo'
 import { useNavigate } from 'react-router-dom'
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useState, useMemo, useContext } from 'react'
 import Perfil from './perfil'
-import HeaderCuenta from './headerCuenta'
 import Balance from './dinero/balance'
 import axios from 'axios'
 import Stats from './stats'
@@ -16,29 +15,15 @@ import MisCompras from './dinero/misCompras'
 import MisVentas from './dinero/misVentas'
 import NotificacionesPreferencias from './preferencias/notificacionesPreferencias'
 import Direcciones from './direcciones'
-
+import { UserContext } from '../../context/userContext.jsx'
+import { useReturnIfNoUser } from '../../assets/useReturnIfNoUser.js'
+import './cuenta.css'
 export default function Cuenta () {
   const navigate = useNavigate()
   const [actualOption, setActualOption] = useState(null)
-  const [user, setUser] = useState(null)
+  const { user, setUser } = useContext(UserContext)
+  useReturnIfNoUser(user)
 
-  // Fetch user session
-  useEffect(() => {
-    async function fetchUser () {
-      try {
-        const url = 'http://localhost:3030/api/users/userSession'
-        const response = await axios.post(url, null, {
-          withCredentials: true
-        })
-        setUser(response.data.user)
-      } catch (error) {
-        console.error('Error fetching user data:', error)
-        navigate('/popUp/noUser')
-      }
-    }
-    fetchUser()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   // Fetch user email if not already set
   useEffect(() => {
@@ -62,6 +47,7 @@ export default function Cuenta () {
     }
 
     fetchUserEmail()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 
   // Memoize headerOptions to prevent infinite loops
@@ -81,14 +67,7 @@ export default function Cuenta () {
     { title: 'Direcciones', href: '/cuenta/direcciones', includeInHeader: false }
   ], [user?.rol, user?._id])
 
-  // Filter header options
-  const filteredHeaderOptions = useMemo(() =>
-    headerOptions.filter(
-      (option) =>
-        option.includeInHeader !== false &&
-        (option.condition === undefined || option.condition)
-    ), [headerOptions]
-  )
+
 
   // Update `actualOption` when path changes
   useEffect(() => {
@@ -131,10 +110,8 @@ export default function Cuenta () {
     <>
       <Header />
       <div className='account-dashboard'>
-        <HeaderCuenta options={filteredHeaderOptions} />
         <main className='main-content'>{user && renderPage()}</main>
       </div>
-      {console.log(user)}
       <Footer />
       <SideInfo />
       <ToastContainer />

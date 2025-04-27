@@ -80,5 +80,39 @@
     "actionUrl": "http://localhost:5173/libros/undefined",
     "expiresAt": "2026-04-24T15:21:31.078Z",
     "metadata": {}
+  },
+  {
+    "_id": "155fd0aa-e556-4ca9-aff8-a088d2abe665",
+    "title": "Tu libro ha sido rechazado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "sample-seller-id",
+    "input": "Nada que ver",
+    "createdIn": "2025-04-27T00:37:05.318Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/ff5eb29c-4239-4684-a1d3-f5a0506c8a95",
+    "expiresAt": "2025-05-27T00:37:05.318Z",
+    "metadata": {
+      "photo": "1729450515494-223105547.png",
+      "bookTitle": "Sample Book",
+      "bookId": "ff5eb29c-4239-4684-a1d3-f5a0506c8a95"
+    }
+  },
+  {
+    "_id": "657e08c2-4b4a-4a55-b36e-eb8a48e0c170",
+    "title": "Tu libro ha sido rechazado",
+    "priority": "normal",
+    "type": "bookRejected",
+    "userId": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
+    "input": "Nada que ver",
+    "createdIn": "2025-04-27T00:37:08.457Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/d96efa6b-2551-4398-88fc-4e832cc53ca7",
+    "expiresAt": "2025-05-27T00:37:08.457Z",
+    "metadata": {
+      "photo": "1745713687374-486348589.png",
+      "bookTitle": "Cien años de soledad",
+      "bookId": "d96efa6b-2551-4398-88fc-4e832cc53ca7"
+    }
   }
 ]

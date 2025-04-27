@@ -15,11 +15,13 @@ import './crearLibro.css'
 import { UserContext } from '../../context/userContext.jsx'
 import useSendForm from './useSendForm.js'
 import { cambiarEspacioAGuiones } from '../../assets/agregarMas.js'
+import { useReturnIfNoUser } from '../../assets/useReturnIfNoUser.js'
+
 export default function CrearLibro () {
   const navigate = useNavigate()
   // const user = useFetchUser('http://localhost:3030/api/users/userSession')
   const { user } = useContext(UserContext)
-
+  useReturnIfNoUser(user)
   const [form, setForm] = useState({})
   const [fase, setFase] = useState(1)
 
@@ -153,6 +155,7 @@ export default function CrearLibro () {
       return <Fase3 form={form} setForm={setForm} fase={fase} setFase={setFase} meanPrice={meanPrice} user={user} />
     }
   }
+
   return (
     <>
       <Header />

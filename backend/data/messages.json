@@ -438,5 +438,13 @@
     "conversationId": "276e6fe2-67a9-4b11-ab2b-06daea57d37e",
     "createdIn": "2025-04-24T13:40:28.898Z",
     "read": false
+  },
+  {
+    "_id": "66ed01a8-dbb5-43af-ab68-4c6b67a98a24",
+    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
+    "message": "¡Hola Alvaro Gómez! 😊\n    \n            Me interesa mucho el libro que estás ofreciendo: *Demasiado tarde para despertar*. ¿Podrías contarme un poco más al respecto? Aquí está el enlace del libro para que lo tengas a mano: \n            http://localhost:5173/libros/3cd4d6ad-df7c-4e0f-beb9-394de48ce33d\n    \n            ¡Muchas gracias de antemano! Espero tu respuesta. 😊",
+    "conversationId": "512e04be-4bea-4138-a6d9-5ce2e9e4bbd1",
+    "createdIn": "2025-04-26T23:03:59.441Z",
+    "read": false
   }
 ]
