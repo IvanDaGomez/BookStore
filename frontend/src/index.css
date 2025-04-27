@@ -198,10 +198,10 @@ input:focus{
 }
 
 .red {
-  color:  red
+  color:  red !important;
 }
 .accent {
-  color: var(--using4);
+  color: var(--using4) !important;
 }
 
 /*----------------------------------SCROLLBAR-----------------------------------------------*/

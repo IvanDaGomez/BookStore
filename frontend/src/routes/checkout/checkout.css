@@ -6,15 +6,16 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: var(--margin-big) auto;
+  margin: var(--margin-large) auto;
   padding: 20px;
   width:min(1000px, calc(100vw - 10px));
+  background: var(--using1);
   border: 1px solid var(--using4);
   border-radius: var(--border-radius);;
 }
 .checkoutContainer .cardContainer{
-  width:min(1000px, calc(100vw - 10px));
-  border-inline: none;
+  width:100%;
+  background: var(--using1);
   padding-left: 50px;
   box-shadow: none;
 }
@@ -34,27 +35,55 @@
   background: var(--using4);
   color: white;
 }
-.checkoutContainer .inputCrear{
+.checkoutContainer .inputCrear {
   width: 100%;
 }
-.checkoutContainer .inputCrear div{
+
+.checkoutContainer .inputCrear div {
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 5px; /* Add spacing between select and input */
 }
-.checkoutContainer .inputCrear #extension{
-  width: 80px;
-  height: calc(2rem + 15px);
-  max-height: 200px;
+
+.checkoutContainer .inputCrear select,
+.checkoutContainer .inputCrear input {
+  width: 100%;
+  height: 100%; /* Ensure consistent height */
   background: var(--using1);
   color: var(--using3);
   border: 2px solid var(--using2);
-  border-radius: var(--border-radius);;
+  border-radius: var(--border-radius);
   font-size: var(--font-size-medium);
   font-family: inherit;
-  margin: 1px;
+  padding: var(--padding-small);
+  box-sizing: border-box;
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+
+
+}
+.checkoutContainer .inputCrear select{
+  width: 10ch;
+
+}
+.checkoutContainer select{
+  padding-inline: 0;
+  min-height: var(--font-size-large);
+}
+.checkoutContainer .error{
+  width: 100%;
+  margin-top: var(--margin-medium);
+}
+.checkoutContainer .buttons{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--margin-medium);
+  margin-top: var(--margin-medium);
 }
 .paymentMethodsContainer{
   width: auto;
@@ -88,7 +117,9 @@
 .paymentMethodsContainer .svelte-101ibq7.mp-checkout-bricks__padding-3h33cf.extra-large-3dfJos{
   display: none;
 }
-
+.paymentMethodsContainer .svelte-r6lpve.mp-checkout-bricks__padding-b6ZkS2.extra-extra-large-3m8Ked{
+  display: none;
+}
 .paymentMethodsLabel{
   font-size: var(--font-size-large);
 
@@ -206,14 +237,23 @@
 .payWithBalance input.active{
   border-color: #009EE3;
 }
-.payWithBalance input.active::before{
+.payWithBalance input::before{
   content: '';
   position: absolute;
   width: calc(100% - 4px);
   height: calc(100% - 4px);
-  margin: var(--margin-small);
-  background: #009EE3;
-  border-color: #009EE3;
+  margin: 2px;
   border-radius: 50%;
+  transition: all .2s ease-in-out;
 }
 
+.payWithBalance input.active::before{
+  background: #009EE3;
+}
+.payWithBalance input:hover{
+  border-color: #009EE3;
+  &::before{
+    background: #009EE3;
+    opacity: 0.5;
+  }
+}

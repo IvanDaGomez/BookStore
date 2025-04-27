@@ -93,15 +93,10 @@ const MakeOneFrCard = ({ element, index, user = '' }) => {
             {reduceText(element.titulo, 50)}
           </h1>
 
-          {/* Estrellas de rating y número de reseñas
-        <div className="ratings">
-          <span className="ratingsStars accent">★★★★☆</span>
-          <span className="ratingsNumber">3,356</span>
-        </div> */}
 
           {/* Precio y oferta */}
           <div>
-            <div className='precioSections'>{(element.oferta) ? <><h2 style={{ display: 'inline' }}>${element.oferta.toLocaleString('es-CO')}</h2><h3 style={{ display: 'inline', marginLeft: '10px' }}><s>${element.precio.toLocaleString('es-CO')}</s></h3></> : <><h2>${element.precio.toLocaleString('es-CO')}</h2></>}
+            <div className='precioSections'>{(element.oferta) ? <><h2 className='red' style={{ display: 'inline' }}>${element.oferta.toLocaleString('es-CO')}</h2><h3 style={{ display: 'inline', marginLeft: '10px' }}><s>${element.precio.toLocaleString('es-CO')}</s></h3></> : <><h2 className='red'>${element.precio.toLocaleString('es-CO')}</h2></>}
             </div>
           </div>
 
@@ -111,7 +106,7 @@ const MakeOneFrCard = ({ element, index, user = '' }) => {
             <h2>{element.categoria}</h2>
           </div>
 
-          <div className='soldBy' style={{ fontSize: '14px', color: '#555' }}>
+          <div className='soldBy' style={{ fontSize: '14px' }}>
             Vendido por <span onClick={() => navigate(`/usuarios/${element.idVendedor}`)} className='accent'>{element.vendedor}</span>
           </div>
 

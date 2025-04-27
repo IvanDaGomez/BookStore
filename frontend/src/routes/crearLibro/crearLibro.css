@@ -600,7 +600,7 @@
   }
   .modal {
     position: absolute;
-    top: 0;
+    top: 50%;
     left: 0;
     pointer-events: none;     /* Allow clicks to pass through */
     width: 40ch;
@@ -616,7 +616,7 @@
     align-items: start;
     flex-direction: column;
     filter: opacity(0);
-    transform: translate(15px, -100%);
+    transform: translate(20px, -50%); /*8px + 5px from :before*/
     z-index: 1000;
     transition: all .2s ease-in-out;
     p{
@@ -627,5 +627,16 @@
       filter: opacity(1);
     
   }
+  .modal::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -5px;
+    transform: translate(-50%, -50%);
+    border-style: solid;
+    border-width: 8px 8px 8px 0;
+    border-color: transparent var(--using2) transparent transparent;
+  }
+  
 }
 

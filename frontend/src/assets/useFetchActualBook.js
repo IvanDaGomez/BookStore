@@ -16,7 +16,6 @@ export default function useFetchActualBook (bookId, externalSet = null, setActua
           headers: { 'update': id }, 
           withCredentials: true
         });
-  
         const book = response.data || {};
         setLibro(book);
         if (externalSet) {
@@ -40,5 +39,5 @@ export default function useFetchActualBook (bookId, externalSet = null, setActua
       fetchLibro(bookId)
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [bookId])
-  return { libro, loading, error };
+    return { libro, loading, error };
   }  
