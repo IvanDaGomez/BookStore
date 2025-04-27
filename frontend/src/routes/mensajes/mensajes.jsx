@@ -117,10 +117,12 @@ export default function Mensajes () {
 
   // -----------------------------------------------------------Teléfono---------------------------------------
   // slide when a conversation is active or not
+
   useEffect(() => {
-    if (activeConversation && isMobile) {
+    const messagesContainer = document.querySelector('.messagesContainer')
+    if (activeConversation && isMobile && messagesContainer) {
       document.querySelector('.messagesContainer').style.transform = 'translateX(-100vw)'
-    } else if (!activeConversation && isMobile) {
+    } else if (!activeConversation && isMobile && messagesContainer) {
       document.querySelector('.messagesContainer').style.transform = 'translateX(0)'
     }
   }, [activeConversation, isMobile])

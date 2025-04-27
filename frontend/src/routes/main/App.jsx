@@ -10,14 +10,13 @@ import { ToastContainer } from 'react-toastify'
 import CustomDesigns from '../../components/customDesigns.jsx'
 import Loader from '../../components/loader/loader.jsx'
 import GoogleOneTapLogin from '../../components/googleOneTap.jsx'
-import useLoadingScreen from './useLoadingScreen.js'
+import BigPhoto from './bigPhoto.jsx'
 
 function App () {
   const [notification, setNotification] = useState('')
   const { info } = useParams()
   useEffect(() => window.scrollTo(0, 0), [])
   useEffect(() => setNotification(info), [info])
-  const loading = useLoadingScreen()
 
   const slides = [{
       photo: '/customPlantilla1.png',
@@ -61,9 +60,10 @@ function App () {
   },[])
   return (
     <>
-      {loading && <Loader />}
+      <Loader />
       {renderNotification(notification)}
       <Header />
+      <BigPhoto />
       {/* <GoogleOneTapLogin /> */}
       <Carousel data={slides} />
 

@@ -8,7 +8,7 @@ export default function useFetchNotifications(user) {
         if (!user) return
         const url = 'http://localhost:3030/api/notifications/getNotificationsByUser/' + user._id
         const response = await axios.get(url)
-
+        console.log('response', response.data)
         setNotifications(response.data)
       }
       fetchNotifications()

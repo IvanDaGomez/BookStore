@@ -10,13 +10,13 @@
   .footerInfo{
     flex-direction: column;
     align-items: start;
-    font-size: var(--font-size-large);
+    font-size: var(--font-size-medium);
     padding-bottom: var(--padding-large);
   }
   
 }
 .footerInfo span, .footerInfo a{
-  font-size: var(--font-size-large);
+  font-size: var(--font-size-medium);
 }
 
 .footerInfo div{
@@ -27,8 +27,8 @@
 }
 
 .footerInfo svg{
-  width: var(--font-size-large);
-  height: var(--font-size-large);
+  width: var(--font-size-medium);
+  height: var(--font-size-medium);
 }
 .footerInfo .allRightsReserved{
   width: 30vw;
