@@ -1,6 +1,5 @@
 async function createNotification (notification) {
   const url = 'http://localhost:3030/api/notifications/'
-  console.log(JSON.stringify(notification))
   const response = await fetch(url, {
     method: 'POST',
     headers: {

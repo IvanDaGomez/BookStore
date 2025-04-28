@@ -143,6 +143,6 @@ export interface ITransactionsModel {
   createFailureTransaction (data: Partial<TransactionObjectType>): Promise<TransactionObjectType>
   deleteTransaction (id: number): Promise<{ message: string }>
   updateTransaction (id: number, data: Partial<TransactionObjectType>): Promise<TransactionObjectType>
-  getBookByTransactionId (id: string): Promise<TransactionObjectType>
+  getBookByTransactionId (id: string): Promise<BookObjectType>
   // Add other methods from TransactionsModel as needed
 }

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useState } from 'react'
-import Loader from './loader'
+import Loader from '../../components/loader/loader'
 
 export default function EnviarCorreoCambiarContraseña () {
   const [emailSent, setEmailSent] = useState(false)

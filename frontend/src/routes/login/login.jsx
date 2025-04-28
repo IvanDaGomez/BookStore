@@ -4,8 +4,6 @@ import { ToastContainer } from 'react-toastify'
 import GoogleLogin from './googleLogin'
 import { LoginSocialFacebook } from 'reactjs-social-login'
 import handleFacebookSubmit from './facebookLogin'
-import Loader from '../cambiarContraseña/loader.jsx'
-import '../cambiarContraseña/loader.css'
 import { quotes } from './quotes.js'
 import useUpdateBreakpoint from '../../assets/useUpdateBreakPoint.js'
 import { desktopBreakpoint } from '../../assets/config.js'
@@ -13,6 +11,7 @@ import SubmitForm from './submitForm.jsx'
 import { handleGoogleSubmit } from './handleGoogleSubmit.js'
 import { handleSubmit } from './handleSubmitForm.js'
 import './login.css'
+import Loader from '../../components/loader/loader.jsx'
 export default function Login () {
 
   const [quote] = useState(quotes[Math.floor(Math.random() * quotes.length)])

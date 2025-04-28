@@ -38,9 +38,9 @@ export type PartialUserInfoType = {
     [key: string]: number
   }
   balance: {
-    pendiente?: number
-    disponible?: number
-    porLlegar?: number
+    pendiente: number
+    disponible: number
+    porLlegar: number
   }
 }
 type LocationType = {

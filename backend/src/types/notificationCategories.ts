@@ -4,6 +4,7 @@ type PriorityType = typeof priorityArr[number]
 const notificationTypeArr = [  
     'newMessage',
     'bookUpdated',
+    'bookBought',
     'bookPublished',
     'bookRejected',
     'questionAnswered',

@@ -70,7 +70,7 @@ export const createApp = ({
   app.use('/optimized', express.static(optimizedDir))
 
   app.use('/api/books', createBooksRouter({ BooksModel, UsersModel }))
-  app.use('/api/users', createUsersRouter({ UsersModel, TransactionsModel }))
+  app.use('/api/users', createUsersRouter({ UsersModel, TransactionsModel, BooksModel }))
   app.use('/api/messages', createMessagesRouter({ MessagesModel, ConversationsModel }))
   app.use('/api/conversations', createConversationsRouter({ ConversationsModel, UsersModel }))
   app.use('/api/notifications', createNotificationsRouter({ NotificationsModel, UsersModel }))

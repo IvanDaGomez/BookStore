@@ -62,7 +62,8 @@ async function CreateOrdenDeEnvíoEnvía (ordenData: {
   dimensiones: number[]
   valorDeclarado: number
   tipoEnvio?: string
-}) {
+}): Promise<any> {
+  return {}
   const url = 'https://api.envia.com/v1/create-order' // Reemplazar por URL real.
   const apiToken = 'TU_API_TOKEN' // Proporcionado por Envia.
 

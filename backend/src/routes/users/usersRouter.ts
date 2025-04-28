@@ -1,16 +1,18 @@
 import { RequestHandler, Router } from 'express'
 import { UsersController } from '../../controllers/users/usersController.js'
 import { upload } from '../../assets/config.js'
-import { ITransactionsModel, IUsersModel } from '../../types/models.js'
+import { IBooksModel, ITransactionsModel, IUsersModel } from '../../types/models.js'
 
 export const createUsersRouter = ({
   UsersModel,
-  TransactionsModel
+  TransactionsModel,
+  BooksModel
 }: {
   UsersModel: IUsersModel
   TransactionsModel: ITransactionsModel
+  BooksModel: IBooksModel
 }) => {
-  const usersController = new UsersController({ UsersModel, TransactionsModel })
+  const usersController = new UsersController({ UsersModel, TransactionsModel, BooksModel })
   const usersRouter = Router()
 
   usersRouter.get('/', usersController.getAllUsersSafe as RequestHandler) // R
@@ -59,6 +61,10 @@ export const createUsersRouter = ({
   usersRouter.post(
     '/process_payment',
     usersController.processPayment as RequestHandler
+  )
+  usersRouter.post(
+    '/pay-with-balance',
+    usersController.payWithBalance as RequestHandler
   )
   usersRouter.post(
     '/getPreferenceId',

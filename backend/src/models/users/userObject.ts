@@ -35,10 +35,10 @@ function userObject(name: UserInfoType | Partial<UserInfoType>, fullInfo = false
       coleccionsIds: name.coleccionsIds ?? [],
       preferencias: name.preferencias ?? {},
       historialBusquedas: name.historialBusquedas ?? {},
-      balance: name.balance ?? {
-        pendiente: 0,
-        disponible: 0,
-        porLlegar: 0
+      balance: {
+        pendiente: name.balance?.pendiente ?? 0,
+        disponible: name.balance?.disponible ?? 0,
+        porLlegar: name.balance?.porLlegar ?? 0
       },
       librosVendidos: name.librosVendidos ?? [],
     };
@@ -70,11 +70,11 @@ function userObject(name: UserInfoType | Partial<UserInfoType>, fullInfo = false
       coleccionsIds: name.coleccionsIds ?? [],
       preferencias: name.preferencias ?? {},
       historialBusquedas: name.historialBusquedas ?? {},
-      balance: name.balance ?? {
-        pendiente: 0,
-        disponible: 0,
-        porLlegar: 0
-      }
+      balance: {
+        pendiente: name.balance?.pendiente ?? 0,
+        disponible: name.balance?.disponible ?? 0,
+        porLlegar: name.balance?.porLlegar ?? 0
+      },
     };
     return partialAnswer;
   }

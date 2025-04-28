@@ -9,7 +9,6 @@ import { createNotification } from '../../assets/notifications/createNotificatio
 import { sendNotification } from '../../assets/notifications/sendNotification.js'
 // eslint-disable-next-line no-unused-vars
 import { CreateOrdenDeEnvío } from '../../assets/createOrdenDeEnvio.js'
-import { handlePaymentResponse } from '../../assets/handlePaymentResponse.js'
 import { validateSignature } from '../../assets/validateSignature.js'
 import { processPaymentResponse } from './processPaymentResponse.js'
 import {
@@ -22,24 +21,30 @@ import {
 import express from 'express'
 import { cambiarGuionesAEspacio } from '../../assets/agregarMas.js'
 import { PartialUserInfoType, UserInfoType } from '../../types/user.js'
-import { ID, ImageType } from '../../types/objects.js'
-import { IUsersModel } from '../../types/models.js'
+import { ID, ImageType, ISOString } from '../../types/objects.js'
+import { IBooksModel, ITransactionsModel, IUsersModel } from '../../types/models.js'
 import { AuthToken } from '../../types/authToken.js'
+import { sendProcessPaymentEmails } from './sendProcessPaymentEmails.js'
+import { TransactionObjectType } from '../../types/transaction.js'
+import { createMercadoPagoPayment } from './createMercadoPagoPayment.js'
 const SECRET_KEY: string = process.env.JWT_SECRET ?? ''
 export class UsersController {
   private UsersModel: IUsersModel
-  private TransactionsModel: any
-
+  private TransactionsModel: ITransactionsModel
+  private BooksModel: IBooksModel
   constructor ({
     UsersModel,
-    TransactionsModel
+    TransactionsModel,
+    BooksModel
   }: {
     UsersModel: IUsersModel
-    TransactionsModel: any
+    TransactionsModel: ITransactionsModel,
+    BooksModel: IBooksModel
   }) {
     this.UsersModel = UsersModel as typeof UsersModel
     this.TransactionsModel = TransactionsModel as typeof TransactionsModel
     this.TransactionsModel = TransactionsModel
+    this.BooksModel = BooksModel
   }
 
   getAllUsers = async (
@@ -233,7 +238,7 @@ export class UsersController {
       await sendEmail(
         `${data.nombre} ${data.correo}`,
         'Bienvenido a Meridian!',
-        createEmail(data, 'thankEmail')
+        createEmail({ user }, 'thankEmail')
       )
       // Enviar notificación de bienvenida
       await sendNotification(createNotification(data, 'welcomeUser'))
@@ -376,8 +381,17 @@ export class UsersController {
       const validationCode = Math.floor(100000 + Math.random() * 900000)
 
       // Prepare the email content
+      const validated = data.validated === 'true'
       const emailContent = createEmail(
-        { ...data, validationCode },
+        { 
+          user: {
+            ...data, 
+            validated
+          }, 
+          metadata: {
+            validationCode
+          } 
+        },
         'validationEmail'
       )
 
@@ -464,7 +478,7 @@ export class UsersController {
 
       const validationLink = `${process.env.FRONTEND_URL}/opciones/cambiarContraseña/${token}`
       const emailContent = createEmail(
-        { validationLink, nombre: user.nombre },
+        { user, metadata: { validationLink } },
         'changePassword'
       )
 
@@ -551,82 +565,189 @@ export class UsersController {
     res: express.Response,
     next: express.NextFunction
   ): Promise<express.Response | void> => {
+    /*
+    TODO: Sequelize transaction
+    Steps
+    1. Registrar el pago en la base de datos
+    2. Actualizar el saldo del usuario y vendedor
+    3. Cambiar la disponibilidad del libro a vendido
+    4. Crear la orden de envío
+    4. Crear la transacción
+    5. Enviar notificación al vendedor y comprador
+    6. Enviar correo al vendedor y comprador
+    7. Devolver el resultado
+    */
     try {
       const {
         sellerId,
         userId,
-        book,
+        bookId,
         shippingDetails,
         transaction_amount,
         application_fee,
         ...data
       } = req.body
-      if (!sellerId || !userId || !book || !shippingDetails) {
+      if (!sellerId || !userId || !bookId || !shippingDetails) {
         return res
           .status(400)
           .json({ error: 'Faltan datos requeridos en la solicitud' })
       }
 
-      const XidempotencyKey = randomUUID()
+      const [user, seller, book] = await Promise.all([
+        this.UsersModel.getUserById(userId),
+        this.UsersModel.getUserById(sellerId),
+        this.BooksModel.getBookById(bookId)
+      ])     
       const client = new MercadoPagoConfig({
         accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN ?? ''
       })
       // Hay que agregar el precio del domicilio si aplica
       const payment = new Payment(client)
       // Configuración del pago con split payments
-      const response = await payment.create({
-        body: {
-          transaction_amount, // Monto total de la transacción
-          payment_method_id: data.payment_method_id,
-          payer: data.payer,
-          description: data.description,
-          installments: data.installments || 1,
-          token: data.token || null,
-          issuer_id: data.issuer_id || null,
-          additional_info: data.additional_info || {},
-          callback_url: data.callback_url || null,
-          application_fee: application_fee || 0, // Tarifa de la aplicación
-          /* marketplace: {
-            collector_id: process.env.MERCADOPAGO_COLLECTOR_ID // ID de tu cuenta colectora principal
-          }, */
-          external_reference: `book_${book._id}_${userId}`, // Referencia para identificar el pago
-          notification_url: `${process.env.BACKEND_DOMAIN}/api/users/mercadoPagoWebHooks?source_news=webhooks` // Webhook para notificaciones
-          /* payments: [
-            {
-              collector_id: sellerId, // ID de la página de gestiones
-              amount: transaction_amount - application_fee, // Lo que queda para el vendedor
-              payment_method_id: data.payment_method_id
-            },
-            {
-              collector_id: marketplaceCollectorId, // ID del marketplace (comisiones)
-              amount: application_fee, // Comisión del marketplace
-              payment_method_id: data.payment_method_id
-            }
-          ] */
-        },
-        requestOptions: { idempotencyKey: XidempotencyKey }
-      })
-
-      const result = handlePaymentResponse({
-        ...response,
-        sellerId,
-        userId,
+      const info = createMercadoPagoPayment({
+        ...req.body,
         book,
-        shippingDetails
+        userId,
+        data,
+        transaction_amount,
+        application_fee
       })
-      await processPaymentResponse({
+      console.dir(info, { depth: null })
+      const response = await payment.create(info)
+
+      const result = await processPaymentResponse({
         result: response,
         sellerId,
         book,
         data,
         res
       })
-      res.json(result)
+
+
+      // Actualizar el saldo del usuario y vendedor
+      // I dont update the user balance because if the payment is with mercadopago, the user balance is not updated
+      await Promise.all([
+        this.UsersModel.updateUser(sellerId, {
+          balance: {
+            porLlegar: (seller.balance.porLlegar ?? 0) + transaction_amount
+          }
+        }),
+        this.BooksModel.updateBook(bookId, {
+          disponibilidad: 'Vendido'
+        })
+      ])
+      // PENDIENTE
+      const order = await CreateOrdenDeEnvío({
+        ...shippingDetails,
+        seller
+      })
+      // Crear la transacción
+      // TODO
+      const transaction = await this.TransactionsModel.createSuccessfullTransaction({
+        userId,
+        bookId: book._id,
+        shippingDetails,
+        transaction_amount,
+        status: 'approved'
+      })
+      // Enviar notificaciones y correos al vendedor y comprador
+      await sendProcessPaymentEmails({
+        user,
+        seller,
+        book,
+        transaction,
+        shippingDetails
+      })
+      res.json({ message: 'Pago exitoso', result })
     } catch (err) {
-      next(err)
+      res.status(500).json({
+        error: 'Error al procesar el pago',
+        details: err
+      })
     }
   }
+  payWithBalance = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
+    /*
+    TODO: Sequelize transaction
+    Steps
+    1. Verificar que el usuario tenga saldo suficiente
+    2. Buscar el libro por ID
+    2. Actualizar el saldo del usuario y vendedor
+    3. Cambiar la disponibilidad del libro a vendido
+    4. Crear la orden de envío
+    4. Crear la transacción
+    5. Enviar notificación al vendedor y comprador
+    6. Enviar correo al vendedor y comprador
+    7. Devolver el resultado
+    */
+    try {
+      // const transaction = sequelize.transaction()
+      const { userId, sellerId, transaction_amount, bookId, shippingDetails } = req.body as TransactionObjectType
 
+      if (!userId || !transaction_amount || !bookId) {
+        return res.status(400).json({ error: 'Faltan datos requeridos' })
+      }
+            // Actualizar el saldo del usuario y vendedor
+      const [user, seller, book] = await Promise.all([
+        this.UsersModel.getUserById(userId),
+        this.UsersModel.getUserById(sellerId),
+        this.BooksModel.getBookById(bookId)
+      ])
+      
+      // Verificar que el usuario tenga saldo suficiente
+      if (user.balance.disponible < transaction_amount) {
+        return res.status(400).json({ error: 'Saldo insuficiente' })
+      }
+      // Actualizar el saldo del usuario y vendedor
+      const [updatedUser, updatedSeller, updatedBook] = await Promise.all([
+        this.UsersModel.updateUser(userId, {
+          balance: {
+            disponible: user.balance.disponible - transaction_amount
+          }
+        }),
+        this.UsersModel.updateUser(sellerId, {
+          balance: {
+            porLlegar: (seller.balance.porLlegar ?? 0) + transaction_amount
+          }
+        }),
+        this.BooksModel.updateBook(bookId, {
+          disponibilidad: 'Vendido'
+        })
+      ])
+      // PENDIENTE
+      const order = await CreateOrdenDeEnvío({
+        ...shippingDetails
+
+      })
+      // Crear la transacción
+      // TODO
+      const transaction = await this.TransactionsModel.createSuccessfullTransaction({
+        userId,
+        bookId,
+        shippingDetails,
+        transaction_amount,
+        status: 'approved'
+      })
+      // Enviar notificaciones y correos al vendedor y comprador
+      await sendProcessPaymentEmails({
+        user: updatedUser,
+        seller: updatedSeller,
+        book,
+        transaction,
+        shippingDetails
+      })
+      res.json({ message: 'Pago exitoso' })
+    } catch (err) {
+      res.status(500).json({
+        error: 'Error al procesar el pago',
+        details: err
+      })
+    }
+  }
   MercadoPagoWebhooks = async (
     req: express.Request,
     res: express.Response,
@@ -653,75 +774,45 @@ export class UsersController {
         status: 'error',
         message: 'Error al procesar el pago'
       }
-      if (type === 'payment') {
-        const data = await payment.get({ id: paymentData.id })
-        /* Modelo de respuesta
-        https://www.mercadopago.com.co/developers/es/reference/payments/_payments_id/get
-        {
-          id,
-          date_created,
-          date_approved,
-          date_last_updated,
-          date_of_expiration,
-          money_release_date,
-          operation_type,
-          issuer_id,
-          payment_method_id,
-          payment_type_id,
-          status,
-          status_detail,
-          currency_id,
-          description,
-          live_mode,
-          sponsor_id,
-          authorization_code,
-          money_release_schema,
-          counter_currency,
-          collector_id,
-          payer,
-          metadata,
-          additional_info,
-          external_reference,
-          transaction_amount,
-          transaction_amount_refunded,
-          coupon_amount,
-          differential_pricing_id,
-          deduction_schema,
-          transaction_details,
-          captures,
-          binary_mode,
-          call_for_authorize_id,
-          statement_descriptor,
-          card,
-          notification_url,
-          proccessing_mode,
-          merchant_account_id,
-          acquirer,
-          merchant_number
-        }
-        */
-        // Verificar si ya se procesó esta transacción
-        const existingTransaction =
-          await this.TransactionsModel.getTransactionById(data.id)
-        if (existingTransaction) {
-          console.log('Webhook: transacción ya procesada:', data.id)
-          return res.status(200).json({ status: 'success' })
-        }
+      // if (type === 'payment') {
+      //   const data = await payment.get({ id: paymentData.id })
+ 
+      //   // Verificar si ya se procesó esta transacción
+      //   const existingTransaction =
+      //     await this.TransactionsModel.getTransactionById(data.id ?? '')
+      //   if (existingTransaction) {
+      //     console.log('Webhook: transacción ya procesada:', data.id)
+      //     return res.status(200).json({ status: 'success' })
+      //   }
 
-        const book = await this.TransactionsModel.getBookByTransactionId(
-          paymentData.id
-        )
-        paymentResponse = await processPaymentResponse({
-          result: data,
-          sellerId: book.idVendedor,
-          book,
-          data,
-          res
-        })
-      }
+      //   const book = await this.TransactionsModel.getBookByTransactionId(
+      //     paymentData.id
+      //   )
+      //   paymentResponse = await processPaymentResponse({
+      //     result: data,
+      //     sellerId: book.idVendedor,
+      //     book,
+      //     data,
+      //     res
+      //   })
+      // }
 
       res.status(200).json(paymentResponse)
     } catch (err) {
+      next(err)
+    }
+  }
+  shippingWebhook = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
+    try {
+      const { type } = req.query
+      const data = req.body
+
+    } 
+    catch (err) {
       next(err)
     }
   }

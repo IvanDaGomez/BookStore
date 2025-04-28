@@ -1,5 +1,9 @@
 import dotenv from 'dotenv'
 import { ISOString } from '../../types/objects'
+import { BookObjectType } from '../../types/book'
+import { UserInfoType } from '../../types/user'
+import { TransactionObjectType } from '../../types/transaction'
+import { Barcode } from 'mercadopago/dist/clients/payment/commonTypes'
 dotenv.config()
 
 const styles = `
@@ -78,28 +82,19 @@ type emailToSendType =
   | 'bookSold'
   | 'efectyPendingPayment'
 function createEmail (data: {
-  nombre: string
-  vendedor?: string
-  titulo?: string
-  pregunta?: string
-  validationCode?: number
-  validationLink?: string
-  _id?: string
-  transaction_amount?: number
-  paymentDetails?: {
-    amount: number
-    method: string
+  book?: Partial<BookObjectType>
+  user?: UserInfoType | Partial<UserInfoType>
+  seller?: Partial<UserInfoType>
+  transaction?: Partial<TransactionObjectType>
+  shippingDetails?: any
+  metadata?: {
+    guia?: string
+    validationCode?: number
+    validationLink?: string
+    barcode?: Barcode
+    date_of_expiration?: string
   }
-  guia?: string
-  nombreVendedor?: string
-  date_of_expiration?: Date
-  barcode?: {
-    content: string
-  }
-  fecha?: ISOString
-  guía?: string 
-
-}, template: emailToSendType) {
+}, template: emailToSendType): string {
   switch (template) {
     case 'thankEmail': {
       return `
@@ -115,7 +110,7 @@ function createEmail (data: {
                 <img src='${process.env.LOGO_URL}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
               <header>
               <h1>Gracias por unirte a Meridian!</h1>
-              <p>Hola <strong>${data.nombre}</strong>,</p>
+              <p>Hola <strong>${data.user?.nombre ?? ''}</strong>,</p>
               <p>Nos emociona que hayas decidido ser parte de nuestra comunidad de amantes de libros! En Meridian, creemos en el poder de los libros para inspirar, educar y entretener. 
               En nuestro catálogo podrás encontrar todos los libros que necesites, en un sólo lugar.</p>
               <p>Como miembro nuevo, tendrás acceso a todo el catálogo de libros, noticias y colecciones que sabremos que te encantarán.</p>
@@ -143,11 +138,11 @@ function createEmail (data: {
                 <img src='${process.env.LOGO_URL}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
               </div>
               <h1>Tu libro ha sido publicado con éxito!</h1>
-              <p>Hola <strong>${data.vendedor}</strong>,</p>
-              <p>Felicidades! Tu libro "<strong>${data.titulo}</strong>" ha sido publicado exitosamente en nuestra plataforma.</p>
+              <p>Hola <strong>${data.book?.vendedor ?? ''}</strong>,</p>
+              <p>Felicidades! Tu libro "<strong>${data.book?.titulo ?? ''}</strong>" ha sido publicado exitosamente en nuestra plataforma.</p>
               <p>Estamos emocionados de compartir tu publicación con nuestros amantes de libros!. TU libro ya se puede buscar y está listo para ser vendido.</p>
               <p>Puedes ver tu libro aquí:</p>
-              <a href="${process.env.FRONTEND_URL}/libros/${data._id}"><div class='button'>Ver libro</div></a>
+              <a href="${process.env.FRONTEND_URL}/libros/${data.book?._id ?? ''}"><div class='button'>Ver libro</div></a>
               <div class="footer">
               <p>Si tienes preguntas o necesitas asistencia, contáctate con <a href="mailto:support@meridianbookstore.com">nosotros</a>.</p>
               </div>
@@ -156,34 +151,34 @@ function createEmail (data: {
         </html>
         `
     }
-    case 'newQuestion': {
-      return `
-      <html>
-            <head>
-            <style>
-                ${styles}
-            </style>
-            </head>
-            <body>
-              <div class='container'>
-                <div class='header'>
-                  <img src='${process.env.LOGO_URL}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
-                </div>
-                <h1>Tienes una nueva pregunta!</h1>
-                <p>Hola <strong>${data.vendedor}</strong>,</p>
-                <p>Un usuario tiene una pregunta sobre tu libro:</p>
-                <blockquote>
-                  <p>${data.pregunta}</p>
-                </blockquote>
-                <p>Puedes responder a esta pregunta haciendo clic en el siguiente enlace:</p>
-                <p><a href="${process.env.FRONTEND_URL}/notificaciones/${data._id}">Responder pregunta</a></p>
-                <p>Si tienes otras preguntas o necesitas asistencia, puedes responder a este correo o contactarnos <a href="mailto:support@meridianbookstore.com">aquí</a>.</p>
-              </div>
+    // case 'newQuestion': {
+    //   return `
+    //   <html>
+    //         <head>
+    //         <style>
+    //             ${styles}
+    //         </style>
+    //         </head>
+    //         <body>
+    //           <div class='container'>
+    //             <div class='header'>
+    //               <img src='${process.env.LOGO_URL}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
+    //             </div>
+    //             <h1>Tienes una nueva pregunta!</h1>
+    //             <p>Hola <strong>${data.vendedor}</strong>,</p>
+    //             <p>Un usuario tiene una pregunta sobre tu libro:</p>
+    //             <blockquote>
+    //               <p>${data.pregunta}</p>
+    //             </blockquote>
+    //             <p>Puedes responder a esta pregunta haciendo clic en el siguiente enlace:</p>
+    //             <p><a href="${process.env.FRONTEND_URL}/notificaciones/${data._id}">Responder pregunta</a></p>
+    //             <p>Si tienes otras preguntas o necesitas asistencia, puedes responder a este correo o contactarnos <a href="mailto:support@meridianbookstore.com">aquí</a>.</p>
+    //           </div>
 
-            </body>
-        </html>
-      `
-    }
+    //         </body>
+    //     </html>
+    //   `
+    // }
     case 'validationEmail': {
       return `
       <html>
@@ -198,9 +193,9 @@ function createEmail (data: {
                   <img src='${process.env.LOGO_URL}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
                 </div>
                 <h1>¡Validación de cuenta requerida!</h1>
-                <p>Hola <strong>${data.nombre}</strong>,</p>
+                <p>Hola <strong>${data.user?.nombre ?? ''}</strong>,</p>
                 <p>¡Gracias por registrarte en Meridian Bookstore!</p>
-                <p>El código de verificación es ${data.validationCode}</p>
+                <p>El código de verificación es ${data.metadata?.validationCode}</p>
                 <hr/>
                 <<p>Si no te registraste en Meridian Bookstore, ignora este correo o contáctanos para informarnos.</p>>
                 <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en responder a este correo o <a href="mailto:support@meridianbookstore.com">contactarnos aquí</a>.</p>
@@ -223,10 +218,10 @@ function createEmail (data: {
                   <img src='${process.env.LOGO_URL}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
                 </div>
                 <h1>Solicitud para Cambiar Contraseña</h1>
-                <p>Hola <strong>${data.nombre}</strong>,</p>
+                <p>Hola <strong>${data.user?.nombre ?? ''}</strong>,</p>
                 <p>Hemos recibido una solicitud para cambiar la contraseña de tu cuenta en Meridian Bookstore.</p>
                 <p>Por favor, pulsa el siguiente botón para completar el proceso de cambio de contraseña:</p>
-                <a href='${data.validationLink}'><div class='button'>Cambiar Contraseña</div></a>
+                <a href='${data.metadata?.validationLink}'><div class='button'>Cambiar Contraseña</div></a>
                 <p>Este código es válido por 15 minutos.</p>
                 <hr/>
                 <p>Si no solicitaste este cambio, ignora este correo o contáctanos para informarnos.</p>
@@ -256,7 +251,7 @@ function createEmail (data: {
               <table>
                 <tr>
                   <td><strong>ID de la Transacción:</strong></td>
-                  <td>${data._id}</td>
+                  <td>${data.transaction?._id}</td>
                 </tr>
                 <tr>
                   <td><strong>Fecha:</strong></td>
@@ -271,11 +266,11 @@ function createEmail (data: {
                 </tr>
                 <tr>
                   <td><strong>Monto:</strong></td>
-                  <td>$${data.paymentDetails?.amount ?? 'N/A'}</td>
+                  <td>$${data.transaction?.paymentDetails?.amount ?? 'N/A'}</td>
                 </tr>
                 <tr>
                   <td><strong>Método de pago:</strong></td>
-                  <td>${data.paymentDetails?.method ?? 'N/A'}</td>
+                  <td>${data.transaction?.paymentDetails?.method ?? 'N/A'}</td>
                 </tr>
               </table>
               <p>Gracias por tu confianza en ${process.env.BRAND_NAME}.</p>
@@ -303,7 +298,7 @@ function createEmail (data: {
             </div>
             <main>
               <h1>¡Gracias por tu Compra!</h1>
-              <p>Hola,</p>
+              <p>Hola,${data.user?.nombre}</p>
               <p>Queremos agradecerte por realizar tu compra con ${process.env.BRAND_NAME}. Tu pago ha sido confirmado.</p>
               <p>Pronto recibirás más información sobre tu pedido.</p>
               <p>Si necesitas más ayuda, por favor contáctanos.</p>
@@ -332,13 +327,13 @@ function createEmail (data: {
             </div>
             <main>
               <h1>¡Tu libro se ha vendido!</h1>
-              <p>Hola,</p>
-              <p>Nos complace informarte que tu libro <strong>${data.titulo}</strong> ha sido vendido exitosamente en ${process.env.BRAND_NAME}.</p>
+              <p>Hola, ${data.user?.nombre}</p>
+              <p>Nos complace informarte que tu libro <strong>${data.book?.titulo}</strong> ha sido vendido exitosamente en ${process.env.BRAND_NAME}.</p>
               <p>Por favor, prepáralo para el envío lo antes posible y llévalo al punto de "Empresa" más cercano. Aquí tienes algunos detalles importantes:</p>
               <ul>
-                <li><strong>Comprador:</strong> ${data.nombreVendedor}</li>
-                <li><strong>Guía de envío:</strong> ${data.guía ?? ''}</li>
-                <li><strong>Fecha de la compra:</strong> ${new Date(data.fecha ?? '').toLocaleString('es-CO', {
+                <li><strong>Comprador:</strong> ${data.seller?.nombre}</li>
+                <li><strong>Guía de envío:</strong> ${data.metadata?.guia ?? ''}</li>
+                <li><strong>Fecha de la compra:</strong> ${new Date(data.transaction?.createdIn ?? '').toLocaleString('es-CO', {
                   weekday: 'long',
                   year: 'numeric',
                   month: 'long',
@@ -376,8 +371,8 @@ function createEmail (data: {
               <p>Para completar tu pedido, debes realizar el pago en cualquier sucursal de <strong>Efecty</strong>.</p>
               <p>Indica al operador de Efecty que deseas realizar un pago y proporciona el código de pago junto con el monto exacto.</p>
                   <ul>
-                    <li><strong>Monto a pagar:</strong> $${data.transaction_amount}</li>
-                    <li><strong>Vencimiento:</strong> ${new Date(data.date_of_expiration ?? '').toLocaleString('es-CO', {
+                    <li><strong>Monto a pagar:</strong> $${data.transaction?.transaction_amount}</li>
+                    <li><strong>Vencimiento:</strong> ${new Date(data.metadata?.date_of_expiration ?? '').toLocaleString('es-CO', {
                       weekday: 'long',
                       year: 'numeric',
                       month: 'long',
@@ -387,7 +382,7 @@ function createEmail (data: {
                     })}</li>
                   </ul>
                   <p>
-                    Presenta este código de pago en el punto de Efecty: <strong>${data.barcode?.content}</strong>
+                    Presenta este código de pago en el punto de Efecty: <strong>${data.metadata?.barcode?.content}</strong>
                   </p>
               <p>Si necesitas ayuda con el proceso de envío o tienes alguna pregunta, no dudes en contactarnos.</p>
             </main>
@@ -400,6 +395,9 @@ function createEmail (data: {
         </body>
       </html>
       `
+    }
+    default: {
+      return ''
     }
   }
 }

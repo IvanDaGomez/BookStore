@@ -1,7 +1,8 @@
 import { ISOString } from "../../types/objects"
 import { TransactionObjectType } from "../../types/transaction"
 
-const transactionObject = (data: Partial<TransactionObjectType>): TransactionObjectType => {
+// TODO: Cambiar el tipo de shippingDetails
+const transactionObject = (data: any): TransactionObjectType => {
   return {
     _id: data._id ?? 0, // ID único de la transacción
     userId: data.userId ?? crypto.randomUUID(), // ID del usuario que realiza la compra
@@ -12,7 +13,7 @@ const transactionObject = (data: Partial<TransactionObjectType>): TransactionObj
     charges_details: data.charges_details || [],
     paymentLink: data?.paymentDetails?.paymentLink || '',
     transactionId: data.transactionId || '', // ID de la transacción en la plataforma de Efecty
-    amount: data?.paymentDetails?.amount || 0, // Monto de la transacción
+    transaction_amount: data?.paymentDetails?.transaction_amount || 0, // Monto de la transacción
     paymentMethod: data?.paymentDetails?.method,
     installments: data.installments || 1,
     card: data.card || {},

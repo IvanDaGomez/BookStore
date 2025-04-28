@@ -263,19 +263,19 @@ export class BooksController {
       Si no se encuentra el libro, se envía un error 500.
       Se valida el libro y se envía una notificación al vendedor.
     */
-   console.log('reqBody:', req.body)
+
     let data: BookObjectType = req.body
     try {
       data = prepareCreateBookData(data, req)
-      console.log('check1')
+
       const validated = validateBook(data)
       if (!validated.success) {
         return res.status(400).json({ error: validated.error })
       }
-      console.log('check2')
+
       // Recibe el usuario para actualizar sus librosIds
       const user = await this.UsersModel.getUserById(data.idVendedor)
-      console.log('check3')
+
       // Turn user to Vendedor if not already
       if (user.rol === 'usuario') {
         user.rol = 'vendedor'
@@ -284,21 +284,21 @@ export class BooksController {
         librosIds: [...(user.librosIds ?? []), data._id],
         rol: user.rol
       })
-      console.log('check4')
+
       const book = await this.BooksModel.createBook(data)
       const notificationData = {}
       await sendNotification(
         createNotification(notificationData, 'bookPublished')
       )
-      console.log('check5')
+
       const correo = await this.UsersModel.getEmailById(data.idVendedor)
 
       await sendEmail(
         `${data.vendedor} ${correo.correo}`,
         'Libro publicado con éxito',
-        createEmail({ nombre: data.titulo, ...data}, 'bookPublished')
+        createEmail({ book }, 'bookPublished')
       )
-      console.log('check6')
+
       res.json(book)
     } catch (err) {
       next(err)
@@ -378,7 +378,7 @@ export class BooksController {
 
       for (const scrapeFunction of scrapingFunctions) {
         const result = await scrapeFunction(page, bookTitle)
-        results = [...results, ...result]
+        results.push(...result)
       }
 
       await browser.close()

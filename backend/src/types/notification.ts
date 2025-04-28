@@ -16,6 +16,7 @@ export type NotificationType = {
   metadata?: {
     photo?: ImageType
     bookTitle?: string
+    guia?: string
     bookId?: ID
   }
 }
