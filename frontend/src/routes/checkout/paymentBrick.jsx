@@ -52,7 +52,7 @@ function PaymentBrick ({ libro, preferenceId, user, form, setFase }) {
               </div>
               <div>
                 <h2>Pagar con mi balance</h2>
-                <h3>Balance disponible: ${user?.balance ?? 0}</h3>
+                <h3>Balance disponible: ${user?.balance?.disponible ?? 0}</h3>
               </div>
             </div>
 
@@ -86,7 +86,8 @@ function PaymentBrick ({ libro, preferenceId, user, form, setFase }) {
                           atm: 'all'
                         }
                       }}
-                      onSubmit={(formData) => onSubmit({ 
+                      onSubmit={({ selectedPaymentMethod, formData }) => onSubmit({ 
+                        selectedPaymentMethod,
                         formData,
                         form,
                         libro,

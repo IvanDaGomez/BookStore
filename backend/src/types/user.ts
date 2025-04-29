@@ -58,7 +58,6 @@ export type UserInfoType = {
   contraseña: string
   direccionEnvio?: LocationType[]
   librosIds: ID[]
-  librosVendidos: ID[]
   estadoCuenta: EstadoCuentaType
   fechaRegistro: ISOString
   actualizadoEn: ISOString

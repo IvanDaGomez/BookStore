@@ -1,6 +1,6 @@
 import { toast } from "react-toastify"
 import { createBody } from "./createBody"
-
+import axios from "axios"
 const handlePayWithBalance = async ({ libro, user, form, setLoading }) => {
   if (user.balance < libro.precio) {
     toast.error('No tienes el suficiente dinero!')
@@ -16,17 +16,10 @@ const handlePayWithBalance = async ({ libro, user, form, setLoading }) => {
       formData: {},
       form
     })
-    const response = await fetch('http://localhost:3030/api/users/pay_with_balance', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    })
+    const response = await axios.post('http://localhost:3030/api/transactions/pay_with_balance', body)
 
-    const result = await response.json()
 
-    if (result.data.error) {
+    if (response.data.error) {
       toast.error('Error al procesar el pago con balance')
       return
     }
@@ -40,6 +33,7 @@ const handlePayWithBalance = async ({ libro, user, form, setLoading }) => {
 }
 
 const onSubmit = async ({ 
+  selectedPaymentMethod,
   formData,
   form,
   libro,
@@ -50,25 +44,19 @@ const onSubmit = async ({
  }) => {
   try {
     // Calcular monto total y comisión
-
     // Preparar datos del usuario y dirección
     const body = createBody({
       user,
       libro,
       formData,
-      form
+      form,
+      selectedPaymentMethod
     })
-    const response = await fetch('http://localhost:3030/api/users/process_payment', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    })
-    const result = await response.json()
-    setStatus(result.status)
+    const response = await axios.post('http://localhost:3030/api/transactions/process_payment', body)
+    console.log('Response:', response.data)
+    setStatus(response.data.response.status)
     setStatusScreen(true)
-    setPaymentId(result.id)
+    setPaymentId(response.data.response.id)
   } catch (error) {
     console.error('Payment error:', error)
     toast.error('Ocurrió un error al enviar los datos, vuelve a intentar.')

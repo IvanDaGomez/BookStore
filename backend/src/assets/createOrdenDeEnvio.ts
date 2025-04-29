@@ -1,5 +1,7 @@
 /* eslint-disable no-unused-vars */
 
+import { ShippingDetailsType } from "../types/shippingDetails"
+
 async function crearOrdenInterrapidisimo (ordenData:{
   remitenteNombre: string
   remitenteDireccion: string
@@ -49,20 +51,7 @@ async function crearOrdenInterrapidisimo (ordenData:{
   return data
 }
 
-async function CreateOrdenDeEnvíoEnvía (ordenData: {
-  remitenteNombre: string
-  remitenteDireccion: string
-  remitenteCiudad: string
-  remitenteTelefono: string
-  destinatarioNombre: string
-  destinatarioDireccion: string
-  destinatarioCiudad: string
-  destinatarioTelefono: string
-  peso: number
-  dimensiones: number[]
-  valorDeclarado: number
-  tipoEnvio?: string
-}): Promise<any> {
+async function CreateOrdenDeEnvíoEnvía (ordenData: ShippingDetailsType): Promise<any> {
   return {}
   const url = 'https://api.envia.com/v1/create-order' // Reemplazar por URL real.
   const apiToken = 'TU_API_TOKEN' // Proporcionado por Envia.
@@ -73,26 +62,7 @@ async function CreateOrdenDeEnvíoEnvía (ordenData: {
       Authorization: `Bearer ${apiToken}`,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({
-      sender: {
-        name: ordenData.remitenteNombre,
-        address: ordenData.remitenteDireccion,
-        city: ordenData.remitenteCiudad,
-        phone: ordenData.remitenteTelefono
-      },
-      receiver: {
-        name: ordenData.destinatarioNombre,
-        address: ordenData.destinatarioDireccion,
-        city: ordenData.destinatarioCiudad,
-        phone: ordenData.destinatarioTelefono
-      },
-      parcel: {
-        weight: ordenData.peso,
-        dimensions: ordenData.dimensiones, // [largo, ancho, alto]
-        declaredValue: ordenData.valorDeclarado
-      },
-      shipmentType: ordenData.tipoEnvio || 'standard'
-    })
+    body: JSON.stringify({})
   })
   const data = await response.json()
   console.log('Orden creada:', data)

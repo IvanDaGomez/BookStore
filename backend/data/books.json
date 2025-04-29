@@ -21,7 +21,11 @@
     "idVendedor": "857857d1-afdd-411d-b41a-be427d1ff186",
     "edicion": "2da Edición",
     "idioma": "",
-    
+    "ubicacion": {
+      "ciudad": "",
+      "departamento": "",
+      "pais": ""
+    },
     "tapa": "",
     "edad": "",
     "fechaPublicacion": "2024-11-21T13:52:00.234Z",
@@ -49,7 +53,6 @@
         "836e151b-43ae-48a0-8352-17ad309d8068"
       ]
     ],
-    "librosVendidos": 0,
     "collectionsIds": [
       "c3b5ef11-6cca-4ecc-a40d-888dab4d961d",
       "8213597c-4bac-49cc-95ea-3388f74627d8",
@@ -107,12 +110,16 @@
     "idVendedor": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
     "edicion": "",
     "idioma": "",
-    
+    "ubicacion": {
+      "ciudad": "",
+      "departamento": "",
+      "pais": ""
+    },
     "tapa": "Sin tapa",
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:24:21.509Z",
-    "actualizadoEn": "2024-12-17T15:29:25.006Z",
-    "disponibilidad": "Disponible",
+    "actualizadoEn": "2025-04-29T15:04:06.754Z",
+    "disponibilidad": "Vendido",
     "mensajes": [
       [
         "¿En qué estado se encuentra el producto?",
@@ -125,7 +132,6 @@
         ""
       ]
     ],
-    "librosVendidos": 0,
     "collectionsIds": [
       "af2149d8-0e39-4877-aac8-e360be09938d",
       "c519d6ca-feae-4569-ac37-8b694ed9f8a7",
@@ -177,7 +183,11 @@
     "idVendedor": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
     "edicion": "",
     "idioma": "",
-    
+    "ubicacion": {
+      "ciudad": "",
+      "departamento": "",
+      "pais": ""
+    },
     "tapa": "Dura",
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:33:28.373Z",
@@ -200,7 +210,6 @@
         "9b922eb4-33e8-4781-9863-c066992e1620"
       ]
     ],
-    "librosVendidos": 0,
     "collectionsIds": [
       "fd0cbe7f-73fd-4156-8325-1ba314375345",
       "66193010-9dcf-42d3-8c86-7cd7c5a3e027",
@@ -236,14 +245,17 @@
     "idVendedor": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
     "edicion": "",
     "idioma": "",
-    
+    "ubicacion": {
+      "ciudad": "",
+      "departamento": "",
+      "pais": ""
+    },
     "tapa": "Blanda",
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:38:47.585Z",
     "actualizadoEn": "2024-12-17T01:28:28.160Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0,
     "collectionsIds": [
       "8213597c-4bac-49cc-95ea-3388f74627d8",
       "66193010-9dcf-42d3-8c86-7cd7c5a3e027",
@@ -271,14 +283,17 @@
     "idVendedor": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
     "edicion": "",
     "idioma": "",
-    
+    "ubicacion": {
+      "ciudad": "",
+      "departamento": "",
+      "pais": ""
+    },
     "tapa": "",
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:51:23.575Z",
     "actualizadoEn": "2024-12-17T15:15:52.489Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0,
     "collectionsIds": [
       "6ae813e7-c18a-44ae-ab87-b7f601d4561e",
       "61633db1-edf4-4767-be8b-e1d805329196",
@@ -304,7 +319,11 @@
     "idVendedor": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
     "edicion": "",
     "idioma": "",
-    
+    "ubicacion": {
+      "ciudad": "",
+      "departamento": "",
+      "pais": ""
+    },
     "tapa": "",
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:54:25.204Z",
@@ -322,7 +341,6 @@
         "857857d1-afdd-411d-b41a-be427d1ff186"
       ]
     ],
-    "librosVendidos": 0,
     "collectionsIds": []
   },
   {
@@ -344,14 +362,17 @@
     "idVendedor": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
     "edicion": "",
     "idioma": "Español",
-    
+    "ubicacion": {
+      "ciudad": "",
+      "departamento": "",
+      "pais": ""
+    },
     "tapa": "",
     "edad": "",
     "fechaPublicacion": "2024-10-20T19:57:40.347Z",
     "actualizadoEn": "2024-10-27T05:17:45.540Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0,
     "collectionsIds": []
   },
   {
@@ -379,14 +400,17 @@
     "idVendedor": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
     "edicion": "",
     "idioma": "",
-    
+    "ubicacion": {
+      "ciudad": "",
+      "departamento": "",
+      "pais": ""
+    },
     "tapa": "",
     "edad": "",
     "fechaPublicacion": "2024-10-20T20:00:42.968Z",
     "actualizadoEn": "2024-12-15T01:35:23.816Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0,
     "collectionsIds": []
   },
   {
@@ -414,14 +438,17 @@
     "idVendedor": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
     "edicion": "",
     "idioma": "",
-    
+    "ubicacion": {
+      "ciudad": "",
+      "departamento": "",
+      "pais": ""
+    },
     "tapa": "",
     "edad": "",
     "fechaPublicacion": "2024-10-20T20:16:04.711Z",
     "actualizadoEn": "2024-10-20T20:16:04.908Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0,
     "collectionsIds": []
   },
   {
@@ -445,7 +472,11 @@
     "idVendedor": "836e151b-43ae-48a0-8352-17ad309d8068",
     "edicion": "",
     "idioma": "",
-    
+    "ubicacion": {
+      "ciudad": "",
+      "departamento": "",
+      "pais": ""
+    },
     "tapa": "",
     "edad": "",
     "fechaPublicacion": "2024-12-12T16:49:17.807Z",
@@ -458,7 +489,6 @@
         "836e151b-43ae-48a0-8352-17ad309d8068"
       ]
     ],
-    "librosVendidos": 0,
     "collectionsIds": []
   },
   {
@@ -482,14 +512,17 @@
     "idVendedor": "836e151b-43ae-48a0-8352-17ad309d8068",
     "edicion": "",
     "idioma": "",
-    
+    "ubicacion": {
+      "ciudad": "",
+      "departamento": "",
+      "pais": ""
+    },
     "tapa": "",
     "edad": "",
     "fechaPublicacion": "2024-10-20T22:11:53.009Z",
     "actualizadoEn": "2024-10-20T22:11:53.027Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0,
     "collectionsIds": []
   },
   {
@@ -513,12 +546,16 @@
     "idVendedor": "857857d1-afdd-411d-b41a-be427d1ff186",
     "edicion": "2da Edición",
     "idioma": "Español",
-    
+    "ubicacion": {
+      "ciudad": "",
+      "departamento": "",
+      "pais": ""
+    },
     "tapa": "Dura",
     "edad": "Adulto",
     "fechaPublicacion": "2024-11-23T19:31:26.489Z",
-    "actualizadoEn": "2024-12-17T15:34:41.259Z",
-    "disponibilidad": "Disponible",
+    "actualizadoEn": "2025-04-29T00:03:53.075Z",
+    "disponibilidad": "Vendido",
     "mensajes": [
       [
         "Ojalá que me puedan responder a esto",
@@ -556,7 +593,6 @@
         "857857d1-afdd-411d-b41a-be427d1ff186"
       ]
     ],
-    "librosVendidos": 0,
     "collectionsIds": [
       "6aef6b20-9ad2-41c9-ac63-0ae9ccba8440",
       "4a18b1c4-ee5a-4932-b557-4cd44cad0ea9",
@@ -600,14 +636,17 @@
     "idVendedor": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
     "edicion": "",
     "idioma": "",
-    
+    "ubicacion": {
+      "ciudad": "",
+      "departamento": "",
+      "pais": ""
+    },
     "tapa": "",
     "edad": "",
     "fechaPublicacion": "2024-10-21T01:38:17.687Z",
     "actualizadoEn": "2024-10-21T01:38:17.821Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0,
     "collectionsIds": []
   },
   {
@@ -629,14 +668,17 @@
     "idVendedor": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
     "edicion": "",
     "idioma": "",
-    
+    "ubicacion": {
+      "ciudad": "",
+      "departamento": "",
+      "pais": ""
+    },
     "tapa": "",
     "edad": "",
     "fechaPublicacion": "2024-10-21T01:39:41.041Z",
     "actualizadoEn": "2024-10-21T01:39:41.063Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0,
     "collectionsIds": []
   },
   {
@@ -669,7 +711,6 @@
     "actualizadoEn": "2024-12-17T15:38:49.023Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0,
     "collectionsIds": [
       "b7f8244b-fc8b-4259-86a1-7228df8c52a2"
     ]
@@ -704,7 +745,6 @@
     "actualizadoEn": "2024-12-17T15:38:49.031Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0,
     "collectionsIds": [
       "b7f8244b-fc8b-4259-86a1-7228df8c52a2"
     ]
@@ -745,7 +785,6 @@
         "857857d1-afdd-411d-b41a-be427d1ff186"
       ]
     ],
-    "librosVendidos": 0,
     "collectionsIds": [
       "6aef6b20-9ad2-41c9-ac63-0ae9ccba8440",
       "4a18b1c4-ee5a-4932-b557-4cd44cad0ea9",
@@ -796,7 +835,6 @@
     "actualizadoEn": "2024-12-05T23:23:57.785Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0,
     "collectionsIds": []
   },
   {
@@ -829,7 +867,6 @@
     "actualizadoEn": "2024-12-06T22:51:24.403Z",
     "disponibilidad": "Disponible",
     "mensajes": [],
-    "librosVendidos": 0,
     "collectionsIds": []
   }
 ]

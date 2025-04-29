@@ -14,18 +14,29 @@ const transactionObject = (data: any): TransactionObjectType => {
     paymentLink: data?.paymentDetails?.paymentLink || '',
     transactionId: data.transactionId || '', // ID de la transacción en la plataforma de Efecty
     transaction_amount: data?.paymentDetails?.transaction_amount || 0, // Monto de la transacción
-    paymentMethod: data?.paymentDetails?.method,
+    payment_method: data?.paymentDetails?.method || '',
     installments: data.installments || 1,
     card: data.card || {},
     success: data.success || false,
     message: data.message || '',
     shippingDetails: {
-      receiverAddress: data.shippingDetails?.receiverAddress || '',
-      receiverCity: data.shippingDetails?.receiverCity || '',
-      receiverState: data.shippingDetails?.receiverState || '',
-      receiverCountry: data.shippingDetails?.receiverCountry || '',
-      receiverPhone: data.shippingDetails?.receiverPhone || '',
-      receiverName: data.shippingDetails?.receiverName || ''
+      additional_info: {
+      ip_address: data?.shippingDetails?.additional_info?.ip_address || ''
+      },
+      address: {
+      city: data?.shippingDetails?.address?.city || '',
+      department: data?.shippingDetails?.address?.department || '',
+      neighborhood: data?.shippingDetails?.address?.neighborhood || '',
+      street_name: data?.shippingDetails?.address?.street_name || '',
+      street_number: data?.shippingDetails?.address?.street_number || '',
+      zip_code: data?.shippingDetails?.address?.zip_code || ''
+      },
+      first_name: data?.shippingDetails?.first_name || '',
+      last_name: data?.shippingDetails?.last_name || '',
+      phone: {
+      area_code: data?.shippingDetails?.phone?.area_code || '',
+      number: data?.shippingDetails?.phone?.number || ''
+      }
     },
     status: data.status || 'pending', // Estado del pago (pendiente, confirmado, entregado)
     createdIn: data.createdIn || new Date().toISOString() as ISOString, // Fecha de creación de la transacción

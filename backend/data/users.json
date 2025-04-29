@@ -157,9 +157,10 @@
       "2da Edición": 5
     },
     "balance": {
-      "porLlegar": 90000
-    },
-    "librosVendidos": 1
+      "pendiente": 0,
+      "disponible": 0,
+      "porLlegar": 150000
+    }
   },
   {
     "_id": "834a9dda-5cf5-4438-9499-eed4b8ec3e45",
@@ -210,9 +211,8 @@
     "preferencias": {},
     "historialBusquedas": {},
     "balance": {
-      "porLlegar": null
-    },
-    "librosVendidos": 1
+      "porLlegar": 80000
+    }
   },
   {
     "_id": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
@@ -292,9 +292,10 @@
     "preferencias": {},
     "historialBusquedas": {},
     "balance": {
-      "porLlegar": null
-    },
-    "librosVendidos": 1
+      "pendiente": 0,
+      "disponible": 0,
+      "porLlegar": 0
+    }
   },
   {
     "_id": "836e151b-43ae-48a0-8352-17ad309d8068",
@@ -409,8 +410,7 @@
       "pendiente": 0,
       "disponible": 0,
       "porLlegar": 0
-    },
-    "librosVendidos": 1
+    }
   },
   {
     "_id": "bda285c8-e1fe-4b88-a310-e8c48ebc73d9",
@@ -450,8 +450,7 @@
       "pendiente": 0,
       "disponible": 0,
       "porLlegar": 0
-    },
-    "librosVendidos": []
+    }
   },
   {
     "_id": "9b922eb4-33e8-4781-9863-c066992e1620",
@@ -522,8 +521,7 @@
       "pendiente": 0,
       "disponible": 0,
       "porLlegar": 0
-    },
-    "librosVendidos": []
+    }
   },
   {
     "_id": "192c8f5f-4c9b-431b-a3b6-d4f93ba871aa",
@@ -566,7 +564,6 @@
       "pendiente": 0,
       "disponible": 0,
       "porLlegar": 0
-    },
-    "librosVendidos": []
+    }
   }
 ]

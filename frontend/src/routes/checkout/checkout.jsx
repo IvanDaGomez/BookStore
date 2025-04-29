@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import Fase1 from './fase1'
 import Fase2 from './fase2'
 import Fase3 from './fase3'
@@ -15,31 +15,13 @@ import { ToastContainer } from 'react-toastify'
 import useFetchActualBook from '../../assets/useFetchActualBook.js'
 import useFetchPreferenceId from './useFetchPreferenceId.js'
 import { MakeOneFrCard } from '../../assets/makeCard.jsx'
+import { UserContext } from '../../context/userContext.jsx'
 function Checkout () {
   const navigate = useNavigate()
   // const { user, setUser, loading } = useContext(UserContext)
-  const [user, setUser] = useState(null)
-  const [loading, setLoading] = useState(true)
+  const { user, setUser, loading } = useContext(UserContext)
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await axios.get('http://localhost:3030/api/users', { withCredentials: true })
-        if (response.data.error) {
-          navigate('/popUp/noUser')
-          return
-        }
-        setUser(response.data)
-      } catch (error) {
-        console.error('Error fetching user data:', error)
-        navigate('/popUp/noUser')
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchUser()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+
 
 
   // Fetch del usuario primero que todo

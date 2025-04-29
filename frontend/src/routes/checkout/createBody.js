@@ -1,9 +1,9 @@
 import { calculateComission } from "../../assets/calculateComission"
 
-export function createBody ({ user, libro, formData = null, form }) {
+export function createBody ({ user, libro, formData = null, form, selectedPaymentMethod }) {
   const totalAmount = libro.oferta || libro.precio
   const commissionAmount = calculateComission(totalAmount)
-
+  
   const partialData = {
     userId: user._id,
     bookId: libro._id,
@@ -21,10 +21,10 @@ export function createBody ({ user, libro, formData = null, form }) {
     return partialData
   }
   console.dir(formData, { depth: null})
-  console.dir(form, { depth: null})
   return {
     ...formData,
     ...partialData,
+    payment_method: selectedPaymentMethod, // Método de pago seleccionado
     token: formData.token || null, // El token generado por Mercado Pago
     issuer_id: formData.issuer_id || null, // Puede ser null si no aplica
     payment_method_id: formData.payment_method_id || '', // Definido como cadena vacía si no se aplica

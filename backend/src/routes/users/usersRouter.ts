@@ -40,11 +40,6 @@ export const createUsersRouter = ({
     usersController.changePassword as RequestHandler
   )
 
-  usersRouter.use(
-    '/mercadoPagoWebHooks',
-    usersController.MercadoPagoWebhooks as RequestHandler
-  )
-
   usersRouter.get('/query', usersController.getUserByQuery as RequestHandler)
 
   usersRouter.post(
@@ -58,18 +53,7 @@ export const createUsersRouter = ({
 
   usersRouter.post('/follow', usersController.followUser as RequestHandler)
 
-  usersRouter.post(
-    '/process_payment',
-    usersController.processPayment as RequestHandler
-  )
-  usersRouter.post(
-    '/pay-with-balance',
-    usersController.payWithBalance as RequestHandler
-  )
-  usersRouter.post(
-    '/getPreferenceId',
-    usersController.getPreferenceId as RequestHandler
-  )
+
   usersRouter.post(
     '/sendValidationEmail',
     usersController.sendValidationEmail as RequestHandler

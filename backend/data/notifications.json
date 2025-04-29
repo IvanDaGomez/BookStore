@@ -114,5 +114,20 @@
       "bookTitle": "Cien años de soledad",
       "bookId": "d96efa6b-2551-4398-88fc-4e832cc53ca7"
     }
+  },
+  {
+    "_id": "72e3db03-8ecc-4f83-8f8f-ed194b219467",
+    "title": "Notificación no válida",
+    "priority": "low",
+    "type": "invalidNotification",
+    "userId": "ceb3ec6e-f50f-41e7-b59e-e467c1d373a5",
+    "input": "",
+    "createdIn": "2025-04-29T00:03:53.110Z",
+    "read": false,
+    "actionUrl": "http://localhost:5173/libros/857857d1-afdd-411d-b41a-be427d1ff186",
+    "expiresAt": "2026-04-29T00:03:53.110Z",
+    "metadata": {
+      "bookId": "857857d1-afdd-411d-b41a-be427d1ff186"
+    }
   }
 ]

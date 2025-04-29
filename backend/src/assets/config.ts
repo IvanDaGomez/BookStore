@@ -3,6 +3,7 @@ import path from 'node:path'
 import pkg from 'pg'
 const { Pool } = pkg
 import { fileURLToPath } from 'node:url';
+import { Payment, MercadoPagoConfig, Preference } from 'mercadopago';
 const __filename = fileURLToPath(import.meta.url);
 const assetsDir = path.dirname(__filename);
 const __dirname = path.join(assetsDir, '..', '..')
@@ -40,4 +41,11 @@ const upload = multer({
   storage,
   limits: { fileSize: 5 * 1024 * 1024 } // 5 MB
 })
-export { SALT_ROUNDS, upload, pool, PORT, __dirname }
+
+
+const client = new MercadoPagoConfig({
+  accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN ?? ''
+})
+const preference = new Preference(client)
+const payment = new Payment(client)
+export { SALT_ROUNDS, upload, pool, PORT, __dirname, payment, preference }

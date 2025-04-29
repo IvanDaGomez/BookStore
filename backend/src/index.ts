@@ -76,7 +76,7 @@ export const createApp = ({
   app.use('/api/notifications', createNotificationsRouter({ NotificationsModel, UsersModel }))
   app.use('/api/collections', createCollectionsRouter({ CollectionsModel, BooksModel }))
   app.use('/api/emails', createEmailsRouter({ EmailsModel }))
-  app.use('/api/transactions', createTransactionsRouter({ TransactionsModel }))
+  app.use('/api/transactions', createTransactionsRouter({ TransactionsModel, UsersModel, BooksModel }))
 
   const swaggerDoc = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'swagger.json'), 'utf-8'))
   app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDoc))

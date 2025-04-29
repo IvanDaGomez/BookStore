@@ -39,8 +39,7 @@ function userObject(name: UserInfoType | Partial<UserInfoType>, fullInfo = false
         pendiente: name.balance?.pendiente ?? 0,
         disponible: name.balance?.disponible ?? 0,
         porLlegar: name.balance?.porLlegar ?? 0
-      },
-      librosVendidos: name.librosVendidos ?? [],
+      }
     };
     return fullAnswer
   } else {
