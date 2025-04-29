@@ -4,6 +4,7 @@ import { Payment, StatusScreen } from '@mercadopago/sdk-react'
 import { handlePayWithBalance, onError, onReady, onSubmit } from './callbacks'
 import useInitializeMercadoPago from './useInitializeMercadoPago'
 import { MERCADOPAGO_PUBLIC_KEY } from '../../assets/config.js'
+import { Link } from 'react-router-dom'
 function PaymentBrick ({ libro, preferenceId, user, form, setFase }) {
   const [statusScreen, setStatusScreen] = useState(false)
   const [paymentId, setPaymentId] = useState('')
@@ -57,8 +58,8 @@ function PaymentBrick ({ libro, preferenceId, user, form, setFase }) {
             </div>
 
             {/* Conditionally Render Payment Methods */}
-            {selectedMethod === 'balance'
-              ? (
+            {(selectedMethod === 'balance' && !statusScreen)
+              && (
                 <button
                   style={{ margin: '10px auto 10px 15px', width: 'calc(100% - 30px)' }}
                   className=''
@@ -67,59 +68,61 @@ function PaymentBrick ({ libro, preferenceId, user, form, setFase }) {
                 >
                   {loading ? 'Procesando...' : 'Pagar con mi balance'}
                 </button>
-                )
-              : !statusScreen
-                  ? (
-                    <Payment
-                      initialization={{
-                        amount: libro.oferta ? libro.oferta : libro.precio,
-                        preferenceId,
-                        marketplace: true
-                      }}
-                      customization={{
-                        paymentMethods: {
-                          ticket: 'all',
-                          bankTransfer: 'all',
-                          creditCard: 'all',
-                          debitCard: 'all',
-                          mercadoPago: 'all',
-                          atm: 'all'
-                        }
-                      }}
-                      onSubmit={({ selectedPaymentMethod, formData }) => onSubmit({ 
-                        selectedPaymentMethod,
-                        formData,
-                        form,
-                        libro,
-                        user,
-                        setStatusScreen,
-                        setPaymentId,
-                        setStatus
-                       })}
-                      onReady={onReady}
-                      onError={onError}
-                    />
-                    )
-                  : <StatusScreen
-                      initialization={initializationStatus}
-                      onReady={onReady}
-                      onError={onError}
-                      customization={{
-                        visual: {
-                          style: {
-                            theme: 'flat'
-                          }
+                )}</>):
+                <span>Cargando...</span>}
+            <div className="bricks">
+            {!statusScreen && selectedMethod !== 'balance' 
+            ? (
+              <Payment
+                initialization={{
+                  amount: libro.oferta ? libro.oferta : libro.precio,
+                  preferenceId,
+                  marketplace: true
+                }}
+                customization={{
+                  paymentMethods: {
+                    ticket: 'all',
+                    bankTransfer: 'all',
+                    creditCard: 'all',
+                    debitCard: 'all',
+                    mercadoPago: 'all',
+                    atm: 'all'
+                  }
+                }}
+                onSubmit={({ selectedPaymentMethod, formData }) => onSubmit({ 
+                  selectedPaymentMethod,
+                  formData,
+                  form,
+                  libro,
+                  user,
+                  setStatusScreen,
+                  setPaymentId,
+                  setStatus
+                })}
+                onReady={onReady}
+                onError={onError}
+              />
+              )
+            : <StatusScreen
+                initialization={initializationStatus}
+                onReady={onReady}
+                onError={onError}
+                customization={{
+                  visual: {
+                    style: {
+                      theme: 'flat'
+                    }
 
-                        }
-                      }}
-                    />}
-          </>
-        ) : (
-          <span>Cargando...</span>
-        )}
+                  }
+                }}
+              />}
+              </div>
       </div>
+      {console.log(status)}
       {(status === 'pending') && <span>El libro no se comprará hasta que realices el pago</span>}
       {!statusScreen && <button type='button' style={{ margin: 'auto' }} onClick={() => setFase(2)}>Atrás</button>}
+      {statusScreen && status === 'rejected' && <button type='button' onClick={() => setFase(2)}>Volver a intentar</button>}
+      {statusScreen && <Link><button type='button'>Seguir Comprando</button></Link>}
     </>
   )
 }

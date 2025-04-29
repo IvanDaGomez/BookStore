@@ -86,18 +86,23 @@
   margin-top: var(--margin-medium);
 }
 .paymentMethodsContainer{
-  width: auto;
-  max-width: 100%;
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   margin: auto;
   padding: auto;
   text-align: left;
-  
-}
-
-#statusScreenBrick_container{
-  margin: var(--margin-big) auto;
-  border: 2px solid #737373;
-  border-radius: 18px;
+  gap: var(--margin-medium);
+  #statusScreenBrick_container{
+    width: 100%;
+    border: var(--border-width) solid var(--using2);
+    border-radius: 20px;
+  }
+  header{
+    all: unset;
+  }
 }
 
 .paymentMethods {
@@ -111,13 +116,12 @@
   text-align: center;
 
 }
-.paymentMethodsContainer button{
-  margin: 0;
-}
-.paymentMethodsContainer .svelte-101ibq7.mp-checkout-bricks__padding-3h33cf.extra-large-3dfJos{
+
+
+.svelte-101ibq7.mp-checkout-bricks__padding-3h33cf.extra-large-3dfJos{
   display: none;
 }
-.paymentMethodsContainer .svelte-r6lpve.mp-checkout-bricks__padding-b6ZkS2.extra-extra-large-3m8Ked{
+.svelte-r6lpve.mp-checkout-bricks__padding-b6ZkS2.extra-extra-large-3m8Ked{
   display: none;
 }
 .paymentMethodsLabel{
@@ -157,7 +161,7 @@
   
 }
 .gridTarjeta .tarjetaContainer{
-  margin: var(--margin-big);
+  margin: var(--margin-large);
   padding: 20px;
   width: 100%;
   aspect-ratio: 1.586;

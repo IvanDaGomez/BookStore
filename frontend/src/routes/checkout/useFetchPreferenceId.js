@@ -41,5 +41,5 @@ export default function useFetchPreferenceId(libro) {
 
     fetchPreferenceId()
   }, [libro]) // Dependency array ensures this runs when `libro` changes
-  return preferenceId // Return the fetched preference ID
+  return [preferenceId, setPreferenceId] // Return the fetched preference ID
 }

@@ -254,5 +254,629 @@
     "status": "pending",
     "createdIn": "2025-04-29T15:04:06.758Z",
     "updatedIn": "2025-04-29T15:04:06.758Z"
+  },
+  {
+    "_id": 0,
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "sellerId": "85086426-0d15-4894-adb2-c530a0668991",
+    "bookId": "3f7ab023-15e7-4626-8890-a71f4f2e221c",
+    "fee_details": [],
+    "description": "",
+    "charges_details": [],
+    "paymentLink": "",
+    "transactionId": "",
+    "transaction_amount": 0,
+    "payment_method": "",
+    "installments": 1,
+    "card": {},
+    "success": false,
+    "message": "",
+    "shippingDetails": {
+      "additional_info": {
+        "ip_address": "181.131.79.26"
+      },
+      "address": {
+        "city": "Bucaramanga",
+        "department": "Amazonas",
+        "neighborhood": "Porton del tejar",
+        "street_name": "Transveral oriental # 90 - 223 Apto 1507",
+        "street_number": "90",
+        "zip_code": "680003"
+      },
+      "first_name": "Ivan",
+      "last_name": "Gomez",
+      "phone": {
+        "area_code": "57",
+        "number": "3024690359"
+      }
+    },
+    "status": "pending",
+    "createdIn": "2025-04-29T15:13:51.092Z",
+    "updatedIn": "2025-04-29T15:13:51.092Z"
+  },
+  {
+    "_id": 0,
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "sellerId": "07db8a56-2082-4cb0-8603-3f3a33175e29",
+    "bookId": "3f7ab023-15e7-4626-8890-a71f4f2e221c",
+    "fee_details": [],
+    "description": "",
+    "charges_details": [],
+    "paymentLink": "",
+    "transactionId": "",
+    "transaction_amount": 0,
+    "payment_method": "",
+    "installments": 1,
+    "card": {},
+    "success": false,
+    "message": "",
+    "shippingDetails": {
+      "additional_info": {
+        "ip_address": "181.131.79.26"
+      },
+      "address": {
+        "city": "Bucaramanga",
+        "department": "Amazonas",
+        "neighborhood": "Porton del tejar",
+        "street_name": "Transveral oriental # 90 - 223 Apto 1507",
+        "street_number": "90",
+        "zip_code": "680003"
+      },
+      "first_name": "Ivan",
+      "last_name": "Gomez",
+      "phone": {
+        "area_code": "57",
+        "number": "3024690359"
+      }
+    },
+    "status": "pending",
+    "createdIn": "2025-04-29T15:13:51.093Z",
+    "updatedIn": "2025-04-29T15:13:51.093Z"
+  },
+  {
+    "_id": 0,
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "sellerId": "0767793c-d689-4eff-95dc-93827b5eec80",
+    "bookId": "3f7ab023-15e7-4626-8890-a71f4f2e221c",
+    "fee_details": [],
+    "description": "",
+    "charges_details": [],
+    "paymentLink": "",
+    "transactionId": "",
+    "transaction_amount": 0,
+    "payment_method": "",
+    "installments": 1,
+    "card": {},
+    "success": false,
+    "message": "",
+    "shippingDetails": {
+      "additional_info": {
+        "ip_address": "181.131.79.26"
+      },
+      "address": {
+        "city": "Bucaramanga",
+        "department": "Amazonas",
+        "neighborhood": "Porton del tejar",
+        "street_name": "Transveral oriental # 90 - 223 Apto 1507",
+        "street_number": "90",
+        "zip_code": "680003"
+      },
+      "first_name": "Ivan",
+      "last_name": "Gomez",
+      "phone": {
+        "area_code": "57",
+        "number": "3024690359"
+      }
+    },
+    "status": "pending",
+    "createdIn": "2025-04-29T15:17:16.304Z",
+    "updatedIn": "2025-04-29T15:17:16.304Z"
+  },
+  {
+    "_id": 0,
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "sellerId": "81ef20be-a98c-41ef-9a0b-d9dde4127cc1",
+    "bookId": "3f7ab023-15e7-4626-8890-a71f4f2e221c",
+    "fee_details": [],
+    "description": "",
+    "charges_details": [],
+    "paymentLink": "",
+    "transactionId": "",
+    "transaction_amount": 0,
+    "payment_method": "",
+    "installments": 1,
+    "card": {},
+    "success": false,
+    "message": "",
+    "shippingDetails": {
+      "additional_info": {
+        "ip_address": "181.131.79.26"
+      },
+      "address": {
+        "city": "Bucaramanga",
+        "department": "Amazonas",
+        "neighborhood": "Porton del tejar",
+        "street_name": "Transveral oriental # 90 - 223 Apto 1507",
+        "street_number": "90",
+        "zip_code": "680003"
+      },
+      "first_name": "Ivan",
+      "last_name": "Gomez",
+      "phone": {
+        "area_code": "57",
+        "number": "3024690359"
+      }
+    },
+    "status": "pending",
+    "createdIn": "2025-04-29T15:17:16.305Z",
+    "updatedIn": "2025-04-29T15:17:16.305Z"
+  },
+  {
+    "_id": 0,
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "sellerId": "88d2ca82-4ffb-4263-afd7-3ed001877bee",
+    "bookId": "3f7ab023-15e7-4626-8890-a71f4f2e221c",
+    "fee_details": [],
+    "description": "",
+    "charges_details": [],
+    "paymentLink": "",
+    "transactionId": "",
+    "transaction_amount": 0,
+    "payment_method": "",
+    "installments": 1,
+    "card": {},
+    "success": false,
+    "message": "",
+    "shippingDetails": {
+      "additional_info": {
+        "ip_address": "181.131.79.26"
+      },
+      "address": {
+        "city": "Bucaramanga",
+        "department": "Amazonas",
+        "neighborhood": "Porton del tejar",
+        "street_name": "Transveral oriental # 90 - 223 Apto 1507",
+        "street_number": "90",
+        "zip_code": "680003"
+      },
+      "first_name": "Ivan",
+      "last_name": "Gomez",
+      "phone": {
+        "area_code": "57",
+        "number": "3024690359"
+      }
+    },
+    "status": "pending",
+    "createdIn": "2025-04-29T15:23:38.428Z",
+    "updatedIn": "2025-04-29T15:23:38.428Z"
+  },
+  {
+    "_id": 0,
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "sellerId": "d83c2258-1c11-44b9-93f8-20ad40f27aaf",
+    "bookId": "3f7ab023-15e7-4626-8890-a71f4f2e221c",
+    "fee_details": [],
+    "description": "",
+    "charges_details": [],
+    "paymentLink": "",
+    "transactionId": "",
+    "transaction_amount": 0,
+    "payment_method": "",
+    "installments": 1,
+    "card": {},
+    "success": false,
+    "message": "",
+    "shippingDetails": {
+      "additional_info": {
+        "ip_address": "181.131.79.26"
+      },
+      "address": {
+        "city": "Bucaramanga",
+        "department": "Amazonas",
+        "neighborhood": "Porton del tejar",
+        "street_name": "Transveral oriental # 90 - 223 Apto 1507",
+        "street_number": "90",
+        "zip_code": "680003"
+      },
+      "first_name": "Ivan",
+      "last_name": "Gomez",
+      "phone": {
+        "area_code": "57",
+        "number": "3024690359"
+      }
+    },
+    "status": "pending",
+    "createdIn": "2025-04-29T15:23:38.429Z",
+    "updatedIn": "2025-04-29T15:23:38.429Z"
+  },
+  {
+    "_id": 0,
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "sellerId": "884cdf6d-aeff-4020-8921-5e9ee9acd818",
+    "bookId": "3f7ab023-15e7-4626-8890-a71f4f2e221c",
+    "fee_details": [],
+    "description": "",
+    "charges_details": [],
+    "paymentLink": "",
+    "transactionId": "",
+    "transaction_amount": 0,
+    "payment_method": "",
+    "installments": 1,
+    "card": {},
+    "success": false,
+    "message": "",
+    "shippingDetails": {
+      "additional_info": {
+        "ip_address": "181.131.79.26"
+      },
+      "address": {
+        "city": "Bucaramanga",
+        "department": "Amazonas",
+        "neighborhood": "Porton del tejar",
+        "street_name": "Transveral oriental # 90 - 223 Apto 1507",
+        "street_number": "90",
+        "zip_code": "680003"
+      },
+      "first_name": "Ivan",
+      "last_name": "Gomez",
+      "phone": {
+        "area_code": "57",
+        "number": "3024690359"
+      }
+    },
+    "status": "pending",
+    "createdIn": "2025-04-29T15:25:35.722Z",
+    "updatedIn": "2025-04-29T15:25:35.722Z"
+  },
+  {
+    "_id": 0,
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "sellerId": "1bdc93b3-8ed2-4c52-b3f5-438a942be162",
+    "bookId": "3f7ab023-15e7-4626-8890-a71f4f2e221c",
+    "fee_details": [],
+    "description": "",
+    "charges_details": [],
+    "paymentLink": "",
+    "transactionId": "",
+    "transaction_amount": 0,
+    "payment_method": "",
+    "installments": 1,
+    "card": {},
+    "success": false,
+    "message": "",
+    "shippingDetails": {
+      "additional_info": {
+        "ip_address": "181.131.79.26"
+      },
+      "address": {
+        "city": "Bucaramanga",
+        "department": "Amazonas",
+        "neighborhood": "Porton del tejar",
+        "street_name": "Transveral oriental # 90 - 223 Apto 1507",
+        "street_number": "90",
+        "zip_code": "680003"
+      },
+      "first_name": "Ivan",
+      "last_name": "Gomez",
+      "phone": {
+        "area_code": "57",
+        "number": "3024690359"
+      }
+    },
+    "status": "pending",
+    "createdIn": "2025-04-29T15:25:35.722Z",
+    "updatedIn": "2025-04-29T15:25:35.722Z"
+  },
+  {
+    "_id": 0,
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "sellerId": "ae6ca2d8-3226-4332-9cce-f6fe6bc4c781",
+    "bookId": "3f7ab023-15e7-4626-8890-a71f4f2e221c",
+    "fee_details": [],
+    "description": "",
+    "charges_details": [],
+    "paymentLink": "",
+    "transactionId": "",
+    "transaction_amount": 0,
+    "payment_method": "",
+    "installments": 1,
+    "card": {},
+    "success": false,
+    "message": "",
+    "shippingDetails": {
+      "additional_info": {
+        "ip_address": "181.131.79.26"
+      },
+      "address": {
+        "city": "Bucaramanga",
+        "department": "Amazonas",
+        "neighborhood": "Porton del tejar",
+        "street_name": "Transveral oriental # 90 - 223 Apto 1507",
+        "street_number": "90",
+        "zip_code": "680003"
+      },
+      "first_name": "Ivan",
+      "last_name": "Gomez",
+      "phone": {
+        "area_code": "57",
+        "number": "3024690359"
+      }
+    },
+    "status": "pending",
+    "createdIn": "2025-04-29T15:28:22.083Z",
+    "updatedIn": "2025-04-29T15:28:22.083Z"
+  },
+  {
+    "_id": 0,
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "sellerId": "4228afa8-282e-4c34-b28f-3f7784f23a44",
+    "bookId": "3f7ab023-15e7-4626-8890-a71f4f2e221c",
+    "fee_details": [],
+    "description": "",
+    "charges_details": [],
+    "paymentLink": "",
+    "transactionId": "",
+    "transaction_amount": 0,
+    "payment_method": "",
+    "installments": 1,
+    "card": {},
+    "success": false,
+    "message": "",
+    "shippingDetails": {
+      "additional_info": {
+        "ip_address": "181.131.79.26"
+      },
+      "address": {
+        "city": "Bucaramanga",
+        "department": "Amazonas",
+        "neighborhood": "Porton del tejar",
+        "street_name": "Transveral oriental # 90 - 223 Apto 1507",
+        "street_number": "90",
+        "zip_code": "680003"
+      },
+      "first_name": "Ivan",
+      "last_name": "Gomez",
+      "phone": {
+        "area_code": "57",
+        "number": "3024690359"
+      }
+    },
+    "status": "pending",
+    "createdIn": "2025-04-29T15:28:22.084Z",
+    "updatedIn": "2025-04-29T15:28:22.084Z"
+  },
+  {
+    "_id": 0,
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "sellerId": "d7b0cbff-e47b-4e41-96c2-a0b1386e1396",
+    "bookId": "3f7ab023-15e7-4626-8890-a71f4f2e221c",
+    "fee_details": [],
+    "description": "",
+    "charges_details": [],
+    "paymentLink": "",
+    "transactionId": "",
+    "transaction_amount": 0,
+    "payment_method": "",
+    "installments": 1,
+    "card": {},
+    "success": false,
+    "message": "",
+    "shippingDetails": {
+      "additional_info": {
+        "ip_address": "181.131.79.26"
+      },
+      "address": {
+        "city": "Bucaramanga",
+        "department": "Amazonas",
+        "neighborhood": "Porton del tejar",
+        "street_name": "Transveral oriental # 90 - 223 Apto 1507",
+        "street_number": "90",
+        "zip_code": "680003"
+      },
+      "first_name": "Ivan",
+      "last_name": "Gomez",
+      "phone": {
+        "area_code": "57",
+        "number": "3024690359"
+      }
+    },
+    "status": "pending",
+    "createdIn": "2025-04-29T15:35:41.273Z",
+    "updatedIn": "2025-04-29T15:35:41.273Z"
+  },
+  {
+    "_id": 0,
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "sellerId": "56313745-038a-4c7d-98e9-caf451ad8921",
+    "bookId": "3f7ab023-15e7-4626-8890-a71f4f2e221c",
+    "fee_details": [],
+    "description": "",
+    "charges_details": [],
+    "paymentLink": "",
+    "transactionId": "",
+    "transaction_amount": 0,
+    "payment_method": "",
+    "installments": 1,
+    "card": {},
+    "success": false,
+    "message": "",
+    "shippingDetails": {
+      "additional_info": {
+        "ip_address": "181.131.79.26"
+      },
+      "address": {
+        "city": "Bucaramanga",
+        "department": "Amazonas",
+        "neighborhood": "Porton del tejar",
+        "street_name": "Transveral oriental # 90 - 223 Apto 1507",
+        "street_number": "90",
+        "zip_code": "680003"
+      },
+      "first_name": "Ivan",
+      "last_name": "Gomez",
+      "phone": {
+        "area_code": "57",
+        "number": "3024690359"
+      }
+    },
+    "status": "pending",
+    "createdIn": "2025-04-29T15:35:41.273Z",
+    "updatedIn": "2025-04-29T15:35:41.273Z"
+  },
+  {
+    "_id": 0,
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "sellerId": "2354685e-556b-41e3-ade3-f9f431506aa1",
+    "bookId": "3f7ab023-15e7-4626-8890-a71f4f2e221c",
+    "fee_details": [],
+    "description": "",
+    "charges_details": [],
+    "paymentLink": "",
+    "transactionId": "",
+    "transaction_amount": 0,
+    "payment_method": "",
+    "installments": 1,
+    "card": {},
+    "success": false,
+    "message": "",
+    "shippingDetails": {
+      "additional_info": {
+        "ip_address": "181.131.79.26"
+      },
+      "address": {
+        "city": "Bucaramanga",
+        "department": "Amazonas",
+        "neighborhood": "Porton del tejar",
+        "street_name": "Transveral oriental # 90 - 223 Apto 1507",
+        "street_number": "90",
+        "zip_code": "680003"
+      },
+      "first_name": "Ivan",
+      "last_name": "Gomez",
+      "phone": {
+        "area_code": "57",
+        "number": "3024690359"
+      }
+    },
+    "status": "pending",
+    "createdIn": "2025-04-29T15:37:37.255Z",
+    "updatedIn": "2025-04-29T15:37:37.255Z"
+  },
+  {
+    "_id": 0,
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "sellerId": "9a952280-dea2-4da7-b9c1-0ffc91f08765",
+    "bookId": "3f7ab023-15e7-4626-8890-a71f4f2e221c",
+    "fee_details": [],
+    "description": "",
+    "charges_details": [],
+    "paymentLink": "",
+    "transactionId": "",
+    "transaction_amount": 0,
+    "payment_method": "",
+    "installments": 1,
+    "card": {},
+    "success": false,
+    "message": "",
+    "shippingDetails": {
+      "additional_info": {
+        "ip_address": "181.131.79.26"
+      },
+      "address": {
+        "city": "Bucaramanga",
+        "department": "Amazonas",
+        "neighborhood": "Porton del tejar",
+        "street_name": "Transveral oriental # 90 - 223 Apto 1507",
+        "street_number": "90",
+        "zip_code": "680003"
+      },
+      "first_name": "Ivan",
+      "last_name": "Gomez",
+      "phone": {
+        "area_code": "57",
+        "number": "3024690359"
+      }
+    },
+    "status": "pending",
+    "createdIn": "2025-04-29T15:37:37.255Z",
+    "updatedIn": "2025-04-29T15:37:37.255Z"
+  },
+  {
+    "_id": 0,
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "sellerId": "63976730-8036-4cab-a39a-67b009dbda91",
+    "bookId": "3f7ab023-15e7-4626-8890-a71f4f2e221c",
+    "fee_details": [],
+    "description": "",
+    "charges_details": [],
+    "paymentLink": "",
+    "transactionId": "",
+    "transaction_amount": 0,
+    "payment_method": "",
+    "installments": 1,
+    "card": {},
+    "success": false,
+    "message": "",
+    "shippingDetails": {
+      "additional_info": {
+        "ip_address": "181.131.79.26"
+      },
+      "address": {
+        "city": "Bucaramanga",
+        "department": "Amazonas",
+        "neighborhood": "Porton del tejar",
+        "street_name": "Transveral oriental # 90 - 223 Apto 1507",
+        "street_number": "90",
+        "zip_code": "680003"
+      },
+      "first_name": "Ivan",
+      "last_name": "Gomez",
+      "phone": {
+        "area_code": "57",
+        "number": "3024690359"
+      }
+    },
+    "status": "pending",
+    "createdIn": "2025-04-29T15:38:55.483Z",
+    "updatedIn": "2025-04-29T15:38:55.483Z"
+  },
+  {
+    "_id": 0,
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "sellerId": "b871e165-2e40-46bc-994d-01f790b3eb84",
+    "bookId": "3f7ab023-15e7-4626-8890-a71f4f2e221c",
+    "fee_details": [],
+    "description": "",
+    "charges_details": [],
+    "paymentLink": "",
+    "transactionId": "",
+    "transaction_amount": 0,
+    "payment_method": "",
+    "installments": 1,
+    "card": {},
+    "success": false,
+    "message": "",
+    "shippingDetails": {
+      "additional_info": {
+        "ip_address": "181.131.79.26"
+      },
+      "address": {
+        "city": "Bucaramanga",
+        "department": "Amazonas",
+        "neighborhood": "Porton del tejar",
+        "street_name": "Transveral oriental # 90 - 223 Apto 1507",
+        "street_number": "90",
+        "zip_code": "680003"
+      },
+      "first_name": "Ivan",
+      "last_name": "Gomez",
+      "phone": {
+        "area_code": "57",
+        "number": "3024690359"
+      }
+    },
+    "status": "pending",
+    "createdIn": "2025-04-29T15:38:55.484Z",
+    "updatedIn": "2025-04-29T15:38:55.484Z"
   }
 ]

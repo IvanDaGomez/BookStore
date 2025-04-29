@@ -60,7 +60,7 @@ function Checkout () {
     confirmation: {}
   })
 
-  const preferenceId = useFetchPreferenceId(libro)
+  const [preferenceId,] = useFetchPreferenceId(libro)
   const renderFase = () => {
     switch (fase) {
       case 1:
