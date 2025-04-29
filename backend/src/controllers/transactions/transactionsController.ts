@@ -8,6 +8,7 @@ import { sendProcessPaymentEmails } from '../users/sendProcessPaymentEmails.js'
 import { CreateOrdenDeEnvío } from '../../assets/createOrdenDeEnvio.js'
 import { createMercadoPagoPayment } from '../users/createMercadoPagoPayment.js'
 import { payment, preference } from '../../assets/config.js'
+import { MercadoPagoInput } from '../../types/mercadoPagoInput.js'
 // TODO
 export class TransactionsController {
   private TransactionsModel: ITransactionsModel
@@ -161,15 +162,15 @@ export class TransactionsController {
     */
     try {
       const {
-        sellerId,
-        userId,
-        bookId,
-        shippingDetails,
-        transaction_amount,
-        application_fee,
-        payment_method,
-        ...data
-      } = req.body
+        formData,
+        partialData,
+        payment_method
+      } = req.body as MercadoPagoInput
+      const sellerId = partialData.sellerId
+      const userId = partialData.userId
+      const bookId = partialData.bookId
+      const shippingDetails = partialData.shippingDetails
+      console.log(!sellerId || !userId || !bookId || !shippingDetails)
       if (!sellerId || !userId || !bookId || !shippingDetails) {
         return res
           .status(400)
@@ -184,24 +185,23 @@ export class TransactionsController {
 
       // Configuración del pago con split payments
       const info = createMercadoPagoPayment({
-        ...req.body,
+        formData,
+        partialData,
+        payment_method,
         book,
-        userId,
-        data,
-        transaction_amount,
-        application_fee
+        user
       })
-      console.dir(info, { depth: null })
-      // Crear el pago en MercadoPago
-      const response = await payment.create(info)
 
+      // Crear el pago en MercadoPago 
+      const response = await payment.create(info)
+      console.dir(response, { depth: null })
 
       // Actualizar el saldo del usuario y vendedor
       // I dont update the user balance because if the payment is with mercadopago, the user balance is not updated
       await Promise.all([
         this.UsersModel.updateUser(sellerId, {
           balance: {
-            porLlegar: (seller.balance.porLlegar ?? 0) + transaction_amount
+            porLlegar: (seller.balance.porLlegar ?? 0) + formData.transaction_amount
           }
         }),
         this.BooksModel.updateBook(bookId, {
@@ -210,14 +210,14 @@ export class TransactionsController {
       ])
       // PENDIENTE
       const order = await CreateOrdenDeEnvío({
-        ...shippingDetails,
-        seller
+        ...shippingDetails
       })
       // Crear la transacción
       // TODO
           // Registrar la transacción (éxito o fracaso)
+      let transaction
       if (response.status === 'approved') {
-        await this.TransactionsModel.createSuccessfullTransaction({
+        transaction = await this.TransactionsModel.createSuccessfullTransaction({
           userId,
           bookId: book._id,
           shippingDetails,
@@ -225,7 +225,7 @@ export class TransactionsController {
           order
         })
       } else {
-        await this.TransactionsModel.createFailureTransaction({
+        transaction = await this.TransactionsModel.createFailureTransaction({
           userId,
           bookId: book._id,
           shippingDetails,
@@ -233,13 +233,7 @@ export class TransactionsController {
           order
         })
       } 
-      const transaction = await this.TransactionsModel.createSuccessfullTransaction({
-        userId,
-        bookId: book._id,
-        shippingDetails,
-        response,
-        order
-      })
+
       // Enviar notificaciones y correos al vendedor y comprador
       await sendProcessPaymentEmails({
         user,
@@ -252,6 +246,7 @@ export class TransactionsController {
       })
       res.json({ message: 'Pago exitoso', response })
     } catch (err) {
+      console.error('Error al procesar el pago:', err)
       res.status(500).json({
         error: 'Error al procesar el pago',
         details: err
