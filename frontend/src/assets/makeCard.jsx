@@ -12,7 +12,22 @@ import RenderImageHeader from './makeCard/renderImageHeader.jsx'
 import RenderMidText from './makeCard/renderMidText.jsx'
 import RenderBottomText from './makeCard/renderBottomText.jsx'
 import { necesitasIniciarSesion } from './jsxConstants.jsx'
-
+export const PriceTitleRender = (element) => {
+  if (!element?.precio) return null
+  return (<>
+  
+  {(element.oferta) ? <>
+  <h2 className='red' style={{ display: 'inline' }}>
+    ${element.oferta.toLocaleString('es-CO')}
+    </h2>
+    <h3 style={{ display: 'inline', marginLeft: '10px' }}>
+      <s>${element.precio.toLocaleString('es-CO')}</s>
+      </h3></> : <>
+      <h2 className='red'>
+        ${element.precio.toLocaleString('es-CO')}
+        </h2></>}
+  </>)
+}
 const MakeCard = ({ element, index, user = '', callback = () => {} }) => {
   // Aplicar la clase "favoritoActivo" después de renderizar las tarjetas
   useEffect(() => {
@@ -81,7 +96,7 @@ const MakeOneFrCard = ({ element, index, user = '' }) => {
         {/* Imagen de los auriculares */}
         <div className='imageContainer' style={{ textAlign: 'center' }}>
           <img
-            src={`http://localhost:3030/uploads/${element.images[0]}`}
+            src={`http://localhost:3030/uploads/${element.images ? element?.images[0]: ''}`}
             alt={element.titulo}
             title={element.titulo}
           />
@@ -90,13 +105,14 @@ const MakeOneFrCard = ({ element, index, user = '' }) => {
         {/* Nombre del producto */}
         <div className='infoContainer'>
           <h1 className='productName'>
-            {reduceText(element.titulo, 50)}
+            {reduceText(element?.titulo ?? '', 50)}
           </h1>
 
 
           {/* Precio y oferta */}
           <div>
-            <div className='precioSections'>{(element.oferta) ? <><h2 className='red' style={{ display: 'inline' }}>${element.oferta.toLocaleString('es-CO')}</h2><h3 style={{ display: 'inline', marginLeft: '10px' }}><s>${element.precio.toLocaleString('es-CO')}</s></h3></> : <><h2 className='red'>${element.precio.toLocaleString('es-CO')}</h2></>}
+            <div className='precioSections'>
+              <PriceTitleRender />
             </div>
           </div>
 

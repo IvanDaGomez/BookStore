@@ -41,7 +41,8 @@ function PaymentBrick ({ libro, preferenceId, user, form, setFase }) {
       <div className='paymentMethodsContainer'>
         {libro && preferenceId ? (
           <>
-
+            {(selectedMethod === 'balance' && !statusScreen)
+              && <>
             <div
               className='payWithBalance'
               onClick={() => { selectedMethod === 'balance' ? setSelectedMethod('') : setSelectedMethod('balance') }}
@@ -56,10 +57,7 @@ function PaymentBrick ({ libro, preferenceId, user, form, setFase }) {
                 <h3>Balance disponible: ${user?.balance?.disponible ?? 0}</h3>
               </div>
             </div>
-
-            {/* Conditionally Render Payment Methods */}
-            {(selectedMethod === 'balance' && !statusScreen)
-              && (
+            
                 <button
                   style={{ margin: '10px auto 10px 15px', width: 'calc(100% - 30px)' }}
                   className=''
@@ -68,7 +66,7 @@ function PaymentBrick ({ libro, preferenceId, user, form, setFase }) {
                 >
                   {loading ? 'Procesando...' : 'Pagar con mi balance'}
                 </button>
-                )}</>):
+                )</>}</>):
                 <span>Cargando...</span>}
             <div className="bricks">
             {(!statusScreen && selectedMethod !== 'balance')

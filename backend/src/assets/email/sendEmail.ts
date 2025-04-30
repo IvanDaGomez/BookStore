@@ -6,7 +6,7 @@ import SMTPPool from 'nodemailer/lib/smtp-pool'
 dotenv.config()
 
 const yourEmail = process.env.EMAIL
-const gmailHost = 'smtp.gmail.com'
+const gmailHost = 'smtp.live.com'
 const mailPort = 587
 const senderEmail = process.env.EMAIL
 
@@ -20,31 +20,41 @@ const senderEmail = process.env.EMAIL
 const oAuth2Client = new google.auth.OAuth2(process.env.EMAIL_CLIENT_ID, process.env.EMAIL_CLIENT_SECRET, 'https://developers.google.com/oauthplayground')
 oAuth2Client.setCredentials({ refresh_token: process.env.EMAIL_REFRESH_TOKEN })
 
-const sendEmail = async (to: string, subject: string, htmlContent: string): Promise<SMTPPool.SentMessageInfo> => {
+const sendEmail = async (to: string, subject: string, htmlContent: string): Promise<any> => {
   const accessToken = await oAuth2Client.getAccessToken()
-  const transporter = nodemailer.createTransport({
-    host: gmailHost,
-    service: 'gmail',
+  const transporter = (nodemailer as any).createTransport({
+    // host: gmailHost,
+    // port: mailPort,
+
+    service: 'hotmail',
     // host: gmailHost, // Removed as 'service' is already specified
     secure: false, // use SSL - TLS
     auth: {
-      type: 'OAuth2',
+      // type: 'OAuth2',
       user: yourEmail,
-      clientId: process.env.EMAIL_CLIENT_ID,
-      clientSecret: process.env.EMAIL_CLIENT_SECRET,
-      refreshToken: process.env.EMAIL_REFRESH_TOKEN,
-      accessToken: accessToken.token
+      pass: process.env.EMAIL_PASSWORD,
+      // clientId: process.env.EMAIL_CLIENT_ID,
+      // clientSecret: process.env.EMAIL_CLIENT_SECRET,
+      // refreshToken: process.env.EMAIL_REFRESH_TOKEN,
+      // accessToken: accessToken.token
+    },
+    tls: {
+      ciphers: 'SSLv3', // Ensures compatibility with Hotmail's SMTP server
     }
   })
 
   const mailOptions = {
-    from: `${process.env.BRAND_NAME} ${senderEmail}`,
+    from: `${process.env.BRAND_NAME} <${senderEmail}>`,
     to,
     subject,
-    html: htmlContent
+    html: htmlContent,
+    attachments: [{
+      filename: 'logo.png',
+      path: `${__dirname}/data/images`,
+      cid: 'logo@meridian'
+    }]
   }
   const res = await transporter.sendMail(mailOptions) // promise
-  console.log('Email sent:', res)
   return res as any
 }
 

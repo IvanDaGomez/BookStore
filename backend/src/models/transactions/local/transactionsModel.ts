@@ -12,9 +12,13 @@ const transactionsPath = path.join(__dirname, 'data', 'transactions.json')
 const failureTransactionsPath = path.join(__dirname, 'data', 'failedTransactions.json')
 class TransactionsModel {
   static async getAllTransactions (): Promise<TransactionObjectType[]> {
-    const data = await fs.readFile(transactionsPath, 'utf-8')
-    const transactions: TransactionObjectType[] = JSON.parse(data)
-    return transactions.map(transaction => transactionObject(transaction))
+    const [successData, failureData] = await Promise.all([
+      fs.readFile(transactionsPath, 'utf-8'),
+      fs.readFile(failureTransactionsPath, 'utf-8')
+    ])
+    const successTransaction: TransactionObjectType[] = JSON.parse(successData)
+    const failureTransaction: TransactionObjectType[] = JSON.parse(failureData)
+    return [...successTransaction, ...failureTransaction].map(transaction => transactionObject(transaction))
   }
 
   static async getAllTransactionsByUser (id: ID): Promise<TransactionObjectType[]> {
@@ -66,17 +70,45 @@ class TransactionsModel {
     await fs.writeFile(transactionsPath, JSON.stringify(transactions, null, 2))
     return { message: 'Transacción eliminada con éxito' } // Mensaje de éxito
   }
-
-  static async updateTransaction (id: number, data: Partial<TransactionObjectType>): Promise<TransactionObjectType> {
+  static async updateFailureTransaction (id: number, data: Partial<TransactionObjectType>): Promise<TransactionObjectType> {
     const transactions = await this.getAllTransactions()
     const transactionIndex = transactions.findIndex(transaction => transaction._id === id)
     if (transactionIndex === -1) {
       throw new Error('No se encontró la transacción')
     }
-    Object.assign(transactions[transactionIndex], data)
+    const transaction = transactions[transactionIndex]
+    Object.assign(transaction, data)
+    if (transaction.status === 'approved') {
+      const successTransactions = await this.getAllTransactions()
+      const successTransactionIndex = successTransactions.findIndex(transaction => transaction._id === id)
+      if (successTransactionIndex !== -1) {
+        successTransactions.splice(successTransactionIndex, 1)
+        await fs.writeFile(transactionsPath, JSON.stringify(successTransactions, null, 2))
+      }
+    }
+    transactions.splice(transactionIndex, 1)
+    await fs.writeFile(failureTransactionsPath, JSON.stringify(transactions, null, 2))
+    return transactionObject(transaction)
+  }
+  static async updateSuccessfullTransaction (id: number, data: Partial<TransactionObjectType>): Promise<TransactionObjectType> {
+    const transactions = await this.getAllTransactions()
+    const transactionIndex = transactions.findIndex(transaction => transaction._id === id)
+    if (transactionIndex === -1) {
+      throw new Error('No se encontró la transacción')
+    }
+    const transaction = transactions[transactionIndex]
+    Object.assign(transaction, data)
+    if (transaction.status === 'failed') {
+      const failureTransactions = await this.getAllTransactions()
+      const failureTransactionIndex = failureTransactions.findIndex(transaction => transaction._id === id)
+      if (failureTransactionIndex !== -1) {
+        failureTransactions.splice(failureTransactionIndex, 1)
+        await fs.writeFile(failureTransactionsPath, JSON.stringify(failureTransactions, null, 2))
+      }
+    }
+    transactions.splice(transactionIndex, 1)
     await fs.writeFile(transactionsPath, JSON.stringify(transactions, null, 2))
-    return transactions[transactionIndex]
-
+    return transactionObject(transaction)
   }
 
   static async getBookByTransactionId (id: string): Promise<TransactionObjectType> {

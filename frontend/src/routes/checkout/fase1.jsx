@@ -5,9 +5,6 @@ function Fase1 ({ setFase }) {
 
   return (
     <div>
-      {/* Muestra los productos del carrito */}
-      {/* MakeCheckoutCard */}
-
       <button onClick={handleNext}>Siguiente</button>
     </div>
   )

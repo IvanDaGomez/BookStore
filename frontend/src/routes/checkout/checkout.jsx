@@ -61,7 +61,8 @@ function Checkout () {
   })
 
   const [preferenceId,] = useFetchPreferenceId(libro)
-  const renderFase = () => {
+  const RenderFase = () => {
+    if (!libro || !user) return null // Asegúrate de que libro y user estén definidos antes de renderizar
     switch (fase) {
       case 1:
         return <Fase1 form={form} setForm={setForm} setFase={setFase} libro={libro} />
@@ -106,7 +107,7 @@ function Checkout () {
         
         <UseStep currentStep={fase} titulos={steps} />
         {(libro && user) && <MakeOneFrCard element={libro} index={0} user={user}/>}
-        {(libro && user) && renderFase()}
+        {(libro && user) && <RenderFase />}
       </div>
       <ToastContainer
         position='top-center'

@@ -72,7 +72,7 @@ export class TransactionsController {
       return res.status(400).json({ error: validated.error })
     }
     // TODO: No se si el id es necesario, ya que se genera en mercadoPago
-    data._id = crypto.randomUUID()
+    // data._id = crypto.randomUUID()
     let transaction
 
     if (data.status === 'approved') {
@@ -171,7 +171,6 @@ export class TransactionsController {
       const userId = partialData.userId
       const bookId = partialData.bookId
       const shippingDetails = partialData.shippingDetails
-      console.log(!sellerId || !userId || !bookId || !shippingDetails)
       if (!sellerId || !userId || !bookId || !shippingDetails) {
         return res
           .status(400)
@@ -368,34 +367,79 @@ export class TransactionsController {
         return res.status(400).json({ error: 'Firma no válida' })
       }
 
-      // let paymentResponse = {
-      //   status: 'error',
-      //   message: 'Error al procesar el pago'
-      // }
-      // if (type === 'payment') {
-      //   const data = await payment.get({ id: paymentData.id })
+      let paymentResponse: {
+        status: string
+        message: string
+        transaction?: TransactionObjectType
+      } = {
+        status: 'error',
+        message: 'Error al procesar el pago'
+      }
+      if (type === 'payment') {
+        const response = await payment.get({ id: paymentData.id })
  
-      //   // Verificar si ya se procesó esta transacción
-      //   const existingTransaction =
-      //     await this.TransactionsModel.getTransactionById(data.id ?? '')
-      //   if (existingTransaction) {
-      //     console.log('Webhook: transacción ya procesada:', data.id)
-      //     return res.status(200).json({ status: 'success' })
-      //   }
+        // Verificar si ya se procesó esta transacción
+        const existingTransaction = await this.TransactionsModel.getTransactionById(response.id ?? 0)
+        if (existingTransaction.status === 'approved') {
+          console.log('Webhook: transacción ya procesada:', response.id)
+          return res.status(200).json({ status: 'success' })
+        }
+        const [user, seller, book] = await Promise.all([
+          this.UsersModel.getUserById(existingTransaction.userId),
+          this.UsersModel.getUserById(existingTransaction.sellerId),
+          this.BooksModel.getBookById(existingTransaction.bookId)
+        ])
+        if (response.status === 'approved') {
+          // Actualizar el saldo del usuario y vendedor
 
-      //   const book = await this.TransactionsModel.getBookByTransactionId(
-      //     paymentData.id
-      //   )
-      //   paymentResponse = await processPaymentResponse({
-      //     result: data,
-      //     sellerId: book.idVendedor,
-      //     book,
-      //     data,
-      //     res
-      //   })
-      // }
+          // Actualizar el saldo del usuario y vendedor
+          await Promise.all([
+            this.UsersModel.updateUser(seller._id, {
+              balance: {
+                porLlegar: (seller.balance.porLlegar ?? 0) + (response?.transaction_amount ?? 0)
+              }
+            }),
+            this.BooksModel.updateBook(book._id, {
+              disponibilidad: 'Vendido'
+            })
+          ])
+          // Crear la transacción
+          const transaction = await this.TransactionsModel.updateSuccessfullTransaction(existingTransaction?._id ?? 0, {
+            userId: user._id,
+            bookId: book._id,
+            shippingDetails: existingTransaction.shippingDetails,
+            response,
+            status: 'approved',
+            order: existingTransaction.order
+          })
 
-      // res.status(200).json(paymentResponse)
+          paymentResponse = {
+            status: 'success',
+            message: 'Pago procesado exitosamente',
+            transaction
+          }
+        }
+        else {
+          // Crear la transacción
+          const transaction = await this.TransactionsModel.updateFailureTransaction(existingTransaction?._id ?? 0, 
+            {
+              userId: user._id,
+              bookId: book._id,
+              shippingDetails: existingTransaction.shippingDetails,
+              response,
+              status: response.status,
+              order: existingTransaction.order
+            }
+          )
+          paymentResponse = {
+            status: 'error',
+            message: 'Pago fallido',
+            transaction
+          }
+        }
+      }
+
+      res.status(200).json(paymentResponse)
     } catch (err) {
       next(err)
     }

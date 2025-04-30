@@ -27,12 +27,9 @@ export async function sendProcessPaymentEmails(data: {
       order,
       UsersModel
     }= data
-    console.log('Data transaction status:', data.transaction?.status)
 
     const userEmail = await UsersModel.getEmailById(user._id)
     const sellerEmail = await UsersModel.getEmailById(seller._id)
-    console.log('userEmail:', userEmail)
-    console.log('Transaction method id:', transaction.response.payment_method_id)
     if (transaction.response.payment_method_id === 'efecty' && userEmail) {
       console.log('El pago es por Efecty, se enviará un correo de confirmación.')
       await sendEmail(`${user.nombre} ${userEmail.correo}`, 'Información de tu pago en Efecty', createEmail({

@@ -108,7 +108,7 @@ function createEmail (data: {
             <body>
             <div class="container">
               <header>
-                <img src='${process.env.LOGO_URL}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
+                <img src='cid:logo@meridian' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
               <header>
               <h1>Gracias por unirte a Meridian!</h1>
               <p>Hola <strong>${data.user?.nombre ?? ''}</strong>,</p>
@@ -136,7 +136,7 @@ function createEmail (data: {
             <body>
             <div class="container">
               <div class='header'>
-                <img src='${process.env.LOGO_URL}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
+                <img src='cid:logo@meridian' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
               </div>
               <h1>Tu libro ha sido publicado con éxito!</h1>
               <p>Hola <strong>${data.book?.vendedor ?? ''}</strong>,</p>
@@ -163,7 +163,7 @@ function createEmail (data: {
     //         <body>
     //           <div class='container'>
     //             <div class='header'>
-    //               <img src='${process.env.LOGO_URL}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
+    //               <img src='cid:logo@meridian' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
     //             </div>
     //             <h1>Tienes una nueva pregunta!</h1>
     //             <p>Hola <strong>${data.vendedor}</strong>,</p>
@@ -191,7 +191,7 @@ function createEmail (data: {
             <body>
               <div class='container'>
                 <div class='header'>
-                  <img src='${process.env.LOGO_URL}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
+                  <img src='cid:logo@meridian' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
                 </div>
                 <h1>¡Validación de cuenta requerida!</h1>
                 <p>Hola <strong>${data.user?.nombre ?? ''}</strong>,</p>
@@ -216,7 +216,7 @@ function createEmail (data: {
           <body>
               <div class='container'> 
                 <div class='header'>
-                  <img src='${process.env.LOGO_URL}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
+                  <img src='cid:logo@meridian' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
                 </div>
                 <h1>Solicitud para Cambiar Contraseña</h1>
                 <p>Hola <strong>${data.user?.nombre ?? ''}</strong>,</p>
@@ -243,7 +243,7 @@ function createEmail (data: {
         <body>
           <div class="container">
               <div class='header'>
-                <img src='${process.env.LOGO_URL}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
+                <img src='cid:logo@meridian' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
               </div>
             <main>
             <h1>¡Pago Realizado con Éxito!</h1>
@@ -295,7 +295,7 @@ function createEmail (data: {
         <body>
           <div class="container">
             <div class='header'>
-              <img src='${process.env.LOGO_URL}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
+              <img src='cid:logo@meridian' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
             </div>
             <main>
               <h1>¡Gracias por tu Compra!</h1>
@@ -324,7 +324,7 @@ function createEmail (data: {
         <body>
           <div class="container">
             <div class='header'>
-              <img src='${process.env.LOGO_URL}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
+              <img src='cid:logo@meridian' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
             </div>
             <main>
               <h1>¡Tu libro se ha vendido!</h1>
@@ -365,7 +365,7 @@ function createEmail (data: {
         </head>
           <div class="container">
             <div class='header'>
-              <img src='${process.env.LOGO_URL}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
+              <img src='cid:logo@meridian' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
             </div>
             <main>
               <h1>¡Gracias por tu compra, ${data?.user?.nombre}</h1>

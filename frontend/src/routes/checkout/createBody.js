@@ -11,7 +11,7 @@ export function createBody ({ user, libro, formData = null, form, selectedPaymen
     transaction_amount: totalAmount || 0, // Definido como 0 si no se proporciona
     application_fee: commissionAmount || 0, // Comisión de la aplicación, 0 si no se proporciona
     description: `Pago de libro "${libro.titulo || 'desconocido'}" en Meridian`, // Título del libro, con valor por defecto si es undefined
-    callback_url: 'https://www.youtube.com'
+    callback_url: window.location.hostname
   } 
   if (!formData) {
     return partialData

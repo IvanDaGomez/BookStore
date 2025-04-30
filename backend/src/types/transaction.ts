@@ -3,7 +3,7 @@ import { ID, ISOString } from "./objects"
 import { ShippingDetailsType } from "./shippingDetails"
 
 export type TransactionObjectType = {
-  _id?: number | string // Unique ID for the transaction
+  _id?: number // Unique ID for the transaction
   userId: ID // ID of the user making the purchase
   sellerId: ID // ID of the seller
   bookId: ID // ID of the book being purchased
