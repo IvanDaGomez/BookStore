@@ -193,12 +193,11 @@ function createEmail (data: {
                 <div class='header'>
                   <img src='cid:logo@meridian' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
                 </div>
-                <h1>¡Validación de cuenta requerida!</h1>
+                <h1>¡Código de verificación!</h1>
                 <p>Hola <strong>${data.user?.nombre ?? ''}</strong>,</p>
-                <p>¡Gracias por registrarte en Meridian Bookstore!</p>
                 <p>El código de verificación es ${data.metadata?.validationCode}</p>
                 <hr/>
-                <<p>Si no te registraste en Meridian Bookstore, ignora este correo o contáctanos para informarnos.</p>>
+                <<p>Si no te registraste en ${process.env.BRAND_NAME} Bookstore, ignora este correo o contáctanos para informarnos.</p>>
                 <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en responder a este correo o <a href="mailto:support@meridianbookstore.com">contactarnos aquí</a>.</p>
               </div>
             </body>

@@ -1,0 +1,15 @@
+import axios from "axios"
+import { useEffect, useState } from "react"
+
+export default function useFetchTransactions ({ user }) {
+  const [transactions, setTransactions] = useState([])
+  useEffect(()=>{
+    if (!user) return
+      async function fetchTransactions (userId) {
+        const response = await axios.get(`http://localhost:3030/api/transactions/transactionByUser/${userId}`)
+        setTransactions(response.data)
+      }
+      fetchTransactions(user._id)
+    },[user])
+  return [transactions, setTransactions]
+}

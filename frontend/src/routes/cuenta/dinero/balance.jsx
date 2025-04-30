@@ -4,18 +4,15 @@ import ChartBalanceData from './balanceAssets/chartBalanceData'
 import TransactionHistorial from './transactionHistorial'
 import axios from 'axios'
 import Breadcrumb from '../../../assets/breadCrumb.jsx'
+import useFetchTransactions from '../../../assets/useFetchTransactions.js'
+import Cobrar from './cobrar.jsx'
+// import Ingresar from './ingresar.jsx'
 /* eslint-disable no-unused-vars */
 export default function Balance ({ user, setUser }) {
   const [cobrar, setCobrar] = useState(false)
-  const [ingresar, setIngresar] = useState(false)
-  const [transactions, setTransactions] = useState([])
-  useEffect(()=>{
-    async function fetchTransactions (userId) {
-      const response = await axios.get(`http://localhost:3030/api/transactions/transactionByUser/${userId}`)
-      setTransactions(response.data)
-    }
-    fetchTransactions(user._id)
-  },[user])
+  // const [ingresar, setIngresar] = useState(false)
+  const [transactions, setTransactions] = useFetchTransactions({ user})
+  
 
 
   useEffect(() => {
@@ -25,7 +22,11 @@ export default function Balance ({ user, setUser }) {
         const url = 'http://localhost:3030/api/users/balance/' + user._id
         const response = await axios.get(url, { withCredentials: true })
         if (response.data) {
-          setUser({ ...user, balance: response.data.balance })
+          setUser({ ...user, balance: {
+            disponible: response.data.disponible, // prueba
+            pendiente: response.data.pendiente,
+            porLlegar: response.data.porLlegar
+          } })
         }
       } catch (error) {
         console.error('Error en la llamada del balance')
@@ -34,7 +35,7 @@ export default function Balance ({ user, setUser }) {
     fetchBalance()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  const balanceSum = Object.values(user?.balance || {}).reduce((a, b) => a + b, 0)
+  const balanceSum = Object.values(user?.balance ?? {}).reduce((a, b) => a + b, 0)
   const [pathsArr] = useState(window.location.pathname.split('/'))
   return (
     <>
@@ -60,11 +61,11 @@ export default function Balance ({ user, setUser }) {
             </div>
             
             <div>
-            {user.balance.disponible > 0 &&
+            {user.balance.disponible >= 0 &&
               <button onClick={() => setCobrar(!cobrar)}>
-                Cobrar
+                Retirar
               </button>}
-              <button onClick={() => setIngresar(!ingresar)}>Ingresar</button>
+              {/* <button onClick={() => setIngresar(!ingresar)}>Ingresar</button> */}
             </div>
             
           </div>
@@ -74,14 +75,8 @@ export default function Balance ({ user, setUser }) {
           <ChartBalanceData transactions={transactions} user={user}/>
         </div>
       </div>
-      {cobrar &&
-        <div className='cobrarContainer'>
-          <h1>Cobrar</h1>
-          <p>Bla bla bla</p>
-        </div>}
-      {ingresar &&
-      <div>Hola</div>
-      }
+      {cobrar && <Cobrar user={user} setCobrar={setCobrar}/>}
+      {/* {ingresar && <Ingresar user={user} setUser={setUser}/>} */}
       <TransactionHistorial transactions={transactions} user={user}/>
     </>
   )

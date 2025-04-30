@@ -7,7 +7,7 @@ export default function useFetchPreferenceId(libro) {
     const fetchPreferenceId = async () => {
       if (libro) {
         try {
-          const url = 'http://localhost:3030/api/transactions/getPreferenceId'
+          const url = 'http://localhost:3030/api/transactions/getBookPreferenceId'
 
           // Prepare the payload
           const body = {

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import titleCase from '../../../assets/toTitleCase'
 import { formatPrice } from '../../../assets/formatPrice'
-import Breadcrumb from '../../../assets/breadCrumb.jsx'
+
 export default function TransactionHistorial ({ transactions, user }) {
   // Sample transaction history data
   const header = [
@@ -40,8 +40,9 @@ export default function TransactionHistorial ({ transactions, user }) {
     else if (transaction.status === 'cancelled') {
       transaction.status = 'Cancelada'
     }
+    const transactionDate = new Date(transaction.response.date_created.split('T')[0]).toISOString().split('T')[0]
     return [transaction._id, 
-      new Date(transaction.response.date_created).toISOString().split('T')[0], 
+      transactionDate, 
       formatPrice(parsedAmount), 
       tipo,
       transaction.status, 
@@ -49,7 +50,6 @@ export default function TransactionHistorial ({ transactions, user }) {
   }
   return (
     <>
-    <Breadcrumb pathsArr={window.location.pathname.split('/')} />
       <h1>Historial de transacciones</h1>
       <div className='balanceTransactionHistorialContainer'>
         {transactions.length === 0

@@ -18,7 +18,7 @@ const Breadcrumb = ({ pathsArr }) => {
             <a href={path}>
               <span>{format(element)}</span>
             </a>
-            {index !== 0 && index !== pathsArr.length - 1 && ' > '}
+            {index !== 0 && index !== pathsArr.length - 1 && ' / '}
           </React.Fragment>
         );
       })}

@@ -15,7 +15,10 @@ export const createTransactionsRouter = ({ TransactionsModel, UsersModel, BooksM
   transactionsRouter.use('/mercadoPagoWebHooks', transactionsController.MercadoPagoWebhooks as RequestHandler)
   transactionsRouter.post('/process_payment', transactionsController.processPayment as RequestHandler)
   transactionsRouter.post('/pay-with-balance', transactionsController.payWithBalance as RequestHandler)
-  transactionsRouter.post('/getPreferenceId', transactionsController.getPreferenceId as RequestHandler)
+  transactionsRouter.post('/getBookPreferenceId', transactionsController.getPreferenceId as RequestHandler)
+  transactionsRouter.post('/withdrawMoney', transactionsController.withdrawMoney as RequestHandler)
+  transactionsRouter.get('/getSafeCode/:userId', transactionsController.getSafeCode as RequestHandler)
+  // transactionsRouter.post('/getAddMoneyPreferenceId', transactionsController.getPreferenceIdByUser as RequestHandler)
   transactionsRouter.get('/transactionByUser/:userId', transactionsController.getTransactionsByUser as RequestHandler)
 
   transactionsRouter.post('/', transactionsController.createTransaction as RequestHandler)

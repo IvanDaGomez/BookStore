@@ -11,6 +11,7 @@ import { TransactionObjectType } from './transaction'
 import { ShippingDetailsType } from './shippingDetails'
 import { PaymentResponse } from 'mercadopago/dist/clients/payment/commonTypes'
 import { TransactionInputType } from './transactionInput'
+import { WithdrawMoneyType } from './withdrawMoney'
 
 export interface IUsersModel {
   getAllUsers(): Promise<UserInfoType[]>
@@ -148,5 +149,6 @@ export interface ITransactionsModel {
   updateSuccessfullTransaction (id: number, data: Partial<TransactionInputType>): Promise<TransactionObjectType>
   updateFailureTransaction (id: number, data: Partial<TransactionInputType>): Promise<TransactionObjectType>
   getBookByTransactionId (id: string): Promise<BookObjectType>
+  createWithdrawTransaction (data: WithdrawMoneyType): Promise<{ message: string }>
   // Add other methods from TransactionsModel as needed
 }

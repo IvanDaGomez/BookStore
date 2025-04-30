@@ -289,6 +289,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: row-reverse;
+  width: 100%;
 }
 .account-dashboard .main-content .graphContainer .axisPicker{
   width: 100%;
@@ -385,5 +386,31 @@
   }
   a:hover{
     color: var(--using3);
+  }
+}
+
+.askPrompt {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: var(--using1);
+  padding: var(--padding-large);
+  border-radius: var(--border-radius);
+  margin: var(--margin-medium) auto;
+  & > form{
+    width: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+  }
+  input{
+    margin: var(--margin-small);
+  }
+  .accent{
+    width: min(100%, 300px);
+    padding: var(--padding-medium);
   }
 }

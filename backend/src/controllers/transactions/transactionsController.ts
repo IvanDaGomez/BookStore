@@ -10,6 +10,8 @@ import { createMercadoPagoPayment } from '../users/createMercadoPagoPayment.js'
 import { payment, preference } from '../../assets/config.js'
 import { MercadoPagoInput } from '../../types/mercadoPagoInput.js'
 import { ShippingDetailsType } from '../../types/shippingDetails.js'
+import { sendEmail } from '../../assets/email/sendEmail.js'
+import { createEmail } from '../../assets/email/htmlEmails.js'
 // TODO
 export class TransactionsController {
   private TransactionsModel: ITransactionsModel
@@ -31,19 +33,18 @@ export class TransactionsController {
       const transactions = await this.TransactionsModel.getAllTransactions()
       res.json(transactions)
     } catch (err) {
-      next(err)
+      next(err) 
     }
   }
 
   getTransactionsByUser = async (req: express.Request, res: express.Response, next:express.NextFunction) => {
     try {
-      console.log('hola')
       const userId = req.params.userId as ID | undefined
       if (!userId) {
         return res.status(400).json({ error: 'ID de usuario no proporcionado' })
       }
       const transactions = await this.TransactionsModel.getAllTransactionsByUser(userId)
-      console.log('Transactions:', transactions)
+
       res.json(transactions)
     } catch (err) {
       next(err)
@@ -457,6 +458,88 @@ export class TransactionsController {
 
     } 
     catch (err) {
+      next(err)
+    }
+  }
+  getSafeCode = async (req: express.Request, res: express.Response, next:express.NextFunction) => {
+    try {
+      const userId = req.params.userId as ID | undefined
+      
+      if (!userId) {
+        return res.status(400).json({ error: 'ID de usuario no proporcionado' })
+      }
+      const validationCode = Math.floor(Math.random() * 1000000)
+      const user = await this.UsersModel.getEmailById(userId)
+
+      // Send the email
+      // await sendEmail(
+      //   `${user.nombre} <${user.correo}>`,
+      //   'Correo de validación en Meridian',
+      //   createEmail(
+      //     { 
+      //       user: {
+      //         ...user
+      //       }, 
+      //       metadata: {
+      //         validationCode
+      //       } 
+      //     },
+      //     'validationEmail'
+      //   )
+      // )
+      res.json({ code: validationCode })
+    } catch (err) {
+      next(err)
+    }
+  }
+  withdrawMoney = async (req: express.Request, res: express.Response, next:express.NextFunction) => {
+    try {
+      const {
+        userId,
+        numeroCuenta,
+        monto,
+        password,
+        bank
+      } = req.body as {
+        userId: ID
+        numeroCuenta: string
+        monto: string
+        password: string
+        bank: string
+      }
+
+      if (!userId || !monto || !numeroCuenta || !password || !bank) {
+        return res.status(400).json({ error: 'ID de usuario o monto no proporcionado' })
+      }
+      const ammount = parseInt(monto, 10)
+      const accountNumber = parseInt(numeroCuenta, 10)
+      const user = await this.UsersModel.getUserById(userId)
+      if (!user) {
+
+        return res.status(404).json({ error: 'Usuario no encontrado' })
+      }
+
+      if (user.balance.disponible < ammount) {
+
+        return res.status(400).json({ error: 'Saldo insuficiente' })
+      }
+      await this.TransactionsModel.createWithdrawTransaction({
+        userId,
+        numeroCuenta: accountNumber,
+        monto: ammount,
+        password,
+        bank
+      })
+      
+      const updatedUser = await this.UsersModel.updateUser(userId, {
+        balance: {
+          disponible: user.balance.disponible - ammount,
+          pendiente: (user.balance.pendiente ?? 0) + ammount
+        }
+      })
+
+      res.json(updatedUser)
+    } catch (err) {
       next(err)
     }
   }

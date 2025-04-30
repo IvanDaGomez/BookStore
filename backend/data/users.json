@@ -157,6 +157,8 @@
       "2da Edición": 5
     },
     "balance": {
+      "pendiente": 0,
+      "disponible": 0,
       "porLlegar": 0
     }
   },
@@ -294,7 +296,7 @@
     "balance": {
       "pendiente": 0,
       "disponible": 0,
-      "porLlegar": 0
+      "porLlegar": 85000
     }
   },
   {
@@ -407,9 +409,8 @@
       "Reacondicionado": 5
     },
     "balance": {
-      "pendiente": 0,
-      "disponible": 0,
-      "porLlegar": 0
+      "disponible": 10000,
+      "pendiente": "01000010000100001000010000"
     }
   },
   {

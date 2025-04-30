@@ -1,16 +1,11 @@
+import useFetchAddPreferenceId from "./useFetchAddPreferenceId"
 import { initMercadoPago } from "@mercadopago/sdk-react"
 import { useEffect } from "react"
 import { onError, onReady, onSubmit } from "./callbacks"
 import { MERCADOPAGO_PUBLIC_KEY } from '../../assets/config.js'
-export default function useInitializeMercadoPago ({
-  preferenceId,
-  libro,
-  form,
-  user,
-  setStatusScreen,
-  setPaymentId,
-  setStatus
-}) {
+export default function Ingresar ({ user, transactions }) {
+  const { preferenceId } = useFetchAddPreferenceId()
+
   useEffect(() => {
     initMercadoPago(MERCADOPAGO_PUBLIC_KEY)
   }, [])
@@ -50,12 +45,8 @@ export default function useInitializeMercadoPago ({
             callbacks: {
               onSubmit: (formData) => onSubmit({
                 formData,
-                form,
-                libro,
                 user,
-                setStatusScreen,
-                setPaymentId,
-                setStatus
+
               }),
               onError,
               onReady
@@ -68,7 +59,13 @@ export default function useInitializeMercadoPago ({
 
       renderPaymentBrick()
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [preferenceId, libro, form, user]) // Ensure `renderPaymentBrick` only depends on `preferenceId` and `libro` values
 
+  }, [preferenceId, user]) // Ensure `renderPaymentBrick` only depends on `preferenceId` and `libro` values
+
+  return(<>
+  <div className="askPrompt">
+    <h1>Ingresar dinero.</h1>
+    <input type="text" placeholder="ingresar"/>
+  </div>
+  </>)
 }

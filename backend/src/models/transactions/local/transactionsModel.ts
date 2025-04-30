@@ -8,8 +8,10 @@ import { PaymentResponse } from 'mercadopago/dist/clients/payment/commonTypes.js
 import { TransactionInputType } from '../../../types/transactionInput.js'
 // __dirname is not available in ES modules, so we need to use import.meta.url
 import { __dirname } from '../../../assets/config.js'
+import { WithdrawMoneyType } from '../../../types/withdrawMoney.js'
 const transactionsPath = path.join(__dirname, 'data', 'transactions.json')
 const failureTransactionsPath = path.join(__dirname, 'data', 'failedTransactions.json')
+const withdrawTransactionsPath = path.join(__dirname, 'data', 'withdrawTransactions.json')
 class TransactionsModel {
   static async getAllTransactions (): Promise<TransactionObjectType[]> {
     const [successData, failureData] = await Promise.all([
@@ -21,6 +23,12 @@ class TransactionsModel {
     return [...successTransaction, ...failureTransaction].map(transaction => transactionObject(transaction))
   }
 
+  static async getAllWithdrawTransactions (): Promise<WithdrawMoneyType[]> {
+    const withdrawData = await fs.readFile(withdrawTransactionsPath, 'utf-8')
+    const withdrawTransaction: WithdrawMoneyType[] = JSON.parse(withdrawData)
+    return withdrawTransaction
+  }
+
   static async getAllTransactionsByUser (id: ID): Promise<TransactionObjectType[]> {
     const transactions = await this.getAllTransactions()
     const filteredTransactions = transactions.filter(transaction => transaction.userId === id || transaction.sellerId === id)
@@ -29,7 +37,6 @@ class TransactionsModel {
     }
     // Return transaction with limited public information
     return filteredTransactions.map(transaction => transactionObject(transaction))
-
   }
   
   static async getTransactionById (id: number): Promise<TransactionObjectType> {
@@ -118,6 +125,13 @@ class TransactionsModel {
       throw new Error('No se encontró la transacción')
     }
     return transactionObject(transaction)
+  }
+
+  static async createWithdrawTransaction (data: WithdrawMoneyType): Promise<{ message: string }> {
+    const transactions = await this.getAllWithdrawTransactions()
+    transactions.push(data)
+    await fs.writeFile(withdrawTransactionsPath, JSON.stringify(transactions, null, 2))
+    return { message: 'Transacción de retiro creada con éxito' }
   }
 }
 

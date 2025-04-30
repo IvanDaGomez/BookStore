@@ -62,7 +62,7 @@ export default function Cuenta () {
     { title: 'Preferencias del comprador', href: '/cuenta/preferencias-comprador', includeInHeader: false },
     { title: 'Preferencias del vendedor', href: '/cuenta/preferencias-vendedor', includeInHeader: false, condition: user?.rol === 'vendedor' || user?.rol === 'admin' },
     { title: 'Mis pedidos', href: '/cuenta/pedidos' },
-    { title: 'Mis compras', href: '/cuenta/mis-compras' },
+    { title: 'Mis compras', href: '/cuenta/mis-compras', },
     { title: 'Mis ventas', href: '/cuenta/mis-ventas', condition: user?.rol === 'vendedor' || user?.rol === 'admin' },
     { title: 'Direcciones', href: '/cuenta/direcciones', includeInHeader: false }
   ], [user?.rol, user?._id])

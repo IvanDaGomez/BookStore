@@ -1,0 +1,37 @@
+[
+  {
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "numeroCuenta": "123456789",
+    "monto": "10000",
+    "password": "Idgs2603",
+    "bank": "Bancolombia"
+  },
+  {
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "numeroCuenta": "123456789",
+    "monto": "10000",
+    "password": "Idgs2603",
+    "bank": "Bancolombia"
+  },
+  {
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "numeroCuenta": "123456789",
+    "monto": "10000",
+    "password": "Idgs2603",
+    "bank": "Bancolombia"
+  },
+  {
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "numeroCuenta": 123456789,
+    "monto": 10000,
+    "password": "Idgs2603",
+    "bank": "Bancolombia"
+  },
+  {
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "numeroCuenta": 123456789,
+    "monto": 10000,
+    "password": "Idgs2603",
+    "bank": "Bancolombia"
+  }
+]
