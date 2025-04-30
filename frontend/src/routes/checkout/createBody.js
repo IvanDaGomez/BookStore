@@ -12,7 +12,7 @@ export function createBody ({ user, libro, formData = null, form, selectedPaymen
     application_fee: commissionAmount || 0, // Comisión de la aplicación, 0 si no se proporciona
     description: `Pago de libro "${libro.titulo || 'desconocido'}" en Meridian`, // Título del libro, con valor por defecto si es undefined
     callback_url: 'https://www.youtube.com'
-  }
+  } 
   if (!formData) {
     return partialData
   }

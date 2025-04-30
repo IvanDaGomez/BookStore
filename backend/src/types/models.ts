@@ -9,6 +9,8 @@ import { MessageObjectType } from './message'
 import { NotificationType } from './notification'
 import { TransactionObjectType } from './transaction'
 import { ShippingDetailsType } from './shippingDetails'
+import { PaymentResponse } from 'mercadopago/dist/clients/payment/commonTypes'
+import { TransactionInputType } from './transactionInput'
 
 export interface IUsersModel {
   getAllUsers(): Promise<UserInfoType[]>
@@ -140,24 +142,8 @@ export interface ITransactionsModel {
   getAllTransactions(): Promise<TransactionObjectType[]>
   getAllTransactionsByUser(id: ID): Promise<TransactionObjectType[]>
   getTransactionById(id: number): Promise<TransactionObjectType>
-  createSuccessfullTransaction (data: Partial<{
-    userId: ID,
-    bookId: ID,
-    shippingDetails: ShippingDetailsType,
-    response: any,
-    order: any,
-    transaction_amount?: number
-    status?: string
-  }>): Promise<TransactionObjectType>
-  createFailureTransaction (data: Partial<{
-    userId: ID,
-    bookId: ID,
-    shippingDetails: ShippingDetailsType,
-    response: any,
-    order: any,
-    transaction_amount?: number
-    status?: string
-  }>): Promise<TransactionObjectType>
+  createSuccessfullTransaction (data: Partial<TransactionInputType>): Promise<TransactionObjectType>
+  createFailureTransaction (data: Partial<TransactionInputType>): Promise<TransactionObjectType>
   deleteTransaction (id: number): Promise<{ message: string }>
   updateTransaction (id: number, data: Partial<TransactionObjectType>): Promise<TransactionObjectType>
   getBookByTransactionId (id: string): Promise<BookObjectType>

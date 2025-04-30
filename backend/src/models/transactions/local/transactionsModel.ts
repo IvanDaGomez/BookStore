@@ -3,9 +3,13 @@ import { transactionObject } from '../transactionObject.js'
 import { TransactionObjectType } from '../../../types/transaction.js'
 import { ID } from '../../../types/objects.js'
 import path from 'node:path'
+import { ShippingDetailsType } from '../../../types/shippingDetails.js'
+import { PaymentResponse } from 'mercadopago/dist/clients/payment/commonTypes.js'
+import { TransactionInputType } from '../../../types/transactionInput.js'
 // __dirname is not available in ES modules, so we need to use import.meta.url
-
-const transactionsPath = path.join('.', 'data', 'transactions.json')
+import { __dirname } from '../../../assets/config.js'
+const transactionsPath = path.join(__dirname, 'data', 'transactions.json')
+const failureTransactionsPath = path.join(__dirname, 'data', 'failedTransactions.json')
 class TransactionsModel {
   static async getAllTransactions (): Promise<TransactionObjectType[]> {
     const data = await fs.readFile(transactionsPath, 'utf-8')
@@ -34,7 +38,7 @@ class TransactionsModel {
     return transactionObject(transaction)
   }
 
-  static async createSuccessfullTransaction (data: Partial<TransactionObjectType>): Promise<TransactionObjectType> {
+  static async createSuccessfullTransaction (data: Partial<TransactionInputType>): Promise<TransactionObjectType> {
     const transactions = await this.getAllTransactions()
     // Crear valores por defecto
     const newTransaction = transactionObject(data)
@@ -43,12 +47,12 @@ class TransactionsModel {
     return newTransaction
   }
 
-  static async createFailureTransaction (data: Partial<TransactionObjectType>): Promise<TransactionObjectType> {
+  static async createFailureTransaction (data: Partial<TransactionInputType>): Promise<TransactionObjectType> {
     const transactions = await this.getAllTransactions()
     // Crear valores por defecto
     const newTransaction = transactionObject(data)
     transactions.push(newTransaction)
-    await fs.writeFile(transactionsPath, JSON.stringify(transactions, null, 2))
+    await fs.writeFile(failureTransactionsPath, JSON.stringify(transactions, null, 2))
     return newTransaction
   }
 

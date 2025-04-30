@@ -2,7 +2,7 @@ import { toast } from "react-toastify"
 import { createBody } from "./createBody"
 import axios from "axios"
 const handlePayWithBalance = async ({ libro, user, form, setLoading }) => {
-  if (user.balance < libro.precio) {
+  if (user.balance.disponible < libro.precio) {
     toast.error('No tienes el suficiente dinero!')
     return
   }

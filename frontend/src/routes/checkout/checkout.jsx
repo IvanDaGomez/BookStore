@@ -50,7 +50,7 @@ function Checkout () {
   // Fetch book
 
 
-  const { libro } = useFetchActualBook(bookId)
+  const { libro, error } = useFetchActualBook(bookId)
   const [fase, setFase] = useState(1) // Estado para la fase actual
   const [form, setForm] = useState({
     // Estado para almacenar los datos del formulario
@@ -87,6 +87,16 @@ function Checkout () {
       </>
     )
   }
+  if (error) {
+    return (
+      <>
+        <Header />
+        <div className="loadingContainer">
+          <p>Error loading book data</p>
+        </div>
+      </>
+    )
+  }
 
   return (
     <>
@@ -95,8 +105,8 @@ function Checkout () {
         <h1>{steps[fase - 1]}</h1>
         
         <UseStep currentStep={fase} titulos={steps} />
-        {libro && <MakeOneFrCard element={libro} index={0} />}
-        {libro && renderFase()}
+        {(libro && user) && <MakeOneFrCard element={libro} index={0} user={user}/>}
+        {(libro && user) && renderFase()}
       </div>
       <ToastContainer
         position='top-center'

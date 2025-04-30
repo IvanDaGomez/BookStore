@@ -9,6 +9,7 @@ import { CreateOrdenDeEnvío } from '../../assets/createOrdenDeEnvio.js'
 import { createMercadoPagoPayment } from '../users/createMercadoPagoPayment.js'
 import { payment, preference } from '../../assets/config.js'
 import { MercadoPagoInput } from '../../types/mercadoPagoInput.js'
+import { ShippingDetailsType } from '../../types/shippingDetails.js'
 // TODO
 export class TransactionsController {
   private TransactionsModel: ITransactionsModel
@@ -194,7 +195,6 @@ export class TransactionsController {
 
       // Crear el pago en MercadoPago 
       const response = await payment.create(info)
-      console.dir(response, { depth: null })
 
       // Actualizar el saldo del usuario y vendedor
       // I dont update the user balance because if the payment is with mercadopago, the user balance is not updated
@@ -273,13 +273,20 @@ export class TransactionsController {
     */
     try {
       // const transaction = sequelize.transaction()
-      const { userId, 
-        sellerId, 
-        transaction_amount, 
-        bookId, 
-        shippingDetails
-      } = req.body as TransactionObjectType
-
+      const { partialData } = req.body as MercadoPagoInput
+      const {
+        userId,
+        sellerId,
+        bookId,
+        shippingDetails,
+        transaction_amount
+      } = partialData as {
+        userId: ID
+        sellerId: ID
+        bookId: ID
+        shippingDetails: ShippingDetailsType
+        transaction_amount: number
+      }
       if (!userId || !transaction_amount || !bookId) {
         console.log('Faltan datos requeridos')
         return res.status(400).json({ error: 'Faltan datos requeridos' })

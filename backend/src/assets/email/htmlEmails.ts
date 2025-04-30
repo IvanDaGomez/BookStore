@@ -4,6 +4,7 @@ import { BookObjectType } from '../../types/book'
 import { UserInfoType } from '../../types/user'
 import { TransactionObjectType } from '../../types/transaction'
 import { Barcode } from 'mercadopago/dist/clients/payment/commonTypes'
+import { ShippingDetailsType } from '../../types/shippingDetails'
 dotenv.config()
 
 const styles = `
@@ -86,7 +87,7 @@ function createEmail (data: {
   user?: UserInfoType | Partial<UserInfoType>
   seller?: Partial<UserInfoType>
   transaction?: Partial<TransactionObjectType>
-  shippingDetails?: any
+  shippingDetails?: ShippingDetailsType
   metadata?: {
     guia?: string
     validationCode?: number
@@ -266,11 +267,11 @@ function createEmail (data: {
                 </tr>
                 <tr>
                   <td><strong>Monto:</strong></td>
-                  <td>$${data.transaction?.paymentDetails?.amount ?? 'N/A'}</td>
+                  <td>$${data.transaction?.response?.transaction_amount ?? 'N/A'}</td>
                 </tr>
                 <tr>
                   <td><strong>Método de pago:</strong></td>
-                  <td>${data.transaction?.paymentDetails?.method ?? 'N/A'}</td>
+                  <td>${data.transaction?.response?.payment_method_id ?? 'N/A'}</td>
                 </tr>
               </table>
               <p>Gracias por tu confianza en ${process.env.BRAND_NAME}.</p>
@@ -333,7 +334,7 @@ function createEmail (data: {
               <ul>
                 <li><strong>Comprador:</strong> ${data.seller?.nombre}</li>
                 <li><strong>Guía de envío:</strong> ${data.metadata?.guia ?? ''}</li>
-                <li><strong>Fecha de la compra:</strong> ${new Date(data.transaction?.createdIn ?? '').toLocaleString('es-CO', {
+                <li><strong>Fecha de la compra:</strong> ${new Date(data.transaction?.response?.date_created ?? '').toLocaleString('es-CO', {
                   weekday: 'long',
                   year: 'numeric',
                   month: 'long',
@@ -367,11 +368,11 @@ function createEmail (data: {
               <img src='${process.env.LOGO_URL}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
             </div>
             <main>
-              <h1>¡Gracias por tu compra!</h1>
+              <h1>¡Gracias por tu compra, ${data?.user?.nombre}</h1>
               <p>Para completar tu pedido, debes realizar el pago en cualquier sucursal de <strong>Efecty</strong>.</p>
               <p>Indica al operador de Efecty que deseas realizar un pago y proporciona el código de pago junto con el monto exacto.</p>
                   <ul>
-                    <li><strong>Monto a pagar:</strong> $${data.transaction?.transaction_amount}</li>
+                    <li><strong>Monto a pagar:</strong> $${data.transaction?.response?.transaction_amount}</li>
                     <li><strong>Vencimiento:</strong> ${new Date(data.metadata?.date_of_expiration ?? '').toLocaleString('es-CO', {
                       weekday: 'long',
                       year: 'numeric',

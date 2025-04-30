@@ -16,7 +16,7 @@ export default function useFetchActualBook (bookId, externalSet = null, setActua
           headers: { 'update': id }, 
           withCredentials: true
         });
-        const book = response.data || {};
+        const book = response.data ?? null;
         setLibro(book);
         if (externalSet) {
           externalSet(book);
@@ -29,7 +29,7 @@ export default function useFetchActualBook (bookId, externalSet = null, setActua
         }
       } catch (error) {
         console.error('Error fetching book data:', error);
-        setLibro({});
+        setLibro(null);
         setError(true);
       } finally {
         setLoading(false);

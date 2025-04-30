@@ -1,81 +1,431 @@
 [
   {
-    "_id": 1320577752,
+    "_id": 1335469737,
     "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
-    "sellerId": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
-    "bookId": "",
-    "fee_details": [],
-    "description": "",
-    "charges_details": [
-      {
-        "id": "1320577752-001",
-        "name": "mercadopago_fee",
-        "type": "fee",
-        "accounts": {
-          "from": "collector",
-          "to": "mp"
-        },
-        "client_id": 0,
-        "date_created": "2024-12-12T10:05:25.781-04:00",
-        "last_updated": "2024-12-12T10:05:25.781-04:00",
-        "amounts": {
-          "original": 4284,
-          "refunded": 0
-        },
-        "metadata": {
-          "source": "rule-engine"
-        },
-        "reserve_id": null,
-        "refund_charges": []
-      }
-    ],
-    "paymentLink": "",
-    "transactionId": "",
-    "amount": 0,
-    "installments": 1,
-    "card": {},
+    "sellerId": "57752059-d2f6-4821-bc23-7d12029c2782",
+    "bookId": "3f7ab023-15e7-4626-8890-a71f4f2e221c",
     "status": "pending",
-    "createdIn": "2024-12-12T14:05:26.124Z",
-    "updatedIn": "2024-12-12T14:05:26.124Z"
+    "shippingDetails": {
+      "additional_info": {
+        "ip_address": "181.131.79.26"
+      },
+      "address": {
+        "city": "Bucaramanga",
+        "department": "Antioquia",
+        "neighborhood": "Porton del tejar",
+        "street_name": "Transveral oriental # 90 - 223 Apto 1507, Torre 2 apto 1507",
+        "street_number": "90",
+        "zip_code": "680003"
+      },
+      "first_name": "Ivan",
+      "last_name": "Gomez",
+      "phone": {
+        "area_code": "57",
+        "number": "3024690359"
+      }
+    },
+    "response": {
+      "id": 1335469737,
+      "status": "approved",
+      "status_detail": "accredited",
+      "payment_method_id": "master",
+      "transaction_amount": 40000,
+      "installments": 1,
+      "date_created": "2025-04-29T20:01:15.929-04:00",
+      "date_approved": "2025-04-29T20:01:16.304-04:00",
+      "date_last_updated": "2025-04-29T20:01:16.304-04:00",
+      "date_of_expiration": null,
+      "money_release_date": "2025-04-29T20:01:16.304-04:00",
+      "money_release_status": "released",
+      "issuer_id": "204",
+      "payment_type_id": "credit_card",
+      "payment_method": {
+        "id": "master",
+        "type": "credit_card",
+        "issuer_id": "204",
+        "data": {
+          "routing_data": {
+            "merchant_account_id": "21878194"
+          }
+        }
+      },
+      "currency_id": "COP",
+      "description": "Pago de libro \"Recupera tu mente, reconquista tu vida\" en Meridian",
+      "live_mode": false,
+      "sponsor_id": null,
+      "authorization_code": "301299",
+      "money_release_schema": null,
+      "taxes_amount": 0,
+      "counter_currency": null,
+      "operation_type": "regular_payment",
+      "brand_id": null,
+      "shipping_amount": 0,
+      "build_version": "3.103.0-rc-6",
+      "pos_id": null,
+      "store_id": null,
+      "integrator_id": null,
+      "platform_id": null,
+      "corporation_id": null,
+      "payer": {
+        "identification": {
+          "number": "32659430",
+          "type": "DNI"
+        },
+        "entity_type": null,
+        "phone": {
+          "number": null,
+          "extension": null,
+          "area_code": null
+        },
+        "last_name": null,
+        "id": "1883966051",
+        "type": null,
+        "first_name": null,
+        "email": "test_user_80507629@testuser.com"
+      },
+      "collector_id": 765038450,
+      "marketplace_owner": null,
+      "metadata": {},
+      "additional_info": {
+        "ip_address": "181.131.79.26",
+        "nsu_processadora": "30121999",
+        "items": [
+          {
+            "quantity": "1",
+            "picture_url": "1729452261759-326590439.png",
+            "category_id": "Autoayuda",
+            "description": "Este libro aborda los retos de vivir en una sociedad hiperconectada, donde la gratificación inmediata y las distracciones constantes han debilitado nuestra capacidad de concentración y gestión emocional. Marian Rojas Estapé, desde su perspectiva como psiq",
+            "id": "3f7ab023-15e7-4626-8890-a71f4f2e221c",
+            "title": "Recupera tu mente, reconquista tu vida",
+            "unit_price": "40000"
+          }
+        ],
+        "shipments": {
+          "receiver_address": {
+            "city_name": "Bucaramanga",
+            "state_name": "Antioquia",
+            "street_number": "90",
+            "zip_code": "680003",
+            "street_name": "Transveral oriental # 90 - 223 Apto 1507, Torre 2 apto 1507"
+          }
+        },
+        "tracking_id": "platform:v22|v22.11.0,so:so;,type:SDK2.4.0,security:none"
+      },
+      "order": {},
+      "external_reference": "book_3f7ab023-15e7-4626-8890-a71f4f2e221c_836e151b-43ae-48a0-8352-17ad309d8068",
+      "net_amount": 40000,
+      "taxes": [
+        {
+          "value": 0,
+          "type": "IVA"
+        }
+      ],
+      "transaction_amount_refunded": 0,
+      "coupon_amount": 0,
+      "differential_pricing_id": null,
+      "financing_group": null,
+      "deduction_schema": null,
+      "transaction_details": {
+        "payment_method_reference_id": null,
+        "acquirer_reference": null,
+        "net_received_amount": 30714,
+        "total_paid_amount": 40000,
+        "overpaid_amount": 0,
+        "external_resource_url": null,
+        "installment_amount": 40000,
+        "financial_institution": null,
+        "payable_deferral_period": null
+      },
+      "fee_details": [
+        {
+          "type": "mercadopago_fee",
+          "amount": 2520,
+          "fee_payer": "collector"
+        },
+        {
+          "type": "application_fee",
+          "amount": 6000,
+          "fee_payer": "collector"
+        }
+      ],
+      "charges_details": [
+        {
+          "id": "1335469737-001",
+          "name": "mercadopago_fee",
+          "type": "fee",
+          "accounts": {
+            "from": "collector",
+            "to": "mp"
+          },
+          "client_id": 0,
+          "date_created": "2025-04-29T20:01:15.932-04:00",
+          "last_updated": "2025-04-29T20:01:15.932-04:00",
+          "amounts": {
+            "original": 2520,
+            "refunded": 0
+          },
+          "metadata": {
+            "reason": "",
+            "source": "rule-engine"
+          },
+          "reserve_id": null,
+          "refund_charges": []
+        }
+      ],
+      "captured": true,
+      "binary_mode": false,
+      "call_for_authorize_id": null,
+      "statement_descriptor": "Mercadopago*fake",
+      "card": {
+        "id": null,
+        "first_six_digits": "525413",
+        "last_four_digits": "3564",
+        "expiration_month": 11,
+        "expiration_year": 2030,
+        "date_created": "2025-04-29T20:01:15.000-04:00",
+        "date_last_updated": "2025-04-29T20:01:15.000-04:00",
+        "country": "TUR",
+        "tags": [
+          "credit"
+        ],
+        "cardholder": {
+          "name": "APRO",
+          "identification": {
+            "number": "1093295722",
+            "type": "CC"
+          }
+        }
+      },
+      "notification_url": "https://6cac-2800-e2-7280-10fe-6503-dfa1-eea0-9084.ngrok-free.app/api/users/mercadoPagoWebHooks?source_news=webhooks",
+      "refunds": [],
+      "processing_mode": "aggregator",
+      "merchant_account_id": null,
+      "merchant_number": null,
+      "acquirer_reconciliation": [],
+      "point_of_interaction": {
+        "type": "UNSPECIFIED",
+        "business_info": {
+          "unit": "online_payments",
+          "sub_unit": "sdk",
+          "branch": null
+        }
+      },
+      "accounts_info": null,
+      "release_info": null,
+      "tags": null,
+      "tax_info": {
+        "amount": 0,
+        "aliquot": 0,
+        "cap_id": 0,
+        "detail": null,
+        "base": 40000
+      }
+    }
   },
   {
-    "_id": 1329198193,
-    "userId": "857857d1-afdd-411d-b41a-be427d1ff186",
-    "sellerId": "1816d212-7dc5-4d74-bb9d-e0d97bf60d27",
-    "bookId": "88c87f69-4b49-4633-bfba-cd3d29b1a21d",
-    "fee_details": [],
-    "description": "Pago de libro \"Acaba con la inflamación en 7 días\" en Meridian",
-    "charges_details": [
-      {
-        "id": "1329198193-001",
-        "name": "mercadopago_fee",
-        "type": "fee",
-        "accounts": {
-          "from": "collector",
-          "to": "mp"
-        },
-        "client_id": 0,
-        "date_created": "2024-12-27T20:30:30.805-04:00",
-        "last_updated": "2024-12-27T20:30:30.805-04:00",
-        "amounts": {
-          "original": 4284,
-          "refunded": 0
-        },
-        "metadata": {
-          "source": "rule-engine"
-        },
-        "reserve_id": null,
-        "refund_charges": []
-      }
-    ],
-    "paymentLink": "https://www.mercadopago.com.co/sandbox/payments/1329198193/ticket?caller_id=1883966051&payment_method_id=efecty&payment_id=1329198193&payment_method_reference_id=6005675530&hash=c305d332-36e4-4ea5-bf25-9f9aca617b38",
-    "transactionId": "",
-    "amount": 85000,
-    "paymentMethod": "efecty",
-    "installments": 1,
-    "card": {},
+    "_id": 1335469913,
+    "userId": "836e151b-43ae-48a0-8352-17ad309d8068",
+    "sellerId": "aeda1cfc-c023-4934-b6e7-1580a757b66d",
+    "bookId": "23768e73-2ee5-4134-961a-3c08bb3cad34",
     "status": "pending",
-    "createdIn": "2024-12-28T00:30:31.308Z",
-    "updatedIn": "2024-12-28T00:30:31.308Z"
+    "shippingDetails": {
+      "additional_info": {
+        "ip_address": "181.131.79.26"
+      },
+      "address": {
+        "city": "Bucaramanga",
+        "department": "Amazonas",
+        "neighborhood": "Porton del tejar",
+        "street_name": "Transveral oriental # 90 - 223 Apto 1507",
+        "street_number": "90",
+        "zip_code": "680003"
+      },
+      "first_name": "Ivan",
+      "last_name": "Gomez",
+      "phone": {
+        "area_code": "57",
+        "number": "3024690359"
+      }
+    },
+    "response": {
+      "id": 1335469913,
+      "status": "pending",
+      "status_detail": "pending_waiting_payment",
+      "payment_method_id": "efecty",
+      "transaction_amount": 60000,
+      "installments": 1,
+      "date_created": "2025-04-29T20:18:10.095-04:00",
+      "date_approved": null,
+      "date_last_updated": "2025-04-29T20:18:10.095-04:00",
+      "date_of_expiration": "2025-05-07T00:59:59.000-04:00",
+      "money_release_date": null,
+      "money_release_status": "released",
+      "issuer_id": "2011",
+      "payment_type_id": "ticket",
+      "payment_method": {
+        "id": "efecty",
+        "type": "ticket",
+        "issuer_id": "2011",
+        "data": {},
+        "forward_data": {
+          "ticket_number": "",
+          "agreement_number": ""
+        }
+      },
+      "currency_id": "COP",
+      "description": "Pago de libro \"Nexus\" en Meridian",
+      "live_mode": false,
+      "sponsor_id": null,
+      "authorization_code": null,
+      "money_release_schema": null,
+      "taxes_amount": 0,
+      "counter_currency": null,
+      "operation_type": "regular_payment",
+      "brand_id": null,
+      "shipping_amount": 0,
+      "build_version": "3.103.0-rc-6",
+      "pos_id": null,
+      "store_id": null,
+      "integrator_id": null,
+      "platform_id": null,
+      "corporation_id": null,
+      "payer": {
+        "identification": {
+          "number": null,
+          "type": null
+        },
+        "entity_type": null,
+        "phone": {
+          "number": null,
+          "extension": null,
+          "area_code": null
+        },
+        "last_name": null,
+        "id": "1883966051",
+        "type": null,
+        "first_name": null,
+        "email": null
+      },
+      "collector_id": 765038450,
+      "marketplace_owner": null,
+      "metadata": {},
+      "additional_info": {
+        "ip_address": "181.131.79.26",
+        "items": [
+          {
+            "quantity": "1",
+            "picture_url": "1734022157820-23916145.png",
+            "category_id": "Biografía",
+            "description": "\"Nexus\" es una fascinante exploración de Yuval Noah Harari sobre el futuro de la humanidad en un mundo cada vez más interconectado. En este libro, Harari analiza cómo la tecnología, la biología y la inteligencia artificial están transformando nuestra soci",
+            "id": "23768e73-2ee5-4134-961a-3c08bb3cad34",
+            "title": "Nexus",
+            "unit_price": "60000"
+          }
+        ],
+        "shipments": {
+          "receiver_address": {
+            "city_name": "Bucaramanga",
+            "state_name": "Amazonas",
+            "street_number": "90",
+            "zip_code": "680003",
+            "street_name": "Transveral oriental # 90 - 223 Apto 1507"
+          }
+        },
+        "tracking_id": "platform:v22|v22.11.0,so:so;,type:SDK2.4.0,security:none"
+      },
+      "order": {},
+      "external_reference": "book_23768e73-2ee5-4134-961a-3c08bb3cad34_836e151b-43ae-48a0-8352-17ad309d8068",
+      "net_amount": null,
+      "taxes": [
+        {
+          "value": null,
+          "type": "IVA"
+        }
+      ],
+      "transaction_amount_refunded": 0,
+      "coupon_amount": 0,
+      "differential_pricing_id": null,
+      "financing_group": null,
+      "deduction_schema": null,
+      "barcode": {
+        "content": "1335469913",
+        "width": 1,
+        "height": 75,
+        "type": "UCC/EAN 128"
+      },
+      "transaction_details": {
+        "payment_method_reference_id": "6004092689",
+        "acquirer_reference": "",
+        "barcode": {
+          "content": "1335469913",
+          "width": 1,
+          "height": 75,
+          "type": "UCC/EAN 128"
+        },
+        "digitable_line": null,
+        "verification_code": "6004092689",
+        "net_received_amount": 0,
+        "total_paid_amount": 60000,
+        "overpaid_amount": 0,
+        "external_resource_url": "https://www.mercadopago.com.co/sandbox/payments/1335469913/ticket?caller_id=1883966051&payment_method_id=efecty&payment_id=1335469913&payment_method_reference_id=6004092689&hash=ebcefcad-6160-4a6e-8810-5ee849652c68",
+        "installment_amount": 0,
+        "financial_institution": "",
+        "payable_deferral_period": null
+      },
+      "fee_details": [],
+      "charges_details": [
+        {
+          "id": "1335469913-001",
+          "name": "mercadopago_fee",
+          "type": "fee",
+          "accounts": {
+            "from": "collector",
+            "to": "mp"
+          },
+          "client_id": 0,
+          "date_created": "2025-04-29T20:18:10.098-04:00",
+          "last_updated": "2025-04-29T20:18:10.098-04:00",
+          "amounts": {
+            "original": 3304,
+            "refunded": 0
+          },
+          "metadata": {
+            "reason": "",
+            "source": "rule-engine"
+          },
+          "reserve_id": null,
+          "refund_charges": []
+        }
+      ],
+      "captured": true,
+      "binary_mode": false,
+      "call_for_authorize_id": null,
+      "statement_descriptor": null,
+      "card": {},
+      "notification_url": "https://6cac-2800-e2-7280-10fe-6503-dfa1-eea0-9084.ngrok-free.app/api/users/mercadoPagoWebHooks?source_news=webhooks",
+      "refunds": [],
+      "processing_mode": "aggregator",
+      "merchant_account_id": null,
+      "merchant_number": null,
+      "acquirer_reconciliation": [],
+      "point_of_interaction": {
+        "type": "UNSPECIFIED",
+        "business_info": {
+          "unit": "online_payments",
+          "sub_unit": "sdk",
+          "branch": null
+        }
+      },
+      "accounts_info": null,
+      "release_info": null,
+      "tags": null,
+      "tax_info": {
+        "amount": 0,
+        "aliquot": 0,
+        "cap_id": 0,
+        "detail": null,
+        "base": 60000
+      }
+    }
   }
 ]

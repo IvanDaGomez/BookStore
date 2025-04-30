@@ -4,18 +4,11 @@ import { createNotification } from "../../assets/notifications/createNotificatio
 import { sendNotification } from "../../assets/notifications/sendNotification.js";
 import { BookObjectType } from "../../types/book";
 import { IUsersModel } from "../../types/models.js";
+import { ShippingDetailsType } from "../../types/shippingDetails.js";
 import { TransactionObjectType } from "../../types/transaction";
 import { PartialUserInfoType } from "../../types/user";
 
-export async function sendProcessPaymentEmails({
-  user,
-  seller,
-  book,
-  transaction,
-  shippingDetails,
-  order,
-  UsersModel
-}: {
+export async function sendProcessPaymentEmails(data: {
   user: PartialUserInfoType,
   seller: PartialUserInfoType,
   book: BookObjectType,
@@ -25,22 +18,23 @@ export async function sendProcessPaymentEmails({
   UsersModel: IUsersModel
 }){
   try {
-    const data = {
+    const {
       user,
       seller,
       book,
       transaction,
       shippingDetails,
-      order
-    }
-    if (data.transaction?.status !== 'approved') {
-      console.log('El pago no fue aprobado, no se enviarán correos ni notificaciones.')
-      return
-    }
+      order,
+      UsersModel
+    }= data
+    console.log('Data transaction status:', data.transaction?.status)
 
     const userEmail = await UsersModel.getEmailById(user._id)
     const sellerEmail = await UsersModel.getEmailById(seller._id)
-    if (data.transaction.paymentDetails?.method === 'efecty' && userEmail) {
+    console.log('userEmail:', userEmail)
+    console.log('Transaction method id:', transaction.response.payment_method_id)
+    if (transaction.response.payment_method_id === 'efecty' && userEmail) {
+      console.log('El pago es por Efecty, se enviará un correo de confirmación.')
       await sendEmail(`${user.nombre} ${userEmail.correo}`, 'Información de tu pago en Efecty', createEmail({
         ...data,
         user: data.user,
@@ -48,6 +42,13 @@ export async function sendProcessPaymentEmails({
         // order: data.order
       }, 'efectyPendingPayment'))
     } 
+
+    if (transaction?.status !== 'approved') {
+      console.log('El pago no fue aprobado, no se enviarán correos ni notificaciones.')
+      return
+    }
+
+
 
     await Promise.all([
       sendEmail(

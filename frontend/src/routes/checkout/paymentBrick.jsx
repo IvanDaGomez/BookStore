@@ -71,8 +71,8 @@ function PaymentBrick ({ libro, preferenceId, user, form, setFase }) {
                 )}</>):
                 <span>Cargando...</span>}
             <div className="bricks">
-            {!statusScreen && selectedMethod !== 'balance' 
-            ? (
+            {(!statusScreen && selectedMethod !== 'balance')
+            && (
               <Payment
                 initialization={{
                   amount: libro.oferta ? libro.oferta : libro.precio,
@@ -102,8 +102,8 @@ function PaymentBrick ({ libro, preferenceId, user, form, setFase }) {
                 onReady={onReady}
                 onError={onError}
               />
-              )
-            : <StatusScreen
+              )}
+             {(statusScreen && selectedMethod !== 'balance') && <StatusScreen
                 initialization={initializationStatus}
                 onReady={onReady}
                 onError={onError}
@@ -122,7 +122,7 @@ function PaymentBrick ({ libro, preferenceId, user, form, setFase }) {
       {(status === 'pending') && <span>El libro no se comprará hasta que realices el pago</span>}
       {!statusScreen && <button type='button' style={{ margin: 'auto' }} onClick={() => setFase(2)}>Atrás</button>}
       {statusScreen && status === 'rejected' && <button type='button' onClick={() => setFase(2)}>Volver a intentar</button>}
-      {statusScreen && <Link><button type='button'>Seguir Comprando</button></Link>}
+      {statusScreen && <Link to='/'><button type='button'>Seguir Comprando</button></Link>}
     </>
   )
 }

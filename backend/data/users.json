@@ -211,7 +211,9 @@
     "preferencias": {},
     "historialBusquedas": {},
     "balance": {
-      "porLlegar": 480000
+      "pendiente": 0,
+      "disponible": 0,
+      "porLlegar": 800000
     }
   },
   {
@@ -407,9 +409,7 @@
       "Reacondicionado": 5
     },
     "balance": {
-      "pendiente": 0,
-      "disponible": 0,
-      "porLlegar": 0
+      "porLlegar": 60000
     }
   },
   {
