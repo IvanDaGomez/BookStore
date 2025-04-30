@@ -21,14 +21,29 @@ ChartJS.register(
   Legend
 )
 
-export default function ChartBalanceData () {
-  const semanal = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo']
+// eslint-disable-next-line react/prop-types
+export default function ChartBalanceData ({ transactions, user }) {
+  const [days] = useState(['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'])
+  const [months] = useState(['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'])
+  const [semanal, setSemanal] = useState([])
+  const [mensual, setMensual] = useState([])
 
-  const mensual = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+  const [Xaxis, setXaxis] = useState([])
+  useEffect(() => {
+    const date = new Date()
+    setSemanal(Array.from({ length: 7 }).map((_, i) => {
+      return days[(date.getDay() + i) % 7]
+    }
+    ))
+    setMensual(Array.from({ length: 12 }).map((_, i) => {
+      return months[(date.getMonth() + i) % 12]
+    }).reverse())
 
-  // Generar un arreglo dinámico para los próximos 10 años a partir del año actual
-  const currentYear = new Date().getFullYear()
-  const anual = Array.from({ length: 10 }, (_, i) => currentYear - i).reverse()
+
+  },[days, months])
+  useEffect(() => setXaxis(semanal), [semanal])
+
+
 
   const options = {
     responsive: true,
@@ -40,11 +55,11 @@ export default function ChartBalanceData () {
     }
   }
   const [data, setData] = useState(null)
-  const [Xaxis, setXaxis] = useState(semanal)
+  
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await getData({ Xaxis })
+      const result = await getData({ Xaxis, transactions, user })
       if (result && result.labels && result.datasets) {
         setData(result)
       } else {
@@ -52,7 +67,7 @@ export default function ChartBalanceData () {
       }
     }
     fetchData()
-  }, [Xaxis])
+  }, [Xaxis, transactions, user])
   return (
     <>
       <div className='chartBalance'>
@@ -69,11 +84,7 @@ export default function ChartBalanceData () {
             onClick={() => setXaxis(mensual)}
           >Mensual
           </div>
-          <div
-            className={`${(Xaxis.length !== 7 && Xaxis.length !== 12) ? 'active' : ''}`}
-            onClick={() => setXaxis(anual)}
-          >Anual
-          </div>
+
         </div>
       </div>
     </>

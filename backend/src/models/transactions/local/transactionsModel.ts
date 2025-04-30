@@ -23,7 +23,7 @@ class TransactionsModel {
 
   static async getAllTransactionsByUser (id: ID): Promise<TransactionObjectType[]> {
     const transactions = await this.getAllTransactions()
-    const filteredTransactions = transactions.filter(transaction => transaction.userId === id)
+    const filteredTransactions = transactions.filter(transaction => transaction.userId === id || transaction.sellerId === id)
     if (!filteredTransactions) {
       throw new Error('No se encontraron transacciones para este usuario')
     }

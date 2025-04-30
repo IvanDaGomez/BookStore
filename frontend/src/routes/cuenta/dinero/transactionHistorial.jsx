@@ -1,50 +1,79 @@
+/* eslint-disable react/prop-types */
 import titleCase from '../../../assets/toTitleCase'
-
-export default function TransactionHistorial () {
+import { formatPrice } from '../../../assets/formatPrice'
+import Breadcrumb from '../../../assets/breadCrumb.jsx'
+export default function TransactionHistorial ({ transactions, user }) {
   // Sample transaction history data
-  const transactionHistorial = [
-    {
-      ID: 'txn_001',
-      fecha: '2024-12-01',
-      cantidad: 150.00,
-      estado: 'Completed',
-      descripcion: 'Purchased "Harry Potter and the Chamber of Secrets"'
-    },
-    {
-      ID: 'txn_001',
-      fecha: '2024-12-01',
-      cantidad: 150.00,
-      estado: 'Completed',
-      descripcion: 'Purchased "Harry Potter and the Chamber of Secrets"'
-    }
+  const header = [
+    'id',
+    'fecha',
+    'monto',
+    'tipo',
+    'estado',
+    'descripcion'
   ]
-
+  const transactionKeyInfo = (transaction) => {
+    let tipo 
+    if (transaction.sellerId === user._id) {
+      tipo = 'Venta'
+    }
+    else if (transaction.userId === user._id) {
+      tipo = 'Compra'
+    }
+    const parsedAmount = parseInt(transaction.response.transaction_amount, 10)
+    // Translate status to Spanish
+    if (transaction.status === 'pending') {
+      transaction.status = 'Pendiente'
+    }
+    else if (transaction.status === 'approved') {
+      transaction.status = 'Aprobada'
+    }
+    else if (transaction.status === 'rejected') {
+      transaction.status = 'Rechazada'
+    }
+    else if (transaction.status === 'in_process') {
+      transaction.status = 'En proceso'
+    }
+    else if (transaction.status === 'refunded') {
+      transaction.status = 'Reembolsada'
+    }
+    else if (transaction.status === 'cancelled') {
+      transaction.status = 'Cancelada'
+    }
+    return [transaction._id, 
+      new Date(transaction.response.date_created).toISOString().split('T')[0], 
+      formatPrice(parsedAmount), 
+      tipo,
+      transaction.status, 
+      transaction.response.description]
+  }
   return (
     <>
+    <Breadcrumb pathsArr={window.location.pathname.split('/')} />
       <h1>Historial de transacciones</h1>
       <div className='balanceTransactionHistorialContainer'>
-        {transactionHistorial.length === 0
+        {transactions.length === 0
           ? (
             <p>No hay transacciones disponibles.</p>
             )
           : (<>
             <div className='balanceTransactionHeader'>
-              {Object.keys(transactionHistorial[0]).map((header, index) => (
+              {header.map((header, index) => (
                 <div key={index}>
                   {titleCase(header)}
                 </div>
               ))}
             </div>
             <div className='balanceTransactionHistorial'>
-              {transactionHistorial.map((transaction) => (
-
-                <div className='transactionLine' key={transaction.id}>
-                  {Object.keys(transaction).map((key, index) => (
+              
+            {transactions.map((transaction) => (
+                  <div className='transactionLine' key={transaction._id}>
+                  {transactionKeyInfo(transaction).map((value, index) => (
                     <div key={index}>
-                      {transaction[key]}
+                      {value}
                     </div>
                   ))}
-                </div>
+                  </div>
               ))}
             </div>
              </>)}

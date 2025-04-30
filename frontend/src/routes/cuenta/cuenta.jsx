@@ -22,7 +22,7 @@ export default function Cuenta () {
   const navigate = useNavigate()
   const [actualOption, setActualOption] = useState(null)
   const { user, setUser } = useContext(UserContext)
-  useReturnIfNoUser(user)
+  // useReturnIfNoUser(user)
 
 
   // Fetch user email if not already set
@@ -77,6 +77,7 @@ export default function Cuenta () {
 
   // Render page content based on actualOption
   function renderPage () {
+    if (!user) return null // Ensure user is defined before rendering
     if (!actualOption) return <Perfil user={user} />
 
     switch (actualOption.title) {

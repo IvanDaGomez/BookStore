@@ -2,7 +2,9 @@ export function formatPrice(number) {
   if (number === undefined || number === null) {
     return ''
   }
-
+  if (typeof number !== 'number') {
+    number = parseInt(number, 10)
+  }
   // Convertir a número y formatear con puntos después de cada tres dígitos
   const formattedValue = new Intl.NumberFormat('es-CO', {
     style: 'decimal',

@@ -34,6 +34,7 @@ const PreferenciasComprador = ({ user }) => {
   }
 
   return (
+    <>
     <div className='preferences container'>
       <h1>Preferencias del Comprador</h1>
       <p>Personaliza tu experiencia para disfrutar al máximo de nuestra biblioteca de libros.</p>
@@ -107,6 +108,8 @@ const PreferenciasComprador = ({ user }) => {
         </table>
       </div>
     </div>
+    </>
+
   )
 }
 

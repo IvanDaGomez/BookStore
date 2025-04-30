@@ -37,12 +37,14 @@ export class TransactionsController {
 
   getTransactionsByUser = async (req: express.Request, res: express.Response, next:express.NextFunction) => {
     try {
+      console.log('hola')
       const userId = req.params.userId as ID | undefined
       if (!userId) {
         return res.status(400).json({ error: 'ID de usuario no proporcionado' })
       }
-      const transaction = await this.TransactionsModel.getAllTransactionsByUser(userId)
-      res.json(transaction)
+      const transactions = await this.TransactionsModel.getAllTransactionsByUser(userId)
+      console.log('Transactions:', transactions)
+      res.json(transactions)
     } catch (err) {
       next(err)
     }

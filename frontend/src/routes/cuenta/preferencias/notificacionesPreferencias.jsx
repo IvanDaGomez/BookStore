@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Breadcrumb from '../../../assets/breadCrumb'
 
 const NotificacionesPreferencias = ({ user }) => {
   const [settings, setSettings] = useState({
@@ -20,6 +21,8 @@ const NotificacionesPreferencias = ({ user }) => {
   }
 
   return (
+    <>
+    <Breadcrumb pathsArr={window.location.pathname.split('/')} />
     <div className='notification-settings container'>
       <h1>Configuración de notificaciones</h1>
 
@@ -66,6 +69,7 @@ const NotificacionesPreferencias = ({ user }) => {
         </tbody>
       </table>
     </div>
+    </>
   )
 }
 

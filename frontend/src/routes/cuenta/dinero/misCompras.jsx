@@ -1,3 +1,5 @@
+import Breadcrumb from "../../../assets/breadCrumb.jsx"
+
 export default function MisCompras ({ user }) {
   const compras = [
     {
@@ -27,6 +29,8 @@ export default function MisCompras ({ user }) {
   ]
 
   return (
+    <>
+    <Breadcrumb pathsArr={window.location.pathname.split('/')} />
     <div className='mis-compras container'>
       <h1>Mis Compras</h1>
       <p>Aquí puedes revisar los libros que has adquirido.</p>
@@ -60,5 +64,6 @@ export default function MisCompras ({ user }) {
           </table>
           )}
     </div>
+    </>
   )
 }

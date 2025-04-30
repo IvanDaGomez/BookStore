@@ -116,7 +116,7 @@ function PaymentBrick ({ libro, preferenceId, user, form, setFase }) {
               />}
               </div>
       </div>
-      {console.log(status)}
+
       {(status === 'pending') && <span>El libro no se comprará hasta que realices el pago</span>}
       {!statusScreen && <button type='button' style={{ margin: 'auto' }} onClick={() => setFase(2)}>Atrás</button>}
       {statusScreen && status === 'rejected' && <button type='button' onClick={() => setFase(2)}>Volver a intentar</button>}

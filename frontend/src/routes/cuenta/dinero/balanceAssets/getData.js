@@ -37,24 +37,39 @@ async function ggetData ({ Xaxis }) {
 
 // Simular datos
 
-export async function getData ({ Xaxis }) {
-  let type
-  if (Xaxis.length === 7) type = 'semanal'
-  else if (Xaxis.length === 12) type = 'mensual'
-  else type = 'anual'
+export async function getData ({ Xaxis, transactions, user }) {
 
   // Simular datos
-
-  const simulatedValues = Xaxis.map(() => Math.floor(Math.random() * 1000000))
-
+  const today = new Date()
+  const plotBuyTransactions = Xaxis.map((_, index)=>{
+    const date = new Date(today)
+    date.setDate(today.getDate() - index - 1)
+    transactions = transactions.filter(transaction => transaction.userId === user._id)
+    return transactions.filter(transaction => transaction.response.date_created.split('T')[0] === date.toISOString().split('T')[0])
+    .reduce((a, b) => a + b.response.transaction_amount, 0)
+  }).reverse()
+  const plotSellTransactions = Xaxis.map((_, index)=>{
+    const date = new Date(today)
+    date.setDate(today.getDate() - index - 1)
+    transactions = transactions.filter(transaction => transaction.sellerId === user._id)
+    return transactions.filter(transaction => transaction.response.date_created.split('T')[0] === date.toISOString().split('T')[0])
+    .reduce((a, b) => a + b.response.transaction_amount, 0)
+  }).reverse()
   return {
     labels: Xaxis,
     datasets: [
       {
-        label: `Datos ${type}`,
-        data: simulatedValues,
+        label: `Compras`,
+        data: plotBuyTransactions,
         borderColor: 'rgb(75, 192, 192)',
         backgroundColor: 'rgba(75, 192, 192, 0.2)'
+      },
+      {
+        label: `Ventas`,
+        data: plotSellTransactions,
+        borderColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderDash: [5, 5] // Dashed line for sales
       }
     ]
   }

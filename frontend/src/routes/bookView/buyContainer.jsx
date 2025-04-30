@@ -19,7 +19,7 @@ export default function BuyContainer({ libro, user }) {
                     </>
                     }
                 </>
-                : <>{libro.disponibilidad}</>}
+                : <h3 className={libro.disponibilidad === 'Vendido' ? 'red': ''}>{libro.disponibilidad}</h3>}
   
               <p>Vendido por:</p>
               <Link to={`/usuarios/${libro.idVendedor}`}><span>{libro.vendedor}</span></Link>
