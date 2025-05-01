@@ -30,7 +30,7 @@ export default function ColeccionEspecificoPage () {
   const queryParams = {
     categoria: params.get('categoria'),
     estado: params.get('estado'),
-    ubicacion: params.get('bicacion'),
+    ubicacion: params.get('ubicacion'),
     edad: params.get('edad'),
     tapa: params.get('tapa'),
     fechaPublicacion: params.get('fechaPublicacion'),

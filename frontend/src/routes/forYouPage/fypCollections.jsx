@@ -4,19 +4,19 @@ import Header from '../../components/header/header'
 import SideInfo from '../../components/sideInfo'
 import { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
-import { MakeCard } from '../../assets/makeCard'
+import { MakeCollectionCard } from '../../assets/makeCard'
 import { UserContext } from '../../context/userContext'
-import './fyp.css'
+
 export default function Fyp () {
   const { user } = useContext(UserContext)
 
-  const [books, setBooks] = useState([])
+  const [collections, setCollections] = useState([])
   useEffect(() => {
     async function fetchFYP () {
       try {
-        const url = 'http://localhost:3030/api/books/fyp?l=24'
+        const url = 'http://localhost:3030/api/collections/fyp?l=24'
         const response = await axios.get(url, { withCredentials: true })
-        setBooks(response.data)
+        setCollections(response.data)
       } catch (error) {
         console.error('Error:', error)
       }
@@ -34,16 +34,16 @@ export default function Fyp () {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          const lastBook = books[books.length - 1]
-          const url = `http://localhost:3030/api/books/fyp?l=24&last=${lastBook._id}`
+          const lastCollection = collections[collections.length - 1]
+          const url = `http://localhost:3030/api/collections/fyp?l=24&last=${lastCollection._id}`
           axios.get(url, { withCredentials: true })
             .then((response) => {
-              // If the  materialbook is already in the list, don't add it again
-            // const newBooks = response.data.filter(book => 
-            //   !books.some(existingBook => existingBook._id === book._id) // Check if book is already in the list
+              // If the  materialcollection is already in the list, don't add it again
+            // const newCollections = response.data.filter(collection => 
+            //   !collections.some(existingCollection => existingCollection._id === collection._id) // Check if collection is already in the list
             // )
-            //  setBooks((prevBooks) => [...prevBooks, ...newBooks])
-            setBooks((prevBooks) => [...prevBooks, ...response.data])
+            //  setCollections((prevCollections) => [...prevCollections, ...newCollections])
+            setCollections((prevCollections) => [...prevCollections, ...response.data])
             })
             .catch((error) => {
               console.error('Error:', error)
@@ -60,14 +60,14 @@ export default function Fyp () {
         observer.unobserve(infiniteLoader)
       }
     }
-  }, [books])
+  }, [collections])
   return (
     <>
       <Header />
-      <div className='booksFyp'>
-          {(books.length)
-            ? books.map((element, index) => (
-            <MakeCard element={element} index={index} key={index} user={user ?? ''} wordLimit={40} /> 
+      <div className='collectionsFyp'>
+          {(collections.length)
+            ? collections.map((element, index) => (
+            <MakeCollectionCard element={element} index={index} key={index} user={user ?? ''} wordLimit={40} /> 
           )):
           Array.from({ length: 24 }).map((_, index) => (
             <div className='sectionElement placeholder' key={index} >

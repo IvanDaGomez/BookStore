@@ -513,7 +513,8 @@ export class TransactionsController {
       }
       const ammount = parseInt(monto, 10)
       const accountNumber = parseInt(numeroCuenta, 10)
-      const user = await this.UsersModel.getUserById(userId)
+      const userEmail = await this.UsersModel.getEmailById(userId)
+      const user = await this.UsersModel.login(userEmail.correo, password)
       if (!user) {
 
         return res.status(404).json({ error: 'Usuario no encontrado' })

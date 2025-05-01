@@ -14,7 +14,7 @@ export const createCollectionsRouter = ({ CollectionsModel, BooksModel }:
   collectionsRouter.get('/getCollectionById/:collectionId', collectionsController.getCollectionById as RequestHandler)
   collectionsRouter.get('/getCollectionsByUser/:userId', collectionsController.getCollectionsByUser as RequestHandler)
   collectionsRouter.get('/getBooksByCollection/:collectionId', collectionsController.getBooksByCollection as RequestHandler)
-
+  collectionsRouter.get('/fyp', collectionsController.forYouPageCollections as RequestHandler)
   collectionsRouter.post('/', upload.single('images'), collectionsController.createCollection as RequestHandler)
   collectionsRouter.get('/addToCollection', collectionsController.addBookToCollection as RequestHandler)
 

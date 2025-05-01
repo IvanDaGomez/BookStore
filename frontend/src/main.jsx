@@ -29,6 +29,8 @@ import CambiarContraseña from './routes/cambiarContraseña/cambiarContraseña.j
 import Faq from './routes/faq/faq.jsx'
 import Fyp from './routes/forYouPage/fyp.jsx'
 import { UserProvider } from './context/userContext.jsx'
+import FypCollections from './routes/forYouPage/fypCollections.jsx'
+import ColeccionEspecificoPage from './routes/colecciones/coleccionEspecifico.jsx'
 
 const router = createBrowserRouter([
   {
@@ -147,11 +149,15 @@ const router = createBrowserRouter([
   {
     path: '/para-ti',
     element: <Fyp />
-  }/*,
+  },
+  {
+    path: '/para-ti/colecciones',
+    element: <FypCollections />
+  },
   {
     path: 'colecciones/:collectionId',
-    element: <ColeccionesPage />
-  }*/
+    element: <ColeccionEspecificoPage />
+  }
 ], {
   future: {
     v7_relativeSplatPath: true

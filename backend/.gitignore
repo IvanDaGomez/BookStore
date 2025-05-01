@@ -11,3 +11,6 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 dist/
+# data
+data/
+/data/ say

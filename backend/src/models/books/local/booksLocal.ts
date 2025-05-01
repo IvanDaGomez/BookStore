@@ -240,7 +240,9 @@ class BooksModel {
       .filter(item => item !== null)
 
     booksWithScores.sort((a, b) => b.score - a.score)
-    return booksWithScores
+    // Suffle the array to get a random order
+    const shuffledBooks = booksWithScores.sort(() => Math.random() - 0.5)
+    return shuffledBooks
       .slice(0, sampleSize)
       .map(item => bookObject(item.book, false))
   }

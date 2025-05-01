@@ -7,6 +7,7 @@ import { ID, ImageType, ISOString } from '../../types/objects.js'
 import { CollectionObjectType } from '../../types/collection.js'
 import { BookObjectType } from '../../types/book.js'
 import { AgeType, CoverType, GenreType, LanguageType, StateType } from '../../types/bookCategories.js'
+import { AuthToken } from '../../types/authToken.js'
 class CollectionsController {
   private CollectionsModel: ICollectionsModel
   private BooksModel: IBooksModel
@@ -256,6 +257,27 @@ class CollectionsController {
       const collection = await this.CollectionsModel.getCollectionSaga(bookId, userId)
 
       res.json(collection)
+    } catch (err) {
+      next(err)
+    }
+  }
+  forYouPageCollections = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
+    /*
+      Aquí se obtiene libros específicos por su query y se envía como respuesta.
+      Las consultas actualizan las estadísticas de los libros y los usuarios.
+    */
+    try {
+      const l = req.query.l as string
+      const lParsed = parseInt(l, 10) || 24
+      const user = req.session.user as AuthToken | undefined
+
+      const results = await this.CollectionsModel.forYouPageCollections(user, lParsed)
+
+      return res.json(results)
     } catch (err) {
       next(err)
     }

@@ -70,7 +70,7 @@ export default function Header () {
         <div className='indice headerCen desaparecer'>
             <Link to='/'><p>Inicio</p></Link>
             <Link to='/para-ti'><p>Explorar</p></Link>
-            <Link to='/colecciones'><p>Colecciones</p></Link>
+            <Link to='/para-ti/colecciones'><p>Colecciones</p></Link>
             {/* <Link to='/autores'><p>Autores</p></Link> */}
           </div>
         <div className='headerDer'>

@@ -1,12 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useRef, useState } from "react";
-import { FaHome, FaList } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
 import './sideBar.css'
 import { Link, useNavigate } from "react-router-dom";
 import { renderProfilePhoto } from "../../assets/renderProfilePhoto";
 import { cambiarEspacioAGuiones } from "../../assets/agregarMas";
 import { handleDropwdown } from "./handleDropdown";
 import SearchButton from "../header/searchButton";
+import { BsBook, BsCollection } from "react-icons/bs";
 export default function MenuSideBar({ callback, user, logoutFn }) {
   const navigate = useNavigate()
   const [showDropdown, setShowDropdown] = useState(false);
@@ -19,13 +20,13 @@ export default function MenuSideBar({ callback, user, logoutFn }) {
     },
     {
       title: "Para ti",
-      icon: <FaList />,
+      icon: <BsBook />,
       link: "/para-ti",
     },
     {
-      title: "Libros",
-      icon: <FaList />,
-      link: "/libros",
+      title: "Colecciones",
+      icon: <BsCollection />,
+      link: "/para-ti/colecciones",
     }
   ]
 

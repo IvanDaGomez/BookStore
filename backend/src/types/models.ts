@@ -101,6 +101,10 @@ export interface ICollectionsModel {
       l: number
     }): Promise<CollectionObjectType[]>
   getCollectionSaga (bookId: ID, userId: ID): Promise<CollectionObjectType>
+  forYouPageCollections (
+    userKeyInfo: AuthToken | undefined,
+    sampleSize: number
+  ): Promise<Partial<CollectionObjectType>[]>
 }
 
 export interface IConversationsModel {

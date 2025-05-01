@@ -15,6 +15,7 @@
   justify-content: space-evenly;
   margin: var(--margin-big) auto;
   padding: 20px;
+  background: var(--using1);
   width:min(1000px, calc(100vw - 10px));
   border: 1px solid var(--using4);
 
@@ -107,7 +108,7 @@
   transform: translateY(1px);
 }
 .postsContainer{
-  
+  background: var(--using1);
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   place-items: center;

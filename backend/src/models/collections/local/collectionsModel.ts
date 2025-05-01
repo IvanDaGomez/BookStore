@@ -130,6 +130,12 @@ class CollectionsModel {
     }
     throw new Error('No se encontró una saga para este libro')
   }
+  static async forYouPageCollections (userKeyInfo: any, sampleSize: number): Promise<CollectionObjectType[]> {
+    const collections = await this.getAllCollections()
+    const filteredCollections = collections.filter(collection => collection.userId !== userKeyInfo.userId)
+    const randomCollections = filteredCollections.sort(() => Math.random() - 0.5).slice(0, sampleSize)
+    return randomCollections.map(collection => collectionObject(collection))
+  }
 }
 
 export { CollectionsModel }

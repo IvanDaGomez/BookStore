@@ -12,7 +12,8 @@ import RenderImageHeader from './makeCard/renderImageHeader.jsx'
 import RenderMidText from './makeCard/renderMidText.jsx'
 import RenderBottomText from './makeCard/renderBottomText.jsx'
 import { necesitasIniciarSesion } from './jsxConstants.jsx'
-export const PriceTitleRender = (element) => {
+export const PriceTitleRender = ({ element }) => {
+
   if (!element?.precio) return null
   return (<>
   
@@ -28,7 +29,7 @@ export const PriceTitleRender = (element) => {
         </h2></>}
   </>)
 }
-const MakeCard = ({ element, index, user = '', callback = () => {} }) => {
+const MakeCard = ({ element, index, user = '', callback = () => {}, wordLimit = 25 }) => {
   // Aplicar la clase "favoritoActivo" después de renderizar las tarjetas
   useEffect(() => {
     if (user && user.favoritos) {
@@ -66,7 +67,7 @@ const MakeCard = ({ element, index, user = '', callback = () => {} }) => {
         <div className='imageElementContainer' style={{ backgroundImage: `url(http://localhost:3030/uploads/${element.images[0]})`, backgroundRepeat: 'no-repeat' }}>
           <RenderImageHeader element={element}/>
         </div>
-        <RenderMidText element={element}/>
+        <RenderMidText element={element} wordLimit={wordLimit}/>
         <RenderBottomText element={element} user={user} callback={callback}/>
       </div>
     </Link>
@@ -104,25 +105,24 @@ const MakeOneFrCard = ({ element, index, user = '' }) => {
 
         {/* Nombre del producto */}
         <div className='infoContainer'>
-          <h1 className='productName'>
+          <h2 className='productName'>
             {reduceText(element?.titulo ?? '', 50)}
-          </h1>
+          </h2>
 
 
           {/* Precio y oferta */}
-          <div>
             <div className='precioSections'>
-              <PriceTitleRender />
+              <PriceTitleRender element={element} />
             </div>
-          </div>
+
 
           <div className='details'>
-            <h2>{element.autor}</h2>
-            <h2 style={{ textAlign: 'left' }}>{element.estado}</h2>
-            <h2>{element.categoria}</h2>
+            <h3>{element.autor}</h3>
+            <h3 style={{ textAlign: 'left' }}>{element.estado}</h3>
+            <h3>{element.categoria}</h3>
           </div>
 
-          <div className='soldBy' style={{ fontSize: '14px' }}>
+          <div className='soldBy'>
             Vendido por <span onClick={() => navigate(`/usuarios/${element.idVendedor}`)} className='accent'>{element.vendedor}</span>
           </div>
 
@@ -231,7 +231,7 @@ const MakeCollectionCard = ({ element, index }) => {
   }
   return (
     <Link key={index} style={{ width: '100%', height: '100%' }} to={`/colecciones/${element._id}`}>
-      <div className='collectionElement'>
+      <div className='sectionElement'>
         <h2>{element.nombre}</h2>
         <div className='imageElementCollectionContainer'>
           <img src={renderProfilePhoto(element.foto)} alt='' />

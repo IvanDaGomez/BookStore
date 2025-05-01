@@ -1,0 +1,40 @@
+
+.booksFyp,
+.collectionsFyp{
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  margin: auto;
+  margin-top: 20px;
+
+  flex-wrap: wrap;
+  flex: 1;
+}
+.collectionsFyp{
+  display: inline-flex;
+  & > * {
+    flex: 1 0 0;
+    align-items: center;
+  }
+}
+.booksFyp .sectionElement,
+.collectionsFyp .sectionElement
+{
+  height: calc(var(--font-size-large) * 18);
+  min-height: calc(var(--font-size-large) * 18);
+  margin: var(--margin-xsmall);
+  border: none;
+  font-size: calc(var(--font-size-large) / 1.5);
+  h2{
+    line-height: var(--font-size-large);
+  }
+  
+}
+.collectionsFyp img{
+  width: 60%;
+  aspect-ratio: 2 / 3;
+  object-fit: contain;
+}

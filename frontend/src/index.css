@@ -263,6 +263,7 @@ input:-internal-autofill-selected {
   padding: var(--padding-medium);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   margin-bottom: var(--margin-medium);
+  background: var(--using1);
   display:flex;
   justify-content: space-between;
   align-items: center;
@@ -270,14 +271,13 @@ input:-internal-autofill-selected {
 }
 .cardContainer .infoContainer *{
   color: var(--using3);
-  margin-bottom: 2px ;
 }
 
 .cardContainer .imageContainer{
-  height:175px;
+  height: calc(var(--font-size-xlarge) * 5);
   aspect-ratio: 2/3;
   object-fit: cover;
-
+  border: var(--border-width) solid var(--using2);
 }
 .cardContainer .imageContainer img{
   height:100%;
@@ -1193,34 +1193,36 @@ a[href="/chat"]{
   font-size: var(--font-size-xlarge);
 }
 /*-------------------------------------------------CAMBIAR CONTRASEÑA------------------------------------------*/
-.cambiarContraseñaDiv input[type='email'] {
-  width: 40rem;
-  margin: auto;
-  font-size: var(--font-size-medium);
-  background: white;
-  color: black;
-  padding: var(--padding-small);
-  border-radius: var(--border-radius);
-  border: 1px solid var(--using3);
-  
-}
-.cambiarContraseñaDiv input[type='email']:focus{
-  outline: auto 1px var(--using4);
-}
+
 .cambiarContraseñaDiv form{
   display: flex;
+  width: auto;
+  justify-content: space-around;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   height: auto;
+  .input-field{
+    width: 40ch;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: var(--font-size-xlarge) ;
+    gap: var(--margin-small);
+    margin: var(--margin-small);
+    input{
+      margin:0;
+      padding: var(--padding-small) var(--padding-small);
+    }
+  }
+  button{
+    width: 10ch;
+    height: var(--font-size-xlarge) ;
+    padding: var(--padding-small) var(--padding-large);
+    margin: var(--margin-small);
+  }
 }
-.cambiarContraseñaDiv .input-field{
-  height: 3rem;
-  width: 60%;
-  display: flex;
-  flex-direction: column;
-  margin-block: 15px;
-}
+
 .cambiarContraseñaDiv .strengthMeter{
   width: 60%;
   margin: auto;
@@ -1231,49 +1233,14 @@ a[href="/chat"]{
 .cambiarContraseñaDiv .strengthMeter div{
   width: fit-content;
 }
-.cambiarContraseñaDiv .input-field {
-  position: relative;
-}
+
 .cambiarContraseñaDiv .success{
   color: #4BB543;
 }
-.cambiarContraseñaDiv .input-field label {
-  position: absolute;
-  color: #8d8d8d;
-  pointer-events: none;
-  background-color: transparent;
-  left: 15px;
-  transform: translateY(10px);
-  transition: all 0.3s ease;
-}
 
-.cambiarContraseñaDiv .input-field input {
-  padding: 10px 15px;
-  font-size: var(--font-size-medium);
-  border-radius: var(--border-radius);
-  border: solid 1px var(--using3);
-  letter-spacing: 1px;
-  width: 100%;
-  background: white;
-}
 
-.cambiarContraseñaDiv .input-field input:focus,
-.cambiarContraseñaDiv .input-field input:valid {
-  outline: none;
-  border: var(--border-width) var(--using4);
-}
 
-.cambiarContraseñaDiv .input-field input:focus ~ label,
-.cambiarContraseñaDiv .input-field input:valid ~ label {
-  transform: translateY(-51%) translateX(-10px) scale(0.8);
-  background-color: #fff;
-  padding-inline: var(--padding-small);
-  color: var(--using4);
-  font-weight: bold;
-  letter-spacing: 1px;
-  border: none;
-  border-radius: 100px;
-}
+
 .opaqueBackground{
   position: absolute;
   width: 100vw;

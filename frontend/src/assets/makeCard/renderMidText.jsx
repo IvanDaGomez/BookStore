@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { reduceText } from "../reduceText";
 
-export default function RenderMidText({ element }) {
+export default function RenderMidText({ element, wordLimit }) {
   const renderAuthorAndGenre = () => {
     return [element.autor && reduceText(element.autor, 20), element.genero && reduceText(element.genero, 15)]
       .filter(Boolean) // Filters out null/undefined/false values
@@ -30,7 +30,7 @@ export default function RenderMidText({ element }) {
 
   return (
     <>
-      <h2>{reduceText(element.titulo, 25)}</h2>
+      <h2>{reduceText(element.titulo, wordLimit)}</h2>
       <div className="sectionElementTextDiv">
         <h3>{renderAuthorAndGenre()}</h3>
         <h3 style={{ color: 'var(--using4)' }}>{element.estado}</h3>

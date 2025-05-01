@@ -290,6 +290,10 @@
   align-items: center;
   flex-direction: row-reverse;
   width: 100%;
+  canvas {
+    width: 80% !important;
+    height: 80% !important;
+  }
 }
 .account-dashboard .main-content .graphContainer .axisPicker{
   width: 100%;
