@@ -50,7 +50,8 @@ function bookObject(data: BookObjectType | Partial<BookObjectType>, fullInfo = t
     estado: data.estado ?? 'Nuevo sellado',
     genero: data.genero ?? '',
     disponibilidad: data.disponibilidad ?? 'Disponible',
-    collectionsIds: data.collectionsIds ?? []
+    collectionsIds: data.collectionsIds ?? [],
+    fechaPublicacion: data.fechaPublicacion ?? new Date().toISOString()
   } as Partial<BookObjectType>;
 }
 

@@ -1,26 +1,6 @@
 
 /*------------------------------------------------buscar----------------------------------------------------------*/
-.misFiltros{
-  width:100vw;
-  height: auto;
-  
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  flex-wrap:wrap;
-  padding:20px 50px;
-}
 
-
-.misFiltros .aplicarFiltros{
-  background: var(--using4);
-  color:var(--using1);
-  
-}
-
-.misFiltros .aplicarFiltros:hover{
-  transform: scale(1.05);
-}
 
 .resultadosContainer{
   width:100vw;
@@ -28,63 +8,16 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-}
-.flecha{
-  width: auto;
-  position: fixed;
-  left: -7rem;
-  top: 173px;
-  padding: 3px;
-  padding-left: 7px;
-  background: white;
-  border: 1px solid var(--using2);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
   transition: all .3s ease-in-out;
-  z-index: 10;
-  cursor: pointer;
-  animation: look 3s ease-in-out 2s 1 ;
+  padding: var(--padding-medium);
 }
-@keyframes look {
-  0% {
-    transform: translateX(0);
-  }
-  20% {
-    transform: translateX(7rem);
-  }
-  60% {
-    transform: translateX(7rem);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
+
 .noMargen{
   margin: var(--margin-medium) 0 0 0;
 }
-.resultadosContainer .masFiltros{
-  width:20vw;
-  position: sticky;
-  top: 80px;
-  left:0;
-  background: var(--using5);
-  height: calc(100vh - 80px);
-  border-right: 2px solid var(--using2);
-  border-bottom: 2px solid var(--using2);
-  overflow-x: hidden;
-  overflow-y: auto;
-  padding:1rem;
-  text-align: left;
-  margin-bottom: 30px;
-  display:flex;
-  justify-content:space-between;
-  align-items:start;
-  flex-direction:column;
-  transition: all .3s ease-in-out;
-  z-index: 11;
-  transform: translateX(-20vw);
-}
+
 
 .masFiltros *{
   font-size:2rem;
@@ -106,84 +39,14 @@
   display: flex;
 
 }
-.price-input .field{
-  display: flex;
-  width: 100%;
-  height: 45px;
-  align-items: center;
-}
-.field input{
-  width: 100%;
-  height: 100%;
-  outline: none;
-  font-size: var(--font-size-medium);
-  margin-left: 12px;
-  border-radius: var(--border-radius);;
-  text-align: center;
-  border: 1px solid #999;
-  -moz-appearance: textfield;
-  appearance: textfield;
-}
+
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
-.price-input .separator{
-  width: 130px;
-  display: flex;
-  font-size: var(--font-size-medium);
-  align-items: center;
-  justify-content: center;
-}
-.slider{
-  height: 5px;
-  position: relative;
-  background: #ddd;
-  border-radius: var(--border-radius);;
-}
-.slider .progress{
-  height: 100%;
-  left: 25%;
-  right: 25%;
-  position: absolute;
-  border-radius: var(--border-radius);;
-  background: #17A2B8;
-}
-.range-input{
-  position: relative;
-}
-.range-input input{
 
-  position: absolute;
-  width: 100%;
-  height: 5px;
-  top: -5px;
-  background: none;
-  pointer-events: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
-input[type="range"]::-webkit-slider-thumb{
-  
-  height: 17px;
-  width: 17px;
-  border-radius: 50%;
-  background: #17A2B8;
-  pointer-events: auto;
-  -webkit-appearance: none;
-  box-shadow: 0 0 6px rgba(0,0,0,0.05);
-}
-input[type="range"]::-moz-range-thumb{
-  height: 17px;
-  width: 17px;
-  border: none;
-  border-radius: 50%;
-  background: #17A2B8;
-  pointer-events: auto;
-  -moz-appearance: none;
-  box-shadow: 0 0 6px rgba(0,0,0,0.05);
-}
+
+
 .masFiltros select{
   border: 1px solid var(--using2);
   background: white;
@@ -199,53 +62,45 @@ input[type="range"]::-moz-range-thumb{
   padding: 5px 10px;
 }
 .resultadosContainer .setSearchKind{
-  margin-left: 10px;
-  width: 100%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  gap: var(--margin-xsmall)
 }
 
 .resultadosContainer .setSearchKind div{
-
+  width: 11ch;
   border: 2px solid var(--using4);
   background: var(--using1);
   border-radius: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: var(--padding-small);
-  padding-inline: var(--padding-big);
-  margin-right: var(--padding-small);
+  padding: var(--padding-xsmall);
+  margin-block: var(--margin-medium);
   cursor: pointer;
-  transition: all .1s ease-in-out;
+  transition: all var(--animation-timing) ease-in-out;
 }
 .resultadosContainer .setSearchKind div:hover{
   background: var(--using4);
   color: var(--using1);
 }
-.resultadosContainer .resultadosYMasFiltros{
-  width:100vw;
-  height:100%;
-  padding: 10px ;
-  transition: all .3s ease-in-out;
-  transform: translateX(calc(-20vw + 10vw));
-}
-.resultadosContainer .resultadosYMasFiltros .separar{
+
+.resultadosContainer .separar{
+  width: min(1000px, calc(100vw - 2 * var(--margin-large)));
+  margin: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 15px;
+  flex-wrap: wrap;
 }
-.resultadosContainer .resultadosYMasFiltros .separar *{
-  margin: 0 5px;
-}
+
 
 .flex{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
+  gap: var(--margin-xsmall)
 }
 
 .ordenarPor{
@@ -256,6 +111,12 @@ input[type="range"]::-moz-range-thumb{
   cursor: pointer;
   
 }
+.layout{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .layout svg{
   color: var(--using3);
   cursor: pointer;
@@ -264,14 +125,34 @@ input[type="range"]::-moz-range-thumb{
   color:var(--using3)
 }
 
-.resultadosContainer .resultadosYMasFiltros .resultados{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+.resultadosContainer .resultados{
+  display: flex !important;
+  justify-content: center;
+  align-items: stretch; /* Ensures all items have the same height */
+  flex-wrap: wrap;
   width: 100%;
-
+  overflow: hidden;
+  flex: 1;
+  margin: 0;
+  gap: var(--margin-medium)
 }
-.resultados.sectionsContainer{
-  width:100%;
+.resultadosContainer .resultados .cardContainer{
+  margin: 0;
+  flex: 1 1 calc(33.33% - 10px);
+  display: flex;
+  border: none;
+}
+.resultadosContainer .resultados .cardContainer.oneFr{
+  
+  max-width: 60ch;
+  height: 100%; /* Ensures consistent height */
+  min-height: 100%;
+}
+@media only screen and (max-width: 734px) {
+  .resultadosContainer .resultados .cardContainer.oneFr{
+    width: calc(100vw - 2 * var(--margin-medium));
+    margin: 0;
+  }
   
 }
 
@@ -290,23 +171,7 @@ input[type="range"]::-moz-range-thumb{
   
 }
 
-.aplicarFiltros{
-  background: var(--using4);
-  color:var(--using1);
-  border: none;
-  font-weight: 600;
-  padding: 10px;
-  border-radius: var(--border-radius);;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  text-align: left;
-  width: min(15vw, auto);
-  cursor: pointer;
-  height:auto;
-  transition: all .2s ease-in-out;
-  
-}
+
 
 .projectsContainer .accProjects{
   
@@ -347,4 +212,128 @@ input[type="range"]::-moz-range-thumb{
 .resultadosContainer .userElement .info h2{
   font-size: var(--font-size-large);
   text-align: center;
+}
+
+.filtersContainer{
+  width: min(1000px, calc(100vw - 2 * var(--margin-large)));
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  flex-direction: column;
+}
+.filtersContainer .inputs{
+  margin-block: var(--margin-medium);
+  width: 100%;
+  display: grid;
+  grid-template-columns: 4fr 3fr 3fr 1fr;
+  place-items: center;
+  gap: var(--margin-small);
+  .querySelector{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    input {
+      width: 100%;
+    }
+  }
+  .locationSelector{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  button{
+    width: 100%;
+  }
+}
+.filtersContainer .filtersToApply{
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  min-height: 5ch;
+  
+}
+.filterOptions{
+  width: 100%;
+  display: flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap: wrap;
+  z-index: 1000;
+  gap: var(--margin-medium) 0;
+  
+
+}
+.filterWrapper{
+
+  height: calc(var(--font-size-medium) + 2 * var(--padding-medium) + 2px);
+  width: 20ch;
+  padding: var(--padding-small);
+  .filters{
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Edge */
+    outline: var(--border-width) solid var(--using4);
+
+    height: calc(var(--font-size-medium) + 2 * var(--padding-small));
+    background: var(--using1);
+    border-radius: var(--border-radius);
+    transition: all var(--animation-timing) ease-in-out;
+    .filterOption{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-inline: var(--margin-xsmall);
+      border-bottom: var(--border-width) solid var(--using2);
+      min-height: calc(var(--font-size-medium) + 2 * var(--padding-small) + 2px);
+      cursor: pointer;
+      &.choosen{
+        background: var(--using4);
+        color: var(--using1);
+      }
+    }
+  }
+  &:hover .filters{
+    height: calc(var(--font-size-medium) * 5 + 2 * var(--padding-small));
+  }
+  .filters::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+  }
+}
+.filtersContainer .filtersToApply .filter{
+  background: var(--using4);
+  color: var(--using1);
+  border-radius: var(--border-radius);
+  padding: var(--padding-small);
+  margin: var(--margin-xsmall);
+  margin-bottom: none;
+  cursor: pointer;
+  transition: all var(--animation-timing) ease-in-out;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--margin-xsmall);
+  &:hover{
+    background: var(--using1);
+    color: var(--using4);
+  }
+}
+.filtersContainer .filtersToApply .remove{
+  color: var(--using3);
+  border: var(--border-width) solid var(--using3);
+  border-radius: var(--border-radius);
+  padding: var(--padding-xsmall);
+  margin: var(--margin-xsmall);
+  cursor: pointer;
+  transition: all var(--animation-timing) ease-in-out;
+  &:hover{
+    background: var(--using3);
+    color: var(--using1);
+  }
 }

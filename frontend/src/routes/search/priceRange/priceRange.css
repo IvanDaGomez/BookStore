@@ -1,0 +1,28 @@
+.priceSelector{
+  height: 100%;
+  width: 100%;
+  position: relative;
+  border: var(--border-width) solid var(--using2);
+  border-radius: var(--border-radius);
+  background: var(--using1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .values{
+    display: flex;
+  }
+  input{
+    width: 100%;
+    border:none;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: transparent;
+    .rangeslider__handle{
+      pointer-events: all;
+      z-index: 2;
+    }
+  }
+}

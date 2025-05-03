@@ -23,9 +23,9 @@ export default function Balance ({ user, setUser }) {
         const response = await axios.get(url, { withCredentials: true })
         if (response.data) {
           setUser({ ...user, balance: {
-            disponible: response.data.disponible, // prueba
-            pendiente: response.data.pendiente,
-            porLlegar: response.data.porLlegar
+            disponible: response.data.balance.disponible, // prueba
+            pendiente: response.data.balance.pendiente,
+            porLlegar: response.data.balance.porLlegar
           } })
         }
       } catch (error) {
@@ -35,7 +35,15 @@ export default function Balance ({ user, setUser }) {
     fetchBalance()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  const balanceSum = Object.values(user?.balance ?? {}).reduce((a, b) => a + b, 0)
+  const balanceSum = () => {
+    const values = Object.values(user.balance)
+    return values.reduce((acc, value) => {
+      if (typeof value === 'number') {
+        return acc + value
+      }
+      return acc
+    }, 0)
+  }
   const [pathsArr] = useState(window.location.pathname.split('/'))
   return (
     <>
@@ -44,12 +52,12 @@ export default function Balance ({ user, setUser }) {
         <div className='container balanceContainer'>
           <h1>Balance</h1>
           <div className='bigNumber'>
-            ${balanceSum}
+            ${balanceSum()}
           </div>
           <div className='numbers'>
             <div>
-              <h2>Puedo cobrar:</h2>
-              <h3 style={{ fontWeight: '800' }}>${user?.balance?.disponible || 0}</h3>
+              <h2>Disponible:</h2>
+              <h3>${user?.balance?.disponible || 0}</h3>
             </div>
             <div>
               <h2>Pendiente:</h2>
@@ -61,7 +69,7 @@ export default function Balance ({ user, setUser }) {
             </div>
             
             <div>
-            {user.balance.disponible >= 0 &&
+            {user.balance.disponible > 0 &&
               <button onClick={() => setCobrar(!cobrar)}>
                 Retirar
               </button>}

@@ -1,22 +1,23 @@
 /*----------------------------------------Usuario----------------------------*/
 
 .userPageContainer{
-  width:min(1000px, calc(100vw - 10px));
+  width:min(1200px, calc(100vw - 10px));
   display: flex;
   justify-content: center;
   align-items: start;
   flex-direction: column;
-  margin: auto;
+  margin: var(--padding-medium) auto;
+
 }
 /* UserCard.css */
 .card-container {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  margin: var(--margin-big) auto;
+  margin: var(--margin-large) auto;
   padding: 20px;
   background: var(--using1);
-  width:min(1000px, calc(100vw - 10px));
+  width: 100%;
   border: 1px solid var(--using4);
 
   border-radius: var(--border-radius);;
@@ -109,21 +110,59 @@
 }
 .postsContainer{
   background: var(--using1);
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  place-items: center;
-  align-items: stretch;
-  gap: 10px;
-  margin: 0 auto 20px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
   padding: 20px;
-  width:min(1000px, calc(100vw - 10px));
+  width: 100%;
   border: 1px solid var(--using4);
   border-top: none;
   border-radius: 0  var(--border-radius) var(--border-radius) var(--border-radius);
 }
 /*Bug with the width*/
-.postsContainer *{
+
+.postsContainer{
   width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center ;
+  margin: auto;
+  flex-wrap: wrap;
+  padding: 0;
+  padding-top: 60px;
+  flex: 1;
+}
+.postsContainer{
+  display: inline-flex;
+  position: relative;
+  & > * {
+    align-items: center;
+  }
+}
+.postsContainer .sectionElement
+{
+  height: calc(var(--font-size-large) * 18);
+  min-height: calc(var(--font-size-large) * 18);
+  max-height: calc(var(--font-size-large) * 18);
+  width: 100%;
+  margin: var(--margin-xsmall);
+  font-size: calc(var(--font-size-large) / 1.5);;
+  h2{
+    line-height: var(--font-size-large);
+  }
+  
+}
+.postsContainer .makeCard a{
+  all: unset !important;
+  
+}
+.postsContainer img{
+  width: 60%;
+  aspect-ratio: 2 / 3;
+  object-fit: contain;
 }
 .editarOEliminar{
   margin: auto;
@@ -151,7 +190,11 @@
   background: white;
   
 }
-
+.newCollectionContainer{
+  display: block;
+  justify-content: center;
+  align-items: center;
+}
 .postsContainer .newCollection{
   width: auto;
   padding: var(--padding-small);
@@ -160,11 +203,13 @@
   background: var(--using1);
   color: var(--using3);
   font-size: var(--font-size-medium);
-  grid-column: 1 / 5;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  cursor: pointer;
+  position: absolute;
+  top: var(--margin-medium);
+  left: 50%;
+  transform: translateX(-50%);
 }
 .postsContainer .newCollection svg{
   margin: 0 10px;
@@ -362,7 +407,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: var(--margin-big) auto;
+  margin: var(--margin-large) auto;
   padding: 20px;
   width:max(400px, 70vw);
   border: 1px solid var(--using4);

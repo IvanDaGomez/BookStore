@@ -12,6 +12,7 @@ import RenderImageHeader from './makeCard/renderImageHeader.jsx'
 import RenderMidText from './makeCard/renderMidText.jsx'
 import RenderBottomText from './makeCard/renderBottomText.jsx'
 import { necesitasIniciarSesion } from './jsxConstants.jsx'
+import { randBackground } from './randBackground.js'
 export const PriceTitleRender = ({ element }) => {
 
   if (!element?.precio) return null
@@ -47,7 +48,6 @@ const MakeCard = ({ element, index, user = '', callback = () => {}, wordLimit = 
       setWidth(sectionsContainer.offsetWidth / numBooks)
     }
   }
-
   useEffect(() => {
     updateWidth()
     window.addEventListener('resize', updateWidth)
@@ -58,7 +58,7 @@ const MakeCard = ({ element, index, user = '', callback = () => {}, wordLimit = 
   }, [])
   return (
     <Link to={`/libros/${element._id}`} key={index} >
-      <div className='sectionElement' 
+      <div className='sectionElement makeCard' 
         style={{ filter: `opacity(${element.disponibilidad === 'Vendido' ? '0.6' : '1'})`, 
                  width: `${width}px`
       }}
@@ -91,11 +91,11 @@ const MakeCardPlaceHolder = ({ l }) => {
 const MakeOneFrCard = ({ element, index, user = '' }) => {
   const navigate = useNavigate()
   return (
-    <Link key={element._id} to={`/libros/${element._id}`}>
-      <div className='cardContainer' style={{ filter: `opacity(${element.disponibilidad === 'Vendido' ? '0.6' : '1'})` }}>
+    <Link key={element._id} to={`/libros/${element._id}`} className='oneFr'>
+      <div className='cardContainer oneFr' style={{ background: randBackground(), filter: `opacity(${element.disponibilidad === 'Vendido' ? '0.6' : '1'})` }}>
 
         {/* Imagen de los auriculares */}
-        <div className='imageContainer' style={{ textAlign: 'center' }}>
+        <div className='imageContainer' >
           <img
             src={`http://localhost:3030/uploads/${element.images ? element?.images[0]: ''}`}
             alt={element.titulo}
@@ -172,17 +172,20 @@ const MakeUpdateCard = ({ element, index }) => {
         <div>
           <RenderMidText element={element}/>
           <div className='editarOEliminar'>
-
-              <button onClick={(e)=> {
+              {element.disponibilidad !== 'Vendido' &&
+              <button 
+              
+              onClick={(e)=> {
                 e.preventDefault()
                 e.stopPropagation()
                 navigate(`/libros/crear?vendedor=${element.idVendedor}&libro=${element._id}`)}
                 }>
                 Editar
-              </button>
+              </button>}
 
 
               <button
+              style={{ marginTop: 'var(--margin-xsmall)' }}
                 onClick={(e)=> {
                   e.preventDefault()
                   e.stopPropagation()
@@ -230,7 +233,7 @@ const MakeCollectionCard = ({ element, index }) => {
     
   }
   return (
-    <Link key={index} style={{ width: '100%', height: '100%' }} to={`/colecciones/${element._id}`}>
+    <Link key={index} to={`/colecciones/${element._id}`} className=''>
       <div className='sectionElement'>
         <h2>{element.nombre}</h2>
         <div className='imageElementCollectionContainer'>

@@ -197,7 +197,7 @@ function validatePartialTransaction(data: Object): z.SafeParseReturnType<Partial
 }
 const collectionSchema = z.object({
   _id: z.string().uuid().optional(),
-  foto: z.string().url().optional(),
+  foto: z.string().optional(),
   userId: z.string().uuid({ message: 'Debe ser un UUID válido' }),
   librosIds: z.array(z.string().uuid()).default([]),
   nombre: z.string(),

@@ -10,7 +10,7 @@ export default function Colecciones ({ user, permisos }) {
   const [colecciones, setColecciones] = useState([])
   const [openNewCollection, setOpenNewCollection] = useState(false)
   const [croppedImage, setCroppedImage] = useState({})
-  const [librosFav] = useFetchFavoriteBooks(user)
+  const librosFav = useFetchFavoriteBooks(user)
   const [misLibros, setMisLibros] = useState([])
   const [addedCollections, setAddedCollections] = useState([])
   const [errors, setErrors] = useState([])
@@ -106,15 +106,15 @@ export default function Colecciones ({ user, permisos }) {
       }
       const createCollectionUrl = 'http://localhost:3030/api/collections'
       const createCollectionResponse = await axios.post(createCollectionUrl, formData, { withCredentials: true })
-      if (createCollectionResponse.data) {
-        setColecciones([...colecciones, {...createCollectionResponse.data.data, librosIds: filtered}])
-        
+      if (createCollectionResponse.data.error) {
+        setErrors([...errors, createCollectionResponse.data.error])
+        return
       }
-      if (addedCollections.length > 0) {
-        const addToCollectionUrl = 'http://localhost:3030/api/collections/addToCollection?collectionId=' + createCollectionResponse.data.data._id
+      setColecciones([...colecciones, {...createCollectionResponse.data, librosIds: filtered}])
         
-
-
+      if (addedCollections.length > 0) {
+        const addToCollectionUrl = 'http://localhost:3030/api/collections/addToCollection?collectionId=' + createCollectionResponse.data._id
+        console.log('URL:', addToCollectionUrl)
         // Realizar las solicitudes de manera secuencial
         for (const bookId of filtered) {
           const fullUrl = addToCollectionUrl + `&bookId=${bookId}`
@@ -239,6 +239,8 @@ export default function Colecciones ({ user, permisos }) {
           <path d='M2.5 12C2.5 7.52166 2.5 5.28249 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28249 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12Z' stroke='currentColor' strokeWidth='1.5' />
         </svg>Crear nueva colección
       </button>}
+
+
       {colecciones.length !== 0
         ? colecciones.map((coleccion, index) => (
           <MakeCollectionCard key={index} element={coleccion} index={index} user={user || ''} />

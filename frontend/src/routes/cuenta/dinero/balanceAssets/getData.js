@@ -40,28 +40,31 @@ async function ggetData ({ Xaxis }) {
 export async function getData ({ Xaxis, transactions, user }) {
 
   // Simular datos
-  const today = new Date()
+  const today = new Date();
+
+  // Helper function to format the date into YYYY-MM-DD format
+  const formatDate = (date) => new Date(date).toISOString().split('T')[0];
+  
   const plotBuyTransactions = Xaxis.map((_, index) => {
     const date = new Date(today);
   
     if (Xaxis.length === 7) {
       // Adjust to the correct date if plotting for a week
-      date.setDate(today.getDate() + (today.getDay() - index - 3));
-    }
-    else if (Xaxis.length === 12) {
+      date.setDate(today.getDate() - (today.getDay() - index));
+    } else if (Xaxis.length === 12) {
       // Adjust to the correct month, ensure it doesn't go past January or December
       date.setMonth(today.getMonth() - index);
     }
   
-    const formattedDate = date.toISOString().split('T')[0]; // Format date for comparison
-  
+    const formattedDate = formatDate(date);
+
     // Filter transactions for the current user and date
     const filteredTransactions = transactions.filter(transaction => 
       transaction.userId === user._id &&
-      transaction.response.date_created.split('T')[0] === formattedDate
+      formatDate(transaction.response.date_created) === formattedDate
     );
-  
-    // Sum the transaction amounts
+    console.log('filteredTransactions', filteredTransactions)
+    // Sum the transaction amounts 
     return filteredTransactions.reduce((total, transaction) => total + transaction.response.transaction_amount, 0);
   }).reverse();
   
@@ -71,18 +74,17 @@ export async function getData ({ Xaxis, transactions, user }) {
     if (Xaxis.length === 7) {
       // Adjust to the correct date if plotting for a week
       date.setDate(today.getDate() - (today.getDay() - index));
-    }
-    else if (Xaxis.length === 12) {
+    } else if (Xaxis.length === 12) {
       // Adjust to the correct month, ensure it doesn't go past January or December
       date.setMonth(today.getMonth() - index);
     }
   
-    const formattedDate = date.toISOString().split('T')[0]; // Format date for comparison
+    const formattedDate = formatDate(date);
   
     // Filter transactions for the current seller and date
     const filteredTransactions = transactions.filter(transaction => 
       transaction.sellerId === user._id &&
-      transaction.response.date_created.split('T')[0] === formattedDate
+      formatDate(new Date(transaction.response.date_created)) === formattedDate
     );
   
     // Sum the transaction amounts

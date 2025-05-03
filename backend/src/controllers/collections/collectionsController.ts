@@ -64,15 +64,13 @@ class CollectionsController {
 
   createCollection = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
-      const rawData = req.body as CollectionObjectType | { saga: string } | undefined
-
+      const rawData = req.body as Partial<CollectionObjectType> | { saga: string } | undefined
       if (!rawData) {
         return res.status(400).json({ error: 'No se proporcionó la colección' })
       }
       const data = rawData as Partial<CollectionObjectType>
       if (req.file) data.foto = `${req.file.filename}` as ImageType
       if (rawData.saga) data.saga = rawData.saga === 'true'
-
       // Validación
       const validated = validateCollection(data)
       if (!validated.success) {
@@ -81,9 +79,8 @@ class CollectionsController {
 
       // Crear la colección en la base de datos
       const collection = await this.CollectionsModel.createCollection(data)
-
       // Si todo es exitoso, devolver el colección creado
-      res.send(collection)
+      res.json(collection)
     } catch (err) {
       next(err)
     }
@@ -124,7 +121,7 @@ class CollectionsController {
   addBookToCollection = async (req: express.Request, res: express.Response, next: express.NextFunction): Promise<express.Response | void> => {
     try {
       const { bookId, collectionId } = req.query as { bookId: ID | undefined, collectionId: ID | undefined }
-
+      console.log('Req.query', req.query)
       if (!bookId || !collectionId) {
         return res.status(400).json({ error: 'No se proporcionó bookId' })
       }

@@ -118,7 +118,13 @@
 .sectionElement h3{
   text-align: center;
 }
-
+.sectionsContainer .precioSections{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: var(--padding-xsmall);
+}
 .sectionsContainer .precioSections h2{
   color: var(--using6);
   margin: 0;

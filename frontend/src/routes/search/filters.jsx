@@ -1,0 +1,130 @@
+import { useEffect, useState } from "react"
+import { cambiarEspacioAGuiones } from "../../assets/agregarMas"
+import { useNavigate } from "react-router"
+import { edad, edicion, estado, formato, generos, idiomas, tapa } from "../../assets/categorias"
+import Filter from "./filter"
+import PriceRange from "./priceRange/priceRange"
+
+// eslint-disable-next-line react/prop-types
+export default function Filters ({ query }) {
+  const navigate = useNavigate()
+  const [filtros, setFiltros] = useState({})
+  const [inputValue, setInputValue] = useState(query);
+  // Apply filters and redirect
+  const aplicarFiltros = (e) => {
+    e.preventDefault()
+    // Construye el query string de filtros
+    const filtersQuery = Object.entries(filtros)
+      .filter(([, value]) => value) // Solo incluye filtros con valores no vacíos
+      .map(([key, values]) => `${key}=${cambiarEspacioAGuiones(values.join(','))}`) // Convierte los valores a una cadena separada por comas
+      .join('&')
+
+    // Construye la query principal
+    const baseQuery = cambiarEspacioAGuiones(inputValue || '')
+    const fullQuery = `q=${baseQuery}${filtersQuery ? `&${filtersQuery}` : ''}`
+
+    // Navega a la nueva URL
+    navigate(`/buscar?${fullQuery}`)
+  }
+  useEffect(() => {
+    setInputValue(query); // Update the state when query prop changes
+  }, [query]);
+  
+  const handleChange = (e) => {
+    setInputValue(e.target.value);
+  };
+
+  const [filters] = useState([
+    {
+      name: 'Categoria',
+      param: 'categoria',
+      values: generos
+    },
+    {
+      name: 'Estado',
+      param: 'estado',
+      values: estado
+    },
+    {
+      name: 'Edad',
+      param: 'edad',
+      values: edad
+    },
+    {
+      name: 'Tapa',
+      param: 'tapa',
+      values: tapa
+    },
+    {
+      name: 'Formato',
+      param: 'formato',
+      values: formato
+    },
+    {
+      name: 'Edición',
+      param: 'edicion',
+      values: edicion
+    },
+    {
+      name: 'Idioma',
+      param: 'idioma',
+      values: idiomas
+    }
+  ])
+  function makeFullArray (obj) {
+    const values = Object.values(obj)
+    const fullArray = []
+    for (let i = 0; i < values.length; i++) {
+
+      fullArray.push(...values[i])
+    }
+    return fullArray
+  }
+
+  return (<>
+  <div className="filtersContainer">
+    
+    <div className="inputs">
+      <div className="querySelector">
+      <input
+          id="query"
+          type="text"
+          placeholder="Busca"
+          value={inputValue}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="locationSelector">
+        <input id='location' type="text" placeholder="Ubicación" />
+      </div>
+      <div className="priceSelector">
+        <PriceRange />
+      </div>
+      <button onClick={aplicarFiltros}>Buscar</button>
+    </div>
+    <h2>Filtros</h2>
+    <div className="filtersToApply">
+      {makeFullArray(filtros).map((filtro, index) => (
+        <div key={index} className="filter">
+          <p>{filtro}</p>
+          <span >X</span>
+        </div>
+      ))}
+      {Object.keys(filtros).length > 0 && (
+      <div className="remove" onClick={()=> {
+        setFiltros({})
+        document.querySelectorAll('.choosen').forEach((element) => {
+          element.classList.remove('choosen')
+        })
+      }}>
+        Eliminar todo
+      </div>)}
+    </div>
+    <div className="filterOptions">
+      {filters.map((filter, index) => (
+        <Filter filter={filter} setFiltros={setFiltros} index={index} key={index}/>))
+      }
+    </div>
+  </div>
+  </>)
+}
