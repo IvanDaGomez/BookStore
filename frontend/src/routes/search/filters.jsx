@@ -4,6 +4,7 @@ import { useNavigate } from "react-router"
 import { edad, edicion, estado, formato, generos, idiomas, tapa } from "../../assets/categorias"
 import Filter from "./filter"
 import PriceRange from "./priceRange/priceRange"
+import LocationSelector from "./location/locationSelector"
 
 // eslint-disable-next-line react/prop-types
 export default function Filters ({ query }) {
@@ -14,11 +15,13 @@ export default function Filters ({ query }) {
   const aplicarFiltros = (e) => {
     e.preventDefault()
     // Construye el query string de filtros
-    const filtersQuery = Object.entries(filtros)
+    let filtersQuery = Object.entries(filtros)
       .filter(([, value]) => value) // Solo incluye filtros con valores no vacíos
       .map(([key, values]) => `${key}=${cambiarEspacioAGuiones(values.join(','))}`) // Convierte los valores a una cadena separada por comas
       .join('&')
-
+    // Agrega el rango de precios al query string
+    filtersQuery = filtersQuery + `precio=${document.querySelector('.min.input-ranges').value}-${document.querySelector('.max.input-ranges').value}`
+    filtersQuery = filtersQuery + `&location=${document.querySelector('#location').value}`
     // Construye la query principal
     const baseQuery = cambiarEspacioAGuiones(inputValue || '')
     const fullQuery = `q=${baseQuery}${filtersQuery ? `&${filtersQuery}` : ''}`
@@ -94,12 +97,10 @@ export default function Filters ({ query }) {
           onChange={handleChange}
         />
       </div>
-      <div className="locationSelector">
-        <input id='location' type="text" placeholder="Ubicación" />
-      </div>
-      <div className="priceSelector">
-        <PriceRange />
-      </div>
+      <LocationSelector />
+      <PriceRange 
+      min={0} 
+      max={999999}/>
       <button onClick={aplicarFiltros}>Buscar</button>
     </div>
     <h2>Filtros</h2>

@@ -1,28 +1,37 @@
 .priceSelector{
   height: 100%;
   width: 100%;
-  position: relative;
   border: var(--border-width) solid var(--using2);
   border-radius: var(--border-radius);
   background: var(--using1);
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  gap: 2px;
+  padding-inline: 2px;
   align-items: center;
   .values{
     display: flex;
   }
-  input{
+  div{
     width: 100%;
-    border:none;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    z-index: 1;
-    pointer-events: none;
-    background: transparent;
+    height: 100%;
+    position: relative;
+
+    input{
+      width: 100%;
+      border:none;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      background: transparent;
+    }
+
     .rangeslider__handle{
       pointer-events: all;
       z-index: 2;
     }
   }
+  
 }
