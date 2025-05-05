@@ -12,10 +12,11 @@ import { AuthToken } from '../../../types/authToken.js'
 import { CollectionObjectType } from '../../../types/collection'
 import { BookObjectType } from '../../../types/book.js'
 import path from 'node:path'
+import { __dirname } from '../../../assets/config.js'
 // __dirname is not available in ES modules, so we need to use import.meta.url
 
-const bookPath = path.join('.', 'data', 'books.json')
-const booksBackStagePath = path.join('.', 'data', 'booksBackStage.json')
+const bookPath = path.join(__dirname, 'data', 'books.json')
+const booksBackStagePath = path.join(__dirname, 'data', 'booksBackStage.json')
 class BooksModel {
   static async getAllBooks (): Promise<BookObjectType[]> {
     const data = await fs.readFile(bookPath, 'utf-8')

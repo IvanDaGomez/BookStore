@@ -2,8 +2,8 @@ import fs from 'node:fs/promises'
 import { ID } from '../../../types/objects'
 import path from 'node:path'
 // __dirname is not available in ES modules, so we need to use import.meta.url
-
-const emailPath = path.join('.', 'data', 'emails.json')
+import { __dirname } from '../../../assets/config.js'
+const emailPath = path.join(__dirname, 'data', 'emails.json')
 
 
 class EmailsModel {

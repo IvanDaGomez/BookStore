@@ -38,7 +38,6 @@ export default function MenuSideBar({ callback, user, logoutFn }) {
   }
   return (
     <div className='menuSideBar' onMouseLeave={callback} >{/* */}
-    {console.log(user)}
       {/* Profile Section */}
 
       {user &&

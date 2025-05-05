@@ -10,8 +10,8 @@ import { calculateMatchScore } from '../../../assets/calculateMatchScore.js'
 import { changeToArray } from '../../../assets/changeToArray.js'
 import path from 'node:path'
 // __dirname is not available in ES modules, so we need to use import.meta.url
-
-const usersPath = path.join('.', 'data', 'users.json')
+import { __dirname } from '../../../assets/config.js'
+const usersPath = path.join(__dirname, 'data', 'users.json')
 class UsersModel {
   static async getAllUsers(): Promise<UserInfoType[]> {
     // Esta función devuelve todos los usuarios, incluyendo información sensible como la contraseña

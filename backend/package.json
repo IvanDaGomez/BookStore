@@ -10,7 +10,8 @@
     "dev:postgre": "tsc --watch & node --watch dist/createServer/createServerPostgreSQL.js",
     "updateDataBase": "tsc && node dist/assets/updateDB.ts",
     "document": "node src/assets/swagger.js",
-    "build": "tsc"
+    "build": "tsc",
+    "seed": "tsc && node dist/assets/seed.js"
   },
   "author": "Ivan Gomez",
   "license": "ISC",

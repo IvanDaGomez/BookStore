@@ -2,10 +2,11 @@ import fs from 'node:fs/promises'
 import { notificationObject } from '../notificationObject.js'
 import { NotificationType } from '../../../types/notification.js'
 import { ID } from '../../../types/objects.js'
+import { __dirname } from '../../../assets/config.js'
 import path from 'node:path'
 // __dirname is not available in ES modules, so we need to use import.meta.url
 
-const notificationsPath = path.join('.', 'data', 'notifications.json')
+const notificationsPath = path.join(__dirname, 'data', 'notifications.json')
 export class NotificationsModel {
   static async getAllNotifications (l: number = 0): Promise<NotificationType[]> {
     const data = await fs.readFile(notificationsPath, 'utf-8')
@@ -27,6 +28,7 @@ export class NotificationsModel {
     const userNotifications = allNotifications.filter(notification =>
       notification.userId === userId
     )
+    console.log('allNotifications', allNotifications)
     return userNotifications
   }
 

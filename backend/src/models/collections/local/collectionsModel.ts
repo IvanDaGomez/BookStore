@@ -5,9 +5,10 @@ import { CollectionObjectType } from '../../../types/collection'
 import { ID } from '../../../types/objects'
 import { changeToArray } from '../../../assets/changeToArray.js'
 import path from 'node:path'
+import { __dirname } from '../../../assets/config.js'
 // __dirname is not available in ES modules, so we need to use import.meta.url
 
-const collectionPath = path.join('.', 'data', 'collections.json')
+const collectionPath = path.join(__dirname, 'data', 'collections.json')
 class CollectionsModel {
   static async getAllCollections (): Promise<CollectionObjectType[]> {
     const data = await fs.readFile(collectionPath, 'utf-8')
