@@ -154,5 +154,7 @@ export interface ITransactionsModel {
   updateFailureTransaction (id: number, data: Partial<TransactionInputType>): Promise<TransactionObjectType>
   getBookByTransactionId (id: string): Promise<BookObjectType>
   createWithdrawTransaction (data: WithdrawMoneyType): Promise<{ message: string }>
+  getAllWithdrawTransactions(): Promise<WithdrawMoneyType[]>
+  markWithdrawTransaction (userId: string): Promise<{ message: string }>
   // Add other methods from TransactionsModel as needed
 }

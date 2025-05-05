@@ -2,7 +2,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-export default function Cobrar({ user, setCobrar }) {
+export default function Cobrar({ user, setCobrar, setUser }) {
   const [mensajeError, setMensajeError] = useState('');
   const [code, setCode] = useState('');
   const handleSubmit = async (e) => {
@@ -10,13 +10,20 @@ export default function Cobrar({ user, setCobrar }) {
 
     const [
       numeroCuenta,
+      phoneNumber,
       monto,
       password,
       bank,
-      safeCode
+      safeCode,
     ] = Array.from(e.target.elements).map((input) => input.value);
     // console.log(numeroCuenta.value, monto.value, password.value, safeCode.value)
     // Validar que todos los campos estén completos
+    // Validar telefono valido
+    if (!/^\d{10}$/.test(phoneNumber)) {
+      setMensajeError('Número de teléfono inválido');
+      toast.error('Número de teléfono inválido');
+      return;
+    }
     if (!numeroCuenta || !monto || !password || !bank || !safeCode) {
       setMensajeError('Por favor complete todos los campos');
       toast.error('Por favor complete todos los campos');
@@ -38,7 +45,8 @@ export default function Cobrar({ user, setCobrar }) {
       numeroCuenta,
       monto,
       password,
-      bank
+      bank,
+      phoneNumber
     }
     // Lógica para verificar la contraseña (esto debe hacerse en el backend)
     // En el backend, debes verificar la contraseña del usuario
@@ -66,6 +74,14 @@ export default function Cobrar({ user, setCobrar }) {
       }
       setCobrar(false);
       toast.success('Retiro solicitado con éxito, tiene un tiempo de espera de 1 a 3 días hábiles');
+      setUser({
+        ...user,
+        balance: {
+          porLlegar: (user.balance.porLlegar ?? 0),
+          disponible: user.balance.disponible - monto,
+          pendiente: (user.balance.pendiente ?? 0) + monto
+        }
+      });
     } catch {
         // Manejo de errores
     }
@@ -96,7 +112,9 @@ export default function Cobrar({ user, setCobrar }) {
           placeholder="Número de cuenta" 
 
         />
-        
+        <input type="number"
+          placeholder="Teléfono" 
+        />
         {/* Campo para monto a retirar */}
         <input 
           type="number" 

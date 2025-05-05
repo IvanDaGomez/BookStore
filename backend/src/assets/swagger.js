@@ -1,6 +1,7 @@
 import swaggerAutogen from 'swagger-autogen'
 
-const outputFile = './src/data/swagger.json'
+import path from 'node:path'
+const outputFile = path.join('.', 'data', 'swagger.json')
 
 const endpointsFiles = ['./src/index.ts']
 

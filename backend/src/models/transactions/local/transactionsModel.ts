@@ -23,12 +23,6 @@ class TransactionsModel {
     return [...successTransaction, ...failureTransaction].map(transaction => transactionObject(transaction))
   }
 
-  static async getAllWithdrawTransactions (): Promise<WithdrawMoneyType[]> {
-    const withdrawData = await fs.readFile(withdrawTransactionsPath, 'utf-8')
-    const withdrawTransaction: WithdrawMoneyType[] = JSON.parse(withdrawData)
-    return withdrawTransaction
-  }
-
   static async getAllTransactionsByUser (id: ID): Promise<TransactionObjectType[]> {
     const transactions = await this.getAllTransactions()
     const filteredTransactions = transactions.filter(transaction => transaction.userId === id || transaction.sellerId === id)
@@ -127,11 +121,27 @@ class TransactionsModel {
     return transactionObject(transaction)
   }
 
+  static async getAllWithdrawTransactions(): Promise<WithdrawMoneyType[]> {
+    const withdrawData = await fs.readFile(withdrawTransactionsPath, 'utf-8')
+    const withdrawTransaction: WithdrawMoneyType[] = JSON.parse(withdrawData)
+    return withdrawTransaction
+  }
   static async createWithdrawTransaction (data: WithdrawMoneyType): Promise<{ message: string }> {
     const transactions = await this.getAllWithdrawTransactions()
+    data.status = 'pending'
     transactions.push(data)
     await fs.writeFile(withdrawTransactionsPath, JSON.stringify(transactions, null, 2))
     return { message: 'Transacción de retiro creada con éxito' }
+  }
+  static async markWithdrawTransaction (userId: string) {
+    const transactions = await this.getAllWithdrawTransactions()
+    const transactionIndex = transactions.findIndex(transaction => transaction.userId === userId)
+    if (transactionIndex === -1) {
+      throw new Error('No se encontró la transacción')
+    }
+    const transaction = transactions[transactionIndex]
+    Object.assign(transaction, { status: 'approved' })
+    await fs.writeFile(withdrawTransactionsPath, JSON.stringify(transactions, null, 2))
   }
 }
 

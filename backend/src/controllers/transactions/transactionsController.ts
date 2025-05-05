@@ -504,11 +504,13 @@ export class TransactionsController {
         numeroCuenta,
         monto,
         password,
+        phoneNumber,
         bank
       } = req.body as {
         userId: ID
         numeroCuenta: string
         monto: string
+        phoneNumber: string
         password: string
         bank: string
       }
@@ -518,6 +520,7 @@ export class TransactionsController {
       }
       const ammount = parseInt(monto, 10)
       const accountNumber = parseInt(numeroCuenta, 10)
+      const phone = parseInt(phoneNumber, 10)
       const userEmail = await this.UsersModel.getEmailById(userId)
       const user = await this.UsersModel.login(userEmail.correo, password)
       if (!user) {
@@ -534,7 +537,9 @@ export class TransactionsController {
         numeroCuenta: accountNumber,
         monto: ammount,
         password,
-        bank
+        bank,
+        status: 'pending',
+        phoneNumber: phone
       })
       
       const updatedUser = await this.UsersModel.updateUser(userId, {
@@ -545,6 +550,28 @@ export class TransactionsController {
       })
 
       res.json(updatedUser)
+    } catch (err) {
+      next(err)
+    }
+  }
+  getWithdrawMoney = async (req: express.Request, res: express.Response, next:express.NextFunction) => {
+    try {
+      const withdrawTransactions = await this.TransactionsModel.getAllWithdrawTransactions()
+      
+      res.json(withdrawTransactions.filter((transaction) => transaction.status === 'pending'))
+    } catch (err) {
+      next(err)
+    }
+  }
+  updateWithdrawMoney = async (req: express.Request, res: express.Response, next:express.NextFunction) => {
+    try {
+      const userId = req.params.userId as ID | undefined
+      console.log('userId', userId)
+      if (!userId) {
+        return res.status(400).json({ error: 'ID de usuario no proporcionado' })
+      }
+      await this.TransactionsModel.markWithdrawTransaction(userId)
+      res.json({ message: 'Transacción de retiro aprobada con éxito' })
     } catch (err) {
       next(err)
     }

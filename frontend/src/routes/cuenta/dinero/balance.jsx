@@ -83,7 +83,7 @@ export default function Balance ({ user, setUser }) {
           <ChartBalanceData transactions={transactions} user={user}/>
         </div>
       </div>
-      {cobrar && <Cobrar user={user} setCobrar={setCobrar}/>}
+      {cobrar && <Cobrar user={user} setCobrar={setCobrar} setUser={setUser}/>}
       {/* {ingresar && <Ingresar user={user} setUser={setUser}/>} */}
       <TransactionHistorial transactions={transactions} user={user}/>
     </>

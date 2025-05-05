@@ -16,7 +16,10 @@ export const createTransactionsRouter = ({ TransactionsModel, UsersModel, BooksM
   transactionsRouter.post('/process_payment', transactionsController.processPayment as RequestHandler)
   transactionsRouter.post('/pay-with-balance', transactionsController.payWithBalance as RequestHandler)
   transactionsRouter.post('/getBookPreferenceId', transactionsController.getPreferenceId as RequestHandler)
+
+  transactionsRouter.get('/withdrawMoney', transactionsController.getWithdrawMoney as RequestHandler)
   transactionsRouter.post('/withdrawMoney', transactionsController.withdrawMoney as RequestHandler)
+  transactionsRouter.put('/withdrawMoney/:userId', transactionsController.updateWithdrawMoney as RequestHandler)
   transactionsRouter.get('/getSafeCode/:userId', transactionsController.getSafeCode as RequestHandler)
   // transactionsRouter.post('/getAddMoneyPreferenceId', transactionsController.getPreferenceIdByUser as RequestHandler)
   transactionsRouter.get('/transactionByUser/:userId', transactionsController.getTransactionsByUser as RequestHandler)

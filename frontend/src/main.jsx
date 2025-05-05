@@ -32,6 +32,7 @@ import { UserProvider } from './context/userContext.jsx'
 import FypCollections from './routes/forYouPage/fypCollections.jsx'
 import ColeccionEspecificoPage from './routes/colecciones/coleccionEspecifico.jsx'
 import ProtectedStats from './routes/protected/protectedStats.jsx'
+import ProtectedWithdraw from './routes/protected/protectedWithdraw.jsx'
 
 const router = createBrowserRouter([
   {
@@ -162,6 +163,10 @@ const router = createBrowserRouter([
   {
     path: '/protected/stats',
     element: <ProtectedStats />
+  },
+  {
+    path: '/protected/withdraw',
+    element: <ProtectedWithdraw />
   }
 ], {
   future: {
