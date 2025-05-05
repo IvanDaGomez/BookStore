@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { options } from "../../assets/options";
-import { departamentos } from "./departamentos";
+import useGetDepartments from "../search/location/useGetDepartments";
+import useGetCities from "../search/location/useGetCities";
 
 export default function Fase2Form (form, errors = null) {
-  const [departamento, setDepartamento] = useState(form.address?.department || '') // Usamos un estado para el select
-
+  const [departamento, setDepartamento] = useState('')
+  const departamentos = useGetDepartments()
+  const [ciudad, setCiudad] = useState('')
+  const cities = useGetCities(departamento)
     useEffect(() => {
       // Actualizamos los valores de los campos con los datos de form
       document.querySelector('#nombres').value = form.first_name || ''
@@ -44,7 +47,7 @@ export default function Fase2Form (form, errors = null) {
 
         <div className='inputCrear'>
           <label htmlFor='departamento'>Departamento *</label>
-          <select name='departamento' id='departamento' value={departamento} onChange={(e) => setDepartamento(e.target.value)} required>
+          <select name='departamento' id='departamento' required>
             <option value=''>Seleccione un departamento</option>
             {departamentos.map((departamento, index) => (
               <option key={index} value={departamento}>{departamento}</option>
@@ -54,7 +57,15 @@ export default function Fase2Form (form, errors = null) {
 
         <div className='inputCrear'>
           <label htmlFor='ciudad'>Ciudad *</label>
-          <input id='ciudad' type='text' name='ciudad' required maxLength={18} />
+          <select name="ciudad" id="ciudad">
+            {cities.length === 0 ? 
+            <option value="">Seleccione un departamento</option>
+            :
+            <option value="">Seleccione la ciudad</option>}
+            {cities.map((ciudad, index) => (
+              <option key={index} value={ciudad}>{ciudad}</option>
+            ))}
+          </select>
         </div>
 
         <div className='inputCrear'>

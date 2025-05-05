@@ -63,8 +63,9 @@
   display: flex !important;
   justify-content: flex-start !important;
   align-items: center !important;
-
-
+}
+.checkoutContainer .inputCrear #ciudad{
+  width: 100%;
 }
 .checkoutContainer .inputCrear select{
   width: 10ch;

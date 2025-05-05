@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
-export default function useSelectCities (selectedDepartment) {
+export default function useGetCities (selectedDepartment) {
   const [cities, setCities] = useState([])
 
 
@@ -33,5 +33,5 @@ export default function useSelectCities (selectedDepartment) {
     fetchCities()
   }, [selectedDepartment])
 
-  return { cities }
+  return cities
 }

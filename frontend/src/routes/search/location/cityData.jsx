@@ -1,8 +1,8 @@
-import useSelectCities from "./useSelectCities"
+import useGetCities from "./useGetCities"
 
 // eslint-disable-next-line react/prop-types
 export default function CityData ({ selectedDepartment, setSelectedCity, setPopUpLocation, setFiltros }) {
-   const { cities } = useSelectCities(selectedDepartment)
+   const cities = useGetCities(selectedDepartment)
    return (<>
     <h2>Seleccionar ciudad</h2>
     <hr style={{margin: '0'}}/>
