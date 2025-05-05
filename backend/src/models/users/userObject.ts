@@ -39,7 +39,9 @@ function userObject(name: UserInfoType | Partial<UserInfoType>, fullInfo = false
         pendiente: name.balance?.pendiente ?? 0,
         disponible: name.balance?.disponible ?? 0,
         porLlegar: name.balance?.porLlegar ?? 0
-      }
+      },
+      comprasIds: name.comprasIds ?? [],
+      
     };
     return fullAnswer
   } else {
@@ -74,6 +76,7 @@ function userObject(name: UserInfoType | Partial<UserInfoType>, fullInfo = false
         disponible: name.balance?.disponible ?? 0,
         porLlegar: name.balance?.porLlegar ?? 0
       },
+      comprasIds: name.comprasIds ?? []
     };
     return partialAnswer;
   }

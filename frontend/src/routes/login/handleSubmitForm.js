@@ -54,7 +54,12 @@ export const handleSubmit = async ({
   }
   try {
     document.body.style.cursor = 'auto'
-    const response = await axios.post(url, sendData,{ withCredentials: true })
+    const response = await axios.post(url, sendData, {
+      withCredentials: true,
+      headers: {
+      'track': 'true'
+      }
+    })
 
 
     setLoading(false)

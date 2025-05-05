@@ -38,6 +38,10 @@ async function appendToCSV (filePath: string, data:
 async function handleStats (req: express.Request, res: express.Response, next: express.NextFunction) {
   try {
     const now = new Date().toISOString() // Current timestamp
+    const willTrack = req.headers['track'] === 'true' // Check if tracking is enabled
+    if (!willTrack) {
+      return next()
+    }
     const { titulo, price } = req.body ?? { titulo: '', price: ''}// Extracting title and price from request body
     if (!titulo || !price) {
       return next()
@@ -48,7 +52,7 @@ async function handleStats (req: express.Request, res: express.Response, next: e
         let action
         if (req.url === '/api/users' && req.method === 'POST') {
           action = 'signUp'
-        } else if (req.url.includes('/api/users/') && req.method === 'GET') {
+        } else if (req.url.includes('/api/users/login') && req.method === 'GET') {
           action = 'login'
         } else return
         const data = { date: now, action }

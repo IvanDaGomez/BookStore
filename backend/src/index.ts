@@ -17,6 +17,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { PORT, __dirname } from './assets/config.js'
 import { corsOptions } from './assets/corsOptions.js'
+import { statsHandler } from './middlewares/statsHandler.js'
 // Get the current file's directory
 dotenv.config()
 // import { handleStats } from './assets/handleStats.js'
@@ -69,6 +70,7 @@ export const createApp = ({
   app.use('/uploads', express.static(uploadsDir))
   app.use('/optimized', express.static(optimizedDir))
 
+
   app.use('/api/books', createBooksRouter({ BooksModel, UsersModel }))
   app.use('/api/users', createUsersRouter({ UsersModel, TransactionsModel, BooksModel }))
   app.use('/api/messages', createMessagesRouter({ MessagesModel, ConversationsModel }))
@@ -78,6 +80,7 @@ export const createApp = ({
   app.use('/api/emails', createEmailsRouter({ EmailsModel }))
   app.use('/api/transactions', createTransactionsRouter({ TransactionsModel, UsersModel, BooksModel }))
 
+  app.get('/api/stats', statsHandler)
   const swaggerDoc = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'swagger.json'), 'utf-8'))
   app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDoc))
   // // Middleware para manejar errores

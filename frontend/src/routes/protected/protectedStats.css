@@ -1,0 +1,62 @@
+.stats-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
+  padding: var(--padding-xlarge);
+  gap: 1rem;
+  min-height: 100vh;
+}
+.stats-section .stat-card{
+  width: 100%;
+  min-height: 30vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background: var(--using1);
+  border: var(--border-width) solid var(--using4);
+}
+
+.stats-section .availableOptions{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--margin-small);
+  & > button.active{
+    background: var(--using7);
+  }
+}
+.stats-section .topViewedContainer{
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--margin-small);
+}
+.stats-section .topViewed{
+  width: 30ch;
+  background: var(--using4);
+  border-radius: var(--border-radius);
+  padding: var(--padding-small);
+  margin: auto;
+  color: var(--using1);
+}
+.stat-card.trends{
+  grid-column: 1 / -1;
+}
+@media only screen and (max-width: 734px) {
+  .stats-section {
+    grid-template-columns: 1fr;
+  }
+  .stats-section .stat-card{
+    min-height: 20vh;
+  }
+
+  
+}

@@ -14,7 +14,7 @@ import './index.css'
 import EditarUsuario from './routes/usuarios/editarUsuario.jsx'
 import Checkout from './routes/checkout/checkout.jsx'
 import Notificaciones from './routes/mensajes/notificaciones.jsx'
-import ProtectedReviewBook from './routes/protectedReviewBook/protectedReviewBook.jsx'
+import ProtectedReviewBook from './routes/protected/protectedReviewBook.jsx'
 import TerminosYCondiciones from './routes/extraFooterInfo/terminos.jsx'
 import SobreNosotros from './routes/extraFooterInfo/sobreNosotros.jsx'
 import PoliticaPrivacidad from './routes/extraFooterInfo/politicaPrivacidad.jsx'
@@ -31,6 +31,7 @@ import Fyp from './routes/forYouPage/fyp.jsx'
 import { UserProvider } from './context/userContext.jsx'
 import FypCollections from './routes/forYouPage/fypCollections.jsx'
 import ColeccionEspecificoPage from './routes/colecciones/coleccionEspecifico.jsx'
+import ProtectedStats from './routes/protected/protectedStats.jsx'
 
 const router = createBrowserRouter([
   {
@@ -155,8 +156,12 @@ const router = createBrowserRouter([
     element: <FypCollections />
   },
   {
-    path: 'colecciones/:collectionId',
+    path: '/colecciones/:collectionId',
     element: <ColeccionEspecificoPage />
+  },
+  {
+    path: '/protected/stats',
+    element: <ProtectedStats />
   }
 ], {
   future: {

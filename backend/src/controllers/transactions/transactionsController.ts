@@ -307,6 +307,7 @@ export class TransactionsController {
       // Actualizar el saldo del usuario y vendedor
       const [updatedUser, updatedSeller, updatedBook] = await Promise.all([
         this.UsersModel.updateUser(userId, {
+          comprasIds: [...seller.comprasIds, book._id],
           balance: {
             disponible: user.balance.disponible - transaction_amount
           }
@@ -397,6 +398,10 @@ export class TransactionsController {
 
           // Actualizar el saldo del usuario y vendedor
           await Promise.all([
+            this.UsersModel.updateUser(user._id, {
+              comprasIds: [...user.comprasIds, book._id]
+            })
+            ,
             this.UsersModel.updateUser(seller._id, {
               balance: {
                 porLlegar: (seller.balance.porLlegar ?? 0) + (response?.transaction_amount ?? 0)
