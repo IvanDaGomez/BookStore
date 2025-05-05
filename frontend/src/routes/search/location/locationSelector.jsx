@@ -1,22 +1,83 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react"
-export default function LocationSelector ({ }) {
+import getLocation from "../../../assets/getLocation"
+import DepartmentData from "./departmentData"
+import CityData from "./cityData"
+export default function LocationSelector ({ setFiltros, filtros }) {
   const [popUpLocation, setPopUpLocation] = useState(false)
+  const [selectedDepartment, setSelectedDepartment] = useState(null)
+  const [selectedCity, setSelectedCity] = useState(null)
+  const handleSetLocation = async () => {
+    document.querySelector('.getLocation').innerText = "Cargando..."
+    const locationData = await getLocation()
+    setFiltros((prev) => {
+      
+      return {
+        ...prev,
+        ciudad: [locationData?.ciudad],
+        departamento: [locationData?.departamento]
+      }
+    })
+    setPopUpLocation(false)
+  }
+  const handleSetDepartment = (e) => {
+    if (e.target.classList.contains("active")) {
+      e.target.classList.remove("active")
+    }
+    else {
+      e.target.classList.add("active")
+    } 
+      setSelectedDepartment(null)
+      setSelectedCity(null)
+      if (!e.target.classList.contains("active")) {
+        document.querySelector(".city").classList.add("active")
+      }
+      
+  }
   return (<>
   {popUpLocation && <>
     <div className="popUp">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#ffffff"} fill={"none"}><path d="M14.9994 15L9 9M9.00064 15L15 9" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path><path d="M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z" stroke="#ffffff" strokeWidth="1.5"></path></svg>
-      <div>
+      <svg onClick={()=> setPopUpLocation(!popUpLocation)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#ffffff"} fill={"none"}><path d="M19.0005 4.99988L5.00049 18.9999M5.00049 4.99988L19.0005 18.9999" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+      <div className="selectLocation">
+        <h2>Seleccionar ubicación</h2>
+        <button className="getLocation"  onClick={handleSetLocation}>
+          Utilizar mi ubicación
 
+        </button>
+        <div onClick={(e) => handleSetDepartment(e)} className="department active">
+          Departamento:
+          {selectedDepartment &&<span className=""> {selectedDepartment}</span>}
+        </div>
+        <div>
+          Ciudad:
+          {selectedCity &&<span className="city"> {selectedCity}</span>}
+        </div>
       </div>
-      <div>
+      <div className="locationView">
+        {!selectedDepartment ? <>
+        <DepartmentData setSelectedDepartment={setSelectedDepartment} />
+        </>:
+        <CityData selectedDepartment={selectedDepartment} 
+        setSelectedCity={setSelectedCity} 
+        setPopUpLocation={setPopUpLocation}
+        setFiltros={setFiltros}
+        />
+        }
 
       </div>
     </div>
   </>
   }
   <div className="locationSelector" onClick={() => setPopUpLocation(!popUpLocation)}>
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={16} height={16} color={"#000"} fill={"none"}><path d="M13.6177 21.367C13.1841 21.773 12.6044 22 12.0011 22C11.3978 22 10.8182 21.773 10.3845 21.367C6.41302 17.626 1.09076 13.4469 3.68627 7.37966C5.08963 4.09916 8.45834 2 12.0011 2C15.5439 2 18.9126 4.09916 20.316 7.37966C22.9082 13.4393 17.599 17.6389 13.6177 21.367Z" stroke="currentColor" strokeWidth="1.5" /><path d="M15.5 11C15.5 12.933 13.933 14.5 12 14.5C10.067 14.5 8.5 12.933 8.5 11C8.5 9.067 10.067 7.5 12 7.5C13.933 7.5 15.5 9.067 15.5 11Z" stroke="currentColor" strokeWidth="1.5" /></svg>
-    <span>Ubicación</span>
+    <span>{
+      filtros?.ciudad?.length > 0 &&
+      filtros?.departamento?.length > 0
+      ? 
+      
+      `${filtros?.departamento} - ${filtros?.ciudad}`
+      
+      : "Ubicación"
+      }</span>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={16} height={16} color={"#000"} fill={"none"}><path d="M18 9.00005C18 9.00005 13.5811 15 12 15C10.4188 15 6 9 6 9" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path></svg>
   </div>
   </>)

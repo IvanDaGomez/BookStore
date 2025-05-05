@@ -20,8 +20,8 @@ export default function Filters ({ query }) {
       .map(([key, values]) => `${key}=${cambiarEspacioAGuiones(values.join(','))}`) // Convierte los valores a una cadena separada por comas
       .join('&')
     // Agrega el rango de precios al query string
-    filtersQuery = filtersQuery + `precio=${document.querySelector('.min.input-ranges').value}-${document.querySelector('.max.input-ranges').value}`
-    filtersQuery = filtersQuery + `&location=${document.querySelector('#location').value}`
+    filtersQuery = filtersQuery + `&precio=${document.querySelector('.min.input-ranges').value}-${document.querySelector('.max.input-ranges').value}`
+
     // Construye la query principal
     const baseQuery = cambiarEspacioAGuiones(inputValue || '')
     const fullQuery = `q=${baseQuery}${filtersQuery ? `&${filtersQuery}` : ''}`
@@ -97,7 +97,7 @@ export default function Filters ({ query }) {
           onChange={handleChange}
         />
       </div>
-      <LocationSelector />
+      <LocationSelector setFiltros={setFiltros} filtros={filtros}/>
       <PriceRange 
       min={0} 
       max={999999}/>

@@ -243,16 +243,24 @@ input[type="number"]::-webkit-inner-spin-button {
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     background: var(--using1);
     align-items: center;
     border: var(--border-width) solid var(--using2);
     border-radius: var(--border-radius);
+    cursor: pointer;
+    position: relative;
     svg{
+
+      all: unset;
+      position: absolute;
+      top: 50%;
+      right: var(--margin-xsmall);
+      transform: translateY(-50%);
+      stroke: black;
       height: calc(100% - 2 * var(--padding-xsmall));
       aspect-ratio: 1/1;
-      color: var(--using3);
     }
     
   }
@@ -265,21 +273,83 @@ input[type="number"]::-webkit-inner-spin-button {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
   border: var(--border-width) solid var(--using2);
   border-radius: var(--border-radius);
   background: var(--using1);
   width: min(1000px, calc(100vw - 2 * var(--margin-large)));
   height: min(800px, calc(100vh - 2 * var(--margin-large)));
   z-index: 10000;
+  &::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: var(--border-width);
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+  }
   svg{
+    all: unset;
+    stroke: black; /* Explicitly set stroke after unset */
     position: absolute;
     top: var(--margin-medium);
     right: var(--margin-medium);
     cursor: pointer;
-    color: var(--using3);
+    color: var(--using3) !important;
+  }
+  & > div{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background: var(--using1);
+    border-radius: var(--border-radius);
+    &.selectLocation > div, 
+    &.selectLocation > button{
+      width: 80%;
+      border: var(--border-width) solid var(--using2);
+      border-radius: var(--border-radius);
+      margin: var(--margin-small);
+      padding: var(--padding-xsmall);
+      transition: all var(--animation-timing) ease-in-out;
+      cursor: pointer;
+      &:hover, &.active{
+        background: var(--using4);
+        color: var(--using1);
+      }
+      
+    }
+    &.selectLocation > .getLocation{
+      background: var(--using7);
+    }
+    &.locationView{
+      width: 80%;
+      height: 40%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-direction: column;
+      overflow: auto;
+      padding: none;
+      border: var(--border-width) solid var(--using2);
+      & > div{
+        width: 100%;
+        font-size: var(--font-size-large);
+        cursor: pointer;
+        transition: all var(--animation-timing) ease-in-out;
+        
+        &:hover{
+          background: var(--using4);
+          color: var(--using1);
+        }
+      }
+   }
   }
 }
 .filtersContainer .filtersToApply{
