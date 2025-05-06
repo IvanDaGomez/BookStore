@@ -33,6 +33,7 @@ import FypCollections from './routes/forYouPage/fypCollections.jsx'
 import ColeccionEspecificoPage from './routes/colecciones/coleccionEspecifico.jsx'
 import ProtectedStats from './routes/protected/protectedStats.jsx'
 import ProtectedWithdraw from './routes/protected/protectedWithdraw.jsx'
+import ListaCostes from './routes/extraFooterInfo/listaCostes.jsx'
 
 const router = createBrowserRouter([
   {
@@ -167,6 +168,10 @@ const router = createBrowserRouter([
   {
     path: '/protected/withdraw',
     element: <ProtectedWithdraw />
+  },
+  {
+    path: '/lista-costes',
+    element: <ListaCostes />
   }
 ], {
   future: {

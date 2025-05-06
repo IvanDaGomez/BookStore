@@ -78,14 +78,14 @@ export default function Contacto () {
                 <textarea name='message' id='textarea' rows='30' cols='50' />
                 {formErrors.message && formErrors.message}
               </div>
-              <h2>Meridian Colombia, S.A.S. es el responsable de tus datos que serán tratados para atender la
+              <h3>Meridian Colombia, S.A.S. es el responsable de tus datos que serán tratados para atender la
                 consulta según su naturaleza y contactarte si es necesario, y enviarte comunicaciones comerciales
                 sobre nuestros servicios, promociones y novedades. Puedes ejercer tus derechos, así como retirar
                 el consentimiento en cualquier
                 momento en protecciondedatos@meridian.com.co.
                 Más información en nuestro <a href='/aviso-de-privacidad'>Aviso de Privacidad</a>
-              </h2>
-              <button className='boton' type='submit'>Enviar</button>
+              </h3>
+              <button className='boton' style={{margin: 'auto'}} type='submit'>Enviar</button>
 
             </form>
           </div>

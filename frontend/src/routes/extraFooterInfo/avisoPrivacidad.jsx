@@ -8,7 +8,7 @@ const PrivacyPolicy = () => {
     <>
       <Header />
       <div className='extraFooterInfoContainer'>
-        <MarkdownFileRenderer filePath='/avisoPrivacidad.md' />
+        <MarkdownFileRenderer filePath='/markdowns/avisoPrivacidad.md' />
       </div>
       <SideInfo />
       <Footer />

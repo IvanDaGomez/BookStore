@@ -8,7 +8,7 @@ export default function SobreNosotros () {
     <>
       <Header />
       <div className='extraFooterInfoContainer'>
-        <MarkdownFileRenderer filePath='/sobreNosotros.md' />
+        <MarkdownFileRenderer filePath='/markdowns/sobreNosotros.md' />
       </div>
       <Footer />
       <SideInfo />

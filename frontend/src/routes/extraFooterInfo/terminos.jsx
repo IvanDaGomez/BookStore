@@ -8,7 +8,7 @@ export default function TerminosYCondiciones () {
     <>
       <Header />
       <div className='extraFooterInfoContainer'>
-        <MarkdownFileRenderer filePath={'/terminosYCondiciones.md'} />
+        <MarkdownFileRenderer filePath={'/markdowns/terminosYCondiciones.md'} />
       </div>
       <SideInfo />
       <Footer />

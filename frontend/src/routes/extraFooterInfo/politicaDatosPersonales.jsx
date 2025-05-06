@@ -8,7 +8,7 @@ export default function PoliticaDatosPersonales () {
   return (
     <><Header />
       <div className='extraFooterInfoContainer'>
-        <MarkdownFileRenderer filePath='/politicaDatosPersonales.md' />
+        <MarkdownFileRenderer filePath='/markdowns/politicaDatosPersonales.md' />
       </div>
       <Footer />
       <SideInfo />

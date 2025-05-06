@@ -9,7 +9,7 @@ export default function UsoDeCookies () {
     <>
       <Header />
       <div className='extraFooterInfoContainer'>
-        <MarkdownFileRenderer filePath='/usoDeCookies.md' />
+        <MarkdownFileRenderer filePath='/markdowns/usoDeCookies.md' />
       </div>
       <Footer />
       <SideInfo />

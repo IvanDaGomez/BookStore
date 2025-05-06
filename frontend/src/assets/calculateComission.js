@@ -1,3 +1,4 @@
 export function calculateComission (price) {
-  return price * 0.10 + 2000
+  return Math.ceil(price * 0.0799 + 3999)
 }
+//7.99% + $3.999

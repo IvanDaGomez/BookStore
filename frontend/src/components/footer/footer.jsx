@@ -37,14 +37,6 @@ const Footer = () => {
             href: '/sobre-nosotros',
           },
           {
-            name: 'Política de Privacidad',
-            href: '/politica-privacidad',
-          },
-          {
-            name: 'Términos de Servicio',
-            href: '/terminos-y-condiciones',
-          },
-          {
             name: 'Preguntas Frecuentes',
             href: '/faq',
           },
@@ -72,6 +64,10 @@ const Footer = () => {
         {
           name: 'Política de Datos Personales',
           href: '/politica-de-datos-personales',
+        },
+        {
+          name: 'Lista de Costes',
+          href: '/lista-costes',
         }
       ]
     }
