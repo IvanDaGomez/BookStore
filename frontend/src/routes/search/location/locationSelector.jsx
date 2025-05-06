@@ -10,11 +10,12 @@ export default function LocationSelector ({ setFiltros, filtros }) {
   const handleSetLocation = async () => {
     document.querySelector('.getLocation').innerText = "Cargando..."
     const locationData = await getLocation()
+    const city = locationData?.ciudad.split(" ")[locationData?.ciudad.split(" ").length - 1]
     setFiltros((prev) => {
       
       return {
         ...prev,
-        ciudad: [locationData?.ciudad],
+        ciudad: city ? [city] : [locationData?.ciudad],
         departamento: [locationData?.departamento]
       }
     })

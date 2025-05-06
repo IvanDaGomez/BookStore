@@ -13,6 +13,7 @@ import { CollectionObjectType } from '../../../types/collection'
 import { BookObjectType } from '../../../types/book.js'
 import path from 'node:path'
 import { __dirname } from '../../../assets/config.js'
+import { filterBooksByFilters } from './filterBooksByFilters.js'
 // __dirname is not available in ES modules, so we need to use import.meta.url
 
 const bookPath = path.join(__dirname, 'data', 'books.json')
@@ -69,35 +70,45 @@ class BooksModel {
     return bookToReturn
   }
 
-  static async getBooksByQueryWithFilters (query: {
-    query: string
-    where: Record<string, string>
-    limit: number
-  }): Promise<Partial<BookObjectType>[]> {
+  static async getBooksByQueryWithFilters (query: string,
+    filters: Partial<Record<keyof BookObjectType, any>>,
+    limit: number,
+  ): Promise<Partial<BookObjectType>[]> {
     let books = await this.getAllBooks() // Fetch all books (local data)
-    if (Object.keys(query.where).length === 0) return []
+    if (Object.keys(filters).length === 0) return []
 
-    books = books.filter(book => {
-      return Object.keys(query.where).some(
-        filter =>
-          book[filter as keyof BookObjectType] ===
-          query.where[filter as keyof BookObjectType]
-      )
-    })
-
+    type PreparedFiltersType = Partial<{
+      [key in keyof BookObjectType[]]?: any[] | number
+    } & {
+      minPrecio?: number
+      maxPrecio?: number,
+      ciudad?: string[]
+      departamento?: string[]
+    }>
+    const preparedFilters: PreparedFiltersType = {}
+    Object.keys(filters).forEach(filter => {
+      const filterValue = filters[filter as keyof BookObjectType];
+      if (typeof filterValue === 'string') {
+        preparedFilters[filter as any] = filterValue.split(',');
+      }
+      if (filter === 'precio' && Array.isArray(preparedFilters[filter as keyof PreparedFiltersType])) {
+        const prices = preparedFilters[filter as keyof PreparedFiltersType] as number[];
+        preparedFilters['minPrecio'] = Math.min(...prices);
+        preparedFilters['maxPrecio'] = Math.max(...prices);
+        delete preparedFilters[filter as keyof PreparedFiltersType];
+      }
+    });
+    books = filterBooksByFilters(books, preparedFilters)
     // Perform search based on the query
-    books = (await this.getBookByQuery(
-      query.query,
-      query.limit,
+    const resultBooks = await this.getBookByQuery(
+      query,
+      limit,
       books
-    )) as BookObjectType[]
-    if (books === undefined || !books) {
-      return []
-    }
-    const bookToReturn: Partial<BookObjectType>[] = books
+    )
+
+    const bookToReturn = resultBooks
       .filter(book => book.disponibilidad === 'Disponible')
-      .map(book => bookObject(book, false))
-    // TODO: el tipado no es correcto, se deberia volver Partial<BookObjectType>
+    
     return bookToReturn
   }
 

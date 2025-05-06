@@ -50,11 +50,10 @@ export interface IBooksModel {
     l: number,
     books?: BookObjectType[]
   ): Promise<Partial<BookObjectType>[]>
-  getBooksByQueryWithFilters(query: {
-    query: string
-    where: Record<string, string>
-    limit: number
-  }): Promise<Partial<BookObjectType>[]>
+  getBooksByQueryWithFilters(query: string,
+    filters: object,
+    l: number,
+  ): Promise<Partial<BookObjectType>[]>
   getBooksByUserId(userId: ID): Promise<any[]>
   createBook(data: BookObjectType): Promise<BookObjectType>
   updateBook(

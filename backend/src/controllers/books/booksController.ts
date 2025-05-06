@@ -167,32 +167,16 @@ export class BooksController {
       Se pueden aplicar filtros como categoría, ubicación, edad, tapa, fecha de publicación, idioma y estado.
     */
     try {
-      let {
-        categoria,
-        ubicacion,
-        edad,
-        tapa,
-        fechaPublicacion,
-        idioma,
-        estado,
+      let {   
         q,
-        l
+        l,
+        ...filters
       } = req.query
 
-      if (!q) {
+      if (!q || typeof q !== 'string') {
         return res
           .status(400)
           .json({ error: 'El parámetro de consulta "q" es requerido' })
-      }
-
-      const filters = {
-        categoria,
-        ubicacion,
-        edad,
-        tapa,
-        fechaPublicacion,
-        idioma,
-        estado
       }
       Object.keys(filters).forEach(key => {
         const filterKey = key as keyof typeof filters
@@ -202,46 +186,11 @@ export class BooksController {
           )
         }
       })
-      ;({ categoria, ubicacion, edad, tapa, fechaPublicacion, idioma, estado } =
-        filters)
 
       const lParsed = parseInt(l as string, 10) || 24
 
-      const filterObj = {
-        categoria,
-        ubicacion,
-        edad,
-        tapa,
-        fechaPublicacion,
-        idioma,
-        estado
-      }
 
-      const query: {
-        query: string
-        where: Record<string, string>
-        limit: number
-      } = {
-        query: q as string,
-        where: {},
-        limit: lParsed
-      }
-
-      Object.keys(filterObj).forEach(filterKey => {
-        const key = filterKey as keyof typeof filterObj
-        const value = filterObj[key]
-        if (value) {
-          if (typeof value === 'string') {
-            query.where[key] = value
-          } else if (Array.isArray(value) && typeof value[0] === 'string') {
-            query.where[key] = value[0]
-          } else {
-            throw new Error(`Invalid filter value for key "${key}"`)
-          }
-        }
-      })
-
-      const books = await this.BooksModel.getBooksByQueryWithFilters(query)
+      const books = await this.BooksModel.getBooksByQueryWithFilters(q, filters, lParsed )
 
       if (books.length === 0) {
         return res.status(404).json({ error: 'No se encontraron libros' })

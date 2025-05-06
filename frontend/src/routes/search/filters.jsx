@@ -20,7 +20,7 @@ export default function Filters ({ query }) {
       .map(([key, values]) => `${key}=${cambiarEspacioAGuiones(values.join(','))}`) // Convierte los valores a una cadena separada por comas
       .join('&')
     // Agrega el rango de precios al query string
-    filtersQuery = filtersQuery + `&precio=${document.querySelector('.min.input-ranges').value}-${document.querySelector('.max.input-ranges').value}`
+    filtersQuery = filtersQuery + `&precio=${document.querySelector('.min.input-ranges').value},${document.querySelector('.max.input-ranges').value}`
 
     // Construye la query principal
     const baseQuery = cambiarEspacioAGuiones(inputValue || '')
@@ -106,7 +106,22 @@ export default function Filters ({ query }) {
     <h2>Filtros</h2>
     <div className="filtersToApply">
       {makeFullArray(filtros).map((filtro, index) => (
-        <div key={index} className="filter">
+        <div key={index} className="filter"
+        onClick={() => {
+          // Eliminar el filtro de la lista
+          const filterKey = Object.keys(filtros).find(key => filtros[key].includes(filtro))
+          if (filterKey) {
+            setFiltros((prev) => ({
+              ...prev,
+              [filterKey]: prev[filterKey].filter(item => item !== filtro)
+            }))
+          }
+          // Eliminar el filtro elegido
+          document.querySelectorAll('.choosen').forEach((element) => {
+            element.classList.remove('choosen')
+          })
+        }}
+        >
           <p>{filtro}</p>
           <span >X</span>
         </div>

@@ -92,7 +92,7 @@ const MakeOneFrCard = ({ element, index, user = '' }) => {
   const navigate = useNavigate()
   return (
     <Link key={element._id} to={`/libros/${element._id}`} className='oneFr'>
-      <div className='cardContainer oneFr' style={{ background: randBackground(), filter: `opacity(${element.disponibilidad === 'Vendido' ? '0.6' : '1'})` }}>
+      <div className='cardContainer oneFr' style={{/* background: randBackground(), */filter: `opacity(${element.disponibilidad === 'Vendido' ? '0.6' : '1'})` }}>
 
         {/* Imagen de los auriculares */}
         <div className='imageContainer' >

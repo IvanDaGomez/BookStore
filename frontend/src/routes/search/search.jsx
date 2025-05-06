@@ -10,14 +10,14 @@ import { MakeCard, MakeCollectionCard, MakeOneFrCard, MakeUserCard } from '../..
 import useBotonSelect from '../../assets/botonSelect.jsx'
 import DoubleSlider from '../../components/DoubleSlider.jsx'
 import { ToastContainer } from 'react-toastify'
-import { edad, estado, generos, idiomas, tapa, ubicaciones } from '../../assets/categorias.js'
+import { edad, edicion, estado, formato, generos, idiomas, tapa, ubicaciones } from '../../assets/categorias.js'
 import { UserContext } from '../../context/userContext.jsx'
 import './search.css'
 import NumberPagesSeparator from './numberPagesSeparator.jsx'
 import Filters from './filters.jsx'
 import SelectButton from './selectButton.jsx'
+import axios from 'axios'
 export default function Search () {
-  const navigate = useNavigate()
   const { user, setUser } = useContext(UserContext)
 
   const [params] = useSearchParams()
@@ -25,14 +25,19 @@ export default function Search () {
   const queryParams = {
     categoria: params.get('categoria'),
     estado: params.get('estado'),
-    ubicacion: params.get('ubicacion'),
+    ciudad: params.get('ciudad'),
+    departamento: params.get('departamento'),
     edad: params.get('edad'),
     tapa: params.get('tapa'),
     fechaPublicacion: params.get('fechaPublicacion'),
-    idioma: params.get('idioma')
+    idioma: params.get('idioma'),
+    precio: params.get('precio'),
+    formato: params.get('formato'),
+    edicion: params.get('edicion')
   }
   const query = cambiarGuionesAEspacio(params.get('q'))
   const sk = cambiarGuionesAEspacio(params.get('sk') || 'books')
+
   // Si no hay q devolver a la pestaña de inicio
   useEffect(() => {
     if (!query) window.location.href = window.location.origin
@@ -90,15 +95,14 @@ export default function Search () {
       const url = `http://localhost:3030/api/${searchKind}/query/filters?${searchParams.toString()}`
 
       try {
-        const response = await fetch(url)
-        const data = await response.json()
+        const response = await axios.get(url)
 
-        if (data.error) {
-          console.error(data.error)
+        if (response.data.error) {
+          // console.error(response.data.error)
           return
         }
 
-        setResults(data.books || [])
+        setResults(response.data || [])
       } catch (error) {
         console.error('Error fetching data:', error)
       }
@@ -110,8 +114,6 @@ export default function Search () {
   const [currentPage, setCurrentPage] = useState(1)
   const [alignment, setAlignment] = useState(localStorage.getItem('alignment') || 'one')
 
-
-
   const renderizarResultados = () => {
     return results.slice((currentPage - 1) * 24, currentPage * 24)
   }
@@ -119,37 +121,6 @@ export default function Search () {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }, [currentPage])
-
-  // filtros
-
-
-
-  // Sorting options
-  const ordenarFormas = {
-    Seleccionar: true,
-    'Menor Precio': (a, b) => a.precio - b.precio,
-    'Mayor Precio': (a, b) => b.precio - a.precio
-  }
-
-  // Sort selected projects
-  const selectedProyectos = (formas, forma, results, setResults) => {
-    if (formas[forma]) {
-      const sortedData = [...results].sort(formas[forma])
-      setResults(sortedData)
-    }
-  }
-
-  // Props for sorting dropdown
-  const selectedOrdenarProps = {
-    formas: ordenarFormas,
-    results,
-    setResults,
-    ancho: '150px',
-    callback: selectedProyectos
-  }
-
-
-
 
 
   function updateQuery(sk) {
