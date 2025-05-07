@@ -31,7 +31,7 @@ import { CollectionObjectType } from '../../types/collection'
 export class BooksController {
   private UsersModel: IUsersModel
   private BooksModel: IBooksModel
-  constructor ({ 
+  constructor ({
     UsersModel,
     BooksModel
   }: {
@@ -45,7 +45,7 @@ export class BooksController {
     this.UsersModel = UsersModel
     this.BooksModel = BooksModel
   }
- 
+
   getAllBooks = async (
     req: express.Request,
     res: express.Response,
@@ -63,7 +63,7 @@ export class BooksController {
     }
   }
 
-  getBookById = async ( 
+  getBookById = async (
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
@@ -98,13 +98,16 @@ export class BooksController {
     */
     try {
       const ids = req.params.ids
-      
+
       const idsArray = ids.split(',').map(id => id.trim()) as ID[]
       if (!ids || ids.length === 0) {
         return res.status(400).json({ error: 'No se proporcionaron IDs' })
       }
 
-      const books = await this.BooksModel.getBooksByIdList(idsArray, idsArray.length)
+      const books = await this.BooksModel.getBooksByIdList(
+        idsArray,
+        idsArray.length
+      )
       return res.json(books)
     } catch (err) {
       next(err)
@@ -132,7 +135,7 @@ export class BooksController {
           .status(400)
           .json({ error: 'El parámetro de consulta "q" es requerido' })
       }
-      let lParsed: number = parseInt(l as string ?? '24', 10)
+      let lParsed: number = parseInt((l as string) ?? '24', 10)
 
       if (lParsed > 100) lParsed = 100
       // Consigue los libros del modelo
@@ -145,7 +148,7 @@ export class BooksController {
         for (const book of books.slice(0, 3)) {
           const bookCopy: Partial<BookObjectType> = JSON.parse(
             JSON.stringify(book)
-          ) 
+          )
           // await updateData(user, bookCopy, 'query')
         }
       }
@@ -167,11 +170,7 @@ export class BooksController {
       Se pueden aplicar filtros como categoría, ubicación, edad, tapa, fecha de publicación, idioma y estado.
     */
     try {
-      let {   
-        q,
-        l,
-        ...filters
-      } = req.query
+      let { q, l, ...filters } = req.query
 
       if (!q || typeof q !== 'string') {
         return res
@@ -189,8 +188,11 @@ export class BooksController {
 
       const lParsed = parseInt(l as string, 10) || 24
 
-
-      const books = await this.BooksModel.getBooksByQueryWithFilters(q, filters, lParsed )
+      const books = await this.BooksModel.getBooksByQueryWithFilters(
+        q,
+        filters,
+        lParsed
+      )
 
       if (books.length === 0) {
         return res.status(404).json({ error: 'No se encontraron libros' })
@@ -358,15 +360,14 @@ export class BooksController {
   ): Promise<express.Response | void> => {
     try {
       let data = req.body as Partial<BookObjectType>
-      
+
       data = prepareCreateBookData(data, req)
       const validated = validateBook(data)
       if (!validated.success) {
         console.error('Error de validación:', validated.error)
         return res.status(400).json({ error: validated.error })
       }
-      
-      
+
       const book = await this.BooksModel.createReviewBook(data)
 
       res.send(book)
@@ -432,7 +433,11 @@ export class BooksController {
       const lParsed = parseInt(l, 10) || 24
       const user = req.session.user as AuthToken | undefined
 
-      const results = await this.BooksModel.forYouPage(user, lParsed)
+      const results = await this.BooksModel.forYouPage(
+        user,
+        lParsed,
+        this.UsersModel
+      )
 
       return res.json(results)
     } catch (err) {

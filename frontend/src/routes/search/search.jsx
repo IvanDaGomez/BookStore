@@ -130,7 +130,7 @@ export default function Search () {
   }
 
   const renderCard = (item, index) => {
-    if (!item || !item?._id) return
+    if (!item || !item?.id) return
     switch (sk) {
       case 'books': {
         if (alignment === 'many') {

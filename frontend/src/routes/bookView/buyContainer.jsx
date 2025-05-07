@@ -14,8 +14,8 @@ export default function BuyContainer({ libro, user }) {
                   <h2 style={{ color: '#228B22' }}>Disponible</h2>
   
                   {(libro)
-                    && <><Link to={`/checkout/${libro._id}`}><button>Comprar ahora</button></Link>
-                      <button onClick={(event) => handleFavoritos(event, libro._id, user ? user._id : null)} className='botonInverso'>Agregar a favoritos</button>
+                    && <><Link to={`/checkout/${libro.id}`}><button>Comprar ahora</button></Link>
+                      <button onClick={(event) => handleFavoritos(event, libro.id, user ? user.id : null)} className='botonInverso'>Agregar a favoritos</button>
                     </>
                     }
                 </>
@@ -43,13 +43,13 @@ export default function BuyContainer({ libro, user }) {
               <div className='informacionDelVendedor'>
   
                 {librosRelacionadosVendedor.length != 0 &&
-                        librosRelacionadosVendedor.filter(element => element._id !== libro._id).length !== 0 &&
+                        librosRelacionadosVendedor.filter(element => element.id !== libro.id).length !== 0 &&
                         libro && (
                           <>
                             <h2>Productos de {libro.vendedor}: </h2>
                             <div className='sectionsContainer'>
                               {librosRelacionadosVendedor
-                                .filter(element => element._id !== libro._id)
+                                .filter(element => element.id !== libro.id)
                                 .map((element, index) =>
                                   user
                                     ? <MakeSmallCard key={index} element={element} index={index} user={user} />

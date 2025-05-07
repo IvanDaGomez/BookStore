@@ -8,11 +8,11 @@ export default function useFetchPhotoAndNameUsers ({
 }) {
     useEffect(() => {
       async function fetchPhotoAndNameUsers () {
-        if (!user || !user?._id || !conversaciones.length) return
+        if (!user || !user?.id || !conversaciones.length) return
         console.log(user)
         try {
           const fetchedUsers = await Promise.all(conversaciones.map(async conversacion => {
-            const userConversationId = conversacion.users.find(id => id !== user._id)
+            const userConversationId = conversacion.users.find(id => id !== user.id)
             if (!userConversationId) return null
   
             const response = await fetch(`http://localhost:3030/api/users/${userConversationId}/photoAndName`)

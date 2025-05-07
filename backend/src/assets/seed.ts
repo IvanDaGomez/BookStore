@@ -67,7 +67,7 @@ async function createTables () {
       preferencias JSONB,
       historialBusquedas JSONB,
       balance JSONB,
-      contraseña VARCHAR(255),
+      contraseña VARCHAR(255)
     );
   `
 
@@ -78,7 +78,7 @@ async function createTables () {
       autor VARCHAR(255) NOT NULL,
       precio DECIMAL(10) NOT NULL,
       oferta DECIMAL(10),
-      isbn VARCHAR(20) UNIQUE NOT NULL,
+      isbn VARCHAR(20),${/*NOT NULL,*/ ''}
       images VARCHAR(200)[],
       keywords VARCHAR[],
       descripcion TEXT,
@@ -106,7 +106,7 @@ async function createTables () {
       autor VARCHAR(255) NOT NULL,
       precio DECIMAL(10) NOT NULL,
       oferta DECIMAL(10),
-      isbn VARCHAR(20) UNIQUE NOT NULL,
+      isbn VARCHAR(20),${/*NOT NULL,*/ ''}
       images VARCHAR(200)[],
       keywords VARCHAR[],
       descripcion TEXT,
@@ -235,6 +235,7 @@ async function createTables () {
 async function fillTablesWithLocalData () {
   const userData = await UsersModel.getAllUsers()
   const bookData = await BooksModel.getAllBooks()
+  console.log('bookData', bookData)
   const bookBackstageData = await BooksModel.getAllReviewBooks()
   const withdrawalData = await TransactionsModel.getAllWithdrawTransactions()
   const rawTrends = await fs.readFile(
@@ -257,8 +258,8 @@ async function fillTablesWithLocalData () {
           INSERT INTO users (id, nombre, rol, fotoPerfil, correo, direccionEnvio, librosIds, 
           estadoCuenta, fechaRegistro, actualizadoEn, bio, favoritos, conversationsIds, 
           notificationsIds, validated, login, ubicacion, seguidores, siguiendo, coleccionsIds, 
-          comprasIds, preferencias, historialBusquedas)
-          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23);
+          comprasIds, preferencias, historialBusquedas, balance, contraseña)
+          VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25);
         `,
           [
             user.id,
@@ -283,7 +284,9 @@ async function fillTablesWithLocalData () {
             user.coleccionsIds,
             user.comprasIds,
             user.preferencias,
-            user.historialBusquedas
+            user.historialBusquedas,
+            user.balance,
+            user.contraseña
           ]
         )
       )
@@ -302,8 +305,7 @@ async function fillTablesWithLocalData () {
           ubicacion, tapa, edad, fechaPublicacion, actualizadoEn, disponibilidad,
           mensajes, collectionsIds)
           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13,
-          $14, $15, $16, $17, $18, $19, $20,$21,$22, $23, $24)
-          ON CONFLICT (isbn) DO NOTHING;
+          $14, $15, $16, $17, $18, $19, $20,$21,$22, $23, $24);
         `,
           [
             book.id,
@@ -348,8 +350,7 @@ async function fillTablesWithLocalData () {
           ubicacion, tapa, edad, fechaPublicacion, actualizadoEn, disponibilidad,
           mensajes, collectionsIds)
           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13,
-          $14, $15, $16, $17, $18, $19, $20,$21,$22, $23, $24)
-          ON CONFLICT (isbn) DO NOTHING;
+          $14, $15, $16, $17, $18, $19, $20,$21,$22, $23, $24);
         `,
           [
             book.id,
@@ -547,13 +548,15 @@ async function fillTablesWithLocalData () {
     console.error('Error inserting withdrawals:', error)
   }
   try {
-    Object.entries(trendsData).map(([key, trend]) =>
-      pool.query(
-        `
-        INSERT INTO trends (title, amount)
-        VALUES ($1, $2);
-      `,
-        [key, trend]
+    await Promise.all(
+      Object.entries(trendsData).map(([key, trend]) =>
+        pool.query(
+          `
+      INSERT INTO trends (title, amount)
+      VALUES ($1, $2);
+    `,
+          [key, trend]
+        )
       )
     )
   } catch (error) {
@@ -571,6 +574,7 @@ async function seed () {
   await createTables()
   await fillTablesWithLocalData()
   console.log('Database seeded successfully')
+  await pool.end()
 }
 
 seed()

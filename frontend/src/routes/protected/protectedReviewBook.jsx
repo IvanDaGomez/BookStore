@@ -51,7 +51,7 @@ export default function ProtectedReviewBook () {
         throw new Error('Failed to remove book')
       }
 
-      setBooks((prevBooks) => prevBooks.filter((book) => book._id !== bookId))
+      setBooks((prevBooks) => prevBooks.filter((book) => book.id !== bookId))
       toast.success('Libro eliminado')
     } catch (error) {
       console.error('Error removing book:', error)
@@ -64,7 +64,7 @@ export default function ProtectedReviewBook () {
     try {
       const url =
         book.method === 'PUT'
-          ? `http://localhost:3030/api/books/${book._id}`
+          ? `http://localhost:3030/api/books/${book.id}`
           : 'http://localhost:3030/api/books'
 
       const body = {
@@ -86,7 +86,7 @@ export default function ProtectedReviewBook () {
         return
       }
 
-      await removeBookFromBackStage(book._id)
+      await removeBookFromBackStage(book.id)
       moveToNextBook()
     } catch (error) {
       console.error('Error accepting book:', error)
@@ -98,7 +98,7 @@ export default function ProtectedReviewBook () {
     if (!book) return
     console.log(book)
     try {
-      await removeBookFromBackStage(book._id)
+      await removeBookFromBackStage(book.id)
 
       const reasonInput = document.querySelector('.reason')
       const reason = reasonInput ? reasonInput.value : 'Razón no especificada'
@@ -109,11 +109,11 @@ export default function ProtectedReviewBook () {
         input: reason,
         type: 'bookRejected',
         userId: book.idVendedor,
-        actionUrl: `${window.location.origin}/libros/${book._id}`,
+        actionUrl: `${window.location.origin}/libros/${book.id}`,
         metadata: {
           photo: book.images?.[0] || 'default.png',
           bookTitle: book.titulo,
-          bookId: book._id
+          bookId: book.id
         }
       }
 

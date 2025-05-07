@@ -52,7 +52,7 @@ export default function CrearLibro () {
   // Extract values for 'vendedor' and 'libro'
   const vendedor = searchParams.get('vendedor') // Retrieves the value of 'vendedor'
   const libro = searchParams.get('libro') // Retrieves the value of 'libro'
-  const actualizar = vendedor && libro && user && vendedor === user._id && user.librosIds.includes(libro)
+  const actualizar = vendedor && libro && user && vendedor === user.id && user.librosIds.includes(libro)
   // Fetch book data if libroId is present
   useEffect(() => {
     const fetchBook = async () => {

@@ -34,7 +34,7 @@ function SimpleNotification (notification) {
 }
 
 function DetailedNotification (notification) {
-  const { type, createdIn, metadata, userId, actionUrl, read, input, _id } = notification
+  const { type, createdIn, metadata, userId, actionUrl, read, input, id } = notification
 
   const typeIcons = {
     newMessage: '📩',
@@ -80,7 +80,7 @@ function DetailedNotification (notification) {
           return
         }
 
-        const deleteUrl = `http://localhost:3030/api/notifications/${_id}`
+        const deleteUrl = `http://localhost:3030/api/notifications/${id}`
         const deleted = await fetch(deleteUrl, {
           method: 'DELETE',
           credentials: 'include'

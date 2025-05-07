@@ -29,7 +29,7 @@ export default function Notificaciones () {
 
   useEffect(() => {
     if (notificationId) {
-      const notificationFound = notifications.find(notification => notification._id === notificationId)
+      const notificationFound = notifications.find(notification => notification.id === notificationId)
       if (notificationFound) setActiveNotification(notificationFound)
     }
   }, [notificationId, notifications])

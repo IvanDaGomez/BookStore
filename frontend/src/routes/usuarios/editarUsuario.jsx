@@ -98,7 +98,7 @@ export default function EditarUsuario () {
     //   console.log(`${key}: ${value}`)
     // }
     try {
-      const URL = `http://localhost:3030/api/users/${user._id}`
+      const URL = `http://localhost:3030/api/users/${user.id}`
       const response = await fetch(URL, {
         method: 'PATCH',
         body: formData,

@@ -8,7 +8,7 @@ export function useFetchFavoriteBooks (vendedor) {
     async function fetchLibrosFavoritos () {
       try {
         if (!vendedor) return
-        const url = 'http://localhost:3030/api/books/getFavoritesByUser/' + vendedor._id
+        const url = 'http://localhost:3030/api/books/getFavoritesByUser/' + vendedor.id
 
 
         const response = await axios.get(url, { withCredentials: true })

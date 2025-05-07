@@ -60,7 +60,7 @@ export async function getData ({ Xaxis, transactions, user }) {
 
     // Filter transactions for the current user and date
     const filteredTransactions = transactions.filter(transaction => 
-      transaction.userId === user._id &&
+      transaction.userId === user.id &&
       formatDate(transaction.response.date_created) === formattedDate
     );
     console.log('filteredTransactions', filteredTransactions)
@@ -83,7 +83,7 @@ export async function getData ({ Xaxis, transactions, user }) {
   
     // Filter transactions for the current seller and date
     const filteredTransactions = transactions.filter(transaction => 
-      transaction.sellerId === user._id &&
+      transaction.sellerId === user.id &&
       formatDate(new Date(transaction.response.date_created)) === formattedDate
     );
   

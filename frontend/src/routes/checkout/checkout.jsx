@@ -31,7 +31,7 @@ function Checkout () {
     async function fetchUserBalance () {
       if (!user) return
       try {
-        const url = `http://localhost:3030/api/users/balance/${user._id}`
+        const url = `http://localhost:3030/api/users/balance/${user.id}`
         const response = await axios.post(url, null, {withCredentials: true})
         setUser({
           ...user,
@@ -54,7 +54,7 @@ function Checkout () {
   const [fase, setFase] = useState(1) // Estado para la fase actual
   const [form, setForm] = useState({
     // Estado para almacenar los datos del formulario
-    _id: bookId,
+    id: bookId,
     address: {},
     payment: {},
     confirmation: {}

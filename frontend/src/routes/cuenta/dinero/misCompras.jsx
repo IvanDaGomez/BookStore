@@ -11,7 +11,7 @@ export default function MisCompras ({ user }) {
   const [compras, setCompras] = useState([])
   useEffect(() => {
     if (!transactions) return
-    const filteredCompras = transactions.filter(transaction => transaction.userId === user._id)
+    const filteredCompras = transactions.filter(transaction => transaction.userId === user.id)
     setCompras(filteredCompras)
   },[transactions, user])
   const [libros, setLibros] = useState([])
@@ -49,7 +49,7 @@ export default function MisCompras ({ user }) {
             </thead>
             <tbody>
               {libros.map((libro, index) => (
-                <tr key={libro._id}>
+                <tr key={libro.id}>
                   <td>{libro.titulo}</td>
                   <td>{libro.autor}</td>
                   <td>{new Date(transactions[index].response.date_created.split('T')[0]).toLocaleDateString()}</td>

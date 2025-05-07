@@ -31,7 +31,7 @@ export default function Cuenta () {
 
     async function fetchUserEmail () {
       try {
-        const response = await axios.get(`http://localhost:3030/api/users/c/${user._id}`, {
+        const response = await axios.get(`http://localhost:3030/api/users/c/${user.id}`, {
           withCredentials: true // Ensures cookies are sent with the request
         })
 
@@ -55,8 +55,8 @@ export default function Cuenta () {
   const headerOptions = useMemo(() => [
     { title: 'Mi perfil', href: '/cuenta' },
     { title: 'Mi balance', href: '/cuenta/balance' },
-    { title: 'Mis favoritos', href: '/favoritos/' + user?._id },
-    { title: 'Mis libros', href: '/usuarios/' + user?._id },
+    { title: 'Mis favoritos', href: '/favoritos/' + user?.id },
+    { title: 'Mis libros', href: '/usuarios/' + user?.id },
     { title: 'Estadísticas', href: '/cuenta/stats' },
     { title: 'Notificaciones', href: '/cuenta/preferencias-notificaciones', includeInHeader: false },
     { title: 'Preferencias del comprador', href: '/cuenta/preferencias-comprador', includeInHeader: false },
@@ -65,7 +65,7 @@ export default function Cuenta () {
     { title: 'Mis compras', href: '/cuenta/mis-compras', },
     { title: 'Mis ventas', href: '/cuenta/mis-ventas', condition: user?.rol === 'vendedor' || user?.rol === 'admin' },
     { title: 'Direcciones', href: '/cuenta/direcciones', includeInHeader: false }
-  ], [user?.rol, user?._id])
+  ], [user?.rol, user?.id])
 
 
 

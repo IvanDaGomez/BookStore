@@ -14,10 +14,10 @@ export default function TransactionHistorial ({ transactions, user }) {
   ]
   const transactionKeyInfo = (transaction) => {
     let tipo 
-    if (transaction.sellerId === user._id) {
+    if (transaction.sellerId === user.id) {
       tipo = 'Venta'
     }
-    else if (transaction.userId === user._id) {
+    else if (transaction.userId === user.id) {
       tipo = 'Compra'
     }
     const parsedAmount = parseInt(transaction.response.transaction_amount, 10)
@@ -41,7 +41,7 @@ export default function TransactionHistorial ({ transactions, user }) {
       transaction.status = 'Cancelada'
     }
     const transactionDate = new Date(transaction.response.date_created.split('T')[0]).toISOString().split('T')[0]
-    return [transaction._id, 
+    return [transaction.id, 
       transactionDate, 
       formatPrice(parsedAmount), 
       tipo,
@@ -67,7 +67,7 @@ export default function TransactionHistorial ({ transactions, user }) {
             <div className='balanceTransactionHistorial'>
               
             {transactions.map((transaction) => (
-                  <div className='transactionLine' key={transaction._id}>
+                  <div className='transactionLine' key={transaction.id}>
                   {transactionKeyInfo(transaction).map((value, index) => (
                     <div key={index}>
                       {value}

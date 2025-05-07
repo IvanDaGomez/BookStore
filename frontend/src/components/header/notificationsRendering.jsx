@@ -8,7 +8,7 @@ export default function NotificationsRendering({ notifications, user, notificati
       className='notificationsContainer' onMouseLeave={() =>
         setNotificationOpen(!notificationOpen)}>
       {notifications.slice(notifications.length - 4, notifications.length).map((notification, index) => (
-        <Link to={`/notificaciones/${notification._id}`} key={index}>
+        <Link to={`/notificaciones/${notification.id}`} key={index}>
           <div className='notificationElement'>
             {SimpleNotification(notification)}
           </div>

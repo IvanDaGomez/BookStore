@@ -36,14 +36,14 @@ function useFetchuser() {
 
 function useFetchConversations(user, setConversaciones, setFilteredConversations, newConversationId) {
     useEffect(() => {
-        if (!user || !user._id) return;
+        if (!user || !user.id) return;
 
         const controller = new AbortController(); // ✅ Handle unmounts
         const signal = controller.signal;
 
         async function fetchConversations() {
             try {
-                const url = `http://localhost:3030/api/conversations/getConversationsByUser/${user._id}`;
+                const url = `http://localhost:3030/api/conversations/getConversationsByUser/${user.id}`;
                 const response = await fetch(url, { signal });
                 if (!response.ok) throw new Error("Failed to fetch");
 
@@ -67,22 +67,22 @@ function useFetchConversations(user, setConversaciones, setFilteredConversations
     }, [user, newConversationId]);
 }
 function findUserByConversation (conversation, user, reducedUsers) {
-    const otherUserId = conversation.users.find(u => u !== user._id)
+    const otherUserId = conversation.users.find(u => u !== user.id)
     if (!otherUserId) return {}
 
     // Find the user object for the other user in reducedUsers
-    const userMatch = reducedUsers.find(reducedUser => reducedUser._id === otherUserId)
+    const userMatch = reducedUsers.find(reducedUser => reducedUser.id === otherUserId)
 
     return userMatch || {}
 }
   async function fetchNewConversation (user, newConversationId, conversaciones, setConversaciones) {
-    // Ensure user, user._id, and newConversationId are defined
-    if (!user || !user._id || !newConversationId || !conversaciones) return
+    // Ensure user, user.id, and newConversationId are defined
+    if (!user || !user.id || !newConversationId || !conversaciones) return
 
     // Check if the conversation already exists to avoid redundant requests
-    if (conversaciones.some((c) => c._id === newConversationId)) return
+    if (conversaciones.some((c) => c.id === newConversationId)) return
 
-    const body = JSON.stringify({ users: [user._id, newConversationId] })
+    const body = JSON.stringify({ users: [user.id, newConversationId] })
 
     try {
       const url = 'http://localhost:3030/api/conversations'
@@ -131,7 +131,7 @@ if (!(value && activeConversation && user)) return // Validate inputs
 let newConversation = false
 
 // Si hay un ID de conversación Y si el usuario ya está en las conversaciones
-if (newConversationId && conversaciones.find(conversacion => Object.keys(conversacion).length > 1 && findUserByConversation(conversacion, user, reducedUsers)?._id === newConversationId) === undefined) {
+if (newConversationId && conversaciones.find(conversacion => Object.keys(conversacion).length > 1 && findUserByConversation(conversacion, user, reducedUsers)?.id === newConversationId) === undefined) {
     newConversation = await fetchNewConversation(user, newConversationId, conversaciones, setConversaciones)
 }
 
@@ -142,8 +142,8 @@ try {
         'Content-Type': 'application/json' // Set JSON header
     },
     body: JSON.stringify({
-        userId: user._id,
-        conversationId: newConversation?._id || activeConversation._id,
+        userId: user.id,
+        conversationId: newConversation?.id || activeConversation.id,
         message: value,
         read: false
     }),
@@ -163,7 +163,7 @@ try {
     // Update conversations and activeConversation lastMessage
     setConversaciones((prevConversaciones) => {
     return prevConversaciones.map((conversacion) => {
-        if (conversacion._id === activeConversation._id) {
+        if (conversacion.id === activeConversation.id) {
         return {
             ...conversacion,
             lastMessage: responseData.message // Update lastMessage
@@ -175,7 +175,7 @@ try {
     // Update conversations and activeConversation lastMessage
     setFilteredConversations((prevConversaciones) => {
     return prevConversaciones.map((conversacion) => {
-        if (conversacion._id === activeConversation._id) {
+        if (conversacion.id === activeConversation.id) {
         return {
             ...conversacion,
             lastMessage: responseData.message // Update lastMessage

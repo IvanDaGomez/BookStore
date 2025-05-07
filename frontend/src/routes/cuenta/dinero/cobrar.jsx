@@ -41,7 +41,7 @@ export default function Cobrar({ user, setCobrar, setUser }) {
       return;
     }
     const body = {
-      userId: user._id,
+      userId: user.id,
       numeroCuenta,
       monto,
       password,
@@ -90,7 +90,7 @@ export default function Cobrar({ user, setCobrar, setUser }) {
     const fetchCode = async () => {
       try {
         if (!user) return
-        const response = await axios.get(`http://localhost:3030/api/transactions/getSafeCode/${user._id}`, { withCredentials: true });
+        const response = await axios.get(`http://localhost:3030/api/transactions/getSafeCode/${user.id}`, { withCredentials: true });
         if (response.data) {
           setCode(response.data.code);
         }

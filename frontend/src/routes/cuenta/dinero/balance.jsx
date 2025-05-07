@@ -17,9 +17,9 @@ export default function Balance ({ user, setUser }) {
 
   useEffect(() => {
     async function fetchBalance () {
-      if (!user._id) return
+      if (!user.id) return
       try {
-        const url = 'http://localhost:3030/api/users/balance/' + user._id
+        const url = 'http://localhost:3030/api/users/balance/' + user.id
         const response = await axios.get(url, { withCredentials: true })
         if (response.data) {
           setUser({ ...user, balance: {

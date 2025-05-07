@@ -10,11 +10,11 @@ export default function useCreateLocalConversation({
   reducedUsers
 }) {
   useEffect(() => {
-    if (!user || !user._id || !newConversationId) return
+    if (!user || !user.id || !newConversationId) return
     // Si el ID no es válido y no existe salir
-    if (reducedUsers.length && reducedUsers.find((usuario) => usuario._id === newConversationId) === undefined) return
+    if (reducedUsers.length && reducedUsers.find((usuario) => usuario.id === newConversationId) === undefined) return
     // Si hay conversaciones Y si el id de la conversación ya existe volver
-    if (conversaciones.length !== 0 && conversaciones.find(conversacion => findUserByConversation(conversacion, user, reducedUsers)._id === newConversationId) !== undefined) return
+    if (conversaciones.length !== 0 && conversaciones.find(conversacion => findUserByConversation(conversacion, user, reducedUsers).id === newConversationId) !== undefined) return
     setConversaciones((prevConversaciones) => {
       // Prevent duplicate entries
       const alreadyExists = prevConversaciones?.some((c) =>
@@ -23,7 +23,7 @@ export default function useCreateLocalConversation({
       if (alreadyExists) return prevConversaciones
 
       return [...(prevConversaciones || []), {
-        users: [user._id, newConversationId]
+        users: [user.id, newConversationId]
       }]
     })
 
@@ -34,7 +34,7 @@ export default function useCreateLocalConversation({
       if (alreadyExists) return prevFilteredConversations
 
       return [...(prevFilteredConversations || []), {
-        users: [user._id, newConversationId]
+        users: [user.id, newConversationId]
       }]
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps

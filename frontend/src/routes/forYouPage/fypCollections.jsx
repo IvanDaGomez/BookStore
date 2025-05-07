@@ -35,12 +35,12 @@ export default function Fyp () {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const lastCollection = collections[collections.length - 1]
-          const url = `http://localhost:3030/api/collections/fyp?l=24&last=${lastCollection._id}`
+          const url = `http://localhost:3030/api/collections/fyp?l=24&last=${lastCollection.id}`
           axios.get(url, { withCredentials: true })
             .then((response) => {
               // If the  materialcollection is already in the list, don't add it again
             // const newCollections = response.data.filter(collection => 
-            //   !collections.some(existingCollection => existingCollection._id === collection._id) // Check if collection is already in the list
+            //   !collections.some(existingCollection => existingCollection.id === collection.id) // Check if collection is already in the list
             // )
             //  setCollections((prevCollections) => [...prevCollections, ...newCollections])
             setCollections((prevCollections) => [...prevCollections, ...response.data])

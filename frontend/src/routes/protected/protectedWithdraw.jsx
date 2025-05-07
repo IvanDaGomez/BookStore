@@ -30,7 +30,7 @@ export default function ProtectedWithdraw() {
       if (!actualInfo.userId) return;
       try {
         const response = await axios.get(`http://localhost:3030/api/users/${actualInfo.userId}`);
-        const emailResponse = await axios.get(`http://localhost:3030/api/users/c/${response.data._id}`);
+        const emailResponse = await axios.get(`http://localhost:3030/api/users/c/${response.data.id}`);
         setUser({
           ...response.data,
           correo: emailResponse.data.correo

@@ -12,7 +12,7 @@ export   async function handleSubmitPregunta (user, libro) {
       return
     }
     if (libro) {
-      const url = `http://localhost:3030/api/books/${libro._id}`
+      const url = `http://localhost:3030/api/books/${libro.id}`
 
       try {
         const response = await fetch(url, {
@@ -23,7 +23,7 @@ export   async function handleSubmitPregunta (user, libro) {
           body: JSON.stringify({
             mensaje: inputPregunta.value,
             tipo: 'pregunta',
-            senderId: user._id
+            senderId: user.id
           }),
           credentials: 'include'
 
@@ -49,7 +49,7 @@ export   async function handleSubmitPregunta (user, libro) {
           metadata: {
             photo: libro.images[0],
             bookTitle: libro.titulo,
-            bookId: libro._id
+            bookId: libro.id
           }
         }
         createNotification(notificationToSend)

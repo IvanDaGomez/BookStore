@@ -78,7 +78,8 @@ export interface IBooksModel {
   deleteReviewBook(id: ID): Promise<{ message: string }>
   forYouPage(
     userKeyInfo: AuthToken | undefined,
-    sampleSize: number
+    sampleSize: number,
+    UsersModel: IUsersModel
   ): Promise<Partial<BookObjectType>[]>
   getFavoritesByUser(favorites: ID[]): Promise<Partial<BookObjectType>[]>
   getBooksByIdList(list: ID[], l: number): Promise<Partial<BookObjectType>[]>

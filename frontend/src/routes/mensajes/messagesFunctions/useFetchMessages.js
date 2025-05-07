@@ -7,9 +7,9 @@ export default function useFetchMessages({
 }) {
     useEffect(() => {
       async function fetchMessages () {
-        if (!activeConversation || Object.keys(activeConversation).length === 0 || !activeConversation._id) return
+        if (!activeConversation || Object.keys(activeConversation).length === 0 || !activeConversation.id) return
         try {
-          const url = `http://localhost:3030/api/messages/messageByConversation/${activeConversation._id}`
+          const url = `http://localhost:3030/api/messages/messageByConversation/${activeConversation.id}`
           const response = await axios.get(url)
   
           if (response.data.error) {

@@ -10,7 +10,7 @@ export default function useFetchSaga(libro){
       try {
         const url = 'http://localhost:3030/api/collections/collectionSaga'
         const body = {
-          bookId: libro._id,
+          bookId: libro.id,
           userId: libro.idVendedor
         }
         const response = await axios.post(url, body, {withCredentials: true})

@@ -57,7 +57,7 @@ const MakeCard = ({ element, index, user = '', callback = () => {}, wordLimit = 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
-    <Link to={`/libros/${element._id}`} key={index} >
+    <Link to={`/libros/${element.id}`} key={index} >
       <div className='sectionElement makeCard' 
         style={{ filter: `opacity(${element.disponibilidad === 'Vendido' ? '0.6' : '1'})`, 
                  width: `${width}px`
@@ -75,7 +75,7 @@ const MakeCard = ({ element, index, user = '', callback = () => {}, wordLimit = 
   )
 }
 const MakeCardPlaceHolder = ({ l }) => {
-  return (<>
+  return (<> 
     {Array.from({ length: l }).map((_, index) => (
     <div className='sectionElement placeholder' key={index}>
 
@@ -91,13 +91,13 @@ const MakeCardPlaceHolder = ({ l }) => {
 const MakeOneFrCard = ({ element, index, user = '' }) => {
   const navigate = useNavigate()
   return (
-    <Link key={element._id} to={`/libros/${element._id}`} className='oneFr'>
+    <Link key={element.id} to={`/libros/${element.id}`} className='oneFr'>
       <div className='cardContainer oneFr' style={{/* background: randBackground(), */filter: `opacity(${element.disponibilidad === 'Vendido' ? '0.6' : '1'})` }}>
 
         {/* Imagen de los auriculares */}
         <div className='imageContainer' >
           <img
-            src={`http://localhost:3030/uploads/${element.images ? element?.images[0]: ''}`}
+            src={renderProfilePhoto(element?.images ? element.images[0] : '')}
             alt={element.titulo}
             title={element.titulo}
           />
@@ -133,11 +133,11 @@ const MakeOneFrCard = ({ element, index, user = '' }) => {
             onClick={(event) => {
               event.preventDefault()
 
-              if (!user._id) {
+              if (!user.id) {
                 toast.error(necesitasIniciarSesion)
                 return
               }
-              user._id ? handleFavoritos(event, element._id, user._id) : handleFavoritos(event, element._id)
+              user.id ? handleFavoritos(event, element.id, user.id) : handleFavoritos(event, element.id)
               toast.success('Agregado a favoritos exitosamente')
             }}
           >
@@ -153,7 +153,7 @@ const MakeOneFrCard = ({ element, index, user = '' }) => {
 const MakeUpdateCard = ({ element, index }) => {
   const navigate = useNavigate()
   return (
-    <Link key={index} to={`/libros/${element._id}`}>
+    <Link key={index} to={`/libros/${element.id}`}>
       <div className='sectionElement' style={{ filter: `opacity(${element.disponibilidad === 'Vendido' ? '0.6' : '1'})` }}>
 
         <div className='imageElementContainer' style={{ backgroundImage: `url(http://localhost:3030/uploads/${element.images[0]})`, backgroundRepeat: 'no-repeat' }}>
@@ -178,7 +178,7 @@ const MakeUpdateCard = ({ element, index }) => {
               onClick={(e)=> {
                 e.preventDefault()
                 e.stopPropagation()
-                navigate(`/libros/crear?vendedor=${element.idVendedor}&libro=${element._id}`)}
+                navigate(`/libros/crear?vendedor=${element.idVendedor}&libro=${element.id}`)}
                 }>
                 Editar
               </button>}
@@ -189,7 +189,7 @@ const MakeUpdateCard = ({ element, index }) => {
                 onClick={(e)=> {
                   e.preventDefault()
                   e.stopPropagation()
-                  navigate(`/usuarios/${element.idVendedor}?eliminar=y&libro=${element._id}`)}
+                  navigate(`/usuarios/${element.idVendedor}?eliminar=y&libro=${element.id}`)}
                 }
                 className='eliminar'
               >
@@ -206,7 +206,7 @@ const MakeUpdateCard = ({ element, index }) => {
 
 const MakeSmallCard = ({ element, index }) => {
   return (
-    <Link key={index} style={{ width: '100%', height: '100%' }} to={`${window.location.origin}/libros/${element._id}`}>
+    <Link key={index} style={{ width: '100%', height: '100%' }} to={`${window.location.origin}/libros/${element.id}`}>
       <div className='sectionElement'>
 
         <div className='imageElementContainer' style={{ backgroundImage: `url(http://localhost:3030/uploads/${element.images[0]})`, backgroundRepeat: 'no-repeat' }}>
@@ -233,7 +233,7 @@ const MakeCollectionCard = ({ element, index }) => {
     
   }
   return (
-    <Link key={index} to={`/colecciones/${element._id}`} className=''>
+    <Link key={index} to={`/colecciones/${element.id}`} className=''>
       <div className='sectionElement'>
         <h2>{element.nombre}</h2>
         <div className='imageElementCollectionContainer'>
@@ -254,7 +254,7 @@ const MakeUserCard = ({ element, index, user, setElement, setUser }) => {
 
   }
   return (
-    <Link key={index} style={{ width: '100%', height: '100%' }} to={`/usuarios/${element._id}`}>
+    <Link key={index} style={{ width: '100%', height: '100%' }} to={`/usuarios/${element.id}`}>
       {console.log(element)}
       <div className="userElement" >
         <div className="imageElementUserContainer"> 
@@ -270,8 +270,8 @@ const MakeUserCard = ({ element, index, user, setElement, setUser }) => {
             Libros publicados: <strong>{element?.librosIds?.length || 0}</strong>
           </p>
           <button onClick={(e) => handleFollowers({ e, user, usuario: element, setUsuario: setElement, setUser})}
-            className={`${user?.siguiendo?.includes(element._id) ? 'botonInverso' : ''}`}>
-          {user?.siguiendo?.includes(element._id) ? 'Siguiendo' : 'Seguir'}
+            className={`${user?.siguiendo?.includes(element.id) ? 'botonInverso' : ''}`}>
+          {user?.siguiendo?.includes(element.id) ? 'Siguiendo' : 'Seguir'}
           </button>
         </div>
       </div>

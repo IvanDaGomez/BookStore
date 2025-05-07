@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 export default function ChatHeader ({ user, reducedUsers, activeUser, activeConversation, setActiveConversation, isMobile }) {
   return (<>
   {(user && reducedUsers && activeConversation) &&
-              <Link style={{ width: '100%' }} to={`/usuarios/${activeUser._id}`}>
+              <Link style={{ width: '100%' }} to={`/usuarios/${activeUser.id}`}>
                 <div className='headerMessage'>
                   <svg
                     onClick={() => setActiveConversation(null)}
@@ -25,7 +25,7 @@ ChatHeader.propTypes = {
   user: PropTypes.object,
   reducedUsers: PropTypes.array,
   activeUser: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     fotoPerfil: PropTypes.string,
     nombre: PropTypes.string.isRequired,
   }),

@@ -4,7 +4,6 @@ import { calculateMatchScore } from '../../../assets/calculateMatchScore.js'
 import * as tf from '@tensorflow/tfjs'
 import { getBookKeyInfo } from '../local/getBookKeyInfo.js'
 import { getTrends } from '../../../assets/getTrends.js'
-import { UsersModel } from '../../users/local/usersLocal.js'
 import { bookObject } from '../bookObject.js'
 import { ID, ISOString } from '../../../types/objects.js'
 import { AuthToken } from '../../../types/authToken.js'
@@ -20,6 +19,7 @@ import { filterBooksByFilters } from '../local/filterBooksByFilters.js'
 // __dirname is not available in ES modules, so we need to use import.meta.url
 
 import { pool } from '../../../assets/config.js'
+import { IUsersModel } from '../../../types/models.js'
 class BooksModel {
   private static getEssencialFields (): string[] {
     return Object.keys(bookObject({}, false))
@@ -378,26 +378,29 @@ class BooksModel {
 
   static async forYouPage (
     userKeyInfo: AuthToken | undefined,
-    sampleSize: number = 100
+    sampleSize: number = 1000,
+    UsersModel: IUsersModel
   ): Promise<Partial<BookObjectType>[]> {
     try {
       const books = await executeQuery(
         pool,
         () =>
           pool.query(
-            `SELECT * FROM books WHERE disponibilidad = 'Disponible' ORDER BY RANDOM() LIMIT $1;`,
+            `SELECT ${this.getEssencialFields().join(
+              ', '
+            )} FROM books WHERE disponibilidad = 'Disponible' ORDER BY RANDOM() LIMIT $1;`,
             [sampleSize]
           ),
         'Failed to fetch random books for recommendations'
       )
+      // console.log('Libros para recomendaciones', books)
 
       // Las querywords sería palabras que el usuario tiene en base a sus gustos
-      const trends = await getTrends()
+      const trends = await getTrends(20, 'postgres')
 
       let historial: string[] = []
       let preferences: string[] = []
       let likes: ID[] = []
-
       if (userKeyInfo?.id) {
         const user = await UsersModel.getUserById(userKeyInfo.id)
         preferences = Object.keys(user?.preferencias || {})
@@ -405,15 +408,18 @@ class BooksModel {
         likes = user.favoritos ?? []
 
         // Si el usuario tiene libros favoritos, entonces los agrego a las querywords
+
         if (likes.length > 0) {
-          const booksFavorites = await this.getBooksByIdList(likes, 10)
+          const booksFavorites = await this.getBooksByIdList(likes)
+
           preferences = [
             ...preferences,
-            ...booksFavorites.map(book => book.titulo ?? '')
+            ...booksFavorites
+              .filter(b => b !== undefined)
+              .map(book => book.titulo ?? '')
           ]
         }
       }
-
       const queryWords = [...preferences, ...historial, ...trends]
 
       // Calculate the distances in these selected items
@@ -468,15 +474,10 @@ class BooksModel {
     }
   }
 
-  static async getBooksByIdList (
-    list: ID[],
-    l: number
-  ): Promise<Partial<BookObjectType>[]> {
+  static async getBooksByIdList (list: ID[]): Promise<BookObjectType[]> {
     try {
-      const books = await Promise.all(
-        list.slice(0, l).map(id => this.getBookById(id))
-      )
-      return books.map(book => bookObject(book, false))
+      const books = await Promise.all(list.map(id => this.getBookById(id)))
+      return books
     } catch (error) {
       if (error instanceof DatabaseError) {
         throw error

@@ -4,8 +4,8 @@ export function createBody ({ user, libro, formData = null, form, selectedPaymen
   const totalAmount = libro.oferta || libro.precio
   const commissionAmount = calculateComission(totalAmount)
   const partialData = {
-    userId: user._id,
-    bookId: libro._id,
+    userId: user.id,
+    bookId: libro.id,
     sellerId: libro.idVendedor,  
     shippingDetails: form,
     transaction_amount: totalAmount || 0, // Definido como 0 si no se proporciona

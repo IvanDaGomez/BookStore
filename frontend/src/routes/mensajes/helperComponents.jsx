@@ -16,7 +16,7 @@ function renderFilteredConversations(filteredConversations, activeConversation, 
                 .map((conversation, index) => (
                     <div
                         key={index}
-                        className={`conversationSpecific ${activeConversation?._id === conversation._id ? 'active' : ''}`}
+                        className={`conversationSpecific ${activeConversation?.id === conversation.id ? 'active' : ''}`}
                         onClick={() => {
                             setActiveConversation(conversation)
                             setActiveUser(findUserByConversation(conversation, user, reducedUsers))
@@ -31,7 +31,7 @@ function renderFilteredConversations(filteredConversations, activeConversation, 
                             <span>
                                 {(user && reducedUsers && conversation && conversation?.lastMessage && conversation?.lastMessage?.message) && (
                                     <>
-                                        {conversation.lastMessage.userId === user._id
+                                        {conversation.lastMessage.userId === user.id
                                             ? 'Tu: '
                                             : `${reduceTextByFirstWord(findUserByConversation(conversation, user, reducedUsers).nombre || '')}: `}
                                         {reduceText(conversation?.lastMessage?.message, 20)}

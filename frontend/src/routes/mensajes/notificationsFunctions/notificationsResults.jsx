@@ -22,10 +22,10 @@ export default function NotificationsResults ({
             .reverse()
             .map((notification) => (
               <div
-                key={notification._id}
+                key={notification.id}
                 className={`conversationSpecific 
-                                ${activeNotification && activeNotification._id === notification._id ? 'active' : ''}
-                                ${!notification.read && activeNotification._id !== notification._id ? 'notRead' : ''}`}
+                                ${activeNotification && activeNotification.id === notification.id ? 'active' : ''}
+                                ${!notification.read && activeNotification.id !== notification.id ? 'notRead' : ''}`}
                 onClick={() => setActiveNotification(notification)}
               >
 
@@ -50,7 +50,7 @@ export default function NotificationsResults ({
 NotificationsResults.propTypes = {
   filteredNotifications: PropTypes.arrayOf(
     PropTypes.shape({
-      _id: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
       type: PropTypes.string,
       title: PropTypes.string,
       read: PropTypes.bool,
@@ -59,6 +59,6 @@ NotificationsResults.propTypes = {
   ).isRequired,
   setActiveNotification: PropTypes.func.isRequired,
   activeNotification: PropTypes.shape({
-    _id: PropTypes.string,
+    id: PropTypes.string,
   }),
 };

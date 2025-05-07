@@ -7,7 +7,7 @@ export default function RenderResults ({ results}) {
   return (<>
   <div className='resultsContainer'>
                 {results.slice(0, 4).map((result, index) => (
-                  <Link to={`/libros/${result._id}`} key={index}>
+                  <Link to={`/libros/${result.id}`} key={index}>
                     <div className='result'>
                       <img loading='lazy' src={`http://localhost:3030/uploads/${result.images[0]}`} alt={result.titulo} className='result-photo' />
                       <div className='result-info'>

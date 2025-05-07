@@ -43,7 +43,7 @@ export default function EnviarCorreoAVerificar () {
     async function fetchUserEmail () {
       try {
         const response = await axios.get(
-          `http://localhost:3030/api/users/c/${user._id}`,
+          `http://localhost:3030/api/users/c/${user.id}`,
           {
             withCredentials: true // Ensures cookies are sent with the request
           }
@@ -71,7 +71,7 @@ export default function EnviarCorreoAVerificar () {
       const body = {
         correo: user.correo,
         nombre: user.nombre,
-        _id: user._id
+        id: user.id
       }
 
       const response = await axios.post(url, body, { withCredentials: true })

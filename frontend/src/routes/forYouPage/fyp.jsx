@@ -35,12 +35,12 @@ export default function Fyp () {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const lastBook = books[books.length - 1]
-          const url = `http://localhost:3030/api/books/fyp?l=24&last=${lastBook._id}`
+          const url = `http://localhost:3030/api/books/fyp?l=24&last=${lastBook.id}`
           axios.get(url, { withCredentials: true })
             .then((response) => {
               // If the  materialbook is already in the list, don't add it again
             // const newBooks = response.data.filter(book => 
-            //   !books.some(existingBook => existingBook._id === book._id) // Check if book is already in the list
+            //   !books.some(existingBook => existingBook.id === book.id) // Check if book is already in the list
             // )
             //  setBooks((prevBooks) => [...prevBooks, ...newBooks])
             setBooks((prevBooks) => [...prevBooks, ...response.data])

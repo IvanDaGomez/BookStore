@@ -42,7 +42,7 @@ export default function Mensajes () {
 
   useEffect(() => {
     if (newConversationId && conversaciones && reducedUsers) {
-      setActiveConversation(conversaciones.find(conversacion => findUserByConversation(conversacion, user, reducedUsers)._id === newConversationId))
+      setActiveConversation(conversaciones.find(conversacion => findUserByConversation(conversacion, user, reducedUsers).id === newConversationId))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newConversationId, conversaciones, reducedUsers])
@@ -76,8 +76,8 @@ export default function Mensajes () {
   useEffect(() => {
     if (conversaciones && user && newConversationId &&
             activeConversation &&
-            findUserByConversation(activeConversation, user, reducedUsers)._id === newConversationId) {
-      setActiveConversation(conversaciones.find(conversacion => conversacion.users.find(u => u !== user._id) === newConversationId))
+            findUserByConversation(activeConversation, user, reducedUsers).id === newConversationId) {
+      setActiveConversation(conversaciones.find(conversacion => conversacion.users.find(u => u !== user.id) === newConversationId))
       setActiveUser(findUserByConversation(activeConversation, user, reducedUsers))
     }
   }, [newConversationId, conversaciones, user, activeConversation, reducedUsers])
@@ -160,7 +160,7 @@ export default function Mensajes () {
             {/* ----------------------------------------MENSAJES----------------------------------------------- */}
             <div className='messagesViewContainer' ref={chatContainerRef}>
               {mensajes.map((mensaje, index) => (
-                <div key={index} className={`mensaje ${mensaje.userId === user._id ? 'myMessage' : 'otherMessage'}`}>
+                <div key={index} className={`mensaje ${mensaje.userId === user.id ? 'myMessage' : 'otherMessage'}`}>
                   {mensaje.message}
                 </div>
               ))}

@@ -56,7 +56,7 @@ export default function Usuario () {
           const data = await response.json()
           setUsuario(data)
           if (user) {
-            if (data._id === user._id) {
+            if (data.id === user.id) {
               setPermisos(true)
             }
           }
@@ -101,7 +101,7 @@ export default function Usuario () {
     if (libroAEliminar) {
       try {
         await axios.delete(`http://localhost:3030/api/books/${libroAEliminar}`, { withCredentials: true })
-        setLibrosUsuario((prevBooks) => prevBooks.filter((libro) => libro._id !== libroAEliminar))
+        setLibrosUsuario((prevBooks) => prevBooks.filter((libro) => libro.id !== libroAEliminar))
         window.history.pushState({}, '', `/usuarios/${idVendedor}`)
 
       } catch (error) {
@@ -174,20 +174,20 @@ export default function Usuario () {
                               toast.error(<div>Necesitas iniciar sesión <Link to='/login' style={{ textDecoration: 'underline', color: 'var(--using4)' }}>aquí</Link></div>)
                               return
                             }
-                            navigate(`/mensajes?n=${usuario._id}`)
+                            navigate(`/mensajes?n=${usuario.id}`)
                           }}>
                           Enviar mensaje
                         </button>
                         <button className='compartir botonInverso' onClick={handleShare}>Compartir</button>
                         <button
                           style={{
-                            background: user?.siguiendo?.includes(usuario._id) ? 'var(--using4)' : '',
-                            color: user?.siguiendo?.includes(usuario._id) ? 'white' : ''
+                            background: user?.siguiendo?.includes(usuario.id) ? 'var(--using4)' : '',
+                            color: user?.siguiendo?.includes(usuario.id) ? 'white' : ''
                           }}
-                          className={`compartir ${user?.seguidores?.includes(usuario._id) ? 'normal' : 'botonInverso'}`}
+                          className={`compartir ${user?.seguidores?.includes(usuario.id) ? 'normal' : 'botonInverso'}`}
                           onClick={(e)=>handleFollowers({ e, user, usuario, setUser, setUsuario})}>
 
-                          {user?.siguiendo?.includes(usuario._id) ? 'Siguiendo' : 'Seguir'}
+                          {user?.siguiendo?.includes(usuario.id) ? 'Siguiendo' : 'Seguir'}
                         </button>
                       </>
                       ) : (

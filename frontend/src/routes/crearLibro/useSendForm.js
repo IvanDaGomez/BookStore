@@ -12,7 +12,7 @@ export default function useSendForm ({
   navigate
 }) {
   useEffect(() => {
-    if (fase === 4 && user && user._id && user.nombre) {
+    if (fase === 4 && user && user.id && user.nombre) {
       const enviarForm = async () => {
         const formData = new FormData() // Crear una nueva instancia de FormData
 
@@ -45,7 +45,7 @@ export default function useSendForm ({
         // Agregar campos adicionales al FormData
         if (!actualizar) formData.append('fechaPublicacion', `${timeNow}`)
         formData.append('actualizadoEn', `${timeNow}`)
-        formData.append('idVendedor', user._id)
+        formData.append('idVendedor', user.id)
         formData.append('vendedor', user.nombre)
         formData.append('disponibilidad', libro?.disponibilidad || 'Disponible')
 

@@ -10,7 +10,7 @@ export default function useFetchTransactions ({ user }) {
         const sortedTransactions = response.data.sort((a, b) => new Date(b.response.date_created.split('T')[0]) - new Date(a.response.date_created.split('T')[0]))
         setTransactions(sortedTransactions)
       }
-      fetchTransactions(user._id)
+      fetchTransactions(user.id)
     },[user])
   return [transactions, setTransactions]
 }

@@ -30,7 +30,7 @@ export default function Colecciones ({ user, book, setForm, form }) {
             const url = 'http://localhost:3030/api/users/newCollection'
             const body = {
                 "collectionName": newCollectionName,
-                "userId": user._id
+                "userId": user.id
             }
             const response = await axios.post(url, body, { withCredentials: true })
             console.log(response)

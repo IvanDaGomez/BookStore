@@ -19,7 +19,7 @@ export default function Colecciones ({ user, permisos }) {
     async function fetchColecciones () {
       try {
         if (!user) return
-        const url = 'http://localhost:3030/api/collections/getCollectionsByUser/' + user._id
+        const url = 'http://localhost:3030/api/collections/getCollectionsByUser/' + user.id
         const response = await axios.get(url, { withCredentials: true })
 
 
@@ -67,7 +67,7 @@ export default function Colecciones ({ user, permisos }) {
     const data = {
       nombre: nombre.value,
       foto: croppedImage?.url || '',
-      userId: user._id,
+      userId: user.id,
       saga: checkbox
     }
     if (!data.nombre) {
@@ -101,7 +101,7 @@ export default function Colecciones ({ user, permisos }) {
     try {
       let filtered = addedCollections
       if (checkbox) {
-        const filteredCollections = addedCollections.filter(coleccion=> misLibros.map(l => l._id).includes(coleccion))
+        const filteredCollections = addedCollections.filter(coleccion=> misLibros.map(l => l.id).includes(coleccion))
         filtered = filteredCollections
       }
       const createCollectionUrl = 'http://localhost:3030/api/collections'
@@ -113,7 +113,7 @@ export default function Colecciones ({ user, permisos }) {
       setColecciones([...colecciones, {...createCollectionResponse.data, librosIds: filtered}])
         
       if (addedCollections.length > 0) {
-        const addToCollectionUrl = 'http://localhost:3030/api/collections/addToCollection?collectionId=' + createCollectionResponse.data._id
+        const addToCollectionUrl = 'http://localhost:3030/api/collections/addToCollection?collectionId=' + createCollectionResponse.data.id
         console.log('URL:', addToCollectionUrl)
         // Realizar las solicitudes de manera secuencial
         for (const bookId of filtered) {
@@ -199,8 +199,8 @@ export default function Colecciones ({ user, permisos }) {
 
                 {misLibros.length !== 0 && <><div className="libroFav" style={{justifyContent:'center', padding: '5px'}}>Mis libros</div>
                    {misLibros.map((libro, index) => (
-                    <div className={`libroFav ${addedCollections.includes(libro._id) ? 'reverse' : ''}`} key={index}
-                      onClick={()=>handleAddToCollection(libro._id)}
+                    <div className={`libroFav ${addedCollections.includes(libro.id) ? 'reverse' : ''}`} key={index}
+                      onClick={()=>handleAddToCollection(libro.id)}
                     >
                       <img src={renderProfilePhoto(libro.images[0])} alt={`Foto del libro ${libro.titulo}`} />
                       {libro.titulo}
@@ -210,8 +210,8 @@ export default function Colecciones ({ user, permisos }) {
                 }{
                   (librosFav.length !== 0 && !checkbox) && <><div className="libroFav" style={{justifyContent:'center', padding: '5px'}}>Mis favoritos</div>
                      {librosFav.map((libro, index) => (
-                      <div className={`libroFav ${addedCollections.includes(libro._id) ? 'reverse' : ''}`} key={index}
-                        onClick={()=>handleAddToCollection(libro._id)}
+                      <div className={`libroFav ${addedCollections.includes(libro.id) ? 'reverse' : ''}`} key={index}
+                        onClick={()=>handleAddToCollection(libro.id)}
                       >
                         <img src={renderProfilePhoto(libro.images[0])} alt={`Foto del libro ${libro.titulo}`} />
                         {libro.titulo}
