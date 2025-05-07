@@ -7,7 +7,7 @@ CREATE TABLE collections (
     foto TEXT,
     nombre TEXT NOT NULL,
     descripcion TEXT,
-    user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    userid UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     saga BOOLEAN DEFAULT false,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -35,7 +35,7 @@ class CollectionsModel {
 
   static async getCollectionsByUser (userId) {
     try {
-      const { rows } = await pool.query('SELECT * FROM collections WHERE user_id = $1', [userId])
+      const { rows } = await pool.query('SELECT * FROM collections WHERE userid = $1', [userId])
       return rows.map(collectionObject)
     } catch (err) {
       console.error('Error fetching collections by user:', err)
@@ -46,7 +46,7 @@ class CollectionsModel {
   static async createCollection (data) {
     try {
       const { rows } = await pool.query(
-        `INSERT INTO collections (foto, nombre, descripcion, user_id, saga)
+        `INSERT INTO collections (foto, nombre, descripcion, userid, saga)
          VALUES ($1, $2, $3, $4, $5) RETURNING *`,
         [data.foto, data.nombre, data.descripcion, data.userId, data.saga]
       )

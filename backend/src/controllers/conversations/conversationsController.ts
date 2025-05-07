@@ -75,8 +75,8 @@ export class ConversationsController {
       for (const userId of data.users) {
         const user = await this.UsersModel.getUserById(userId)
 
-        user.conversationsIds = [...user.conversationsIds, conversation._id]
-        await this.UsersModel.updateUser(user._id, user)
+        user.conversationsIds = [...user.conversationsIds, conversation.id]
+        await this.UsersModel.updateUser(user.id, user)
 
       }
 
@@ -99,7 +99,7 @@ export class ConversationsController {
         const user = await this.UsersModel.getUserById(userId)
         // Assign conversation ID to user's conversationsIds
         user.conversationsIds = user.conversationsIds.filter(id => id !== conversationId)
-        await this.UsersModel.updateUser(user._id, user)
+        await this.UsersModel.updateUser(user.id, user)
       }
 
       // Eliminar el mensaje de la base de datos

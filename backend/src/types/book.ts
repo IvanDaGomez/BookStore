@@ -9,7 +9,7 @@ export type BookObjectType = {
   isbn: string;
   images: ImageType[];
   keywords: string[];
-  _id: ID;
+  id: ID;
   descripcion: string;
   estado: StateType;
   genero: GenreType; 

@@ -7,7 +7,7 @@ export type CollectionItem = {
 }
 // Pendiente
 export type PartialUserInfoType = {
-  _id: ID
+  id: ID
   nombre: string
   rol: RoleType
   fotoPerfil: ImageType
@@ -51,7 +51,7 @@ type LocationType = {
   codigoPostal: string
 }
 export type UserInfoType = {
-  _id: ID
+  id: ID
   nombre: string
   rol: RoleType
   fotoPerfil: ImageType 

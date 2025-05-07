@@ -17,7 +17,7 @@ function initializeDataCreateUser (data: UserInfoType) {
   data.fechaRegistro = time
   data.actualizadoEn = time
   data.validated = false
-  data._id = crypto.randomUUID()
+  data.id = crypto.randomUUID()
   data.balance = {
     disponible: 0,
     pendiente: 0
@@ -79,7 +79,7 @@ function filterAllowedFields (data: Partial<UserInfoType>): Partial<UserInfoType
 function generateAuthToken (user: PartialUserInfoType | UserInfoType): string {
   try {
     const tokenPayload: AuthToken = {
-      _id: user._id,
+      id: user.id,
       nombre: user.nombre
     }
     return jwt.sign(tokenPayload, process.env.JWT_SECRET ?? '', {

@@ -2,7 +2,7 @@ import { PriorityType, TypeType } from "./notificationCategories"
 import { ID, ImageType, ISOString } from "./objects"
 
 export type NotificationType = {
-  _id: ID
+  id: ID
   title: string
   priority: PriorityType
   type: TypeType

@@ -19,7 +19,7 @@ class CollectionsModel {
 
   static async getCollectionById (id: ID): Promise<CollectionObjectType> {
     const collections = await this.getAllCollections()
-    const collection = collections.find(collection => collection._id === id)
+    const collection = collections.find(collection => collection.id === id)
     if (!collection) {
       throw new Error('Colección no encontrada')
     }
@@ -50,7 +50,7 @@ class CollectionsModel {
 
   static async deleteCollection (id: ID): Promise<{ message: string }> {
     const collections = await this.getAllCollections()
-    const collectionIndex = collections.findIndex(collection => collection._id === id)
+    const collectionIndex = collections.findIndex(collection => collection.id === id)
     if (collectionIndex === -1) {
       throw new Error('Colección no encontrada')
     }
@@ -62,7 +62,7 @@ class CollectionsModel {
   static async updateCollection (id: ID, data: Partial<CollectionObjectType>): Promise<CollectionObjectType> {
     const collections = await this.getAllCollections()
 
-    const collectionIndex = collections.findIndex(collection => collection._id === id)
+    const collectionIndex = collections.findIndex(collection => collection.id === id)
     if (collectionIndex === -1) {
       throw new Error('Colección no encontrada')
     }

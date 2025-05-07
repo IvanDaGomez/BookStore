@@ -76,7 +76,7 @@ export class BooksController {
       const bookId = req.params.bookId as ID
       const book = await this.BooksModel.getBookById(bookId)
 
-      const update = req.headers.update === book._id
+      const update = req.headers.update === book.id
       const user = req.session.user as AuthToken | undefined
       if (update && user) {
         const bookCopy = JSON.parse(JSON.stringify(book)) // aseguro que es limpio y plano
@@ -229,8 +229,8 @@ export class BooksController {
       if (user.rol === 'usuario') {
         user.rol = 'vendedor'
       }
-      const updated = await this.UsersModel.updateUser(user._id, {
-        librosIds: [...(user.librosIds ?? []), data._id],
+      const updated = await this.UsersModel.updateUser(user.id, {
+        librosIds: [...(user.librosIds ?? []), data.id],
         rol: user.rol
       })
 
@@ -268,7 +268,7 @@ export class BooksController {
 
       const updatedLibrosIds = user.librosIds.filter(id => id !== bookId)
 
-      await this.UsersModel.updateUser(user._id, {
+      await this.UsersModel.updateUser(user.id, {
         librosIds: updatedLibrosIds
       })
 

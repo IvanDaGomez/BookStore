@@ -1,7 +1,7 @@
 import { ID, ISOString } from "./objects"
 
 export type MessageObjectType = {
-  _id: ID
+  id: ID
   userId: ID
   message: string
   conversationId: ID

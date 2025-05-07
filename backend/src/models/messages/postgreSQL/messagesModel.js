@@ -5,9 +5,9 @@ import crypto from 'node:crypto'
 
 CREATE TABLE messages (
   id SERIAL PRIMARY KEY,
-  user_id TEXT NOT NULL,
+  userid TEXT NOT NULL,
   message TEXT NOT NULL,
-  conversation_id TEXT NOT NULL,
+  conversationid TEXT NOT NULL,
   created_in TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   read BOOLEAN DEFAULT FALSE
 ); */
@@ -25,7 +25,7 @@ export class MessagesModel {
 
   static async getAllMessagesByConversation (id) {
     try {
-      const result = await pool.query('SELECT * FROM messages WHERE conversation_id = $1', [id])
+      const result = await pool.query('SELECT * FROM messages WHERE conversationid = $1', [id])
       if (result.rows.length === 0) {
         return null
       }
@@ -51,15 +51,15 @@ export class MessagesModel {
 
   static async sendMessage (data) {
     try {
-      data._id = crypto.randomUUID()
+      data.id = crypto.randomUUID()
       const time = new Date()
       data.createdIn = time.toISOString()
       const newMessage = messageObject(data)
 
       await pool.query(
-        `INSERT INTO messages (id, user_id, message, conversation_id, created_in, read)
+        `INSERT INTO messages (id, userid, message, conversationid, created_in, read)
          VALUES ($1, $2, $3, $4, $5, $6)`,
-        [newMessage._id, newMessage.userId, newMessage.message, newMessage.conversationId, newMessage.createdIn, newMessage.read]
+        [newMessage.id, newMessage.userId, newMessage.message, newMessage.conversationId, newMessage.createdIn, newMessage.read]
       )
 
       return true

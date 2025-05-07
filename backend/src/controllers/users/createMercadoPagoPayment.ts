@@ -33,7 +33,7 @@ export function createMercadoPagoPayment({
       additional_info: {
         items: [
           {
-            id: book._id,
+            id: book.id,
             title: book.titulo,
             description: book.descripcion,
             picture_url: book.images[0],

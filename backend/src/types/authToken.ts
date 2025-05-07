@@ -1,7 +1,7 @@
 import { ID } from "./objects"
 
 type AuthToken = {
-    _id: ID
+    id: ID
     nombre: string
 }
 

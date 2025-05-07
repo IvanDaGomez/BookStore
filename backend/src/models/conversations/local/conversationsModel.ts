@@ -28,7 +28,7 @@ export class ConversationsModel {
     // For
     // Filter conversations based on the provided conversationsIds
     const userConversations = allConversations.filter(conversation =>
-      conversationsIds.includes(conversation._id)
+      conversationsIds.includes(conversation.id)
     )
     if (userConversations.length === 0) {
       throw new Error('No se encontraron conversaciones')
@@ -39,7 +39,7 @@ export class ConversationsModel {
 
   static async getConversationById (id: ID): Promise<ConversationObjectType> {
     const conversations = await this.getAllConversations()
-    const conversation = conversations.find(conversation => conversation._id === id)
+    const conversation = conversations.find(conversation => conversation.id === id)
     if (!conversation) {
       throw new Error('No se encontró la conversación')
     }
@@ -61,7 +61,7 @@ export class ConversationsModel {
   static async deleteConversation (id: ID): Promise<{ message: string }> {
 
       const conversations = await this.getAllConversations()
-      const conversationIndex = conversations.findIndex(conversation => conversation._id === id)
+      const conversationIndex = conversations.findIndex(conversation => conversation.id === id)
       if (conversationIndex === -1) {
         throw new Error('No se encontró la conversación')
       }
@@ -74,7 +74,7 @@ export class ConversationsModel {
   static async updateConversation (id: ID, data: Partial<ConversationObjectType>): Promise<ConversationObjectType> {
 
     const conversations = await this.getAllConversations()
-    const conversationIndex = conversations.findIndex(conversation => conversation._id === id)
+    const conversationIndex = conversations.findIndex(conversation => conversation.id === id)
     if (conversationIndex === -1) {
       throw new Error('No se encontró la conversación')
     }

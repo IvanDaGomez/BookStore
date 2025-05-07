@@ -35,8 +35,8 @@ class TransactionsModel {
   
   static async getTransactionById (id: number): Promise<TransactionObjectType> {
     const transactions = await this.getAllTransactions()
-    // el _id de la transacción como lo maneja mercadoPago es un número 
-    const transaction = transactions.find(transaction => transaction._id === id)
+    // el id de la transacción como lo maneja mercadoPago es un número 
+    const transaction = transactions.find(transaction => transaction.id === id)
     if (!transaction) {
       throw new Error('No se encontró la transacción')
     }
@@ -63,7 +63,7 @@ class TransactionsModel {
 
   static async deleteTransaction (id: number): Promise<{ message: string }> {
     const transactions = await this.getAllTransactions()
-    const transactionIndex = transactions.findIndex(transaction => transaction._id === id)
+    const transactionIndex = transactions.findIndex(transaction => transaction.id === id)
     if (transactionIndex === -1) {
       throw new Error('No se encontró la transacción')
     }
@@ -73,7 +73,7 @@ class TransactionsModel {
   }
   static async updateFailureTransaction (id: number, data: Partial<TransactionObjectType>): Promise<TransactionObjectType> {
     const transactions = await this.getAllTransactions()
-    const transactionIndex = transactions.findIndex(transaction => transaction._id === id)
+    const transactionIndex = transactions.findIndex(transaction => transaction.id === id)
     if (transactionIndex === -1) {
       throw new Error('No se encontró la transacción')
     }
@@ -81,7 +81,7 @@ class TransactionsModel {
     Object.assign(transaction, data)
     if (transaction.status === 'approved') {
       const successTransactions = await this.getAllTransactions()
-      const successTransactionIndex = successTransactions.findIndex(transaction => transaction._id === id)
+      const successTransactionIndex = successTransactions.findIndex(transaction => transaction.id === id)
       if (successTransactionIndex !== -1) {
         successTransactions.splice(successTransactionIndex, 1)
         await fs.writeFile(transactionsPath, JSON.stringify(successTransactions, null, 2))
@@ -93,7 +93,7 @@ class TransactionsModel {
   }
   static async updateSuccessfullTransaction (id: number, data: Partial<TransactionObjectType>): Promise<TransactionObjectType> {
     const transactions = await this.getAllTransactions()
-    const transactionIndex = transactions.findIndex(transaction => transaction._id === id)
+    const transactionIndex = transactions.findIndex(transaction => transaction.id === id)
     if (transactionIndex === -1) {
       throw new Error('No se encontró la transacción')
     }
@@ -101,7 +101,7 @@ class TransactionsModel {
     Object.assign(transaction, data)
     if (transaction.status === 'failed') {
       const failureTransactions = await this.getAllTransactions()
-      const failureTransactionIndex = failureTransactions.findIndex(transaction => transaction._id === id)
+      const failureTransactionIndex = failureTransactions.findIndex(transaction => transaction.id === id)
       if (failureTransactionIndex !== -1) {
         failureTransactions.splice(failureTransactionIndex, 1)
         await fs.writeFile(failureTransactionsPath, JSON.stringify(failureTransactions, null, 2))

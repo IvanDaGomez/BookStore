@@ -72,7 +72,7 @@ export class NotificationsController {
         return res.status(400).json({ error: validated.error });
       }
   
-      data._id = crypto.randomUUID();
+      data.id = crypto.randomUUID();
   
       // Obtener el usuario y crear la notificación en paralelo
       const [user, notification] = await Promise.all([
@@ -81,8 +81,8 @@ export class NotificationsController {
       ]);
   
       // Actualizar las notificaciones del usuario
-      await this.UsersModel.updateUser(user._id, {
-        notificationsIds: [...user.notificationsIds, data._id]
+      await this.UsersModel.updateUser(user.id, {
+        notificationsIds: [...user.notificationsIds, data.id]
       });
   
       res.json(notification);
@@ -109,7 +109,7 @@ export class NotificationsController {
 
       // Actualizar el usuario con los nuevos notificacionsIds
       await Promise.all([
-        this.UsersModel.updateUser(user._id, {
+        this.UsersModel.updateUser(user.id, {
           notificationsIds: updatedNotificationsIds
         }),
         this.NotificationsModel.deleteNotification(notificationId)

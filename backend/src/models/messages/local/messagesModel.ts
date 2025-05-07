@@ -29,7 +29,7 @@ class MessagesModel {
 
   static async getMessageById (id: ID): Promise<MessageObjectType> {
     const messages = await this.getAllMessages()
-    const message = messages.find(message => message._id === id)
+    const message = messages.find(message => message.id === id)
     if (!message) {
       throw new Error('No se pudo encontrar el mensaje')
     }
@@ -49,7 +49,7 @@ class MessagesModel {
 
   static async deleteMessage (id: ID): Promise<{ message: string }> {
     const messages = await this.getAllMessages()
-    const messageIndex = messages.findIndex(message => message._id === id)
+    const messageIndex = messages.findIndex(message => message.id === id)
     if (messageIndex === -1) {
       throw new Error('No se pudo encontrar el mensaje')
     }
@@ -60,7 +60,7 @@ class MessagesModel {
 
   static async updateMessage (id: ID, data: Partial<MessageObjectType>): Promise<MessageObjectType> {
     const messages = await this.getAllMessages()
-    const messageIndex = messages.findIndex(message => message._id === id)
+    const messageIndex = messages.findIndex(message => message.id === id)
     if (messageIndex === -1) {
       throw new Error('No se pudo encontrar el mensaje')
     }

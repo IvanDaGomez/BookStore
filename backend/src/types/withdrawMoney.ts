@@ -1,7 +1,7 @@
 import { ID, ISOString } from "./objects"
 
 export type WithdrawMoneyType = {
-    _id: ID,
+    id: ID,
     userId: ID,
     numeroCuenta: number,
     phoneNumber: number,

@@ -34,7 +34,7 @@ export class NotificationsModel {
 
   static async getNotificationById (id: ID): Promise<NotificationType> {
     const notifications = await this.getAllNotifications()
-    const notification = notifications.find(notification => notification._id === id)
+    const notification = notifications.find(notification => notification.id === id)
     if (!notification) {
       throw new Error('No se encontró la notificación')
     }
@@ -61,7 +61,7 @@ export class NotificationsModel {
 
   static async deleteNotification (id: ID): Promise<{ message: string }>{
     const notifications = await this.getAllNotifications()
-    const notificationIndex = notifications.findIndex(notification => notification._id === id)
+    const notificationIndex = notifications.findIndex(notification => notification.id === id)
     if (notificationIndex === -1) {
       throw new Error('No se encontró la notificación')
     }
@@ -73,7 +73,7 @@ export class NotificationsModel {
 
   static async updateNotification (id: ID, data: Partial<NotificationType>): Promise<NotificationType> {
     const notifications = await this.getAllNotifications()
-    const notificationIndex = notifications.findIndex(notification => notification._id === id)
+    const notificationIndex = notifications.findIndex(notification => notification.id === id)
     if (notificationIndex === -1) {
       throw new Error('No se encontró la notificación')
     }
@@ -88,7 +88,7 @@ export class NotificationsModel {
   static async markNotificationAsRead (id: ID): Promise<NotificationType> {
     const notifications = await this.getAllNotifications()
 
-    const notificationIndex = notifications.findIndex(notification => notification._id === id)
+    const notificationIndex = notifications.findIndex(notification => notification.id === id)
     if (notificationIndex === -1) {
       throw new Error('No se encontró la notificación')
     }

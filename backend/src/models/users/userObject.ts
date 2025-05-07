@@ -7,7 +7,7 @@ function userObject(name: UserInfoType | Partial<UserInfoType>, fullInfo: true):
 function userObject(name: UserInfoType | Partial<UserInfoType>, fullInfo = false): UserInfoType | PartialUserInfoType {
   if (fullInfo) {
     const fullAnswer: UserInfoType = {
-      _id: name._id ?? crypto.randomUUID(),
+      id: name.id ?? crypto.randomUUID(),
       nombre: name.nombre ?? '',
       correo: name.correo ?? '',
       contraseña: name.contraseña ?? '',
@@ -46,7 +46,7 @@ function userObject(name: UserInfoType | Partial<UserInfoType>, fullInfo = false
     return fullAnswer
   } else {
     const partialAnswer: PartialUserInfoType = {
-      _id: name._id ?? crypto.randomUUID(),
+      id: name.id ?? crypto.randomUUID(),
       nombre: name.nombre ?? '',
       rol: name.rol ?? 'usuario',
       fotoPerfil: name.fotoPerfil ?? '',

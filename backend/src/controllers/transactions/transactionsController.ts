@@ -75,7 +75,7 @@ export class TransactionsController {
       return res.status(400).json({ error: validated.error })
     }
     // TODO: No se si el id es necesario, ya que se genera en mercadoPago
-    // data._id = crypto.randomUUID()
+    // data.id = crypto.randomUUID()
     let transaction
 
     if (data.status === 'approved') {
@@ -126,7 +126,7 @@ export class TransactionsController {
             title: req.body.title,
             quantity: 1,
             unit_price: Number(req.body.price),
-            currency_id: 'COP'
+            currencyid: 'COP'
           }
         ] as any
         // Dont know if it works
@@ -221,7 +221,7 @@ export class TransactionsController {
       if (response.status === 'approved') {
         transaction = await this.TransactionsModel.createSuccessfullTransaction({
           userId,
-          bookId: book._id,
+          bookId: book.id,
           shippingDetails,
           response,
           order
@@ -229,7 +229,7 @@ export class TransactionsController {
       } else {
         transaction = await this.TransactionsModel.createFailureTransaction({
           userId,
-          bookId: book._id,
+          bookId: book.id,
           shippingDetails,
           response,
           order
@@ -307,7 +307,7 @@ export class TransactionsController {
       // Actualizar el saldo del usuario y vendedor
       const [updatedUser, updatedSeller, updatedBook] = await Promise.all([
         this.UsersModel.updateUser(userId, {
-          comprasIds: [...seller.comprasIds, book._id],
+          comprasIds: [...seller.comprasIds, book.id],
           balance: {
             disponible: user.balance.disponible - transaction_amount
           }
@@ -398,23 +398,23 @@ export class TransactionsController {
 
           // Actualizar el saldo del usuario y vendedor
           await Promise.all([
-            this.UsersModel.updateUser(user._id, {
-              comprasIds: [...user.comprasIds, book._id]
+            this.UsersModel.updateUser(user.id, {
+              comprasIds: [...user.comprasIds, book.id]
             })
             ,
-            this.UsersModel.updateUser(seller._id, {
+            this.UsersModel.updateUser(seller.id, {
               balance: {
                 porLlegar: (seller.balance.porLlegar ?? 0) + (response?.transaction_amount ?? 0)
               }
             }),
-            this.BooksModel.updateBook(book._id, {
+            this.BooksModel.updateBook(book.id, {
               disponibilidad: 'Vendido'
             })
           ])
           // Crear la transacción
-          const transaction = await this.TransactionsModel.updateSuccessfullTransaction(existingTransaction?._id ?? 0, {
-            userId: user._id,
-            bookId: book._id,
+          const transaction = await this.TransactionsModel.updateSuccessfullTransaction(existingTransaction?.id ?? 0, {
+            userId: user.id,
+            bookId: book.id,
             shippingDetails: existingTransaction.shippingDetails,
             response,
             status: 'approved',
@@ -429,10 +429,10 @@ export class TransactionsController {
         }
         else {
           // Crear la transacción
-          const transaction = await this.TransactionsModel.updateFailureTransaction(existingTransaction?._id ?? 0, 
+          const transaction = await this.TransactionsModel.updateFailureTransaction(existingTransaction?.id ?? 0, 
             {
-              userId: user._id,
-              bookId: book._id,
+              userId: user.id,
+              bookId: book.id,
               shippingDetails: existingTransaction.shippingDetails,
               response,
               status: response.status,
@@ -533,7 +533,7 @@ export class TransactionsController {
         return res.status(400).json({ error: 'Saldo insuficiente' })
       }
       await this.TransactionsModel.createWithdrawTransaction({
-        _id: crypto.randomUUID(),
+        id: crypto.randomUUID(),
         userId,
         numeroCuenta: accountNumber,
         monto: ammount,

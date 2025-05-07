@@ -329,7 +329,7 @@ export class UsersController {
       
       if (req.session.user) {
         // Devolver los datos del usuario
-        const user = await this.UsersModel.getUserById(req.session.user._id)
+        const user = await this.UsersModel.getUserById(req.session.user.id)
         return res.json(user)
       } else {
         res.status(401).json({ message: 'No autenticado' })
@@ -345,7 +345,7 @@ export class UsersController {
     next: express.NextFunction
   ): Promise<express.Response | void> => {
     const data: {
-      _id: ID
+      id: ID
       nombre: string
       correo: string
       validated: string
@@ -363,7 +363,7 @@ export class UsersController {
       // Generate a token with user ID (or email) for validation
       const token = jwt.sign(
         {
-          _id: data._id,
+          id: data.id,
           nombre: data.nombre
         },
         SECRET_KEY,
@@ -423,9 +423,9 @@ export class UsersController {
 
       // Retrieve the user and their email
       const user: PartialUserInfoType = await this.UsersModel.getUserById(
-        data._id
+        data.id
       )
-      const correo = await this.UsersModel.getEmailById(data._id)
+      const correo = await this.UsersModel.getEmailById(data.id)
 
       // Verify that the email matches
       if (data.nombre !== correo.nombre) {
@@ -438,7 +438,7 @@ export class UsersController {
       // }
 
       // Update the user's validation status
-      await this.UsersModel.updateUser(data._id, {
+      await this.UsersModel.updateUser(data.id, {
         validated: true
       })
 
@@ -466,7 +466,7 @@ export class UsersController {
       const user = await this.UsersModel.getUserByEmail(email)
 
       // Generar token
-      const tokenPayload = { _id: user._id } // No incluir información sensible
+      const tokenPayload = { id: user.id } // No incluir información sensible
       const token = jwt.sign(tokenPayload, SECRET_KEY, { expiresIn: '15m' })
 
       const validationLink = `${process.env.FRONTEND_URL}/opciones/cambiarContraseña/${token}`
@@ -505,9 +505,9 @@ export class UsersController {
 
       const decodedToken = jwt.verify(token, SECRET_KEY) as AuthToken
 
-      const _id = decodedToken._id
+      const id = decodedToken.id
       // Actualizar la contraseña (el hash se realiza en el modelo)
-      await this.UsersModel.updateUser(_id, { contraseña: password })
+      await this.UsersModel.updateUser(id, { contraseña: password })
 
       return res.json({ ok: true, message: 'Contraseña actualizada con éxito' })
     } catch (err) {

@@ -15,10 +15,11 @@ import swaggerUI from 'swagger-ui-express'
 import { handleStats } from './middlewares/handleStats.js'
 import fs from 'node:fs'
 import path from 'node:path'
-import { PORT, __dirname } from './assets/config.js'
+import { PORT, __dirname, pool } from './assets/config.js'
 import { corsOptions } from './assets/corsOptions.js'
 import { statsHandler } from './middlewares/statsHandler.js'
-// Get the current file's directory
+import { Server } from 'http'
+
 dotenv.config()
 // import { handleStats } from './assets/handleStats.js'
 export const createApp = ({
@@ -39,7 +40,7 @@ export const createApp = ({
   NotificationsModel: any
   TransactionsModel: any
   EmailsModel: any
-}): void => {
+}): Server => {
   // Configuración de la aplicación Express
   const app: express.Application = express()
 
@@ -93,9 +94,13 @@ export const createApp = ({
         stack: process.env.NODE_ENV === 'production' ? undefined : err.stack, // Include stack trace in development
       });
     }
-  });
+  }); 
 
-  app.listen(PORT, () => {
+  // Create HTTP server instance
+  const server = app.listen(PORT, () => {
     console.log('Server is listening on http://localhost:' + PORT)
   })
+
+
+  return server
 }

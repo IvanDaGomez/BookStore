@@ -4,7 +4,7 @@ import { ISOString } from "../../types/objects"
 const notificationObject = (data: Partial<NotificationType>): NotificationType => {
   
   return {
-    _id: data._id ?? crypto.randomUUID(),
+    id: data.id ?? crypto.randomUUID(),
     title: data.title ?? '',
     priority: data.priority ?? 'low',
     type: data.type ?? 'invalidNotification',

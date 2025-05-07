@@ -64,7 +64,7 @@ export class MessagesController {
         return res.status(404).json({ error: 'El usuario no se encuentra en la conversación' })
       }          
       conversation.lastMessage = data
-      await this.ConversationsModel.updateConversation(conversation._id, conversation)
+      await this.ConversationsModel.updateConversation(conversation.id, conversation)
 
       const message = await this.MessagesModel.sendMessage(data)
 

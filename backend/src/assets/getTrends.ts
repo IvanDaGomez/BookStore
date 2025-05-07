@@ -1,5 +1,10 @@
 import fs from 'node:fs/promises'
-export async function getTrends (n: number = 20): Promise<string[]> {
+import { pool } from './config.js'
+export async function getTrends (n: number = 20, model='local'): Promise<string[]> {
+  if (model !== 'local') {
+    const trendsData = await pool.query('SELECT * FROM trends ORDER BY amount DESC LIMIT $1', [n])
+    return trendsData.rows.map((trend) => trend.title)
+  }
   try {
     const file = await fs.readFile('./models/trends.json', 'utf-8')
     const data: {

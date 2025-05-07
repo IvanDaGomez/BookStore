@@ -30,7 +30,7 @@ class BooksModel {
 
   static async getBookById (id: ID): Promise<BookObjectType> {
     const books = await this.getAllBooks()
-    const book = books.find(book => book._id === id)
+    const book = books.find(book => book.id === id)
     if (!book) {
       throw new Error('Libro no encontrado')
     }
@@ -126,7 +126,7 @@ class BooksModel {
   ): Promise<Partial<BookObjectType>> {
     const books = await this.getAllBooks()
 
-    const bookIndex = books.findIndex(book => book._id === id)
+    const bookIndex = books.findIndex(book => book.id === id)
     if (bookIndex === -1) {
       throw new Error('Libro no encontrado')
     }
@@ -144,7 +144,7 @@ class BooksModel {
 
   static async deleteBook (id: ID): Promise<{ message: string }> {
     const books = await this.getAllBooks()
-    const bookIndex = books.findIndex(book => book._id === id)
+    const bookIndex = books.findIndex(book => book.id === id)
     if (bookIndex === -1) {
       throw new Error('Libro no encontrado')
     }
@@ -171,7 +171,7 @@ class BooksModel {
 
   static async deleteReviewBook (id: ID): Promise<{ message: string }> {
     const books = await this.getAllReviewBooks()
-    const bookIndex = books.findIndex(book => book._id === id)
+    const bookIndex = books.findIndex(book => book.id === id)
 
     if (bookIndex === -1) {
       throw new Error('Libro no encontrado')
@@ -221,8 +221,8 @@ class BooksModel {
     let historial: string[] = []
     let preferences: string[] = []
     let likes = []
-    if (userKeyInfo?._id) {
-      const user = await UsersModel.getUserById(userKeyInfo._id)
+    if (userKeyInfo?.id) {
+      const user = await UsersModel.getUserById(userKeyInfo.id)
       preferences = Object.keys(user?.preferencias || {})
       historial = Object.keys(user?.historialBusquedas || {})
       likes = user.favoritos ?? []
@@ -264,7 +264,7 @@ class BooksModel {
   ): Promise<Partial<BookObjectType>[]> {
     const books = await this.getAllBooks()
 
-    const elements = books.filter(book => favorites.includes(book._id))
+    const elements = books.filter(book => favorites.includes(book.id))
     return elements
   }
 
@@ -274,7 +274,7 @@ class BooksModel {
   ): Promise<Partial<BookObjectType>[]> {
     const books = await this.getAllBooks()
     const filteredBooks = books.filter((book, index) => {
-      return list.includes(book._id)
+      return list.includes(book.id)
     }).slice(0, l)
 
     if (!filteredBooks || filteredBooks.length === 0) {
@@ -319,7 +319,7 @@ class BooksModel {
 
       // Filtrar los libros que pertenecen a la colección
       const colecciones = books.filter(book =>
-        collection.librosIds.includes(book._id)
+        collection.librosIds.includes(book.id)
       )
 
       if (colecciones.length === 0) {

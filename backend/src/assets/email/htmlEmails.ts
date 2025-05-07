@@ -143,7 +143,7 @@ function createEmail (data: {
               <p>Felicidades! Tu libro "<strong>${data.book?.titulo ?? ''}</strong>" ha sido publicado exitosamente en nuestra plataforma.</p>
               <p>Estamos emocionados de compartir tu publicación con nuestros amantes de libros!. TU libro ya se puede buscar y está listo para ser vendido.</p>
               <p>Puedes ver tu libro aquí:</p>
-              <a href="${process.env.FRONTEND_URL}/libros/${data.book?._id ?? ''}"><div class='button'>Ver libro</div></a>
+              <a href="${process.env.FRONTEND_URL}/libros/${data.book?.id ?? ''}"><div class='button'>Ver libro</div></a>
               <div class="footer">
               <p>Si tienes preguntas o necesitas asistencia, contáctate con <a href="mailto:support@meridianbookstore.com">nosotros</a>.</p>
               </div>
@@ -172,7 +172,7 @@ function createEmail (data: {
     //               <p>${data.pregunta}</p>
     //             </blockquote>
     //             <p>Puedes responder a esta pregunta haciendo clic en el siguiente enlace:</p>
-    //             <p><a href="${process.env.FRONTEND_URL}/notificaciones/${data._id}">Responder pregunta</a></p>
+    //             <p><a href="${process.env.FRONTEND_URL}/notificaciones/${data.id}">Responder pregunta</a></p>
     //             <p>Si tienes otras preguntas o necesitas asistencia, puedes responder a este correo o contactarnos <a href="mailto:support@meridianbookstore.com">aquí</a>.</p>
     //           </div>
 
@@ -251,7 +251,7 @@ function createEmail (data: {
               <table>
                 <tr>
                   <td><strong>ID de la Transacción:</strong></td>
-                  <td>${data.transaction?._id}</td>
+                  <td>${data.transaction?.id}</td>
                 </tr>
                 <tr>
                   <td><strong>Fecha:</strong></td>

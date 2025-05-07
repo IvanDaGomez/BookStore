@@ -25,7 +25,7 @@ export class TransactionsModel {
 
   static async createTransaction (data) {
     try {
-      const query = `INSERT INTO transactions (user_id, seller_id, book_id, amount, status, created_in, updated_in)
+      const query = `INSERT INTO transactions (userid, sellerid, bookid, amount, status, created_in, updated_in)
                      VALUES ($1, $2, $3, $4, $5, NOW(), NOW()) RETURNING *`
       const values = [data.userId, data.sellerId, data.bookId, data.amount, data.status || 'pending']
       const { rows } = await pool.query(query, values)

@@ -8,7 +8,7 @@ import { TransactionInputType } from "../../types/transactionInput"
 const transactionObject = (data: Partial<TransactionInputType>): TransactionObjectType => {
   const { api_response, ...importantData } = data.response as PaymentResponse
   return {
-    _id: data.response?.id, // ID único de la transacción
+    id: data.response?.id, // ID único de la transacción
     userId: data.userId ?? crypto.randomUUID(), // ID del usuario que realiza la compra
     sellerId: data.sellerId ?? crypto.randomUUID(),
     bookId: data.bookId ?? crypto.randomUUID(),

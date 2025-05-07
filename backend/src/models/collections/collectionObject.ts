@@ -5,7 +5,7 @@ const collectionObject = (
   data: Partial<CollectionObjectType>
 ): CollectionObjectType => {
   return {
-    _id: data._id ?? crypto.randomUUID(),
+    id: data.id ?? crypto.randomUUID(),
     foto: data.foto ?? '',
     librosIds: data.librosIds ?? [],
     nombre: data.nombre ?? '',

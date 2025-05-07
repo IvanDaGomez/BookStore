@@ -10,7 +10,7 @@ export async function updateUserSearchHistory (userObj: AuthToken, book: Partial
   const openedBookIncrement: number = 5
   const decrement: number = 2
 
-  const userId = userObj._id
+  const userId = userObj.id
   const user = await UsersModel.getUserById(userId)
   const bookKeyInfo = getBookKeyInfo(book)
   const userPreferences = user.historialBusquedas

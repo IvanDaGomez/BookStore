@@ -7,7 +7,7 @@ import { PartialUserInfoType } from '../../types/user'
 dotenv.config()
 // PROBLEMS I HAVE WITH THE TYPE OF NOTIFICATION
 export type NotificationInfoNeeded = {
-  _id?: ID
+  id?: ID
   idVendedor?: ID
   images?: ImageType[]
   titulo?: string
@@ -19,7 +19,7 @@ export type NotificationInfoNeeded = {
 export function createNotification (data: NotificationInfoNeeded, template: TypeType): NotificationType {
 
  const commonData = {
-  _id: data._id ?? crypto.randomUUID(),
+  id: data.id ?? crypto.randomUUID(),
   read: false,
   createdIn: data.createdIn ?? new Date().toISOString() as ISOString,
   expiresAt: data.expiresAt ?? new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString() as ISOString,
@@ -33,7 +33,7 @@ export function createNotification (data: NotificationInfoNeeded, template: Type
         title: '¡Bienvenido a Meridian!',
         priority: 'high',
         type: 'welcomeUser',
-        userId: data._id ?? crypto.randomUUID(),
+        userId: data.id ?? crypto.randomUUID(),
         message: 'Estamos emocionados de tenerte con nosotros. Esperamos que disfrutes de la experiencia y encuentres justo lo que necesitas. Si tienes alguna pregunta, no dudes en contactarnos. ¡Gracias por unirte!'
       })
     }
@@ -43,8 +43,8 @@ export function createNotification (data: NotificationInfoNeeded, template: Type
         title: 'Tienes un nuevo seguidor',
         priority: 'low',
         type: 'newFollower',
-        userId: data.follower?._id ?? crypto.randomUUID(),
-        actionUrl: `${process.env.FRONTEND_URL}/usuarios/${data.follower?._id}`,
+        userId: data.follower?.id ?? crypto.randomUUID(),
+        actionUrl: `${process.env.FRONTEND_URL}/usuarios/${data.follower?.id}`,
         metadata: {
           photo: data.follower?.fotoPerfil ?? ''
         }
@@ -57,11 +57,11 @@ export function createNotification (data: NotificationInfoNeeded, template: Type
         priority: 'high',
         type: 'bookPublished',
         userId: data.idVendedor ?? crypto.randomUUID(),
-        actionUrl: `${process.env.FRONTEND_URL}/libros/${data._id}`,
+        actionUrl: `${process.env.FRONTEND_URL}/libros/${data.id}`,
         metadata: {
           photo: (data.images ?? [])[0],
           bookTitle: data.titulo,
-          bookId: data._id
+          bookId: data.id
         }
       })
     }
@@ -72,11 +72,11 @@ export function createNotification (data: NotificationInfoNeeded, template: Type
         priority: 'high',
         type: 'bookUpdated',
         userId: data.idVendedor ?? crypto.randomUUID(),
-        actionUrl: `${process.env.FRONTEND_URL}/libros/${data._id}`,
+        actionUrl: `${process.env.FRONTEND_URL}/libros/${data.id}`,
         metadata: {
           photo: (data.images ?? [])[0],
           bookTitle: data.titulo,
-          bookId: data._id
+          bookId: data.id
         }
       })
     }
@@ -87,11 +87,11 @@ export function createNotification (data: NotificationInfoNeeded, template: Type
         priority: 'high',
         type: 'bookSold',
         userId: data.idVendedor ?? crypto.randomUUID(),
-        actionUrl: `${process.env.FRONTEND_URL}/libros/${data._id}`,
+        actionUrl: `${process.env.FRONTEND_URL}/libros/${data.id}`,
         metadata: {
           photo: (data.images ?? [])[0],
           bookTitle: data.titulo,
-          bookId: data._id
+          bookId: data.id
         }
       })
     }
@@ -101,13 +101,13 @@ export function createNotification (data: NotificationInfoNeeded, template: Type
         title: 'Has comprado un libro',
         priority: 'high',
         type: 'bookBought',
-        userId: data._id ?? crypto.randomUUID(),
-        actionUrl: `${process.env.FRONTEND_URL}/libros/${data._id}`,
+        userId: data.id ?? crypto.randomUUID(),
+        actionUrl: `${process.env.FRONTEND_URL}/libros/${data.id}`,
         metadata: {
           photo: (data.images ?? [])[0],
           guia: data.guia,
           bookTitle: data.titulo,
-          bookId: data._id
+          bookId: data.id
         }
       })
     }
@@ -118,11 +118,11 @@ export function createNotification (data: NotificationInfoNeeded, template: Type
         priority: 'low',
         type: 'invalidNotification',
         userId: data.idVendedor ?? crypto.randomUUID(),
-        actionUrl: `${process.env.FRONTEND_URL}/libros/${data._id}`,
+        actionUrl: `${process.env.FRONTEND_URL}/libros/${data.id}`,
         metadata: {
           photo: (data.images ?? [])[0],
           bookTitle: data.titulo,
-          bookId: data._id
+          bookId: data.id
         }
       })
     }

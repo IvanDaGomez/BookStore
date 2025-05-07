@@ -1,7 +1,7 @@
 import { ID, ImageType, ISOString } from './objects'
 
 export type CollectionObjectType = {
-  _id: ID
+  id: ID
   foto: ImageType
   librosIds: ID[]
   nombre: string

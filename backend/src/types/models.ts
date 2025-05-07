@@ -18,7 +18,7 @@ export interface IUsersModel {
   getAllUsersSafe(): Promise<PartialUserInfoType[]>
   getUserById(id: ID): Promise<PartialUserInfoType>
   getPhotoAndNameUser(id: ID): Promise<{
-    _id: ID
+    id: ID
     fotoPerfil: ImageType
     nombre: string
   }>

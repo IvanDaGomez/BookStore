@@ -257,7 +257,7 @@ async function fillTablesWithLocalData() {
           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23);
         `,
           [
-            user._id,
+            user.id,
             user.nombre,
             user.rol,
             user.fotoPerfil,
@@ -302,7 +302,7 @@ async function fillTablesWithLocalData() {
           ON CONFLICT (isbn) DO NOTHING;
         `,
           [
-            book._id,
+            book.id,
             book.titulo,
             book.autor,
             book.precio,
@@ -348,7 +348,7 @@ async function fillTablesWithLocalData() {
           ON CONFLICT (isbn) DO NOTHING;
         `,
           [
-            book._id,
+            book.id,
             book.titulo,
             book.autor,
             book.precio,
@@ -388,7 +388,7 @@ async function fillTablesWithLocalData() {
           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);
         `,
           [
-            collection._id,
+            collection.id,
             collection.foto,
             collection.librosIds,
             collection.nombre,
@@ -413,7 +413,7 @@ async function fillTablesWithLocalData() {
           INSERT INTO conversations (id, users, createdIn, lastMessage)
           VALUES ($1, $2, $3, $4);
         `,
-          [conversation._id, conversation.users, conversation.createdIn, conversation.lastMessage]
+          [conversation.id, conversation.users, conversation.createdIn, conversation.lastMessage]
         )
       )
     );
@@ -430,7 +430,7 @@ async function fillTablesWithLocalData() {
           VALUES ($1, $2, $3, $4, $5, $6);
         `,
           [
-            message._id,
+            message.id,
             message.conversationId,
             message.userId,
             message.message,
@@ -453,7 +453,7 @@ async function fillTablesWithLocalData() {
           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);
         `,
           [
-            notification._id,
+            notification.id,
             notification.title,
             notification.priority,
             notification.type,
@@ -498,7 +498,7 @@ async function fillTablesWithLocalData() {
           VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
         `,
           [
-            transaction._id,
+            transaction.id,
             transaction.userId,
             transaction.bookId,
             transaction.sellerId,
@@ -522,7 +522,7 @@ async function fillTablesWithLocalData() {
           VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
         `,
           [
-            withdrawal._id,
+            withdrawal.id,
             withdrawal.userId,
             withdrawal.numeroCuenta,
             withdrawal.bank,
@@ -558,10 +558,15 @@ async function fillTablesWithLocalData() {
 
 async function seed() {
   await pool.connect();
+  pool.query('SELECT * FROM users LIMIT 1;')
+      .then(res => {
+        console.log('Database query result:', res.rows);
+      })
   console.log("Connected to the database");
   await dropTables()
   await createTables();
   await fillTablesWithLocalData();
+  console.log("Database seeded successfully");
 }
 
 seed()

@@ -23,7 +23,7 @@ export async function updateUserPreferences (userObj: AuthToken, book: Partial<B
   const openedBookIncrement: number = 4
   const decrement: number = 1
 
-  const userId = userObj._id
+  const userId = userObj.id
   const user = await UsersModel.getUserById(userId)
   const bookKeyInfo = getBookKeyInfo(book)
   const userPreferences = user?.preferencias || {}

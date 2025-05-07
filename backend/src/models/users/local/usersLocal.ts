@@ -36,7 +36,7 @@ class UsersModel {
   static async getUserById (id: ID): Promise<PartialUserInfoType> {
     // Esta función devuelve un usuario específico por su ID, pero sin información sensible como la contraseña
     const users = await this.getAllUsersSafe()
-    const user = users.find(user => user._id === id)
+    const user = users.find(user => user.id === id)
     if (!user) {
       throw new Error('Usuario no encontrado')
     }
@@ -45,18 +45,18 @@ class UsersModel {
   }
 
   static async getPhotoAndNameUser(id: ID): Promise<{
-    _id: ID
+    id: ID
     fotoPerfil: ImageType
     nombre: string
   }> {
     const users = await this.getAllUsersSafe()
-    const user = users.find(user => user._id === id)
+    const user = users.find(user => user.id === id)
     if (!user) {
       throw new Error('Usuario no encontrado')
     }
     // Return user with limited public information
     return {
-      _id: user._id,
+      id: user.id,
       fotoPerfil: user.fotoPerfil,
       nombre: user.nombre
     }
@@ -65,7 +65,7 @@ class UsersModel {
 
   static async getEmailById (id: ID): Promise<{ correo: string, nombre: string }> {
     const users = await this.getAllUsers()
-    const user = users.find(user => user._id === id)
+    const user = users.find(user => user.id === id)
     if (!user) {
       throw new Error('Usuario no encontrado')
     }
@@ -134,7 +134,7 @@ class UsersModel {
       newUser.correo = data.correo
       // La validación es por defecto true si se hace este método
       newUser.validated = true
-      newUser._id = crypto.randomUUID()
+      newUser.id = crypto.randomUUID()
       users.push(newUser)
       // Write the new user to the file
       await fs.writeFile(usersPath, JSON.stringify(users, null, 2), 'utf8')
@@ -186,13 +186,13 @@ class UsersModel {
 
   static async updateUser (id: ID, data: Partial<UserInfoType>): Promise<PartialUserInfoType> {
     const users = await this.getAllUsers()
-    const userIndex = users.findIndex(user => user._id.toString() === id.toString())
+    const userIndex = users.findIndex(user => user.id.toString() === id.toString())
     if (userIndex === -1) {
       throw new Error('Usuario no encontrado')
     }
     if (data.correo !== undefined && data.correo) {
       const emailRepeated = users
-        .filter(user => user._id.toString() !== id.toString())
+        .filter(user => user.id.toString() !== id.toString())
         .some(user => user.correo === data.correo)
       if (emailRepeated) {
         throw new Error('El correo ya está en uso')
@@ -213,7 +213,7 @@ class UsersModel {
 
   static async deleteUser (id: ID): Promise<{ message: string }> {
     const users = await this.getAllUsersSafe()
-    const userIndex = users.findIndex(user => user._id === id)
+    const userIndex = users.findIndex(user => user.id === id)
     if (userIndex === -1) {
        throw new Error('Usuario no encontrado')
     }
