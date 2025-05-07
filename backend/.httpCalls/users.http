@@ -1,3 +1,76 @@
+@baseUrl = http://localhost:3030/api
+
+### Register new user
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "nombre": "Juan Pérez",
+  "correo": "juan.perez@example.com",
+  "login": "password123",
+  "rol": "user",
+  "fotoPerfil": "https://example.com/profile.jpg",
+  "bio": "Book enthusiast and collector",
+  "ubicacion": {
+    "ciudad": "Bogotá",
+    "departamento": "Cundinamarca",
+    "direccion": "Calle 123 #45-67"
+  }
+}
+
+### Login user (store the token from response)
+# @name login
+POST {{baseUrl}}/users/login
+Content-Type: application/json
+
+{
+  "correo": "juan.perez@example.com",
+  "login": "password123"
+}
+
+###
+@authToken = {{login.response.body.token}}
+
+### Get all users
+GET {{baseUrl}}/users
+Authorization: Bearer {{authToken}}
+
+### Get user by ID
+GET {{baseUrl}}/users/USER_ID_HERE
+Authorization: Bearer {{authToken}}
+
+### Update user
+PUT {{baseUrl}}/users/USER_ID_HERE
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "nombre": "Juan Antonio Pérez",
+  "bio": "Passionate about literature and rare books",
+  "ubicacion": {
+    "ciudad": "Medellín",
+    "departamento": "Antioquia",
+    "direccion": "Carrera 78 #90-12"
+  }
+}
+
+### Delete user
+DELETE {{baseUrl}}/users/USER_ID_HERE
+Authorization: Bearer {{authToken}}
+
+### Add book to favorites
+POST {{baseUrl}}/users/USER_ID_HERE/favorites
+Authorization: Bearer {{authToken}}
+Content-Type: application/json
+
+{
+  "bookId": "BOOK_ID_HERE"
+}
+
+### Remove book from favorites
+DELETE {{baseUrl}}/users/USER_ID_HERE/favorites/BOOK_ID_HERE
+Authorization: Bearer {{authToken}}
+
 GET http://localhost:3030/api/users
 
 
