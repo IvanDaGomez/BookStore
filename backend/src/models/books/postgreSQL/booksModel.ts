@@ -5,7 +5,6 @@ import * as tf from '@tensorflow/tfjs'
 import { getBookKeyInfo } from '../local/getBookKeyInfo.js' 
 import { getTrends } from '../../../assets/getTrends.js'
 import { UsersModel } from '../../users/local/usersLocal.js'
-import { randomIntArrayInRange } from '../local/randomIntArrayRange.js'
 import { bookObject } from '../bookObject.js'
 import { ID, ISOString } from '../../../types/objects.js'
 import { AuthToken } from '../../../types/authToken.js'
@@ -61,18 +60,15 @@ class BooksModel {
   ): Promise<Partial<BookObjectType>[]> {
     try {
       
-      const essencial = this.getEssencialFields().join(', ')
-      console.log('essencial', essencial)
       if (books.length === 0) {
         books = await executeQuery(
           pool,
           () => pool.query(
-            `SELECT ${this.getEssencialFields().join(', ')} FROM books WHERE disponibilidad = 'Disponible' ORDER BY RANDOM() LIMIT 1000;`
-          ),
+            `SELECT ${this.getEssencialFields().join(', ')} FROM books WHERE disponibilidad = 'Disponible' ORDER BY RANDOM() LIMIT $1;`
+          , [l]),
           'Failed to fetch books from database'
         );
       }
-
       const queryWords = changeToArray(query)
 
       // Calculamos los scores y filtramos directamente los que no cumplen el umbral
@@ -101,12 +97,12 @@ class BooksModel {
     filters: Partial<Record<keyof BookObjectType, any>>,
     limit: number,
   ): Promise<Partial<BookObjectType>[]> {
+    // TODO: Implementar la función en la base de datos como tal
     let books = await executeQuery(
       pool, 
       () => pool.query(`SELECT * FROM books WHERE disponibilidad = 'Disponible' ORDER BY RANDOM() LIMIT 1000;`),
       'Failed to fetch books from database'
     )
-    if (Object.keys(filters).length === 0) return []
 
     type PreparedFiltersType = Partial<{
       [key in keyof BookObjectType[]]?: any[] | number
@@ -202,20 +198,16 @@ class BooksModel {
         return `${last}${prefix}${key} = $${index + 1}`
       })
       
-      const result = await executeQuery<BookObjectType>(
+      const result = await executeSingleResultQuery<BookObjectType>(
         pool,
         () => pool.query(
-          `UPDATE books SET ${updateString} WHERE ID = $${keys.length + 1} RETURNING *;`,
+          `UPDATE books SET ${updateString} WHERE ID = $${keys.length + 1} RETURNING ${this.getEssencialFields().join(', ')};`,
           [...values, id]
         ),
         `Failed to update book with ID ${id}`
       );
 
-      if (!result.length) {
-        throw new DatabaseError('Book not found');
-      }
-
-      return bookObject(result[0], false);
+      return result
     } catch (error) {
       if (error instanceof DatabaseError) {
         throw error;

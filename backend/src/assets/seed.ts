@@ -75,8 +75,8 @@ async function createTables() {
       id VARCHAR PRIMARY KEY,
       titulo VARCHAR(255) NOT NULL,
       autor VARCHAR(255) NOT NULL,
-      precio DECIMAL(10, 2) NOT NULL,
-      oferta DECIMAL(10, 2),
+      precio DECIMAL(10) NOT NULL,
+      oferta DECIMAL(10),
       isbn VARCHAR(20) UNIQUE NOT NULL,
       images VARCHAR(200)[],
       keywords VARCHAR[],
@@ -103,8 +103,8 @@ async function createTables() {
       id VARCHAR PRIMARY KEY,
       titulo VARCHAR(255) NOT NULL,
       autor VARCHAR(255) NOT NULL,
-      precio DECIMAL(10, 2) NOT NULL,
-      oferta DECIMAL(10, 2),
+      precio DECIMAL(10) NOT NULL,
+      oferta DECIMAL(10),
       isbn VARCHAR(20) UNIQUE NOT NULL,
       images VARCHAR(200)[],
       keywords VARCHAR[],
@@ -558,10 +558,7 @@ async function fillTablesWithLocalData() {
 
 async function seed() {
   await pool.connect();
-  pool.query('SELECT * FROM users LIMIT 1;')
-      .then(res => {
-        console.log('Database query result:', res.rows);
-      })
+
   console.log("Connected to the database");
   await dropTables()
   await createTables();
