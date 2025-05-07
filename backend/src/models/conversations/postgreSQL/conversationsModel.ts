@@ -18,6 +18,16 @@ export class ConversationsModel {
     return data
   }
 
+  static async getConversationById (id: ID): Promise<ConversationObjectType> {
+    const conversation = await executeSingleResultQuery(
+      pool,
+      () => pool.query('SELECT * FROM conversations WHERE id = $1;', [id]),
+      'Error getting conversation'
+    )
+    // Return conversation with limited public information
+    return conversation
+  }
+
   static async getConversationsByList (conversationsIds: ID[]): Promise<ConversationObjectType[]> {
     // Load all conversations from the JSON file
     const conversations = await Promise.all(
@@ -28,16 +38,6 @@ export class ConversationsModel {
     )
     return conversations
 
-  }
-
-  static async getConversationById (id: ID): Promise<ConversationObjectType> {
-    const conversation = await executeSingleResultQuery(
-      pool,
-      () => pool.query('SELECT * FROM conversations WHERE id = $1;', [id]),
-      'Error getting conversation'
-    )
-    // Return conversation with limited public information
-    return conversation
   }
 
   static async createConversation (data: Partial<ConversationObjectType>): Promise<ConversationObjectType> {

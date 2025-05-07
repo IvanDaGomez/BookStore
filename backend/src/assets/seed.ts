@@ -179,7 +179,8 @@ async function createTables() {
 
   const createEmailsTable = `
     CREATE TABLE IF NOT EXISTS emails (
-      email VARCHAR PRIMARY KEY
+      id SERIAL PRIMARY KEY,
+      email VARCHAR
     );
   `;
   const createNotificationsTable = `
