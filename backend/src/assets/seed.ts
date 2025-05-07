@@ -1,29 +1,29 @@
-import { pool } from "./config.js";
-import { IUsersModel } from "../types/models.js";
-import { BooksModel } from "../models/books/local/booksLocal.js";
-import { CollectionsModel } from "../models/collections/local/collectionsModel.js";
-import { ConversationsModel } from "../models/conversations/local/conversationsModel.js";
-import { EmailsModel } from "../models/emails/local/emailsModel.js";
-import { MessagesModel } from "../models/messages/local/messagesModel.js";
-import { NotificationsModel } from "../models/notifications/local/notificationsModel.js";
-import { TransactionsModel } from "../models/transactions/local/transactionsModel.js";
-import { UsersModel } from "../models/users/local/usersLocal.js";
-import fs from "node:fs/promises";
-import { __dirname } from "./config.js";
-import path from "node:path";
-async function dropTables() {
-  const dropUsersTable = `DROP TABLE IF EXISTS users CASCADE;`;
-  const dropBooksTable = `DROP TABLE IF EXISTS books CASCADE;`;
-  const dropBooksBackstageTable = `DROP TABLE IF EXISTS books_backstage CASCADE;`;
-  const dropWithdrawalsTable = `DROP TABLE IF EXISTS withdrawals CASCADE;`;
-  const dropTrendsTable = `DROP TABLE IF EXISTS trends CASCADE;`;
-  const dropCollectionsTable = `DROP TABLE IF EXISTS collections CASCADE;`;
-  const dropConversationsTable = `DROP TABLE IF EXISTS conversations CASCADE;`;
-  const dropMessagesTable = `DROP TABLE IF EXISTS messages CASCADE;`;
-  const dropEmailsTable = `DROP TABLE IF EXISTS emails CASCADE;`;
-  const dropNotificationsTable = `DROP TABLE IF EXISTS notifications CASCADE;`;
-  const dropTransactionsTable = `DROP TABLE IF EXISTS transactions CASCADE;`;
-  
+import { pool } from './config.js'
+import { IUsersModel } from '../types/models.js'
+import { BooksModel } from '../models/books/local/booksLocal.js'
+import { CollectionsModel } from '../models/collections/local/collectionsModel.js'
+import { ConversationsModel } from '../models/conversations/local/conversationsModel.js'
+import { EmailsModel } from '../models/emails/local/emailsModel.js'
+import { MessagesModel } from '../models/messages/local/messagesModel.js'
+import { NotificationsModel } from '../models/notifications/local/notificationsModel.js'
+import { TransactionsModel } from '../models/transactions/local/transactionsModel.js'
+import { UsersModel } from '../models/users/local/usersLocal.js'
+import fs from 'node:fs/promises'
+import { __dirname } from './config.js'
+import path from 'node:path'
+async function dropTables () {
+  const dropUsersTable = `DROP TABLE IF EXISTS users CASCADE;`
+  const dropBooksTable = `DROP TABLE IF EXISTS books CASCADE;`
+  const dropBooksBackstageTable = `DROP TABLE IF EXISTS books_backstage CASCADE;`
+  const dropWithdrawalsTable = `DROP TABLE IF EXISTS withdrawals CASCADE;`
+  const dropTrendsTable = `DROP TABLE IF EXISTS trends CASCADE;`
+  const dropCollectionsTable = `DROP TABLE IF EXISTS collections CASCADE;`
+  const dropConversationsTable = `DROP TABLE IF EXISTS conversations CASCADE;`
+  const dropMessagesTable = `DROP TABLE IF EXISTS messages CASCADE;`
+  const dropEmailsTable = `DROP TABLE IF EXISTS emails CASCADE;`
+  const dropNotificationsTable = `DROP TABLE IF EXISTS notifications CASCADE;`
+  const dropTransactionsTable = `DROP TABLE IF EXISTS transactions CASCADE;`
+
   await Promise.all([
     pool.query(dropUsersTable),
     pool.query(dropBooksTable),
@@ -36,11 +36,11 @@ async function dropTables() {
     pool.query(dropBooksBackstageTable),
     pool.query(dropWithdrawalsTable),
     pool.query(dropTrendsTable)
-  ]);
+  ])
 
-  console.log('Tables dropped successfully');
+  console.log('Tables dropped successfully')
 }
-async function createTables() {
+async function createTables () {
   const createUsersTable = `
     CREATE TABLE IF NOT EXISTS users (
       id VARCHAR PRIMARY KEY,
@@ -66,9 +66,10 @@ async function createTables() {
       comprasIds VARCHAR[],
       preferencias JSONB,
       historialBusquedas JSONB,
-      balance JSONB
+      balance JSONB,
+      contraseña VARCHAR(255),
     );
-  `;
+  `
 
   const createBooksTable = `
     CREATE TABLE IF NOT EXISTS books (
@@ -97,7 +98,7 @@ async function createTables() {
       mensajes VARCHAR[][],
       collectionsIds VARCHAR[]
     );
-  `;
+  `
   const createBooksBackstageTable = `
     CREATE TABLE IF NOT EXISTS books_backstage (
       id VARCHAR PRIMARY KEY,
@@ -125,14 +126,14 @@ async function createTables() {
       mensajes VARCHAR[][],
       collectionsIds VARCHAR[]
     );
-  `;
+  `
   const createTrendsTable = `
     CREATE TABLE IF NOT EXISTS trends (
       id SERIAL PRIMARY KEY,
       title VARCHAR(255) NOT NULL,
       amount DECIMAL(10) NOT NULL
     );
-  `;
+  `
   const createWithdrawalsTable = `
     CREATE TABLE IF NOT EXISTS withdrawals (
       id VARCHAR PRIMARY KEY,
@@ -143,7 +144,7 @@ async function createTables() {
       monto DECIMAL(10, 2),
       fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       status VARCHAR(50) DEFAULT 'pending'
-    );`;
+    );`
   const createCollectionsTable = `
     CREATE TABLE IF NOT EXISTS collections (
       id VARCHAR PRIMARY KEY,
@@ -156,7 +157,7 @@ async function createTables() {
       saga BOOLEAN DEFAULT FALSE,
       creadoEn TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
-  `;
+  `
 
   const createConversationsTable = `
     CREATE TABLE IF NOT EXISTS conversations (
@@ -165,7 +166,7 @@ async function createTables() {
       createdIn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       lastMessage JSONB
     );
-  `;
+  `
   const createMessagesTable = `
     CREATE TABLE IF NOT EXISTS messages (
       id VARCHAR PRIMARY KEY,
@@ -175,14 +176,14 @@ async function createTables() {
       createdIn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       read BOOLEAN DEFAULT FALSE
     );
-  `;
+  `
 
   const createEmailsTable = `
     CREATE TABLE IF NOT EXISTS emails (
       id SERIAL PRIMARY KEY,
       email VARCHAR
     );
-  `;
+  `
   const createNotificationsTable = `
     CREATE TABLE IF NOT EXISTS notifications (
       id VARCHAR PRIMARY KEY,
@@ -198,7 +199,7 @@ async function createTables() {
       message TEXT,
       metadata JSONB
     );
-  `;
+  `
 
   const createTransactionsTable = `
     CREATE TABLE IF NOT EXISTS transactions (
@@ -212,8 +213,7 @@ async function createTables() {
       response JSONB,
       orden JSONB
     );
-  `;
-
+  `
 
   await Promise.all([
     pool.query(createUsersTable),
@@ -229,26 +229,29 @@ async function createTables() {
     pool.query(createTrendsTable)
   ])
 
-  console.log('Tables created successfully');
+  console.log('Tables created successfully')
 }
 
-async function fillTablesWithLocalData() {
-  const userData = await UsersModel.getAllUsers();
-  const bookData = await BooksModel.getAllBooks();
-  const bookBackstageData = await BooksModel.getAllReviewBooks();
-  const withdrawalData = await TransactionsModel.getAllWithdrawTransactions();
-  const rawTrends = await fs.readFile(path.join(__dirname, "data", "trends.json"), "utf-8");
-  const trendsData = JSON.parse(rawTrends);
-  const collectionData = await CollectionsModel.getAllCollections();
-  const conversationData = await ConversationsModel.getAllConversations();
-  const messageData = await MessagesModel.getAllMessages();
-  const notificationData = await NotificationsModel.getAllNotifications();
-  const emailData = await EmailsModel.getAllEmails();
-  const transactionData = await TransactionsModel.getAllTransactions();
+async function fillTablesWithLocalData () {
+  const userData = await UsersModel.getAllUsers()
+  const bookData = await BooksModel.getAllBooks()
+  const bookBackstageData = await BooksModel.getAllReviewBooks()
+  const withdrawalData = await TransactionsModel.getAllWithdrawTransactions()
+  const rawTrends = await fs.readFile(
+    path.join(__dirname, 'data', 'trends.json'),
+    'utf-8'
+  )
+  const trendsData = JSON.parse(rawTrends)
+  const collectionData = await CollectionsModel.getAllCollections()
+  const conversationData = await ConversationsModel.getAllConversations()
+  const messageData = await MessagesModel.getAllMessages()
+  const notificationData = await NotificationsModel.getAllNotifications()
+  const emailData = await EmailsModel.getAllEmails()
+  const transactionData = await TransactionsModel.getAllTransactions()
 
   try {
     await Promise.all(
-      userData.map((user) =>
+      userData.map(user =>
         pool.query(
           `
           INSERT INTO users (id, nombre, rol, fotoPerfil, correo, direccionEnvio, librosIds, 
@@ -280,18 +283,18 @@ async function fillTablesWithLocalData() {
             user.coleccionsIds,
             user.comprasIds,
             user.preferencias,
-            user.historialBusquedas,
+            user.historialBusquedas
           ]
         )
       )
-    );
+    )
   } catch (error) {
-    console.error("Error inserting users:", error);
+    console.error('Error inserting users:', error)
   }
 
   try {
     await Promise.all(
-      bookData.map((book) =>
+      bookData.map(book =>
         pool.query(
           `
           INSERT INTO books (id, titulo, autor, precio, oferta, isbn, images, keywords, 
@@ -326,18 +329,18 @@ async function fillTablesWithLocalData() {
             book.actualizadoEn,
             book.disponibilidad,
             book.mensajes,
-            book.collectionsIds,
+            book.collectionsIds
           ]
         )
       )
-    );
+    )
   } catch (error) {
-    console.error("Error inserting books:", error);
+    console.error('Error inserting books:', error)
   }
 
   try {
     await Promise.all(
-      bookBackstageData.map((book) =>
+      bookBackstageData.map(book =>
         pool.query(
           `
           INSERT INTO books_backstage (id, titulo, autor, precio, oferta, isbn, images, keywords, 
@@ -372,17 +375,17 @@ async function fillTablesWithLocalData() {
             book.actualizadoEn,
             book.disponibilidad,
             book.mensajes,
-            book.collectionsIds,
+            book.collectionsIds
           ]
         )
       )
-    );
+    )
   } catch (error) {
-    console.error("Error inserting books:", error);
+    console.error('Error inserting books:', error)
   }
   try {
     await Promise.all(
-      collectionData.map((collection) =>
+      collectionData.map(collection =>
         pool.query(
           `
           INSERT INTO collections (id, foto, librosIds, nombre, descripcion, seguidores, userId, saga, creadoEn)
@@ -397,34 +400,39 @@ async function fillTablesWithLocalData() {
             collection.seguidores,
             collection.userId,
             collection.saga,
-            collection.creadoEn,
+            collection.creadoEn
           ]
         )
       )
-    );
+    )
   } catch (error) {
-    console.error("Error inserting collections:", error);
+    console.error('Error inserting collections:', error)
   }
 
   try {
     await Promise.all(
-      conversationData.map((conversation) =>
+      conversationData.map(conversation =>
         pool.query(
           `
           INSERT INTO conversations (id, users, createdIn, lastMessage)
           VALUES ($1, $2, $3, $4);
         `,
-          [conversation.id, conversation.users, conversation.createdIn, conversation.lastMessage]
+          [
+            conversation.id,
+            conversation.users,
+            conversation.createdIn,
+            conversation.lastMessage
+          ]
         )
       )
-    );
+    )
   } catch (error) {
-    console.error("Error inserting conversations:", error);
+    console.error('Error inserting conversations:', error)
   }
 
   try {
     await Promise.all(
-      messageData.map((message) =>
+      messageData.map(message =>
         pool.query(
           `
           INSERT INTO messages (id, conversationId, userId, message, createdIn, read)
@@ -436,18 +444,18 @@ async function fillTablesWithLocalData() {
             message.userId,
             message.message,
             message.createdIn,
-            message.read,
+            message.read
           ]
         )
       )
-    );
+    )
   } catch (error) {
-    console.error("Error inserting messages:", error);
+    console.error('Error inserting messages:', error)
   }
 
   try {
     await Promise.all(
-      notificationData.map((notification) =>
+      notificationData.map(notification =>
         pool.query(
           `
           INSERT INTO notifications (id, title, priority, type, userId, input, createdIn, read, actionUrl, expiresAt, message, metadata)
@@ -465,18 +473,18 @@ async function fillTablesWithLocalData() {
             notification.actionUrl,
             notification.expiresAt,
             notification.message,
-            notification.metadata,
+            notification.metadata
           ]
         )
       )
-    );
+    )
   } catch (error) {
-    console.error("Error inserting notifications:", error);
+    console.error('Error inserting notifications:', error)
   }
 
   try {
     await Promise.all(
-      emailData.map((email) =>
+      emailData.map(email =>
         pool.query(
           `
           INSERT INTO emails (email)
@@ -485,14 +493,14 @@ async function fillTablesWithLocalData() {
           [email]
         )
       )
-    );
+    )
   } catch (error) {
-    console.error("Error inserting emails:", error);
+    console.error('Error inserting emails:', error)
   }
 
   try {
     await Promise.all(
-      transactionData.map((transaction) =>
+      transactionData.map(transaction =>
         pool.query(
           `
           INSERT INTO transactions (id, userId, bookId, sellerId, status, shippingDetails, response, orden)
@@ -506,17 +514,17 @@ async function fillTablesWithLocalData() {
             transaction.status,
             transaction.shippingDetails,
             transaction.response,
-            transaction.order ?? {},
+            transaction.order ?? {}
           ]
         )
       )
-    );
+    )
   } catch (error) {
-    console.error("Error inserting transactions:", error);
+    console.error('Error inserting transactions:', error)
   }
   try {
     await Promise.all(
-      withdrawalData.map((withdrawal) =>
+      withdrawalData.map(withdrawal =>
         pool.query(
           `
           INSERT INTO withdrawals (id, userId, numeroCuenta, bank, monto, fecha, status, phoneNumber)
@@ -534,9 +542,9 @@ async function fillTablesWithLocalData() {
           ]
         )
       )
-    );
+    )
   } catch (error) {
-    console.error("Error inserting withdrawals:", error);
+    console.error('Error inserting withdrawals:', error)
   }
   try {
     Object.entries(trendsData).map(([key, trend]) =>
@@ -549,22 +557,20 @@ async function fillTablesWithLocalData() {
       )
     )
   } catch (error) {
-    console.error("Error inserting trends:", error);
+    console.error('Error inserting trends:', error)
   }
-  console.log("Tables filled with local data successfully");
+  console.log('Tables filled with local data successfully')
   // Close the database connection
 }
 
+async function seed () {
+  await pool.connect()
 
-
-async function seed() {
-  await pool.connect();
-
-  console.log("Connected to the database");
+  console.log('Connected to the database')
   await dropTables()
-  await createTables();
-  await fillTablesWithLocalData();
-  console.log("Database seeded successfully");
+  await createTables()
+  await fillTablesWithLocalData()
+  console.log('Database seeded successfully')
 }
 
 seed()
