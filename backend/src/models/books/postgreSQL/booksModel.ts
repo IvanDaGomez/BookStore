@@ -198,7 +198,7 @@ class BooksModel {
         return `${last}${prefix}${key} = $${index + 1}`
       })
       
-      const result = await executeSingleResultQuery<BookObjectType>(
+      const result = await executeSingleResultQuery(
         pool,
         () => pool.query(
           `UPDATE books SET ${updateString} WHERE ID = $${keys.length + 1} RETURNING ${this.getEssencialFields().join(', ')};`,

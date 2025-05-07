@@ -2,7 +2,7 @@ GET http://localhost:3030/api/collections
 
 
 ###
-GET http://localhost:3030/api/collections/id/5b14f0b8-1501-4a34-b90d-c87d0eea6a9b
+GET http://localhost:3030/api/collections/5b14f0b8-1501-4a34-b90d-c87d0eea6a9b
 
 
 
