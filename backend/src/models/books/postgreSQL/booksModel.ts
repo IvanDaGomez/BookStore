@@ -2,7 +2,7 @@ import fs from 'node:fs/promises'
 import { changeToArray } from '../../../assets/changeToArray.js'
 import { calculateMatchScore } from '../../../assets/calculateMatchScore.js'
 import * as tf from '@tensorflow/tfjs'
-import { getBookKeyInfo } from '../local/getBookKeyInfo.js' 
+import { getBookKeyInfo } from '../local/getBookKeyInfo.js'
 import { getTrends } from '../../../assets/getTrends.js'
 import { UsersModel } from '../../users/local/usersLocal.js'
 import { bookObject } from '../bookObject.js'
@@ -10,14 +10,18 @@ import { ID, ISOString } from '../../../types/objects.js'
 import { AuthToken } from '../../../types/authToken.js'
 import { CollectionObjectType } from '../../../types/collection'
 import { BookObjectType } from '../../../types/book.js'
-import { executeQuery, executeSingleResultQuery, DatabaseError } from '../../../utils/dbUtils.js'
+import {
+  executeQuery,
+  executeSingleResultQuery,
+  DatabaseError
+} from '../../../utils/dbUtils.js'
 
 import { filterBooksByFilters } from '../local/filterBooksByFilters.js'
 // __dirname is not available in ES modules, so we need to use import.meta.url
 
 import { pool } from '../../../assets/config.js'
 class BooksModel {
-  private static getEssencialFields(): string[] {
+  private static getEssencialFields (): string[] {
     return Object.keys(bookObject({}, false))
   }
   static async getAllBooks (): Promise<BookObjectType[]> {
@@ -26,15 +30,14 @@ class BooksModel {
         pool,
         () => pool.query('SELECT * FROM books;'),
         'Failed to fetch books from database'
-      );
+      )
 
-      
-      return books;
+      return books
     } catch (error) {
       if (error instanceof DatabaseError) {
-        throw error;
+        throw error
       }
-      throw new DatabaseError('Error retrieving books', error);
+      throw new DatabaseError('Error retrieving books', error)
     }
   }
 
@@ -44,12 +47,12 @@ class BooksModel {
         pool,
         () => pool.query('SELECT * FROM books WHERE id = $1;', [id]),
         `Failed to fetch book with ID ${id}`
-      );
+      )
     } catch (error) {
       if (error instanceof DatabaseError) {
-        throw error;
+        throw error
       }
-      throw new DatabaseError(`Error retrieving book with ID ${id}`, error);
+      throw new DatabaseError(`Error retrieving book with ID ${id}`, error)
     }
   }
 
@@ -59,15 +62,17 @@ class BooksModel {
     books: BookObjectType[] = []
   ): Promise<Partial<BookObjectType>[]> {
     try {
-      
       if (books.length === 0) {
         books = await executeQuery(
           pool,
-          () => pool.query(
-            `SELECT ${this.getEssencialFields().join(', ')} FROM books WHERE disponibilidad = 'Disponible' ORDER BY RANDOM() LIMIT $1;`
-          , [l]),
+          () =>
+            pool.query(
+              `SELECT ${this.getEssencialFields().join(', ')} 
+              FROM books WHERE disponibilidad = 'Disponible' ORDER BY RANDOM() LIMIT $1;`,
+              [l]
+            ),
           'Failed to fetch books from database'
-        );
+        )
       }
       const queryWords = changeToArray(query)
 
@@ -87,51 +92,58 @@ class BooksModel {
       return filterdBooks
     } catch (error) {
       if (error instanceof DatabaseError) {
-        throw error;
+        throw error
       }
-      throw new DatabaseError('Error searching books by query', error);
+      throw new DatabaseError('Error searching books by query', error)
     }
   }
 
-  static async getBooksByQueryWithFilters (query: string,
+  static async getBooksByQueryWithFilters (
+    query: string,
     filters: Partial<Record<keyof BookObjectType, any>>,
-    limit: number,
+    limit: number
   ): Promise<Partial<BookObjectType>[]> {
     // TODO: Implementar la función en la base de datos como tal
     let books = await executeQuery(
-      pool, 
-      () => pool.query(`SELECT * FROM books WHERE disponibilidad = 'Disponible' ORDER BY RANDOM() LIMIT 1000;`),
+      pool,
+      () =>
+        pool.query(
+          `SELECT * FROM books WHERE disponibilidad = 'Disponible' ORDER BY RANDOM() LIMIT 1000;`
+        ),
       'Failed to fetch books from database'
     )
 
-    type PreparedFiltersType = Partial<{
-      [key in keyof BookObjectType[]]?: any[] | number
-    } & {
-      minPrecio?: number
-      maxPrecio?: number,
-      ciudad?: string[]
-      departamento?: string[]
-    }>
+    type PreparedFiltersType = Partial<
+      {
+        [key in keyof BookObjectType[]]?: any[] | number
+      } & {
+        minPrecio?: number
+        maxPrecio?: number
+        ciudad?: string[]
+        departamento?: string[]
+      }
+    >
     const preparedFilters: PreparedFiltersType = {}
     Object.keys(filters).forEach(filter => {
-      const filterValue = filters[filter as keyof BookObjectType];
+      const filterValue = filters[filter as keyof BookObjectType]
       if (typeof filterValue === 'string') {
-        preparedFilters[filter as any] = filterValue.split(',');
+        preparedFilters[filter as any] = filterValue.split(',')
       }
-      if (filter === 'precio' && Array.isArray(preparedFilters[filter as keyof PreparedFiltersType])) {
-        const prices = preparedFilters[filter as keyof PreparedFiltersType] as number[];
-        preparedFilters['minPrecio'] = Math.min(...prices);
-        preparedFilters['maxPrecio'] = Math.max(...prices);
-        delete preparedFilters[filter as keyof PreparedFiltersType];
+      if (
+        filter === 'precio' &&
+        Array.isArray(preparedFilters[filter as keyof PreparedFiltersType])
+      ) {
+        const prices = preparedFilters[
+          filter as keyof PreparedFiltersType
+        ] as number[]
+        preparedFilters['minPrecio'] = Math.min(...prices)
+        preparedFilters['maxPrecio'] = Math.max(...prices)
+        delete preparedFilters[filter as keyof PreparedFiltersType]
       }
-    });
+    })
     books = filterBooksByFilters(books, preparedFilters)
     // Perform search based on the query
-    const resultBooks = await this.getBookByQuery(
-      query,
-      limit,
-      books
-    )
+    const resultBooks = await this.getBookByQuery(query, limit, books)
 
     return resultBooks
   }
@@ -141,49 +153,50 @@ class BooksModel {
       const book = bookObject(data, true)
       await executeQuery(
         pool,
-        () => pool.query(
-          `INSERT INTO books (id, titulo, autor, precio, oferta, isbn, images, keywords, 
+        () =>
+          pool.query(
+            `INSERT INTO books (id, titulo, autor, precio, oferta, isbn, images, keywords, 
           descripcion, estado, genero, formato, vendedor, idVendedor, edicion, idioma, 
           ubicacion, tapa, edad, fechaPublicacion, actualizadoEn, disponibilidad,
           mensajes, collectionsIds)
           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13,
           $14, $15, $16, $17, $18, $19, $20,$21,$22, $23, $24)
           ON CONFLICT (isbn) DO NOTHING;`,
-          [
-            book.id,
-            book.titulo,
-            book.autor,
-            book.precio,
-            book.oferta,
-            book.isbn,
-            book.images,
-            book.keywords,
-            book.descripcion,
-            book.estado,
-            book.genero,
-            book.formato,
-            book.vendedor,
-            book.idVendedor,
-            book.edicion,
-            book.idioma,
-            book.ubicacion,
-            book.tapa,
-            book.edad,
-            book.fechaPublicacion,
-            book.actualizadoEn,
-            book.disponibilidad,
-            book.mensajes,
-            book.collectionsIds,
-          ]
-        ),
+            [
+              book.id,
+              book.titulo,
+              book.autor,
+              book.precio,
+              book.oferta,
+              book.isbn,
+              book.images,
+              book.keywords,
+              book.descripcion,
+              book.estado,
+              book.genero,
+              book.formato,
+              book.vendedor,
+              book.idVendedor,
+              book.edicion,
+              book.idioma,
+              book.ubicacion,
+              book.tapa,
+              book.edad,
+              book.fechaPublicacion,
+              book.actualizadoEn,
+              book.disponibilidad,
+              book.mensajes,
+              book.collectionsIds
+            ]
+          ),
         'Failed to create new book'
-      );
-      return book;
+      )
+      return book
     } catch (error) {
       if (error instanceof DatabaseError) {
-        throw error;
+        throw error
       }
-      throw new DatabaseError('Error creating new book', error);
+      throw new DatabaseError('Error creating new book', error)
     }
   }
 
@@ -197,22 +210,25 @@ class BooksModel {
         const prefix = index === 0 ? '' : ', '
         return `${last}${prefix}${key} = $${index + 1}`
       })
-      
+
       const result = await executeSingleResultQuery(
         pool,
-        () => pool.query(
-          `UPDATE books SET ${updateString} WHERE ID = $${keys.length + 1} RETURNING ${this.getEssencialFields().join(', ')};`,
-          [...values, id]
-        ),
+        () =>
+          pool.query(
+            `UPDATE books SET ${updateString} WHERE ID = $${
+              keys.length + 1
+            } RETURNING ${this.getEssencialFields().join(', ')};`,
+            [...values, id]
+          ),
         `Failed to update book with ID ${id}`
-      );
+      )
 
       return result
     } catch (error) {
       if (error instanceof DatabaseError) {
-        throw error;
+        throw error
       }
-      throw new DatabaseError(`Error updating book with ID ${id}`, error);
+      throw new DatabaseError(`Error updating book with ID ${id}`, error)
     }
   }
 
@@ -223,19 +239,19 @@ class BooksModel {
         pool,
         () => pool.query('SELECT * FROM books WHERE id = $1;', [id]),
         'Failed to find book to delete'
-      );
-      if (!result) throw new Error('Book not found');
+      )
+      if (!result) throw new Error('Book not found')
       await executeQuery(
         pool,
         () => pool.query('DELETE FROM books WHERE id = $1;', [id]),
         `Failed to delete book with ID ${id}`
-      );
-      return { message: 'Book deleted successfully' };
+      )
+      return { message: 'Book deleted successfully' }
     } catch (error) {
       if (error instanceof DatabaseError) {
-        throw error;
+        throw error
       }
-      throw new DatabaseError(`Error deleting book with ID ${id}`, error);
+      throw new DatabaseError(`Error deleting book with ID ${id}`, error)
     }
   }
 
@@ -245,12 +261,12 @@ class BooksModel {
         pool,
         () => pool.query('SELECT * FROM books_backstage;'),
         'Failed to fetch review books from database'
-      );
+      )
     } catch (error) {
       if (error instanceof DatabaseError) {
-        throw error;
+        throw error
       }
-      throw new DatabaseError('Error retrieving review books', error);
+      throw new DatabaseError('Error retrieving review books', error)
     }
   }
 
@@ -258,52 +274,53 @@ class BooksModel {
     data: Partial<BookObjectType>
   ): Promise<BookObjectType> {
     try {
-      const book = bookObject(data, true);
+      const book = bookObject(data, true)
       await executeQuery(
         pool,
-        () => pool.query(
-          `INSERT INTO books_backstage (id, titulo, autor, precio, oferta, isbn, images, keywords, 
+        () =>
+          pool.query(
+            `INSERT INTO books_backstage (id, titulo, autor, precio, oferta, isbn, images, keywords, 
           descripcion, estado, genero, formato, vendedor, idVendedor, edicion, idioma, 
           ubicacion, tapa, edad, fechaPublicacion, actualizadoEn, disponibilidad,
           mensajes, collectionsIds)
           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13,
           $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24)
           ON CONFLICT (isbn) DO NOTHING;`,
-          [
-            book.id,
-            book.titulo,
-            book.autor,
-            book.precio,
-            book.oferta,
-            book.isbn,
-            book.images,
-            book.keywords,
-            book.descripcion,
-            book.estado,
-            book.genero,
-            book.formato,
-            book.vendedor,
-            book.idVendedor,
-            book.edicion,
-            book.idioma,
-            book.ubicacion,
-            book.tapa,
-            book.edad,
-            book.fechaPublicacion,
-            book.actualizadoEn,
-            book.disponibilidad,
-            book.mensajes,
-            book.collectionsIds,
-          ]
-        ),
+            [
+              book.id,
+              book.titulo,
+              book.autor,
+              book.precio,
+              book.oferta,
+              book.isbn,
+              book.images,
+              book.keywords,
+              book.descripcion,
+              book.estado,
+              book.genero,
+              book.formato,
+              book.vendedor,
+              book.idVendedor,
+              book.edicion,
+              book.idioma,
+              book.ubicacion,
+              book.tapa,
+              book.edad,
+              book.fechaPublicacion,
+              book.actualizadoEn,
+              book.disponibilidad,
+              book.mensajes,
+              book.collectionsIds
+            ]
+          ),
         'Failed to create review book'
-      );
-      return book;
+      )
+      return book
     } catch (error) {
       if (error instanceof DatabaseError) {
-        throw error;
+        throw error
       }
-      throw new DatabaseError('Error creating review book', error);
+      throw new DatabaseError('Error creating review book', error)
     }
   }
 
@@ -313,13 +330,13 @@ class BooksModel {
         pool,
         () => pool.query('DELETE FROM books_backstage WHERE id = $1;', [id]),
         `Failed to delete review book with ID ${id}`
-      );
-      return { message: 'Book deleted successfully' };
+      )
+      return { message: 'Book deleted successfully' }
     } catch (error) {
       if (error instanceof DatabaseError) {
-        throw error;
+        throw error
       }
-      throw new DatabaseError(`Error deleting review book with ID ${id}`, error);
+      throw new DatabaseError(`Error deleting review book with ID ${id}`, error)
     }
   }
 
@@ -328,31 +345,34 @@ class BooksModel {
     data: Partial<BookObjectType>
   ): Promise<Partial<BookObjectType>> {
     try {
-      const [keys, values] = Object.entries(data);
+      const [keys, values] = Object.entries(data)
       const updateString = keys.reduce((last, key, index) => {
-        const prefix = index === 0 ? '' : ', ';
-        return `${last}${prefix}${key} = $${index + 1}`;
-      });
-      
+        const prefix = index === 0 ? '' : ', '
+        return `${last}${prefix}${key} = $${index + 1}`
+      })
+
       const result = await executeSingleResultQuery(
         pool,
-        () => pool.query(
-          `UPDATE books_backstage SET ${updateString} WHERE ID = $${keys.length + 1} RETURNING *;`,
-          [...values, id]
-        ),
+        () =>
+          pool.query(
+            `UPDATE books_backstage SET ${updateString} WHERE ID = $${
+              keys.length + 1
+            } RETURNING *;`,
+            [...values, id]
+          ),
         `Failed to update review book with ID ${id}`
-      );
+      )
 
       if (!result.length) {
-        throw new DatabaseError('Review book not found');
+        throw new DatabaseError('Review book not found')
       }
 
-      return bookObject(result[0], false);
+      return bookObject(result[0], false)
     } catch (error) {
       if (error instanceof DatabaseError) {
-        throw error;
+        throw error
       }
-      throw new DatabaseError(`Error updating review book with ID ${id}`, error);
+      throw new DatabaseError(`Error updating review book with ID ${id}`, error)
     }
   }
 
@@ -363,98 +383,105 @@ class BooksModel {
     try {
       const books = await executeQuery(
         pool,
-        () => pool.query(
-          `SELECT * FROM books WHERE disponibilidad = 'Disponible' ORDER BY RANDOM() LIMIT $1;`,
-          [sampleSize]
-        ),
+        () =>
+          pool.query(
+            `SELECT * FROM books WHERE disponibilidad = 'Disponible' ORDER BY RANDOM() LIMIT $1;`,
+            [sampleSize]
+          ),
         'Failed to fetch random books for recommendations'
-      );
+      )
 
       // Las querywords sería palabras que el usuario tiene en base a sus gustos
-      const trends = await getTrends();
+      const trends = await getTrends()
 
-      let historial: string[] = [];
-      let preferences: string[] = [];
-      let likes: ID[] = [];
+      let historial: string[] = []
+      let preferences: string[] = []
+      let likes: ID[] = []
 
       if (userKeyInfo?.id) {
-        const user = await UsersModel.getUserById(userKeyInfo.id);
-        preferences = Object.keys(user?.preferencias || {});
-        historial = Object.keys(user?.historialBusquedas || {});
-        likes = user.favoritos ?? [];
-        
+        const user = await UsersModel.getUserById(userKeyInfo.id)
+        preferences = Object.keys(user?.preferencias || {})
+        historial = Object.keys(user?.historialBusquedas || {})
+        likes = user.favoritos ?? []
+
         // Si el usuario tiene libros favoritos, entonces los agrego a las querywords
         if (likes.length > 0) {
-          const booksFavorites = await this.getBooksByIdList(likes, 10);
+          const booksFavorites = await this.getBooksByIdList(likes, 10)
           preferences = [
             ...preferences,
             ...booksFavorites.map(book => book.titulo ?? '')
-          ];
+          ]
         }
       }
-      
-      const queryWords = [...preferences, ...historial, ...trends];
-      
+
+      const queryWords = [...preferences, ...historial, ...trends]
+
       // Calculate the distances in these selected items
       const booksWithScores = books
         .map(book => {
-          let score = calculateMatchScore(book, queryWords, 'query'); // Query se usa para considerar si la palabra es muy pequeña, por lo que aquí solo agregaré una palabra de más de 4 letras para asegurar la tolerancia
-          const threshold = 0; // Revisar si es necesario
-          const bookKeyInfo = getBookKeyInfo(book);
-          
+          let score = calculateMatchScore(book, queryWords, 'query') // Query se usa para considerar si la palabra es muy pequeña, por lo que aquí solo agregaré una palabra de más de 4 letras para asegurar la tolerancia
+          const threshold = 0 // Revisar si es necesario
+          const bookKeyInfo = getBookKeyInfo(book)
+
           if (score >= queryWords.length * threshold) {
             // Priorizar las preferencias del usuario
-            if (preferences.some(preference => bookKeyInfo.includes(preference))) {
-              score += 10;
+            if (
+              preferences.some(preference => bookKeyInfo.includes(preference))
+            ) {
+              score += 10
             }
-            return { book, score };
-          } else return null;
+            return { book, score }
+          } else return null
         })
-        .filter((item): item is { book: BookObjectType; score: number } => item !== null);
+        .filter(
+          (item): item is { book: BookObjectType; score: number } =>
+            item !== null
+        )
 
-      booksWithScores.sort((a, b) => b.score - a.score);
+      booksWithScores.sort((a, b) => b.score - a.score)
 
-      return booksWithScores
-        .map(item => bookObject(item.book, false));
+      return booksWithScores.map(item => bookObject(item.book, false))
     } catch (error) {
       if (error instanceof DatabaseError) {
-        throw error;
+        throw error
       }
-      throw new DatabaseError('Error generating recommendations', error);
+      throw new DatabaseError('Error generating recommendations', error)
     }
   }
 
-  static async getFavoritesByUser(
+  static async getFavoritesByUser (
     favorites: ID[]
   ): Promise<Partial<BookObjectType>[]> {
     try {
-      const elements = await Promise.all(favorites.map(ID => {
-        return this.getBookById(ID)
-      }))
-      
-      return elements;
+      const elements = await Promise.all(
+        favorites.map(ID => {
+          return this.getBookById(ID)
+        })
+      )
+
+      return elements
     } catch (error) {
       if (error instanceof DatabaseError) {
-        throw error;
+        throw error
       }
-      throw new DatabaseError('Error fetching favorite books', error);
+      throw new DatabaseError('Error fetching favorite books', error)
     }
   }
 
-  static async getBooksByIdList(
+  static async getBooksByIdList (
     list: ID[],
     l: number
   ): Promise<Partial<BookObjectType>[]> {
     try {
       const books = await Promise.all(
         list.slice(0, l).map(id => this.getBookById(id))
-      );
-      return books.map(book => bookObject(book, false));
+      )
+      return books.map(book => bookObject(book, false))
     } catch (error) {
       if (error instanceof DatabaseError) {
-        throw error;
+        throw error
       }
-      throw new DatabaseError('Error fetching books by ID list', error);
+      throw new DatabaseError('Error fetching books by ID list', error)
     }
   }
 
@@ -463,8 +490,8 @@ class BooksModel {
   ): Promise<{ title: string; author: string }> {
     try {
       // Read the file buffer
-      const imageBuffer = await fs.readFile(file.path);
-      const tensor = tf.tensor([0, 0, 0]);
+      const imageBuffer = await fs.readFile(file.path)
+      const tensor = tf.tensor([0, 0, 0])
       // Convert buffer to Tensor
       // const tensor = decodeImage(imageBuffer)
       //   .resizeNearestNeighbor([224, 336]) // Resize for model input (adjust as needed)
@@ -473,18 +500,21 @@ class BooksModel {
       //   .div(255.0) // Normalize pixel values
 
       // Load the model (assuming it's a pre-trained model)
-      const model = await tf.loadLayersModel('file://path_to_model/model.json');
+      const model = await tf.loadLayersModel('file://path_to_model/model.json')
 
       // Make prediction
       // eslint-disable-next-line no-unused-vars
-      const prediction = model.predict(tensor);
+      const prediction = model.predict(tensor)
 
       return {
         title: 'Hola',
         author: 'soy'
-      };
+      }
     } catch (error) {
-      throw new DatabaseError('Error predicting book information from image', error);
+      throw new DatabaseError(
+        'Error predicting book information from image',
+        error
+      )
     }
   }
   static async getBooksByCollection (
@@ -495,13 +525,13 @@ class BooksModel {
       // Obtener todos los libros
       const books = await Promise.all(
         collection.librosIds.map(id => this.getBookById(id))
-      );
-      return books;
+      )
+      return books
     } catch (error) {
       if (error instanceof DatabaseError) {
-        throw error;
+        throw error
       }
-      throw new DatabaseError('Error fetching books by collection', error);
+      throw new DatabaseError('Error fetching books by collection', error)
     }
   }
 }

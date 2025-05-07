@@ -1,9 +1,9 @@
-import fs from 'node:fs/promises'
 import { ID } from '../../../types/objects'
-import { executeQuery, executeSingleResultQuery } from '../../../utils/dbUtils.js'
+import {
+  executeQuery,
+  executeSingleResultQuery
+} from '../../../utils/dbUtils.js'
 import { pool } from '../../../assets/config.js'
-
-
 
 class EmailsModel {
   static async getAllEmails (): Promise<string[]> {
@@ -15,7 +15,7 @@ class EmailsModel {
     return data
   }
 
-  static async getEmailById (id: ID): Promise<string>{
+  static async getEmailById (id: ID): Promise<string> {
     const email = await executeSingleResultQuery(
       pool,
       () => pool.query('SELECT email FROM emails WHERE id = $1;', [id]),
@@ -24,10 +24,15 @@ class EmailsModel {
     return email
   }
 
-  static async createEmail (data: { email: string }): Promise<{ email: string }> {
+  static async createEmail (data: {
+    email: string
+  }): Promise<{ email: string }> {
     const email = await executeSingleResultQuery(
       pool,
-      () => pool.query('INSERT INTO emails (email) VALUES ($1) RETURNING email;', [data.email]),
+      () =>
+        pool.query('INSERT INTO emails (email) VALUES ($1) RETURNING email;', [
+          data.email
+        ]),
       'Error creating email'
     )
     return data
@@ -41,6 +46,5 @@ class EmailsModel {
     )
     return { message: 'Correo eliminado correctamente' }
   }
-
 }
 export { EmailsModel }
