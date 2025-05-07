@@ -11,7 +11,8 @@
     "updateDataBase": "tsc && node dist/assets/updateDB.ts",
     "document": "node src/assets/swagger.js",
     "build": "tsc",
-    "seed": "tsc && node dist/assets/seed.js"
+    "seed": "tsc && node dist/assets/seed.js",
+    "testEmail": "tsc && node dist/assets/email/sendTryEmail.js"
   },
   "author": "Ivan Gomez",
   "license": "ISC",

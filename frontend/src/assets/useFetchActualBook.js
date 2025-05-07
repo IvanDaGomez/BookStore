@@ -13,9 +13,14 @@ export default function useFetchActualBook (bookId, externalSet = null, setActua
       const url = `http://localhost:3030/api/books/${id}`;
       try {
         const response = await axios.get(url, {
-          headers: { 'update': id }, 
+          headers: { 'update': id },
           withCredentials: true
         });
+        if (response?.data?.error) {
+          console.error('Error fetching book data:', response.data.error);
+          setLibro({});
+          return;
+        }
         const book = response.data ?? null;
         setLibro(book);
         if (externalSet) {

@@ -173,6 +173,7 @@ export class TransactionsController {
         } */
         // auto_return: 'approved'
       }
+      console.log('body', body)
       const result = await preference.create({ body })
       res.json({
         id: result.id

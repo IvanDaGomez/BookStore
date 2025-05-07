@@ -2,10 +2,10 @@ import multer from 'multer'
 import path from 'node:path'
 import pkg from 'pg'
 const { Pool } = pkg
-import { fileURLToPath } from 'node:url';
-import { Payment, MercadoPagoConfig, Preference } from 'mercadopago';
-const __filename = fileURLToPath(import.meta.url);
-const assetsDir = path.dirname(__filename);
+import { fileURLToPath } from 'node:url'
+import { Payment, MercadoPagoConfig, Preference } from 'mercadopago'
+const __filename = fileURLToPath(import.meta.url)
+const assetsDir = path.dirname(__filename)
 const __dirname = path.join(assetsDir, '..', '..')
 //dirname is the first subfolder after backend/
 const POSTGRESQL_PORT = process.env.POSTGRESQL_PORT
@@ -23,7 +23,7 @@ const pool = new Pool({
   connectionTimeoutMillis: 2000 // return an error after 2 seconds if connection could not be established
 })
 
-const SALT_ROUNDS: number = 10 
+const SALT_ROUNDS: number = 10
 // Crear el directorio de subida si no existe
 // Configurar Multer para guardar en una carpeta 'uploads' y con nombre único
 const uploadsPath = path.join(__dirname, 'uploads')
@@ -37,12 +37,11 @@ const storage = multer.diskStorage({
   }
 })
 const PORT: number = parseInt(process.env.PORT ?? '3030', 10)
-// Limitar el tamaño del archivo a 5 MB 
+// Limitar el tamaño del archivo a 5 MB
 const upload = multer({
   storage,
   limits: { fileSize: 5 * 1024 * 1024 } // 5 MB
 })
-
 
 const client = new MercadoPagoConfig({
   accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN ?? ''

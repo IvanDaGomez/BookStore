@@ -5,6 +5,8 @@ export default function useFetchPreferenceId(libro) {
   useEffect(() => {
     // Fetch preferenceId only when `libro` changes
     const fetchPreferenceId = async () => {
+      console.log('Fetching preference ID...') // Debugging log
+      console.log(libro) // Debugging log
       if (libro) {
         try {
           const url = 'http://localhost:3030/api/transactions/getBookPreferenceId'
@@ -27,8 +29,9 @@ export default function useFetchPreferenceId(libro) {
           })
 
           // Parse the response JSON
-          if (response.ok) {
+          if (!response.error) {
             const data = await response.json()
+            console.log(data)
             setPreferenceId(data.id) // Assuming response includes `preferenceId`
           } else {
             console.error('Error fetching preference ID:', response.statusText)

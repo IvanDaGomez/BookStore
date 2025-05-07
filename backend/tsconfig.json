@@ -15,7 +15,7 @@
   "include": [
     "src/**/*.ts",                         // Archivos TS en la carpeta 'src'
     "backend/**/*.ts"                      // Archivos TS en la carpeta 'backend'
-, "src/assets/swagger.js"  ],
+, "src/assets/swagger.js", "src/assets/email/sendTryEmail.mts"  ],
   "exclude": [
     "node_modules"
   ]

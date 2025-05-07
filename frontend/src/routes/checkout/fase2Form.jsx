@@ -6,7 +6,6 @@ import useGetCities from "../search/location/useGetCities";
 export default function Fase2Form (form, errors = null) {
   const [departamento, setDepartamento] = useState('')
   const departamentos = useGetDepartments()
-  const [ciudad, setCiudad] = useState('')
   const cities = useGetCities(departamento)
     useEffect(() => {
       // Actualizamos los valores de los campos con los datos de form
@@ -47,7 +46,12 @@ export default function Fase2Form (form, errors = null) {
 
         <div className='inputCrear'>
           <label htmlFor='departamento'>Departamento *</label>
-          <select name='departamento' id='departamento' required>
+      <select name='departamento' id='departamento' required
+        onChange={(e) => {
+          setDepartamento(e.target.value)
+          document.querySelector('#ciudad').value = ''
+        }}
+      >
             <option value=''>Seleccione un departamento</option>
             {departamentos.map((departamento, index) => (
               <option key={index} value={departamento}>{departamento}</option>

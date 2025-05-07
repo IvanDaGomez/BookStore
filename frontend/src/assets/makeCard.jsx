@@ -59,8 +59,7 @@ const MakeCard = ({ element, index, user = '', callback = () => {}, wordLimit = 
   return (
     <Link to={`/libros/${element.id}`} key={index} >
       <div className='sectionElement makeCard' 
-        style={{ filter: `opacity(${element.disponibilidad === 'Vendido' ? '0.6' : '1'})`, 
-                 width: `${width}px`
+        style={{ filter: `opacity(${element.disponibilidad === 'Vendido' ? '0.6' : '1'})`,  width: `${width}px`
       }}
         
         >

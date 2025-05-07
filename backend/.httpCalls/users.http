@@ -1,5 +1,8 @@
 @baseUrl = http://localhost:3030/api
 
+###
+
+GET {{baseUrl}}/users
 ### Register new user
 POST {{baseUrl}}/users
 Content-Type: application/json
