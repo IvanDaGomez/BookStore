@@ -218,6 +218,13 @@ class BooksModel {
 
   static async deleteBook (id: ID): Promise<{ message: string }> {
     try {
+      // Check if the book exists
+      const result = await executeSingleResultQuery(
+        pool,
+        () => pool.query('SELECT * FROM books WHERE id = $1;', [id]),
+        'Failed to find book to delete'
+      );
+      if (!result) throw new Error('Book not found');
       await executeQuery(
         pool,
         () => pool.query('DELETE FROM books WHERE id = $1;', [id]),
