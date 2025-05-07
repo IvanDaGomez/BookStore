@@ -130,20 +130,20 @@ export default function Search () {
   }
 
   const renderCard = (item, index) => {
-    if (!user || !item || !item?._id) return
+    if (!item || !item?._id) return
     switch (sk) {
       case 'books': {
         if (alignment === 'many') {
-          return <MakeCard key={index} element={item} user={user || {}}/> // Tarjeta de libros
+          return <MakeCard key={index} element={item} user={user ?? null}/> // Tarjeta de libros
         }
-        else return <MakeOneFrCard  key={index} element={item} user={user || {}}/> // Tarjeta de usuarios
+        else return <MakeOneFrCard  key={index} element={item} user={user ?? null}/> // Tarjeta de usuarios
       }
       case 'collections':
-        return <MakeCollectionCard key={index} element={item} user={user || {}}/> // Tarjeta de colecciones
+        return <MakeCollectionCard key={index} element={item} user={user ?? null}/> // Tarjeta de colecciones
       case 'users': 
-        return <MakeUserCard  key={index} element={item} user={user || {}} setUser={setUser}/>
+        return <MakeUserCard  key={index} element={item} user={user ?? null} setUser={setUser}/>
       default:
-        return <MakeCard key={index} element={item} user={user || ''}/> // Tarjeta de libros
+        return <MakeCard key={index} element={item} user={user ?? null}/> // Tarjeta de libros
     }
   }
   const [sortFilter] = useState({

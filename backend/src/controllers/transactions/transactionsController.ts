@@ -1,7 +1,7 @@
 import { validateTransaction } from '../../assets/validate.js'
 import { IBooksModel, ITransactionsModel, IUsersModel } from '../../types/models.js'
 import express from 'express'
-import { ID } from '../../types/objects.js'
+import { ID, ISOString } from '../../types/objects.js'
 import { TransactionObjectType } from '../../types/transaction.js'
 import { validateSignature } from '../../assets/validateSignature.js'
 import { sendProcessPaymentEmails } from '../users/sendProcessPaymentEmails.js'
@@ -533,10 +533,11 @@ export class TransactionsController {
         return res.status(400).json({ error: 'Saldo insuficiente' })
       }
       await this.TransactionsModel.createWithdrawTransaction({
+        _id: crypto.randomUUID(),
         userId,
         numeroCuenta: accountNumber,
         monto: ammount,
-        password,
+        fecha: new Date().toISOString() as ISOString,
         bank,
         status: 'pending',
         phoneNumber: phone

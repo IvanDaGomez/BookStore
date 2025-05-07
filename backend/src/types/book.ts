@@ -12,7 +12,7 @@ export type BookObjectType = {
   _id: ID;
   descripcion: string;
   estado: StateType;
-  genero: GenreType;
+  genero: GenreType; 
   formato: FormatType;
   vendedor: string;
   idVendedor: ID;

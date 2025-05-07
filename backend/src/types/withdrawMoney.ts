@@ -1,11 +1,12 @@
-import { ID } from "./objects"
+import { ID, ISOString } from "./objects"
 
 export type WithdrawMoneyType = {
+    _id: ID,
     userId: ID,
     numeroCuenta: number,
     phoneNumber: number,
     monto: number,
-    password: string,
+    fecha: ISOString,
     bank: string,
     status: 'pending' | 'approved' | 'rejected',
 }
