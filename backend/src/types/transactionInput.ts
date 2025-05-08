@@ -1,14 +1,14 @@
-import { PaymentResponse } from "mercadopago/dist/clients/payment/commonTypes"
-import { ID } from "./objects"
-import { ShippingDetailsType } from "./shippingDetails"
+import { PaymentResponse } from 'mercadopago/dist/clients/payment/commonTypes'
+import { ID } from './objects'
+import { ShippingDetailsType } from './shippingDetails'
 
 export type TransactionInputType = {
-  userId: ID,
-  bookId: ID,
-  sellerId: ID,
-  shippingDetails: ShippingDetailsType,
-  response: Omit<PaymentResponse, 'api_response'>,
-  order: any,
+  user_id: ID
+  book_id: ID
+  seller_id: ID
+  shipping_details: ShippingDetailsType
+  response: Omit<PaymentResponse, 'api_response'>
+  order: any
   transaction_amount?: number
   status?: string
 }

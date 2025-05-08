@@ -1,87 +1,82 @@
-import { ID, ImageType, ISOString } from "./objects";
-import { EstadoCuentaType, RoleType } from "./userCategories";
+import { ID, ImageType, ISOString } from './objects'
+import { EstadoCuentaType, RoleType } from './userCategories'
 
 export type CollectionItem = {
-  nombre: string;           // Name of the collection
-  librosIds: ID[];     // Array of book IDs
+  nombre: string // Name of the collection
+  librosIds: ID[] // Array of book IDs
 }
 // Pendiente
 export type PartialUserInfoType = {
   id: ID
   nombre: string
   rol: RoleType
-  fotoPerfil: ImageType
-  librosIds: ID[]
-  estadoCuenta: EstadoCuentaType
-  fechaRegistro: ISOString
-  actualizadoEn: ISOString
+  foto_perfil: ImageType
+  libros_ids: ID[]
+  estado_cuenta: EstadoCuentaType
+  fecha_registro: ISOString
+  actualizado_en: ISOString
   bio: string
   favoritos: ID[]
-  conversationsIds: ID[]
-  notificationsIds: ID[]
+  conversations_ids: ID[]
+  notifications_ids: ID[]
   validated: boolean
   login: 'Google' | 'Facebook' | 'Default'
-  ubicacion: {
-    calle: string
-    ciudad: string
-    pais: string
-    codigoPostal: string
-  }
+  ubicacion: LocationType
   seguidores: ID[]
-  siguiendo: ID[],
-  coleccionsIds: CollectionItem[],
-  comprasIds: ID[],
+  siguiendo: ID[]
+  collections_ids: CollectionItem[]
+  compras_ids: ID[]
   // colecciones: [] Pendiente
   preferencias: {
     [key: string]: number
   }
-  historialBusquedas: {
+  historial_busquedas: {
     [key: string]: number
   }
   balance: {
     pendiente: number
     disponible: number
-    porLlegar: number
+    por_llegar: number
   }
 }
 type LocationType = {
   calle: string
   ciudad: string
   pais: string
-  codigoPostal: string
+  codigo_postal: string
 }
 export type UserInfoType = {
   id: ID
   nombre: string
   rol: RoleType
-  fotoPerfil: ImageType 
+  foto_perfil: ImageType
   correo: string
   contraseña: string
-  direccionEnvio?: LocationType[]
-  librosIds: ID[]
-  estadoCuenta: EstadoCuentaType
-  fechaRegistro: ISOString
-  actualizadoEn: ISOString
+  direccion_envio?: LocationType
+  libros_ids: ID[]
+  estado_cuenta: EstadoCuentaType
+  fecha_registro: ISOString
+  actualizado_en: ISOString
   bio: string
   favoritos: ID[]
-  conversationsIds: ID[]
-  notificationsIds: ID[]
+  conversations_ids: ID[]
+  notifications_ids: ID[]
   validated: boolean
   login: 'Google' | 'Facebook' | 'Default'
   ubicacion?: LocationType
   seguidores?: ID[]
-  siguiendo?: ID[],
-  coleccionsIds?: CollectionItem[],
-  comprasIds: ID[],
+  siguiendo?: ID[]
+  coleccions_ids?: CollectionItem[]
+  compras_ids: ID[]
   preferencias?: {
     [key: string]: number
   }
-  historialBusquedas?: {
+  historial_busquedas?: {
     [key: string]: number
   }
   balance?: {
     pendiente?: number
     disponible?: number
-    porLlegar?: number
+    por_llegar?: number
   }
 }

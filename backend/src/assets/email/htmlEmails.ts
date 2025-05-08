@@ -82,20 +82,23 @@ type emailToSendType =
   | 'paymentDoneThank'
   | 'bookSold'
   | 'efectyPendingPayment'
-function createEmail (data: {
-  book?: Partial<BookObjectType>
-  user?: UserInfoType | Partial<UserInfoType>
-  seller?: Partial<UserInfoType>
-  transaction?: Partial<TransactionObjectType>
-  shippingDetails?: ShippingDetailsType
-  metadata?: {
-    guia?: string
-    validationCode?: number
-    validationLink?: string
-    barcode?: Barcode
-    date_of_expiration?: string
-  }
-}, template: emailToSendType): string {
+function createEmail (
+  data: {
+    book?: Partial<BookObjectType>
+    user?: UserInfoType | Partial<UserInfoType>
+    seller?: Partial<UserInfoType>
+    transaction?: Partial<TransactionObjectType>
+    shipping_details?: ShippingDetailsType
+    metadata?: {
+      guia?: string
+      validation_code?: number
+      validation_link?: string
+      barcode?: Barcode
+      date_of_expiration?: string
+    }
+  },
+  template: emailToSendType
+): string {
   switch (template) {
     case 'thankEmail': {
       return `
@@ -108,14 +111,18 @@ function createEmail (data: {
             <body>
             <div class="container">
               <header>
-                <img src='cid:logo@meridian' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
+                <img src='cid:logo@meridian' alt='Logo de ${
+                  process.env.BRAND_NAME
+                }' title='Logo de ${process.env.BRAND_NAME}'/>
               <header>
               <h1>Gracias por unirte a Meridian!</h1>
               <p>Hola <strong>${data.user?.nombre ?? ''}</strong>,</p>
               <p>Nos emociona que hayas decidido ser parte de nuestra comunidad de amantes de libros! En Meridian, creemos en el poder de los libros para inspirar, educar y entretener. 
               En nuestro catálogo podrás encontrar todos los libros que necesites, en un sólo lugar.</p>
               <p>Como miembro nuevo, tendrás acceso a todo el catálogo de libros, noticias y colecciones que sabremos que te encantarán.</p>
-              <p>Para comenzar a explorar, <a href="${process.env.FRONTEND_URL}" class="button">Echa un vistazo a nuestra colección</a></p>
+              <p>Para comenzar a explorar, <a href="${
+                process.env.FRONTEND_URL
+              }" class="button">Echa un vistazo a nuestra colección</a></p>
               <div class="footer">
               <p>Si tienes preguntas o necesitas asistencia, contáctate con <a href="mailto:support@meridianbookstore.com">nosotros</a>.</p>
               <p>Que tengas un feliz día!</p>
@@ -136,14 +143,20 @@ function createEmail (data: {
             <body>
             <div class="container">
               <div class='header'>
-                <img src='cid:logo@meridian' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
+                <img src='cid:logo@meridian' alt='Logo de ${
+                  process.env.BRAND_NAME
+                }' title='Logo de ${process.env.BRAND_NAME}'/>
               </div>
               <h1>Tu libro ha sido publicado con éxito!</h1>
               <p>Hola <strong>${data.book?.vendedor ?? ''}</strong>,</p>
-              <p>Felicidades! Tu libro "<strong>${data.book?.titulo ?? ''}</strong>" ha sido publicado exitosamente en nuestra plataforma.</p>
+              <p>Felicidades! Tu libro "<strong>${
+                data.book?.titulo ?? ''
+              }</strong>" ha sido publicado exitosamente en nuestra plataforma.</p>
               <p>Estamos emocionados de compartir tu publicación con nuestros amantes de libros!. TU libro ya se puede buscar y está listo para ser vendido.</p>
               <p>Puedes ver tu libro aquí:</p>
-              <a href="${process.env.FRONTEND_URL}/libros/${data.book?.id ?? ''}"><div class='button'>Ver libro</div></a>
+              <a href="${process.env.FRONTEND_URL}/libros/${
+        data.book?.id ?? ''
+      }"><div class='button'>Ver libro</div></a>
               <div class="footer">
               <p>Si tienes preguntas o necesitas asistencia, contáctate con <a href="mailto:support@meridianbookstore.com">nosotros</a>.</p>
               </div>
@@ -191,13 +204,19 @@ function createEmail (data: {
             <body>
               <div class='container'>
                 <div class='header'>
-                  <img src='cid:logo@meridian' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
+                  <img src='cid:logo@meridian' alt='Logo de ${
+                    process.env.BRAND_NAME
+                  }' title='Logo de ${process.env.BRAND_NAME}'/>
                 </div>
                 <h1>¡Código de verificación!</h1>
                 <p>Hola <strong>${data.user?.nombre ?? ''}</strong>,</p>
-                <p>El código de verificación es ${data.metadata?.validationCode}</p>
+                <p>El código de verificación es ${
+                  data.metadata?.validation_code
+                }</p>
                 <hr/>
-                <<p>Si no te registraste en ${process.env.BRAND_NAME} Bookstore, ignora este correo o contáctanos para informarnos.</p>>
+                <<p>Si no te registraste en ${
+                  process.env.BRAND_NAME
+                } Bookstore, ignora este correo o contáctanos para informarnos.</p>>
                 <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en responder a este correo o <a href="mailto:support@meridianbookstore.com">contactarnos aquí</a>.</p>
               </div>
             </body>
@@ -215,13 +234,17 @@ function createEmail (data: {
           <body>
               <div class='container'> 
                 <div class='header'>
-                  <img src='cid:logo@meridian' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
+                  <img src='cid:logo@meridian' alt='Logo de ${
+                    process.env.BRAND_NAME
+                  }' title='Logo de ${process.env.BRAND_NAME}'/>
                 </div>
                 <h1>Solicitud para Cambiar Contraseña</h1>
                 <p>Hola <strong>${data.user?.nombre ?? ''}</strong>,</p>
                 <p>Hemos recibido una solicitud para cambiar la contraseña de tu cuenta en Meridian Bookstore.</p>
                 <p>Por favor, pulsa el siguiente botón para completar el proceso de cambio de contraseña:</p>
-                <a href='${data.metadata?.validationLink}'><div class='button'>Cambiar Contraseña</div></a>
+                <a href='${
+                  data.metadata?.validation_link
+                }'><div class='button'>Cambiar Contraseña</div></a>
                 <p>Este código es válido por 15 minutos.</p>
                 <hr/>
                 <p>Si no solicitaste este cambio, ignora este correo o contáctanos para informarnos.</p>
@@ -242,7 +265,9 @@ function createEmail (data: {
         <body>
           <div class="container">
               <div class='header'>
-                <img src='cid:logo@meridian' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
+                <img src='cid:logo@meridian' alt='Logo de ${
+                  process.env.BRAND_NAME
+                }' title='Logo de ${process.env.BRAND_NAME}'/>
               </div>
             <main>
             <h1>¡Pago Realizado con Éxito!</h1>
@@ -266,11 +291,15 @@ function createEmail (data: {
                 </tr>
                 <tr>
                   <td><strong>Monto:</strong></td>
-                  <td>$${data.transaction?.response?.transaction_amount ?? 'N/A'}</td>
+                  <td>$${
+                    data.transaction?.response?.transaction_amount ?? 'N/A'
+                  }</td>
                 </tr>
                 <tr>
                   <td><strong>Método de pago:</strong></td>
-                  <td>${data.transaction?.response?.payment_method_id ?? 'N/A'}</td>
+                  <td>${
+                    data.transaction?.response?.payment_method_id ?? 'N/A'
+                  }</td>
                 </tr>
               </table>
               <p>Gracias por tu confianza en ${process.env.BRAND_NAME}.</p>
@@ -323,17 +352,27 @@ function createEmail (data: {
         <body>
           <div class="container">
             <div class='header'>
-              <img src='cid:logo@meridian' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
+              <img src='cid:logo@meridian' alt='Logo de ${
+                process.env.BRAND_NAME
+              }' title='Logo de ${process.env.BRAND_NAME}'/>
             </div>
             <main>
               <h1>¡Tu libro se ha vendido!</h1>
               <p>Hola, ${data.user?.nombre}</p>
-              <p>Nos complace informarte que tu libro <strong>${data.book?.titulo}</strong> ha sido vendido exitosamente en ${process.env.BRAND_NAME}.</p>
+              <p>Nos complace informarte que tu libro <strong>${
+                data.book?.titulo
+              }</strong> ha sido vendido exitosamente en ${
+        process.env.BRAND_NAME
+      }.</p>
               <p>Por favor, prepáralo para el envío lo antes posible y llévalo al punto de "Empresa" más cercano. Aquí tienes algunos detalles importantes:</p>
               <ul>
                 <li><strong>Comprador:</strong> ${data.seller?.nombre}</li>
-                <li><strong>Guía de envío:</strong> ${data.metadata?.guia ?? ''}</li>
-                <li><strong>Fecha de la compra:</strong> ${new Date(data.transaction?.response?.date_created ?? '').toLocaleString('es-CO', {
+                <li><strong>Guía de envío:</strong> ${
+                  data.metadata?.guia ?? ''
+                }</li>
+                <li><strong>Fecha de la compra:</strong> ${new Date(
+                  data.transaction?.response?.date_created ?? ''
+                ).toLocaleString('es-CO', {
                   weekday: 'long',
                   year: 'numeric',
                   month: 'long',
@@ -364,15 +403,21 @@ function createEmail (data: {
         </head>
           <div class="container">
             <div class='header'>
-              <img src='cid:logo@meridian' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
+              <img src='cid:logo@meridian' alt='Logo de ${
+                process.env.BRAND_NAME
+              }' title='Logo de ${process.env.BRAND_NAME}'/>
             </div>
             <main>
               <h1>¡Gracias por tu compra, ${data?.user?.nombre}</h1>
               <p>Para completar tu pedido, debes realizar el pago en cualquier sucursal de <strong>Efecty</strong>.</p>
               <p>Indica al operador de Efecty que deseas realizar un pago y proporciona el código de pago junto con el monto exacto.</p>
                   <ul>
-                    <li><strong>Monto a pagar:</strong> $${data.transaction?.response?.transaction_amount}</li>
-                    <li><strong>Vencimiento:</strong> ${new Date(data.metadata?.date_of_expiration ?? '').toLocaleString('es-CO', {
+                    <li><strong>Monto a pagar:</strong> $${
+                      data.transaction?.response?.transaction_amount
+                    }</li>
+                    <li><strong>Vencimiento:</strong> ${new Date(
+                      data.metadata?.date_of_expiration ?? ''
+                    ).toLocaleString('es-CO', {
                       weekday: 'long',
                       year: 'numeric',
                       month: 'long',
@@ -382,7 +427,9 @@ function createEmail (data: {
                     })}</li>
                   </ul>
                   <p>
-                    Presenta este código de pago en el punto de Efecty: <strong>${data.metadata?.barcode?.content}</strong>
+                    Presenta este código de pago en el punto de Efecty: <strong>${
+                      data.metadata?.barcode?.content
+                    }</strong>
                   </p>
               <p>Si necesitas ayuda con el proceso de envío o tienes alguna pregunta, no dudes en contactarnos.</p>
             </main>

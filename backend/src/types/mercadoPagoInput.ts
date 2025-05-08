@@ -1,8 +1,8 @@
-import { ID } from "./objects";
-import { ShippingDetailsType } from "./shippingDetails";
+import { ID } from './objects'
+import { ShippingDetailsType } from './shippingDetails'
 
 export type MercadoPagoInput = {
-  formData: {
+  form_data: {
     token?: string
     issuer_id?: string
     payment_method_id: string
@@ -20,11 +20,11 @@ export type MercadoPagoInput = {
       financial_institution?: string
     }
   }
-  partialData: {
+  partial_ata: {
     userId: ID
     bookId: ID
     sellerId: ID
-    shippingDetails: ShippingDetailsType
+    shipping_details: ShippingDetailsType
     transaction_amount: number
     application_fee: number
     description: string

@@ -1,10 +1,10 @@
-import { ID, ISOString } from "./objects"
+import { ID, ISOString } from './objects'
 
 export type MessageObjectType = {
   id: ID
-  userId: ID
+  user_id: ID
   message: string
-  conversationId: ID
-  createdIn: ISOString
+  conversation_id: ID
+  created_in: ISOString
   read: boolean
 }

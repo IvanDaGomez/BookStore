@@ -24,7 +24,7 @@ export type BookObjectType = {
   genero: GenreType
   formato: FormatType
   vendedor: string
-  idVendedor: ID
+  id_vendedor: ID
   edicion?: EditionType
   idioma?: LanguageType
   ubicacion?: {
@@ -34,9 +34,9 @@ export type BookObjectType = {
   }
   tapa?: CoverType
   edad?: AgeType
-  fechaPublicacion: ISOString
-  actualizadoEn: ISOString
+  fecha_publicacion: ISOString
+  actualizado_en: ISOString
   disponibilidad: AvailabilityType
   mensajes?: string[][]
-  collectionsIds: ID[]
+  collections_ids: ID[]
 }

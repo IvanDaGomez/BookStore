@@ -8,33 +8,40 @@ dotenv.config()
 // PROBLEMS I HAVE WITH THE TYPE OF NOTIFICATION
 export type NotificationInfoNeeded = {
   id?: ID
-  idVendedor?: ID
+  id_vendedor?: ID
   images?: ImageType[]
   titulo?: string
-  createdIn?: ISOString
-  expiresAt?: ISOString 
+  created_in?: ISOString
+  expires_at?: ISOString
   follower?: PartialUserInfoType
   guia?: string
 } & Partial<BookObjectType>
-export function createNotification (data: NotificationInfoNeeded, template: TypeType): NotificationType {
-
- const commonData = {
-  id: data.id ?? crypto.randomUUID(),
-  read: false,
-  createdIn: data.createdIn ?? new Date().toISOString() as ISOString,
-  expiresAt: data.expiresAt ?? new Date(new Date().setFullYear(new Date().getFullYear() + 1)).toISOString() as ISOString,
- }
- const dataToSend = {
-  ...commonData
- }
+export function createNotification (
+  data: NotificationInfoNeeded,
+  template: TypeType
+): NotificationType {
+  const commonData = {
+    id: data.id ?? crypto.randomUUID(),
+    read: false,
+    created_in: data.created_in ?? (new Date().toISOString() as ISOString),
+    expires_at:
+      data.expires_at ??
+      (new Date(
+        new Date().setFullYear(new Date().getFullYear() + 1)
+      ).toISOString() as ISOString)
+  }
+  const dataToSend: Partial<NotificationType> = {
+    ...commonData
+  }
   switch (template) {
     case 'welcomeUser': {
       Object.assign(dataToSend, {
         title: '¡Bienvenido a Meridian!',
         priority: 'high',
         type: 'welcomeUser',
-        userId: data.id ?? crypto.randomUUID(),
-        message: 'Estamos emocionados de tenerte con nosotros. Esperamos que disfrutes de la experiencia y encuentres justo lo que necesitas. Si tienes alguna pregunta, no dudes en contactarnos. ¡Gracias por unirte!'
+        user_id: data.id ?? crypto.randomUUID(),
+        message:
+          'Estamos emocionados de tenerte con nosotros. Esperamos que disfrutes de la experiencia y encuentres justo lo que necesitas. Si tienes alguna pregunta, no dudes en contactarnos. ¡Gracias por unirte!'
       })
     }
     case 'newFollower': {
@@ -43,10 +50,10 @@ export function createNotification (data: NotificationInfoNeeded, template: Type
         title: 'Tienes un nuevo seguidor',
         priority: 'low',
         type: 'newFollower',
-        userId: data.follower?.id ?? crypto.randomUUID(),
-        actionUrl: `${process.env.FRONTEND_URL}/usuarios/${data.follower?.id}`,
+        user_id: data.follower?.id ?? crypto.randomUUID(),
+        action_url: `${process.env.FRONTEND_URL}/usuarios/${data.follower?.id}`,
         metadata: {
-          photo: data.follower?.fotoPerfil ?? ''
+          photo: data.follower?.foto_perfil ?? ''
         }
       })
     }
@@ -56,12 +63,12 @@ export function createNotification (data: NotificationInfoNeeded, template: Type
         title: 'Tu libro ha sido publicado con éxito',
         priority: 'high',
         type: 'bookPublished',
-        userId: data.idVendedor ?? crypto.randomUUID(),
-        actionUrl: `${process.env.FRONTEND_URL}/libros/${data.id}`,
+        user_id: data.id_vendedor ?? crypto.randomUUID(),
+        action_url: `${process.env.FRONTEND_URL}/libros/${data.id}`,
         metadata: {
           photo: (data.images ?? [])[0],
-          bookTitle: data.titulo,
-          bookId: data.id
+          book_title: data.titulo,
+          book_id: data.id
         }
       })
     }
@@ -71,12 +78,12 @@ export function createNotification (data: NotificationInfoNeeded, template: Type
         title: 'Tu libro ha sido actualizado con éxito',
         priority: 'high',
         type: 'bookUpdated',
-        userId: data.idVendedor ?? crypto.randomUUID(),
-        actionUrl: `${process.env.FRONTEND_URL}/libros/${data.id}`,
+        user_id: data.id_vendedor ?? crypto.randomUUID(),
+        action_url: `${process.env.FRONTEND_URL}/libros/${data.id}`,
         metadata: {
           photo: (data.images ?? [])[0],
-          bookTitle: data.titulo,
-          bookId: data.id
+          book_title: data.titulo,
+          book_id: data.id
         }
       })
     }
@@ -86,8 +93,8 @@ export function createNotification (data: NotificationInfoNeeded, template: Type
         title: 'Tu libro ha sido vendido con éxito',
         priority: 'high',
         type: 'bookSold',
-        userId: data.idVendedor ?? crypto.randomUUID(),
-        actionUrl: `${process.env.FRONTEND_URL}/libros/${data.id}`,
+        user_id: data.id_vendedor ?? crypto.randomUUID(),
+        action_url: `${process.env.FRONTEND_URL}/libros/${data.id}`,
         metadata: {
           photo: (data.images ?? [])[0],
           bookTitle: data.titulo,
@@ -101,13 +108,13 @@ export function createNotification (data: NotificationInfoNeeded, template: Type
         title: 'Has comprado un libro',
         priority: 'high',
         type: 'bookBought',
-        userId: data.id ?? crypto.randomUUID(),
-        actionUrl: `${process.env.FRONTEND_URL}/libros/${data.id}`,
+        user_id: data.id ?? crypto.randomUUID(),
+        action_url: `${process.env.FRONTEND_URL}/libros/${data.id}`,
         metadata: {
           photo: (data.images ?? [])[0],
           guia: data.guia,
-          bookTitle: data.titulo,
-          bookId: data.id
+          book_title: data.titulo,
+          book_id: data.id
         }
       })
     }
@@ -117,12 +124,12 @@ export function createNotification (data: NotificationInfoNeeded, template: Type
         title: 'Notificación no válida',
         priority: 'low',
         type: 'invalidNotification',
-        userId: data.idVendedor ?? crypto.randomUUID(),
-        actionUrl: `${process.env.FRONTEND_URL}/libros/${data.id}`,
+        user_id: data.id_vendedor ?? crypto.randomUUID(),
+        action_url: `${process.env.FRONTEND_URL}/libros/${data.id}`,
         metadata: {
           photo: (data.images ?? [])[0],
-          bookTitle: data.titulo,
-          bookId: data.id
+          book_title: data.titulo,
+          book_id: data.id
         }
       })
     }

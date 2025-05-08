@@ -32,7 +32,7 @@ export interface IUsersModel {
   facebookLogin(data: {
     nombre: string
     correo: string
-    fotoPerfil: ImageType
+    foto_perfil: ImageType
   }): Promise<PartialUserInfoType>
   getUserByEmail(correo: string): Promise<UserInfoType>
   createUser(data: {
@@ -45,7 +45,7 @@ export interface IUsersModel {
   getBalance(id: ID): Promise<{
     pendiente?: number
     disponible?: number
-    porLlegar?: number
+    por_llegar?: number
   }>
 }
 
@@ -62,7 +62,7 @@ export interface IBooksModel {
     filters: object,
     l: number
   ): Promise<Partial<BookObjectType>[]>
-  getBooksByUserId(userId: ID): Promise<any[]>
+  getBooksByUserId(user_id: ID): Promise<any[]>
   createBook(data: BookObjectType): Promise<BookObjectType>
   updateBook(
     id: ID,
@@ -113,7 +113,7 @@ export interface ICollectionsModel {
     where: Record<string, string> | {}
     l: number
   }): Promise<CollectionObjectType[]>
-  getCollectionSaga(bookId: ID, userId: ID): Promise<CollectionObjectType>
+  getCollectionSaga(book_id: ID, user_id: ID): Promise<CollectionObjectType>
   forYouPageCollections(
     userKeyInfo: AuthToken | undefined,
     sampleSize: number
@@ -125,7 +125,7 @@ export interface IConversationsModel {
   getConversationsByList(
     conversationsIds: ID[]
   ): Promise<ConversationObjectType[]>
-  getConversationById(conversationId: ID): Promise<ConversationObjectType>
+  getConversationById(conversation_id: ID): Promise<ConversationObjectType>
   createConversation(
     data: Partial<ConversationObjectType>
   ): Promise<ConversationObjectType>
@@ -157,7 +157,7 @@ export interface IMessagesModel {
 
 export interface INotificationsModel {
   getAllNotifications(l?: number): Promise<NotificationType[]>
-  getAllNotificationsByUserId(userId: ID): Promise<NotificationType[]>
+  getAllNotificationsByUserId(user_id: ID): Promise<NotificationType[]>
   getNotificationById(id: ID): Promise<NotificationType>
   createNotification(data: Partial<NotificationType>): Promise<NotificationType>
   updateNotification(
@@ -186,6 +186,6 @@ export interface ITransactionsModel {
     data: WithdrawMoneyType
   ): Promise<{ message: string }>
   getAllWithdrawTransactions(): Promise<WithdrawMoneyType[]>
-  markWithdrawTransaction(userId: string): Promise<{ message: string }>
+  markWithdrawTransaction(user_id: string): Promise<{ message: string }>
   // Add other methods from TransactionsModel as needed
 }

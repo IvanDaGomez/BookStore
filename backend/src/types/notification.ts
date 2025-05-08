@@ -1,22 +1,22 @@
-import { PriorityType, TypeType } from "./notificationCategories"
-import { ID, ImageType, ISOString } from "./objects"
+import { PriorityType, TypeType } from './notificationCategories'
+import { ID, ImageType, ISOString } from './objects'
 
 export type NotificationType = {
   id: ID
   title: string
   priority: PriorityType
   type: TypeType
-  userId: ID
+  user_id: ID
   input?: string
-  createdIn: ISOString
+  created_in: ISOString
   read: boolean
-  actionUrl?: string
-  expiresAt: ISOString
+  action_url?: string
+  expires_at: ISOString
   message?: string
   metadata?: {
     photo?: ImageType
-    bookTitle?: string
+    book_title?: string
     guia?: string
-    bookId?: ID
+    book_id?: ID
   }
 }
