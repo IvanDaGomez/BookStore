@@ -75,8 +75,7 @@ export default function TransactionHistorial ({ transactions, user }) {
                   ))}
                   </div>
               ))}
-            </div>
-             </>)}
+            </div></>)}
       </div>
     </>
   )

@@ -29,20 +29,19 @@ export default function Colecciones ({ user, book, setForm, form }) {
 
             const url = 'http://localhost:3030/api/users/newCollection'
             const body = {
-                "collectionName": newCollectionName,
-                "userId": user.id
+                "collection_name": newCollectionName,
+                "user_id": user.id
             }
             const response = await axios.post(url, body, { withCredentials: true })
-            console.log(response)
-            if (response.data) {
+            if (!response.data.error) {
                 console.log(response.data)
-                setFilteredCollections(response.data.data.colecciones)
-                setCollections(response.data.data.colecciones)
+                setFilteredCollections(response.data.collections_ids)
+                setCollections(response.data.collections_ids)
                 toast.success('Se creó exitosamente la colección')
                 setNewCollectionName('')
             }
         } catch (err){
-                console.error('Error en el servidor:', err)
+            console.error('Error en el servidor:', err)
         }
     }
     const element = useRef(null)

@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router"
+
 import { toast } from "react-toastify"
 
 function useFetchuser() {
-    const navigate = useNavigate()
-    const [user, setUser] = useState({})
+
+    const [user, setUser] = useState(null)
       // Fetch del usuario primero que todo
       useEffect(() => {
         async function fetchUser () {
@@ -16,20 +16,16 @@ function useFetchuser() {
               credentials: 'include'
             })
     
-            if (response.ok) {
+            if (!response.data.error) {
               const data = await response.json()
               setUser(data.user)
-            } else {
-              // Esto es exclusivo de los que son usuarios
-              navigate('popUp/noUser')
-            }
+            } 
           } catch (error) {
             console.error('Error fetching user data:', error)
-            navigate('popUp/noUser')
+            setUser(null)
           }
         }
         fetchUser()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [])
     return [user]
 }
@@ -143,7 +139,7 @@ try {
     },
     body: JSON.stringify({
         userId: user.id,
-        conversationId: newConversation?.id || activeConversation.id,
+        conversation_id: newConversation?.id || activeConversation.id,
         message: value,
         read: false
     }),
@@ -156,7 +152,10 @@ try {
     }
 
     const responseData = await response.json() // Parse JSON response
-
+    if (responseData.error) {
+      toast.error('Error en la respuesta')
+      return
+    }
     // Add the new message to messages state
     setMensajes((prevMensajes) => [...prevMensajes, responseData.message])
 
@@ -166,7 +165,7 @@ try {
         if (conversacion.id === activeConversation.id) {
         return {
             ...conversacion,
-            lastMessage: responseData.message // Update lastMessage
+            last_message: responseData.message // Update lastMessage
         }
         }
         return conversacion // Return the conversation without changes
@@ -178,7 +177,7 @@ try {
         if (conversacion.id === activeConversation.id) {
         return {
             ...conversacion,
-            lastMessage: responseData.message // Update lastMessage
+            last_message: responseData.message // Update lastMessage
         }
         }
         return conversacion // Return the conversation without changes
@@ -188,7 +187,7 @@ try {
     // Set active conversation last message, ensure it's correctly set
     setActiveConversation(prevActiveConversation => ({
     ...prevActiveConversation,
-    lastMessage: responseData.message
+    last_message: responseData.message
     }))
 
     // Clear input field

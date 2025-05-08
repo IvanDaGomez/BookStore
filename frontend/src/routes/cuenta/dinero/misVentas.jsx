@@ -6,7 +6,7 @@ export default function MisVentas ({ user }) {
       id: 1,
       titulo: 'El señor de los anillos',
       autor: 'J.R.R. Tolkien',
-      fechaCompra: '2024-01-10',
+      fecha_compra: '2024-01-10',
       precio: 40000,
       estado: 'Entregado'
     },
@@ -14,7 +14,7 @@ export default function MisVentas ({ user }) {
       id: 2,
       titulo: '1984',
       autor: 'George Orwell',
-      fechaCompra: '2024-02-15',
+      fecha_compra: '2024-02-15',
       precio: 40000,
       estado: 'En proceso'
     },
@@ -22,7 +22,7 @@ export default function MisVentas ({ user }) {
       id: 3,
       titulo: 'Cien años de soledad',
       autor: 'Gabriel García Márquez',
-      fechaCompra: '2024-03-05',
+      fecha_compra: '2024-03-05',
       precio: 40000,
       estado: 'Entregado'
     }
@@ -55,7 +55,7 @@ export default function MisVentas ({ user }) {
                 <tr key={compra.id}>
                   <td>{compra.titulo}</td>
                   <td>{compra.autor}</td>
-                  <td>{new Date(compra.fechaCompra).toLocaleDateString()}</td>
+                  <td>{new Date(compra.fecha_compra).toLocaleDateString()}</td>
                   <td>${compra.precio}</td>
                   <td>{compra.estado}</td>
                 </tr>

@@ -45,9 +45,11 @@ export default function ColeccionEspecificoPage () {
       try {
         const response = await axios.get(url)
         console.log(response.data)
-        if (response.data) {
-          setBooks(response.data.data)
+        if (response.data.error) {
+          console.error('Error en el servidor')
+          return
         }
+        setBooks(response.data.data)
       } catch {
         console.error('Error')
       }
@@ -93,12 +95,12 @@ export default function ColeccionEspecificoPage () {
     }
 
     fetchFilters()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [params, query]) // Ensure `queryParams` is also included in the dependencies
 
 
   const pageCount = Math.ceil(books.length / 24)
 
-  const optionalSpace = (books.length % 2 === 1) ? <div /> : <></>
 
   const reducirPagina = () => {
     if (currentPage > 1) {

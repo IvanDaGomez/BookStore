@@ -8,7 +8,7 @@ export default function useMarkNotificationAsRead(activeNotification) {
         try {
           const url = `http://localhost:3030/api/notifications/${activeNotification.id}/read`
           const read = await axios.put(url)
-          if (read.error) {
+          if (read.data.error) {
             console.error('Error marking notification as read')
           }
         } catch (error) {

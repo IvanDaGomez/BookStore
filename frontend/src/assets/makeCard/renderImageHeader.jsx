@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 export default function RenderImageHeader({ element }) {
-  const isNew = new Date() - new Date(element.fechaPublicacion) < 15 * 24 * 60 * 60 * 1000; // 15 days in milliseconds
+  const isNew = new Date() - new Date(element.fecha_publicacion) < 15 * 24 * 60 * 60 * 1000; // 15 days in milliseconds
   const getLabelStyle = () => {
     if (element.disponibilidad === 'vendido') return { background: 'red' };
     if (element.oferta) return { background: 'green' };

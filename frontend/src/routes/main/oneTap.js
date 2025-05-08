@@ -26,7 +26,7 @@ export default function useGoogleOneTap() {
     const userData = {
       nombre: decodedToken.name,
       correo: decodedToken.email,
-      fotoPerfil: decodedToken.picture
+      foto_perfil: decodedToken.picture
     };
 
     const url = 'http://localhost:3030/api/users/google-login';

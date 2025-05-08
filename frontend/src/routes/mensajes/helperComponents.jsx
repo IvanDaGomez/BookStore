@@ -9,8 +9,8 @@ function renderFilteredConversations(filteredConversations, activeConversation, 
         
             filteredConversations
                 .sort((a, b) => {
-                    const dateA = a?.lastMessage?.createdIn ? new Date(a?.lastMessage?.createdIn) : 0
-                    const dateB = b?.lastMessage?.createdIn ? new Date(b?.lastMessage?.createdIn) : 0
+                    const dateA = a?.last_message?.created_in ? new Date(a?.last_message?.created_in) : 0
+                    const dateB = b?.last_message?.created_in ? new Date(b?.last_message?.created_in) : 0
                     return dateB - dateA // Sort in descending order by last message date
                 })
                 .map((conversation, index) => (
@@ -23,25 +23,25 @@ function renderFilteredConversations(filteredConversations, activeConversation, 
                         }}
                     >
                         <img
-                            src={renderProfilePhoto(findUserByConversation(conversation, user, reducedUsers)?.fotoPerfil || '')}
+                            src={renderProfilePhoto(findUserByConversation(conversation, user, reducedUsers)?.foto_perfil || '')}
                             alt={`${findUserByConversation(conversation, user, reducedUsers).nombre || 'User'}'s avatar`}
                         />
                         <div className='conversationSpecificTitleAndMessage'>
                             <h2>{findUserByConversation(conversation, user, reducedUsers).nombre || ''}</h2>
                             <span>
-                                {(user && reducedUsers && conversation && conversation?.lastMessage && conversation?.lastMessage?.message) && (
+                                {(user && reducedUsers && conversation && conversation?.lastMessage && conversation?.last_message?.message) && (
                                     <>
-                                        {conversation.lastMessage.userId === user.id
+                                        {conversation.lastMessage.user_id === user.id
                                             ? 'Tu: '
                                             : `${reduceTextByFirstWord(findUserByConversation(conversation, user, reducedUsers).nombre || '')}: `}
-                                        {reduceText(conversation?.lastMessage?.message, 20)}
+                                        {reduceText(conversation?.last_message?.message, 20)}
                                     </>
                                 )}
 
                             </span>
                         </div>
                         {/* 2024-12-21T17:01:32.197Z */}
-                        <span>{formatDate(conversation?.lastMessage?.createdIn) || ''}</span>
+                        <span>{formatDate(conversation?.lastMessage?.created_in) || ''}</span>
                     </div>
                 ))}</>
 }

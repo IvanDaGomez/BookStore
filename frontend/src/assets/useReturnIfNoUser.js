@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { useNavigate } from "react-router"
 
 
-export function useReturnIfNoUser (user) {
+export function useReturnIfNoUser (user, loading) {
   /*
   This hook is used to redirect the user to the home page if they are not logged in.
   It checks the user context and if the user is not logged in, it navigates to the specified route.
@@ -11,7 +11,7 @@ export function useReturnIfNoUser (user) {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (!user) {
+    if (!loading && !user) {
       navigate(`/popUp/noUser`)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

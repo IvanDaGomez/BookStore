@@ -12,9 +12,9 @@ export async function predictInfo(file) {
         formData.append('image', blobFile, `predictedImage.png`)
         const url = 'http://localhost:3030/api/books/predictInfo'
         const response = await fetch(url, {
-        method: 'POST',
-        body: formData,
-        credentials: 'include'
+            method: 'POST',
+            body: formData,
+            credentials: 'include'
         })
 
         const data = await response.json()

@@ -23,10 +23,10 @@ export default function EnviarCorreoAVerificar () {
         const response = await axios.post(url, null, {
           withCredentials: true
         })
-        if (response.data.user.validated) {
+        if (response.data.validated) {
           setVerifying(false)
         }
-        setUser(response.data.user)
+        setUser(response.data)
       } catch (error) {
         console.error('Error fetching user data:', error)
         navigate('/popUp/noUser')

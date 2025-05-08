@@ -122,7 +122,7 @@ const MakeOneFrCard = ({ element, index, user = '' }) => {
           </div>
 
           <div className='soldBy'>
-            Vendido por <span onClick={() => navigate(`/usuarios/${element.idVendedor}`)} className='accent'>{element.vendedor}</span>
+            Vendido por <span onClick={() => navigate(`/usuarios/${element.id_vendedor}`)} className='accent'>{element.vendedor}</span>
           </div>
 
           {/* Botón de agregar al carrito */}
@@ -177,7 +177,7 @@ const MakeUpdateCard = ({ element, index }) => {
               onClick={(e)=> {
                 e.preventDefault()
                 e.stopPropagation()
-                navigate(`/libros/crear?vendedor=${element.idVendedor}&libro=${element.id}`)}
+                navigate(`/libros/crear?vendedor=${element.id_vendedor}&libro=${element.id}`)}
                 }>
                 Editar
               </button>}
@@ -188,7 +188,7 @@ const MakeUpdateCard = ({ element, index }) => {
                 onClick={(e)=> {
                   e.preventDefault()
                   e.stopPropagation()
-                  navigate(`/usuarios/${element.idVendedor}?eliminar=y&libro=${element.id}`)}
+                  navigate(`/usuarios/${element.id_vendedor}?eliminar=y&libro=${element.id}`)}
                 }
                 className='eliminar'
               >
@@ -239,7 +239,7 @@ const MakeCollectionCard = ({ element, index }) => {
           <img src={renderProfilePhoto(element.foto)} alt='' />
         </div>
         <div className='info'>
-          Libros: {element.librosIds.length}
+          Libros: {element.libros_ids.length}
           <button onClick={handleSave}>Guardar</button>
         </div>
       </div>
@@ -254,11 +254,10 @@ const MakeUserCard = ({ element, index, user, setElement, setUser }) => {
   }
   return (
     <Link key={index} style={{ width: '100%', height: '100%' }} to={`/usuarios/${element.id}`}>
-      {console.log(element)}
       <div className="userElement" >
         <div className="imageElementUserContainer"> 
           <img
-            src={renderProfilePhoto(element.fotoPerfil)}
+            src={renderProfilePhoto(element.foto_perfil)}
             alt="Foto de perfil"
           />
         </div>
@@ -266,7 +265,7 @@ const MakeUserCard = ({ element, index, user, setElement, setUser }) => {
           <h2>{element.nombre}</h2>
           {/*<p>{element.bio || ''}</p>*/}
           <p>
-            Libros publicados: <strong>{element?.librosIds?.length || 0}</strong>
+            Libros publicados: <strong>{element?.libros_ids?.length || 0}</strong>
           </p>
           <button onClick={(e) => handleFollowers({ e, user, usuario: element, setUsuario: setElement, setUser})}
             className={`${user?.siguiendo?.includes(element.id) ? 'botonInverso' : ''}`}>

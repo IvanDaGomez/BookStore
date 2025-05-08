@@ -80,10 +80,10 @@ export default function RenderIcons({
         <div
           className="profile"
           onClick={openProfile}
-          style={{ border: user.fotoperfil ? "" : "none" }}
+          style={{ border: user.foto_perfil ? "" : "none" }}
         >
-          {console.log("user.fotoPerfil", user.fotoperfil)}
-          {!user.fotoperfil ? (
+          {console.log("user.fotoPerfil", user.foto_perfil)}
+          {!user.foto_perfil ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -107,7 +107,7 @@ export default function RenderIcons({
             </svg>
           ) : (
             
-            <img src={renderProfilePhoto(user.fotoperfil ?? '')} alt="Foto" />
+            <img src={renderProfilePhoto(user.foto_perfil ?? '')} alt="Foto" />
           )}
         </div>
       ) : (

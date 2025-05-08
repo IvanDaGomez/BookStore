@@ -29,7 +29,7 @@ export default function UserGraph({ info }) {
   - Number of users who have purchased books
   */
   const [options] = useState(['Anual', 'Mensual', 'Semanal'])
-  const [activeOption, setActiveOption] = useState(options[0]);
+  const [activeOption] = useState(options[0]);
   const [data, setData] = useState(null)
   const getData = async () => {
     if (!info || !info?.users) return
@@ -46,7 +46,7 @@ export default function UserGraph({ info }) {
       const targetYear = targetDate.getFullYear();
       return info.users.filter(user => {
         // console.log(new Date(user.fechaRegistro).toLocaleDateString('es-ES', { month: 'long' }))
-        const userDate = new Date(user.fechaRegistro.split('T')[0]);
+        const userDate = new Date(user.fecha_registro.split('T')[0]);
         return (
           (userDate.getMonth()) === targetMonth &&
           userDate.getFullYear() === targetYear
@@ -62,9 +62,9 @@ export default function UserGraph({ info }) {
       const targetYear = targetDate.getFullYear();
 
       return (info?.users ?? []).filter(user => {
-        const userDate = new Date(user.fechaRegistro.split('T')[0]);
+        const userDate = new Date(user.fecha_registro.split('T')[0]);
         return (
-          (user?.comprasIds ?? []).length > 0 &&
+          (user?.compras_ids ?? []).length > 0 &&
           userDate.getMonth() === targetMonth &&
           userDate.getFullYear() === targetYear
         );

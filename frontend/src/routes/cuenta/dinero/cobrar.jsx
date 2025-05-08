@@ -41,12 +41,12 @@ export default function Cobrar({ user, setCobrar, setUser }) {
       return;
     }
     const body = {
-      userId: user.id,
-      numeroCuenta,
+      user_id: user.id,
+      numero_cuenta: numeroCuenta,
       monto,
       password,
       bank,
-      phoneNumber
+      phone_number: phoneNumber
     }
     // Lógica para verificar la contraseña (esto debe hacerse en el backend)
     // En el backend, debes verificar la contraseña del usuario
@@ -77,7 +77,7 @@ export default function Cobrar({ user, setCobrar, setUser }) {
       setUser({
         ...user,
         balance: {
-          porLlegar: (user.balance.porLlegar ?? 0),
+          por_llegar: (user.balance.por_llegar ?? 0),
           disponible: user.balance.disponible - monto,
           pendiente: (user.balance.pendiente ?? 0) + monto
         }

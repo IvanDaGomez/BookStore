@@ -16,7 +16,7 @@ export default function GoogleLogin ({ callback }) {
         const userData = {
           nombre: userInfoResponse.data.name,
           correo: userInfoResponse.data.email,
-          fotoPerfil: userInfoResponse.data.picture
+          foto_perfil: userInfoResponse.data.picture
         }
         callback(userData)
       } catch (error) {

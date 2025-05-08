@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React, { useState } from 'react';
+import { useState } from 'react';
 import UseCajones from './UseCajones';
 import titleCase from '../../assets/toTitleCase';
 const CajonesFull = ({ 

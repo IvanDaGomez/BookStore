@@ -34,11 +34,11 @@ export default function Colecciones ({ user, permisos }) {
 
 
   useEffect(() => {
-    if (user && user.librosIds) {
+    if (user && user.libros_ids) {
       const fetchBooks = async () => {
         try {
           const fetchedBooks = await Promise.all(
-            user.librosIds.map(async (idLibro) => {
+            user.libros_ids.map(async (idLibro) => {
               const response = await axios.get(`http://localhost:3030/api/books/${idLibro}`,{
                 withCredentials: true
               })
@@ -67,7 +67,7 @@ export default function Colecciones ({ user, permisos }) {
     const data = {
       nombre: nombre.value,
       foto: croppedImage?.url || '',
-      userId: user.id,
+      user_id: user.id,
       saga: checkbox
     }
     if (!data.nombre) {
@@ -110,7 +110,7 @@ export default function Colecciones ({ user, permisos }) {
         setErrors([...errors, createCollectionResponse.data.error])
         return
       }
-      setColecciones([...colecciones, {...createCollectionResponse.data, librosIds: filtered}])
+      setColecciones([...colecciones, {...createCollectionResponse.data, libros_ids: filtered}])
         
       if (addedCollections.length > 0) {
         const addToCollectionUrl = 'http://localhost:3030/api/collections/addToCollection?collectionId=' + createCollectionResponse.data.id

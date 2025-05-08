@@ -53,7 +53,6 @@ const onSubmit = async ({
       selectedPaymentMethod
     })
     const response = await axios.post('http://localhost:3030/api/transactions/process_payment', body)
-    console.log('Response:', response.data)
     setStatus(response.data.response.status)
     setStatusScreen(true)
     setPaymentId(response.data.response.id)

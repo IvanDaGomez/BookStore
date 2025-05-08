@@ -16,6 +16,10 @@ export default function ProtectedStats() {
   useEffect(() => {
     async function fetchData() {
       const response = await axios.get('http://localhost:3030/api/stats');
+      if (response.data.error) {
+        console.error(response.data.error);
+        return;
+      }
       setInfo(response.data);
     }
     fetchData();

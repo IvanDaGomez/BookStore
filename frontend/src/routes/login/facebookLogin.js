@@ -2,7 +2,7 @@ export default async function handleFacebookSubmit (response, setErrors, setLoad
   const userData = {
     nombre: response.data.name,
     correo: response.data.email,
-    fotoPerfil: response.data.picture.data.url
+    foto_perfil: response.data.picture.data.url
   }
   setLoading(true)
   const url = 'http://localhost:3030/api/users/facebook-login'

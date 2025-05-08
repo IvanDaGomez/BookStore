@@ -160,7 +160,7 @@ export default function Mensajes () {
             {/* ----------------------------------------MENSAJES----------------------------------------------- */}
             <div className='messagesViewContainer' ref={chatContainerRef}>
               {mensajes.map((mensaje, index) => (
-                <div key={index} className={`mensaje ${mensaje.userId === user.id ? 'myMessage' : 'otherMessage'}`}>
+                <div key={index} className={`mensaje ${mensaje.user_id === user.id ? 'myMessage' : 'otherMessage'}`}>
                   {mensaje.message}
                 </div>
               ))}

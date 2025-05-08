@@ -8,11 +8,11 @@ export default function InfoContainer({ libro }) {
   }
 
   // Check if the book is new (published within the last 2 weeks)
-  const isNew = diffWeeks(new Date(libro.fechaPublicacion), new Date()) <= 2;
+  const isNew = diffWeeks(new Date(libro.fecha_publicacion), new Date()) <= 2;
 
   // Format the publication date
-  const formattedFechaPublicacion = libro.fechaPublicacion
-    ? new Date(libro.fechaPublicacion).toLocaleDateString('es-ES', {
+  const formattedFechaPublicacion = libro.fecha_publicacion
+    ? new Date(libro.fecha_publicacion).toLocaleDateString('es-ES', {
         day: 'numeric',
         month: 'long',
         year: 'numeric',

@@ -1,4 +1,3 @@
-import { useState, useRef } from 'react'
 import { BsWhatsapp } from 'react-icons/bs'
 export default function SideInfo () {
 

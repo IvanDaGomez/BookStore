@@ -22,7 +22,7 @@ export default function BuyContainer({ libro, user }) {
                 : <h3 className={libro.disponibilidad === 'Vendido' ? 'red': ''}>{libro.disponibilidad}</h3>}
   
               <p>Vendido por:</p>
-              <Link to={`/usuarios/${libro.idVendedor}`}><span>{libro.vendedor}</span></Link>
+              <Link to={`/usuarios/${libro.id_vendedor}`}><span>{libro.vendedor}</span></Link>
               <hr />
               <div className='separarConFoto'>
   

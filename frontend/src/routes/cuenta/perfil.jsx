@@ -74,7 +74,7 @@ export default function Perfil ({ user, navigate }) {
     <>
       <h1>Perfil</h1>
       <div className='userInfo'>
-        <img src={renderProfilePhoto(user?.fotoPerfil || '')} alt={user?.nombre} />
+        <img src={renderProfilePhoto(user?.foto_perfil || '')} alt={user?.nombre} />
         <div>
           <h2>{user.nombre}</h2>
           <h3>{user.correo}</h3>

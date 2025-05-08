@@ -24,7 +24,7 @@ export default function EditarUsuario () {
       document.querySelector('#nombre').value = user.nombre || ''
       document.querySelector('#bio').value = user.bio || ''
 
-      setFotoPerfil(renderProfilePhoto(user?.fotoPerfil || ''))
+      setFotoPerfil(renderProfilePhoto(user?.foto_perfil || ''))
     }
   }, [user])
 
@@ -143,7 +143,7 @@ export default function EditarUsuario () {
               <img src={croppedImage.url || fotoPerfil} alt='Profile' />
               <input
                 id='inputFotoPerfil'
-                type='file' name='fotoPerfil'
+                type='file' name='foto_perfil'
                 accept='image/*'
                 onChange={handleImageChange} style={{ display: 'none' }}
               />

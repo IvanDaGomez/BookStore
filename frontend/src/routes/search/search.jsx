@@ -29,7 +29,7 @@ export default function Search () {
     departamento: params.get('departamento'),
     edad: params.get('edad'),
     tapa: params.get('tapa'),
-    fechaPublicacion: params.get('fechaPublicacion'),
+    fecha_publicacion: params.get('fecha_publicacion'),
     idioma: params.get('idioma'),
     precio: params.get('precio'),
     formato: params.get('formato'),

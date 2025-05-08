@@ -2,16 +2,16 @@ import { createNotification } from './createNotification'
 import { formatDate } from './formatDate'
 import { toast } from 'react-toastify'
 function SimpleNotification (notification) {
-  const { type, title, createdIn, metadata } = notification
+  const { type, title, created_in, metadata } = notification
 
   const typeMessages = {
     newMessage: 'Tienes un nuevo mensaje!',
     newQuestion: 'Tienes una nueva pregunta!',
     bookPublished: 'Tu libro ha sido publicado!',
     bookUpdated: 'Tu libro ha sido actualizado con éxito!',
-    bookSold: `Tu libro "${metadata.bookTitle}" ha sido vendido!`,
+    bookSold: `Tu libro "${metadata.book_title}" ha sido vendido!`,
     orderShipped: 'Tu pedido ha sido entregado!',
-    reviewReceived: `Tienes una nueva reseña de "${metadata.bookTitle}"!`
+    reviewReceived: `Tienes una nueva reseña de "${metadata.book_title}"!`
   }
 
   const typeIcons = {
@@ -23,7 +23,7 @@ function SimpleNotification (notification) {
     reviewReceived: '⭐'
   }
 
-  const formattedDate = formatDate(createdIn)
+  const formattedDate = formatDate(created_in)
   return (
     <>
       {typeIcons[type] || '🔔'}
@@ -34,7 +34,7 @@ function SimpleNotification (notification) {
 }
 
 function DetailedNotification (notification) {
-  const { type, createdIn, metadata, userId, actionUrl, read, input, id } = notification
+  const { type, created_in, metadata, user_id, action_url, read, input, id } = notification
 
   const typeIcons = {
     newMessage: '📩',
@@ -44,7 +44,7 @@ function DetailedNotification (notification) {
     reviewReceived: '⭐'
   }
 
-  const formattedDate = formatDate(createdIn)
+  const formattedDate = formatDate(created_in)
 
   async function handleSubmitAnswer () {
     const inputPregunta = document.querySelector('.answerQuestion')
@@ -53,7 +53,7 @@ function DetailedNotification (notification) {
       return
     }
     if (metadata) {
-      const url = `http://localhost:3030/api/books/${metadata.bookId}`
+      const url = `http://localhost:3030/api/books/${metadata.book_id}`
 
       try {
         const response = await fetch(url, {
@@ -93,13 +93,13 @@ function DetailedNotification (notification) {
           title: 'Tu pregunta ha sido respondida!',
           priority: 'normal',
           type: 'questionAnswered',
-          userId,
+          user_id,
           input: inputPregunta.value,
-          actionUrl,
+          action_url,
           metadata: {
             photo: metadata.photo,
-            bookTitle: metadata.bookTitle,
-            bookId: metadata.bookId,
+            bookTitle: metadata.book_title,
+            bookId: metadata.book_id,
             question: input
           }
         }
@@ -116,7 +116,7 @@ function DetailedNotification (notification) {
   }
   return (
     <div className={`notification-item ${read ? 'read' : 'unread'}`}>
-      <h2 style={{ fontSize: '3rem', marginBottom: '5px' }}>{notification.title}</h2>
+      <h2 style={{ marginBottom: '5px' }}>{notification.title}</h2>
       <div className='notification-content'>
         {metadata.photo && (
           <>
@@ -126,7 +126,7 @@ function DetailedNotification (notification) {
               className='notification-photo'
             />
             <div>
-              <h2>{metadata.bookTitle}</h2>
+              <h2>{metadata.book_title}</h2>
             </div>
           </>
         )}
@@ -142,12 +142,11 @@ function DetailedNotification (notification) {
           <div className='send' onClick={(event) => handleSubmitAnswer(event)}>
             <img src='/sendMessage.svg' alt='Send Message' />
           </div>
-        </div>
-                                         </>}
+        </div></>}
       <div className='downNotification'>
         {typeIcons[type] || '🔔'}
-        {actionUrl && !['bookRejected'].includes(type) && (
-          <a href={actionUrl} className='notification-link'>
+        {action_url && !['bookRejected'].includes(type) && (
+          <a href={action_url} className='notification-link'>
             Ver el libro
           </a>)}
         <span>{formattedDate}</span>

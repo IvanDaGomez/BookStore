@@ -43,13 +43,13 @@ export   async function handleSubmitPregunta (user, libro) {
           title: 'Tienes una nueva pregunta',
           priority: 'normal',
           type: 'newQuestion',
-          userId: libro.idVendedor,
+          user_id: libro.id_vendedor,
           input: inputPregunta.value,
-          actionUrl: window.location.href,
+          action_url: window.location.href,
           metadata: {
             photo: libro.images[0],
-            bookTitle: libro.titulo,
-            bookId: libro.id
+            book_title: libro.titulo,
+            book_id: libro.id
           }
         }
         createNotification(notificationToSend)

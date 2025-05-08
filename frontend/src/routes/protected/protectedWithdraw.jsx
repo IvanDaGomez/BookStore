@@ -29,7 +29,7 @@ export default function ProtectedWithdraw() {
     async function fetchUser() {
       if (!actualInfo.userId) return;
       try {
-        const response = await axios.get(`http://localhost:3030/api/users/${actualInfo.userId}`);
+        const response = await axios.get(`http://localhost:3030/api/users/${actualInfo.user_id}`);
         const emailResponse = await axios.get(`http://localhost:3030/api/users/c/${response.data.id}`);
         setUser({
           ...response.data,
@@ -45,7 +45,7 @@ export default function ProtectedWithdraw() {
   async function handleWithdraw() {
     setIsProcessing(true);
     try {
-      const response = await axios.put(`http://localhost:3030/api/transactions/withdrawMoney/${actualInfo.userId}`);
+      const response = await axios.put(`http://localhost:3030/api/transactions/withdrawMoney/${actualInfo.user_id}`);
       if (response.data.error) {
         alert(response.data.error);
       }
@@ -71,10 +71,10 @@ export default function ProtectedWithdraw() {
           <h1>Información del usuario</h1>
           {user ? (
             <>
-              <img src={renderProfilePhoto(user.fotoPerfil ?? '')} alt="Profile" />
+              <img src={renderProfilePhoto(user.foto_perfil ?? '')} alt="Profile" />
               <p><strong>Nombre:</strong> {user.nombre}</p>
               <p><strong>Email:</strong> {user.correo}</p>
-              <p><strong>Teléfono:</strong> {user.phoneNumber || 'No disponible'}</p>
+              <p><strong>Teléfono:</strong> {user.phone_number || 'No disponible'}</p>
             </>
           ) : (
             <p>Cargando información del usuario...</p>
@@ -84,7 +84,7 @@ export default function ProtectedWithdraw() {
             <div className="withdrawTransactionInfo">
               <p><strong>Monto:</strong> {formatPrice(actualInfo.monto)}</p>
               <p><strong>Banco:</strong> {actualInfo.bank}</p>
-              <p><strong>Numero de cuenta:</strong> {actualInfo.numeroCuenta}</p>
+              <p><strong>Numero de cuenta:</strong> {actualInfo.numero_cuenta}</p>
             </div>
           ) : (
             <p>No hay información de transacción disponible.</p>

@@ -53,24 +53,24 @@ export default function ImagesCell({ libro, setActualImage, actualImage }) {
     <div className='imagesContainer'>
           <div className='imagesVariable'>
             {libro.images &&
-                        libro.images.map((image, index) => (
-                          <div
-                            className='imageElement'
-                            key={index}
-                            onClick={() => {
-                              // Construir la URL completa para cada imagen
-                              const imageUrl = image ? `http://localhost:3030/uploads/${image}` : ''
-                              setActualImage(imageUrl) // Establecer la URL de la imagen actual
-                            }}
-                          >
-                            <img
-                              loading='lazy'
-                              src={`http://localhost:3030/uploads/${image}`} // Usar la URL completa para mostrar la imagen
-                              alt={libro.title}
-                              title={libro.title}
-                            />
-                          </div>
-                        ))}
+              libro.images.map((image, index) => (
+                <div
+                  className='imageElement'
+                  key={index}
+                  onClick={() => {
+                    // Construir la URL completa para cada imagen
+                    const imageUrl = image ? `http://localhost:3030/uploads/${image}` : ''
+                    setActualImage(imageUrl) // Establecer la URL de la imagen actual
+                  }}
+                >
+                  <img
+                    loading='lazy'
+                    src={`http://localhost:3030/uploads/${image}`} // Usar la URL completa para mostrar la imagen
+                    alt={libro.title}
+                    title={libro.title}
+                  />
+                </div>
+              ))}
           </div>
 
           <div

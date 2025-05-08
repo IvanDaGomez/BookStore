@@ -28,25 +28,22 @@ export default function EnviarCorreoCambiarContraseña () {
       const url = 'http://localhost:3030/api/users/changePasswordEmail'
       const response = await axios.post(url, { email: email.value }, { withCredentials: true })
 
-      if (response.data.ok) {
-        setEmailSent(true)
-        setLoading(false)
-      } else {
-        console.error('Error en el servidor')
+      if (response.data.error) {
         toast.error('Error en el servidor')
-        setLoading(false)
-      }
+      } 
+      setEmailSent(true)
       
     } catch (error) {
       console.error(error)
+    } finally {
+      setLoading(false)
     }
   }
   return (
     <>
       {loading && <>
         <div className='opaqueBackground' />
-        <div className='loader'><Loader /></div>
-                  </>}
+        <div className='loader'><Loader /></div></>}
       <div className='verifyContainer cambiarContraseñaDiv'>
         <h1>¿Olvidaste tu contraseña?</h1>
         <p>Para cambiar tu contraseña escribe tu correo electrónico</p>

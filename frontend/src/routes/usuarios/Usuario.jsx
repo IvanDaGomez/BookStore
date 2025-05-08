@@ -70,25 +70,27 @@ export default function Usuario () {
   }, [idVendedor, user])
 
   useEffect(() => {
-    if (usuario && usuario.librosIds) {
+    if (usuario && usuario.libros_ids) {
       const fetchBooks = async () => {
         try {
-          const fetchedBooks = await Promise.all(
-            usuario.librosIds.map(async (idLibro) => {
-              const response = await fetch(`http://localhost:3030/api/books/${idLibro}`, {
-                method: 'GET',
-                credentials: 'include'
-              })
-              if (response.ok) {
-                return response.json()
-              } else {
-                console.error('Libro no encontrado')
-                return null
-              }
-            })
-          )
-          const validBooks = fetchedBooks.filter(book => book !== null)
+
+
+          const response = await axios.get(`http://localhost:3030/api/books/idList/${usuario.libros_ids.join(',')}`, {
+            method: 'GET',
+            credentials: 'include'
+          })
+          if (!response.data.error) {
+            const validBooks = response.data.filter(book => book !== null)
           setLibrosUsuario(validBooks)
+            return response.data
+          } else {
+            console.error('Libro no encontrado')
+            return null
+          }
+
+        
+          
+
         } catch (error) {
           console.error('Error fetching book data:', error)
         }
@@ -159,8 +161,8 @@ export default function Usuario () {
                 <h1>{usuario.nombre}</h1>
                 <h2>Seguidores: {usuario?.seguidores?.length || 0}</h2>
                 <p>Libros publicados: {librosUsuario.length || 0}</p>
-                <p>Libros vendidos: {usuario?.librosVendidos || 0}</p>
-                <p>Estado de la cuenta: {usuario.estadoCuenta}</p>
+                <p>Libros vendidos: {usuario?.compras_ids.length || 0}</p>
+                <p>Estado de la cuenta: {usuario.estado_cuenta}</p>
                 {usuario.bio && <span><big>{usuario.bio}</big></span>}
                 <div>
                   {!permisos

@@ -11,14 +11,14 @@ export default function MisCompras ({ user }) {
   const [compras, setCompras] = useState([])
   useEffect(() => {
     if (!transactions) return
-    const filteredCompras = transactions.filter(transaction => transaction.userId === user.id)
+    const filteredCompras = transactions.filter(transaction => transaction.user_id === user.id)
     setCompras(filteredCompras)
   },[transactions, user])
   const [libros, setLibros] = useState([])
   useEffect(() => {
     async function fetchLibro() {
       if (compras.length === 0) return
-      const librosIds = compras.map(compra => compra.bookId)
+      const librosIds = compras.map(compra => compra.book_id)
       const urlLibros = `http://localhost:3030/api/books/idList/${librosIds.join(',')}`
       const response = await axios.get(urlLibros, null, { withCredentials: true })
       setLibros(response.data)

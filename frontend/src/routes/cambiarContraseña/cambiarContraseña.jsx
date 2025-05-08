@@ -55,12 +55,12 @@ export default function CambiarContraseña () {
         password
       }, { withCredentials: true })
 
-      if (response.data.ok) {
-        setSuccess(true)
-        setTimeout(() => navigate('/login'), 2000)
-      } else {
+      if (response.data.error) {
         setError('Error al cambiar la contraseña')
+        return
       }
+      setSuccess(true)
+      setTimeout(() => navigate('/login'), 2000)
     } catch (error) {
       console.error('Error al cambiar la contraseña:', error)
       setError(error.response?.data?.error || 'Ocurrió un error inesperado')
@@ -111,13 +111,13 @@ export default function CambiarContraseña () {
                     height: '10px',
                     margin: '2px',
                     backgroundColor:
-                                                strengthLevel > index
-                                                  ? strengthLevel <= 2
-                                                    ? 'red'
-                                                    : strengthLevel <= 4
-                                                      ? 'orange'
-                                                      : 'green'
-                                                  : '#e0e0e0'
+                      strengthLevel > index
+                      ? strengthLevel <= 2
+                        ? 'red'
+                        : strengthLevel <= 4
+                          ? 'orange'
+                          : 'green'
+                      : '#e0e0e0'
                   }}
                 />
               ))}

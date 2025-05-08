@@ -25,7 +25,7 @@ export default function Balance ({ user, setUser }) {
           setUser({ ...user, balance: {
             disponible: response.data.balance.disponible, // prueba
             pendiente: response.data.balance.pendiente,
-            porLlegar: response.data.balance.porLlegar
+            por_llegar: response.data.balance.por_llegar
           } })
         }
       } catch (error) {
@@ -65,7 +65,7 @@ export default function Balance ({ user, setUser }) {
             </div>
             <div>
               <h2>Por llegar:</h2>
-              <h3>${user?.balance?.porLlegar || 0}</h3>
+              <h3>${user?.balance?.por_llegar || 0}</h3>
             </div>
             
             <div>

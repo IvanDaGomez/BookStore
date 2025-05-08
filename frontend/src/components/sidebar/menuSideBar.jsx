@@ -42,7 +42,7 @@ export default function MenuSideBar({ callback, user, logoutFn }) {
 
       {user &&
         <div className="nav-profile" onClick={()=> navigate(`/usuarios/${user.id}`)}>
-          <img src={renderProfilePhoto(user?.fotoPerfil || '')} alt="User" className="avatar" />
+          <img src={renderProfilePhoto(user?.foto_perfil || '')} alt="User" className="avatar" />
           <h2>{user.nombre}</h2>
         </div>
       }

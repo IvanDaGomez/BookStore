@@ -5,7 +5,6 @@ export default function Direcciones ({ user }) {
   return (
     <>
       <Breadcrumb pathsArr={window.location.pathname.split('/')} />
-      {console.log(user)}
     </>
   )
 }

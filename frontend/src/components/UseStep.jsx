@@ -13,11 +13,10 @@ export default function UseStep ({ currentStep, titulos }) {
 
         )) */}
       </div>
-      {/* eslint-disable react/jsx-key */}
       {steps.map((step, index) => (
         <>
           <div
-            key={index}className={`step-item ${
+            key={index} className={`step-item ${
               (currentStep >= index + 1) ? 'active' : ''}`}
           >
             {index + 1}

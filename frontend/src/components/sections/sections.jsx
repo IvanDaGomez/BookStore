@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { MakeCard, MakeCardPlaceHolder } from '../../assets/makeCard'
 
 import { UserContext } from '../../context/userContext'
@@ -14,7 +14,7 @@ export default function Sections ({ filter, backgroundColor, description }) {
 
   return (
     <>
-      <div className='sectionsBigContainer' style={{ backgroundColor}}>
+      <div className='sectionsBigContainer' style={{ backgroundColor }}>
 
         <h1>{filter}</h1>
         <h2>{description}</h2>

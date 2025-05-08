@@ -41,7 +41,7 @@ export default function NotificationsResults ({
 
                   </h2>
                 </div>
-                <span>{formatDate(notification?.createdIn) ?? ''}</span>
+                <span>{formatDate(notification?.created_in) ?? ''}</span>
 
               </div>
             ))}

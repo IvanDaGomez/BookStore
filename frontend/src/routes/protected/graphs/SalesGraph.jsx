@@ -25,7 +25,7 @@ ChartJS.register(
 
 export default function SalesGraph({ info }) {
   const [options] = useState(['Anual', 'Mensual', 'Semanal']);
-  const [activeOption, setActiveOption] = useState(options[0]);
+  const [activeOption] = useState(options[0]);
   const [data, setData] = useState(null);
 
   const getData = async () => {

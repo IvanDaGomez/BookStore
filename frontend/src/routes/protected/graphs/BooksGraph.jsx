@@ -25,7 +25,7 @@ ChartJS.register(
 
 export default function BooksGraph({ info }) {
   const [options] = useState(['Anual', 'Mensual', 'Semanal']);
-  const [activeOption, setActiveOption] = useState(options[0]);
+  const [activeOption] = useState(options[0]);
   const [data, setData] = useState(null);
 
   const getData = async () => {
@@ -43,7 +43,7 @@ export default function BooksGraph({ info }) {
       const targetYear = targetDate.getFullYear();
 
       return info.books.filter(book => {
-        const bookDate = new Date(book.fechaPublicacion.split('T')[0]);
+        const bookDate = new Date(book.fecha_publicacion.split('T')[0]);
         return (
           bookDate.getMonth() === targetMonth &&
           bookDate.getFullYear() === targetYear

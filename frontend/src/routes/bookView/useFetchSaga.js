@@ -10,8 +10,8 @@ export default function useFetchSaga(libro){
       try {
         const url = 'http://localhost:3030/api/collections/collectionSaga'
         const body = {
-          bookId: libro.id,
-          userId: libro.idVendedor
+          book_id: libro.id,
+          user_id: libro.id_vendedor
         }
         const response = await axios.post(url, body, {withCredentials: true})
         
@@ -20,7 +20,7 @@ export default function useFetchSaga(libro){
 
           const validBooks = []
           
-          for (const idLibro of response.data.data.librosIds) {
+          for (const idLibro of response.data.data.libros_ids) {
             try {
               const response = await axios.get(`http://localhost:3030/api/books/${idLibro}`, {
                 withCredentials: true

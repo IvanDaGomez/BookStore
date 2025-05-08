@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { createNotification } from '../../assets/createNotification'
 import { UserContext } from '../../context/userContext'
+import axios from 'axios'
 
 export default function ProtectedReviewBook () {
   const { user } = useContext(UserContext)
@@ -40,15 +41,14 @@ export default function ProtectedReviewBook () {
 
   // Function to remove a book from the review stage
   async function removeBookFromBackStage (bookId) {
-    console.log(bookId)
     if (!bookId) return
 
     try {
       const url = `http://localhost:3030/api/books/review/${bookId}`
-      const response = await fetch(url, { method: 'DELETE' })
-      console.log(response)
-      if (!response.ok) {
-        throw new Error('Failed to remove book')
+      const response = await axios.delete(url)
+      if (response.data.error) {
+        console.error(response.data.error)
+        return
       }
 
       setBooks((prevBooks) => prevBooks.filter((book) => book.id !== bookId))
@@ -108,12 +108,12 @@ export default function ProtectedReviewBook () {
         priority: 'normal',
         input: reason,
         type: 'bookRejected',
-        userId: book.idVendedor,
-        actionUrl: `${window.location.origin}/libros/${book.id}`,
+        user_id: book.id_vendedor,
+        action_url: `${window.location.origin}/libros/${book.id}`,
         metadata: {
           photo: book.images?.[0] || 'default.png',
-          bookTitle: book.titulo,
-          bookId: book.id
+          book_title: book.titulo,
+          book_id: book.id
         }
       }
 
@@ -158,8 +158,8 @@ export default function ProtectedReviewBook () {
               currentBook.tapa && `Tapa: ${currentBook.tapa}`,
               currentBook.idioma && `Idioma: ${currentBook.idioma}`,
               currentBook.ubicacion && `Ubicación: ${currentBook.ubicacion}`,
-              currentBook.fechaPublicacion &&
-              `Publicado: ${new Date(currentBook.fechaPublicacion).toLocaleDateString('es-ES', {
+              currentBook.fecha_publicacion &&
+              `Publicado: ${new Date(currentBook.fecha_publicacion).toLocaleDateString('es-ES', {
                 day: 'numeric',
                 month: 'long',
                 year: 'numeric'

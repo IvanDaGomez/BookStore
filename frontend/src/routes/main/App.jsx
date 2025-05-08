@@ -55,7 +55,7 @@ function App () {
   ]
   useEffect(() => {
     if (document.referrer.includes('/login')) {
-      window.location.reload()
+      setTimeout(window.location.reload(), 1000)
     }
   },[])
 
