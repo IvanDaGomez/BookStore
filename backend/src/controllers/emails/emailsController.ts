@@ -1,13 +1,17 @@
-import { IEmailsModel } from "../../types/models"
-import express from "express"
-import { ID } from "../../types/objects"
+import { IEmailsModel } from '../../types/models'
+import express from 'express'
+import { ID } from '../../types/objects'
 export class EmailsController {
   private EmailsModel: IEmailsModel
-  constructor ({ EmailsModel }: { EmailsModel: IEmailsModel}) {
+  constructor ({ EmailsModel }: { EmailsModel: IEmailsModel }) {
     this.EmailsModel = EmailsModel
   }
 
-  getAllEmails = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  getAllEmails = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
     try {
       const emails = await this.EmailsModel.getAllEmails()
       res.json(emails)
@@ -16,9 +20,13 @@ export class EmailsController {
     }
   }
 
-  getEmailById = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  getEmailById = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
     try {
-      const emailId = req.params.emailId as ID | undefined
+      const emailId = req.params.email_id as ID | undefined
       if (!emailId) {
         return res.status(400).json({ error: 'ID de correo requerido' })
       }
@@ -30,12 +38,18 @@ export class EmailsController {
     }
   }
 
-  createEmail = async (req: express.Request, res: express.Response, next: express.NextFunction):Promise<express.Response | void> => {
+  createEmail = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
     try {
       const data = req.body as { email: string }
 
       if (!data.email) {
-        return res.status(400).json({ error: 'Datos inválidos: Se requiere correo' })
+        return res
+          .status(400)
+          .json({ error: 'Datos inválidos: Se requiere correo' })
       }
       const email = await this.EmailsModel.createEmail(data)
       res.status(201).json(email)
@@ -44,7 +58,11 @@ export class EmailsController {
     }
   }
 
-  deleteEmail = async (req: express.Request, res: express.Response, next: express.NextFunction):Promise<express.Response | void> => {
+  deleteEmail = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
     try {
       const email = req.params.email as string | undefined
 
@@ -53,7 +71,6 @@ export class EmailsController {
       }
 
       await this.EmailsModel.deleteEmail(email)
-
 
       res.status(200).json({ message: 'Correo eliminado con éxito' })
     } catch (err) {

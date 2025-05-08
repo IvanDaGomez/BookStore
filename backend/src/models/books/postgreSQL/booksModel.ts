@@ -117,8 +117,8 @@ class BooksModel {
       {
         [key in keyof BookObjectType[]]?: any[] | number
       } & {
-        minPrecio?: number
-        maxPrecio?: number
+        min_precio?: number
+        max_precio?: number
         ciudad?: string[]
         departamento?: string[]
       }
@@ -136,8 +136,8 @@ class BooksModel {
         const prices = preparedFilters[
           filter as keyof PreparedFiltersType
         ] as number[]
-        preparedFilters['minPrecio'] = Math.min(...prices)
-        preparedFilters['maxPrecio'] = Math.max(...prices)
+        preparedFilters['min_precio'] = Math.min(...prices)
+        preparedFilters['max_precio'] = Math.max(...prices)
         delete preparedFilters[filter as keyof PreparedFiltersType]
       }
     })
@@ -176,17 +176,17 @@ class BooksModel {
               book.genero,
               book.formato,
               book.vendedor,
-              book.idVendedor,
+              book.id_vendedor,
               book.edicion,
               book.idioma,
               book.ubicacion,
               book.tapa,
               book.edad,
-              book.fechaPublicacion,
-              book.actualizadoEn,
+              book.fecha_publicacion,
+              book.actualizado_en,
               book.disponibilidad,
               book.mensajes,
-              book.collectionsIds
+              book.collections_ids
             ]
           ),
         'Failed to create new book'
@@ -280,9 +280,9 @@ class BooksModel {
         () =>
           pool.query(
             `INSERT INTO books_backstage (id, titulo, autor, precio, oferta, isbn, images, keywords, 
-          descripcion, estado, genero, formato, vendedor, idVendedor, edicion, idioma, 
-          ubicacion, tapa, edad, fechaPublicacion, actualizadoEn, disponibilidad,
-          mensajes, collectionsIds)
+          descripcion, estado, genero, formato, vendedor, id_vendedor, edicion, idioma, 
+          ubicacion, tapa, edad, fecha_publicacion, actualizado_en, disponibilidad,
+          mensajes, collections_ids)
           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13,
           $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24)
           ON CONFLICT (isbn) DO NOTHING;`,
@@ -300,17 +300,17 @@ class BooksModel {
               book.genero,
               book.formato,
               book.vendedor,
-              book.idVendedor,
+              book.id_vendedor,
               book.edicion,
               book.idioma,
               book.ubicacion,
               book.tapa,
               book.edad,
-              book.fechaPublicacion,
-              book.actualizadoEn,
+              book.fecha_publicacion,
+              book.actualizado_en,
               book.disponibilidad,
               book.mensajes,
-              book.collectionsIds
+              book.collections_ids
             ]
           ),
         'Failed to create review book'
@@ -404,7 +404,7 @@ class BooksModel {
       if (userKeyInfo?.id) {
         const user = await UsersModel.getUserById(userKeyInfo.id)
         preferences = Object.keys(user?.preferencias || {})
-        historial = Object.keys(user?.historialBusquedas || {})
+        historial = Object.keys(user?.historial_busquedas || {})
         likes = user.favoritos ?? []
 
         // Si el usuario tiene libros favoritos, entonces los agrego a las querywords
@@ -525,7 +525,7 @@ class BooksModel {
       // Esta función devuelve todos los libros de una colección específica
       // Obtener todos los libros
       const books = await Promise.all(
-        collection.librosIds.map(id => this.getBookById(id))
+        collection.libros_ids.map(id => this.getBookById(id))
       )
       return books
     } catch (error) {

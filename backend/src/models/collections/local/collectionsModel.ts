@@ -6,6 +6,7 @@ import { ID } from '../../../types/objects'
 import { changeToArray } from '../../../assets/changeToArray.js'
 import path from 'node:path'
 import { __dirname } from '../../../assets/config.js'
+import { PartialUserInfoType } from '../../../types/user.js'
 // __dirname is not available in ES modules, so we need to use import.meta.url
 
 const collectionPath = path.join(__dirname, 'data', 'collections.json')
@@ -30,7 +31,7 @@ class CollectionsModel {
   static async getCollectionsByUser (id: ID): Promise<CollectionObjectType[]> {
     const collections = await this.getAllCollections()
     const filteredCollections = collections.filter(
-      collection => collection.userId === id
+      collection => collection.user_id === id
     )
     if (!filteredCollections) {
       throw new Error('No se encontraron colecciones para este usuario')
@@ -153,9 +154,9 @@ class CollectionsModel {
     for (let i = 0; i < collections.length; i++) {
       const collection = collections[i]
       if (
-        collection.librosIds.length > 1 &&
-        collection.librosIds.includes(bookId) &&
-        collection.userId === userId &&
+        collection.libros_ids.length > 1 &&
+        collection.libros_ids.includes(bookId) &&
+        collection.user_id === userId &&
         collection.saga === true
       ) {
         return collection
@@ -169,7 +170,7 @@ class CollectionsModel {
   ): Promise<CollectionObjectType[]> {
     const collections = await this.getAllCollections()
     const filteredCollections = collections.filter(
-      collection => collection.userId !== userKeyInfo.userId
+      collection => collection.user_id !== userKeyInfo.user_id
     )
     const randomCollections = filteredCollections
       .sort(() => Math.random() - 0.5)

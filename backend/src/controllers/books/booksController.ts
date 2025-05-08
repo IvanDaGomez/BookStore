@@ -73,7 +73,7 @@ export class BooksController {
       Si no se encuentra el libro, se envía un error 404.
     */
     try {
-      const bookId = req.params.bookId as ID
+      const bookId = req.params.book_id as ID
       const book = await this.BooksModel.getBookById(bookId)
 
       const update = req.headers.update === book.id
@@ -225,14 +225,14 @@ export class BooksController {
       }
 
       // Recibe el usuario para actualizar sus librosIds
-      const user = await this.UsersModel.getUserById(data.idVendedor)
+      const user = await this.UsersModel.getUserById(data.id_vendedor)
 
       // Turn user to Vendedor if not already
       if (user.rol === 'usuario') {
         user.rol = 'vendedor'
       }
       const updated = await this.UsersModel.updateUser(user.id, {
-        librosIds: [...(user.librosIds ?? []), data.id],
+        libros_ids: [...(user.libros_ids ?? []), data.id],
         rol: user.rol
       })
 
@@ -242,7 +242,7 @@ export class BooksController {
         createNotification(notificationData, 'bookPublished')
       )
 
-      const correo = await this.UsersModel.getEmailById(data.idVendedor)
+      const correo = await this.UsersModel.getEmailById(data.id_vendedor)
 
       await sendEmail(
         `${data.vendedor} ${correo.correo}`,
@@ -262,16 +262,16 @@ export class BooksController {
     next: express.NextFunction
   ): Promise<express.Response | void> => {
     try {
-      const bookId = req.params.bookId as ID
+      const bookId = req.params.book_id as ID
 
       const book = await this.BooksModel.getBookById(bookId)
 
-      const user = await this.UsersModel.getUserById(book.idVendedor)
+      const user = await this.UsersModel.getUserById(book.id_vendedor)
 
-      const updatedLibrosIds = user.librosIds.filter(id => id !== bookId)
+      const updatedLibrosIds = user.libros_ids.filter(id => id !== bookId)
 
       await this.UsersModel.updateUser(user.id, {
-        librosIds: updatedLibrosIds
+        libros_ids: updatedLibrosIds
       })
 
       const result = await this.BooksModel.deleteBook(bookId)
@@ -288,7 +288,7 @@ export class BooksController {
     next: express.NextFunction
   ): Promise<express.Response | void> => {
     try {
-      const bookId = req.params.bookId as ID
+      const bookId = req.params.book_id as ID
       const rawData = req.body
       const existingBook = await this.BooksModel.getBookById(bookId)
 
@@ -321,7 +321,7 @@ export class BooksController {
   ): Promise<express.Response | void> => {
     const browser = await chromium.launch({ headless: true })
     try {
-      const bookTitle = req.params.bookTitle as string
+      const bookTitle = req.params.book_title as string
       const context = await browser.newContext()
       const page = await context.newPage()
 
@@ -382,7 +382,7 @@ export class BooksController {
     next: express.NextFunction
   ): Promise<express.Response | void> => {
     try {
-      const bookId = req.params.bookId as ID
+      const bookId = req.params.book_id as ID
       const result = await this.BooksModel.deleteReviewBook(bookId)
       return res.json(result)
     } catch (err) {
@@ -396,7 +396,7 @@ export class BooksController {
     next: express.NextFunction
   ): Promise<express.Response | void> => {
     try {
-      const bookId = req.params.bookId as ID
+      const bookId = req.params.book_id as ID
       let rawData = req.body as Partial<BookObjectType>
       const existingBook = await this.BooksModel.getBookById(bookId)
 
@@ -410,7 +410,7 @@ export class BooksController {
         return res.status(400).json({ error: validated.error.errors })
       }
       const filteredData = filterData(data)
-      filteredData.actualizadoEn = new Date().toISOString() as ISOString
+      filteredData.actualizado_en = new Date().toISOString() as ISOString
       const book = await this.BooksModel.updateReviewBook(bookId, filteredData)
 
       res.status(200).json(book)

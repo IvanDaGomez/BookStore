@@ -8,23 +8,26 @@ import { __dirname } from '../../../assets/config.js'
 const messagesPath = path.join(__dirname, 'data', 'messages.json')
 class MessagesModel {
   static async getAllMessages (): Promise<MessageObjectType[]> {
-      const data = await fs.readFile(messagesPath, 'utf-8')
-      const messages: MessageObjectType[] = JSON.parse(data)
-      if (!messages) {
-        throw new Error('No se pudieron encontrar los mensajes')
-      }
-      return messages.map(message => messageObject(message))
+    const data = await fs.readFile(messagesPath, 'utf-8')
+    const messages: MessageObjectType[] = JSON.parse(data)
+    if (!messages) {
+      throw new Error('No se pudieron encontrar los mensajes')
+    }
+    return messages.map(message => messageObject(message))
   }
 
-  static async getAllMessagesByConversation (id: ID): Promise<MessageObjectType[]> {
+  static async getAllMessagesByConversation (
+    id: ID
+  ): Promise<MessageObjectType[]> {
     const messages = await this.getAllMessages()
-    const filteredMessages = messages.filter(message => message.conversationId === id)
+    const filteredMessages = messages.filter(
+      message => message.conversation_id === id
+    )
     if (!filteredMessages) {
       throw new Error('No se pudieron encontrar los mensajes')
     }
     // Return message with limited public information
     return filteredMessages.map(message => messageObject(message))
-
   }
 
   static async getMessageById (id: ID): Promise<MessageObjectType> {
@@ -37,14 +40,15 @@ class MessagesModel {
     return messageObject(message)
   }
 
-  static async sendMessage (data: Partial<MessageObjectType>): Promise<MessageObjectType> {
+  static async sendMessage (
+    data: Partial<MessageObjectType>
+  ): Promise<MessageObjectType> {
     const messages = await this.getAllMessages()
     // Crear valores por defecto
     const newMessage = messageObject(data)
     messages.push(newMessage)
     await fs.writeFile(messagesPath, JSON.stringify(messages, null, 2))
     return newMessage
-
   }
 
   static async deleteMessage (id: ID): Promise<{ message: string }> {
@@ -58,7 +62,10 @@ class MessagesModel {
     return { message: 'Mensaje eliminado con éxito' } // Mensaje de éxito
   }
 
-  static async updateMessage (id: ID, data: Partial<MessageObjectType>): Promise<MessageObjectType> {
+  static async updateMessage (
+    id: ID,
+    data: Partial<MessageObjectType>
+  ): Promise<MessageObjectType> {
     const messages = await this.getAllMessages()
     const messageIndex = messages.findIndex(message => message.id === id)
     if (messageIndex === -1) {

@@ -1,11 +1,20 @@
-import { BookObjectType } from "../../types/book";
+import { BookObjectType } from '../../types/book'
 
 // Overload signatures
-function bookObject(data: BookObjectType | Partial<BookObjectType>, fullInfo: true): BookObjectType;
-function bookObject(data: BookObjectType | Partial<BookObjectType>, fullInfo: false): Partial<BookObjectType>;
+function bookObject(
+  data: BookObjectType | Partial<BookObjectType>,
+  fullInfo: true
+): BookObjectType
+function bookObject(
+  data: BookObjectType | Partial<BookObjectType>,
+  fullInfo: false
+): Partial<BookObjectType>
 
 // Implementation
-function bookObject(data: BookObjectType | Partial<BookObjectType>, fullInfo = true): BookObjectType | Partial<BookObjectType> {
+function bookObject (
+  data: BookObjectType | Partial<BookObjectType>,
+  fullInfo = true
+): BookObjectType | Partial<BookObjectType> {
   if (fullInfo) {
     return {
       titulo: data.titulo ?? '',
@@ -21,7 +30,7 @@ function bookObject(data: BookObjectType | Partial<BookObjectType>, fullInfo = t
       genero: data.genero ?? '',
       formato: data.formato ?? '',
       vendedor: data.vendedor ?? '',
-      idVendedor: data.idVendedor ?? '',
+      id_vendedor: data.id_vendedor ?? '',
       edicion: data.edicion ?? '',
       idioma: data.idioma ?? '',
       ubicacion: data.ubicacion ?? {
@@ -31,12 +40,12 @@ function bookObject(data: BookObjectType | Partial<BookObjectType>, fullInfo = t
       },
       tapa: data.tapa ?? '',
       edad: data.edad ?? '',
-      fechaPublicacion: data.fechaPublicacion ?? new Date().toISOString(),
-      actualizadoEn: data.actualizadoEn ?? new Date().toISOString(),
+      fecha_publicacion: data.fecha_publicacion ?? new Date().toISOString(),
+      actualizado_en: data.actualizado_en ?? new Date().toISOString(),
       disponibilidad: data.disponibilidad ?? 'Disponible',
       mensajes: data.mensajes ?? [],
-      collectionsIds: data.collectionsIds ?? []
-    } as BookObjectType;
+      collections_ids: data.collections_ids ?? []
+    } as BookObjectType
   }
   return {
     titulo: data.titulo ?? '',
@@ -47,12 +56,13 @@ function bookObject(data: BookObjectType | Partial<BookObjectType>, fullInfo = t
     keywords: data.keywords ?? [],
     images: data.images ?? [],
     id: data.id ?? '',
+    id_vendedor: data.id_vendedor ?? '',
     estado: data.estado ?? 'Nuevo sellado',
     genero: data.genero ?? '',
     disponibilidad: data.disponibilidad ?? 'Disponible',
-    collectionsIds: data.collectionsIds ?? [],
-    fechaPublicacion: data.fechaPublicacion ?? new Date().toISOString()
-  } as Partial<BookObjectType>;
+    collections_ids: data.collections_ids ?? [],
+    fecha_publicacion: data.fecha_publicacion ?? new Date().toISOString()
+  } as Partial<BookObjectType>
 }
 
-export { bookObject };
+export { bookObject }

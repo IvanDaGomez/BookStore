@@ -28,7 +28,7 @@ export class NotificationsModel {
     const allNotifications = await this.getAllNotifications()
     // Filter notifications based on the provided notificationsIds
     const userNotifications = allNotifications.filter(
-      notification => notification.userId === userId
+      notification => notification.user_id === userId
     )
     console.log('allNotifications', allNotifications)
     return userNotifications
@@ -54,7 +54,7 @@ export class NotificationsModel {
     notifications.push(newNotification)
     // Elimina las notificaciones que ya han expirado
     notifications = notifications.filter(notification => {
-      if (new Date(notification.expiresAt) < new Date()) {
+      if (new Date(notification.expires_at) < new Date()) {
         return false
       }
       return true

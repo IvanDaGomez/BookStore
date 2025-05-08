@@ -55,7 +55,7 @@ export class TransactionsController {
     next: express.NextFunction
   ) => {
     try {
-      const userId = req.params.userId as ID | undefined
+      const userId = req.params.user_id as ID | undefined
       if (!userId) {
         return res.status(400).json({ error: 'ID de usuario no proporcionado' })
       }
@@ -74,8 +74,8 @@ export class TransactionsController {
     next: express.NextFunction
   ) => {
     try {
-      const transactionId = req.params.transactionId
-        ? parseInt(req.params.transactionId, 10)
+      const transactionId = req.params.transaction_id
+        ? parseInt(req.params.transaction_id, 10)
         : undefined
       if (!transactionId) {
         return res
@@ -119,8 +119,8 @@ export class TransactionsController {
     next: express.NextFunction
   ) => {
     try {
-      const transactionId = req.params.transactionId
-        ? parseInt(req.params.transactionId, 10)
+      const transactionId = req.params.transaction_id
+        ? parseInt(req.params.transaction_id, 10)
         : undefined
       if (!transactionId) {
         return res
@@ -136,8 +136,11 @@ export class TransactionsController {
         return res.status(404).json({ error: 'Transacción no encontrada' })
       }
       // Verificar si el usuario es el vendedor
-      const userId = transaction.userId
-
+      const userId = transaction.user_id
+      const user = await this.UsersModel.getUserById(userId)
+      if (!user) {
+        return res.status(404).json({ error: 'Usuario no encontrado' })
+      }
       // Eliminar el transacción de la base de datos
       const result = await this.TransactionsModel.deleteTransaction(
         transactionId
@@ -173,7 +176,6 @@ export class TransactionsController {
         } */
         // auto_return: 'approved'
       }
-      console.log('body', body)
       const result = await preference.create({ body })
       res.json({
         id: result.id
@@ -201,12 +203,12 @@ export class TransactionsController {
     7. Devolver el resultado
     */
     try {
-      const { formData, partialData, payment_method } =
+      const { form_data, partial_data, payment_method } =
         req.body as MercadoPagoInput
-      const sellerId = partialData.sellerId
-      const userId = partialData.userId
-      const bookId = partialData.bookId
-      const shippingDetails = partialData.shippingDetails
+      const sellerId = partial_data.seller_id
+      const userId = partial_data.user_id
+      const bookId = partial_data.book_id
+      const shippingDetails = partial_data.shipping_details
       if (!sellerId || !userId || !bookId || !shippingDetails) {
         return res
           .status(400)
@@ -221,8 +223,8 @@ export class TransactionsController {
 
       // Configuración del pago con split payments
       const info = createMercadoPagoPayment({
-        formData,
-        partialData,
+        form_data,
+        partial_data,
         payment_method,
         book,
         user
@@ -236,8 +238,8 @@ export class TransactionsController {
       await Promise.all([
         this.UsersModel.updateUser(sellerId, {
           balance: {
-            porLlegar:
-              (seller.balance.porLlegar ?? 0) + formData.transaction_amount
+            por_llegar:
+              (seller.balance.por_llegar ?? 0) + form_data.transaction_amount
           }
         }),
         this.BooksModel.updateBook(bookId, {
@@ -253,9 +255,9 @@ export class TransactionsController {
       // Registrar la transacción (éxito o fracaso)
       const transaction =
         await this.TransactionsModel.createSuccessfullTransaction({
-          userId,
-          bookId: book.id,
-          shippingDetails,
+          user_id: userId,
+          book_id: book.id,
+          shipping_details: shippingDetails,
           response,
           order
         })
@@ -266,7 +268,7 @@ export class TransactionsController {
         seller,
         book,
         transaction,
-        shippingDetails,
+        shipping_details: shippingDetails,
         order,
         UsersModel: this.UsersModel
       })
@@ -299,24 +301,29 @@ export class TransactionsController {
     */
     try {
       // const transaction = sequelize.transaction()
-      const { partialData } = req.body as MercadoPagoInput
-      const { userId, sellerId, bookId, shippingDetails, transaction_amount } =
-        partialData as {
-          userId: ID
-          sellerId: ID
-          bookId: ID
-          shippingDetails: ShippingDetailsType
-          transaction_amount: number
-        }
-      if (!userId || !transaction_amount || !bookId) {
+      const { partial_data } = req.body as MercadoPagoInput
+      const {
+        user_id,
+        seller_id,
+        book_id,
+        shipping_details,
+        transaction_amount
+      } = partial_data as {
+        user_id: ID
+        seller_id: ID
+        book_id: ID
+        shipping_details: ShippingDetailsType
+        transaction_amount: number
+      }
+      if (!user_id || !transaction_amount || !book_id) {
         console.log('Faltan datos requeridos')
         return res.status(400).json({ error: 'Faltan datos requeridos' })
       }
       // Actualizar el saldo del usuario y vendedor
       const [user, seller, book] = await Promise.all([
-        this.UsersModel.getUserById(userId),
-        this.UsersModel.getUserById(sellerId),
-        this.BooksModel.getBookById(bookId)
+        this.UsersModel.getUserById(user_id),
+        this.UsersModel.getUserById(seller_id),
+        this.BooksModel.getBookById(book_id)
       ])
 
       // Verificar que el usuario tenga saldo suficiente
@@ -325,32 +332,32 @@ export class TransactionsController {
       }
       // Actualizar el saldo del usuario y vendedor
       const [updatedUser, updatedSeller, updatedBook] = await Promise.all([
-        this.UsersModel.updateUser(userId, {
-          comprasIds: [...seller.comprasIds, book.id],
+        this.UsersModel.updateUser(user_id, {
+          compras_ids: [...seller.compras_ids, book.id],
           balance: {
             disponible: user.balance.disponible - transaction_amount
           }
         }),
-        this.UsersModel.updateUser(sellerId, {
+        this.UsersModel.updateUser(seller_id, {
           balance: {
-            porLlegar: (seller.balance.porLlegar ?? 0) + transaction_amount
+            por_llegar: (seller.balance.por_llegar ?? 0) + transaction_amount
           }
         }),
-        this.BooksModel.updateBook(bookId, {
+        this.BooksModel.updateBook(book_id, {
           disponibilidad: 'Vendido'
         })
       ])
       // PENDIENTE
       const order = await CreateOrdenDeEnvío({
-        ...shippingDetails
+        ...shipping_details
       })
       // Crear la transacción
       // TODO
       const transaction =
         await this.TransactionsModel.createSuccessfullTransaction({
-          userId,
-          bookId,
-          shippingDetails,
+          user_id,
+          book_id,
+          shipping_details,
           transaction_amount,
           status: 'approved'
         })
@@ -360,7 +367,7 @@ export class TransactionsController {
         seller: updatedSeller,
         book,
         transaction,
-        shippingDetails,
+        shipping_details,
         order,
         UsersModel: this.UsersModel
       })
@@ -410,9 +417,9 @@ export class TransactionsController {
           return res.status(200).json({ status: 'success' })
         }
         const [user, seller, book] = await Promise.all([
-          this.UsersModel.getUserById(existingTransaction.userId),
-          this.UsersModel.getUserById(existingTransaction.sellerId),
-          this.BooksModel.getBookById(existingTransaction.bookId)
+          this.UsersModel.getUserById(existingTransaction.user_id),
+          this.UsersModel.getUserById(existingTransaction.seller_id),
+          this.BooksModel.getBookById(existingTransaction.book_id)
         ])
         if (response.status === 'approved') {
           // Actualizar el saldo del usuario y vendedor
@@ -420,12 +427,12 @@ export class TransactionsController {
           // Actualizar el saldo del usuario y vendedor
           await Promise.all([
             this.UsersModel.updateUser(user.id, {
-              comprasIds: [...user.comprasIds, book.id]
+              compras_ids: [...user.compras_ids, book.id]
             }),
             this.UsersModel.updateUser(seller.id, {
               balance: {
-                porLlegar:
-                  (seller.balance.porLlegar ?? 0) +
+                por_llegar:
+                  (seller.balance.por_llegar ?? 0) +
                   (response?.transaction_amount ?? 0)
               }
             }),
@@ -436,9 +443,9 @@ export class TransactionsController {
           // Crear la transacción
           const transaction =
             await this.TransactionsModel.createSuccessfullTransaction({
-              userId: existingTransaction.userId,
-              bookId: existingTransaction.bookId,
-              shippingDetails: existingTransaction.shippingDetails,
+              user_id: existingTransaction.user_id,
+              book_id: existingTransaction.book_id,
+              shipping_details: existingTransaction.shipping_details,
               response,
               order: existingTransaction.order
             })
@@ -448,7 +455,7 @@ export class TransactionsController {
             seller,
             book,
             transaction,
-            shippingDetails: existingTransaction.shippingDetails,
+            shipping_details: existingTransaction.shipping_details,
             order: existingTransaction.order,
             UsersModel: this.UsersModel
           })
@@ -483,7 +490,7 @@ export class TransactionsController {
     next: express.NextFunction
   ) => {
     try {
-      const userId = req.params.userId as ID | undefined
+      const userId = req.params.user_id as ID | undefined
 
       if (!userId) {
         return res.status(400).json({ error: 'ID de usuario no proporcionado' })
@@ -518,25 +525,25 @@ export class TransactionsController {
     next: express.NextFunction
   ) => {
     try {
-      const { userId, numeroCuenta, monto, password, phoneNumber, bank } =
+      const { user_id, numero_cuenta, monto, password, phone_number, bank } =
         req.body as {
-          userId: ID
-          numeroCuenta: string
+          user_id: ID
+          numero_cuenta: string
           monto: string
-          phoneNumber: string
+          phone_number: string
           password: string
           bank: string
         }
 
-      if (!userId || !monto || !numeroCuenta || !password || !bank) {
+      if (!user_id || !monto || !numero_cuenta || !password || !bank) {
         return res
           .status(400)
           .json({ error: 'ID de usuario o monto no proporcionado' })
       }
       const ammount = parseInt(monto, 10)
-      const accountNumber = parseInt(numeroCuenta, 10)
-      const phone = parseInt(phoneNumber, 10)
-      const userEmail = await this.UsersModel.getEmailById(userId)
+      const accountNumber = parseInt(numero_cuenta, 10)
+      const phone = parseInt(phone_number, 10)
+      const userEmail = await this.UsersModel.getEmailById(user_id)
       const user = await this.UsersModel.login(userEmail.correo, password)
       if (!user) {
         return res.status(404).json({ error: 'Usuario no encontrado' })
@@ -547,16 +554,16 @@ export class TransactionsController {
       }
       await this.TransactionsModel.createWithdrawTransaction({
         id: crypto.randomUUID(),
-        userId,
-        numeroCuenta: accountNumber,
+        user_id,
+        numero_cuenta: accountNumber,
         monto: ammount,
         fecha: new Date().toISOString() as ISOString,
         bank,
         status: 'pending',
-        phoneNumber: phone
+        phone_number: phone
       })
 
-      const updatedUser = await this.UsersModel.updateUser(userId, {
+      const updatedUser = await this.UsersModel.updateUser(user_id, {
         balance: {
           disponible: user.balance.disponible - ammount,
           pendiente: (user.balance.pendiente ?? 0) + ammount
@@ -592,7 +599,7 @@ export class TransactionsController {
     next: express.NextFunction
   ) => {
     try {
-      const id = req.params.id as ID | undefined
+      const id = req.params.user_id as ID | undefined
 
       if (!id) {
         return res.status(400).json({ error: 'ID de usuario no proporcionado' })

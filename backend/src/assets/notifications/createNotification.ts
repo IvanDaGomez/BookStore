@@ -14,7 +14,7 @@ export type NotificationInfoNeeded = {
   created_in?: ISOString
   expires_at?: ISOString
   follower?: PartialUserInfoType
-  guia?: string
+  order?: string
 } & Partial<BookObjectType>
 export function createNotification (
   data: NotificationInfoNeeded,
@@ -112,7 +112,7 @@ export function createNotification (
         action_url: `${process.env.FRONTEND_URL}/libros/${data.id}`,
         metadata: {
           photo: (data.images ?? [])[0],
-          guia: data.guia,
+          order: data.order,
           book_title: data.titulo,
           book_id: data.id
         }

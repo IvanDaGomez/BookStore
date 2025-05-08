@@ -32,7 +32,7 @@ export class NotificationsModel {
     const notifications = await executeQuery(
       pool,
       () =>
-        pool.query('SELECT * FROM notifications WHERE userId = $1;', [userId]),
+        pool.query('SELECT * FROM notifications WHERE user_id = $1;', [userId]),
       'Error getting notifications'
     )
     return notifications
@@ -65,18 +65,18 @@ export class NotificationsModel {
       pool,
       () =>
         pool.query(
-          'INSERT INTO notifications (id, title, priority, type, userId, input, createdIn, read, actionUrl, expiresAt, message, metadata) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);',
+          'INSERT INTO notifications (id, title, priority, type, user_id, input, createdIn, read, action_url, expires_at, message, metadata) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);',
           [
             newNotification.id,
             newNotification.title,
             newNotification.priority,
             newNotification.type,
-            newNotification.userId,
+            newNotification.user_id,
             newNotification.input,
-            newNotification.createdIn,
+            newNotification.created_in,
             newNotification.read,
-            newNotification.actionUrl,
-            newNotification.expiresAt,
+            newNotification.action_url,
+            newNotification.expires_at,
             newNotification.message,
             JSON.stringify(newNotification.metadata)
           ]
@@ -110,7 +110,7 @@ export class NotificationsModel {
         pool,
         () =>
           pool.query(
-            `UPDATE notifications SET ${updateString} WHERE ID = $${
+            `UPDATE notifications SET ${updateString} WHERE id = $${
               keys.length + 1
             } RETURNING *;`,
             [...values, id]

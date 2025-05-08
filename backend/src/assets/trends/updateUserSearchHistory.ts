@@ -3,7 +3,11 @@ import { UsersModel } from '../../models/users/local/usersLocal.js'
 import { AuthToken } from '../../types/authToken.js'
 import { BookObjectType } from '../../types/book.js'
 
-export async function updateUserSearchHistory (userObj: AuthToken, book: Partial<BookObjectType>, action: 'query' | 'openedBook') {
+export async function updateUserSearchHistory (
+  userObj: AuthToken,
+  book: Partial<BookObjectType>,
+  action: 'query' | 'openedBook'
+) {
   const maxScore: number = 30
   const minScore: number = 0
   const seenBookIncrement: number = 7
@@ -13,7 +17,7 @@ export async function updateUserSearchHistory (userObj: AuthToken, book: Partial
   const userId = userObj.id
   const user = await UsersModel.getUserById(userId)
   const bookKeyInfo = getBookKeyInfo(book)
-  const userPreferences = user.historialBusquedas
+  const userPreferences = user.historial_busquedas
   // 🔹 Restar 1 punto a todos (mínimo 0)
   Object.keys(userPreferences).forEach(key => {
     userPreferences[key] = userPreferences[key] - decrement
@@ -22,11 +26,14 @@ export async function updateUserSearchHistory (userObj: AuthToken, book: Partial
     }
   })
   // 🔹 Ajustar puntuación según acción
-  const increment = action === 'openedBook' ? seenBookIncrement : openedBookIncrement
+  const increment =
+    action === 'openedBook' ? seenBookIncrement : openedBookIncrement
   for (const key of bookKeyInfo) {
-    userPreferences[key] = Math.min((userPreferences[key] || minScore) + increment, maxScore)
+    userPreferences[key] = Math.min(
+      (userPreferences[key] || minScore) + increment,
+      maxScore
+    )
   }
   // Guardar los cambios en la base de datos
-  await UsersModel.updateUser(userId, { historialBusquedas: userPreferences })
-
+  await UsersModel.updateUser(userId, { historial_busquedas: userPreferences })
 }

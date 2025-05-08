@@ -40,32 +40,33 @@ async function dropTables () {
 
   console.log('Tables dropped successfully')
 }
+
 async function createTables () {
   const createUsersTable = `
     CREATE TABLE IF NOT EXISTS users (
       id VARCHAR PRIMARY KEY,
       nombre VARCHAR(100) NOT NULL,
       rol VARCHAR(50) NOT NULL,
-      fotoPerfil VARCHAR(255),
+      foto_perfil VARCHAR(255),
       correo VARCHAR(100) NOT NULL UNIQUE,
-      direccionEnvio JSONB,
-      librosIds VARCHAR[],
-      estadoCuenta VARCHAR(50) NOT NULL,
-      fechaRegistro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      actualizadoEn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      direccion_envio JSONB,
+      libros_ids VARCHAR[],
+      estado_cuenta VARCHAR(50) NOT NULL,
+      fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      actualizado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       bio TEXT,
       favoritos VARCHAR[],
-      conversationsIds VARCHAR[],
-      notificationsIds VARCHAR[],
+      conversations_ids VARCHAR[],
+      notifications_ids VARCHAR[],
       validated BOOLEAN DEFAULT FALSE,
       login VARCHAR(50) NOT NULL,
       ubicacion JSONB,
       seguidores VARCHAR[],
       siguiendo VARCHAR[],
-      coleccionsIds VARCHAR[],
-      comprasIds VARCHAR[],
+      collections_ids VARCHAR[],
+      compras_ids VARCHAR[],
       preferencias JSONB,
-      historialBusquedas JSONB,
+      historial_busquedas JSONB,
       balance JSONB,
       contraseña VARCHAR(255)
     );
@@ -78,7 +79,7 @@ async function createTables () {
       autor VARCHAR(255) NOT NULL,
       precio DECIMAL(10) NOT NULL,
       oferta DECIMAL(10),
-      isbn VARCHAR(20),${/*NOT NULL,*/ ''}
+      isbn VARCHAR(20),
       images VARCHAR(200)[],
       keywords VARCHAR[],
       descripcion TEXT,
@@ -86,17 +87,17 @@ async function createTables () {
       genero VARCHAR(50),
       formato VARCHAR(50),
       vendedor VARCHAR(100),
-      idVendedor VARCHAR,
+      id_vendedor VARCHAR,
       edicion VARCHAR(50),
       idioma VARCHAR(50),
       ubicacion JSONB,
       tapa VARCHAR(50),
       edad VARCHAR(50),
-      fechaPublicacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      actualizadoEn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      fecha_publicacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      actualizado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       disponibilidad VARCHAR(50) DEFAULT TRUE,
       mensajes VARCHAR[][],
-      collectionsIds VARCHAR[]
+      collections_ids VARCHAR[]
     );
   `
   const createBooksBackstageTable = `
@@ -106,7 +107,7 @@ async function createTables () {
       autor VARCHAR(255) NOT NULL,
       precio DECIMAL(10) NOT NULL,
       oferta DECIMAL(10),
-      isbn VARCHAR(20),${/*NOT NULL,*/ ''}
+      isbn VARCHAR(20),
       images VARCHAR(200)[],
       keywords VARCHAR[],
       descripcion TEXT,
@@ -114,17 +115,17 @@ async function createTables () {
       genero VARCHAR(50),
       formato VARCHAR(50),
       vendedor VARCHAR(100),
-      idVendedor VARCHAR,
+      id_vendedor VARCHAR,
       edicion VARCHAR(50),
       idioma VARCHAR(50),
       ubicacion JSONB,
       tapa VARCHAR(50),
       edad VARCHAR(50),
-      fechaPublicacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      actualizadoEn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      disponibilidad VARCHAR(50) DEFAULT TRUE,
+      fecha_publicacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      actualizado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      disponibilidad VARCHAR(50) DEFAULT 'Disponible',
       mensajes VARCHAR[][],
-      collectionsIds VARCHAR[]
+      collections_ids VARCHAR[]
     );
   `
   const createTrendsTable = `
@@ -137,10 +138,10 @@ async function createTables () {
   const createWithdrawalsTable = `
     CREATE TABLE IF NOT EXISTS withdrawals (
       id VARCHAR PRIMARY KEY,
-      userId VARCHAR,
-      numeroCuenta VARCHAR(50),
+      user_id VARCHAR,
+      numero_cuenta VARCHAR(50),
       bank VARCHAR(50),
-      phoneNumber VARCHAR(50),
+      phone_number VARCHAR(50),
       monto DECIMAL(10, 2),
       fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       status VARCHAR(50) DEFAULT 'pending'
@@ -149,13 +150,13 @@ async function createTables () {
     CREATE TABLE IF NOT EXISTS collections (
       id VARCHAR PRIMARY KEY,
       foto VARCHAR(255),
-      librosIds VARCHAR[],
+      libros_ids VARCHAR[],
       nombre VARCHAR(100) NOT NULL,
       descripcion TEXT,
       seguidores VARCHAR[],
-      userId VARCHAR,
+      user_id VARCHAR,
       saga BOOLEAN DEFAULT FALSE,
-      creadoEn TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
   `
 
@@ -163,17 +164,17 @@ async function createTables () {
     CREATE TABLE IF NOT EXISTS conversations (
       id VARCHAR PRIMARY KEY,
       users VARCHAR[] NOT NULL,
-      createdIn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-      lastMessage JSONB
+      created_in TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      last_message JSONB
     );
   `
   const createMessagesTable = `
     CREATE TABLE IF NOT EXISTS messages (
       id VARCHAR PRIMARY KEY,
-      conversationId VARCHAR,
-      userId VARCHAR,
+      conversation_id VARCHAR,
+      user_id VARCHAR,
       message TEXT NOT NULL,
-      createdIn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      created_in TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       read BOOLEAN DEFAULT FALSE
     );
   `
@@ -190,12 +191,12 @@ async function createTables () {
       title VARCHAR(255) NOT NULL,
       priority VARCHAR(50) NOT NULL,
       type VARCHAR(50) NOT NULL,
-      userId VARCHAR,
+      user_id VARCHAR,
       input TEXT,
-      createdIn TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+      created_in TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       read BOOLEAN DEFAULT FALSE,
-      actionUrl VARCHAR(255),
-      expiresAt TIMESTAMP NOT NULL,
+      action_url VARCHAR(255),
+      expires_at TIMESTAMP NOT NULL,
       message TEXT,
       metadata JSONB
     );
@@ -203,13 +204,13 @@ async function createTables () {
 
   const createTransactionsTable = `
     CREATE TABLE IF NOT EXISTS transactions (
-      postgreId SERIAL PRIMARY KEY,
+      postgre_id SERIAL PRIMARY KEY,
       id VARCHAR,
-      userId VARCHAR,
-      bookId VARCHAR,
-      sellerId VARCHAR,
+      user_id VARCHAR,
+      book_id VARCHAR,
+      seller_id VARCHAR,
       status VARCHAR(50) NOT NULL,
-      shippingDetails JSONB,
+      shipping_details JSONB,
       response JSONB,
       orden JSONB
     );
@@ -235,7 +236,6 @@ async function createTables () {
 async function fillTablesWithLocalData () {
   const userData = await UsersModel.getAllUsers()
   const bookData = await BooksModel.getAllBooks()
-  console.log('bookData', bookData)
   const bookBackstageData = await BooksModel.getAllReviewBooks()
   const withdrawalData = await TransactionsModel.getAllWithdrawTransactions()
   const rawTrends = await fs.readFile(
@@ -255,36 +255,36 @@ async function fillTablesWithLocalData () {
       userData.map(user =>
         pool.query(
           `
-          INSERT INTO users (id, nombre, rol, fotoPerfil, correo, direccionEnvio, librosIds, 
-          estadoCuenta, fechaRegistro, actualizadoEn, bio, favoritos, conversationsIds, 
-          notificationsIds, validated, login, ubicacion, seguidores, siguiendo, coleccionsIds, 
-          comprasIds, preferencias, historialBusquedas, balance, contraseña)
+          INSERT INTO users (id, nombre, rol, foto_perfil, correo, direccion_envio, libros_ids, 
+          estado_cuenta, fecha_registro, actualizado_en, bio, favoritos, conversations_ids, 
+          notifications_ids, validated, login, ubicacion, seguidores, siguiendo, collections_ids, 
+          compras_ids, preferencias, historial_busquedas, balance, contraseña)
           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25);
         `,
           [
             user.id,
             user.nombre,
             user.rol,
-            user.fotoPerfil,
+            user.foto_perfil,
             user.correo,
-            user.direccionEnvio,
-            user.librosIds,
-            user.estadoCuenta,
-            user.fechaRegistro,
-            user.actualizadoEn,
+            user.direccion_envio,
+            user.libros_ids,
+            user.estado_cuenta,
+            user.fecha_registro,
+            user.actualizado_en,
             user.bio,
             user.favoritos,
-            user.conversationsIds,
-            user.notificationsIds,
+            user.conversations_ids,
+            user.notifications_ids,
             user.validated,
             user.login,
             user.ubicacion,
             user.seguidores,
             user.siguiendo,
-            user.coleccionsIds,
-            user.comprasIds,
+            user.collections_ids,
+            user.compras_ids,
             user.preferencias,
-            user.historialBusquedas,
+            user.historial_busquedas,
             user.balance,
             user.contraseña
           ]
@@ -301,9 +301,9 @@ async function fillTablesWithLocalData () {
         pool.query(
           `
           INSERT INTO books (id, titulo, autor, precio, oferta, isbn, images, keywords, 
-          descripcion, estado, genero, formato, vendedor, idVendedor, edicion, idioma, 
-          ubicacion, tapa, edad, fechaPublicacion, actualizadoEn, disponibilidad,
-          mensajes, collectionsIds)
+          descripcion, estado, genero, formato, vendedor, id_vendedor, edicion, idioma, 
+          ubicacion, tapa, edad, fecha_publicacion, actualizado_en, disponibilidad,
+          mensajes, collections_ids)
           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13,
           $14, $15, $16, $17, $18, $19, $20,$21,$22, $23, $24);
         `,
@@ -321,17 +321,17 @@ async function fillTablesWithLocalData () {
             book.genero,
             book.formato,
             book.vendedor,
-            book.idVendedor,
+            book.id_vendedor,
             book.edicion,
             book.idioma,
             book.ubicacion,
             book.tapa,
             book.edad,
-            book.fechaPublicacion,
-            book.actualizadoEn,
+            book.fecha_publicacion,
+            book.actualizado_en,
             book.disponibilidad,
             book.mensajes,
-            book.collectionsIds
+            book.collections_ids
           ]
         )
       )
@@ -346,9 +346,9 @@ async function fillTablesWithLocalData () {
         pool.query(
           `
           INSERT INTO books_backstage (id, titulo, autor, precio, oferta, isbn, images, keywords, 
-          descripcion, estado, genero, formato, vendedor, idVendedor, edicion, idioma, 
-          ubicacion, tapa, edad, fechaPublicacion, actualizadoEn, disponibilidad,
-          mensajes, collectionsIds)
+          descripcion, estado, genero, formato, vendedor, id_vendedor, edicion, idioma, 
+          ubicacion, tapa, edad, fecha_publicacion, actualizado_en, disponibilidad,
+          mensajes, collections_ids)
           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13,
           $14, $15, $16, $17, $18, $19, $20,$21,$22, $23, $24);
         `,
@@ -366,17 +366,17 @@ async function fillTablesWithLocalData () {
             book.genero,
             book.formato,
             book.vendedor,
-            book.idVendedor,
+            book.id_vendedor,
             book.edicion,
             book.idioma,
             book.ubicacion,
             book.tapa,
             book.edad,
-            book.fechaPublicacion,
-            book.actualizadoEn,
+            book.fecha_publicacion,
+            book.actualizado_en,
             book.disponibilidad,
             book.mensajes,
-            book.collectionsIds
+            book.collections_ids
           ]
         )
       )
@@ -389,19 +389,19 @@ async function fillTablesWithLocalData () {
       collectionData.map(collection =>
         pool.query(
           `
-          INSERT INTO collections (id, foto, librosIds, nombre, descripcion, seguidores, userId, saga, creadoEn)
+          INSERT INTO collections (id, foto, libros_ids, nombre, descripcion, seguidores, user_id, saga, creado_en)
           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9);
         `,
           [
             collection.id,
             collection.foto,
-            collection.librosIds,
+            collection.libros_ids,
             collection.nombre,
             collection.descripcion,
             collection.seguidores,
-            collection.userId,
+            collection.user_id,
             collection.saga,
-            collection.creadoEn
+            collection.creado_en
           ]
         )
       )
@@ -415,14 +415,14 @@ async function fillTablesWithLocalData () {
       conversationData.map(conversation =>
         pool.query(
           `
-          INSERT INTO conversations (id, users, createdIn, lastMessage)
+          INSERT INTO conversations (id, users, created_in, last_message)
           VALUES ($1, $2, $3, $4);
         `,
           [
             conversation.id,
             conversation.users,
-            conversation.createdIn,
-            conversation.lastMessage
+            conversation.created_in,
+            conversation.last_message
           ]
         )
       )
@@ -436,15 +436,15 @@ async function fillTablesWithLocalData () {
       messageData.map(message =>
         pool.query(
           `
-          INSERT INTO messages (id, conversationId, userId, message, createdIn, read)
+          INSERT INTO messages (id, conversation_id, user_id, message, created_in, read)
           VALUES ($1, $2, $3, $4, $5, $6);
         `,
           [
             message.id,
-            message.conversationId,
-            message.userId,
+            message.conversation_id,
+            message.user_id,
             message.message,
-            message.createdIn,
+            message.created_in,
             message.read
           ]
         )
@@ -459,7 +459,7 @@ async function fillTablesWithLocalData () {
       notificationData.map(notification =>
         pool.query(
           `
-          INSERT INTO notifications (id, title, priority, type, userId, input, createdIn, read, actionUrl, expiresAt, message, metadata)
+          INSERT INTO notifications (id, title, priority, type, user_id, input, created_in, read, action_url, expires_at, message, metadata)
           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);
         `,
           [
@@ -467,12 +467,12 @@ async function fillTablesWithLocalData () {
             notification.title,
             notification.priority,
             notification.type,
-            notification.userId,
+            notification.user_id,
             notification.input,
-            notification.createdIn,
+            notification.created_in,
             notification.read,
-            notification.actionUrl,
-            notification.expiresAt,
+            notification.action_url,
+            notification.expires_at,
             notification.message,
             notification.metadata
           ]
@@ -504,16 +504,16 @@ async function fillTablesWithLocalData () {
       transactionData.map(transaction =>
         pool.query(
           `
-          INSERT INTO transactions (id, userId, bookId, sellerId, status, shippingDetails, response, orden)
+          INSERT INTO transactions (id, user_id, book_id, seller_id, status, shipping_details, response, orden)
           VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
         `,
           [
             transaction.id,
-            transaction.userId,
-            transaction.bookId,
-            transaction.sellerId,
+            transaction.user_id,
+            transaction.book_id,
+            transaction.seller_id,
             transaction.status,
-            transaction.shippingDetails,
+            transaction.shipping_details,
             transaction.response,
             transaction.order ?? {}
           ]
@@ -528,18 +528,18 @@ async function fillTablesWithLocalData () {
       withdrawalData.map(withdrawal =>
         pool.query(
           `
-          INSERT INTO withdrawals (id, userId, numeroCuenta, bank, monto, fecha, status, phoneNumber)
+          INSERT INTO withdrawals (id, user_id, numero_cuenta, bank, monto, fecha, status, phone_number)
           VALUES ($1, $2, $3, $4, $5, $6, $7, $8);
         `,
           [
             withdrawal.id,
-            withdrawal.userId,
-            withdrawal.numeroCuenta,
+            withdrawal.user_id,
+            withdrawal.numero_cuenta,
             withdrawal.bank,
             withdrawal.monto,
             withdrawal.fecha,
             withdrawal.status,
-            withdrawal.phoneNumber
+            withdrawal.phone_number
           ]
         )
       )

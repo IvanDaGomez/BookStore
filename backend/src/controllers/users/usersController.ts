@@ -18,7 +18,11 @@ import express from 'express'
 import { cambiarGuionesAEspacio } from '../../assets/agregarMas.js'
 import { PartialUserInfoType, UserInfoType } from '../../types/user.js'
 import { ID, ImageType, ISOString } from '../../types/objects.js'
-import { IBooksModel, ITransactionsModel, IUsersModel } from '../../types/models.js'
+import {
+  IBooksModel,
+  ITransactionsModel,
+  IUsersModel
+} from '../../types/models.js'
 import { AuthToken } from '../../types/authToken.js'
 const SECRET_KEY: string = process.env.JWT_SECRET ?? ''
 export class UsersController {
@@ -31,7 +35,7 @@ export class UsersController {
     BooksModel
   }: {
     UsersModel: IUsersModel
-    TransactionsModel: ITransactionsModel,
+    TransactionsModel: ITransactionsModel
     BooksModel: IBooksModel
   }) {
     this.UsersModel = UsersModel as typeof UsersModel
@@ -74,7 +78,7 @@ export class UsersController {
     next: express.NextFunction
   ): Promise<express.Response | void> => {
     try {
-      const userId = req.params.userId as ID
+      const userId = req.params.user_id as ID
       const user = await this.UsersModel.getUserById(userId)
 
       res.json(user)
@@ -89,7 +93,7 @@ export class UsersController {
     next: express.NextFunction
   ): Promise<express.Response | void> => {
     try {
-      const userId = req.params.userId as ID
+      const userId = req.params.user_id as ID
 
       const user = await this.UsersModel.getPhotoAndNameUser(userId)
 
@@ -105,7 +109,7 @@ export class UsersController {
     next: express.NextFunction
   ): Promise<express.Response | void> => {
     try {
-      const userId = req.params.userId as ID
+      const userId = req.params.user_id as ID
       const email = await this.UsersModel.getEmailById(userId)
 
       res.json(email)
@@ -167,10 +171,10 @@ export class UsersController {
     next: express.NextFunction
   ): Promise<express.Response | void> => {
     try {
-      const data = req.body as { 
+      const data = req.body as {
         correo: string
         nombre: string
-        fotoPerfil: ImageType
+        foto_perfil: ImageType
       }
       // If there is a mail, no matter if is manually logged or google, the user is the same
       const user = await this.UsersModel.googleLogin(data)
@@ -188,10 +192,10 @@ export class UsersController {
     next: express.NextFunction
   ): Promise<express.Response | void> => {
     try {
-      const { nombre, correo, fotoPerfil } = req.body as {
+      const { nombre, correo, foto_perfil } = req.body as {
         correo: string | undefined
         nombre: string | undefined
-        fotoPerfil?: ImageType
+        foto_perfil?: ImageType
       }
       if (!nombre || !correo) {
         return res.status(400).json({
@@ -199,7 +203,11 @@ export class UsersController {
           details: 'Nombre y correo son requeridos'
         })
       }
-      const user = await this.UsersModel.facebookLogin({ nombre, correo, fotoPerfil: fotoPerfil ?? ''})
+      const user = await this.UsersModel.facebookLogin({
+        nombre,
+        correo,
+        foto_perfil: foto_perfil ?? ''
+      })
 
       jwtPipeline(user, res)
       res.json(user)
@@ -234,7 +242,14 @@ export class UsersController {
         createEmail({ user }, 'thankEmail')
       )
       // Enviar notificación de bienvenida
-      await sendNotification(createNotification(data, 'welcomeUser'))
+      await sendNotification(
+        createNotification(
+          {
+            id: user.id
+          },
+          'welcomeUser'
+        )
+      )
       // Si todo es exitoso, devolver el usuario creado
       jwtPipeline(user, res)
       res.json(user)
@@ -249,7 +264,7 @@ export class UsersController {
     next: express.NextFunction
   ): Promise<express.Response | void> => {
     try {
-      const userId = req.params.userId as ID
+      const userId = req.params.user_id as ID
       const result = await this.UsersModel.deleteUser(userId)
       res.json(result)
     } catch (err) {
@@ -263,7 +278,7 @@ export class UsersController {
     next: express.NextFunction
   ): Promise<express.Response | void> => {
     try {
-      const userId = req.params.userId as ID
+      const userId = req.params.user_id as ID
       const data: Partial<UserInfoType> = req.body
       // Validar datos
       console.log(data)
@@ -293,14 +308,18 @@ export class UsersController {
     next: express.NextFunction
   ): Promise<express.Response | void> => {
     try {
-      const userId = req.params.userId as ID
-      const { accion, bookId } = req.body as { accion: string, bookId: ID}
+      const userId = req.params.user_id as ID
+      const { accion, book_id } = req.body as { accion: string; book_id: ID }
 
       if (!accion) {
         return res.status(400).json({ error: 'Acción no proporcionada' })
       }
 
-      const updatedFavorites = await updateUserFavorites(userId, bookId,  accion)
+      const updatedFavorites = await updateUserFavorites(
+        userId,
+        book_id,
+        accion
+      )
 
       await this.UsersModel.updateUser(userId, {
         favoritos: updatedFavorites
@@ -326,7 +345,6 @@ export class UsersController {
     next: express.NextFunction
   ): Promise<express.Response | void> => {
     try {
-      
       if (req.session.user) {
         // Devolver los datos del usuario
         const user = await this.UsersModel.getUserById(req.session.user.id)
@@ -353,7 +371,9 @@ export class UsersController {
     if (!data || !data.nombre || !data.correo) {
       return res
         .status(400)
-        .json({ error: 'No se proporcionaron todos los campos: nombre or correo' })
+        .json({
+          error: 'No se proporcionaron todos los campos: nombre or correo'
+        })
     }
     if (data.validated === 'true') {
       // Si el usuario ya está validado, no se envía el correo
@@ -371,19 +391,19 @@ export class UsersController {
       )
 
       // Create the validation code of 6 digits
-      const validationCode = Math.floor(100000 + Math.random() * 900000)
+      const validation_code = Math.floor(100000 + Math.random() * 900000)
 
       // Prepare the email content
       const validated = data.validated === 'true'
       const emailContent = createEmail(
-        { 
+        {
           user: {
-            ...data, 
+            ...data,
             validated
-          }, 
+          },
           metadata: {
-            validationCode
-          } 
+            validation_code
+          }
         },
         'validationEmail'
       )
@@ -399,7 +419,7 @@ export class UsersController {
         ok: true,
         status: 'Validation email sent successfully',
         token,
-        code: validationCode
+        code: validation_code
       })
     } catch (err) {
       next(err)
@@ -469,9 +489,9 @@ export class UsersController {
       const tokenPayload = { id: user.id } // No incluir información sensible
       const token = jwt.sign(tokenPayload, SECRET_KEY, { expiresIn: '15m' })
 
-      const validationLink = `${process.env.FRONTEND_URL}/opciones/cambiarContraseña/${token}`
+      const validation_link = `${process.env.FRONTEND_URL}/opciones/cambiarContraseña/${token}`
       const emailContent = createEmail(
-        { user, metadata: { validationLink } },
+        { user, metadata: { validation_link } },
         'changePassword'
       )
 
@@ -515,54 +535,50 @@ export class UsersController {
     }
   }
 
-
   followUser = async (
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
   ): Promise<express.Response | void> => {
-    const { followerId, userId }: { followerId: ID; userId: ID } = req.body
+    const { follower_id, user_id }: { follower_id: ID; user_id: ID } = req.body
     try {
-      if (!followerId || !userId) {
+      if (!follower_id || !user_id) {
         return res
           .status(404)
           .json({ ok: false, error: 'No se proporcionó usuario y seguidor' })
       }
       // Es necesario conseguir el usuario para saber que otros seguidores tenía
       const [follower, user] = await Promise.all([
-        this.UsersModel.getUserById(followerId),
-        this.UsersModel.getUserById(userId)
+        this.UsersModel.getUserById(follower_id),
+        this.UsersModel.getUserById(user_id)
       ])
 
       let action
       // Agregar el seguidor
-      if (!follower.seguidores.includes(userId)) {
-        follower.seguidores = [...follower.seguidores, userId]
-        user.siguiendo = [...user.siguiendo, followerId]
+      if (!follower.seguidores.includes(user_id)) {
+        follower.seguidores = [...follower.seguidores, user_id]
+        user.siguiendo = [...user.siguiendo, follower_id]
         action = 'Agregado'
 
-      // Eliminar el seguidor
+        // Eliminar el seguidor
       } else {
         follower.seguidores = follower.seguidores.filter(
-          seguidorId => seguidorId !== userId
+          seguidor_id => seguidor_id !== user_id
         )
         user.siguiendo = follower.seguidores.filter(
-          siguiendoId => siguiendoId !== followerId
+          siguiendo_id => siguiendo_id !== follower_id
         )
         action = 'Eliminado'
       }
 
-      
       await Promise.all([
-        this.UsersModel.updateUser(followerId, follower),
-        this.UsersModel.updateUser(userId, user)
+        this.UsersModel.updateUser(follower_id, follower),
+        this.UsersModel.updateUser(user_id, user)
       ])
 
       // Notificación de nuevo seguidor
       if (action === 'Agregado') {
-        await sendNotification(
-          createNotification({ follower }, 'newFollower')
-        )
+        await sendNotification(createNotification({ follower }, 'newFollower'))
       }
 
       jwtPipeline(user, res)
@@ -578,13 +594,13 @@ export class UsersController {
     next: express.NextFunction
   ): Promise<express.Response | void> => {
     try {
-      const userId = req.params.userId as ID
+      const userId = req.params.user_id as ID
 
       if (!userId)
         return res
           .status(404)
           .json({ error: 'No se proporcionó id de usuario' })
-          
+
       const balance = await this.UsersModel.getBalance(userId)
 
       res.json({ balance })
@@ -598,22 +614,24 @@ export class UsersController {
     res: express.Response,
     next: express.NextFunction
   ) => {
-    const { collectionName, userId }: { collectionName: string; userId: ID } =
-      req.body
+    const {
+      collection_name,
+      user_id
+    }: { collection_name: string; user_id: ID } = req.body
     try {
-      if (!userId || !collectionName) {
+      if (!user_id || !collection_name) {
         return res
           .status(400)
           .json({ error: 'No se entregaron todos los campos' })
       }
 
-      const user = await this.UsersModel.getUserById(userId)
+      const user = await this.UsersModel.getUserById(user_id)
 
       // Agregar la nueva colección
-      const updated = await this.UsersModel.updateUser(userId, {
-        coleccionsIds: [
-          ...user.coleccionsIds,
-          { nombre: collectionName, librosIds: [] }
+      const updated = await this.UsersModel.updateUser(user_id, {
+        collections_ids: [
+          ...user.collections_ids,
+          { nombre: collection_name, librosIds: [] }
         ]
       })
 
@@ -639,7 +657,7 @@ export class UsersController {
 
       const user = await this.UsersModel.getUserById(userId)
 
-      const collection = user.coleccionsIds.find(
+      const collection = user.collections_ids.find(
         coleccion => coleccion.nombre === collectionName
       )
       if (!collection) {
@@ -655,8 +673,8 @@ export class UsersController {
 
       // Actualizar colección
       await this.UsersModel.updateUser(userId, {
-        coleccionsIds: [
-          ...user.coleccionsIds.filter(
+        collections_ids: [
+          ...user.collections_ids.filter(
             coleccion => coleccion.nombre !== collectionName
           ),
           {

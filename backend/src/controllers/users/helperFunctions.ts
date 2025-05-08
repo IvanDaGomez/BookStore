@@ -14,8 +14,8 @@ async function checkEmailExists (email: string) {
 }
 function initializeDataCreateUser (data: UserInfoType) {
   const time = new Date().toISOString() as ISOString
-  data.fechaRegistro = time
-  data.actualizadoEn = time
+  data.fecha_registro = time
+  data.actualizado_en = time
   data.validated = false
   data.id = crypto.randomUUID()
   data.balance = {
@@ -29,9 +29,7 @@ async function processUserUpdate (
   userId: ID,
   req: express.Request
 ) {
-  if (req.file) data.fotoPerfil = req.file.filename as ImageType
-
-
+  if (req.file) data.foto_perfil = req.file.filename as ImageType
 
   if (data.correo) {
     await checkEmailExists(data.correo)
@@ -41,7 +39,11 @@ async function processUserUpdate (
   return filterAllowedFields(data)
 }
 
-async function updateUserFavorites (userId: ID, bookId: ID, accion: string): Promise<ID[]> {
+async function updateUserFavorites (
+  userId: ID,
+  bookId: ID,
+  accion: string
+): Promise<ID[]> {
   const user = await UsersModel.getUserById(userId)
   if (!user) throw new Error('Usuario no encontrado')
 
@@ -56,12 +58,14 @@ async function updateUserFavorites (userId: ID, bookId: ID, accion: string): Pro
   return updatedFavorites
 }
 
-function filterAllowedFields (data: Partial<UserInfoType>): Partial<UserInfoType> {
+function filterAllowedFields (
+  data: Partial<UserInfoType>
+): Partial<UserInfoType> {
   const allowedFields: (keyof UserInfoType)[] = [
     'nombre',
     'correo',
-    'direccionEnvio',
-    'fotoPerfil',
+    'direccion_envio',
+    'foto_perfil',
     'contraseña',
     'bio',
     'favoritos'
@@ -72,7 +76,7 @@ function filterAllowedFields (data: Partial<UserInfoType>): Partial<UserInfoType
     if (data[key] !== undefined) filteredData[key] = data[key] as any
   })
 
-  filteredData.actualizadoEn = new Date().toISOString() as ISOString
+  filteredData.actualizado_en = new Date().toISOString() as ISOString
   return filteredData
 }
 

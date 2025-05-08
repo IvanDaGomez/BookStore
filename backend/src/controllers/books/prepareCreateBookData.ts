@@ -24,7 +24,7 @@ function prepareCreateBookData (
   data: any,
   req: express.Request
 ): BookObjectType {
-  if (data.oferta) 
+  if (data.oferta)
     data.oferta = parseInt(data.oferta) as BookObjectType['oferta']
   data.precio = parseInt(data.precio) as BookObjectType['precio']
   if (data.keywords && typeof data.keywords === 'string') {
@@ -126,8 +126,8 @@ function filterData (data: BookObjectType): BookObjectType {
       ] as BookObjectType[keyof BookObjectType]
     }
   })
-  filteredData.actualizadoEn =
-    new Date().toISOString() as BookObjectType['actualizadoEn']
+  filteredData.actualizado_en =
+    new Date().toISOString() as BookObjectType['actualizado_en']
   return filteredData as BookObjectType
 }
 export { prepareCreateBookData, prepareUpdateBookData, filterData }

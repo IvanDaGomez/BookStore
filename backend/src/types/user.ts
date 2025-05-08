@@ -26,7 +26,6 @@ export type PartialUserInfoType = {
   siguiendo: ID[]
   collections_ids: CollectionItem[]
   compras_ids: ID[]
-  // colecciones: [] Pendiente
   preferencias: {
     [key: string]: number
   }
@@ -66,7 +65,7 @@ export type UserInfoType = {
   ubicacion?: LocationType
   seguidores?: ID[]
   siguiendo?: ID[]
-  coleccions_ids?: CollectionItem[]
+  collections_ids?: CollectionItem[]
   compras_ids: ID[]
   preferencias?: {
     [key: string]: number

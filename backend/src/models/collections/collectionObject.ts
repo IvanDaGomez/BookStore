@@ -7,13 +7,13 @@ const collectionObject = (
   return {
     id: data.id ?? crypto.randomUUID(),
     foto: data.foto ?? '',
-    librosIds: data.librosIds ?? [],
+    libros_ids: data.libros_ids ?? [],
     nombre: data.nombre ?? '',
     descripcion: data.descripcion || '',
     seguidores: data.seguidores || [],
-    userId: data.userId ?? crypto.randomUUID(),
+    user_id: data.user_id ?? crypto.randomUUID(),
     saga: data.saga || false,
-    creadoEn: data.creadoEn || (new Date().toISOString() as ISOString)
+    creado_en: data.creado_en || (new Date().toISOString() as ISOString)
   }
 }
 

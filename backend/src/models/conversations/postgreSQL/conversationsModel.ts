@@ -52,12 +52,12 @@ export class ConversationsModel {
       pool,
       () =>
         pool.query(
-          'INSERT INTO conversations (id, users, createdIn, lastMessage) VALUES ($1, $2, $3, $4) RETURNING *;',
+          'INSERT INTO conversations (id, users, created_in, last_message) VALUES ($1, $2, $3, $4) RETURNING *;',
           [
             fullConversation.id,
             fullConversation.users,
-            fullConversation.createdIn,
-            fullConversation.lastMessage
+            fullConversation.created_in,
+            fullConversation.last_message
           ]
         ),
       'Error creating conversation'

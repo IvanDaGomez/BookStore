@@ -70,45 +70,50 @@ class BooksModel {
     return bookToReturn
   }
 
-  static async getBooksByQueryWithFilters (query: string,
+  static async getBooksByQueryWithFilters (
+    query: string,
     filters: Partial<Record<keyof BookObjectType, any>>,
-    limit: number,
+    limit: number
   ): Promise<Partial<BookObjectType>[]> {
     let books = await this.getAllBooks() // Fetch all books (local data)
     if (Object.keys(filters).length === 0) return []
 
-    type PreparedFiltersType = Partial<{
-      [key in keyof BookObjectType[]]?: any[] | number
-    } & {
-      minPrecio?: number
-      maxPrecio?: number,
-      ciudad?: string[]
-      departamento?: string[]
-    }>
+    type PreparedFiltersType = Partial<
+      {
+        [key in keyof BookObjectType[]]?: any[] | number
+      } & {
+        min_precio?: number
+        max_precio?: number
+        ciudad?: string[]
+        departamento?: string[]
+      }
+    >
     const preparedFilters: PreparedFiltersType = {}
     Object.keys(filters).forEach(filter => {
-      const filterValue = filters[filter as keyof BookObjectType];
+      const filterValue = filters[filter as keyof BookObjectType]
       if (typeof filterValue === 'string') {
-        preparedFilters[filter as any] = filterValue.split(',');
+        preparedFilters[filter as any] = filterValue.split(',')
       }
-      if (filter === 'precio' && Array.isArray(preparedFilters[filter as keyof PreparedFiltersType])) {
-        const prices = preparedFilters[filter as keyof PreparedFiltersType] as number[];
-        preparedFilters['minPrecio'] = Math.min(...prices);
-        preparedFilters['maxPrecio'] = Math.max(...prices);
-        delete preparedFilters[filter as keyof PreparedFiltersType];
+      if (
+        filter === 'precio' &&
+        Array.isArray(preparedFilters[filter as keyof PreparedFiltersType])
+      ) {
+        const prices = preparedFilters[
+          filter as keyof PreparedFiltersType
+        ] as number[]
+        preparedFilters['min_precio'] = Math.min(...prices)
+        preparedFilters['max_precio'] = Math.max(...prices)
+        delete preparedFilters[filter as keyof PreparedFiltersType]
       }
-    });
+    })
     books = filterBooksByFilters(books, preparedFilters)
     // Perform search based on the query
-    const resultBooks = await this.getBookByQuery(
-      query,
-      limit,
-      books
+    const resultBooks = await this.getBookByQuery(query, limit, books)
+
+    const bookToReturn = resultBooks.filter(
+      book => book.disponibilidad === 'Disponible'
     )
 
-    const bookToReturn = resultBooks
-      .filter(book => book.disponibilidad === 'Disponible')
-    
     return bookToReturn
   }
 
@@ -130,7 +135,7 @@ class BooksModel {
     if (bookIndex === -1) {
       throw new Error('Libro no encontrado')
     }
-    data.actualizadoEn = new Date().toISOString() as ISOString
+    data.actualizado_en = new Date().toISOString() as ISOString
 
     // Actualiza los datos del usuario
     Object.assign(books[bookIndex], data)
@@ -224,7 +229,7 @@ class BooksModel {
     if (userKeyInfo?.id) {
       const user = await UsersModel.getUserById(userKeyInfo.id)
       preferences = Object.keys(user?.preferencias || {})
-      historial = Object.keys(user?.historialBusquedas || {})
+      historial = Object.keys(user?.historial_busquedas || {})
       likes = user.favoritos ?? []
       // Si el usuario tiene libros favoritos, entonces los agrego a las querywords
       if (likes.length > 0) {
@@ -273,9 +278,11 @@ class BooksModel {
     l: number
   ): Promise<Partial<BookObjectType>[]> {
     const books = await this.getAllBooks()
-    const filteredBooks = books.filter((book, index) => {
-      return list.includes(book.id)
-    }).slice(0, l)
+    const filteredBooks = books
+      .filter(book => {
+        return list.includes(book.id)
+      })
+      .slice(0, l)
 
     if (!filteredBooks || filteredBooks.length === 0) {
       throw new Error('No hay libros disponibles')
@@ -319,7 +326,7 @@ class BooksModel {
 
       // Filtrar los libros que pertenecen a la colección
       const colecciones = books.filter(book =>
-        collection.librosIds.includes(book.id)
+        collection.libros_ids.includes(book.id)
       )
 
       if (colecciones.length === 0) {

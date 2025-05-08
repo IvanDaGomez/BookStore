@@ -1,35 +1,35 @@
-import { PaymentCreateRequest } from "mercadopago/dist/clients/payment/create/types"
-import type { Options } from "mercadopago/dist/types.d.ts"
-import { MercadoPagoInput } from "../../types/mercadoPagoInput"
-import { Shipments } from "mercadopago/dist/clients/commonTypes"
-import { BookObjectType } from "../../types/book"
-import { PartialUserInfoType } from "../../types/user"
-export function createMercadoPagoPayment({
-  formData,
-  partialData,
+import { PaymentCreateRequest } from 'mercadopago/dist/clients/payment/create/types'
+import type { Options } from 'mercadopago/dist/types.d.ts'
+import { MercadoPagoInput } from '../../types/mercadoPagoInput'
+import { Shipments } from 'mercadopago/dist/clients/commonTypes'
+import { BookObjectType } from '../../types/book'
+import { PartialUserInfoType } from '../../types/user'
+export function createMercadoPagoPayment ({
+  form_data,
+  partial_data,
   payment_method,
   book,
   user
-}: MercadoPagoInput & { book: BookObjectType, user: PartialUserInfoType}): {
-  body: PaymentCreateRequest,
+}: MercadoPagoInput & { book: BookObjectType; user: PartialUserInfoType }): {
+  body: PaymentCreateRequest
   requestOptions: Options
 } {
   const XidempotencyKey = crypto.randomUUID()
   return {
     body: {
-      transaction_amount: formData.transaction_amount, // Monto total de la transacción
-      payment_method_id: formData.payment_method_id,
+      transaction_amount: form_data.transaction_amount, // Monto total de la transacción
+      payment_method_id: form_data.payment_method_id,
       payer: {
-        email: formData.payer.email,
+        email: form_data.payer.email,
         identification: {
-          type: formData.payer?.identification?.type ?? '',
-          number: formData.payer?.identification?.number ?? ''
+          type: form_data.payer?.identification?.type ?? '',
+          number: form_data.payer?.identification?.number ?? ''
         }
       },
-      description: partialData.description,
-      installments: formData?.installments || 1,
-      token: formData.token || '',
-      issuer_id: parseInt(formData?.issuer_id ?? '0', 10) || 0,
+      description: partial_data.description,
+      installments: form_data?.installments || 1,
+      token: form_data.token || '',
+      issuer_id: parseInt(form_data?.issuer_id ?? '0', 10) || 0,
       additional_info: {
         items: [
           {
@@ -39,27 +39,30 @@ export function createMercadoPagoPayment({
             picture_url: book.images[0],
             category_id: book.genero,
             quantity: 1,
-            unit_price: book?.oferta || book?.precio,
+            unit_price: book?.oferta || book?.precio
           }
         ],
-        ip_address: partialData.shippingDetails.additional_info.ip_address,
+        ip_address: partial_data.shipping_details.additional_info.ip_address,
         shipments: {
           receiver_address: {
-            zip_code: partialData.shippingDetails.address.zip_code,
-            street_name: partialData.shippingDetails.address.street_name,
-            street_number: parseInt(partialData.shippingDetails.address.street_number, 10),
+            zip_code: partial_data.shipping_details.address.zip_code,
+            street_name: partial_data.shipping_details.address.street_name,
+            street_number: parseInt(
+              partial_data.shipping_details.address.street_number,
+              10
+            ),
             // apartment: partialData.shippingDetails.apartment,
-            city_name: partialData.shippingDetails.address.city,
-            state_name: partialData.shippingDetails.address.department
+            city_name: partial_data.shipping_details.address.city,
+            state_name: partial_data.shipping_details.address.department
           }
         }
       },
-      callback_url: partialData.callback_url || '', // URL de retorno después del pago
-      application_fee: partialData.application_fee ?? 0, // Tarifa de la aplicación
+      callback_url: partial_data.callback_url || '', // URL de retorno después del pago
+      application_fee: partial_data.application_fee ?? 0, // Tarifa de la aplicación
       /* marketplace: {
         collector_id: process.env.MERCADOPAGO_COLLECTOR_ID // ID de tu cuenta colectora principal
       }, */
-      external_reference: `book_${partialData.bookId}_${partialData.userId}`, // Referencia para identificar el pago
+      external_reference: `book_${partial_data.book_id}_${partial_data.user_id}`, // Referencia para identificar el pago
       notification_url: `${process.env.BACKEND_DOMAIN}/api/users/mercadoPagoWebHooks?source_news=webhooks` // Webhook para notificaciones
       /* payments: [
         {

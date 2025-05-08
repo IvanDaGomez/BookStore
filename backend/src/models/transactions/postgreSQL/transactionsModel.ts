@@ -55,18 +55,18 @@ class TransactionsModel {
       () =>
         pool.query(
           `
-        INSERT INTO transactions (id, userId, sellerId, bookId, status, response, shippingDetails, orden)
+        INSERT INTO transactions (id, user_id, seller_id, book_id, status, response, shipping_details, orden)
         VALUES ($1, $2, $3, $4, $5, $6, $7)
         `,
           [
             newTransaction.id,
-            newTransaction.userId,
-            newTransaction.sellerId,
-            newTransaction.bookId,
+            newTransaction.user_id,
+            newTransaction.seller_id,
+            newTransaction.book_id,
             newTransaction.status,
             JSON.stringify(newTransaction.response as PaymentResponse),
             JSON.stringify(
-              newTransaction.shippingDetails as ShippingDetailsType
+              newTransaction.shipping_details as ShippingDetailsType
             )
           ]
         ),
@@ -105,7 +105,7 @@ class TransactionsModel {
       pool,
       () =>
         pool.query(
-          `UPDATE transactions SET ${updateString} WHERE ID = $${
+          `UPDATE transactions SET ${updateString} WHERE id = $${
             keys.length + 1
           } RETURNING *`,
           [...values, id]
@@ -121,7 +121,7 @@ class TransactionsModel {
   ): Promise<TransactionObjectType> {
     const transaction = await executeSingleResultQuery(
       pool,
-      () => pool.query('SELECT * FROM transactions WHERE bookId = $1;', [id]),
+      () => pool.query('SELECT * FROM transactions WHERE book_id = $1;', [id]),
       'Transaction not found'
     )
     return transaction
@@ -144,15 +144,15 @@ class TransactionsModel {
       () =>
         pool.query(
           `
-        INSERT INTO withdrawals (id, userId, numeroCuenta, bank, phoneNumber, monto, fecha, status)
+        INSERT INTO withdrawals (id, user_id, numero_cuenta, bank, phone_number, monto, fecha, status)
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
         `,
           [
             data.id,
-            data.userId,
-            data.numeroCuenta,
+            data.user_id,
+            data.numero_cuenta,
             data.bank,
-            data.phoneNumber,
+            data.phone_number,
             data.monto,
             data.fecha,
             data.status

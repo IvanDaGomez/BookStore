@@ -51,18 +51,18 @@ class CollectionsModel {
       pool,
       () =>
         pool.query(
-          `INSERT INTO collections (id, foto, librosIds, nombre, descripcion, seguidores, userId, saga, creadoEn) 
+          `INSERT INTO collections (id, foto, libros_ids, nombre, descripcion, seguidores, user_id, saga, creadoEn) 
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *;`,
           [
             fullCollecion.id,
             fullCollecion.foto,
-            fullCollecion.librosIds,
+            fullCollecion.libros_ids,
             fullCollecion.nombre,
             fullCollecion.descripcion,
             fullCollecion.seguidores,
-            fullCollecion.userId,
+            fullCollecion.user_id,
             fullCollecion.saga,
-            fullCollecion.creadoEn
+            fullCollecion.creado_en
           ]
         ),
       'Failed to create collection in PostgreSQL'
@@ -197,7 +197,7 @@ class CollectionsModel {
       pool,
       () =>
         pool.query(
-          'SELECT * FROM collections WHERE userId = $1 AND librosIds @> $2 AND saga = true;',
+          'SELECT * FROM collections WHERE user_id = $1 AND libros_ids @> $2 AND saga = true;',
           [userId, [bookId]]
         ),
       'Failed to fetch collection from PostgreSQL'
@@ -216,7 +216,7 @@ class CollectionsModel {
       () =>
         pool.query(
           `SELECT * FROM collections WHERE userId != $1 ORDER BY RANDOM() LIMIT $2;`,
-          [userKeyInfo.userId, sampleSize]
+          [userKeyInfo.user_id, sampleSize]
         ),
       'Failed to fetch collections from PostgreSQL'
     )

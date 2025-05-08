@@ -20,10 +20,10 @@ export type MercadoPagoInput = {
       financial_institution?: string
     }
   }
-  partial_ata: {
-    userId: ID
-    bookId: ID
-    sellerId: ID
+  partial_data: {
+    user_id: ID
+    book_id: ID
+    seller_id: ID
     shipping_details: ShippingDetailsType
     transaction_amount: number
     application_fee: number

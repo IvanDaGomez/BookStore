@@ -1,15 +1,27 @@
-import { Router } from 'express'
+import { Request, Response, Router, NextFunction } from 'express'
 import { MercadoPagoConfig, Payment } from 'mercadopago' // Asegúrate de tener el SDK de Mercado Pago instalado
-
+import { validateSignature } from '../../assets/validateSignature.js'
 const MercadoPagoRouter = Router()
 
 // Endpoint para recibir los webhooks
-const webHooks = async (req, res) => {
+const webHooks = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // 1. Verificar la autenticidad del webhook (opcional)
     const signature = req.headers['x-mercadopago-signature']
     const body = JSON.stringify(req.body)
-    const isValid = validateSignature(signature, body) // Función para validar la firma
+    if (!signature || !body) {
+      return res.status(400).json({ error: 'Firma no válida' })
+    }
+    if (typeof signature !== 'string') {
+      return res.status(400).json({ error: 'Firma no válida' })
+    }
+    const isValid = validateSignature({
+      signature,
+      body: {
+        id: req.body.id
+      },
+      reqId: req.headers['x-request-id'] as string
+    }) // Función para validar la firma
 
     if (!isValid) {
       return res.status(400).json({ error: 'Firma no válida' })
@@ -37,16 +49,8 @@ const webHooks = async (req, res) => {
     // 3. Responder correctamente a Mercado Pago para evitar reintentos
     res.status(200).json({ status: 'success' })
   } catch (error) {
-    console.error('Error al procesar el webhook:', error.message)
-    res.status(500).json({ error: 'Error interno al procesar el webhook' })
+    next(error)
   }
-}
-
-// Función para validar la firma de la notificación (opcional)
-function validateSignature (signature, body) {
-  // Aquí deberías implementar la lógica para validar la firma usando el secreto de tu cuenta
-  // Esto depende de la documentación de Mercado Pago para verificar la autenticidad de las solicitudes.
-  return signature === 'firma_valida_generada'
 }
 
 export { MercadoPagoRouter }

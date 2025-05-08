@@ -6,13 +6,22 @@ import { NotificationType } from '../../types/notification.js'
 export class NotificationsController {
   private NotificationsModel: INotificationsModel
   private UsersModel: IUsersModel
-  constructor ({ NotificationsModel, UsersModel }: 
-    { NotificationsModel: INotificationsModel, UsersModel: IUsersModel }) {
+  constructor ({
+    NotificationsModel,
+    UsersModel
+  }: {
+    NotificationsModel: INotificationsModel
+    UsersModel: IUsersModel
+  }) {
     this.NotificationsModel = NotificationsModel
     this.UsersModel = UsersModel
   }
 
-  getAllNotifications = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  getAllNotifications = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
     try {
       const notifications = await this.NotificationsModel.getAllNotifications()
       res.json(notifications)
@@ -21,26 +30,37 @@ export class NotificationsController {
     }
   }
 
-  getAllNotificationsByUserId = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  getAllNotificationsByUserId = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
     try {
-      const userId = req.params.userId as ID | undefined
+      const userId = req.params.user_id as ID | undefined
       if (!userId) {
         return res.status(404).json({ error: 'Es necesario un usuario' })
       }
-      const notifications = await this.NotificationsModel.getAllNotificationsByUserId(userId)
+      const notifications =
+        await this.NotificationsModel.getAllNotificationsByUserId(userId)
       res.json(notifications)
     } catch (err) {
       next(err)
     }
   }
 
-  getNotificationById = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  getNotificationById = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
     try {
-      const notificationId = req.params.notificationId as ID | undefined
+      const notificationId = req.params.notification_id as ID | undefined
       if (!notificationId) {
         return res.status(404).json({ error: 'Es necesario un ID' })
       }
-      const notifications = await this.NotificationsModel.getNotificationById(notificationId)
+      const notifications = await this.NotificationsModel.getNotificationById(
+        notificationId
+      )
 
       res.json(notifications)
     } catch (err) {
@@ -48,9 +68,13 @@ export class NotificationsController {
     }
   }
 
-  markNotificationAsRead = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  markNotificationAsRead = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
     try {
-      const notificationId = req.params.notificationId as ID | undefined
+      const notificationId = req.params.notification_id as ID | undefined
       if (!notificationId) {
         return res.status(404).json({ error: 'No hay ID de notificación' })
       }
@@ -62,55 +86,67 @@ export class NotificationsController {
     }
   }
 
-  createNotification = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  createNotification = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
     try {
-      const data = req.body as NotificationType;
-  
+      const data = req.body as NotificationType
+
       // Validación
-      const validated = validateNotification(data);
+      const validated = validateNotification(data)
       if (!validated.success) {
-        return res.status(400).json({ error: validated.error });
+        return res.status(400).json({ error: validated.error })
       }
-  
-      data.id = crypto.randomUUID();
-  
+
+      data.id = crypto.randomUUID()
+
       // Obtener el usuario y crear la notificación en paralelo
       const [user, notification] = await Promise.all([
-        this.UsersModel.getUserById(data.userId), 
+        this.UsersModel.getUserById(data.user_id),
         this.NotificationsModel.createNotification(data)
-      ]);
-  
+      ])
+
       // Actualizar las notificaciones del usuario
       await this.UsersModel.updateUser(user.id, {
-        notificationsIds: [...user.notificationsIds, data.id]
-      });
-  
-      res.json(notification);
+        notifications_ids: [...user.notifications_ids, data.id]
+      })
+
+      res.json(notification)
     } catch (err) {
-      next(err);
+      next(err)
     }
   }
 
-  deleteNotification = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  deleteNotification = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
     try {
-      const notificationId = req.params.notificationId as ID | undefined
+      const notificationId = req.params.notification_id as ID | undefined
       if (!notificationId) {
         return res.status(404).json({ error: 'Es necesario un ID' })
       }
 
       // Obtener los detalles del notificacion para encontrar al vendedor (idVendedor)
-      const notification = await this.NotificationsModel.getNotificationById(notificationId)
+      const notification = await this.NotificationsModel.getNotificationById(
+        notificationId
+      )
 
       // Obtener el usuario asociado con el notificacion
-      const user = await this.UsersModel.getUserById(notification.userId)
+      const user = await this.UsersModel.getUserById(notification.user_id)
 
       // Eliminar el notificationId del array notificacionsIds del usuario
-      const updatedNotificationsIds = user.notificationsIds.filter(id => id !== notificationId)
+      const updatedNotificationsIds = user.notifications_ids.filter(
+        id => id !== notificationId
+      )
 
       // Actualizar el usuario con los nuevos notificacionsIds
       await Promise.all([
         this.UsersModel.updateUser(user.id, {
-          notificationsIds: updatedNotificationsIds
+          notifications_ids: updatedNotificationsIds
         }),
         this.NotificationsModel.deleteNotification(notificationId)
       ])

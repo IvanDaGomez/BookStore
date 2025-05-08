@@ -6,14 +6,22 @@ import { MessageObjectType } from '../../types/message.js'
 export class MessagesController {
   private MessagesModel: IMessagesModel
   private ConversationsModel: IConversationsModel
-  constructor ({ MessagesModel, ConversationsModel }:
-    { MessagesModel: IMessagesModel, ConversationsModel: IConversationsModel }
-  ) {
+  constructor ({
+    MessagesModel,
+    ConversationsModel
+  }: {
+    MessagesModel: IMessagesModel
+    ConversationsModel: IConversationsModel
+  }) {
     this.MessagesModel = MessagesModel
     this.ConversationsModel = ConversationsModel
   }
 
-  getAllMessages = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  getAllMessages = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
     try {
       const messages = await this.MessagesModel.getAllMessages()
       res.json(messages)
@@ -22,22 +30,34 @@ export class MessagesController {
     }
   }
 
-  getAllMessagesByConversation = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  getAllMessagesByConversation = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
     try {
-      const conversationId = req.params.conversationId as ID | undefined
+      const conversationId = req.params.conversation_id as ID | undefined
       if (!conversationId) {
-        return res.status(400).json({ error: 'ID de conversación no proporcionado' })
+        return res
+          .status(400)
+          .json({ error: 'ID de conversación no proporcionado' })
       }
-      const message = await this.MessagesModel.getAllMessagesByConversation(conversationId)
+      const message = await this.MessagesModel.getAllMessagesByConversation(
+        conversationId
+      )
       res.json(message)
     } catch (err) {
       next(err)
     }
   }
 
-  getMessageById = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  getMessageById = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
     try {
-      const messageId = req.params.messageId as ID | undefined
+      const messageId = req.params.message_id as ID | undefined
       if (!messageId) {
         return res.status(400).json({ error: 'ID de mensaje no proporcionado' })
       }
@@ -49,7 +69,11 @@ export class MessagesController {
   }
 
   // Filtrar mensajes
-  sendMessage = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  sendMessage = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
     const data = req.body as MessageObjectType
     try {
       const validated = validateMessage(data)
@@ -58,13 +82,20 @@ export class MessagesController {
       }
 
       // Necesario actualizar la conversación en la que el mensaje se envía
-      const conversation = await this.ConversationsModel.getConversationById(data.conversationId)
+      const conversation = await this.ConversationsModel.getConversationById(
+        data.conversation_id
+      )
       // Validar el userId
-      if (!conversation.users.includes(data.userId)) {
-        return res.status(404).json({ error: 'El usuario no se encuentra en la conversación' })
-      }          
-      conversation.lastMessage = data
-      await this.ConversationsModel.updateConversation(conversation.id, conversation)
+      if (!conversation.users.includes(data.user_id)) {
+        return res
+          .status(404)
+          .json({ error: 'El usuario no se encuentra en la conversación' })
+      }
+      conversation.last_message = data
+      await this.ConversationsModel.updateConversation(
+        conversation.id,
+        conversation
+      )
 
       const message = await this.MessagesModel.sendMessage(data)
 
@@ -74,12 +105,16 @@ export class MessagesController {
     }
   }
 
-  deleteMessage = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  deleteMessage = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
     try {
-      const messageId = req.params.messageId as ID | undefined
+      const messageId = req.params.message_id as ID | undefined
       if (!messageId) {
         return res.status(400).json({ error: 'ID de mensaje no proporcionado' })
-      }      
+      }
       // Eliminar el mensaje de la base de datos
       await this.MessagesModel.deleteMessage(messageId)
 
@@ -89,13 +124,17 @@ export class MessagesController {
     }
   }
 
-  markAsRead = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  markAsRead = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
     try {
-      const messageId = req.params.messageId as ID | undefined
+      const messageId = req.params.message_id as ID | undefined
       if (!messageId) {
         return res.status(400).json({ error: 'ID de mensaje no proporcionado' })
       }
-      
+
       await this.MessagesModel.updateMessage(messageId, { read: true })
 
       res.json({ message: 'Mensaje actualizado con éxito' })

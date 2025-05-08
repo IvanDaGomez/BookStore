@@ -64,7 +64,7 @@ class UsersModel {
     const user = await executeSingleResultQuery(
       pool,
       () =>
-        pool.query(`SELECT id, fotoPerfil, nombre FROM users WHERE id = $1;`, [
+        pool.query(`SELECT id, foto_perfil, nombre FROM users WHERE id = $1;`, [
           id
         ]),
       'Error getting user'
@@ -255,36 +255,36 @@ class UsersModel {
       pool,
       () =>
         pool.query(
-          `INSERT INTO users (id, nombre, rol, fotoPerfil, correo, direccionEnvio, librosIds, estadoCuenta,
-          fechaRegistro, actualizadoEn, bio, favoritos, conversationsIds, notificationsIds, validated, login,
-          ubicacion, seguidores, siguiendo, coleccionsIds, preferencias, historialBusquedas, balance, comprasIds, contraseña)
+          `INSERT INTO users (id, nombre, rol, foto_perfil, correo, direccion_envio, libros_ids, estado_cuenta,
+          fecha_registro, actualizado_en, bio, favoritos, conversations_ids, notifications_ids, validated, login,
+          ubicacion, seguidores, siguiendo, collections_ids, preferencias, historial_busquedas, balance, compras_ids, contraseña)
           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16,
           $17, $18, $19, $20, $21, $22, $23, $24, $25);`,
           [
             newUser.id,
             newUser.nombre,
             newUser.rol,
-            newUser.fotoPerfil,
+            newUser.foto_perfil,
             newUser.correo,
-            newUser.direccionEnvio,
-            newUser.librosIds,
-            newUser.estadoCuenta,
-            newUser.fechaRegistro,
-            newUser.actualizadoEn,
+            newUser.direccion_envio,
+            newUser.libros_ids,
+            newUser.estado_cuenta,
+            newUser.fecha_registro,
+            newUser.actualizado_en,
             newUser.bio,
             newUser.favoritos,
-            newUser.conversationsIds,
-            newUser.notificationsIds,
+            newUser.conversations_ids,
+            newUser.notifications_ids,
             newUser.validated,
             newUser.login,
             newUser.ubicacion,
             newUser.seguidores,
             newUser.siguiendo,
-            newUser.coleccionsIds,
+            newUser.collections_ids,
             newUser.preferencias,
-            newUser.historialBusquedas,
+            newUser.historial_busquedas,
             JSON.stringify(newUser.balance),
-            newUser.comprasIds,
+            newUser.compras_ids,
             newUser.contraseña
           ]
         ),
