@@ -105,18 +105,16 @@ export default function Colecciones ({ user, permisos }) {
         return
       }
       setColecciones([...colecciones, {...createCollectionResponse.data, libros_ids: filtered}])
-        
+      
       if (addedCollections.length > 0) {
         const addToCollectionUrl = 'http://localhost:3030/api/collections/addToCollection?collectionId=' + createCollectionResponse.data.id
-        console.log('URL:', addToCollectionUrl)
+
         // Realizar las solicitudes de manera secuencial
-        for (const bookId of filtered) {
-          const fullUrl = addToCollectionUrl + `&bookId=${bookId}`
-          try {
-            await axios.post(fullUrl, null, { withCredentials: true })
-          } catch (error) {
-            console.error('Error al agregar libro a la colección:', error)
-          }
+        const fullUrl = addToCollectionUrl + `&booksIds=${addedCollections.join(',')}`
+        try {
+          await axios.get(fullUrl, null, { withCredentials: true })
+        } catch (error) {
+          console.error('Error al agregar libro a la colección:', error)
         }
       }
 
@@ -134,7 +132,7 @@ export default function Colecciones ({ user, permisos }) {
   async function handleImageChange (e) {
     const file = e.target.files[0]
     const crop = async () => {
-      const croppedURL = await cropImageToAspectRatio(file, 2 / 3)
+      const croppedURL = await cropImageToAspectRatio(file, 21 / 9)
       return { url: croppedURL, type: file.type } // Guardar URL y tipo de archivo
     }
     const croppedFile = await crop()
@@ -192,7 +190,7 @@ export default function Colecciones ({ user, permisos }) {
               <div className='librosFav'>
 
                 {misLibros.length !== 0 && <><div className="libroFav" style={{justifyContent:'center', padding: '5px'}}>Mis libros</div>
-                   {misLibros.map((libro, index) => (
+                  {misLibros.map((libro, index) => (
                     <div className={`libroFav ${addedCollections.includes(libro.id) ? 'reverse' : ''}`} key={index}
                       onClick={()=>handleAddToCollection(libro.id)}
                     >
@@ -203,7 +201,7 @@ export default function Colecciones ({ user, permisos }) {
                   ))}</>
                 }{
                   (librosFav.length !== 0 && !checkbox) && <><div className="libroFav" style={{justifyContent:'center', padding: '5px'}}>Mis favoritos</div>
-                     {librosFav.map((libro, index) => (
+                    {librosFav.map((libro, index) => (
                       <div className={`libroFav ${addedCollections.includes(libro.id) ? 'reverse' : ''}`} key={index}
                         onClick={()=>handleAddToCollection(libro.id)}
                       >
@@ -234,12 +232,13 @@ export default function Colecciones ({ user, permisos }) {
         </svg>Crear nueva colección
       </button>}
 
-
+      <div className="collection">
       {colecciones.length !== 0
         ? colecciones.map((coleccion, index) => (
           <MakeCollectionCard key={index} element={coleccion} index={index} user={user || ''} />
         )).reverse()
         : <>Aún no hay colecciones</>}
+        </div>
     </>
   )
 }

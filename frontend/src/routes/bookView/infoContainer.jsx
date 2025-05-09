@@ -42,7 +42,7 @@ export default function InfoContainer({ libro }) {
       <h2>{libro.titulo}</h2>
 
       {/* Display the price and offer if available */}
-      {libro.oferta ? (
+      {(libro.oferta && libro.oferta != 0) ? (
         <>
           <h3>
             <s>${libro.precio.toLocaleString('es-CO')}</s>

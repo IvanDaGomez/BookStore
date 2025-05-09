@@ -19,7 +19,7 @@ export interface IUsersModel {
   getUserById(id: ID): Promise<PartialUserInfoType>
   getPhotoAndNameUser(id: ID): Promise<{
     id: ID
-    fotoPerfil: ImageType
+    foto_perfil: ImageType
     nombre: string
   }>
   getEmailById(id: ID): Promise<{ correo: string; nombre: string }>

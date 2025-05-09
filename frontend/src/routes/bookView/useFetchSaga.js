@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 export default function useFetchSaga(libro){
   const [sagaLibros, setSagaLibros] = useState([])
   const [nombreSaga, setNombreSaga] = useState('')
+  const [sagaId, setSagaId] = useState('')
   useEffect(()=>{
     async function fetchSagaLibros() {
       if (!libro) return
@@ -19,35 +20,22 @@ export default function useFetchSaga(libro){
           console.error('Error en el servidor:', response.data.error)
           return
         }
-        console.log('Saga response:', response.data)
-        if (response.data) {
-          setNombreSaga(response.data.nombre)
 
-          const validBooks = []
-          
-          for (const idLibro of response.data.libros_ids) {
-            try {
-              const response = await axios.get(`http://localhost:3030/api/books/${idLibro}`, {
-                withCredentials: true
-              })
-              if (response.ok) {
-                const book = await response.json()
-                validBooks.push(book)
-              } else {
-                console.error(`Libro ${idLibro} no encontrado`)
-              }
-            } catch (error) {
-              console.error(`Error fetching libro ${idLibro}:`, error)
-            }
-          }
-
-          setSagaLibros(validBooks)
+        setNombreSaga(response.data.nombre)
+        setSagaId(response.data.id)
+        const booksUrl = 'http://localhost:3030/api/books/idList/' + response.data.libros_ids.join(',')
+        const booksResponse = await axios.get(booksUrl, {withCredentials: true})
+        if (response.data.error) {
+          console.error('Error en el servidor:', response.data.error)
+          return
         }
+
+        setSagaLibros(booksResponse.data)
       } catch  {
         // console.error('Error en el servidor')
       }
     }
     fetchSagaLibros()
   }, [libro])
-  return [sagaLibros, nombreSaga]
+  return [sagaLibros, nombreSaga, sagaId]
 }

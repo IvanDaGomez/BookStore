@@ -34,6 +34,12 @@ export default function HamburgerMenuOptions({ profile, setProfile, user, color,
       callback: () => logout()
     }
   ])
+  useEffect(() => {
+    const myBooksIndex = values.findIndex((value) => value.name === 'Mis libros')
+    if (myBooksIndex !== -1) {
+      values[myBooksIndex].href = `/usuarios/${user?.id ?? ''}`
+    }
+  },[user?.id, values])
   return (
     <>{profile && 
     <div className='profileContainer' onMouseLeave={() => { setProfile(!profile) }} ref={profileContainer}>

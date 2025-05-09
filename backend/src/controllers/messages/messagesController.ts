@@ -78,6 +78,7 @@ export class MessagesController {
     try {
       const validated = validateMessage(data)
       if (!validated.success) {
+        console.dir(validated.error, { depth: null})
         return res.status(400).json({ error: validated.error })
       }
 

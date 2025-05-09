@@ -1,3 +1,4 @@
+import axios from "axios"
 import { useEffect } from "react"
 import { toast } from "react-toastify"
 
@@ -8,23 +9,21 @@ export default function useFetchPhotoAndNameUsers ({
 }) {
     useEffect(() => {
       async function fetchPhotoAndNameUsers () {
-        if (!user || !user?.id || !conversaciones.length) return
-        console.log(user)
+        if (!user || !user?.id || conversaciones.length === 0) return
         try {
-          const fetchedUsers = await Promise.all(conversaciones.map(async conversacion => {
+          const filterdConversaciones = conversaciones.filter((conversacion) => conversacion !== null)
+          const fetchedUsers = await Promise.all(filterdConversaciones.map(async conversacion => {
             const userConversationId = conversacion.users.find(id => id !== user.id)
             if (!userConversationId) return null
-  
-            const response = await fetch(`http://localhost:3030/api/users/${userConversationId}/photoAndName`)
-            if (response.ok) {
-              return await response.json()
-            } else {
-              console.error(`Failed to fetch data for user ${userConversationId}`)
+            const response = await axios.get(`http://localhost:3030/api/users/${userConversationId}/photoAndName`)
+            if (response.data.error) {
+              console.error(response.data.error)
               return null
             }
+            return response.data
           }))
-  
-          setReducedUsers(fetchedUsers.filter(userData => userData))
+          console.log('Fetched users:', fetchedUsers)
+          setReducedUsers(fetchedUsers)
         } catch (error) {
           console.error('Error fetching user data:', error)
           toast.error('Error fetching user data')

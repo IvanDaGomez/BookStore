@@ -69,7 +69,7 @@ export const createUsersRouter = ({
   )
   usersRouter.get('/c/:user_id', usersController.getEmailById as RequestHandler) // R
   usersRouter.get(
-    '/:userId/photoAndName',
+    '/:user_id/photoAndName',
     usersController.getPhotoAndNameUser as RequestHandler
   ) // R
   usersRouter.get('/:user_id', usersController.getUserById as RequestHandler) // R

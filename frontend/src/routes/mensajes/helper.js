@@ -1,34 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import { useEffect, useState } from "react"
+import axios from "axios";
+import { useEffect } from "react"
 
 import { toast } from "react-toastify"
 
-function useFetchuser() {
-
-    const [user, setUser] = useState(null)
-      // Fetch del usuario primero que todo
-      useEffect(() => {
-        async function fetchUser () {
-          try {
-            const response = await fetch('http://localhost:3030/api/users/userSession', {
-              method: 'POST',
-              credentials: 'include'
-            })
-    
-            if (!response.data.error) {
-              const data = await response.json()
-              setUser(data.user)
-            } 
-          } catch (error) {
-            console.error('Error fetching user data:', error)
-            setUser(null)
-          }
-        }
-        fetchUser()
-      }, [])
-    return [user]
-}
 
 function useFetchConversations(user, setConversaciones, setFilteredConversations, newConversationId) {
     useEffect(() => {
@@ -63,40 +39,34 @@ function useFetchConversations(user, setConversaciones, setFilteredConversations
     }, [user, newConversationId]);
 }
 function findUserByConversation (conversation, user, reducedUsers) {
-    const otherUserId = conversation.users.find(u => u !== user.id)
-    if (!otherUserId) return {}
-
-    // Find the user object for the other user in reducedUsers
-    const userMatch = reducedUsers.find(reducedUser => reducedUser.id === otherUserId)
-
-    return userMatch || {}
+  const otherUserId = conversation?.users.filter(u => u !== null)
+  .find(u => u !== user?.id)
+  if (!otherUserId) return {}
+  // Find the user object for the other user in reducedUsers
+  const userMatch = reducedUsers
+  .filter(reducedUser => reducedUser !== null)
+  .find(reducedUser => reducedUser?.id === otherUserId)
+  return userMatch || {}
 }
   async function fetchNewConversation (user, newConversationId, conversaciones, setConversaciones) {
     // Ensure user, user.id, and newConversationId are defined
     if (!user || !user.id || !newConversationId || !conversaciones) return
 
     // Check if the conversation already exists to avoid redundant requests
-    if (conversaciones.some((c) => c.id === newConversationId)) return
+    if (conversaciones
+      .filter(c => c !== null)
+      .some((c) => c.id === newConversationId)) return
 
-    const body = JSON.stringify({ users: [user.id, newConversationId] })
+    const body = { users: [user.id, newConversationId] }
 
     try {
       const url = 'http://localhost:3030/api/conversations'
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body,
-        credentials: 'include'
-      })
+      const response = await axios.post(url, body, { withCredentials: true })
 
-      if (!response.ok) {
-        console.error('Error in response while creating a new conversation')
-        return
-      }
-
-      const data = await response.json()
-      if (data.error) {
-        return
+      console.log('Response:', response.data)
+      if (response.data.error) {
+        console.error(response.data.error)
+        return 
       }
 
       // Replace the last conversation with the new one
@@ -107,102 +77,92 @@ function findUserByConversation (conversation, user, reducedUsers) {
           updatedConversations.pop()
         }
         // Add the new conversation
-        updatedConversations.push(data.conversation)
+        updatedConversations.push(response.data)
         return updatedConversations
       })
-
-      return data.conversation
+      console.log('New conversation created:', response.data)
+      return response.data
     } catch (error) {
       console.error('Error creating a new conversation:', error)
       toast.error('Error creating a new conversation')
     }
   }
 async function handleSubmitMessage (e, activeConversation, user, newConversationId, conversaciones, setConversaciones, setMensajes, setFilteredConversations, reducedUsers, setActiveConversation, navigate) {
-    e.preventDefault()
-const messageInput = document.querySelector('#messageInput')
-const value = messageInput.value.trim() // Trim whitespace
-const url = 'http://localhost:3030/api/messages'
+  e.preventDefault()
+  const messageInput = document.querySelector('#messageInput')
+  const value = messageInput.value.trim() // Trim whitespace
+  const url = 'http://localhost:3030/api/messages'
+  if (!(value && activeConversation && user)) return // Validate inputs
+  let newConversation = {}
+  // Si hay un ID de conversación Y si el usuario ya está en las conversaciones
+  if (newConversationId && conversaciones
+    .filter(c => c !== null)
+    .find(conversacion => Object.keys(conversacion).length > 1 && findUserByConversation(conversacion, user, reducedUsers)?.id === newConversationId) === undefined) {
+      newConversation = await fetchNewConversation(user, newConversationId, conversaciones, setConversaciones)
+  }
 
-if (!(value && activeConversation && user)) return // Validate inputs
-let newConversation = false
+  try {
+    const body = {
+          user_id: user.id,
+          conversation_id: newConversation?.id ?? activeConversation.id,
+          message: value,
+          created_in: new Date().toISOString(),
+          read: false
+      }
+      const response = await axios.post(url, body, { withCredentials: true })
 
-// Si hay un ID de conversación Y si el usuario ya está en las conversaciones
-if (newConversationId && conversaciones.find(conversacion => Object.keys(conversacion).length > 1 && findUserByConversation(conversacion, user, reducedUsers)?.id === newConversationId) === undefined) {
-    newConversation = await fetchNewConversation(user, newConversationId, conversaciones, setConversaciones)
-}
+      if (response.data.error) {
+        toast.error('Error en la respuesta')
+        return
+      }
+      // Add the new message to messages state
+      setMensajes((prevMensajes) => [...prevMensajes, response.data.message])
+      // Update conversations and activeConversation lastMessage
+      setConversaciones((prevConversaciones) => {
+      return prevConversaciones
+      .filter((conversacion) => conversacion !== null) 
+      .map((conversacion) => {
+          if (conversacion.id === activeConversation.id) {
+          return {
+              ...conversacion,
+              last_message: response.data // Update lastMessage
+          }
+          }
+          return conversacion // Return the conversation without changes
+      })
+      })
+      // Update conversations and activeConversation lastMessage
+      setFilteredConversations((prevConversaciones) => {
+      return prevConversaciones
+      .filter((conversacion) => conversacion !== null)
+      .map((conversacion) => {
+          if (conversacion.id === activeConversation.id) {
+          return {
+              ...conversacion,
+              last_message: response.data // Update lastMessage
+          }
+          }
+          return conversacion // Return the conversation without changes
+      })
+      })
+      // Set active conversation last message, ensure it's correctly set
+      setActiveConversation(prevActiveConversation => ({
+      ...prevActiveConversation,
+      last_message: response.data
+      }))
 
-try {
-    const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json' // Set JSON header
-    },
-    body: JSON.stringify({
-        userId: user.id,
-        conversation_id: newConversation?.id || activeConversation.id,
-        message: value,
-        read: false
-    }),
-    credentials: 'include'
-    })
-
-    if (!response.ok) {
-    toast.error('Error en la respuesta')
-    return
-    }
-
-    const responseData = await response.json() // Parse JSON response
-    if (responseData.error) {
-      toast.error('Error en la respuesta')
-      return
-    }
-    // Add the new message to messages state
-    setMensajes((prevMensajes) => [...prevMensajes, responseData.message])
-
-    // Update conversations and activeConversation lastMessage
-    setConversaciones((prevConversaciones) => {
-    return prevConversaciones.map((conversacion) => {
-        if (conversacion.id === activeConversation.id) {
-        return {
-            ...conversacion,
-            last_message: responseData.message // Update lastMessage
-        }
-        }
-        return conversacion // Return the conversation without changes
-    })
-    })
-    // Update conversations and activeConversation lastMessage
-    setFilteredConversations((prevConversaciones) => {
-    return prevConversaciones.map((conversacion) => {
-        if (conversacion.id === activeConversation.id) {
-        return {
-            ...conversacion,
-            last_message: responseData.message // Update lastMessage
-        }
-        }
-        return conversacion // Return the conversation without changes
-    })
-    })
-
-    // Set active conversation last message, ensure it's correctly set
-    setActiveConversation(prevActiveConversation => ({
-    ...prevActiveConversation,
-    last_message: responseData.message
-    }))
-
-    // Clear input field
-    messageInput.value = ''
-    messageInput.style.height = 'auto'
-    if (newConversationId) {
-        navigate('/mensajes')
-    }
-} catch (error) {
-    console.error('Error sending message:', error)
-    toast.error('Error al enviar el mensaje')
-}
+      // Clear input field
+      messageInput.value = ''
+      messageInput.style.height = 'auto'
+      if (newConversationId) {
+          navigate('/mensajes')
+      }
+  } catch (error) {
+      console.error('Error sending message:', error)
+      toast.error('Error al enviar el mensaje')
+  }
 }
 export {
-    useFetchuser,
     useFetchConversations,
     findUserByConversation,
     handleSubmitMessage

@@ -15,11 +15,12 @@ import { filterNotifications } from './notificationsFunctions/filterNotification
 import useMarkNotificationAsRead from './notificationsFunctions/useMarkNotificationAsRead.js'
 import useUpdateBreakpoint from '../../assets/useUpdateBreakPoint.js'
 import NotificationsResults from './notificationsFunctions/notificationsResults.jsx'
+import { useReturnIfNoUser } from '../../assets/useReturnIfNoUser.js'
 
 export default function Notificaciones () {
 
-  const { user } = useContext(UserContext)
-
+  const { user, loading } = useContext(UserContext)
+  useReturnIfNoUser(user, loading, false)
   const [notifications] = useFetchNotifications(user)
   const [activeNotification, setActiveNotification] = useState({})
   const [filteredNotifications, setFilteredNotifications] = useState(notifications ?? [])

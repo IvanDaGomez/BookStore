@@ -9,7 +9,7 @@ import Footer from '../../components/footer/footer.jsx'
 import SideInfo from '../../components/sideInfo'
 import './checkout.css'
 import { useNavigate, useParams } from 'react-router'
-
+import { useReturnIfNoUser } from '../../assets/useReturnIfNoUser.js'
 
 import { ToastContainer } from 'react-toastify'
 import useFetchActualBook from '../../assets/useFetchActualBook.js'
@@ -20,7 +20,7 @@ function Checkout () {
   const navigate = useNavigate()
   // const { user, setUser, loading } = useContext(UserContext)
   const { user, setUser, loading } = useContext(UserContext)
-
+  useReturnIfNoUser(user, loading, false)
 
 
 

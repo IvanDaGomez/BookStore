@@ -184,39 +184,53 @@ class CollectionsController {
     next: express.NextFunction
   ): Promise<express.Response | void> => {
     try {
-      const { bookId, collectionId } = req.query as {
-        bookId: ID | undefined
-        collectionId: ID | undefined
+      const { booksIds, collectionId } = req.query as {
+        booksIds: string | undefined; // expecting a string of comma-separated IDs
+        collectionId: ID | undefined;
+      };
+  
+      // Validate inputs
+      if (!booksIds || !collectionId) {
+        return res.status(400).json({ error: 'Faltan parámetros: booksIds o collectionId' });
       }
+      // Convert booksIds to an array of IDs
+      const booksList = booksIds.split(',').map((id) => id.trim()) as ID[];
+  
+      // Fetch books and the collection
+      let books = await this.BooksModel.getBooksByIdList(booksList, 24);
+      const collection = await this.CollectionsModel.getCollectionById(collectionId);
 
-      if (!bookId || !collectionId) {
-        return res.status(400).json({ error: 'No se proporcionó bookId' })
-      }
-      const book = await this.BooksModel.getBookById(bookId)
-      const collection = await this.CollectionsModel.getCollectionById(
-        collectionId
-      )
+      // Filter books to ensure they're not already in the collection
+      books = books.filter((b) =>
+        !b.collections_ids?.includes(collectionId) && !collection.libros_ids?.includes(b.id as ID)
+      );
 
-      if (
-        book.collections_ids.includes(collectionId) &&
-        collection.libros_ids.includes(bookId)
-      ) {
-        return res.status(200).json({ message: 'Ya se agregó el libro' })
-      }
+      
 
-      const newCollectionList = [...collection.libros_ids, bookId]
-      const newBookList = [...book.collections_ids, collectionId]
+      // Ensure unique collections in the collection and book
+      const newCollectionList = [...new Set([...collection.libros_ids, ...books.map((b) => b.id)])];
+
+      // Update collection and books
       await Promise.all([
         this.CollectionsModel.updateCollection(collectionId, {
-          libros_ids: newCollectionList
+          libros_ids: newCollectionList as ID[],
         }),
-        this.BooksModel.updateBook(bookId, { collections_ids: newBookList })
+        ...books.map((b) => {
+
+          b.collections_ids = Array.from(new Set([...(b.collections_ids ?? []), collectionId]))
+          console.log('b.collections_ids', b.collections_ids)
+          this.BooksModel.updateBook(b.id as ID, {
+            collections_ids: b.collections_ids as ID[],
+          });
+        })
       ])
-      res.json({ message: 'Actualizado' })
+      // Send response
+      res.json({ message: 'Colección actualizada correctamente.' });
     } catch (err) {
-      next(err)
+      next(err);
     }
-  }
+  };
+  
 
   getCollectionByQuery = async (
     req: express.Request,
@@ -355,11 +369,12 @@ class CollectionsController {
           .status(401)
           .json({ error: 'No se proporcionaron todos los datos' })
       }
+      console.log('book_id', book_id)
       const collection = await this.CollectionsModel.getCollectionSaga(
         book_id,
         user_id
       )
-
+      console.log('Saga:', collection)
       res.json(collection)
     } catch (err) {
       next(err)

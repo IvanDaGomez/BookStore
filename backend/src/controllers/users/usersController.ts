@@ -94,9 +94,7 @@ export class UsersController {
   ): Promise<express.Response | void> => {
     try {
       const userId = req.params.user_id as ID
-
       const user = await this.UsersModel.getPhotoAndNameUser(userId)
-
       res.json(user)
     } catch (err) {
       next(err)

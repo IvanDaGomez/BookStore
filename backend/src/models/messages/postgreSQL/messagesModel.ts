@@ -35,7 +35,7 @@ class MessagesModel {
     const data: MessageObjectType[] = await executeQuery(
       pool,
       () =>
-        pool.query('SELECT * FROM messages WHERE conversationId = $1;', [id]),
+        pool.query('SELECT * FROM messages WHERE conversation_id = $1;', [id]),
       'Failed to fetch messages from PostgreSQL'
     )
 

@@ -216,6 +216,15 @@
 .bookViewContainer .extraBookViewContainer .related{
   padding: 0;
 }
+.bookViewContainer .sagaContainer{
+  .link{
+    text-decoration: none;
+    color: var(--using4);
+    font-size: var(--font-size-xlarge);
+    margin: 0 5px;
+
+  }
+}
 .bookViewContainer .extraBookViewContainer .description{
   min-height:5ch;
   max-height: 20ch;

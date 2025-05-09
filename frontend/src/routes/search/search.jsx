@@ -165,7 +165,7 @@ export default function Search () {
 
       case 'Fecha de Publicación':
         setResults((prevResults) => [...prevResults].sort((a, b) => 
-          new Date(b.fechaPublicacion.split('T')[0]) - new Date(a.fechaPublicacion.split('T')[0])))
+          new Date(b.fecha_publicacion.split('T')[0]) - new Date(a.fecha_publicacion.split('T')[0])))
         break
     }
     e.target.classList.add('choosen')
@@ -196,7 +196,7 @@ export default function Search () {
               </svg>
               </div>
               {/* <div className="layout"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width={24} height={24} color={"#ffffff"} fill={"none"}><path d="M20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28249 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12C2.5 7.52166 2.5 5.28249 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /><path d="M8.5 2.5V21.5" stroke="currentColor" strokeWidth="1.5" /><path d="M15.5 2.5V21.5" stroke="currentColor" strokeWidth="1.5" /></svg></div> */}
-              <div className='flex'>Ordenar por <SelectButton callback={handleSort} filter={sortFilter} index={100} /></div>{/*Index 100 to make it below the other selectbuttons */}
+              <div className='flex'>Ordenar por <SelectButton callback={handleSort} filter={sortFilter} index={1} /></div>{/*Index 100 to make it below the other selectbuttons */}
           </div>
         </div>
         

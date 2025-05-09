@@ -58,7 +58,7 @@ class BooksModel {
 
   static async getBookByQuery (
     query: string,
-    l: number,
+    l: number = 24,
     books: BookObjectType[] = []
   ): Promise<Partial<BookObjectType>[]> {
     try {
@@ -88,7 +88,7 @@ class BooksModel {
       const filterdBooks: Partial<BookObjectType>[] = booksWithScores
         .sort((a, b) => b.score - a.score)
         .map(item => item.book)
-
+        
       return filterdBooks
     } catch (error) {
       if (error instanceof DatabaseError) {
@@ -204,11 +204,13 @@ class BooksModel {
     data: Partial<BookObjectType>
   ): Promise<Partial<BookObjectType>> {
     try {
-      const [keys, values] = Object.entries(data)
-      const updateString = keys.reduce((last, key, index) => {
-        const prefix = index === 0 ? '' : ', '
-        return `${last}${prefix}${key} = $${index + 1}`
-      })
+      const keys = Object.keys(data)
+      const values = Object.values(data)
+      let updateString = ''
+      for (const i of keys) {
+        updateString += `${i} = $${keys.indexOf(i) + 1}, `
+      }
+      updateString = updateString.slice(0, -2) // Remove last comma and space
 
       const result = await executeSingleResultQuery(
         pool,

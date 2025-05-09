@@ -6,8 +6,8 @@ import { findUserByConversation } from "./helper"
 function renderFilteredConversations(filteredConversations, activeConversation, setActiveConversation, setActiveUser, user, reducedUsers) {
     return <>
         {
-        
             filteredConversations
+                .filter((conversation) => conversation !== null)
                 .sort((a, b) => {
                     const dateA = a?.last_message?.created_in ? new Date(a?.last_message?.created_in) : 0
                     const dateB = b?.last_message?.created_in ? new Date(b?.last_message?.created_in) : 0
@@ -16,7 +16,7 @@ function renderFilteredConversations(filteredConversations, activeConversation, 
                 .map((conversation, index) => (
                     <div
                         key={index}
-                        className={`conversationSpecific ${activeConversation?.id === conversation.id ? 'active' : ''}`}
+                        className={`conversationSpecific ${activeConversation?.id === conversation?.id ? 'active' : ''}`}
                         onClick={() => {
                             setActiveConversation(conversation)
                             setActiveUser(findUserByConversation(conversation, user, reducedUsers))
@@ -29,9 +29,9 @@ function renderFilteredConversations(filteredConversations, activeConversation, 
                         <div className='conversationSpecificTitleAndMessage'>
                             <h2>{findUserByConversation(conversation, user, reducedUsers).nombre || ''}</h2>
                             <span>
-                                {(user && reducedUsers && conversation && conversation?.lastMessage && conversation?.last_message?.message) && (
+                                {(user && reducedUsers && conversation && conversation?.last_message && conversation?.last_message?.message) && (
                                     <>
-                                        {conversation.lastMessage.user_id === user.id
+                                        {conversation?.lastMessage?.user_id === user?.id
                                             ? 'Tu: '
                                             : `${reduceTextByFirstWord(findUserByConversation(conversation, user, reducedUsers).nombre || '')}: `}
                                         {reduceText(conversation?.last_message?.message, 20)}
@@ -41,7 +41,7 @@ function renderFilteredConversations(filteredConversations, activeConversation, 
                             </span>
                         </div>
                         {/* 2024-12-21T17:01:32.197Z */}
-                        <span>{formatDate(conversation?.lastMessage?.created_in) || ''}</span>
+                        <span>{formatDate(conversation?.last_message?.created_in) || ''}</span>
                     </div>
                 ))}</>
 }

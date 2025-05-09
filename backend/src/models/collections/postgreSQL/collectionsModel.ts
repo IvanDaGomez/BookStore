@@ -88,11 +88,14 @@ class CollectionsModel {
     data: Partial<CollectionObjectType>
   ): Promise<CollectionObjectType> {
     try {
-      const [keys, values] = Object.entries(data)
-      const updateString = keys.reduce((last, key, index) => {
-        const prefix = index === 0 ? '' : ', '
-        return `${last}${prefix}${key} = $${index + 1}`
-      })
+      const keys = Object.keys(data)
+      const values = Object.values(data)
+      let updateString = ''
+      for (const i of keys) {
+        updateString += `${i} = $${keys.indexOf(i) + 1}, `
+      }
+      updateString = updateString.slice(0, -2) // Remove last comma and space
+
 
       const result = await executeSingleResultQuery(
         pool,
@@ -193,6 +196,7 @@ class CollectionsModel {
     bookId: ID,
     userId: ID
   ): Promise<CollectionObjectType> {
+    console.log('Book ID:', bookId)
     const collection = await executeSingleResultQuery(
       pool,
       () =>
@@ -202,10 +206,10 @@ class CollectionsModel {
         ),
       'Failed to fetch collection from PostgreSQL'
     )
-    if (collection) {
-      return collection
+    if (!collection) {
+      throw new Error('No se encontró la colección')
     }
-    throw new Error('No se encontró una saga para este libro')
+    return collection
   }
   static async forYouPageCollections (
     userKeyInfo: any,
@@ -217,7 +221,7 @@ class CollectionsModel {
       () =>
         pool.query(
           `SELECT * FROM collections WHERE user_id != $1 ORDER BY RANDOM() LIMIT $2;`,
-          [userKeyInfo.id, sampleSize]
+          [userKeyInfo?.id ?? '0', sampleSize]
         ),
       'Failed to fetch collections from PostgreSQL'
     )

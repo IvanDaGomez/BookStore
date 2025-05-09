@@ -16,7 +16,7 @@ const handleFavoritos = (event, id, userId) => {
 
     try {
       const response = await axios.patch(url, {
-        bookId: id,
+        book_id: id,
         accion: (favoritoIconPath.length > 0 && favoritoIconPath[0].classList.contains('favoritoActivo')) ? 'eliminar' : 'agregar'
       }, { withCredentials: true })
 

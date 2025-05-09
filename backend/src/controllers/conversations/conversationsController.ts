@@ -79,7 +79,7 @@ export class ConversationsController {
   ): Promise<express.Response | void> => {
     try {
       const data = req.body as ConversationObjectType
-
+      console.log('data', data)
       // Validation: Ensure exactly two users
       if (data.users.length !== 2) {
         return res.json({ error: 'Es necesario dos usuarios' })

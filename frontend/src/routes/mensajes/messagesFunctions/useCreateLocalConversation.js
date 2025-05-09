@@ -10,14 +10,18 @@ export default function useCreateLocalConversation({
   reducedUsers
 }) {
   useEffect(() => {
-    if (!user || !user.id || !newConversationId) return
+    if (!user || !user?.id || !newConversationId) return
     // Si el ID no es válido y no existe salir
-    if (reducedUsers.length && reducedUsers.find((usuario) => usuario.id === newConversationId) === undefined) return
+    if (reducedUsers.length && reducedUsers.find((usuario) => usuario?.id === newConversationId) === undefined) return
     // Si hay conversaciones Y si el id de la conversación ya existe volver
-    if (conversaciones.length !== 0 && conversaciones.find(conversacion => findUserByConversation(conversacion, user, reducedUsers).id === newConversationId) !== undefined) return
-    setConversaciones((prevConversaciones) => {
+    if (conversaciones.length !== 0 && conversaciones
+      .filter(c => c !== null)
+      .find(conversacion => findUserByConversation(conversacion, user, reducedUsers).id === newConversationId) !== undefined) return
+      setConversaciones((prevConversaciones) => {
       // Prevent duplicate entries
-      const alreadyExists = prevConversaciones?.some((c) =>
+      const alreadyExists = prevConversaciones
+      .filter(c => c !== null)
+      .some((c) =>
         c.users.includes(newConversationId)
       )
       if (alreadyExists) return prevConversaciones
@@ -26,13 +30,12 @@ export default function useCreateLocalConversation({
         users: [user.id, newConversationId]
       }]
     })
-
     setFilteredConversations((prevFilteredConversations) => {
-      const alreadyExists = prevFilteredConversations?.some((c) =>
-        c.users.includes(newConversationId)
-      )
+      const alreadyExists = prevFilteredConversations
+      .filter(c => c !== null)
+      .some((c) => c.users.includes(newConversationId))
       if (alreadyExists) return prevFilteredConversations
-
+        
       return [...(prevFilteredConversations || []), {
         users: [user.id, newConversationId]
       }]

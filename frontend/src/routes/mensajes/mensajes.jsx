@@ -1,13 +1,10 @@
-/* eslint-disable no-unused-vars */
-
-
 import { useState, useEffect, useRef, useContext } from 'react'
 import Header from '../../components/header/header.jsx'
 import SideInfo from '../../components/sideInfo'
 import Footer from '../../components/footer/footer.jsx'
 import { ToastContainer } from 'react-toastify'
 import { useSearchParams } from 'react-router-dom'
-import { findUserByConversation, handleSubmitMessage, useFetchConversations, useFetchuser } from './helper'
+import { findUserByConversation, useFetchConversations } from './helper'
 import { renderFilteredConversations } from './helperComponents'
 import { UserContext } from '../../context/userContext.jsx'
 import NotificationsHeader from './notificationsHeader.jsx'
@@ -22,12 +19,15 @@ import useCreateLocalConversation from './messagesFunctions/useCreateLocalConver
 import MessageInput from './messagesFunctions/messageInput.jsx'
 import './messages.css'
 import './notifications.css'
+import { useReturnIfNoUser } from '../../assets/useReturnIfNoUser.js'
 export default function Mensajes () {
 
   const [activeConversation, setActiveConversation] = useState(null)
 
   // --------------------------------------LOGICA DE MENSAJES-------------------------------------------
-  const { user } = useContext(UserContext)
+  const { user, loading } = useContext(UserContext)
+  useReturnIfNoUser(user, loading, false)
+  
   const [mensajes, setMensajes] = useState([])
   const [conversaciones, setConversaciones] = useState([])
   const [urlSearchParams] = useSearchParams() 
@@ -77,7 +77,9 @@ export default function Mensajes () {
     if (conversaciones && user && newConversationId &&
             activeConversation &&
             findUserByConversation(activeConversation, user, reducedUsers).id === newConversationId) {
-      setActiveConversation(conversaciones.find(conversacion => conversacion.users.find(u => u !== user.id) === newConversationId))
+      setActiveConversation(conversaciones
+        .filter(c => c !== null)
+        .find(conversacion => conversacion.users.find(u => u !== user.id) === newConversationId))
       setActiveUser(findUserByConversation(activeConversation, user, reducedUsers))
     }
   }, [newConversationId, conversaciones, user, activeConversation, reducedUsers])
@@ -87,7 +89,7 @@ export default function Mensajes () {
     conversaciones,
     setReducedUsers
   })
-
+  
   useFetchMessages({
     activeConversation, setMensajes
   })
@@ -133,7 +135,6 @@ export default function Mensajes () {
       {/* ----------------------------------------SELECCION DE NOTIFICACION----------------------------------------------- */}
       <NotificationsHeader active={'messages'} />
       {/* ----------------------------------------MENSAJES EN PC----------------------------------------------- */}
-      
       {!isMobile &&
         <div className='messagesContainer'>
           <div className='conversationsContainer'>
@@ -147,6 +148,7 @@ export default function Mensajes () {
             {/* ----------------------------------------CADA CONVERSACIÓN----------------------------------------------- */}
             {renderFilteredConversations(filteredConversations, activeConversation, setActiveConversation, setActiveUser, user, reducedUsers)}
           </div>
+
           <div className='chat'>
             {/* ----------------------------------------ENCABEZADO DEL CHAT----------------------------------------------- */}
             <ChatHeader
@@ -160,7 +162,7 @@ export default function Mensajes () {
             {/* ----------------------------------------MENSAJES----------------------------------------------- */}
             <div className='messagesViewContainer' ref={chatContainerRef}>
               {mensajes.map((mensaje, index) => (
-                <div key={index} className={`mensaje ${mensaje.user_id === user.id ? 'myMessage' : 'otherMessage'}`}>
+                <div key={index} className={`mensaje ${mensaje?.user_id === user?.id ? 'myMessage' : 'otherMessage'}`}>
                   {mensaje.message}
                 </div>
               ))}
@@ -168,7 +170,6 @@ export default function Mensajes () {
             {/* ----------------------------------------CONTENEDOR DE ENVIAR MENSAJE----------------------------------------------- */}
             <MessageInput 
             activeConversation={activeConversation}
-            handleSubmitMessage={handleSubmitMessage}
             user={user} 
             newConversationId={newConversationId} 
             conversaciones={conversaciones} 

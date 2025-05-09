@@ -10,6 +10,7 @@ export  function filterConversations ({
     // Filter conversations where the name of the other user contains the search term
     const filtered = conversaciones.filter(conversation => {
       // Find the other user's ID
+      if (conversation === null) return null
       const otherUserId = conversation.users.find(u => u !== user.id)
       if (!otherUserId) return null
 

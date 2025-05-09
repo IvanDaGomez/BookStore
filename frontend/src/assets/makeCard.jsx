@@ -18,7 +18,7 @@ export const PriceTitleRender = ({ element }) => {
   if (!element?.precio) return null
   return (<>
   
-  {(element.oferta !== 0) ? <>
+  {(element.oferta && element.oferta != 0) ? <>
   <h2 className='red' style={{ display: 'inline' }}>
     ${element.oferta.toLocaleString('es-CO')}
     </h2>
@@ -35,7 +35,6 @@ const MakeCard = ({ element, index, user = '', callback = () => {}, wordLimit = 
   useEffect(() => {
     if (user && user.favoritos) {
       user.favoritos.filter(i => i !== null).forEach((favoritoId) => {
-        console.log(favoritoId)
         const favorites = document.querySelectorAll(`.favorito-${favoritoId}`)
         favorites.forEach((element) => element.classList.add('favoritoActivo'))
       })
@@ -108,7 +107,7 @@ const MakeOneFrCard = ({ element, index, user = '' }) => {
           <h2 className='productName'>
             {reduceText(element?.titulo ?? '', 50)}
           </h2>
-
+          {element.disponibilidad === 'Vendido' && <span className='red'>Vendido</span>}
 
           {/* Precio y oferta */}
             <div className='precioSections'>

@@ -1,6 +1,7 @@
 import { PropTypes } from 'prop-types';
 import { useNavigate } from 'react-router';
-export default function MessageInput({ activeConversation, handleSubmitMessage, user, newConversationId, conversaciones, setConversaciones, setMensajes, setFilteredConversations, reducedUsers, setActiveConversation }) {
+import { handleSubmitMessage } from '../helper.js';
+export default function MessageInput({ activeConversation, user, newConversationId, conversaciones, setConversaciones, setMensajes, setFilteredConversations, reducedUsers, setActiveConversation }) {
   const navigate = useNavigate()
   return(<>{activeConversation &&
             <div className='messageInputContainer'>

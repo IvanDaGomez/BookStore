@@ -57,7 +57,7 @@ class UsersModel {
 
   static async getPhotoAndNameUser (id: ID): Promise<{
     id: ID
-    fotoPerfil: ImageType
+    foto_perfil: ImageType
     nombre: string
   }> {
     const user = await executeSingleResultQuery(
@@ -68,6 +68,7 @@ class UsersModel {
         ]),
       'Error getting user'
     )
+    console.log(id)
     // Return user with limited public information
     return user
   }
