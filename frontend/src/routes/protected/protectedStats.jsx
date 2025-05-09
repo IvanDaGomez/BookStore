@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import UserGraph from './graphs/UserGraph.jsx'; // Component to display customer registration & login stats
 // import BooksGraph from './BooksGraph'; // Component to show number of books published and viewed
 // import TransactionsGraph from './TransactionsGraph'; // Component to track transactions
@@ -10,9 +10,12 @@ import BooksGraph from './graphs/BooksGraph.jsx';
 import TransactionsGraph from './graphs/TransactionsGraph.jsx';
 import SalesGraph from './graphs/SalesGraph.jsx';
 import Trends from './graphs/trends.jsx';
+import { UserContext } from '../../context/userContext.jsx';
+import { useReturnIfNoUser } from '../../assets/useReturnIfNoUser.js';
 export default function ProtectedStats() {
   const [info, setInfo] = useState({})
-
+  const { user, loading } = useContext(UserContext)
+  useReturnIfNoUser(user, loading, true)
   useEffect(() => {
     async function fetchData() {
       const response = await axios.get('http://localhost:3030/api/stats');

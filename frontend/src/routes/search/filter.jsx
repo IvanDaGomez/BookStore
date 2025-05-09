@@ -19,9 +19,8 @@ export default function Filter ({ filter, setFiltros, index }) {
       e.target.classList.add('choosen')
       const param = filter.param
       
-
       setFiltros((prevFilters) => {
-        console.log(prevFilters[param])
+
         const existingValues = prevFilters[param] ?? []
         return ({
         ...prevFilters,

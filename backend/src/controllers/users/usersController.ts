@@ -281,9 +281,9 @@ export class UsersController {
       const userId = req.params.user_id as ID
       const data: Partial<UserInfoType> = req.body
       // Validar datos
-      console.log(data)
       const validated = validatePartialUser(data)
       if (!validated.success) {
+        console.dir(validated.error.errors, { depth: null })
         return res.status(400).json({
           error: 'Error validando usuario',
           details: validated.error.errors
@@ -293,6 +293,7 @@ export class UsersController {
       const updatedData = await processUserUpdate(data, userId, req)
 
       // Actualizar usuario
+      console.log('Updating user...')
       const user = await this.UsersModel.updateUser(userId, updatedData)
 
       jwtPipeline(user, res)
@@ -307,10 +308,12 @@ export class UsersController {
     res: express.Response,
     next: express.NextFunction
   ): Promise<express.Response | void> => {
+    console.log(req.body)
     try {
       const userId = req.params.user_id as ID
+      
       const { accion, book_id } = req.body as { accion: string; book_id: ID }
-
+      
       if (!accion) {
         return res.status(400).json({ error: 'Acción no proporcionada' })
       }
@@ -348,6 +351,9 @@ export class UsersController {
       if (req.session.user) {
         // Devolver los datos del usuario
         const user = await this.UsersModel.getUserById(req.session.user.id)
+        if (user.estado_cuenta === 'Suspendido') {
+          return res.status(403).json({ message: 'Usuario baneado' })
+        }
         return res.json(user)
       } else {
         res.status(401).json({ message: 'No autenticado' })
@@ -685,6 +691,19 @@ export class UsersController {
       })
 
       res.json({ message: 'Libro agregado a la colección' })
+    } catch (err) {
+      next(err)
+    }
+  }
+  banUser = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
+    try {
+      const { username } = req.body
+      const result = await this.UsersModel.banUser(username)
+      res.json(result)
     } catch (err) {
       next(err)
     }

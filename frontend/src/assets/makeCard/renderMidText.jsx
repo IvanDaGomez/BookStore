@@ -9,7 +9,7 @@ export default function RenderMidText({ element, wordLimit }) {
   };
 
   const renderPriceSection = () => {
-    if (element.oferta) {
+    if (element.oferta && element.oferta != 0) {
       return (
         <>
           <h3 style={{ display: 'inline', marginRight: '10px' }}>

@@ -3,9 +3,9 @@ export async function predictInfo(file) {
     try {
         const formData = new FormData()
         async function urlToBlob (blobUrl) {
-          const response = await fetch(blobUrl)
-          const blob = await response.blob()
-          return blob
+            const response = await fetch(blobUrl)
+            const blob = await response.blob()
+            return blob
         }
         
         const blobFile = await urlToBlob(file)
@@ -18,10 +18,13 @@ export async function predictInfo(file) {
         })
 
         const data = await response.json()
-
+        if (data.error) {
+            console.error('Error en el servidor:', data.error)
+            return
+        }
         return {
-            title: data.data.title,
-            author: data.data.author
+            title: data.title,
+            author: data.author
         }
     } catch (error) {
         console.error(error)

@@ -39,6 +39,42 @@ if (notification === 'noUser') {
     </>
     )
 }
+if (notification === 'noAdmin') {
+    return (
+    <>
+        <div className='dropdownBackground' />
+        <div className='success-container'>
+        <h2>No tienes permisos para hacer esto</h2>
+        <p>Inicia sesión como administrador para poder acceder a esta sección</p>
+        <div className="button-container">
+
+            <Link to='/login'>
+            <button className='back-button'>Iniciar Sesión</button>
+            </Link>
+            <Link to='/'>
+            <button className='back-button'>Volver a Inicio</button>
+            </Link>
+        </div>
+        </div>
+    </>
+    )
+}
+if (notification === 'banned') {
+    return (
+    <>
+        <div className='dropdownBackground' />
+        <div className='success-container'>
+        <p>Tu cuenta ha sido bloqueada por un administrador</p>
+        <p>Si crees que esto es un error, por favor <a href="mailto:meridian@gmail.com">contacta</a> a un administrador</p>
+        <div className="button-container">
+            <Link to='/login'>
+            <button className='back-button'>Iniciar Sesión con otra cuenta</button>
+            </Link>
+        </div>
+        </div>
+    </>
+    )
+}
 if (notification === 'usuarioNoEncontrado') {
     return (
     <>

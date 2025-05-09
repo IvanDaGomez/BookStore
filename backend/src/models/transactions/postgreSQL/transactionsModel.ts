@@ -28,7 +28,7 @@ class TransactionsModel {
       pool,
       () =>
         pool.query(
-          'SELECT * FROM transactions WHERE userId ? $1 OR sellerId = $1;',
+          'SELECT * FROM transactions WHERE user_id = $1 OR seller_id = $1;',
           [id]
         ),
       'Error getting transactions'

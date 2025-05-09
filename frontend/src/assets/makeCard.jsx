@@ -18,7 +18,7 @@ export const PriceTitleRender = ({ element }) => {
   if (!element?.precio) return null
   return (<>
   
-  {(element.oferta) ? <>
+  {(element.oferta !== 0) ? <>
   <h2 className='red' style={{ display: 'inline' }}>
     ${element.oferta.toLocaleString('es-CO')}
     </h2>

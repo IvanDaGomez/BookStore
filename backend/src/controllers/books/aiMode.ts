@@ -10,11 +10,11 @@ export const AIMode = async (
     try {
       /**
        * @description This function handles the AI mode for book creation.
-       Steps:
-       1. Receives the photo of the book cover and is uploaded with multer.
-       2. The filepath is then used with the OpenAI API to get the book info.
-       3. The image is then deleted from the server as it is not needed anymore.
-       4. The book info is then returned to the client.
+        Steps:
+        1. Receives the photo of the book cover and is uploaded with multer.
+        2. The filepath is then used with the OpenAI API to get the book info.
+        3. The image is then deleted from the server as it is not needed anymore.
+        4. The book info is then returned to the client.
        */
       const file = req.file as Express.Multer.File | undefined
       if (!file) {

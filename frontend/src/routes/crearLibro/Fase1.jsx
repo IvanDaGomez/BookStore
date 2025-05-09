@@ -114,7 +114,7 @@ export default function Fase1 ({ form, setForm, setFase, fase }) {
   }, [additionalInfo])
   return (
     <>
-      <AIMode croppedImages={croppedImages} setForm={setForm} form={form}/>
+      <AIMode croppedImages={croppedImages} setCroppedImages={setCroppedImages} setForm={setForm} form={form}/>
       <form onSubmit={handleSubmit} noValidate>
 
         <HowToUploadDropdown />

@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import './protectedWithdraw.css';
 import axios from "axios";
 import { renderProfilePhoto } from '../../assets/renderProfilePhoto.js';
 import { formatPrice } from "../../assets/formatPrice.js";
+import { UserContext } from "../../context/userContext.jsx";
+import { useReturnIfNoUser } from "../../assets/useReturnIfNoUser.js";
 
 export default function ProtectedWithdraw() {
   const [info, setInfo] = useState([]);
   const [actualInfo, setActualInfo] = useState({});
-  const [user, setUser] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false); // Disable button while processing
-
+  const { user, loading, setUser } = useContext(UserContext);
+  useReturnIfNoUser(user, loading, true)
   useEffect(() => {
     async function fetchData() {
       try {
@@ -27,12 +29,12 @@ export default function ProtectedWithdraw() {
 
   useEffect(() => {
     async function fetchUser() {
-      if (!actualInfo.userId) return;
+      if (!user?.id) return;
       try {
-        const response = await axios.get(`http://localhost:3030/api/users/${actualInfo.user_id}`);
-        const emailResponse = await axios.get(`http://localhost:3030/api/users/c/${response.data.id}`);
+
+        const emailResponse = await axios.get(`http://localhost:3030/api/users/c/${user.id}`);
         setUser({
-          ...response.data,
+          ...user,
           correo: emailResponse.data.correo
         });
       } catch (error) {
@@ -40,7 +42,8 @@ export default function ProtectedWithdraw() {
       }
     }
     fetchUser();
-  }, [actualInfo]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   async function handleWithdraw() {
     setIsProcessing(true);
@@ -64,7 +67,7 @@ export default function ProtectedWithdraw() {
   }
 
   return (
-    <div className="withdrawContainer">
+    <div className="protectedContainer">
       <h1>Enviar dinero a usuarios para retirar</h1>
       <div className="withdrawInfo">
         <div className="withdrawInfoUser">

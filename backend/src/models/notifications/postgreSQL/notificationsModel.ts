@@ -13,7 +13,7 @@ export class NotificationsModel {
     // Delete expired notifications
     await executeQuery(
       pool,
-      () => pool.query('DELETE FROM notifications WHERE expiresAt < NOW();'),
+      () => pool.query('DELETE FROM notifications WHERE expires_at < NOW();'),
       'Error deleting expired notifications'
     )
 
@@ -65,7 +65,7 @@ export class NotificationsModel {
       pool,
       () =>
         pool.query(
-          'INSERT INTO notifications (id, title, priority, type, user_id, input, createdIn, read, action_url, expires_at, message, metadata) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);',
+          'INSERT INTO notifications (id, title, priority, type, user_id, input, created_in, read, action_url, expires_at, message, metadata) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12);',
           [
             newNotification.id,
             newNotification.title,

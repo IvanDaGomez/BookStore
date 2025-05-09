@@ -35,6 +35,7 @@ export interface IUsersModel {
     foto_perfil: ImageType
   }): Promise<PartialUserInfoType>
   getUserByEmail(correo: string): Promise<UserInfoType>
+  banUser(value: ID): Promise<{ message: string }>
   createUser(data: {
     nombre: string
     correo: string

@@ -31,7 +31,6 @@ export default function AIMode({ croppedImages, setCroppedImages, form, setForm 
         return
       }
       const data = response.data
-      console.log('Last form:', form)
       const newForm = {
         ...form,
         titulo: data.titulo,
@@ -40,7 +39,7 @@ export default function AIMode({ croppedImages, setCroppedImages, form, setForm 
         precio: data.precio,
         idioma: data.idioma,
         descripcion: data.descripcion,
-        genero: data.genero,
+        // genero: data.genero, genero no me esta devolviendo bien valores
         keywords: data.keywords
       }
       setForm(newForm)

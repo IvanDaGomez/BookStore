@@ -1,0 +1,63 @@
+/*---------------------------------------------BOOK REVIEW-----------------------------------*/
+
+
+.book-review{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: max(300px, 60vw);
+  border-radius: var(--border-radius);;
+  border: 2px solid var(--using2);
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.book-review h2{
+  font-size: var(--font-size-xlarge);
+}
+.book-review p{
+  font-size: var(--font-size-medium);
+}
+.book-review .imageWrapper{
+  width: min(300px, 40vw);
+  aspect-ratio: 2 / 3;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-x: auto;
+}
+.book-review .imageWrapper img{
+  height: 100%;
+  margin-right: 5px;
+}
+.book-review .imageWrapper .beforeButton, .book-review .imageWrapper .afterButton{
+  position: absolute;
+  top: 50%;
+  background: var(--using2);
+  color: #000;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.book-review .imageWrapper .beforeButton{
+  left:0;
+}
+
+.book-review .imageWrapper .afterButton{
+  right:0;
+}
+
+.book-review input{
+  width: 80%;
+  background: white;
+  color: black;
+  padding: 5px;
+  padding-left: 10px;
+  margin: var(--margin-small);
+}

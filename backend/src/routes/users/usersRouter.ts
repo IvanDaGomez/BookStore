@@ -50,7 +50,7 @@ export const createUsersRouter = ({
     '/addToCollection',
     usersController.addToCollection as RequestHandler
   )
-
+  usersRouter.post('/ban', usersController.banUser as RequestHandler)
   usersRouter.post('/follow', usersController.followUser as RequestHandler)
 
 

@@ -16,7 +16,7 @@ import './usuario.css'
 export default function Usuario () {
   const navigate = useNavigate()
   const { idVendedor } = useParams()
-  const { user, setUser } = useContext(UserContext)
+  const { user, loading, setUser } = useContext(UserContext)
   const [usuario, setUsuario] = useState({})
   const [permisos, setPermisos] = useState(false)
   const [librosUsuario, setLibrosUsuario] = useState([])
@@ -81,7 +81,7 @@ export default function Usuario () {
           })
           if (!response.data.error) {
             const validBooks = response.data.filter(book => book !== null)
-          setLibrosUsuario(validBooks)
+            setLibrosUsuario(validBooks)
             return response.data
           } else {
             console.error('Libro no encontrado')
@@ -130,6 +130,7 @@ export default function Usuario () {
       alert('Sharing is not supported on this browser.')
     }
   }
+  if (loading) return <div className='loading'>Cargando...</div>
   return (
     <>
       <Header />
@@ -149,7 +150,7 @@ export default function Usuario () {
             </div>
           </>
         )}
-        {usuario &&
+        {(usuario && librosUsuario) &&
             <div className='card-container'>
 
               <img
@@ -213,7 +214,7 @@ export default function Usuario () {
           </div>
         </div>
         <div className='postsContainer'>
-          {usuario &&
+          {(usuario && librosUsuario) &&
                 myPosts === 'libros' ? <>
                   {librosUsuario.map((libro, index) => 
                     permisos

@@ -9,7 +9,7 @@ Filter type: {
 export default function SelectButton ({ filter, callback, index }) {
   return (<>
   <div className="filterWrapper"
-  style={{ zIndex: 1000 - index}}>
+  style={{ zIndex: 100 - index}}>
     <div className="filters">
       <div className="filterOption">
         {filter.name}

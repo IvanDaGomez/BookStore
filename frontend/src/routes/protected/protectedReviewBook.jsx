@@ -4,12 +4,13 @@ import { toast } from 'react-toastify'
 import { createNotification } from '../../assets/createNotification'
 import { UserContext } from '../../context/userContext'
 import axios from 'axios'
-
+import { useReturnIfNoUser } from '../../assets/useReturnIfNoUser'
+import './protectedReview.css'
 export default function ProtectedReviewBook () {
-  const { user } = useContext(UserContext)
+  const { user, loading } = useContext(UserContext)
   const [books, setBooks] = useState([])
   const [currentBook, setCurrentBook] = useState(null)
-
+  useReturnIfNoUser(user, loading, true)
   // Fetch books once the user is validated
   useEffect(() => {
     async function fetchBackStageBooks () {

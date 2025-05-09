@@ -156,12 +156,11 @@ class BooksModel {
         () =>
           pool.query(
             `INSERT INTO books (id, titulo, autor, precio, oferta, isbn, images, keywords, 
-          descripcion, estado, genero, formato, vendedor, idVendedor, edicion, idioma, 
-          ubicacion, tapa, edad, fechaPublicacion, actualizadoEn, disponibilidad,
-          mensajes, collectionsIds)
+          descripcion, estado, genero, formato, vendedor, id_vendedor, edicion, idioma, 
+          ubicacion, tapa, edad, fecha_publicacion, actualizado_en, disponibilidad,
+          mensajes, collections_ids)
           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13,
-          $14, $15, $16, $17, $18, $19, $20,$21,$22, $23, $24)
-          ON CONFLICT (isbn) DO NOTHING;`,
+          $14, $15, $16, $17, $18, $19, $20,$21,$22, $23, $24);`,
             [
               book.id,
               book.titulo,
@@ -284,8 +283,7 @@ class BooksModel {
           ubicacion, tapa, edad, fecha_publicacion, actualizado_en, disponibilidad,
           mensajes, collections_ids)
           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13,
-          $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24)
-          ON CONFLICT (isbn) DO NOTHING;`,
+          $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24);`,
             [
               book.id,
               book.titulo,
@@ -350,7 +348,6 @@ class BooksModel {
         const prefix = index === 0 ? '' : ', '
         return `${last}${prefix}${key} = $${index + 1}`
       })
-
       const result = await executeSingleResultQuery(
         pool,
         () =>

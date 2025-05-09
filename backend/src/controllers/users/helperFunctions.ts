@@ -5,6 +5,9 @@ import { AuthToken } from '../../types/authToken.js'
 import express from 'express'
 import { PartialUserInfoType, UserInfoType } from '../../types/user.js'
 import { ID, ImageType, ISOString } from '../../types/objects.js'
+import path from 'node:path'
+import { Multer } from 'multer'
+import saveOptimizedImages from '../../assets/saveOptimizedImages.js'
 
 async function checkEmailExists (email: string) {
   const correo = await UsersModel.getUserByEmail(email)
@@ -29,7 +32,13 @@ async function processUserUpdate (
   userId: ID,
   req: express.Request
 ) {
-  if (req.file) data.foto_perfil = req.file.filename as ImageType
+  const file: Express.Multer.File | undefined = req.file
+  if (req.file) {
+
+    data.foto_perfil = req.file.filename as ImageType
+    await saveOptimizedImages([data.foto_perfil])
+    
+  }
 
   if (data.correo) {
     await checkEmailExists(data.correo)
@@ -68,7 +77,8 @@ function filterAllowedFields (
     'foto_perfil',
     'contraseña',
     'bio',
-    'favoritos'
+    'favoritos',
+    'estado_cuenta'
   ]
   const filteredData: Partial<UserInfoType> = {}
 

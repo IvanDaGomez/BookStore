@@ -43,9 +43,9 @@ export default function useSendForm ({
         }
         const timeNow = new Date().toISOString()
         // Agregar campos adicionales al FormData
-        if (!actualizar) formData.append('fechaPublicacion', `${timeNow}`)
-        formData.append('actualizadoEn', `${timeNow}`)
-        formData.append('idVendedor', user.id)
+        if (!actualizar) formData.append('fecha_publicacion', `${timeNow}`)
+        formData.append('actualizado_en', `${timeNow}`)
+        formData.append('id_vendedor', user.id)
         formData.append('vendedor', user.nombre)
         formData.append('disponibilidad', libro?.disponibilidad || 'Disponible')
 
@@ -60,7 +60,8 @@ export default function useSendForm ({
           const data = await response.json()
           if (data.error) {
             console.error(data.error)
-            toast.error('Se ha producido un error al crear el libro')
+            toast.error('Se ha producido un error al crear el libro. Revisa los datos e intenta nuevamente.')
+            setFase(1)
             return
           }
 

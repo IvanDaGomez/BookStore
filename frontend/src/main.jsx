@@ -34,6 +34,7 @@ import ColeccionEspecificoPage from './routes/colecciones/coleccionEspecifico.js
 import ProtectedStats from './routes/protected/protectedStats.jsx'
 import ProtectedWithdraw from './routes/protected/protectedWithdraw.jsx'
 import ListaCostes from './routes/extraFooterInfo/listaCostes.jsx'
+import ProtectedBan from './routes/protected/protectedBan.jsx'
 
 const router = createBrowserRouter([
   {
@@ -168,6 +169,10 @@ const router = createBrowserRouter([
   {
     path: '/protected/withdraw',
     element: <ProtectedWithdraw />
+  },
+  {
+    path: '/protected/ban',
+    element: <ProtectedBan />
   },
   {
     path: '/lista-costes',

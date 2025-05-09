@@ -16,6 +16,7 @@ export default function Fyp () {
       try {
         const url = 'http://localhost:3030/api/collections/fyp?l=24'
         const response = await axios.get(url, { withCredentials: true })
+        console.log('Response:', response.data)
         setCollections(response.data)
       } catch (error) {
         console.error('Error:', error)

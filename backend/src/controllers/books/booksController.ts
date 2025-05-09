@@ -217,7 +217,7 @@ export class BooksController {
 
     let data: BookObjectType = req.body
     try {
-      data = prepareCreateBookData(data, req)
+      data = await prepareCreateBookData(data, req)
 
       const validated = validateBook(data)
       if (!validated.success) {
@@ -231,11 +231,10 @@ export class BooksController {
       if (user.rol === 'usuario') {
         user.rol = 'vendedor'
       }
-      const updated = await this.UsersModel.updateUser(user.id, {
+      await this.UsersModel.updateUser(user.id, {
         libros_ids: [...(user.libros_ids ?? []), data.id],
         rol: user.rol
       })
-
       const book = await this.BooksModel.createBook(data)
       const notificationData = {}
       await sendNotification(
@@ -292,7 +291,7 @@ export class BooksController {
       const rawData = req.body
       const existingBook = await this.BooksModel.getBookById(bookId)
 
-      const data = prepareUpdateBookData(rawData, req, existingBook)
+      const data = await prepareUpdateBookData(rawData, req, existingBook)
       const validated = validatePartialBook(data)
       if (!validated.success) {
         return res.status(400).json({ error: validated.error.errors })
@@ -361,10 +360,10 @@ export class BooksController {
     try {
       let data = req.body as Partial<BookObjectType>
 
-      data = prepareCreateBookData(data, req)
+      data = await prepareCreateBookData(data, req)
       const validated = validateBook(data)
       if (!validated.success) {
-        console.error('Error de validación:', validated.error)
+        console.dir(validated.error, { depth: null })
         return res.status(400).json({ error: validated.error })
       }
 
@@ -400,7 +399,7 @@ export class BooksController {
       let rawData = req.body as Partial<BookObjectType>
       const existingBook = await this.BooksModel.getBookById(bookId)
 
-      const data: BookObjectType = prepareUpdateBookData(
+      const data: BookObjectType = await prepareUpdateBookData(
         rawData,
         req,
         existingBook

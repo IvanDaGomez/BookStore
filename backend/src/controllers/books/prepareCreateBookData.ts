@@ -2,6 +2,7 @@ import { BookObjectType } from '../../types/book'
 import express from 'express'
 import { ImageType } from '../../types/objects'
 import { bookObject } from '../../models/books/bookObject.js'
+import saveOptimizedImages from '../../assets/saveOptimizedImages.js'
 /**
  * Prepares and formats the book data for creation by parsing and transforming
  * specific fields from the incoming request. This function ensures that numeric
@@ -20,10 +21,10 @@ import { bookObject } from '../../models/books/bookObject.js'
  * - If files are uploaded in the request, their filenames are extracted and assigned
  *   to the `images` field.
  */
-function prepareCreateBookData (
+async function prepareCreateBookData (
   data: any,
   req: express.Request
-): BookObjectType {
+): Promise<BookObjectType> {
   if (data.oferta)
     data.oferta = parseInt(data.oferta) as BookObjectType['oferta']
   data.precio = parseInt(data.precio) as BookObjectType['precio']
@@ -36,18 +37,25 @@ function prepareCreateBookData (
     data.keywords = []
   }
   data.id = crypto.randomUUID()
+    if (req.file) {
+  
+      data.foto_perfil = req.file.filename as ImageType
+      
+      
+    }
   if (req.files)
     data.images = (req.files as Express.Multer.File[]).map(
       file => `${file.filename}`
     ) as ImageType[]
+    await saveOptimizedImages(data.images)
   return data as BookObjectType
 }
 
-function prepareUpdateBookData (
+async function prepareUpdateBookData (
   data: any,
   req: express.Request,
   existingBook: BookObjectType
-): BookObjectType {
+): Promise<BookObjectType> {
   if (data.oferta)
     data.oferta = parseInt(data.oferta) as BookObjectType['oferta']
   if (data.precio)
@@ -64,6 +72,7 @@ function prepareUpdateBookData (
     data.images = (req.files as Express.Multer.File[]).map(
       file => `${file.filename}`
     ) as BookObjectType['images']
+    await saveOptimizedImages(data.images)
   }
   if (data.mensaje && data.tipo) {
     const messagesArray = existingBook.mensajes || []

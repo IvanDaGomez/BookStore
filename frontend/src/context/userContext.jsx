@@ -19,10 +19,20 @@ const UserProvider = ({ children }) => {
           setUser(null) // En caso de error, usuario no autenticado
           return
         }
-
+        
         setUser(response.data)
-      } catch {
+      } catch (error) {
+        console.error('Error fetching user data:', error)
         // console.error('Error fetching user data:', error)
+        if (error.response && error.response.status === 403 && window.location.pathname !== '/popUp/banned') {
+          // El usuario está suspendido
+          window.location.href = '/popUp/banned'
+          setUser(null) 
+          return
+          }
+
+        setUser(null)
+        
         setUser(null) // En caso de error, usuario no autenticado
       } finally {
         setLoading(false)

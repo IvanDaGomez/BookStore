@@ -5,7 +5,7 @@ import { levenshteinDistance } from '../../../assets/levenshteinDistance.js'
 import crypto from 'node:crypto'
 import { userObject } from '../userObject.js'
 import { PartialUserInfoType, UserInfoType } from '../../../types/user.js'
-import { ID, ImageType } from '../../../types/objects.js'
+import { ID, ImageType, ISOString } from '../../../types/objects.js'
 import { calculateMatchScore } from '../../../assets/calculateMatchScore.js'
 import { changeToArray } from '../../../assets/changeToArray.js'
 import {
@@ -168,19 +168,7 @@ class UsersModel {
       newUser.correo = data.correo
       // La validación es por defecto true si se hace este método
       newUser.validated = true
-      await executeQuery(
-        pool,
-        () =>
-          pool.query(
-            `INSERT INTO users (${this.getEssencialFields().join(
-              ', '
-            )}) VALUES (${this.getEssencialFields()
-              .map((_, i) => `$${i + 1}`)
-              .join(', ')}) RETURNING *;`,
-            Object.values(newUser)
-          ),
-        'Error creating user'
-      )
+      await this.createUser(newUser)
       return userObject(newUser, false)
     }
     return userObject(user, false)
@@ -189,7 +177,7 @@ class UsersModel {
   static async facebookLogin (data: {
     nombre: string
     correo: string
-    fotoPerfil: ImageType
+    foto_perfil: ImageType
   }): Promise<PartialUserInfoType> {
     const user = await executeSingleResultQuery(
       pool,
@@ -297,11 +285,17 @@ class UsersModel {
     data: Partial<UserInfoType>
   ): Promise<PartialUserInfoType> {
     try {
-      const [keys, values] = Object.entries(data)
-      const updateString = keys.reduce((last, key, index) => {
-        const prefix = index === 0 ? '' : ', '
-        return `${last}${prefix}${key} = $${index + 1}`
-      })
+      data.actualizado_en = new Date().toISOString() as ISOString
+      const keys = Object.keys(data)
+      const values = Object.values(data)
+      
+      let updateString = ''
+      for (const i of keys) {
+        updateString += `${i} = $${keys.indexOf(i) + 1}, `
+      }
+      updateString = updateString.slice(0, -2) // Remove last comma and space
+
+
       const existingUser = await this.getEmailById(id)
       if (existingUser.correo === data.correo) {
         throw new Error('El correo ya está en uso')
@@ -313,7 +307,7 @@ class UsersModel {
         pool,
         () =>
           pool.query(
-            `UPDATE users SET ${updateString} WHERE ID = $${keys.length + 1} 
+            `UPDATE users SET ${updateString} WHERE id = $${keys.length + 1} 
             RETURNING ${this.getEssencialFields().join(', ')};`,
             [...values, id]
           ),
@@ -350,6 +344,56 @@ class UsersModel {
     const user = await this.getUserById(id)
     return user.balance
   }
+  static async banUser(value: ID): Promise<{ message: string }> {
+    const user = await this.getUserById(value);
+    const userEmail = await this.getUserByEmail(value);
+    if (!user && !userEmail) {
+      throw new Error('Usuario no encontrado');
+    }
+  
+    const client = await pool.connect();
+    try {
+      // Start a transaction
+      await client.query('BEGIN');
+  
+      // Update the user's account status
+      await client.query(
+        `UPDATE users SET estado_cuenta='Suspendido' WHERE correo = $1 OR nombre = $1;`,
+        [value]
+      );
+  
+      // Delete related books
+      await client.query(
+        `DELETE FROM books WHERE id_vendedor IN (SELECT id FROM users WHERE correo = $1);`,
+        [value]
+      );
+  
+      // Delete related notifications
+      await client.query(
+        `DELETE FROM notifications WHERE user_id IN (SELECT id FROM users WHERE correo = $1);`,
+        [value]
+      );
+  
+      // Commit the transaction
+      await client.query('COMMIT');
+  
+      return { message: 'Usuario suspendido y datos relacionados eliminados con éxito' };
+  
+    } catch (error) {
+      // If any error occurs, rollback the transaction
+
+      await client.query('ROLLBACK');
+      if (error instanceof Error) {
+        console.error('Error al suspender el usuario:', error);
+        throw new Error('Error al suspender el usuario');
+      }
+      return { message: 'Error al suspender el usuario' };
+    } finally {
+      // Release the client
+      client.release();
+    }
+  }
+  
 }
 
 export { UsersModel }
