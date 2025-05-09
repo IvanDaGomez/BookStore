@@ -6,8 +6,11 @@ import { MakeSmallCard } from "../../assets/makeCard";
 
 export default function BuyContainer({ libro, user }) {
   const librosRelacionadosVendedor = useRelatedBooksBySeller(libro)
-
+  function filteredLibrosRelacionadosVendedor(librosRelacionadosVendedor) {
+    return librosRelacionadosVendedor.filter(element => element !== null && element.id !== libro.id)
+  }
   return (<>
+  {libro &&
   <div className='comprarContainer'>
               {(libro.disponibilidad == 'Disponible')
                 ? <>
@@ -41,15 +44,13 @@ export default function BuyContainer({ libro, user }) {
               </div>
               <hr />
               <div className='informacionDelVendedor'>
-  
-                {librosRelacionadosVendedor.length != 0 &&
-                        librosRelacionadosVendedor.filter(element => element.id !== libro.id).length !== 0 &&
+                {librosRelacionadosVendedor.length != 0 && 
+                        filteredLibrosRelacionadosVendedor(librosRelacionadosVendedor).length !== 0 &&
                         libro && (
                           <>
                             <h2>Productos de {libro.vendedor}: </h2>
                             <div className='sectionsContainer'>
-                              {librosRelacionadosVendedor
-                                .filter(element => element.id !== libro.id)
+                              {filteredLibrosRelacionadosVendedor(librosRelacionadosVendedor)
                                 .map((element, index) =>
                                   user
                                     ? <MakeSmallCard key={index} element={element} index={index} user={user} />
@@ -59,5 +60,6 @@ export default function BuyContainer({ libro, user }) {
                 )}
               </div>
             </div>
+}
   </>)
 }

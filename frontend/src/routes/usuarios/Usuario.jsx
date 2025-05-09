@@ -151,18 +151,18 @@ export default function Usuario () {
           </>
         )}
         {(usuario && librosUsuario) &&
-            <div className='card-container'>
+            <div className='user-container'>
 
               <img
                 src={renderProfilePhoto(usuario.fotoPerfil)}
                 alt='Profile'
                 className='profile-image'/>
               <div className='card-info'>
-
+          {console.log(librosUsuario)}
                 <h1>{usuario.nombre}</h1>
-                <h2>Seguidores: {usuario?.seguidores?.length || 0}</h2>
-                <p>Libros publicados: {librosUsuario.length || 0}</p>
-                <p>Libros vendidos: {usuario?.compras_ids.length || 0}</p>
+                <h2>Seguidores: {usuario?.seguidores?.length ?? 0}</h2>
+                <p>Libros publicados: {librosUsuario.length ?? 0}</p>
+                <p>Libros vendidos: {librosUsuario.filter(libro => libro.disponibilidad === 'Vendido')?.length ?? 0}</p>
                 <p>Estado de la cuenta: {usuario.estado_cuenta}</p>
                 {usuario.bio && <span><big>{usuario.bio}</big></span>}
                 <div>

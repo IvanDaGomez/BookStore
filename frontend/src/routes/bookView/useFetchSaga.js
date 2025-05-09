@@ -9,6 +9,7 @@ export default function useFetchSaga(libro){
       if (!libro) return
       try {
         const url = 'http://localhost:3030/api/collections/collectionSaga'
+
         const body = {
           book_id: libro.id,
           user_id: libro.id_vendedor
@@ -18,6 +19,7 @@ export default function useFetchSaga(libro){
           console.error('Error en el servidor:', response.data.error)
           return
         }
+        console.log('Saga response:', response.data)
         if (response.data) {
           setNombreSaga(response.data.nombre)
 

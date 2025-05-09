@@ -21,10 +21,7 @@ export default function Colecciones ({ user, permisos }) {
         if (!user) return
         const url = 'http://localhost:3030/api/collections/getCollectionsByUser/' + user.id
         const response = await axios.get(url, { withCredentials: true })
-
-
         setColecciones(response.data)
-
       } catch {
         console.error('Error')
       }
@@ -37,20 +34,17 @@ export default function Colecciones ({ user, permisos }) {
     if (user && user.libros_ids) {
       const fetchBooks = async () => {
         try {
-          const fetchedBooks = await Promise.all(
-            user.libros_ids.map(async (idLibro) => {
-              const response = await axios.get(`http://localhost:3030/api/books/${idLibro}`,{
-                withCredentials: true
-              })
-              if (response.ok) {
-                return response.json()
-              } else {
-                console.error('Libro no encontrado')
-                return null
-              }
-            })
-          )
-          const validBooks = fetchedBooks.filter(book => book !== null)
+          const librosIds = user.libros_ids.join(',')
+          const response = await axios.get(`http://localhost:3030/api/books/idList/${librosIds}`,{
+            withCredentials: true
+          })
+          if (response.data.error) {
+            console.error('Error in the server:', response.data.error)
+            setMisLibros([])
+            return
+          }
+          
+          const validBooks = response.data.filter(book => book !== null)
           setMisLibros(validBooks)
         } catch (error) {
           console.error('Error fetching book data:', error)

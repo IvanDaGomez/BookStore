@@ -10,12 +10,13 @@
 
 }
 /* UserCard.css */
-.card-container {
+.user-container {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  gap: var(--margin-medium);
   margin: var(--margin-large) auto;
-  padding: 20px;
+  padding: var(--padding-medium);
   background: var(--using1);
   width: 100%;
   border: 1px solid var(--using4);
@@ -24,11 +25,11 @@
 }
 
 .profile-image {
-  height: 200px;
+  width: 10lh;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   object-fit: cover;
-  margin-right: 20px;
+
 }
 
 .compartir{

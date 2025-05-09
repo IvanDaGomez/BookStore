@@ -1,7 +1,9 @@
-function renderProfilePhoto(url, quality = null) {
+function renderProfilePhoto(url, quality = null, isMobile = false) {
   let profilePhoto;
   let urlPath = 'http://localhost:3030/';
-
+  if (isMobile) {
+    quality = 'low';
+  }
   if (quality === 'low' || quality === 'med' || quality === 'high') {
     urlPath = urlPath.concat('optimized/');
   } else {

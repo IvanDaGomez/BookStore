@@ -378,7 +378,6 @@ class CollectionsController {
       const l = req.query.l as string
       const lParsed = parseInt(l, 10) || 24
       const user = req.session.user as AuthToken | undefined
-
       const results = await this.CollectionsModel.forYouPageCollections(
         user,
         lParsed

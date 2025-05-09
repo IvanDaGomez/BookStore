@@ -8,7 +8,7 @@ export function useFetchFavoriteBooks (vendedor) {
     async function fetchLibrosFavoritos () {
       try {
         if (!vendedor) return
-        const url = 'http://localhost:3030/api/books/getFavoritesByUser/' + vendedor.id
+        const url = 'http://localhost:3030/api/books/idList/' + vendedor.favoritos.join(',')
 
 
         const response = await axios.get(url, { withCredentials: true })
@@ -18,7 +18,8 @@ export function useFetchFavoriteBooks (vendedor) {
           setLibrosFavoritos([])
           return
         }
-        setLibrosFavoritos(response.data)
+        const data = response.data.filter(libro => libro !== null)
+        setLibrosFavoritos(data)
 
       } catch (error) {
         console.error('Error in the server:', error)

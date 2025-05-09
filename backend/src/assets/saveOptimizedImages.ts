@@ -32,9 +32,9 @@ export default async function saveOptimizedImages(imagePaths: string[]): Promise
         //imagesPaths are req.files.path
 
         await Promise.all([
-          optimizeImage(image, 800, 80, outputPathLow),
-          optimizeImage(image, 1200, 90, outputPathMed),
-          optimizeImage(image, 1600, 100, outputPathHigh)
+          optimizeImage(image, 600, 80, outputPathLow),
+          optimizeImage(image, 1000, 90, outputPathMed),
+          optimizeImage(image, 1400, 100, outputPathHigh)
         ]);
 
         // You can return additional info if needed, e.g., paths of the processed images

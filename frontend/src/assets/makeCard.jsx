@@ -34,7 +34,8 @@ const MakeCard = ({ element, index, user = '', callback = () => {}, wordLimit = 
   // Aplicar la clase "favoritoActivo" después de renderizar las tarjetas
   useEffect(() => {
     if (user && user.favoritos) {
-      user.favoritos.forEach((favoritoId) => {
+      user.favoritos.filter(i => i !== null).forEach((favoritoId) => {
+        console.log(favoritoId)
         const favorites = document.querySelectorAll(`.favorito-${favoritoId}`)
         favorites.forEach((element) => element.classList.add('favoritoActivo'))
       })

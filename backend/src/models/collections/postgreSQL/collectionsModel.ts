@@ -209,18 +209,19 @@ class CollectionsModel {
   }
   static async forYouPageCollections (
     userKeyInfo: any,
-    sampleSize: number
+    sampleSize: number = 24
   ): Promise<CollectionObjectType[]> {
+
     const collections = await executeQuery(
       pool,
       () =>
         pool.query(
           `SELECT * FROM collections WHERE user_id != $1 ORDER BY RANDOM() LIMIT $2;`,
-          [userKeyInfo.user_id, sampleSize]
+          [userKeyInfo.id, sampleSize]
         ),
       'Failed to fetch collections from PostgreSQL'
     )
-
+    console.log('Collections for you page:', collections)
     return collections
   }
 }
