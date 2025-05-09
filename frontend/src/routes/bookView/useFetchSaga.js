@@ -14,13 +14,16 @@ export default function useFetchSaga(libro){
           user_id: libro.id_vendedor
         }
         const response = await axios.post(url, body, {withCredentials: true})
-        
+        if (response.data.error) {
+          console.error('Error en el servidor:', response.data.error)
+          return
+        }
         if (response.data) {
-          setNombreSaga(response.data.data.nombre)
+          setNombreSaga(response.data.nombre)
 
           const validBooks = []
           
-          for (const idLibro of response.data.data.libros_ids) {
+          for (const idLibro of response.data.libros_ids) {
             try {
               const response = await axios.get(`http://localhost:3030/api/books/${idLibro}`, {
                 withCredentials: true
@@ -39,7 +42,7 @@ export default function useFetchSaga(libro){
           setSagaLibros(validBooks)
         }
       } catch  {
-        console.error('Error en el servidor')
+        // console.error('Error en el servidor')
       }
     }
     fetchSagaLibros()

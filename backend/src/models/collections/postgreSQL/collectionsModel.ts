@@ -36,7 +36,7 @@ class CollectionsModel {
   static async getCollectionsByUser (id: ID): Promise<CollectionObjectType[]> {
     const data: CollectionObjectType[] = await executeQuery(
       pool,
-      () => pool.query('SELECT * FROM collections WHERE userId = $1;', [id]),
+      () => pool.query('SELECT * FROM collections WHERE user_id = $1;', [id]),
       'Failed to fetch collection from PostgreSQL'
     )
 
@@ -51,7 +51,7 @@ class CollectionsModel {
       pool,
       () =>
         pool.query(
-          `INSERT INTO collections (id, foto, libros_ids, nombre, descripcion, seguidores, user_id, saga, creadoEn) 
+          `INSERT INTO collections (id, foto, libros_ids, nombre, descripcion, seguidores, user_id, saga, creado_en) 
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *;`,
           [
             fullCollecion.id,
@@ -215,7 +215,7 @@ class CollectionsModel {
       pool,
       () =>
         pool.query(
-          `SELECT * FROM collections WHERE userId != $1 ORDER BY RANDOM() LIMIT $2;`,
+          `SELECT * FROM collections WHERE user_id != $1 ORDER BY RANDOM() LIMIT $2;`,
           [userKeyInfo.user_id, sampleSize]
         ),
       'Failed to fetch collections from PostgreSQL'

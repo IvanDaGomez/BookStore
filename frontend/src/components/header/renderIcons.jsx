@@ -82,7 +82,6 @@ export default function RenderIcons({
           onClick={openProfile}
           style={{ border: user.foto_perfil ? "" : "none" }}
         >
-          {console.log("user.fotoPerfil", user.foto_perfil)}
           {!user.foto_perfil ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"

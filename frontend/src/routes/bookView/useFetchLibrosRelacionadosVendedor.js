@@ -16,7 +16,6 @@ function useRelatedBooksBySeller(libro, loading) {
         try {
           const response = await axios.get(url, { withCredentials: true });
           const librosIds = response.data.libros_ids;
-
           // Fetch the books of the user
           const urlLibros = `http://localhost:3030/api/books/idList/${librosIds.join(',')}`;
           const bookResponse = await axios.get(urlLibros, { withCredentials: true });

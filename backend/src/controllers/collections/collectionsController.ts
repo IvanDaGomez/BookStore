@@ -346,18 +346,18 @@ class CollectionsController {
     next: express.NextFunction
   ): Promise<express.Response | void> => {
     try {
-      const { bookId, userId } = req.body as {
-        bookId: ID | undefined
-        userId: ID | undefined
+      const { book_id, user_id } = req.body as {
+        book_id: ID | undefined
+        user_id: ID | undefined
       }
-      if (!bookId || !userId) {
+      if (!book_id || !user_id) {
         return res
           .status(401)
           .json({ error: 'No se proporcionaron todos los datos' })
       }
       const collection = await this.CollectionsModel.getCollectionSaga(
-        bookId,
-        userId
+        book_id,
+        user_id
       )
 
       res.json(collection)

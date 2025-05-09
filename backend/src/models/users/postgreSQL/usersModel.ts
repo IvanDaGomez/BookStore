@@ -46,13 +46,12 @@ class UsersModel {
       pool,
       () =>
         pool.query(
-          `SELECT ${this.getEssencialFields().join(
-            ', '
-          )} FROM users WHERE id = $1;`,
+          `SELECT ${this.getEssencialFields().join(', ')} FROM users WHERE id = $1;`,
           [id]
         ),
       'Error getting user'
     )
+    console.log(id)
     return user
   }
 

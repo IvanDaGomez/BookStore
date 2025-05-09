@@ -13,22 +13,25 @@ export default function RelatedBooks({ libro, user }) {
         const urlLibros = `http://localhost:3030/api/books/query?q=${cambiarEspacioAGuiones(libro.titulo)}&l=12`
 
         const response = await axios.get(urlLibros, { withCredentials: true })
-
+        if (response.data.error) {
+          console.error('Error en el servidor:', response.data.error)
+          return
+        }
         setLibrosRelacionados(response.data)
       }
     }
     fetchLibroRelacionado()
   }, [libro])
   return(<>
-  {(librosRelacionados.filter(element => element._id !== libro._id).length !== 0 && libro)
-              && (
-                <div className='related'>
-                  <h1>Productos Relacionados</h1>
-                  <div className='sectionsContainer'>
-                    {librosRelacionados.filter(element => element._id !== libro._id)
-                      .map((element, index) => <MakeCard key={index} element={element} index={index} user={user || ''} />)}
-                  </div>
-                </div>
-                )}
+  {(librosRelacionados.filter(element => element.id !== libro.id).length !== 0 && libro)
+    && (
+      <div className='related'>
+        <h1>Productos Relacionados</h1>
+        <div className='sectionsContainer'>
+          {librosRelacionados.filter(element => element.id !== libro.id)
+            .map((element, index) => <MakeCard key={index} element={element} index={index} user={user || ''} />)}
+        </div>
+      </div>
+      )}
   </>)
 }

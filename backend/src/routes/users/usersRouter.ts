@@ -64,22 +64,22 @@ export const createUsersRouter = ({
   )
 
   usersRouter.get(
-    '/balance/:userId',
+    '/balance/:user_id',
     usersController.getBalance as RequestHandler
   )
-  usersRouter.get('/c/:userId', usersController.getEmailById as RequestHandler) // R
+  usersRouter.get('/c/:user_id', usersController.getEmailById as RequestHandler) // R
   usersRouter.get(
     '/:userId/photoAndName',
     usersController.getPhotoAndNameUser as RequestHandler
   ) // R
-  usersRouter.get('/:userId', usersController.getUserById as RequestHandler) // R
-  usersRouter.patch('/favorites/:userId', usersController.updateFavorites as RequestHandler) // U
+  usersRouter.get('/:user_id', usersController.getUserById as RequestHandler) // R
+  usersRouter.patch('/favorites/:user_id', usersController.updateFavorites as RequestHandler) // U
   usersRouter.patch(
-    '/:userId',
+    '/:user_id',
     upload.single('images'),
     usersController.updateUser as RequestHandler
   ) // U
-  usersRouter.delete('/:userId', usersController.deleteUser as RequestHandler)
+  usersRouter.delete('/:user_id', usersController.deleteUser as RequestHandler)
 
   return usersRouter
 }

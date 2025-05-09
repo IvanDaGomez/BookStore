@@ -9,21 +9,20 @@ const UserProvider = ({ children }) => {
 
   useEffect(() => {
     async function fetchUser () {
-
       try {
         const url = 'http://localhost:3030/api/users/userSession'
         const response = await axios.post(url, null, {
           withCredentials: true
         })
-
         if (response.data.error) {
           console.error('Error in the server:', response.data.error)
           setUser(null) // En caso de error, usuario no autenticado
           return
         }
+
         setUser(response.data)
-      } catch (error) {
-        console.error('Error fetching user data:', error)
+      } catch {
+        // console.error('Error fetching user data:', error)
         setUser(null) // En caso de error, usuario no autenticado
       } finally {
         setLoading(false)
