@@ -7,7 +7,7 @@ import { renderProfilePhoto } from '../../assets/renderProfilePhoto'
 import { cropImageToAspectRatio } from '../../assets/cropImageToAspectRatio'
 import './usuario.css'
 import { UserContext } from '../../context/userContext.jsx'
-
+import titleCase from '../../assets/toTitleCase.js'
 import SelectButton from '../search/selectButton.jsx'
 export default function EditarUsuario () {
   const { user } = useContext(UserContext)
@@ -70,7 +70,8 @@ export default function EditarUsuario () {
     }
 
     formData.append('actualizado_en', new Date().toISOString())
-    formData.append('estado_cuenta', estadoCuenta || user.estado_cuenta)
+
+    formData.append('estado_cuenta', titleCase(estadoCuenta || user.estado_cuenta))
     // for (const [key, value] of formData.entries()) {
     //   console.log(`${key}: ${value}`)
     // }

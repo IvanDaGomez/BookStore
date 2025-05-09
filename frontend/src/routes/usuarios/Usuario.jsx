@@ -154,7 +154,7 @@ export default function Usuario () {
             <div className='user-container'>
 
               <img
-                src={renderProfilePhoto(usuario.fotoPerfil)}
+                src={renderProfilePhoto(usuario.foto_perfil)}
                 alt='Profile'
                 className='profile-image'/>
               <div className='card-info'>

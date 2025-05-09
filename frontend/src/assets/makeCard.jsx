@@ -13,6 +13,7 @@ import RenderMidText from './makeCard/renderMidText.jsx'
 import RenderBottomText from './makeCard/renderBottomText.jsx'
 import { necesitasIniciarSesion } from './jsxConstants.jsx'
 import { randBackground } from './randBackground.js'
+import axios from 'axios'
 export const PriceTitleRender = ({ element }) => {
 
   if (!element?.precio) return null
@@ -228,19 +229,36 @@ const MakeSmallCard = ({ element, index }) => {
 }
 // Pendiente
 const MakeCollectionCard = ({ element, index }) => {
-  async function handleSave () {
-    
-  }
+  const [images, setImages] = useState([])
+  useEffect(() => {
+    async function fetchData() {
+      if (!element.libros_ids) return
+      let numLibros = 1
+      if (element.libros_ids.length >= 4) numLibros = 4
+      const indexes = Array.from({ length: numLibros }, (_) => Math.floor(Math.random() * element.libros_ids.length))
+      const filteredLibros = element.libros_ids.filter((_, i) => indexes.includes(i))
+      const url = `http://localhost:3030/api/books/idList/${filteredLibros.join(',')}`
+      const response = await axios.get(url, { withCredentials: true })
+      if (response.data.error) {
+        console.error('Error fetching collection data:', response.data.error)
+        return
+      }
+      setImages(response.data.map((img) => img.images[0]))
+    }
+    fetchData()
+  }, [element.libros_ids])
   return (
     <Link key={index} to={`/colecciones/${element.id}`} className=''>
       <div className='sectionElement'>
         <h2>{element.nombre}</h2>
         <div className='imageElementCollectionContainer'>
-          <img src={renderProfilePhoto(element.foto)} alt='' />
+          {images.map((img, i) => (
+              <img src={renderProfilePhoto(img)} key={i} alt='' />
+          ))}
         </div>
+        
         <div className='info'>
           Libros: {element.libros_ids.length}
-          <button onClick={handleSave}>Guardar</button>
         </div>
       </div>
     </Link>
@@ -253,15 +271,15 @@ const MakeUserCard = ({ element, index, user, setElement, setUser }) => {
 
   }
   return (
-    <Link key={index} style={{ width: '100%', height: '100%' }} to={`/usuarios/${element.id}`}>
-      <div className="userElement" >
-        <div className="imageElementUserContainer"> 
+    <Link key={index} to={`/usuarios/${element.id}`}>
+      <div className="sectionElement userElement" >
+        <div className="imageUserElementContainer"> 
           <img
             src={renderProfilePhoto(element.foto_perfil)}
             alt="Foto de perfil"
           />
         </div>
-        <div className="info" >
+        <div className="sectionElementTextDiv" >
           <h2>{element.nombre}</h2>
           {/*<p>{element.bio || ''}</p>*/}
           <p>

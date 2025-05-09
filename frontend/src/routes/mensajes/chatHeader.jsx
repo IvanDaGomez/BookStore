@@ -4,10 +4,16 @@ import PropTypes from "prop-types";
 export default function ChatHeader ({ user, reducedUsers, activeUser, activeConversation, setActiveConversation, isMobile }) {
   return (<>
   {(user && reducedUsers && activeConversation) &&
+              <>
+              
               <Link style={{ width: '100%' }} to={`/usuarios/${activeUser.id}`}>
                 <div className='headerMessage'>
                   <svg
-                    onClick={() => setActiveConversation(null)}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      e.preventDefault()
+                      setActiveConversation(null)
+                    }}
                     style={{
                       display: isMobile ? 'block' : 'none',
                       transform: 'rotate(180deg)'
@@ -17,7 +23,7 @@ export default function ChatHeader ({ user, reducedUsers, activeUser, activeConv
                   <img src={activeUser.foto_perfil ? `http://localhost:3030/uploads/${activeUser.foto_perfil}` : 'http://localhost:3030/uploads/default.jpg'} alt={activeUser.nombre} />
                   <h2>{activeUser.nombre}</h2>
                 </div>
-              </Link>}
+              </Link></>}
               </>)
 }
 

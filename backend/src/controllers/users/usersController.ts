@@ -546,6 +546,8 @@ export class UsersController {
   ): Promise<express.Response | void> => {
     const { follower_id, user_id }: { follower_id: ID; user_id: ID } = req.body
     try {
+      console.log('Follower ID:', follower_id)
+      console.log('User ID:', user_id)
       if (!follower_id || !user_id) {
         return res
           .status(404)

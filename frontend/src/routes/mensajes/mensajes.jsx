@@ -135,7 +135,6 @@ export default function Mensajes () {
       {/* ----------------------------------------SELECCION DE NOTIFICACION----------------------------------------------- */}
       <NotificationsHeader active={'messages'} />
       {/* ----------------------------------------MENSAJES EN PC----------------------------------------------- */}
-      {!isMobile &&
         <div className='messagesContainer'>
           <div className='conversationsContainer'>
             <input type='text' className='conversationsFilter' 
@@ -160,6 +159,7 @@ export default function Mensajes () {
             isMobile={isMobile}
             />
             {/* ----------------------------------------MENSAJES----------------------------------------------- */}
+            {/* {console.log('Mensajes:', mensajes)} */}
             <div className='messagesViewContainer' ref={chatContainerRef}>
               {mensajes.map((mensaje, index) => (
                 <div key={index} className={`mensaje ${mensaje?.user_id === user?.id ? 'myMessage' : 'otherMessage'}`}>
@@ -179,7 +179,7 @@ export default function Mensajes () {
             reducedUsers={reducedUsers}
             setActiveConversation={setActiveConversation}/>
           </div>
-        </div>}
+        </div>
 
       <Footer />
       <SideInfo />

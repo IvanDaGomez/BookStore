@@ -176,7 +176,8 @@ export default function Search () {
       {/* <div><h1>Resultados</h1></div> */}
 
       {/* <hr className='noMargen' /> */}
-      <Filters query={query}/>
+
+      { sk === 'books' && <Filters query={query}/> }
 
       <div className='resultadosContainer'>
         <div className='separar'>

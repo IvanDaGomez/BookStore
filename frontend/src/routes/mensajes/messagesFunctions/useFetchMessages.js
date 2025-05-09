@@ -16,7 +16,10 @@ export default function useFetchMessages({
             toast.error(response.data.error)
             return
           }
-          setMensajes(response.data)
+          const mensajes = response.data
+          .filter(m => m !== null)
+          .sort((a, b) => new Date(a.created_in) - new Date(b.created_in))
+          setMensajes(mensajes)
         } catch (error) {
           console.error('Error fetching messages:', error)
           toast.error('Error fetching messages')

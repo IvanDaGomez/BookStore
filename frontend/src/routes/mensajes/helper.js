@@ -116,7 +116,13 @@ async function handleSubmitMessage (e, activeConversation, user, newConversation
         return
       }
       // Add the new message to messages state
-      setMensajes((prevMensajes) => [...prevMensajes, response.data.message])
+      setMensajes((prevMensajes) => {
+        let updatedMensajes = [...prevMensajes, response.data]; // Create a new array with the new message at the end
+        updatedMensajes = updatedMensajes.sort((a, b) => new Date(a.created_in) - new Date(b.created_in)); // Sort the messages by created_in
+        console.log('Updated messages:', updatedMensajes)
+        return updatedMensajes; // Return the updated array
+      });
+
       // Update conversations and activeConversation lastMessage
       setConversaciones((prevConversaciones) => {
       return prevConversaciones
