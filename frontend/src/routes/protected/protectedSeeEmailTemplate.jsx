@@ -1,7 +1,7 @@
 import { useContext, useState, useRef } from "react"
 import { useReturnIfNoUser } from "../../assets/useReturnIfNoUser"
 import { UserContext } from "../../context/userContext"
-
+import "./protectedSeeEmailTemplate.css"
 export default function ProtectedSeeEmailTemplate () {
   const { user, loading } = useContext(UserContext)
   useReturnIfNoUser(user, loading, true)

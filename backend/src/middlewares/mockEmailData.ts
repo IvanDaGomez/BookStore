@@ -143,24 +143,24 @@ export const mockEmailData = {
       seller_id: '5678-9101-1121-3141-1234',
       status: 'pending',
       shipping_details: {
-      additional_info: {
-        ip_address: '277.0.0.1'
+        additional_info: {
+          ip_address: '277.0.0.1'
+        },
+        address: {
+          city: 'Medellín',
+          department: 'Antioquia',
+          neighborhood: 'El Poblado',
+          street_name: 'Calle 10',
+          street_number: '123',
+          zip_code: '050001'
+        },
+        first_name: 'John',
+        last_name: 'Doe',
+        phone: {
+          area_code: '57',
+          number: '123456789'
+        }
       },
-      address: {
-        city: 'Medellín',
-        department: 'Antioquia',
-        neighborhood: 'El Poblado',
-        street_name: 'Calle 10',
-        street_number: '123',
-        zip_code: '050001'
-      },
-      first_name: 'John',
-      last_name: 'Doe',
-      phone: {
-        area_code: '57',
-        number: '123456789'
-      }
-    },
       date_created: '2023-10-01T10:00:00Z',
       date_approved: '2023-10-01T10:05:00Z',
       date_last_updated: '2023-10-01T10:10:00Z',
@@ -277,7 +277,12 @@ export const mockEmailData = {
           amount: 5000
         }
       ],
-      internal_metadata: { test: true }
+      internal_metadata: { test: true },
+      response: {
+        transaction_amount: 40000,
+        payment_method_id: 'visa',
+        date_created: '2023-10-01T10:00:00Z',
+      }
     },
     shipping_details: {
       additional_info: {
@@ -296,7 +301,8 @@ export const mockEmailData = {
       phone: {
         area_code: '57',
         number: '123456789'
-      }
+      },
+    
     },
     metadata: {
       guia: '123456789',
@@ -304,7 +310,7 @@ export const mockEmailData = {
       validation_link: 'https://example.com/validate',
       barcode: {
         type: 'code_128',
-        value: '123456789'
+        content: '123456789'
       },
       date_of_expiration: '2023-11-01T10:00:00Z'
     }

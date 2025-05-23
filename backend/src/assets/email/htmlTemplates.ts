@@ -18,19 +18,16 @@ const styles = `
                 .header {
                   width:100%;
                   height: 50px;
-                  background: #3689e7;
+                  /*background: #f4f4f9;*/
                   display:flex;
                   justify-content:flex-start;
                   align-items: center;
-                  margin-bottom
                 }
-                header img{
+                .header img{
                   height: 100%;
                   aspect-ratio: 1 / 1;
-                  transform: translateY(25px);
-                  background: #f4f4f9;
                   border-radius: 50%;
-                  padding: 10px;
+                  margin:0 !important;
                 }
                 .container {
                 width: calc(100% - 40px);
@@ -43,6 +40,10 @@ const styles = `
                 h1 {
                 color: #42376E;
                 text-align: center;
+                }
+                h2 {
+                  text-align: center;
+
                 }
                 p {
                 font-size: 1.1em;
@@ -62,14 +63,32 @@ const styles = `
                 font-size: 0.9em;
                 color: #aaa;
                 text-align: center;
+                border-radius: 5px;
+                background:var(--using4);
+                }
+                a {
+                  font-family: inherit;
+                  color: #42376E;
+                  font-weight: 600;
                 }
                 a.button{
                   text-decoration:none;
                   color: white;
+                  font-family: inherit;
                 }
                 `
-//const logoMeridian = 'cid:logo@meridian'
-const logoMeridian = '/logo.png'
+const footer = `                
+  <div class='footer'>
+    <p>Si no te registraste en ${
+      process.env.BRAND_NAME
+    }, ignora este correo o contáctanos para informarnos.</p>
+    <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en responder a este correo o <a href="mailto:support@meridianbookstore.com">contactarnos aquí</a>.</p>
+    <p>Gracias por ser parte de nuestra comunidad!</p>
+    <p>Para más información, pregunta a nuestro equipo de soporte o <a target='_blank' href="${process.env.FRONTEND_URL}/contacto">contáctanos</a></p>
+  </div>
+`
+let logoMeridian = 'cid:logo@meridian'
+logoMeridian = '/logo.png'
 type DataType = {
     book?: Partial<BookObjectType>
     user?: UserInfoType | Partial<UserInfoType>
@@ -94,23 +113,21 @@ const thankEmailTemplate = (data: DataType) => {
             </head>
             <body>
             <div class="container">
-              <header>
+              <div class='header'>
                 <img src='${logoMeridian}' alt='Logo de ${
                   process.env.BRAND_NAME
                 }' title='Logo de ${process.env.BRAND_NAME}'/>
-              <header>
-              <h1>Gracias por unirte a Meridian!</h1>
-              <p>Hola <strong>${data.user?.nombre ?? ''}</strong>,</p>
-              <p>Nos emociona que hayas decidido ser parte de nuestra comunidad de amantes de libros! En Meridian, creemos en el poder de los libros para inspirar, educar y entretener. 
-              En nuestro catálogo podrás encontrar todos los libros que necesites, en un sólo lugar.</p>
-              <p>Como miembro nuevo, tendrás acceso a todo el catálogo de libros, noticias y colecciones que sabremos que te encantarán.</p>
-              <p>Para comenzar a explorar, <a href="${
-                process.env.FRONTEND_URL
-              }" class="button">Echa un vistazo a nuestra colección</a></p>
-              <div class="footer">
-              <p>Si tienes preguntas o necesitas asistencia, contáctate con <a href="mailto:support@meridianbookstore.com">nosotros</a>.</p>
-              <p>Que tengas un feliz día!</p>
               </div>
+              <h1>¡Gracias por unirte a Meridian!</h1>
+              <p>Hola <strong>${data.user?.nombre ?? 'amante de libros'}</strong>,</p>
+              <p>Nos emociona que hayas decidido ser parte de nuestra comunidad de amantes de los libros.</p>
+              <p>En Meridian, creemos en el poder de los libros para inspirar, educar y entretener.</p>
+              <p>En nuestro catálogo podrás encontrar todos los libros que necesites, en un solo lugar.</p>
+              <p>Como miembro nuevo, tendrás acceso a todo el catálogo de libros, noticias y colecciones que sabemos que te encantarán.</p>
+              <p>Para comenzar a explorar:</p>
+              <a target='_blank' href="${process.env.FRONTEND_URL}/para-ti"><button class='button'>Explora nuestra colección</button></a>
+              ${footer}
+
             </div>
             </body>
         </html>
@@ -136,14 +153,13 @@ const bookPublishedTemplate = (data: DataType) => {
               <p>Felicidades! Tu libro "<strong>${
                 data.book?.titulo ?? ''
               }</strong>" ha sido publicado exitosamente en nuestra plataforma.</p>
-              <p>Estamos emocionados de compartir tu publicación con nuestros amantes de libros!. TU libro ya se puede buscar y está listo para ser vendido.</p>
+              <p>Estamos emocionados de compartir tu publicación con nuestros amantes de libros!. Tu libro ya se puede buscar y está listo para ser vendido.</p>
               <p>Puedes ver tu libro aquí:</p>
-              <a href="${process.env.FRONTEND_URL}/libros/${
-        data.book?.id ?? ''
-      }"><div class='button'>Ver libro</div></a>
-              <div class="footer">
-              <p>Si tienes preguntas o necesitas asistencia, contáctate con <a href="mailto:support@meridianbookstore.com">nosotros</a>.</p>
-              </div>
+              <a target='_blank' href="${process.env.FRONTEND_URL}/libros/${
+                data.book?.id ?? ''
+              }"><div class='button'>Ver libro</div></a>
+              ${footer}
+      
             </div>
             </body>
         </html>
@@ -192,16 +208,16 @@ const validationEmailTemplate = (data: DataType) => {
                     process.env.BRAND_NAME
                   }' title='Logo de ${process.env.BRAND_NAME}'/>
                 </div>
-                <h1>¡Código de verificación!</h1>
+                <h1>Valida tu correo electrónico!</h1>
                 <p>Hola <strong>${data.user?.nombre ?? ''}</strong>,</p>
-                <p>El código de verificación es ${
+                <p>Gracias por registrarte en ${process.env.BRAND_NAME}! Para completar tu registro, por favor valida tu correo electrónico con ayuda del siguiente código:</p>
+                <h2><strong>${
                   data.metadata?.validation_code
-                }</p>
+                }</strong></h2>
+                <p>Atentamente,</p>
+                <p>El equipo de ${process.env.BRAND_NAME}</p>
                 <hr/>
-                <<p>Si no te registraste en ${
-                  process.env.BRAND_NAME
-                } Bookstore, ignora este correo o contáctanos para informarnos.</p>>
-                <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en responder a este correo o <a href="mailto:support@meridianbookstore.com">contactarnos aquí</a>.</p>
+                ${footer}
               </div>
             </body>
         </html>
@@ -232,8 +248,11 @@ const changePasswordTemplate = (data: DataType) => {
                 }'><div class='button'>Cambiar Contraseña</div></a>
                 <p>Este código es válido por 15 minutos.</p>
                 <hr/>
-                <p>Si no solicitaste este cambio, ignora este correo o contáctanos para informarnos.</p>
-                <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en responder a este correo o <a href="mailto:support@meridianbookstore.com">contactarnos aquí</a>.</p>
+                <p>
+                  ${process.env.BRAND_NAME} nunca enviará un correo electrónico en el que solicite que se revele o verifique una contraseña, una tarjeta de crédito o un número de cuenta bancaria. Si recibe un correo electrónico sospechoso con un enlace para actualizar la información de la cuenta, no haga clic en el enlace. En su lugar, reporte el correo electrónico a ${process.env.BRAND_NAME} para que se investigue.
+                </p>
+                <hr/>
+                ${footer}
               </div>
           </body>
       </html>
@@ -241,192 +260,341 @@ const changePasswordTemplate = (data: DataType) => {
 }
 const paymentDoneBillTemplate = (data: DataType) => {
   return `
-      <html>
-        <head>
-          <style>
-            ${styles}
-          </style>
-        </head>
-        <body>
-          <div class="container">
-              <div class='header'>
-                <img src='${logoMeridian}' alt='Logo de ${
-                  process.env.BRAND_NAME
-                }' title='Logo de ${process.env.BRAND_NAME}'/>
+    <html>
+      <head>
+        <style>
+          ${styles}
+          .bill-summary {
+            margin: 30px auto;
+            max-width: 420px;
+            border-radius: 8px;
+            background: #f8f8fc;
+            padding: 24px 18px;
+            box-shadow: 0 2px 8px rgba(66,55,110,0.07);
+          }
+          .bill-summary h2 {
+            color: #42376E;
+            margin-bottom: 18px;
+            text-align: left;
+          }
+          .bill-summary .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 1.05em;
+          }
+          .bill-summary .row strong {
+            color: #42376E;
+          }
+          .bill-summary .total {
+            border-top: 1px solid #e0e0e0;
+            margin-top: 16px;
+            padding-top: 12px;
+            font-size: 1.15em;
+            font-weight: bold;
+            color: #3689e7;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class='header'>
+            <img src='${logoMeridian}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
+          </div>
+          <main>
+            <h1>¡Pago realizado!</h1>
+            <p>Hola${data.user?.nombre ? `, ${data.user.nombre}` : ''}:</p>
+            <p>Hemos recibido tu pago exitosamente. Aquí tienes el resumen de tu compra:</p>
+            <div class="bill-summary">
+              <h2>Resumen de Factura</h2>
+              <div class="row">
+                <span><strong>Libro:</strong></span>
+                <span>${data.book?.titulo ?? 'N/A'}</span>
               </div>
-            <main>
-            <h1>¡Pago Realizado con Éxito!</h1>
-              <p>Hola,</p>
-              <p>Tu pago ha sido procesado correctamente. Aquí tienes los detalles de tu factura:</p>
-              <table>
-                <tr>
-                  <td><strong>ID de la Transacción:</strong></td>
-                  <td>${data.transaction?.id}</td>
-                </tr>
-                <tr>
-                  <td><strong>Fecha:</strong></td>
-                  <td>${new Date().toLocaleString('es-CO', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit'
-                  })}</td>
-                </tr>
-                <tr>
-                  <td><strong>Monto:</strong></td>
-                  <td>$${
-                    data.transaction?.response?.transaction_amount ?? 'N/A'
-                  }</td>
-                </tr>
-                <tr>
-                  <td><strong>Método de pago:</strong></td>
-                  <td>${
-                    data.transaction?.response?.payment_method_id ?? 'N/A'
-                  }</td>
-                </tr>
-              </table>
-              <p>Gracias por tu confianza en ${process.env.BRAND_NAME}.</p>
-            </main>
-            <footer>
-              <p>Si tienes alguna pregunta, no dudes en contactarnos.</p>
-            </footer>
-          </div>
-        </body>
-      </html>
-      `
-}
-const paymentDoneThankTemplate = (data: DataType) => {
-  return `
-      <html>
-        <head>
-          <style>
-            ${styles}
-          </style>
-        </head>
-        <body>
-          <div class="container">
-            <div class='header'>
-              <img src='${logoMeridian}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
-            </div>
-            <main>
-              <h1>¡Gracias por tu Compra!</h1>
-              <p>Hola,${data.user?.nombre}</p>
-              <p>Queremos agradecerte por realizar tu compra con ${process.env.BRAND_NAME}. Tu pago ha sido confirmado.</p>
-              <p>Pronto recibirás más información sobre tu pedido.</p>
-              <p>Si necesitas más ayuda, por favor contáctanos.</p>
-            </main>
-            <footer>
-              <p>Atentamente,</p>
-              <p>El equipo de ${process.env.BRAND_NAME}</p>
-            </footer>
-          </div>
-        </body>
-      </html>
-      `
-}
-const bookSoldTemplate = (data: DataType) => {
-  return `
-      <html>
-        <head>
-          <style>
-            ${styles}
-          </style>
-        </head>
-        <body>
-          <div class="container">
-            <div class='header'>
-              <img src='${logoMeridian}' alt='Logo de ${
-                process.env.BRAND_NAME
-              }' title='Logo de ${process.env.BRAND_NAME}'/>
-            </div>
-            <main>
-              <h1>¡Tu libro se ha vendido!</h1>
-              <p>Hola, ${data.user?.nombre}</p>
-              <p>Nos complace informarte que tu libro <strong>${
-                data.book?.titulo
-              }</strong> ha sido vendido exitosamente en ${
-        process.env.BRAND_NAME
-      }.</p>
-              <p>Por favor, prepáralo para el envío lo antes posible y llévalo al punto de "Empresa" más cercano. Aquí tienes algunos detalles importantes:</p>
-              <ul>
-                <li><strong>Comprador:</strong> ${data.seller?.nombre}</li>
-                <li><strong>Guía de envío:</strong> ${
-                  data.metadata?.guia ?? ''
-                }</li>
-                <li><strong>Fecha de la compra:</strong> ${new Date(
-                  data.transaction?.response?.date_created ?? ''
-                ).toLocaleString('es-CO', {
+              <div class="row">
+                <span><strong>Vendedor:</strong></span>
+                <span>${data.seller?.nombre ?? 'N/A'}</span>
+              </div>
+              <div class="row">
+                <span><strong>ID Transacción:</strong></span>
+                <span>${data.transaction?.id ?? 'N/A'}</span>
+              </div>
+              <div class="row">
+                <span><strong>Fecha:</strong></span>
+                <span>${data.transaction?.response?.date_created ? new Date(data.transaction.response.date_created).toLocaleString('es-CO', {
                   weekday: 'long',
                   year: 'numeric',
                   month: 'long',
                   day: 'numeric',
                   hour: '2-digit',
                   minute: '2-digit'
-                })}</li>
-              </ul>
-              <p>Si necesitas ayuda con el proceso de envío o tienes alguna pregunta, no dudes en contactarnos.</p>
-            </main>
-            <footer>
-              <p>¡Gracias por confiar en nosotros!</p>
-              <p>Atentamente,</p>
-              <p>El equipo de ${process.env.BRAND_NAME}</p>
-            </footer>
+                }) : new Date().toLocaleString('es-CO')}</span>
+              </div>
+              <div class="row">
+                <span><strong>Método de pago:</strong></span>
+                <span>${data.transaction?.response?.payment_method_id ?? 'N/A'}</span>
+              </div>
+              <div class="row total">
+                <span>Total pagado:</span>
+                <span>$${data.transaction?.response?.transaction_amount ?? 'N/A'}</span>
+              </div>
+            </div>
+            <p>¡Gracias por confiar en ${process.env.BRAND_NAME}!</p>
+          </main>
+          ${footer}
+        </div>
+      </body>
+    </html>
+  `
+}
+const paymentDoneThankTemplate = (data: DataType) => {
+  return `
+    <html>
+      <head>
+        <style>
+          ${styles}
+          .thank-summary {
+            margin: 30px auto;
+            max-width: 420px;
+            border-radius: 8px;
+            background: #f8f8fc;
+            padding: 24px 18px;
+            box-shadow: 0 2px 8px rgba(66,55,110,0.07);
+          }
+          .thank-summary h2 {
+            color: #42376E;
+            margin-bottom: 18px;
+            text-align: left;
+          }
+          .thank-summary .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 1.05em;
+          }
+          .thank-summary .row strong {
+            color: #42376E;
+          }
+          .thank-summary .total {
+            border-top: 1px solid #e0e0e0;
+            margin-top: 16px;
+            padding-top: 12px;
+            font-size: 1.15em;
+            font-weight: bold;
+            color: #3689e7;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class='header'>
+            <img src='${logoMeridian}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
           </div>
-        </body>
-      </html>
-      `
+          <main>
+            <h1>¡Gracias por tu Compra!</h1>
+            <p>Hola${data.user?.nombre ? `, ${data.user.nombre}` : ''}:</p>
+            <p>Queremos agradecerte por realizar tu compra con ${process.env.BRAND_NAME}. Tu pago ha sido confirmado.</p>
+            <div class="thank-summary">
+              <h2>Resumen de tu Pedido</h2>
+              <div class="row">
+                <span><strong>Libro:</strong></span>
+                <span>${data.book?.titulo ?? 'N/A'}</span>
+              </div>
+              <div class="row">
+                <span><strong>Vendedor:</strong></span>
+                <span>${data.seller?.nombre ?? 'N/A'}</span>
+              </div>
+              <div class="row">
+                <span><strong>ID Transacción:</strong></span>
+                <span>${data.transaction?.id ?? 'N/A'}</span>
+              </div>
+              <div class="row">
+                <span><strong>Fecha:</strong></span>
+                <span>${data.transaction?.response?.date_created ? new Date(data.transaction.response.date_created).toLocaleString('es-CO', {
+                  weekday: 'long',
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit'
+                }) : new Date().toLocaleString('es-CO')}</span>
+              </div>
+              <div class="row">
+                <span><strong>Método de pago:</strong></span>
+                <span>${data.transaction?.response?.payment_method_id ?? 'N/A'}</span>
+              </div>
+              <div class="row total">
+                <span><strong>Total pagado:</strong></span>
+                <span>$${data.transaction?.response?.transaction_amount ?? 'N/A'}</span>
+              </div>
+            </div>
+            <p>Pronto recibirás más información sobre tu pedido.</p>
+            <p>Si necesitas más ayuda, por favor contáctanos.</p>
+            <p>Atentamente,</p>
+            <p>El equipo de ${process.env.BRAND_NAME}</p>
+          </main>
+          ${footer}
+        </div>
+      </body>
+    </html>
+    `
+}
+const bookSoldTemplate = (data: DataType) => {
+  return `
+    <html>
+      <head>
+        <style>
+          ${styles}
+          .sold-summary {
+            margin: 30px auto;
+            max-width: 420px;
+            border-radius: 8px;
+            background: #f8f8fc;
+            padding: 24px 18px;
+            box-shadow: 0 2px 8px rgba(66,55,110,0.07);
+          }
+          .sold-summary h2 {
+            color: #42376E;
+            margin-bottom: 18px;
+            text-align: left;
+          }
+          .sold-summary .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 1.05em;
+          }
+          .sold-summary .row strong {
+            color: #42376E;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class='header'>
+            <img src='${logoMeridian}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
+          </div>
+          <main>
+            <h1>¡Tu libro se ha vendido!</h1>
+            <p>Hola${data.user?.nombre ? `, ${data.user.nombre}` : ''}:</p>
+            <p>Nos complace informarte que tu libro <strong>${data.book?.titulo ?? 'N/A'}</strong> ha sido vendido exitosamente en ${process.env.BRAND_NAME}.</p>
+            <div class="sold-summary">
+              <h2>Detalles de la Venta</h2>
+              <div class="row">
+                <span><strong>Comprador:</strong></span>
+                <span>${data.seller?.nombre ?? 'N/A'}</span>
+              </div>
+              <div class="row">
+                <span><strong>Guía de envío:</strong></span>
+                <span>${data.metadata?.guia ?? 'N/A'}</span>
+              </div>
+              <div class="row">
+                <span><strong>Fecha de la compra:</strong></span>
+                <span>${data.transaction?.response?.date_created ? new Date(data.transaction.response.date_created).toLocaleString('es-CO', {
+                  weekday: 'long',
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit'
+                }) : new Date().toLocaleString('es-CO')}</span>
+              </div>
+              <div class="row">
+                <span><strong>Libro vendido:</strong></span>
+                <span>${data.book?.titulo ?? 'N/A'}</span>
+              </div>
+            </div>
+            <p>Por favor, prepáralo para el envío lo antes posible y llévalo al punto de "Empresa" más cercano.</p>
+            <p>Si necesitas ayuda con el proceso de envío o tienes alguna pregunta, no dudes en contactarnos.</p>
+          </main>
+          ${footer}
+        </div>
+      </body>
+    </html>
+  `
 }
 const efectyPendingPaymentTemplate = (data: DataType) => {
   return `
-      <html>
-        <head>
-          <style>
-            ${styles}
-          </style>
-        </head>
-          <div class="container">
-            <div class='header'>
-              <img src='${logoMeridian}' alt='Logo de ${
-                process.env.BRAND_NAME
-              }' title='Logo de ${process.env.BRAND_NAME}'/>
-            </div>
-            <main>
-              <h1>¡Gracias por tu compra, ${data?.user?.nombre}</h1>
-              <p>Para completar tu pedido, debes realizar el pago en cualquier sucursal de <strong>Efecty</strong>.</p>
-              <p>Indica al operador de Efecty que deseas realizar un pago y proporciona el código de pago junto con el monto exacto.</p>
-                  <ul>
-                    <li><strong>Monto a pagar:</strong> $${
-                      data.transaction?.response?.transaction_amount
-                    }</li>
-                    <li><strong>Vencimiento:</strong> ${new Date(
-                      data.metadata?.date_of_expiration ?? ''
-                    ).toLocaleString('es-CO', {
-                      weekday: 'long',
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                      hour: '2-digit',
-                      minute: '2-digit'
-                    })}</li>
-                  </ul>
-                  <p>
-                    Presenta este código de pago en el punto de Efecty: <strong>${
-                      data.metadata?.barcode?.content
-                    }</strong>
-                  </p>
-              <p>Si necesitas ayuda con el proceso de envío o tienes alguna pregunta, no dudes en contactarnos.</p>
-            </main>
-            <footer>
-              <p>¡Gracias por confiar en nosotros!</p>
-              <p>Atentamente,</p>
-              <p>El equipo de ${process.env.BRAND_NAME}</p>
-            </footer>
+    <html>
+      <head>
+        <style>
+          ${styles}
+          .efecty-summary {
+            margin: 30px auto;
+            max-width: 420px;
+            border-radius: 8px;
+            background: #f8f8fc;
+            padding: 24px 18px;
+            box-shadow: 0 2px 8px rgba(66,55,110,0.07);
+          }
+          .efecty-summary h2 {
+            color: #42376E;
+            margin-bottom: 18px;
+            text-align: left;
+          }
+          .efecty-summary .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 1.05em;
+          }
+          .efecty-summary .row strong {
+            color: #42376E;
+          }
+          .efecty-summary .total {
+            border-top: 1px solid #e0e0e0;
+            margin-top: 16px;
+            padding-top: 12px;
+            font-size: 1.15em;
+            font-weight: bold;
+            color: #3689e7;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class='header'>
+            <img src='${logoMeridian}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
           </div>
-        </body>
-      </html>
-      `
+          <main>
+            <h1>¡Gracias por tu compra${data?.user?.nombre ? `, ${data.user.nombre}` : ''}!</h1>
+            <p>Para completar tu pedido, realiza el pago en cualquier sucursal de <strong>Efecty</strong> antes de la fecha de vencimiento.</p>
+            <div class="efecty-summary">
+              <h2>Detalles de Pago en Efecty</h2>
+              
+              
+              <div class="row">
+                <span><strong>Código de pago:</strong></span>
+                <span>${data.metadata?.barcode?.content ?? 'N/A'}</span>
+              </div>
+              <div class="row">
+                <span><strong>Vencimiento:</strong></span>
+                <span>${
+                  data.metadata?.date_of_expiration
+                    ? new Date(data.metadata.date_of_expiration).toLocaleString('es-CO', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                      })
+                    : 'N/A'
+                }</span>
+              </div>
+              <div class="row total">
+                <span><strong>Monto a pagar:</strong></span>
+                <span>$${data.transaction?.response?.transaction_amount ?? 'N/A'}</span>
+              </div>
+            </div>
+            <p>Indica al operador de Efecty que deseas realizar un pago y proporciona el código de pago junto con el monto exacto.</p>
+            <p>Si necesitas ayuda con el proceso de pago o tienes alguna pregunta, no dudes en contactarnos.</p>
+          </main>
+          ${footer}
+        </div>
+      </body>
+    </html>
+  `
 }
 const templates = [ thankEmailTemplate, bookPublishedTemplate, 
   validationEmailTemplate, changePasswordTemplate,
