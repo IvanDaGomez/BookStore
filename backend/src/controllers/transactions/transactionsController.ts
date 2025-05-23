@@ -16,6 +16,7 @@ import { MercadoPagoInput } from '../../types/mercadoPagoInput.js'
 import { ShippingDetailsType } from '../../types/shippingDetails.js'
 import { sendEmail } from '../../assets/email/sendEmail.js'
 import { createEmail } from '../../assets/email/htmlEmails.js'
+import { parse } from 'node:path'
 // TODO
 export class TransactionsController {
   private TransactionsModel: ITransactionsModel
@@ -158,12 +159,17 @@ export class TransactionsController {
     next: express.NextFunction
   ): Promise<express.Response | void> => {
     try {
+      const price = parseInt(req.body.price, 10) || 0
+
+      if (price <= 0) {
+        return res.status(400).json({ error: 'El precio debe ser mayor a 0' })
+      }
       const body = {
         items: [
           {
             title: req.body.title,
             quantity: 1,
-            unit_price: Number(req.body.price),
+            unit_price: price,
             currencyid: 'COP'
           }
         ] as any
@@ -176,11 +182,14 @@ export class TransactionsController {
         } */
         // auto_return: 'approved'
       }
+      console.log('body', body)
       const result = await preference.create({ body })
+      console.log('result', result)
       res.json({
         id: result.id
       })
     } catch (err) {
+      console.log('Error al crear la preferencia:', err)
       next(err)
     }
   }

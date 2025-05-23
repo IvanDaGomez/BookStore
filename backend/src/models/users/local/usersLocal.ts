@@ -180,11 +180,11 @@ class UsersModel {
     return userObject(user, false)
   }
 
-  static async getUserByEmail (correo: string): Promise<UserInfoType> {
+  static async getUserByEmail (correo: string): Promise<UserInfoType | null> {
     const users = await this.getAllUsers()
     const user = users.find(usuario => usuario.correo === correo)
     if (!user) {
-      throw new Error('El correo no existe')
+      return null
     }
     // Return user info, but avoid password or sensitive data
     return userObject(user, true) as UserInfoType

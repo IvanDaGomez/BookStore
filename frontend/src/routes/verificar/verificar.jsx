@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-
+import './verify.css'
 export default function Verificar ({ user, token }) {
   const [verifying, setVerifying] = useState(true)
   const [verified, setVerified] = useState(false)

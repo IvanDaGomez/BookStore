@@ -31,7 +31,7 @@ export default function useFetchPreferenceId(libro) {
           // Parse the response JSON
           if (!response.error) {
             const data = await response.json()
-            console.log(data)
+            console.log('data:', data)
             setPreferenceId(data.id) // Assuming response includes `preferenceId`
           } else {
             console.error('Error fetching preference ID:', response.statusText)

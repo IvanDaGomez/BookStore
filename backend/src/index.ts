@@ -19,6 +19,7 @@ import { PORT, __dirname, pool } from './assets/config.js'
 import { corsOptions } from './assets/corsOptions.js'
 import { statsHandler } from './middlewares/statsHandler.js'
 import { Server } from 'http'
+import { seeEmailTemplate } from './middlewares/seeEmailTemplate.js'
 
 dotenv.config()
 // import { handleStats } from './assets/handleStats.js'
@@ -82,6 +83,7 @@ export const createApp = ({
   app.use('/api/transactions', createTransactionsRouter({ TransactionsModel, UsersModel, BooksModel }))
 
   app.get('/api/stats', statsHandler)
+  app.get('/api/emailTemplate/:template', seeEmailTemplate)
   const swaggerDoc = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'swagger.json'), 'utf-8'))
   app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDoc))
   // // Middleware para manejar errores

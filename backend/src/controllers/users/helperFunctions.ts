@@ -11,7 +11,8 @@ import saveOptimizedImages from '../../assets/saveOptimizedImages.js'
 
 async function checkEmailExists (email: string) {
   const correo = await UsersModel.getUserByEmail(email)
-  if (correo.correo) {
+  
+  if (correo?.correo) {
     throw new Error('El correo ya existe')
   }
 }

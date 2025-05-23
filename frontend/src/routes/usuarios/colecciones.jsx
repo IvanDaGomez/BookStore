@@ -56,6 +56,14 @@ export default function Colecciones ({ user, permisos }) {
   async function handleSubmit (e) {
     e.preventDefault()
     if (!user) return
+    if (user.libros_ids.length === 0) {
+      setErrors([...errors, 'No tienes libros para agregar a la colección, vuelve cuando tengas libros'])
+      setTimeout(()=>{
+        setOpenNewCollection(false)
+        setErrors([])
+      }, 1000)
+      return
+    }
     const { nombre } = e.target
 
     const data = {

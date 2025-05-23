@@ -35,6 +35,7 @@ import ProtectedStats from './routes/protected/protectedStats.jsx'
 import ProtectedWithdraw from './routes/protected/protectedWithdraw.jsx'
 import ListaCostes from './routes/extraFooterInfo/listaCostes.jsx'
 import ProtectedBan from './routes/protected/protectedBan.jsx'
+import ProtectedSeeEmailTemplate from './routes/protected/protectedSeeEmailTemplate.jsx'
 
 const router = createBrowserRouter([
   {
@@ -177,6 +178,10 @@ const router = createBrowserRouter([
   {
     path: '/lista-costes',
     element: <ListaCostes />
+  }, 
+  {
+    path: '/protected/seeEmailTemplate',
+    element: <ProtectedSeeEmailTemplate />
   }
 ], {
   future: {

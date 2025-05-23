@@ -546,8 +546,6 @@ export class UsersController {
   ): Promise<express.Response | void> => {
     const { follower_id, user_id }: { follower_id: ID; user_id: ID } = req.body
     try {
-      console.log('Follower ID:', follower_id)
-      console.log('User ID:', user_id)
       if (!follower_id || !user_id) {
         return res
           .status(404)
@@ -637,7 +635,7 @@ export class UsersController {
       const updated = await this.UsersModel.updateUser(user_id, {
         collections_ids: [
           ...user.collections_ids,
-          { nombre: collection_name, librosIds: [] }
+          { nombre: collection_name, libros_ids: [] }
         ]
       })
 
@@ -671,7 +669,7 @@ export class UsersController {
       }
 
       // Verificar si el libro ya está en la colección
-      if (collection.librosIds.includes(bookId)) {
+      if (collection.libros_ids.includes(bookId)) {
         return res
           .status(200)
           .json({ message: 'El libro ya está en la colección' })
@@ -685,7 +683,7 @@ export class UsersController {
           ),
           {
             nombre: collection.nombre,
-            librosIds: [...collection.librosIds, bookId]
+            libros_ids: [...collection.libros_ids, bookId]
           }
         ]
       })

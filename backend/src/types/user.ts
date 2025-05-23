@@ -3,7 +3,7 @@ import { EstadoCuentaType, RoleType } from './userCategories'
 
 export type CollectionItem = {
   nombre: string // Name of the collection
-  librosIds: ID[] // Array of book IDs
+  libros_ids: ID[] // Array of book IDs
 }
 // Pendiente
 export type PartialUserInfoType = {

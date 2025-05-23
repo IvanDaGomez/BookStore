@@ -1,12 +1,11 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useContext } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router'
 import Verificar from './verificar'
 import { toast, ToastContainer } from 'react-toastify'
-
+import { UserContext } from '../../context/userContext'
+import './verify.css'
 export default function EnviarCorreoAVerificar () {
-  const navigate = useNavigate()
-  const [user, setUser] = useState(null)
+  const { user, setUser, loading } = useContext(UserContext)
   const [sending, setSending] = useState(true)
   const [code, setCode] = useState(null)
   const [token, setToken] = useState(null)
@@ -15,30 +14,11 @@ export default function EnviarCorreoAVerificar () {
   const [inputCode, setInputCode] = useState(new Array(6).fill('')) // Estado para almacenar el código ingresado
   const inputRefs = useRef([]) // Referencias a los inputs
 
-  // Fetch user session
-  useEffect(() => {
-    async function fetchUser () {
-      try {
-        const url = 'http://localhost:3030/api/users/userSession'
-        const response = await axios.post(url, null, {
-          withCredentials: true
-        })
-        if (response.data.validated) {
-          setVerifying(false)
-        }
-        setUser(response.data)
-      } catch (error) {
-        console.error('Error fetching user data:', error)
-        navigate('/popUp/noUser')
-      }
-    }
-    fetchUser()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   // Fetch user email if not already set
   useEffect(() => {
-    if (!user || user?.correo) return
+    console.log('user', user, loading)
+    if (!user || user?.correo || loading) return
 
     async function fetchUserEmail () {
       try {
@@ -46,7 +26,7 @@ export default function EnviarCorreoAVerificar () {
           `http://localhost:3030/api/users/c/${user.id}`,
           {
             withCredentials: true // Ensures cookies are sent with the request
-          }
+          } 
         )
 
         if (response.status === 200 && response.data) {
@@ -61,7 +41,8 @@ export default function EnviarCorreoAVerificar () {
     }
 
     fetchUserEmail()
-  }, [user])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, loading])
   const [fetching, setFetching] = useState(false)
   async function sendVerifyEmail () {
     if (!user || !user?.correo || user.validated || fetching) return
@@ -141,7 +122,7 @@ export default function EnviarCorreoAVerificar () {
               <div className='imageDiv'>
                 <img src='/mailAnimation.gif' alt='' />
               </div>
-              <p>Enviando correo...</p>
+              <h3>Enviando correo...</h3>
             </>
             ) : (
               <>
@@ -149,9 +130,9 @@ export default function EnviarCorreoAVerificar () {
                 <p>{user && user?.correo}</p>
 
                 <div className='imageDiv'>
-                  <img src='/imagenEmail.jpg' alt='' />
+                  <img src='/imagenEmail.jpg' alt='Email image' title='Email image'/>
                 </div>
-                <div className='inputContainer'>
+                <div className='codeInputContainer'>
                   {inputCode.map((_, index) => (
                     <input
                       type='number'
@@ -166,7 +147,7 @@ export default function EnviarCorreoAVerificar () {
                   ))}
                 </div>
                 <div>
-                  <p style={{ fontSize: '2.3rem' }}>Si no recibiste el correo</p>
+                  <p>Si no recibiste el correo</p>
                   <a onClick={() => {
                     sendVerifyEmail()
                     toast.success('Código enviado exitosamente')
