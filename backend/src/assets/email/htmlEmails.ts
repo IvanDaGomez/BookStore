@@ -5,7 +5,7 @@ import { UserInfoType } from '../../types/user'
 import { TransactionObjectType } from '../../types/transaction'
 import { Barcode } from 'mercadopago/dist/clients/payment/commonTypes'
 import { ShippingDetailsType } from '../../types/shippingDetails'
-import { thankEmailTemplate, bookPublishedTemplate, validationEmailTemplate, changePasswordTemplate, paymentDoneBillTemplate, paymentDoneThankTemplate, bookSoldTemplate, efectyPendingPaymentTemplate } from './htmlTemplates.js'
+import { thankEmailTemplate, bookPublishedTemplate, validationEmailTemplate, changePasswordTemplate, paymentDoneBillTemplate, paymentDoneThankTemplate, bookSoldTemplate, efectyPendingPaymentTemplate, DataType, messageResponseTemplate, messageQuestionTemplate } from './htmlTemplates.js'
 dotenv.config()
 
 type emailToSendType =
@@ -18,21 +18,10 @@ type emailToSendType =
   | 'paymentDoneThank'
   | 'bookSold'
   | 'efectyPendingPayment'
+  | 'messageQuestion'
+  | 'messageResponse'
 function createEmail (
-  data: {
-    book?: Partial<BookObjectType>
-    user?: UserInfoType | Partial<UserInfoType>
-    seller?: Partial<UserInfoType>
-    transaction?: Partial<TransactionObjectType>
-    shipping_details?: ShippingDetailsType
-    metadata?: {
-      guia?: string
-      validation_code?: number
-      validation_link?: string
-      barcode?: Barcode
-      date_of_expiration?: string
-    }
-  },
+  data: DataType,
   template: emailToSendType
 ): string {
   switch (template) {
@@ -59,6 +48,12 @@ function createEmail (
     }
     case 'efectyPendingPayment': {
       return efectyPendingPaymentTemplate(data)
+    }
+    case 'messageQuestion': {
+      return messageQuestionTemplate(data)
+    }
+    case 'messageResponse': {
+      return messageResponseTemplate(data)
     }
     default: {
       return ''

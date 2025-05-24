@@ -1,51 +1,24 @@
-import { createNotification } from './createNotification'
 import { formatDate } from './formatDate'
 import { toast } from 'react-toastify'
+import axios from 'axios'
+import { reduceText } from './reduceText'
 function SimpleNotification (notification) {
-  const { type, title, created_in, metadata } = notification
+  const { title, created_in } = notification
 
-  const typeMessages = {
-    newMessage: 'Tienes un nuevo mensaje!',
-    newQuestion: 'Tienes una nueva pregunta!',
-    bookPublished: 'Tu libro ha sido publicado!',
-    bookUpdated: 'Tu libro ha sido actualizado con éxito!',
-    bookSold: `Tu libro "${metadata.book_title}" ha sido vendido!`,
-    orderShipped: 'Tu pedido ha sido entregado!',
-    reviewReceived: `Tienes una nueva reseña de "${metadata.book_title}"!`
-  }
-
-  const typeIcons = {
-    newMessage: '📩',
-    bookPublished: '📘',
-    bookUpdated: '📘',
-    bookSold: '💸',
-    orderShipped: '📦',
-    reviewReceived: '⭐'
-  }
 
   const formattedDate = formatDate(created_in)
   return (
     <>
-      {typeIcons[type] || '🔔'}
-      <span>{title || typeMessages[type]}</span>
-      <span>{formattedDate}</span>
+      <span style={{fontSize: 'var(--font-size-medium)'}}>{reduceText(title, 50)}</span>
+      <span style={{fontSize: 'var(--font-size-medium)'}}>{formattedDate}</span>
     </>
   )
 }
 
 function DetailedNotification (notification) {
-  const { type, created_in, metadata, user_id, action_url, read, input, id } = notification
-
-  const typeIcons = {
-    newMessage: '📩',
-    bookPublished: '📘',
-    bookSold: '💸',
-    orderShipped: '📦',
-    reviewReceived: '⭐'
-  }
-
+  const { type, created_in, metadata, user_id, action_url, input, read, id } = notification
+  console.log(notification)
   const formattedDate = formatDate(created_in)
-
   async function handleSubmitAnswer () {
     const inputPregunta = document.querySelector('.answerQuestion')
 
@@ -53,58 +26,25 @@ function DetailedNotification (notification) {
       return
     }
     if (metadata) {
-      const url = `http://localhost:3030/api/books/${metadata.book_id}`
+      const url = `http://localhost:3030/api/books/questionBook`
 
       try {
-        const response = await fetch(url, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            mensaje: inputPregunta.value,
+        const response = await axios.post(url, {
+            respuesta: inputPregunta.value,
             tipo: 'respuesta',
-            pregunta: input
-          }),
-          credentials: 'include'
+            pregunta: metadata.pregunta, 
+            sender_id: user_id,
+            book_id: metadata.book_id
+          },
+          { withCredentials: 'include' })
 
-        })
-
-        if (!response.ok) {
-          // Actualizar el estado de errores usando setErrors
-          return // Salir de la función si hay un error
-        }
-        const data = await response.json()
-        if (data.error) {
-          toast.error('Error')
+        if (response.data.error) {
+          toast.error('Error en el servidor')
           return
         }
 
         const deleteUrl = `http://localhost:3030/api/notifications/${id}`
-        const deleted = await fetch(deleteUrl, {
-          method: 'DELETE',
-          credentials: 'include'
-        })
-        if (!deleted.ok) {
-          toast.error('No se pudo eliminar la notificación')
-          return
-        }
-        const notificationToSend = {
-          title: 'Tu pregunta ha sido respondida!',
-          priority: 'normal',
-          type: 'questionAnswered',
-          user_id,
-          input: inputPregunta.value,
-          action_url,
-          metadata: {
-            photo: metadata.photo,
-            bookTitle: metadata.book_title,
-            bookId: metadata.book_id,
-            question: input
-          }
-        }
-        // Enviar notificación de vuelta al usuario
-        createNotification(notificationToSend)
+        await axios.delete(deleteUrl)
 
         toast.success('Pregunta enviada exitosamente')
         inputPregunta.value = ''
@@ -133,24 +73,30 @@ function DetailedNotification (notification) {
       </div>
       {metadata?.question && <span><big>{metadata.question}</big></span>}
       {(input) && <div className='input'>
-        {type === 'bookRejected' && <>Razón: </>}{input}
-
-                  </div>}
-      {['newQuestion'].includes(type) && <>
+        {type === 'bookRejected' && <>Razón: </>}{input}</div>}
+      {['messageQuestion', 'messageResponse'].includes(type) && <>
+        <div className='input'>
+          Pregunta: {notification.metadata.pregunta}
+        </div>
+        {['messageResponse'].includes(type) &&
+        <div className='input'>
+          Respuesta: {notification.metadata.respuesta}
+        </div>
+        }
+        {['messageQuestion'].includes(type) &&
         <div className='sendAnswer'>
           <input type='text' className='answerQuestion' placeholder='Responder' />
           <div className='send' onClick={(event) => handleSubmitAnswer(event)}>
             <img src='/sendMessage.svg' alt='Send Message' />
           </div>
-        </div></>}
+        </div>
+        }</>}
       <div className='downNotification'>
-        {typeIcons[type] || '🔔'}
-        {action_url && !['bookRejected'].includes(type) && (
+        {action_url && !['bookRejected', 'newFollower'].includes(type) && (
           <a href={action_url} className='notification-link'>
             Ver el libro
           </a>)}
         <span>{formattedDate}</span>
-
       </div>
 
     </div>

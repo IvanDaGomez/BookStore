@@ -96,7 +96,7 @@ async function createTables () {
       fecha_publicacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       actualizado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       disponibilidad VARCHAR(50) DEFAULT TRUE,
-      mensajes VARCHAR[][],
+      mensajes JSONB[],
       collections_ids VARCHAR[]
     );
   `
@@ -124,7 +124,7 @@ async function createTables () {
       fecha_publicacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       actualizado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
       disponibilidad VARCHAR(50) DEFAULT 'Disponible',
-      mensajes VARCHAR[][],
+      mensajes JSONB[],
       collections_ids VARCHAR[]
     );
   `

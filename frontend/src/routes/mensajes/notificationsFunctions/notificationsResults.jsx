@@ -8,13 +8,7 @@ export default function NotificationsResults ({
   setActiveNotification,
   activeNotification,
 }) {
-  const typeMessages = {
-    newMessage: 'Tienes un nuevo mensaje!',
-    newQuestion: 'Tienes una nueva pregunta!',
-    bookPublished: 'Tu libro ha sido publicado!',
-    bookSold: 'Tu libro ha sido vendido!',
-    reviewReceived: 'Tienes una nueva reseña!'
-  }
+
   
   return (<>
   {(filteredNotifications && filteredNotifications.length !== 0) && filteredNotifications
@@ -25,24 +19,12 @@ export default function NotificationsResults ({
                 key={notification.id}
                 className={`conversationSpecific 
                                 ${activeNotification && activeNotification.id === notification.id ? 'active' : ''}
-                                ${!notification.read && activeNotification.id !== notification.id ? 'notRead' : ''}`}
-                onClick={() => setActiveNotification(notification)}
-              >
-
+                                ${!notification.read && activeNotification.id !== notification.id ? 'unread' : ''}`}
+                onClick={() => setActiveNotification(notification)}>
                 <div className='conversationSpecificTitleAndMessage'>
-                  <h2>
-                    {notification.type
-                      ? (
-                        <>
-                          {reduceText(typeMessages[notification.type] || notification.title, 40)}
-                        </>
-                        )
-                      : null}
-
-                  </h2>
+                  <h2>{notification.type && reduceText(notification.title, 40)}</h2>
                 </div>
                 <span>{formatDate(notification?.created_in) ?? ''}</span>
-
               </div>
             ))}
   </>)

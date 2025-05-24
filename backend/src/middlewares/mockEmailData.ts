@@ -13,7 +13,7 @@ export const mockEmailData = {
       genero: 'Tecnología',
       formato: 'Físico',
       vendedor: 'John Doe',
-      id_vendedor: '5678-9101-1121-3141-1234',
+      id_vendedor: 'd67b5339-c80b-4fab-847a-82aa1a303b8e',
       edicion: '',
       idioma: 'Español',
       ubicacion: {
@@ -27,10 +27,19 @@ export const mockEmailData = {
       actualizado_en: '2023-10-01T10:00:00Z',
       disponibilidad: 'Disponible',
       mensajes: [
-        ['Hola, estoy interesado en el libro.', '2023-10-01T10:00:00Z'],
-        ['¿Está disponible?', '2023-10-01T10:00:00Z']
+        {
+          pregunta: 'Hola, estoy interesado en el libro.',
+          respuesta: '¡Hola! Claro, el libro está disponible.',
+          sender_id: '9b922eb4-33e8-4781-9863-c066992e1620',
+        },
+        {
+          pregunta: '¿Está disponible?',
+          respuesta: 'Sí, está disponible para la venta.',
+          sender_id: '834a9dda-5cf5-4438-9499-eed4b8ec3e45'
+        }
+
       ],
-      collections_ids: ['1234-5678-9101-1121-3141']
+      collections_ids: ['88c87f69-4b49-4633-bfba-cd3d29b1a21d']
     },
     user: {
       id: '5678-9101-1121-3141-1234',
@@ -312,6 +321,8 @@ export const mockEmailData = {
         type: 'code_128',
         content: '123456789'
       },
-      date_of_expiration: '2023-11-01T10:00:00Z'
+      date_of_expiration: '2023-11-01T10:00:00Z',
+      pregunta: "¿Podrías indicarme si actualmente el libro que estoy buscando está disponible para su compra en la tienda? Me interesa conocer no solo si está en stock, sino también si existen restricciones en cuanto a su distribución, tiempos de entrega, posibles ediciones especiales o limitadas, y si se ofrece alguna garantía o política de devolución relacionada con este producto en particular. Además, quisiera saber si está disponible en formato físico, digital, o ambos, y si la disponibilidad varía según la región desde donde haga la compra.",
+      respuesta: "Sí, el libro está disponible para su compra en nuestra tienda. Contamos con ejemplares tanto en formato físico como digital. La disponibilidad física depende del inventario actual, que se actualiza constantemente para reflejar con precisión el stock real. En cuanto a la distribución, enviamos a nivel nacional e internacional, pero los tiempos de entrega pueden variar según la ubicación del comprador y la modalidad de envío seleccionada. Para ciertos títulos, ofrecemos ediciones especiales o limitadas que incluyen contenido adicional o empaques exclusivos, y esas ediciones pueden tener una disponibilidad más restringida, por lo cual recomendamos consultar específicamente si ese es el formato deseado. Asimismo, ofrecemos una política de devolución clara y accesible: si el producto presenta algún defecto o no cumple con las expectativas del cliente, puede solicitar una devolución o cambio dentro de un plazo determinado. Por último, es importante mencionar que la disponibilidad y condiciones de venta pueden variar según la región, debido a acuerdos editoriales o restricciones legales, por lo que siempre sugerimos verificar las condiciones específicas en el momento de realizar la compra.",
     }
   }

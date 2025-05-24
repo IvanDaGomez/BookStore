@@ -43,11 +43,12 @@ class BooksModel {
 
   static async getBookById (id: ID): Promise<BookObjectType> {
     try {
-      return await executeSingleResultQuery(
+      const data: BookObjectType = await executeSingleResultQuery(
         pool,
         () => pool.query('SELECT * FROM books WHERE id = $1;', [id]),
         `Failed to fetch book with ID ${id}`
       )
+      return data
     } catch (error) {
       if (error instanceof DatabaseError) {
         throw error
@@ -202,8 +203,9 @@ class BooksModel {
   static async updateBook (
     id: ID,
     data: Partial<BookObjectType>
-  ): Promise<Partial<BookObjectType>> {
+  ): Promise<BookObjectType> {
     try {
+      data.actualizado_en = new Date().toISOString() as ISOString
       const keys = Object.keys(data)
       const values = Object.values(data)
       let updateString = ''
@@ -218,7 +220,7 @@ class BooksModel {
           pool.query(
             `UPDATE books SET ${updateString} WHERE ID = $${
               keys.length + 1
-            } RETURNING ${this.getEssencialFields().join(', ')};`,
+            } RETURNING *;`,
             [...values, id]
           ),
         `Failed to update book with ID ${id}`

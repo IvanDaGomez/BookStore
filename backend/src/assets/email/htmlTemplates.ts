@@ -63,8 +63,9 @@ const styles = `
                 font-size: 0.9em;
                 color: #aaa;
                 text-align: center;
+                color: white;
                 border-radius: 5px;
-                background:var(--using4);
+                background:#3689e7;
                 }
                 a {
                   font-family: inherit;
@@ -100,7 +101,9 @@ type DataType = {
       validation_code?: number
       validation_link?: string
       barcode?: Barcode
-      date_of_expiration?: string
+      date_of_expiration?: string,
+      pregunta?: string
+      respuesta?: string
     }
   }
 const thankEmailTemplate = (data: DataType) => {
@@ -596,12 +599,131 @@ const efectyPendingPaymentTemplate = (data: DataType) => {
     </html>
   `
 }
+const messageQuestionTemplate = (data: DataType) => {
+  return `
+    <html>
+      <head>
+        <style>
+          ${styles}
+          .question-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+            background: #f8f8fc;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(66,55,110,0.07);
+          }
+          .question-table th, .question-table td {
+            padding: 14px 18px;
+            text-align: left;
+          }
+          .question-table th {
+            background: #42376E;
+            color: #fff;
+            font-weight: 600;
+            border-bottom: 2px solid #e0e0e0;
+          }
+          .question-table td {
+            color: #333;
+            border-bottom: 1px solid #e0e0e0;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class='header'>
+            <img src='${logoMeridian}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
+          </div>
+          <main>
+            <h1>¡Tienes un nuevo mensaje!</h1>
+            <p>Hola ${data.user?.nombre ?? ''}:</p>
+            <p>Has recibido una nueva pregunta de un usuario interesado en tu libro <a href=${process.env.FRONTEND_URL}/libros/${data?.book?.id}>"${data.book?.titulo}".</a></p>
+            <table class="question-table">
+              <tr>
+                <th>Pregunta</th>
+                <td>${data.metadata?.pregunta ?? 'N/A'}</td>
+              </tr>
+            </table>
+            <p>Para responder a este mensaje, por favor visita tus notificaciones en ${process.env.BRAND_NAME}.</p>
+            <p>Si necesitas ayuda con el proceso de pago o tienes alguna pregunta, no dudes en contactarnos.</p>
+          </main>
+          ${footer}
+        </div>
+      </body>
+    </html>
+  `
+}
+const messageResponseTemplate = (data: DataType) => {
+  return `
+    <html>
+      <head>
+        <style>
+          ${styles}
+          .question-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 24px 0;
+            background: #f8f8fc;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(66,55,110,0.07);
+          }
+          .question-table th, .question-table td {
+            padding: 14px 18px;
+            text-align: justify;
+          }
+          .question-table th {
+            background: #42376E;
+            color: #fff;
+            font-weight: 600;
+            border-bottom: 2px solid #e0e0e0;
+          }
+          .question-table td {
+            color: #333;
+            border-bottom: 1px solid #e0e0e0;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class='header'>
+            <img src='${logoMeridian}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
+          </div>
+          <main>
+            <h1>¡Tienes una nueva respuesta!</h1>
+            <p>Hola ${data.user?.nombre ?? ''}:</p>
+            <p>Has recibido una respuesta a tu pregunta sobre el libro <a href=${process.env.FRONTEND_URL}/libros/${data?.book?.id}>"${data.book?.titulo}".</a></p>
+            <table class="question-table">
+              <tr>
+                <th>Tu pregunta</th>
+                <td>${data.metadata?.pregunta ?? 'N/A'}</td>
+              </tr>
+              <tr>
+                <th>Respuesta</th>
+                <td>${data.metadata?.respuesta ?? 'N/A'}</td>
+              </tr>
+            </table>
+            <p>Para ver más detalles, visita tus notificaciones en ${process.env.BRAND_NAME}.</p>
+            <p>Si necesitas ayuda o tienes alguna pregunta, no dudes en contactarnos.</p>
+          </main>
+          ${footer}
+        </div>
+      </body>
+    </html>
+  `
+}
 const templates = [ thankEmailTemplate, bookPublishedTemplate, 
   validationEmailTemplate, changePasswordTemplate,
 paymentDoneBillTemplate, paymentDoneThankTemplate,
-bookSoldTemplate, efectyPendingPaymentTemplate ]
+bookSoldTemplate, efectyPendingPaymentTemplate,
+messageQuestionTemplate, messageResponseTemplate
+]
 
-export { templates, thankEmailTemplate, bookPublishedTemplate, 
+export { templates, 
+  thankEmailTemplate, bookPublishedTemplate, 
   validationEmailTemplate, changePasswordTemplate,
-paymentDoneBillTemplate, paymentDoneThankTemplate,
-bookSoldTemplate, efectyPendingPaymentTemplate, DataType}
+  paymentDoneBillTemplate, paymentDoneThankTemplate,
+  bookSoldTemplate, efectyPendingPaymentTemplate,
+  messageQuestionTemplate, messageResponseTemplate, 
+DataType}

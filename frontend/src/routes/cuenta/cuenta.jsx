@@ -21,7 +21,8 @@ import './cuenta.css'
 export default function Cuenta () {
   const navigate = useNavigate()
   const [actualOption, setActualOption] = useState(null)
-  const { user, setUser } = useContext(UserContext)
+  const { user, setUser, loading } = useContext(UserContext)
+  useReturnIfNoUser(user, loading)
   // useReturnIfNoUser(user)
 
 

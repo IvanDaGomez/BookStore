@@ -42,7 +42,7 @@ const sendEmail = async (
         pass: yourEmailPassword
       }
     })
-
+    console.log('Email sent')
     // Set up email options
     const mailOptions = {
       from: `${process.env.BRAND_NAME} <${yourEmail}>`, // Your email address

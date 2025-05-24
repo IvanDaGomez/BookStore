@@ -400,7 +400,7 @@ resultadosContainer .sectionElement.userElement {
     }
   }
   &:hover .filters{
-    height: calc(var(--font-size-medium) * 5 + 2 * var(--padding-small));
+    height: calc(3 * (var(--font-size-medium) + 2 * var(--padding-small) + 2px));
   }
   .filters::-webkit-scrollbar {
     display: none; /* For Chrome, Safari, and Opera */

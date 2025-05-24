@@ -158,7 +158,6 @@ export default function Usuario () {
                 alt='Profile'
                 className='profile-image'/>
               <div className='card-info'>
-          {console.log(librosUsuario)}
                 <h1>{usuario.nombre}</h1>
                 <h2>Seguidores: {usuario?.seguidores?.length ?? 0}</h2>
                 <p>Libros publicados: {librosUsuario.length ?? 0}</p>
@@ -213,7 +212,7 @@ export default function Usuario () {
             {permisos ? 'Mis favoritos' : 'Favoritos'}
           </div>
         </div>
-        <div className='postsContainer'>
+        <div className='postsContainer' style={{ paddingTop: permisos ? '60px': 0 }}>
           {(usuario && librosUsuario) &&
                 myPosts === 'libros' ? <>
                   {librosUsuario.map((libro, index) => 

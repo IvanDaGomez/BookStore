@@ -22,13 +22,13 @@ function App () {
       photo: '/customPlantilla1.png',
       alt: 'Imagen 1'
     }, {
-      photo: '/customPlantilla2.png',
+      photo: '/customPlantilla2.jpg',
       alt: 'Imagen 2'
     }, {
-      photo: '/customPlantilla3.png',
+      photo: '/customPlantilla3.jpg',
       alt: 'Imagen 3'
     }, {
-      photo: '/customPlantilla4.png',
+      photo: '/customPlantilla4.jpg',
       alt: 'Imagen 3'
     }, {
       photo: '/customPlantilla6.png',

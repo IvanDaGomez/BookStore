@@ -21,10 +21,9 @@ export default function Notificaciones () {
 
   const { user, loading } = useContext(UserContext)
   useReturnIfNoUser(user, loading, false)
-  const [notifications] = useFetchNotifications(user)
+  const [notifications, , filteredNotifications, setFilteredNotifications] = useFetchNotifications(user)
   const [activeNotification, setActiveNotification] = useState({})
-  const [filteredNotifications, setFilteredNotifications] = useState(notifications ?? [])
-  
+
   // ----------------------------------------LÓGICA DE NOTIFICACIONES------------------------------------//
   const { notificationId } = useParams()
 

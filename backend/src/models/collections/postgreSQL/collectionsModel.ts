@@ -121,9 +121,12 @@ class CollectionsModel {
   // Pendiente desarrollar, una buena query para buscar varios patrones
   static async getCollectionByQuery (
     query: string,
-    l: number = 1000,
+    l: number = 24,
     collections: CollectionObjectType[] = []
   ): Promise<CollectionObjectType[]> {
+    console.log('Query:', query)
+    console.log('Collections:', collections)
+    console.log('Limit:', l)
     if (collections.length === 0) {
       collections = await executeQuery(
         pool,
@@ -171,7 +174,7 @@ class CollectionsModel {
     )
     if (Object.keys(query.where).length === 0)
       throw new Error('No se encontraron colecciones para este usuario')
-    collections = collections.filter(collection => {
+      collections = collections.filter(collection => {
       return Object.keys(query.where).some(filter => {
         const key = filter as keyof CollectionObjectType
         return (

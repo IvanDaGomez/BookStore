@@ -62,10 +62,13 @@ export default function BookView () {
         </div>
         <div className='extraBookViewContainer'>
 
-          <QuestionsBookView libro={libro}/>
+          <QuestionsBookView 
+            libro={libro}
+            user={user}
+          />
           <SagaLibros
-          libro={libro}
-          user={user}
+            libro={libro}
+            user={user}
           />
           <div className='description'>
             <h1>Descripción</h1>

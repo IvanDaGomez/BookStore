@@ -140,6 +140,7 @@
 .bookViewContainer .libroContenedor .comprarContainer button{
   all: unset;
   width: 100%;
+  text-align: center;
   margin: var(--margin-medium) auto;
   display: flex;
   justify-content: center;
@@ -307,7 +308,7 @@
 }
 
 .bookViewContainer .respuesta {
-  font-size: var(--font-size-small);
+  font-size: var(--font-size-medium);
   color: #555;
   margin-top: 0;
   border-top: 1px dashed #ddd;

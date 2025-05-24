@@ -3,6 +3,11 @@ import express from 'express'
 import { ImageType } from '../../types/objects'
 import { bookObject } from '../../models/books/bookObject.js'
 import saveOptimizedImages from '../../assets/saveOptimizedImages.js'
+import { sendEmail } from '../../assets/email/sendEmail.js'
+import { IUsersModel } from '../../types/models'
+import { createEmail } from '../../assets/email/htmlEmails.js'
+import { sendNotification } from '../../assets/notifications/sendNotification.js'
+import { createNotification } from '../../assets/notifications/createNotification.js'
 /**
  * Prepares and formats the book data for creation by parsing and transforming
  * specific fields from the incoming request. This function ensures that numeric
@@ -74,55 +79,11 @@ async function prepareUpdateBookData (
     ) as BookObjectType['images']
     await saveOptimizedImages(data.images)
   }
-  if (data.mensaje && data.tipo) {
-    const messagesArray = existingBook.mensajes || []
-    if (data.tipo === 'pregunta') {
-      const questionIndex = messagesArray.findIndex(
-        item => item[0] === data.mensaje
-      )
-
-      if (questionIndex === -1) {
-        messagesArray.push([data.mensaje, '', data.senderId])
-      }
-    } else if (data.tipo === 'respuesta' && data.pregunta) {
-      const questionIndex = messagesArray.findIndex(
-        item => item[0] === data.pregunta
-      )
-      if (questionIndex !== -1) {
-        messagesArray[questionIndex][1] = data.mensaje
-      }
-    }
-
-    data.mensajes = messagesArray
-  }
   return bookObject(data, true) as BookObjectType
 }
 
 function filterData (data: BookObjectType): BookObjectType {
-  const allowedFields = [
-    'titulo',
-    'autor',
-    'precio',
-    'oferta',
-    'formato',
-    'images',
-    'keywords',
-    'descripcion',
-    'estado',
-    'genero',
-    'vendedor',
-    'idVendedor',
-    'edicion',
-    'idioma',
-    'ubicacion',
-    'tapa',
-    'edad',
-    'fechaPublicacion',
-    'actualizadoEn',
-    'disponibilidad',
-    'mensajes',
-    'isbn'
-  ]
+  const allowedFields = Object.keys(bookObject({}, true)) as (keyof BookObjectType)[]
 
   let filteredData: Partial<
     Record<keyof BookObjectType, BookObjectType[keyof BookObjectType]>

@@ -11,6 +11,7 @@ export async function sendNotification (body: NotificationType) {
     },
     body: JSON.stringify(body)
   })
+
   if (!response.ok) {
     throw new Error('Error creando notificación')
   }

@@ -57,6 +57,7 @@ function bookObject (
     images: data.images ?? [],
     id: data.id ?? '',
     id_vendedor: data.id_vendedor ?? '',
+    vendedor: data.vendedor ?? '',
     estado: data.estado ?? 'Nuevo sellado',
     genero: data.genero ?? '',
     disponibilidad: data.disponibilidad ?? 'Disponible',

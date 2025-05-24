@@ -1,9 +1,8 @@
 /* eslint-disable react/prop-types */
 import { handleSetPregunta } from "./handleSetPregunta";
-import { handleSubmitPregunta } from "./handleSubmitPregunta";
+import { handleSubmitPregunta } from "./handleSubmitPregunta.js";
 
-export default function QuestionsBookView({ libro }) {
-  if (!libro) return <></>
+export default function QuestionsBookView({ libro, user }) {
   return(<>
   <div className='comments' id='comments'>
             <div className='separar'>
@@ -21,7 +20,7 @@ export default function QuestionsBookView({ libro }) {
 
                 <div className='ask-section'>
                   <textarea type='text' className='inputPregunta' placeholder='Escribe tu pregunta...' rows='2' />
-                  <button onClick={handleSubmitPregunta} className='ask-button'>Preguntar</button>
+                  <button onClick={() => handleSubmitPregunta(libro, user)} className='ask-button'>Preguntar</button>
                 </div>
               </div>
               <div className='comentarios'>
@@ -29,11 +28,11 @@ export default function QuestionsBookView({ libro }) {
                           [mensaje, respuesta]
                       */}
 
-                {libro && libro.mensajes && libro.mensajes.filter(mensaje => mensaje[0] && mensaje[1]).length !== 0
-                  ? libro.mensajes.filter(mensaje => mensaje[0] && mensaje[1]).map((element, index) => (
+                {libro && libro.mensajes && libro.mensajes.filter(mensaje => mensaje.pregunta && mensaje.respuesta).length !== 0
+                  ? libro.mensajes.filter(mensaje => mensaje.pregunta && mensaje.respuesta).map((element, index) => (
                     <div className='mensajeContainer' key={index}>
-                      <p className='mensaje'>{element[0]}</p>
-                      <p className='respuesta'>{element[1]}</p>
+                      <p className='mensaje'>{element.pregunta}</p>
+                      <p className='respuesta'>{element.respuesta}</p>
                     </div>
                   ))
                   : <div className='mensajeContainer'>

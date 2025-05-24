@@ -29,7 +29,8 @@ export default function EnviarCorreoCambiarContraseña () {
       const response = await axios.post(url, { email: email.value }, { withCredentials: true })
 
       if (response.data.error) {
-        toast.error('Error en el servidor')
+        toast.error(response.data.error)
+        return 
       } 
       setEmailSent(true)
       
@@ -45,10 +46,24 @@ export default function EnviarCorreoCambiarContraseña () {
         <div className='opaqueBackground' />
         <div className='loader'><Loader /></div></>}
       <div className='verifyContainer cambiarContraseñaDiv'>
-        <h1>¿Olvidaste tu contraseña?</h1>
-        <p>Para cambiar tu contraseña escribe tu correo electrónico</p>
+        {
+        !emailSent
+        ?
+        <>
+          <h1>¿Olvidaste tu contraseña?</h1>
+          <p>Escribe tu correo electrónico y te enviaremos un enlace para cambiar tu contraseña.</p>
+          <p>Si no recibes el correo, revisa tu bandeja de spam o correo no deseado.</p>
+        </>
+        :
+        <h1>El correo se ha enviado exitosamente, revisa tu bandeja de entrada.</h1>
+        }
         <div className='imageDiv'>
-          <img src='/candadoPregunta.png' alt='' />
+          <img src={
+            !emailSent
+            ?'/olvidasteContra.png'
+            : '/correoEnviado.png'
+          }
+          alt='Imagen' />
         </div>
 
         <form onSubmit={handleSubmitMail} noValidate>
@@ -63,9 +78,10 @@ export default function EnviarCorreoCambiarContraseña () {
 
           </div>
           
-          <button type='submit'>{!emailSent ? 'Enviar' : 'Volver a enviar'}</button>
+          <button type='submit'
+          style={{width: 'auto'}}
+          >{!emailSent ? 'Enviar' : 'Volver a enviar'}</button>
           {errors.length !== 0 && <div className='error'>{errors[0]}</div>}
-          {emailSent && <div className='success'>El correo se ha enviado exitosamente, revisa tu bandeja de entrada.</div>}
         </form>
 
       </div>

@@ -123,7 +123,8 @@ const MakeOneFrCard = ({ element, index, user = '' }) => {
           </div>
 
           <div className='soldBy'>
-            Vendido por <span onClick={() => navigate(`/usuarios/${element.id_vendedor}`)} className='accent'>{element.vendedor}</span>
+            {console.log(element)}
+            Vendido por <span onClick={() => window.location.href = `/usuarios/${element.id_vendedor}`} className='accent'>{element.vendedor}</span>
           </div>
 
           {/* Botón de agregar al carrito */}
@@ -132,13 +133,18 @@ const MakeOneFrCard = ({ element, index, user = '' }) => {
             className='addToCartButton'
             onClick={(event) => {
               event.preventDefault()
-
-              if (!user.id) {
-                toast.error(necesitasIniciarSesion)
-                return
-              }
-              user.id ? handleFavoritos(event, element.id, user.id) : handleFavoritos(event, element.id)
-              toast.success('Agregado a favoritos exitosamente')
+              event.stopPropagation()
+              try {
+                if (!user?.id) {
+                  toast.error(necesitasIniciarSesion)
+                  return
+                }
+                user?.id ? handleFavoritos(event, element.id, user.id) : handleFavoritos(event, element.id)
+                toast.success('Agregado a favoritos exitosamente')
+              } catch (error) {
+                  console.error('Error al agregar a favoritos:', error)
+                  toast.error('Error al agregar a favoritos')
+                }
             }}
           >
             Agregar a favoritos
@@ -158,15 +164,14 @@ const MakeUpdateCard = ({ element, index }) => {
 
         <div className='imageElementContainer' style={{ backgroundImage: `url(http://localhost:3030/uploads/${element.images[0]})`, backgroundRepeat: 'no-repeat' }}>
           {(element.disponibilidad === 'Vendido')
-            ? (
+            && (
               <div
-               className='bookLabel'
+                className='bookLabel'
                 style={{ background: 'red' }}
               >
                 Vendido
               </div>
-              )
-            : null}
+              )}
         </div>
 
         <div>

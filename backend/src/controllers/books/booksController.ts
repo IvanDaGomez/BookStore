@@ -126,7 +126,6 @@ export class BooksController {
 
     try {
       let { q, l } = req.query as { q: string | ParsedQs; l: string | ParsedQs }
-      console.log(q)
       // Validación de la query
       if (q) {
         q = cambiarGuionesAEspacio(q as string)
@@ -254,7 +253,114 @@ export class BooksController {
       next(err)
     }
   }
+  questionBook = async (
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ): Promise<express.Response | void> => {
+    /*
+      Aquí se crea una pregunta sobre un libro.
+      Si no se encuentra el libro, se envía un error 500.
+      Se valida la pregunta y se envía una notificación al vendedor.
+    */
+    try {
+      let data = req.body as {
+        respuesta?: string
+        pregunta: string
+        tipo: 'pregunta' | 'respuesta'
+        sender_id: ID
+        book_id: ID
+      }
+      console.log(data)
+      if (!data.pregunta || !data.tipo) return res.status(400).json({ error: 'No se proporcionó mensaje o tipo' })
+      const existingBook = await this.BooksModel.getBookById(data.book_id)
+      const existingMessages = existingBook.mensajes ??[]
+      const messagesArray = existingMessages ?? []
+      if (data.tipo === 'pregunta') {
+          messagesArray.push({
+            pregunta: data.pregunta,
+            respuesta: undefined,
+            sender_id: data.sender_id
+          })
 
+      } else if (data.tipo === 'respuesta' && data.pregunta) {
+        const message = messagesArray.find(
+          item => item.pregunta === data.pregunta
+        )
+        console.log('A')
+        if (!message) 
+          return res.status(400).json({ error: 'No se encontró la pregunta' })
+        message['respuesta'] = data.respuesta
+
+      }
+
+      const seller = await this.UsersModel.getEmailById(
+        existingBook.id_vendedor)
+      const buyer = await this.UsersModel.getEmailById(
+        data.sender_id)
+
+      if (data.tipo === 'respuesta') {
+        Promise.all([
+          sendEmail(
+            buyer.correo,
+            `El vendedor ${seller.nombre} te ha respondido tu mensaje sobre el libro ${existingBook.titulo}`,
+            createEmail({
+              book: existingBook,
+              seller: seller,
+              user: buyer,
+              metadata: {
+                pregunta: data.pregunta,
+                respuesta: data.respuesta
+              }
+            }, 'messageResponse')
+          ),
+          sendNotification(createNotification({
+            ...existingBook,
+            id_vendedor: existingBook.id_vendedor,
+            metadata: {
+              book_id: existingBook.id,
+              pregunta: data.pregunta,
+              respuesta: data.respuesta,
+            }
+          }, 'messageResponse'))  
+        ])
+      }
+      else if (data.tipo === 'pregunta') {
+        Promise.all([
+          sendEmail(
+          seller.correo,
+          `El usuario ${buyer.nombre} te ha enviado una pregunta sobre tu libro ${existingBook.titulo}`,
+            createEmail({
+            book: existingBook,
+            seller: seller,
+            user: buyer,
+            metadata: {
+              pregunta: data.pregunta
+            }
+          }, 'messageQuestion')
+          ),
+          sendNotification(createNotification({
+            ...existingBook,
+            // seller,
+            metadata: {
+              book_id: existingBook.id,
+              book_title: existingBook.titulo,
+              pregunta: data.pregunta
+            }
+          }, 'messageQuestion'))
+        ])
+      }
+
+      const dataToUpdate = {
+        mensajes: messagesArray
+      }
+      const book = await this.BooksModel.updateBook(data.book_id, dataToUpdate)
+      console.log('Updated')
+      res.json(book)
+    } catch (err) {
+      next(err)
+    }
+  }
   deleteBook = async (
     req: express.Request,
     res: express.Response,
@@ -287,11 +393,11 @@ export class BooksController {
     next: express.NextFunction
   ): Promise<express.Response | void> => {
     try {
-      const bookId = req.params.book_id as ID
+      const bookId = req.params.bookId as ID
       const rawData = req.body
       const existingBook = await this.BooksModel.getBookById(bookId)
-
       const data = await prepareUpdateBookData(rawData, req, existingBook)
+
       const validated = validatePartialBook(data)
       if (!validated.success) {
         return res.status(400).json({ error: validated.error.errors })

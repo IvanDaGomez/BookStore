@@ -210,7 +210,21 @@ class UsersModel {
     }
     return userObject(user, false)
   }
-
+  static async getPassword (id: ID): Promise<string> {
+    const user = await executeSingleResultQuery(
+      pool,
+      () =>
+        pool.query(
+          `SELECT contraseña FROM users WHERE id = $1;`,
+          [id]
+        ),
+      'Error getting user'
+    )
+    if (!user) {
+      throw new Error('El usuario no existe')
+    }
+    return user.contraseña
+  }
   static async getUserByEmail (correo: string): Promise<Partial<UserInfoType>> {
     const user = await executeSingleResultQuery(
       pool,

@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './routes/main/App.jsx'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import ErrorPage from './components/errorPage/errorPage.jsx'
 import Search from './routes/search/search.jsx'
@@ -37,169 +37,57 @@ import ListaCostes from './routes/extraFooterInfo/listaCostes.jsx'
 import ProtectedBan from './routes/protected/protectedBan.jsx'
 import ProtectedSeeEmailTemplate from './routes/protected/protectedSeeEmailTemplate.jsx'
 
-const router = createBrowserRouter([
-  {
-    path: '/', // Main path
-    element: <App />,
-    errorElement: <ErrorPage />
-  },
-  {
-    path: 'libros/crear', // Post  book
-    element: <CrearLibro />
-  },
-  {
-    path: 'popUp/:info', // Notifications
-    element: <App />
-  },
-  {
-
-    path: 'libros/:bookId', // Specific Book
-    element: <BookView />
-
-  },
-  {
-    path: '/buscar', // Search book with filters
-    element: <Search />
-  },
-  {
-    path: '/login', // Login and Signup
-    element: <Login />
-  },
-  {
-    path: '/usuarios/:idVendedor', // Specific user UI
-    element: <Usuario />
-  },
-  {
-    path: '/usuarios/editarUsuario', // Update user
-    element: <EditarUsuario />
-  },
-  {
-    path: '/checkout/:bookId', // Checkout
-    element: <Checkout />
-  },
-  {
-    path: '/favoritos/:idVendedor', // My favorites
-    element: <Usuario />
-  },
-  {
-    path: '/mensajes', // Messages
-    element: <Mensajes />
-  },
-
-  {
-    path: '/notificaciones',
-    element: <Notificaciones />
-  },
-  {
-    path: '/notificaciones/:notificationId',
-    element: <Notificaciones />
-  },
-  {
-    path: '/protected/review',
-    element: <ProtectedReviewBook />
-  },
-  {
-    path: '/terminos-y-condiciones',
-    element: <TerminosYCondiciones />
-  },
-  {
-    path: '/sobre-nosotros',
-    element: <SobreNosotros />
-  },
-  {
-    path: '/politica-privacidad',
-    element: <PoliticaPrivacidad />
-  },
-  {
-    path: '/aviso-de-privacidad',
-    element: <AvisoPrivacidad />
-  },
-  {
-    path: '/contacto',
-    element: <Contacto />
-  },
-  {
-    path: '/politica-de-datos-personales',
-    element: <PoliticaDatosPersonales />
-  },
-  {
-    path: '/sobre-nosotros',
-    element: <SobreNosotros />
-  },
-  {
-    path: '/uso-cookies',
-    element: <UsoDeCookies />
-  },
-  {
-    path: '/cuenta',
-    element: <Cuenta />
-  },
-  {
-    path: '/faq',
-    element: <Faq />
-  },
-  {
-    path: '/cuenta/:extension',
-    element: <Cuenta />
-  }, {
-    path: '/verificar',
-    element: <EnviarCorreoAVerificar />
-  }, {
-    path: '/opciones/olvido-contraseña',
-    element: <EnviarCorreoCambiarContraseña />
-  }, {
-    path: '/opciones/cambiarContraseña/:token',
-    element: <CambiarContraseña />
-  },
-  {
-    path: '/para-ti',
-    element: <Fyp />
-  },
-  {
-    path: '/para-ti/colecciones',
-    element: <FypCollections />
-  },
-  {
-    path: '/colecciones/:collectionId',
-    element: <ColeccionEspecificoPage />
-  },
-  {
-    path: '/protected/stats',
-    element: <ProtectedStats />
-  },
-  {
-    path: '/protected/withdraw',
-    element: <ProtectedWithdraw />
-  },
-  {
-    path: '/protected/ban',
-    element: <ProtectedBan />
-  },
-  {
-    path: '/lista-costes',
-    element: <ListaCostes />
-  }, 
-  {
-    path: '/protected/seeEmailTemplate',
-    element: <ProtectedSeeEmailTemplate />
-  }
-], {
-  future: {
-    v7_relativeSplatPath: true
-  }
-})
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <UserProvider>
-      <RouterProvider router={router} />
-      <ToastContainer
-        position='top-center'
-        autoClose={5000}
-        hideProgressBar={false}
-        pauseOnHover={false}
-        closeOnClick
-        theme='light'
-      />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<App />} errorElement={<ErrorPage />} />
+          <Route path="libros/crear" element={<CrearLibro />} />
+          <Route path="popUp/:info" element={<App />} />
+          <Route path="libros/:bookId" element={<BookView />} />
+          <Route path="/buscar" element={<Search />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/usuarios/:idVendedor" element={<Usuario />} />
+          <Route path="/usuarios/editarUsuario" element={<EditarUsuario />} />
+          <Route path="/checkout/:bookId" element={<Checkout />} />
+          <Route path="/favoritos/:idVendedor" element={<Usuario />} />
+          <Route path="/mensajes" element={<Mensajes />} />
+          <Route path="/notificaciones" element={<Notificaciones />} />
+          <Route path="/notificaciones/:notificationId" element={<Notificaciones />} />
+          <Route path="/protected/review" element={<ProtectedReviewBook />} />
+          <Route path="/terminos-y-condiciones" element={<TerminosYCondiciones />} />
+          <Route path="/sobre-nosotros" element={<SobreNosotros />} />
+          <Route path="/politica-privacidad" element={<PoliticaPrivacidad />} />
+          <Route path="/aviso-de-privacidad" element={<AvisoPrivacidad />} />
+          <Route path="/contacto" element={<Contacto />} />
+          <Route path="/politica-de-datos-personales" element={<PoliticaDatosPersonales />} />
+          <Route path="/uso-cookies" element={<UsoDeCookies />} />
+          <Route path="/cuenta" element={<Cuenta />} />
+          <Route path="/faq" element={<Faq />} />
+          <Route path="/cuenta/:extension" element={<Cuenta />} />
+          <Route path="/verificar" element={<EnviarCorreoAVerificar />} />
+          <Route path="/opciones/olvido-contraseña" element={<EnviarCorreoCambiarContraseña />} />
+          <Route path="/opciones/cambiarContraseña/:token" element={<CambiarContraseña />} />
+          <Route path="/para-ti" element={<Fyp />} />
+          <Route path="/para-ti/colecciones" element={<FypCollections />} />
+          <Route path="/colecciones/:collectionId" element={<ColeccionEspecificoPage />} />
+          <Route path="/protected/stats" element={<ProtectedStats />} />
+          <Route path="/protected/withdraw" element={<ProtectedWithdraw />} />
+          <Route path="/protected/ban" element={<ProtectedBan />} />
+          <Route path="/lista-costes" element={<ListaCostes />} />
+          <Route path="/protected/seeEmailTemplate" element={<ProtectedSeeEmailTemplate />} />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+        <ToastContainer
+          position='top-center'
+          autoClose={5000}
+          hideProgressBar={false}
+          pauseOnHover={false}
+          closeOnClick
+          theme='light'
+        />
+      </BrowserRouter>
     </UserProvider>
   </StrictMode>
 )

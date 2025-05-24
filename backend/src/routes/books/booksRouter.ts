@@ -40,7 +40,7 @@ export const createBooksRouter = ({
     '/getBooksByCollection',
     booksController.getBooksByCollection as RequestHandler
   )
-
+  booksRouter.post('/questionBook', booksController.questionBook as RequestHandler)
   booksRouter.get('/fyp', booksController.forYouPage as RequestHandler)
   booksRouter.get('/query', booksController.getBookByQuery as RequestHandler)
   booksRouter.get(

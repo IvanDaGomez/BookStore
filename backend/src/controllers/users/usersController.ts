@@ -6,7 +6,7 @@ import { createEmail } from '../../assets/email/htmlEmails.js'
 import { createNotification } from '../../assets/notifications/createNotification.js'
 import { sendNotification } from '../../assets/notifications/sendNotification.js'
 // eslint-disable-next-line no-unused-vars
-
+import bcrypt from 'bcrypt'
 import {
   checkEmailExists,
   initializeDataCreateUser,
@@ -24,6 +24,7 @@ import {
   IUsersModel
 } from '../../types/models.js'
 import { AuthToken } from '../../types/authToken.js'
+import { SALT_ROUNDS } from '../../assets/config.js'
 const SECRET_KEY: string = process.env.JWT_SECRET ?? ''
 export class UsersController {
   private UsersModel: IUsersModel
@@ -530,8 +531,19 @@ export class UsersController {
       const decodedToken = jwt.verify(token, SECRET_KEY) as AuthToken
 
       const id = decodedToken.id
+      const lastPassword = await this.UsersModel.getPassword(id)
+    
+      const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS)
+      const isSamePassword = await bcrypt.compare(
+        password,
+        lastPassword)
+      if (isSamePassword) {
+        return res
+          .status(400)
+          .json({ error: 'La nueva contraseña no puede ser igual a la anterior' })
+      }
       // Actualizar la contraseña (el hash se realiza en el modelo)
-      await this.UsersModel.updateUser(id, { contraseña: password })
+      await this.UsersModel.updateUser(id, { contraseña: hashedPassword })
 
       return res.json({ ok: true, message: 'Contraseña actualizada con éxito' })
     } catch (err) {

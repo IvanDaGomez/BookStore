@@ -14,7 +14,10 @@ const notificationTypeArr = [
     'reviewReceived',
     'welcomeUser',
     'newFollower',
-    'invalidNotification'] as const
+    'invalidNotification',
+    'messageQuestion',
+    'messageResponse'
+] as const
 type TypeType = typeof notificationTypeArr[number]
 export { 
     priorityArr, PriorityType,

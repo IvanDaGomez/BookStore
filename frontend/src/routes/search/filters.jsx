@@ -7,7 +7,7 @@ import PriceRange from "./priceRange/priceRange"
 import LocationSelector from "./location/locationSelector"
 
 // eslint-disable-next-line react/prop-types
-export default function Filters ({ query }) {
+export default function Filters ({ query, queryParams }) {
   const navigate = useNavigate()
   const [filtros, setFiltros] = useState({})
   const [inputValue, setInputValue] = useState(query);
@@ -32,7 +32,18 @@ export default function Filters ({ query }) {
   useEffect(() => {
     setInputValue(query); // Update the state when query prop changes
   }, [query]);
-  
+  useEffect(() => {
+    Object.keys(queryParams).forEach((key) => {
+      if (queryParams[key] !== undefined && queryParams[key] !== null
+        && queryParams[key] !== '' && key !== 'q' && key !== 'precio' && key !== 'ubicacion') {
+        setFiltros((prev) => ({
+          ...prev,
+          // eslint-disable-next-line react/prop-types
+          [key]: queryParams[key].split(',').map((item) => item.trim())
+        }))
+      }
+    })
+  }, [queryParams])
   const handleChange = (e) => {
     setInputValue(e.target.value);
   };
@@ -92,7 +103,7 @@ export default function Filters ({ query }) {
       <input
           id="query"
           type="text"
-          placeholder="Busca"
+          placeholder="Buscar"
           value={inputValue}
           onChange={handleChange}
         />

@@ -29,7 +29,7 @@ export default function RelatedBooks({ libro, user }) {
         <h1>Productos Relacionados</h1>
         <div className='sectionsContainer'>
           {librosRelacionados.filter(element => element.id !== libro.id)
-            .map((element, index) => <MakeCard key={index} element={element} index={index} user={user || ''} />)}
+            .map((element, index) => <MakeCard key={index} element={element} index={index} user={user ?? null} />)}
         </div>
       </div>
       )}

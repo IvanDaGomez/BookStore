@@ -37,6 +37,10 @@ export type BookObjectType = {
   fecha_publicacion: ISOString
   actualizado_en: ISOString
   disponibilidad: AvailabilityType
-  mensajes?: string[][]
+  mensajes?: {
+    pregunta: string
+    respuesta?: string,
+    sender_id: ID
+  }[]
   collections_ids: ID[]
 }

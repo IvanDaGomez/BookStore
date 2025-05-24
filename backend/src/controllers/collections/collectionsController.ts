@@ -240,20 +240,17 @@ class CollectionsController {
     try {
       let { q, l } = req.query as {
         q: string | undefined
-        l: number | undefined
+        l: string | undefined
       }
       q = cambiarGuionesAEspacio(q)
-
+      const lParsed = parseInt(l ?? '24', 10) // Default to 24 if l is not a valid number
       if (!q) {
         return res
           .status(400)
           .json({ error: 'El parámetro de consulta "q" es requerido' })
       }
-      if (!l) {
-        l = 24
-      }
-
-      const collections = await this.CollectionsModel.getCollectionByQuery(q, l) // Asegurarse de implementar este método en BooksModel
+      
+      const collections = await this.CollectionsModel.getCollectionByQuery(q, lParsed) // Asegurarse de implementar este método en BooksModel
 
       res.json(collections)
     } catch (err) {

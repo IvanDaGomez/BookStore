@@ -26,7 +26,7 @@ export default function Mensajes () {
 
   // --------------------------------------LOGICA DE MENSAJES-------------------------------------------
   const { user, loading } = useContext(UserContext)
-  useReturnIfNoUser(user, loading, false)
+  useReturnIfNoUser(user, loading)
   
   const [mensajes, setMensajes] = useState([])
   const [conversaciones, setConversaciones] = useState([])

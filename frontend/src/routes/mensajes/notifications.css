@@ -3,7 +3,7 @@
 .notification-item {
   display: flex;
   align-items: start;
-  width: max(200px, 20vw);
+  width: 100%;
   flex-direction: column;
 
   padding: 5px;
@@ -24,8 +24,8 @@
 }
 .notification-item .input{
   width: 100%;
-  border-radius: var(--border-radius);;
-  padding: 3px;
+  border-radius: var(--border-radius);
+  padding: var(--border-radius);
   margin-block: 6px;
   font-weight: 500;
   border: 1px solid var(--using2);

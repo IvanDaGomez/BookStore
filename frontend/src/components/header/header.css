@@ -78,20 +78,20 @@ header::before {
   top: calc(var(--font-size-large) * 4 + var(--margin-medium));
   right: calc(var(--margin-large) - var(--border-width));
   max-width: 40rem;
-  z-index: 1000;
+  border: var(--border-width) solid var(--using2);
+  z-index: 10000;
 }
 .resultsContainer .result{
   width: 100%;
   background-color: var(--using5);
   color: var(--using3);
   cursor: pointer;
-  z-index: 1000;
+  z-index: 10000;
   display: flex;
   align-items: center;
   padding: var(--padding-small);
   height:90px;
-  border: var(--border-width) solid var(--using2);
-  border-bottom: none;
+  border-bottom: var(--border-width) solid var(--using2);
 }
 
 
@@ -223,12 +223,16 @@ header::before {
   position: relative;
   isolation: isolate;
   cursor: pointer;
-  margin-inline: auto var(--margin-small);
-
+  margin: 0;
+  margin-right: var(--margin-small);
+  width: var(--font-size-large);
+  height: var(--font-size-large);
 }
-.notification .notificationIconCount{
-  width: 15px;
-  height: 15px;
+.notification .notificationIconCount,
+.heart .heartIconCount
+{
+  width: var(--font-size-medium);
+  height: var(--font-size-medium);
   aspect-ratio: 1 / 1;
   background-color: red;
   position: absolute;
@@ -251,21 +255,6 @@ header::before {
   aspect-ratio: 1/1;
   margin: auto;
 }
-.heart .heartIconCount{
-  width: var(--font-size-medium);
-  height: var(--font-size-medium);
-  aspect-ratio: 1 / 1;
-  background-color: red;
-  position: absolute;
-  font-size: var(--font-size-small);
-  top: 0;
-  right: 0;
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 .profileContainer {
   position: fixed;
   top: calc(var(--font-size-large) * 4 + var(--margin-medium));
@@ -275,7 +264,7 @@ header::before {
   color: var(--using3);
   background-color: var(--using1);
   cursor: pointer;
-  z-index: 100;
+  z-index: 10001;
   border-radius: var(--border-radius);
   border: var(--border-width) solid var(--using2);
   display: flex;

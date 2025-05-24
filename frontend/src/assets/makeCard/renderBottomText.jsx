@@ -43,9 +43,16 @@ export default function RenderBottomText({ element, user, callback }) {
   // Render the "Mensajes" icon
   const renderMensajesIcon = () => (
     <svg
-      onClick={() =>// window.location.href = `/libros/${element.id}#comments`
-          window.location.href = `/mensajes?n=${element.id_vendedor}&q=${element.id}`
+      onClick={(e) =>
+        {
+          e.preventDefault()
+          if (!user) {
+            toast.error(necesitasIniciarSesion);
+            return;
           }
+          window.location.href = `/mensajes?n=${element.id_vendedor}&q=${element.id}`
+        }
+      }
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       width={20}

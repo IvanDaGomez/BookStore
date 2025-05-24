@@ -20,8 +20,8 @@ import { useReturnIfNoUser } from '../../assets/useReturnIfNoUser.js'
 export default function CrearLibro () {
   const navigate = useNavigate()
   // const user = useFetchUser('http://localhost:3030/api/users/userSession')
-  const { user } = useContext(UserContext)
-  useReturnIfNoUser(user)
+  const { user, loading } = useContext(UserContext)
+  useReturnIfNoUser(user, loading)
   const [form, setForm] = useState({})
   const [fase, setFase] = useState(1)
 

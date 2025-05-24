@@ -18,5 +18,7 @@ export type NotificationType = {
     book_title?: string
     guia?: string
     book_id?: ID
+    pregunta?: string
+    respuesta?: string
   }
 }

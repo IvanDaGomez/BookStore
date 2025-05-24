@@ -8,6 +8,7 @@ import { ID, ImageType, ISOString } from '../../types/objects.js'
 import path from 'node:path'
 import { Multer } from 'multer'
 import saveOptimizedImages from '../../assets/saveOptimizedImages.js'
+import { userObject } from '../../models/users/userObject.js'
 
 async function checkEmailExists (email: string) {
   const correo = await UsersModel.getUserByEmail(email)
@@ -71,16 +72,7 @@ async function updateUserFavorites (
 function filterAllowedFields (
   data: Partial<UserInfoType>
 ): Partial<UserInfoType> {
-  const allowedFields: (keyof UserInfoType)[] = [
-    'nombre',
-    'correo',
-    'direccion_envio',
-    'foto_perfil',
-    'contraseña',
-    'bio',
-    'favoritos',
-    'estado_cuenta'
-  ]
+  const allowedFields: (keyof UserInfoType)[] = Object.keys(userObject({}, true)) as (keyof UserInfoType)[]
   const filteredData: Partial<UserInfoType> = {}
 
   allowedFields.forEach(key => {

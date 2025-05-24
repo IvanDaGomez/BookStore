@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { handleFavoritos } from "../../assets/handleFavoritos";
 import useRelatedBooksBySeller from "./useFetchLibrosRelacionadosVendedor";
 import { MakeSmallCard } from "../../assets/makeCard";
+import { toast } from "react-toastify";
+import { necesitasIniciarSesion } from "../../assets/jsxConstants";
 
 export default function BuyContainer({ libro, user }) {
   const librosRelacionadosVendedor = useRelatedBooksBySeller(libro)
@@ -16,15 +18,19 @@ export default function BuyContainer({ libro, user }) {
                 ? <>
                   <h2 style={{ color: '#228B22' }}>Disponible</h2>
   
-                  {(libro)
-                    && <><Link to={`/checkout/${libro.id}`}><button>Comprar ahora</button></Link>
+                  <button onClick={()=> {
+                      if (!user) {
+                        toast.error(necesitasIniciarSesion)
+                        return
+                      }
+                      window.location.href = `/checkout/${libro.id}`
+                    }}>Comprar ahora</button>
                       <button onClick={(event) => handleFavoritos(event, libro.id, user ? user.id : null)} className='botonInverso'>Agregar a favoritos</button>
-                    </>
-                    }
+                    
                 </>
                 : <h3 className={libro.disponibilidad === 'Vendido' ? 'red': ''}>{libro.disponibilidad}</h3>}
   
-              <p>Vendido por:</p>
+              <p>Vendido por: </p>
               <Link to={`/usuarios/${libro.id_vendedor}`}><span>{libro.vendedor}</span></Link>
               <hr />
               <div className='separarConFoto'>

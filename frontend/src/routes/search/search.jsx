@@ -5,12 +5,9 @@ import SideInfo from '../../components/sideInfo.jsx'
 import Footer from '../../components/footer/footer.jsx'
 import Header from '../../components/header/header.jsx'
 import { useEffect, useState, useRef, useContext } from 'react'
-import { cambiarEspacioAGuiones, cambiarGuionesAEspacio } from '../../assets/agregarMas.js'
+import { cambiarGuionesAEspacio } from '../../assets/agregarMas.js'
 import { MakeCard, MakeCollectionCard, MakeOneFrCard, MakeUserCard } from '../../assets/makeCard.jsx'
-import useBotonSelect from '../../assets/botonSelect.jsx'
-import DoubleSlider from '../../components/DoubleSlider.jsx'
 import { ToastContainer } from 'react-toastify'
-import { edad, edicion, estado, formato, generos, idiomas, tapa, ubicaciones } from '../../assets/categorias.js'
 import { UserContext } from '../../context/userContext.jsx'
 import './search.css'
 import NumberPagesSeparator from './numberPagesSeparator.jsx'
@@ -92,8 +89,13 @@ export default function Search () {
       const validKinds = ['books', 'collections', 'users'];
       const searchKind = validKinds.includes(sk) ? sk : 'books';
       // Construct the full URL
-      const url = `http://localhost:3030/api/${searchKind}/query/filters?${searchParams.toString()}`
-
+      let url
+      if (searchKind === 'books') {
+        url = `http://localhost:3030/api/${searchKind}/query/filters?${searchParams.toString()}`
+      }
+      else  {
+        url = `http://localhost:3030/api/${searchKind}/query?${searchParams.toString()}`
+      }
       try {
         const response = await axios.get(url)
 
@@ -102,7 +104,7 @@ export default function Search () {
           return
         }
 
-        setResults(response.data || [])
+        setResults(response.data ?? [])
       } catch (error) {
         console.error('Error fetching data:', error)
       }
@@ -131,10 +133,11 @@ export default function Search () {
 
   const renderCard = (item, index) => {
     if (!item || !item?.id) return
+    
     switch (sk) {
       case 'books': {
         if (alignment === 'many') {
-          return <MakeCard key={index} element={item} user={user ?? null}/> // Tarjeta de libros
+          return <MakeCard key={index} element={item} user={user}/> // Tarjeta de libros
         }
         else return <MakeOneFrCard  key={index} element={item} user={user ?? null}/> // Tarjeta de usuarios
       }
@@ -177,7 +180,7 @@ export default function Search () {
 
       {/* <hr className='noMargen' /> */}
 
-      { sk === 'books' && <Filters query={query}/> }
+      { sk === 'books' && <Filters query={query} queryParams={queryParams}/> }
 
       <div className='resultadosContainer'>
         <div className='separar'>
