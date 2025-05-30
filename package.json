@@ -8,7 +8,10 @@
     "start:backend:local": "cd backend && npm run dev:local",
     "start:backend:postgre": "cd backend && npm run dev:postgre",
     "start:local": "concurrently \"npm run start:frontend\" \"npm run start:backend:local\"",
-    "start:postgre": "concurrently \"npm run start:frontend\" \"npm run start:backend:postgre\""
+    "start:postgre": "concurrently \"npm run start:frontend\" \"npm run start:backend:postgre\"",
+    "deploy:frontend": "cd frontend && npm run deploy",
+    "deploy:backend": "cd backend && npm run deploy",
+    "deploy": "concurrently \"npm run deploy:frontend\" \"npm run deploy:backend\""
   },
   "devDependencies": {
     "concurrently": "^7.0.0",

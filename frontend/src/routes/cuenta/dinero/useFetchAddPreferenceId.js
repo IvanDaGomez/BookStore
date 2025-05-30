@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useState } from "react"
+import { BACKEND_URL } from "../../../assets/config"
 
 export default function useFetchAddPreferenceId() {
   const [preferenceId, setPreferenceId] = useState(null)
@@ -9,7 +10,7 @@ export default function useFetchAddPreferenceId() {
   async function addPreferenceId() {
     setLoading(true)
     try {
-      const response = await axios.post('http://localhost:3030/api/transactions/getAddMoneyPreferenceId', null, { withCredentials: true })
+      const response = await axios.post(`${BACKEND_URL}/api/transactions/getAddMoneyPreferenceId`, null, { withCredentials: true })
 
       setPreferenceId(response.data.id)
     } catch (error) {

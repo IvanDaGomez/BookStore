@@ -18,6 +18,7 @@ import Direcciones from './direcciones'
 import { UserContext } from '../../context/userContext.jsx'
 import { useReturnIfNoUser } from '../../assets/useReturnIfNoUser.js'
 import './cuenta.css'
+import { BACKEND_URL } from '../../assets/config.js'
 export default function Cuenta () {
   const navigate = useNavigate()
   const [actualOption, setActualOption] = useState(null)
@@ -32,7 +33,7 @@ export default function Cuenta () {
 
     async function fetchUserEmail () {
       try {
-        const response = await axios.get(`http://localhost:3030/api/users/c/${user.id}`, {
+        const response = await axios.get(`${BACKEND_URL}/api/users/c/${user.id}`, {
           withCredentials: true // Ensures cookies are sent with the request
         })
 

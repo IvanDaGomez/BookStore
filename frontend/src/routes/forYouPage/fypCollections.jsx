@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { MakeCollectionCard } from '../../assets/makeCard'
 import { UserContext } from '../../context/userContext'
+import { BACKEND_URL } from '../../assets/config'
 
 export default function Fyp () {
   const { user } = useContext(UserContext)
@@ -14,7 +15,7 @@ export default function Fyp () {
   useEffect(() => {
     async function fetchFYP () {
       try {
-        const url = 'http://localhost:3030/api/collections/fyp?l=24'
+        const url = `${BACKEND_URL}/api/collections/fyp?l=24`
         const response = await axios.get(url, { withCredentials: true })
         console.log('Response:', response.data)
         setCollections(response.data)
@@ -36,7 +37,7 @@ export default function Fyp () {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const lastCollection = collections[collections.length - 1]
-          const url = `http://localhost:3030/api/collections/fyp?l=24&last=${lastCollection.id}`
+          const url = `${BACKEND_URL}/api/collections/fyp?l=24&last=${lastCollection.id}`
           axios.get(url, { withCredentials: true })
             .then((response) => {
               // If the  materialcollection is already in the list, don't add it again

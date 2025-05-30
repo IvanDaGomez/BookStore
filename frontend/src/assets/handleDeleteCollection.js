@@ -1,4 +1,5 @@
 import { toast } from "react-toastify"
+import { BACKEND_URL } from './config'
 
 const handleDeleteCollection = (event, id, userId) => {
   event.stopPropagation()
@@ -6,7 +7,7 @@ const handleDeleteCollection = (event, id, userId) => {
   async function updateFavorites () {
     if (!id || !userId) return
 
-    const url = `http://localhost:3030/api/collections/${userId}`
+    const url = `${BACKEND_URL}/api/collections/${userId}`
     // Select the <path> inside the SVG using its unique className
     const coleccionIconPath = document.querySelectorAll(`.coleccion-${id}`)
 

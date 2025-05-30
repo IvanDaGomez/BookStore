@@ -16,10 +16,10 @@ import { UserContext } from '../../context/userContext.jsx'
 import useSendForm from './useSendForm.js'
 import { cambiarEspacioAGuiones } from '../../assets/agregarMas.js'
 import { useReturnIfNoUser } from '../../assets/useReturnIfNoUser.js'
+import { BACKEND_URL } from '../../assets/config.js'
 
 export default function CrearLibro () {
   const navigate = useNavigate()
-  // const user = useFetchUser('http://localhost:3030/api/users/userSession')
   const { user, loading } = useContext(UserContext)
   useReturnIfNoUser(user, loading)
   const [form, setForm] = useState({})
@@ -58,7 +58,7 @@ export default function CrearLibro () {
     const fetchBook = async () => {
       if (actualizar) {
         try {
-          const url = `http://localhost:3030/api/books/${libro}`
+          const url = `${BACKEND_URL}/api/books/${libro}`
           const response = await fetch(url, {
             method: 'GET',
             credentials: 'include'
@@ -74,7 +74,7 @@ export default function CrearLibro () {
           // Fetch image blobs in parallel
           const imageBlobs = await Promise.all(
             data.images.map(async (image) => {
-              const imageResponse = await fetch(`http://localhost:3030/uploads/${image}`)
+              const imageResponse = await fetch(`${BACKEND_URL}/uploads/${image}`)
               if (!imageResponse.ok) {
                 throw new Error(`Failed to fetch image at ${image}`)
               }
@@ -131,7 +131,7 @@ export default function CrearLibro () {
     async function fetchPrice () {
       if (form.titulo) {
         try {
-          const url = `http://localhost:3030/api/books/search/${cambiarEspacioAGuiones(form.titulo)}`
+          const url = `${BACKEND_URL}/api/books/search/${cambiarEspacioAGuiones(form.titulo)}`
           const response = await axios.get(url)
 
           const prices = await Promise.all(response.data.map(info => Number(info.price)))

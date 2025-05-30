@@ -1,6 +1,7 @@
 import { toast } from 'react-toastify'
 import axios from 'axios'
 import { necesitasIniciarSesion } from '../jsxConstants'
+import { BACKEND_URL } from '../config'
 export async function handleFollowers ({ e, usuario, user, setUser, setUsuario = '' }) {
     e.preventDefault()
     if (!user) {
@@ -10,7 +11,7 @@ export async function handleFollowers ({ e, usuario, user, setUser, setUsuario =
 
     // Fetch para actualizar el contador de seguidores
     try {
-      const url = 'http://localhost:3030/api/users/follow'
+      const url = `${BACKEND_URL}/api/users/follow`
       // Seguidor es el otro y user yo
       const body = {
         follower_id: usuario.id,

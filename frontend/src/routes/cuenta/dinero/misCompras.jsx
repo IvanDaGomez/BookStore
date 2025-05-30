@@ -4,6 +4,7 @@ import Breadcrumb from "../../../assets/breadCrumb.jsx"
 import useFetchTransactions from "../../../assets/useFetchTransactions.js"
 
 import axios from "axios"
+import { BACKEND_URL } from "../../../assets/config.js"
 
 export default function MisCompras ({ user }) {
   
@@ -19,7 +20,7 @@ export default function MisCompras ({ user }) {
     async function fetchLibro() {
       if (compras.length === 0) return
       const librosIds = compras.map(compra => compra.book_id)
-      const urlLibros = `http://localhost:3030/api/books/idList/${librosIds.join(',')}`
+      const urlLibros = `${BACKEND_URL}/api/books/idList/${librosIds.join(',')}`
       const response = await axios.get(urlLibros, null, { withCredentials: true })
       setLibros(response.data)
     }

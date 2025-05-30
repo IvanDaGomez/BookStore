@@ -2,6 +2,7 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import './verify.css'
+import { BACKEND_URL } from '../../assets/config'
 export default function Verificar ({ user, token }) {
   const [verifying, setVerifying] = useState(true)
   const [verified, setVerified] = useState(false)
@@ -25,7 +26,7 @@ export default function Verificar ({ user, token }) {
       }
 
       try {
-        const url = `http://localhost:3030/api/users/validateUser/${token}`
+        const url = `${BACKEND_URL}/api/users/validateUser/${token}`
         const response = await axios.get(url, { withCredentials: true })
         if (response.data.error) {
           return

@@ -6,6 +6,7 @@ import { UserContext } from '../../context/userContext'
 import axios from 'axios'
 import { useReturnIfNoUser } from '../../assets/useReturnIfNoUser'
 import './protectedReview.css'
+import { BACKEND_URL } from '../../assets/config'
 export default function ProtectedReviewBook () {
   const { user, loading } = useContext(UserContext)
   const [books, setBooks] = useState([])
@@ -17,7 +18,7 @@ export default function ProtectedReviewBook () {
       if (!user) return
 
       try {
-        const response = await fetch('http://localhost:3030/api/books/review')
+        const response = await fetch(`${BACKEND_URL}/api/books/review`)
 
         if (!response.ok) {
           throw new Error('Failed to fetch books')
@@ -45,7 +46,7 @@ export default function ProtectedReviewBook () {
     if (!bookId) return
 
     try {
-      const url = `http://localhost:3030/api/books/review/${bookId}`
+      const url = `${BACKEND_URL}/api/books/review/${bookId}`
       const response = await axios.delete(url)
       if (response.data.error) {
         console.error(response.data.error)
@@ -65,8 +66,8 @@ export default function ProtectedReviewBook () {
     try {
       const url =
         book.method === 'PUT'
-          ? `http://localhost:3030/api/books/${book.id}`
-          : 'http://localhost:3030/api/books'
+          ? `${BACKEND_URL}/api/books/${book.id}`
+          : `${BACKEND_URL}/api/books`
 
       const body = {
         ...book,
@@ -183,7 +184,7 @@ export default function ProtectedReviewBook () {
               {currentBook.images?.map((image, index) => (
                 <img
                   key={index}
-                  src={`http://localhost:3030/uploads/${image || 'default.png'}`}
+                  src={`${BACKEND_URL}/uploads/${image || 'default.jpg'}`}
                   alt='Portada del libro'
                 />
               ))}

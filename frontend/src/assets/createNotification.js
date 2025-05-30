@@ -1,5 +1,7 @@
+import { BACKEND_URL } from './config'
+
 async function createNotification (notification) {
-  const url = 'http://localhost:3030/api/notifications/'
+  const url = `${BACKEND_URL}/api/notifications/`
   const response = await fetch(url, {
     method: 'POST',
     headers: {

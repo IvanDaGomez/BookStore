@@ -1,3 +1,5 @@
+import { BACKEND_URL } from "../../assets/config"
+
 export default async function handleFacebookSubmit (response, setErrors, setLoading) {
   const userData = {
     nombre: response.data.name,
@@ -5,7 +7,7 @@ export default async function handleFacebookSubmit (response, setErrors, setLoad
     foto_perfil: response.data.picture.data.url
   }
   setLoading(true)
-  const url = 'http://localhost:3030/api/users/facebook-login'
+  const url = `${BACKEND_URL}/api/users/facebook-login`
   const res = await fetch(url, {
     method: 'POST',
     headers: {

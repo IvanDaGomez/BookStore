@@ -5,6 +5,7 @@ import { renderProfilePhoto } from '../../assets/renderProfilePhoto.js';
 import { formatPrice } from "../../assets/formatPrice.js";
 import { UserContext } from "../../context/userContext.jsx";
 import { useReturnIfNoUser } from "../../assets/useReturnIfNoUser.js";
+import { BACKEND_URL } from "../../assets/config.js";
 
 export default function ProtectedWithdraw() {
   const [info, setInfo] = useState([]);
@@ -15,7 +16,7 @@ export default function ProtectedWithdraw() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch('http://localhost:3030/api/transactions/withdrawMoney');
+        const response = await fetch(`${BACKEND_URL}/api/transactions/withdrawMoney`);
         if (!response.ok) throw new Error('Failed to fetch data');
         const data = await response.json();
         setInfo(data);
@@ -32,7 +33,7 @@ export default function ProtectedWithdraw() {
       if (!user?.id) return;
       try {
 
-        const emailResponse = await axios.get(`http://localhost:3030/api/users/c/${user.id}`);
+        const emailResponse = await axios.get(`${BACKEND_URL}/api/users/c/${user.id}`);
         setUser({
           ...user,
           correo: emailResponse.data.correo
@@ -48,7 +49,7 @@ export default function ProtectedWithdraw() {
   async function handleWithdraw() {
     setIsProcessing(true);
     try {
-      const response = await axios.put(`http://localhost:3030/api/transactions/withdrawMoney/${actualInfo.user_id}`);
+      const response = await axios.put(`${BACKEND_URL}/api/transactions/withdrawMoney/${actualInfo.user_id}`);
       if (response.data.error) {
         alert(response.data.error);
       }

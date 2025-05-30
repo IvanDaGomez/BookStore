@@ -4,6 +4,7 @@ import Verificar from './verificar'
 import { toast, ToastContainer } from 'react-toastify'
 import { UserContext } from '../../context/userContext'
 import './verify.css'
+import { BACKEND_URL } from '../../assets/config'
 export default function EnviarCorreoAVerificar () {
   const { user, setUser, loading } = useContext(UserContext)
   const [sending, setSending] = useState(true)
@@ -23,7 +24,7 @@ export default function EnviarCorreoAVerificar () {
     async function fetchUserEmail () {
       try {
         const response = await axios.get(
-          `http://localhost:3030/api/users/c/${user.id}`,
+          `${BACKEND_URL}/api/users/c/${user.id}`,
           {
             withCredentials: true // Ensures cookies are sent with the request
           } 
@@ -48,7 +49,7 @@ export default function EnviarCorreoAVerificar () {
     if (!user || !user?.correo || user.validated || fetching) return
     setFetching(true)
     try {
-      const url = 'http://localhost:3030/api/users/sendValidationEmail'
+      const url = `${BACKEND_URL}/api/users/sendValidationEmail`
       const body = {
         correo: user.correo,
         nombre: user.nombre,

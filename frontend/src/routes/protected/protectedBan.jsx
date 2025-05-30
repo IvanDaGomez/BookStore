@@ -2,6 +2,7 @@ import { useState } from "react";
 import './protectedReview.css'
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
+import { BACKEND_URL } from "../../assets/config";
 export default function ProtectedBan() {
   const [username, setUsername] = useState("");
 
@@ -9,7 +10,7 @@ export default function ProtectedBan() {
     e.preventDefault();
     // Aquí puedes agregar la lógica para banear al usuario
     console.log(`Usuario baneado: ${username}`);
-    const response = await axios.post('http://localhost:3030/api/users/ban', { username }, { withCredentials: true });
+    const response = await axios.post(`${BACKEND_URL}/api/users/ban`, { username }, { withCredentials: true });
     if (response.data.error) {
       console.error('Error en el servidor:', response.data.error);
       toast.error(`Error: ${response.data.error}`);

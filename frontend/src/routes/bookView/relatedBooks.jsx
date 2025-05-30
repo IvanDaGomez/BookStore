@@ -3,6 +3,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { MakeCard } from "../../assets/makeCard"
 import { cambiarEspacioAGuiones } from "../../assets/agregarMas"
+import { BACKEND_URL } from '../../assets/config'
 
 export default function RelatedBooks({ libro, user }) {
   const [librosRelacionados, setLibrosRelacionados] = useState([])
@@ -10,7 +11,7 @@ export default function RelatedBooks({ libro, user }) {
     async function fetchLibroRelacionado () {
       if (libro) {
         // Conseguir los libros del usuario
-        const urlLibros = `http://localhost:3030/api/books/query?q=${cambiarEspacioAGuiones(libro.titulo)}&l=12`
+        const urlLibros = `${BACKEND_URL}/api/books/query?q=${cambiarEspacioAGuiones(libro.titulo)}&l=12`
 
         const response = await axios.get(urlLibros, { withCredentials: true })
         if (response.data.error) {

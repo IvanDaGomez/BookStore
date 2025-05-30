@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { BACKEND_URL } from "../../assets/config"
 
 export default function useFetchNotifications(user) {
   const [notifications, setNotifications] = useState([])
@@ -7,7 +8,7 @@ export default function useFetchNotifications(user) {
     useEffect(() => {
       async function fetchNotifications () {
         if (!user || Object.keys(user).length === 0) return
-        const url = 'http://localhost:3030/api/notifications/getNotificationsByUser/' + user.id
+        const url = `${BACKEND_URL}/api/notifications/getNotificationsByUser/${user.id}`
         const response = await axios.get(url)
         console.log('Response:', response.data)
         setNotifications(response.data)

@@ -1,5 +1,6 @@
 import axios from "axios"
 import { cambiarEspacioAGuiones } from "../../assets/agregarMas"
+import { BACKEND_URL } from "../../assets/config"
 
 let fetchTimeout = null // Variable to store the timeout ID
 
@@ -22,7 +23,7 @@ export function handleSearchInput(queryInput, setResults = null) {
       // Verificamos que la query no esté vacía o sea solo espacios
       if (queryInput.current.value && queryInput.current.value.trim()) {
         console.log('Fetching...')
-        const url = `http://localhost:3030/api/books/query?q=${cambiarEspacioAGuiones(queryInput.current.value)}`
+        const url = `${BACKEND_URL}/api/books/query?q=${cambiarEspacioAGuiones(queryInput.current.value)}`
         const response = await axios.get(url, { withCredentials: true })
         const bookResults = response.data
 

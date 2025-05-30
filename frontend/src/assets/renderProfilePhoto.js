@@ -1,6 +1,8 @@
+import { BACKEND_URL } from './config'
+
 function renderProfilePhoto(url, quality = null, isMobile = false) {
   let profilePhoto;
-  let urlPath = 'http://localhost:3030/';
+  let urlPath = `${BACKEND_URL}/`;
   if (isMobile) {
     quality = 'low';
   }
@@ -10,7 +12,7 @@ function renderProfilePhoto(url, quality = null, isMobile = false) {
     urlPath = urlPath.concat('uploads/');
   }
   if (!url) {
-    profilePhoto = 'http://localhost:3030/uploads/default.jpg';
+    profilePhoto = `${BACKEND_URL}/uploads/default.jpg`;
   } else if (url.startsWith('http')) {
     profilePhoto = url;
   } else {

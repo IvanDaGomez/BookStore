@@ -1,5 +1,6 @@
 import { useState, useEffect, createContext } from 'react'
 import axios from 'axios'
+import { BACKEND_URL } from '../assets/config'
 
 const UserContext = createContext()
 // eslint-disable-next-line react/prop-types
@@ -10,7 +11,7 @@ const UserProvider = ({ children }) => {
   useEffect(() => {
     async function fetchUser () {
       try {
-        const url = 'http://localhost:3030/api/users/userSession'
+        const url = `${BACKEND_URL}/api/users/userSession`
         const response = await axios.post(url, null, {
           withCredentials: true
         })

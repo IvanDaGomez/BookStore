@@ -1,6 +1,7 @@
 import axios from "axios"
 import { validateErrors } from "./validateLoginErrors"
 import getLocation from "../../assets/getLocation"
+import { BACKEND_URL } from "../../assets/config"
 
 export const handleSubmit = async ({
   e,
@@ -26,7 +27,7 @@ export const handleSubmit = async ({
     // Si hay errores, no continuar con el envío
     return
   }
-  const domain = 'http://localhost:3030'
+  const domain = BACKEND_URL || window.location.origin
   const url = isRegister ? `${domain}/api/users` : `${domain}/api/users/login`
   const ubicacion = {}
 

@@ -1,6 +1,7 @@
 import { GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { BACKEND_URL } from '../assets/config';
 
 const GoogleOneTapLogin = () => {
   const handleLoginSuccess = async (data) => {
@@ -23,7 +24,7 @@ const GoogleOneTapLogin = () => {
 
       // Send user data to the backend
       const response = await axios.post(
-        'http://localhost:3030/api/users/google-login',
+        `${BACKEND_URL}/api/users/google-login`,
         userData,
         { withCredentials: true }
       );

@@ -18,6 +18,7 @@ import SelectButton from '../search/selectButton.jsx'
 import axios from 'axios'
 import './coleccionEspecifico.css'
 import { renderProfilePhoto } from '../../assets/renderProfilePhoto.js'
+import { BACKEND_URL } from '../../assets/config.js'
 export default function Search () {
   const { user, setUser } = useContext(UserContext)
 
@@ -29,10 +30,10 @@ export default function Search () {
   useEffect(()=> {
     async function fetchCollection () {
       try {
-        const url = 'http://localhost:3030/api/collections/getCollectionById/' + collectionId
+        const url = `${BACKEND_URL}/api/collections/getCollectionById/${collectionId}`
         const response = await axios.get(url, { withCredentials: true })
         setCollection(response.data)
-        const booksUrl = 'http://localhost:3030/api/books/idList/' + response.data.libros_ids.join(',')
+        const booksUrl = `${BACKEND_URL}/api/books/idList/${response.data.libros_ids.join(',')}`
         const booksResponse = await axios.get(booksUrl, { withCredentials: true })
         if (response.data.error) {
           console.error('Error en el servidor:', response.data.error)

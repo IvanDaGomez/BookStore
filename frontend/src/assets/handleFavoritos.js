@@ -1,6 +1,7 @@
 import { toast } from 'react-toastify'
 import { necesitasIniciarSesion } from './jsxConstants'
 import axios from 'axios'
+import { BACKEND_URL } from './config'
 
 const handleFavoritos = (event, id, userId) => {
   event.stopPropagation()
@@ -10,7 +11,7 @@ const handleFavoritos = (event, id, userId) => {
       return
     }
 
-    const url = `http://localhost:3030/api/users/favorites/${userId}`
+    const url = `${BACKEND_URL}/api/users/favorites/${userId}`
     // Select the <path> inside the SVG using its unique className
     const favoritoIconPath = document.querySelectorAll(`.favorito-${id}`)
 

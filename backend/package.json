@@ -11,6 +11,7 @@
     "updateDataBase": "tsc && node dist/assets/updateDB.ts",
     "document": "node src/assets/swagger.js",
     "build": "tsc",
+    "deploy": "tsc && node dist/launch.js",
     "seed": "tsc && node dist/assets/seed.js",
     "testEmail": "tsc && node dist/assets/email/sendTryEmail.js"
   },
@@ -18,6 +19,7 @@
   "license": "ISC",
   "dependencies": {
     "@tensorflow/tfjs": "^4.22.0",
+    "aws-sdk": "^2.1692.0",
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",

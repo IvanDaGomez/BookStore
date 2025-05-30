@@ -1,5 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { UserContext } from '../../context/userContext';
+import { BACKEND_URL } from '../../assets/config';
 
 export default function useGoogleOneTap() {
   const { user } = useContext(UserContext);
@@ -29,7 +30,7 @@ export default function useGoogleOneTap() {
       foto_perfil: decodedToken.picture
     };
 
-    const url = 'http://localhost:3030/api/users/google-login';
+    const url = `${BACKEND_URL}/api/users/google-login`;
     try {
       const res = await fetch(url, {
         method: 'POST',

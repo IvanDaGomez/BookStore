@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { BACKEND_URL } from "../../assets/config"
 
 export function useFetchFavoriteBooks (vendedor) {
   const [librosFavoritos, setLibrosFavoritos] = useState([])
@@ -8,7 +9,7 @@ export function useFetchFavoriteBooks (vendedor) {
     async function fetchLibrosFavoritos () {
       try {
         if (!vendedor) return
-        const url = 'http://localhost:3030/api/books/idList/' + vendedor.favoritos.join(',')
+        const url = `${BACKEND_URL}/api/books/idList/${vendedor.favoritos.join(',')}`
 
 
         const response = await axios.get(url, { withCredentials: true })

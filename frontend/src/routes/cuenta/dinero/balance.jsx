@@ -6,6 +6,7 @@ import axios from 'axios'
 import Breadcrumb from '../../../assets/breadCrumb.jsx'
 import useFetchTransactions from '../../../assets/useFetchTransactions.js'
 import Cobrar from './cobrar.jsx'
+import { BACKEND_URL } from '../../../assets/config.js'
 // import Ingresar from './ingresar.jsx'
 /* eslint-disable no-unused-vars */
 export default function Balance ({ user, setUser }) {
@@ -19,7 +20,7 @@ export default function Balance ({ user, setUser }) {
     async function fetchBalance () {
       if (!user.id) return
       try {
-        const url = 'http://localhost:3030/api/users/balance/' + user.id
+        const url = `${BACKEND_URL}/api/users/balance/${user.id}`
         const response = await axios.get(url, { withCredentials: true })
         if (response.data) {
           setUser({ ...user, balance: {

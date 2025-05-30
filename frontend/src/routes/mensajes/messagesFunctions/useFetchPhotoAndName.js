@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useEffect } from "react"
 import { toast } from "react-toastify"
+import { BACKEND_URL } from "../../../assets/config"
 
 export default function useFetchPhotoAndNameUsers ({
   user,
@@ -15,7 +16,7 @@ export default function useFetchPhotoAndNameUsers ({
           const fetchedUsers = await Promise.all(filterdConversaciones.map(async conversacion => {
             const userConversationId = conversacion.users.find(id => id !== user.id)
             if (!userConversationId) return null
-            const response = await axios.get(`http://localhost:3030/api/users/${userConversationId}/photoAndName`)
+            const response = await axios.get(`${BACKEND_URL}/api/users/${userConversationId}/photoAndName`)
             if (response.data.error) {
               console.error(response.data.error)
               return null

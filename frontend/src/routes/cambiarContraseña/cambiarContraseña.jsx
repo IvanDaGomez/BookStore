@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { BACKEND_URL } from '../../assets/config'
 
 export default function CambiarContraseña () {
   const { token } = useParams()
@@ -50,7 +51,7 @@ export default function CambiarContraseña () {
     }
 
     try {
-      const response = await axios.post('http://localhost:3030/api/users/changePassword', {
+      const response = await axios.post(`${BACKEND_URL}/api/users/changePassword`, {
         token,
         password
       }, { withCredentials: true })

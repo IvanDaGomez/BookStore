@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { BACKEND_URL } from '../config';
 
 export default function useFetchLibro(bookId) {
   const [libro, setLibro] = useState({});
@@ -9,13 +10,13 @@ export default function useFetchLibro(bookId) {
 
   useEffect(() => {
     async function fetchLibro(id) {
-      const url = `http://localhost:3030/api/books/${id}`;
+      const url = `${BACKEND_URL}/api/books/${id}`;
       try {
         const response = await axios.get(url, { withCredentials: true });
         const book = response.data;
         setLibro(book || {}); // Asegurar que el libro existe o dejar vacío
         const imageUrl = book.images?.[0]
-          ? `http://localhost:3030/uploads/${book.images[0]}` // Ruta completa hacia las imágenes
+          ? `${BACKEND_URL}/uploads/${book.images[0]}` // Ruta completa hacia las imágenes
           : '';
         setActualImage(imageUrl);
       } catch (err) {

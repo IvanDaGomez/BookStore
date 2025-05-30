@@ -2,6 +2,7 @@ import { useContext, useState, useRef } from "react"
 import { useReturnIfNoUser } from "../../assets/useReturnIfNoUser"
 import { UserContext } from "../../context/userContext"
 import "./protectedSeeEmailTemplate.css"
+import { BACKEND_URL } from "../../assets/config"
 export default function ProtectedSeeEmailTemplate () {
   const { user, loading } = useContext(UserContext)
   useReturnIfNoUser(user, loading, true)
@@ -19,7 +20,7 @@ export default function ProtectedSeeEmailTemplate () {
         setContent('')
         return
       }
-      const response = await fetch(`http://localhost:3030/api/emailTemplate/${template}`)
+      const response = await fetch(`${BACKEND_URL}/api/emailTemplate/${template}`)
       const data = await response.json()
       setContent(data.content)
     }, 500) // 500ms debounce

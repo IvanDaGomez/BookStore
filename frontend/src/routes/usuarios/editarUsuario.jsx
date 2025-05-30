@@ -9,6 +9,7 @@ import './usuario.css'
 import { UserContext } from '../../context/userContext.jsx'
 import titleCase from '../../assets/toTitleCase.js'
 import SelectButton from '../search/selectButton.jsx'
+import { BACKEND_URL } from '../../assets/config'
 export default function EditarUsuario () {
   const { user } = useContext(UserContext)
   const [fotoPerfil, setFotoPerfil] = useState('')
@@ -76,7 +77,7 @@ export default function EditarUsuario () {
     //   console.log(`${key}: ${value}`)
     // }
     try {
-      const URL = `http://localhost:3030/api/users/${user.id}`
+      const URL = `${BACKEND_URL}/api/users/${user.id}`
       const response = await fetch(URL, {
         method: 'PATCH',
         body: formData,

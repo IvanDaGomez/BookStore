@@ -12,13 +12,14 @@ import SalesGraph from './graphs/SalesGraph.jsx';
 import Trends from './graphs/trends.jsx';
 import { UserContext } from '../../context/userContext.jsx';
 import { useReturnIfNoUser } from '../../assets/useReturnIfNoUser.js';
+import { BACKEND_URL } from '../../assets/config.js';
 export default function ProtectedStats() {
   const [info, setInfo] = useState({})
   const { user, loading } = useContext(UserContext)
   useReturnIfNoUser(user, loading, true)
   useEffect(() => {
     async function fetchData() {
-      const response = await axios.get('http://localhost:3030/api/stats');
+      const response = await axios.get(`${BACKEND_URL}/api/stats`);
       if (response.data.error) {
         console.error(response.data.error);
         return;

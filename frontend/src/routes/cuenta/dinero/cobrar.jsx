@@ -2,6 +2,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { BACKEND_URL } from "../../../assets/config";
 export default function Cobrar({ user, setCobrar, setUser }) {
   const [mensajeError, setMensajeError] = useState('');
   const [code, setCode] = useState('');
@@ -52,7 +53,7 @@ export default function Cobrar({ user, setCobrar, setUser }) {
     // En el backend, debes verificar la contraseña del usuario
     try {
       
-      const response = await fetch(`http://localhost:3030/api/transactions/withdrawMoney`, {
+      const response = await fetch(`${BACKEND_URL}/api/transactions/withdrawMoney`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -90,7 +91,7 @@ export default function Cobrar({ user, setCobrar, setUser }) {
     const fetchCode = async () => {
       try {
         if (!user) return
-        const response = await axios.get(`http://localhost:3030/api/transactions/getSafeCode/${user.id}`, { withCredentials: true });
+        const response = await axios.get(`${BACKEND_URL}/api/transactions/getSafeCode/${user.id}`, { withCredentials: true });
         if (response.data) {
           setCode(response.data.code);
         }

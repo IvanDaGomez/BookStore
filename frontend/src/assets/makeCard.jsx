@@ -14,6 +14,7 @@ import RenderBottomText from './makeCard/renderBottomText.jsx'
 import { necesitasIniciarSesion } from './jsxConstants.jsx'
 import { randBackground } from './randBackground.js'
 import axios from 'axios'
+import { BACKEND_URL } from './config'
 export const PriceTitleRender = ({ element }) => {
 
   if (!element?.precio) return null
@@ -64,7 +65,7 @@ const MakeCard = ({ element, index, user = '', callback = () => {}, wordLimit = 
       }}
         
         >
-        <div className='imageElementContainer' style={{ backgroundImage: `url(http://localhost:3030/uploads/${element.images[0]})`, backgroundRepeat: 'no-repeat' }}>
+        <div className='imageElementContainer' style={{ backgroundImage: `url(${BACKEND_URL}/uploads/${element.images[0]})`, backgroundRepeat: 'no-repeat' }}>
           <RenderImageHeader element={element}/>
         </div>
         <RenderMidText element={element} wordLimit={wordLimit}/>
@@ -162,7 +163,7 @@ const MakeUpdateCard = ({ element, index }) => {
     <Link key={index} to={`/libros/${element.id}`}>
       <div className='sectionElement' style={{ filter: `opacity(${element.disponibilidad === 'Vendido' ? '0.6' : '1'})` }}>
 
-        <div className='imageElementContainer' style={{ backgroundImage: `url(http://localhost:3030/uploads/${element.images[0]})`, backgroundRepeat: 'no-repeat' }}>
+        <div className='imageElementContainer' style={{ backgroundImage: `url(${BACKEND_URL}/uploads/${element.images[0]})`, backgroundRepeat: 'no-repeat' }}>
           {(element.disponibilidad === 'Vendido')
             && (
               <div
@@ -214,7 +215,7 @@ const MakeSmallCard = ({ element, index }) => {
     <Link key={index} style={{ width: '100%', height: '100%' }} to={`${window.location.origin}/libros/${element.id}`}>
       <div className='sectionElement'>
 
-        <div className='imageElementContainer' style={{ backgroundImage: `url(http://localhost:3030/uploads/${element.images[0]})`, backgroundRepeat: 'no-repeat' }}>
+        <div className='imageElementContainer' style={{ backgroundImage: `url(${BACKEND_URL}/uploads/${element.images[0]})`, backgroundRepeat: 'no-repeat' }}>
           {(element.oferta)
             ? <div className='bookLabel'>
               {Math.ceil(((1 - element.oferta / element.precio) * 100).toFixed(2) / 5) * 5 + '%'}
@@ -242,7 +243,7 @@ const MakeCollectionCard = ({ element, index }) => {
       if (element.libros_ids.length >= 4) numLibros = 4
       const indexes = Array.from({ length: numLibros }, (_) => Math.floor(Math.random() * element.libros_ids.length))
       const filteredLibros = element.libros_ids.filter((_, i) => indexes.includes(i))
-      const url = `http://localhost:3030/api/books/idList/${filteredLibros.join(',')}`
+      const url = `${BACKEND_URL}/api/books/idList/${filteredLibros.join(',')}`
       const response = await axios.get(url, { withCredentials: true })
       if (response.data.error) {
         console.error('Error fetching collection data:', response.data.error)

@@ -1,3 +1,4 @@
+import { BACKEND_URL } from "../../assets/config"
 
 export async function predictInfo(file) {
     try {
@@ -10,7 +11,7 @@ export async function predictInfo(file) {
         
         const blobFile = await urlToBlob(file)
         formData.append('image', blobFile, `predictedImage.png`)
-        const url = 'http://localhost:3030/api/books/predictInfo'
+        const url = `${BACKEND_URL}/api/books/predictInfo`
         const response = await fetch(url, {
             method: 'POST',
             body: formData,

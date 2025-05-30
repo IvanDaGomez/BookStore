@@ -1,16 +1,17 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { cambiarEspacioAGuiones } from "./agregarMas"
+import { BACKEND_URL } from './config'
 
 export default function useFetchBooksByQuery(query, limit = 12) {
   const [results, setResults] = useState([])
-  const [url] = useState(`http://localhost:3030/api/books/query?q=${cambiarEspacioAGuiones(query)}&l=${limit}`)
+  const [url] = useState(`${BACKEND_URL}/api/books/query?q=${cambiarEspacioAGuiones(query)}&l=${limit}`)
   useEffect(() => {
     const fetchResults = async () => {
       try {
 
         // if (filter === 'Nuevo') {
-        //    url = 'http://localhost:3030/api/books/query/filters?Fecha-de-publicación=' + 'Menos-de-una-semana'
+        //    url = `${BACKEND_URL}/api/books/query/filters?Fecha-de-publicación=Menos-de-una-semana`
         // }
         // else {
         // }

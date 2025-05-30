@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { BACKEND_URL } from './config';
 
 export default function useFetchActualBook (bookId, externalSet = null, setActualImage = null) {
   const [libro, setLibro] = useState({});
@@ -10,7 +11,7 @@ export default function useFetchActualBook (bookId, externalSet = null, setActua
     if (!bookId) return; // Ensure bookId is valid before fetching
   
     async function fetchLibro(id) {
-      const url = `http://localhost:3030/api/books/${id}`;
+      const url = `${BACKEND_URL}/api/books/${id}`;
       try {
         const response = await axios.get(url, {
           headers: { 'update': id },
@@ -28,7 +29,7 @@ export default function useFetchActualBook (bookId, externalSet = null, setActua
         }
         if (setActualImage) {
           const imageUrl = book.images && book.images[0] 
-            ? `http://localhost:3030/uploads/${book.images[0]}` 
+            ? `${BACKEND_URL}/uploads/${book.images[0]}` 
             : '';
           setActualImage(imageUrl);
         }

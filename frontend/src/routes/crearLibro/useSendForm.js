@@ -1,5 +1,6 @@
 import { useEffect } from "react"
 import { toast } from "react-toastify"
+import { BACKEND_URL } from "../../assets/config"
 
 export default function useSendForm ({
   fase,
@@ -50,7 +51,7 @@ export default function useSendForm ({
         formData.append('disponibilidad', libro?.disponibilidad || 'Disponible')
 
         try {
-          const URL = (!actualizar) ? 'http://localhost:3030/api/books/review' : `http://localhost:3030/api/books/review/${libro}`
+          const URL = (!actualizar) ? `${BACKEND_URL}/api/books/review` : `${BACKEND_URL}/api/books/review/${libro}`
           const response = await fetch(URL, {
             method: (!actualizar) ? 'POST' : 'PUT',
             body: formData, // Enviar el FormData directamente

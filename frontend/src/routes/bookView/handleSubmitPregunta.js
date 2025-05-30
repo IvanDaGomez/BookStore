@@ -1,6 +1,7 @@
 import { toast } from "react-toastify"
 // import { createNotification } from "../../assets/createNotification"
 import axios from "axios"
+import { BACKEND_URL } from "../../assets/config"
 export   async function handleSubmitPregunta (libro, user) {
     const inputPregunta = document.querySelector('.inputPregunta')
 
@@ -12,7 +13,7 @@ export   async function handleSubmitPregunta (libro, user) {
     //   return
     // }
     if (!libro) return
-    const url = `http://localhost:3030/api/books/questionBook`
+    const url = `${BACKEND_URL}/api/books/questionBook`
     const body = {
           pregunta: inputPregunta.value,
           tipo: 'pregunta',

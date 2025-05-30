@@ -6,6 +6,7 @@ import FileUploader from './fase1/fileUploader'
 import HowToUploadDropdown from './fase1/howToUploadDropdown'
 import AIMode from './AIMode'
 import ModalDiv from '../../assets/modalDiv'
+import { BACKEND_URL } from '../../assets/config'
 
 // import { ISBNmatch } from "../../assets/ISBNmatch";
 export default function Fase1 ({ form, setForm, setFase, fase }) {
@@ -77,7 +78,7 @@ export default function Fase1 ({ form, setForm, setFase, fase }) {
       toast.error('Es necesario ingresar el título y autor del libro')
       return
     }
-    const url = 'http://localhost:3030/api/books/generateDescription'
+    const url = `${BACKEND_URL}/api/books/generateDescription`
     const body = {
       titulo,
       autor

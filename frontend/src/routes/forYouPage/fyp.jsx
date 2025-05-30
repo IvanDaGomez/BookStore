@@ -7,6 +7,7 @@ import axios from 'axios'
 import { MakeCard } from '../../assets/makeCard'
 import { UserContext } from '../../context/userContext'
 import './fyp.css'
+import { BACKEND_URL } from '../../assets/config.js'
 export default function Fyp () {
   const { user } = useContext(UserContext)
 
@@ -14,7 +15,7 @@ export default function Fyp () {
   useEffect(() => {
     async function fetchFYP () {
       try {
-        const url = 'http://localhost:3030/api/books/fyp?l=24'
+        const url = `${BACKEND_URL}/api/books/fyp?l=24`
         const response = await axios.get(url, { withCredentials: true })
         setBooks(response.data)
       } catch (error) {
@@ -35,7 +36,7 @@ export default function Fyp () {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const lastBook = books[books.length - 1]
-          const url = `http://localhost:3030/api/books/fyp?l=24&last=${lastBook.id}`
+          const url = `${BACKEND_URL}/api/books/fyp?l=24&last=${lastBook.id}`
           axios.get(url, { withCredentials: true })
             .then((response) => {
               // If the  materialbook is already in the list, don't add it again

@@ -2,6 +2,7 @@ import axios from 'axios'
 import { useState } from 'react'
 import Loader from '../../components/loader/loader'
 import { toast, ToastContainer } from 'react-toastify'
+import { BACKEND_URL } from '../../assets/config'
 
 export default function EnviarCorreoCambiarContraseña () {
   const [emailSent, setEmailSent] = useState(false)
@@ -25,7 +26,7 @@ export default function EnviarCorreoCambiarContraseña () {
     setErrors([])
     setLoading(true)
     try {
-      const url = 'http://localhost:3030/api/users/changePasswordEmail'
+      const url = `${BACKEND_URL}/api/users/changePasswordEmail`
       const response = await axios.post(url, { email: email.value }, { withCredentials: true })
 
       if (response.data.error) {

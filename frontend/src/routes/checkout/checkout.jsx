@@ -16,6 +16,7 @@ import useFetchActualBook from '../../assets/useFetchActualBook.js'
 import useFetchPreferenceId from './useFetchPreferenceId.js'
 import { MakeOneFrCard } from '../../assets/makeCard.jsx'
 import { UserContext } from '../../context/userContext.jsx'
+import { BACKEND_URL } from '../../assets/config.js'
 function Checkout () {
   const navigate = useNavigate()
   // const { user, setUser, loading } = useContext(UserContext)
@@ -31,7 +32,7 @@ function Checkout () {
     async function fetchUserBalance () {
       if (!user) return
       try {
-        const url = `http://localhost:3030/api/users/balance/${user.id}`
+        const url = `${BACKEND_URL}/api/users/balance/${user.id}`
         const response = await axios.post(url, null, {withCredentials: true})
         setUser({
           ...user,

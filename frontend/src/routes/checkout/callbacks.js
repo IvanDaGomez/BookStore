@@ -1,6 +1,7 @@
 import { toast } from "react-toastify"
 import { createBody } from "./createBody"
 import axios from "axios"
+import { BACKEND_URL } from '../../assets/config'
 const handlePayWithBalance = async ({ libro, user, form, setLoading }) => {
   if (user.balance.disponible < libro.precio) {
     toast.error('No tienes el suficiente dinero!')
@@ -16,7 +17,7 @@ const handlePayWithBalance = async ({ libro, user, form, setLoading }) => {
       formData: {},
       form
     })
-    const response = await axios.post('http://localhost:3030/api/transactions/pay_with_balance', body)
+    const response = await axios.post(`${BACKEND_URL}/api/transactions/pay_with_balance`, body)
 
 
     if (response.data.error) {
@@ -52,7 +53,7 @@ const onSubmit = async ({
       form,
       selectedPaymentMethod
     })
-    const response = await axios.post('http://localhost:3030/api/transactions/process_payment', body)
+    const response = await axios.post(`${BACKEND_URL}/api/transactions/process_payment`, body)
     setStatus(response.data.response.status)
     setStatusScreen(true)
     setPaymentId(response.data.response.id)

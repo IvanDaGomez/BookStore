@@ -13,6 +13,7 @@ import Colecciones from './colecciones.jsx'
 import { UserContext } from '../../context/userContext.jsx'
 import { handleFollowers } from '../../assets/handles/handleFollowers.jsx'
 import './usuario.css'
+import { BACKEND_URL } from '../../assets/config'
 export default function Usuario () {
   const navigate = useNavigate()
   const { idVendedor } = useParams()
@@ -46,7 +47,7 @@ export default function Usuario () {
     async function fetchResults () {
       try {
         if (idVendedor) {
-          const response = await fetch(`http://localhost:3030/api/users/${idVendedor}`, {
+          const response = await fetch(`${BACKEND_URL}/api/users/${idVendedor}`, {
             method: 'GET',
             credentials: 'include'
           })
@@ -75,7 +76,7 @@ export default function Usuario () {
         try {
 
 
-          const response = await axios.get(`http://localhost:3030/api/books/idList/${usuario.libros_ids.join(',')}`, {
+          const response = await axios.get(`${BACKEND_URL}/api/books/idList/${usuario.libros_ids.join(',')}`, {
             method: 'GET',
             credentials: 'include'
           })
@@ -102,7 +103,7 @@ export default function Usuario () {
   const confirmDelete = async () => {
     if (libroAEliminar) {
       try {
-        await axios.delete(`http://localhost:3030/api/books/${libroAEliminar}`, { withCredentials: true })
+        await axios.delete(`${BACKEND_URL}/api/books/${libroAEliminar}`, { withCredentials: true })
         setLibrosUsuario((prevBooks) => prevBooks.filter((libro) => libro.id !== libroAEliminar))
         window.history.pushState({}, '', `/usuarios/${idVendedor}`)
 

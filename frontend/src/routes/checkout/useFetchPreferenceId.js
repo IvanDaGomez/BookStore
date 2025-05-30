@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { BACKEND_URL } from "../../assets/config"
 
 export default function useFetchPreferenceId(libro) {
   const [preferenceId, setPreferenceId] = useState(null) // State to store the preference ID
@@ -9,7 +10,7 @@ export default function useFetchPreferenceId(libro) {
       console.log(libro) // Debugging log
       if (libro) {
         try {
-          const url = 'http://localhost:3030/api/transactions/getBookPreferenceId'
+          const url = `${BACKEND_URL}/api/transactions/getBookPreferenceId`
 
           // Prepare the payload
           const body = {

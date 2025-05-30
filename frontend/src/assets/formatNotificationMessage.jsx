@@ -2,6 +2,7 @@ import { formatDate } from './formatDate'
 import { toast } from 'react-toastify'
 import axios from 'axios'
 import { reduceText } from './reduceText'
+import { BACKEND_URL } from './config'
 function SimpleNotification (notification) {
   const { title, created_in } = notification
 
@@ -26,7 +27,7 @@ function DetailedNotification (notification) {
       return
     }
     if (metadata) {
-      const url = `http://localhost:3030/api/books/questionBook`
+      const url = `${BACKEND_URL}/api/books/questionBook`
 
       try {
         const response = await axios.post(url, {
@@ -43,7 +44,7 @@ function DetailedNotification (notification) {
           return
         }
 
-        const deleteUrl = `http://localhost:3030/api/notifications/${id}`
+        const deleteUrl = `${BACKEND_URL}/api/notifications/${id}`
         await axios.delete(deleteUrl)
 
         toast.success('Pregunta enviada exitosamente')
@@ -61,7 +62,7 @@ function DetailedNotification (notification) {
         {metadata.photo && (
           <>
             <img
-              src={'http://localhost:3030/uploads/' + metadata.photo}
+              src={`${BACKEND_URL}/uploads/${metadata.photo}`}
               alt='Notification'
               className='notification-photo'
             />

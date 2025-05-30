@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react"
 import axios from "axios"
 import ModalDiv from "../../assets/modalDiv"
+import { BACKEND_URL } from "../../assets/config"
 export default function AIMode({ croppedImages, setCroppedImages, form, setForm }) {
   const switchRef = useRef(null)
   function inputGenerating() {
@@ -24,7 +25,7 @@ export default function AIMode({ croppedImages, setCroppedImages, form, setForm 
       // Iterar sobre las imágenes en formato Blob y agregarlas al FormData
       formData.append('image', blobImage, `image.png`)
       inputGenerating()
-      const url = 'http://localhost:3030/api/books/ai/aiMode'
+      const url = `${BACKEND_URL}/api/books/ai/aiMode`
       const response = await axios.post(url, formData, { withCredentials: true, headers: { 'Content-Type': 'multipart/form-data' } })
       if (response.data.error) {
         console.error('Error en la respuesta:', response.data.error)

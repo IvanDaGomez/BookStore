@@ -14,6 +14,7 @@ import NumberPagesSeparator from './numberPagesSeparator.jsx'
 import Filters from './filters.jsx'
 import SelectButton from './selectButton.jsx'
 import axios from 'axios'
+import { BACKEND_URL } from '../../assets/config.js'
 export default function Search () {
   const { user, setUser } = useContext(UserContext)
 
@@ -51,7 +52,7 @@ export default function Search () {
         if (query && query.trim() && Object.values(queryParams).every(val => !val)) {
           const validKinds = ['books', 'collections', 'users'];
           const searchKind = validKinds.includes(sk) ? sk : 'books';
-          const response = await fetch(`http://localhost:3030/api/${searchKind}/query?q=${query}`, {
+          const response = await fetch(`${BACKEND_URL}/api/${searchKind}/query?q=${query}`, {
             method: 'GET',
             credentials: 'include' // Enviar las cookies
           })
@@ -91,10 +92,10 @@ export default function Search () {
       // Construct the full URL
       let url
       if (searchKind === 'books') {
-        url = `http://localhost:3030/api/${searchKind}/query/filters?${searchParams.toString()}`
+        url = `${BACKEND_URL}/api/${searchKind}/query/filters?${searchParams.toString()}`
       }
       else  {
-        url = `http://localhost:3030/api/${searchKind}/query?${searchParams.toString()}`
+        url = `${BACKEND_URL}/api/${searchKind}/query?${searchParams.toString()}`
       }
       try {
         const response = await axios.get(url)

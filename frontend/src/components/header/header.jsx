@@ -17,7 +17,6 @@ import useUpdateBreakpoint from '../../assets/useUpdateBreakPoint.js'
 import './header.css'
 // import useFetchUser from "../assets/useFetchUser";
 export default function Header () {
-  // const user = useFetchUser('http://localhost:3030/api/users/userSession')
 
   const navigate = useNavigate()
   const { user } = useContext(UserContext)

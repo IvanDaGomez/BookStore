@@ -26,7 +26,7 @@ export default function useMessageInputForConversation({
     ) {
       const vendedorNombre = findUserByConversation(activeConversation, user, reducedUsers).nombre
       const libroTitulo = libroAPreguntar.titulo
-      const libroUrl = `http://localhost:5173/libros/${libroAPreguntar.id}`
+      const libroUrl = `/libros/${libroAPreguntar.id}`
 
       inputMessage.value = `
             ¡Hola ${vendedorNombre}! 😊

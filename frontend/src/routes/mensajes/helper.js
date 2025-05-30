@@ -4,6 +4,7 @@ import axios from "axios";
 import { useEffect } from "react"
 
 import { toast } from "react-toastify"
+import { BACKEND_URL } from "../../assets/config";
 
 
 function useFetchConversations(user, setConversaciones, setFilteredConversations, newConversationId) {
@@ -15,7 +16,7 @@ function useFetchConversations(user, setConversaciones, setFilteredConversations
 
         async function fetchConversations() {
             try {
-                const url = `http://localhost:3030/api/conversations/getConversationsByUser/${user.id}`;
+                const url = `${BACKEND_URL}/api/conversations/getConversationsByUser/${user.id}`;
                 const response = await fetch(url, { signal });
                 if (!response.ok) throw new Error("Failed to fetch");
 
@@ -60,7 +61,7 @@ function findUserByConversation (conversation, user, reducedUsers) {
     const body = { users: [user.id, newConversationId] }
 
     try {
-      const url = 'http://localhost:3030/api/conversations'
+      const url = `${BACKEND_URL}/api/conversations`
       const response = await axios.post(url, body, { withCredentials: true })
 
       console.log('Response:', response.data)
@@ -91,7 +92,7 @@ async function handleSubmitMessage (e, activeConversation, user, newConversation
   e.preventDefault()
   const messageInput = document.querySelector('#messageInput')
   const value = messageInput.value.trim() // Trim whitespace
-  const url = 'http://localhost:3030/api/messages'
+  const url = `${BACKEND_URL}/api/messages`
   if (!(value && activeConversation && user)) return // Validate inputs
   let newConversation = {}
   // Si hay un ID de conversación Y si el usuario ya está en las conversaciones

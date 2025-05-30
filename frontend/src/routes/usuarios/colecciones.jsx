@@ -5,6 +5,7 @@ import { MakeCollectionCard } from '../../assets/makeCard'
 import { cropImageToAspectRatio } from '../../assets/cropImageToAspectRatio'
 import { renderProfilePhoto } from '../../assets/renderProfilePhoto'
 import { useFetchFavoriteBooks } from './useFetchFavoriteBooks'
+import { BACKEND_URL } from '../../assets/config'
 
 export default function Colecciones ({ user, permisos }) {
   const [colecciones, setColecciones] = useState([])
@@ -19,7 +20,7 @@ export default function Colecciones ({ user, permisos }) {
     async function fetchColecciones () {
       try {
         if (!user) return
-        const url = 'http://localhost:3030/api/collections/getCollectionsByUser/' + user.id
+        const url = `${BACKEND_URL}/api/collections/getCollectionsByUser/${user.id}`
         const response = await axios.get(url, { withCredentials: true })
         setColecciones(response.data)
       } catch {
@@ -35,7 +36,7 @@ export default function Colecciones ({ user, permisos }) {
       const fetchBooks = async () => {
         try {
           const librosIds = user.libros_ids.join(',')
-          const response = await axios.get(`http://localhost:3030/api/books/idList/${librosIds}`,{
+          const response = await axios.get(`${BACKEND_URL}/api/books/idList/${librosIds}`,{
             withCredentials: true
           })
           if (response.data.error) {
@@ -106,7 +107,7 @@ export default function Colecciones ({ user, permisos }) {
         const filteredCollections = addedCollections.filter(coleccion=> misLibros.map(l => l.id).includes(coleccion))
         filtered = filteredCollections
       }
-      const createCollectionUrl = 'http://localhost:3030/api/collections'
+      const createCollectionUrl = `${BACKEND_URL}/api/collections`
       const createCollectionResponse = await axios.post(createCollectionUrl, formData, { withCredentials: true })
       if (createCollectionResponse.data.error) {
         setErrors([...errors, createCollectionResponse.data.error])
@@ -115,7 +116,7 @@ export default function Colecciones ({ user, permisos }) {
       setColecciones([...colecciones, {...createCollectionResponse.data, libros_ids: filtered}])
       
       if (addedCollections.length > 0) {
-        const addToCollectionUrl = 'http://localhost:3030/api/collections/addToCollection?collectionId=' + createCollectionResponse.data.id
+        const addToCollectionUrl = `${BACKEND_URL}/api/collections/addToCollection?collectionId=${createCollectionResponse.data.id}`
 
         // Realizar las solicitudes de manera secuencial
         const fullUrl = addToCollectionUrl + `&booksIds=${addedCollections.join(',')}`
@@ -176,7 +177,7 @@ export default function Colecciones ({ user, permisos }) {
               />
             </div>
             <div className='photoContainer' onClick={handleClickImage}>
-              <img src={croppedImage?.url || 'http://localhost:3030/uploads/default.jpg'} alt='Profile Photo' />
+              <img src={croppedImage?.url || `${BACKEND_URL}/uploads/default.jpg`} alt='Profile Photo' />
               <svg className='more' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width={24} height={24} color='#000000' fill='none'>
                 <path d='M12 8V16M16 12L8 12' stroke='currentColor' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round' />
                 <path d='M22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12Z' stroke='currentColor' strokeWidth='1.5' />

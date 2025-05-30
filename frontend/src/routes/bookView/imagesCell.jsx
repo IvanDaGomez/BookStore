@@ -1,4 +1,5 @@
 import { useRef, useState } from "react"
+import { BACKEND_URL } from "../../assets/config"
 
 /* eslint-disable react/prop-types */
 export default function ImagesCell({ libro, setActualImage, actualImage }) {
@@ -59,13 +60,13 @@ export default function ImagesCell({ libro, setActualImage, actualImage }) {
                   key={index}
                   onClick={() => {
                     // Construir la URL completa para cada imagen
-                    const imageUrl = image ? `http://localhost:3030/uploads/${image}` : ''
+                    const imageUrl = image ? `${BACKEND_URL}/uploads/${image}` : ''
                     setActualImage(imageUrl) // Establecer la URL de la imagen actual
                   }}
                 >
                   <img
                     loading='lazy'
-                    src={`http://localhost:3030/uploads/${image}`} // Usar la URL completa para mostrar la imagen
+                    src={`${BACKEND_URL}/uploads/${image}`} // Usar la URL completa para mostrar la imagen
                     alt={libro.title}
                     title={libro.title}
                   />
