@@ -20,6 +20,7 @@ import { corsOptions } from './assets/corsOptions.js'
 import { statsHandler } from './middlewares/statsHandler.js'
 import { Server } from 'http'
 import { seeEmailTemplate } from './middlewares/seeEmailTemplate.js'
+import { rateLimitter } from './middlewares/rateLimitter.js'
 
 dotenv.config()
 // import { handleStats } from './assets/handleStats.js'
@@ -60,6 +61,8 @@ export const createApp = ({
   app.use(jwtMiddleware)
   // // Middleware para trackear las solicitudes
   app.use(handleStats)
+
+  app.use(rateLimitter)
   // // habilitar req.body
   app.use(express.urlencoded({ extended: true }))
   // Habilitar respuestas solo en json
@@ -97,7 +100,16 @@ export const createApp = ({
       });
     }
   }); 
+  if (process.env.NODE_ENV !== 'development') {
+    // Serve the frontend build files in production
+    const frontendBuildPath = path.join(__dirname, '..', 'frontend', 'dist');
+    app.use(express.static(frontendBuildPath));
 
+    // Serve the index.html file for all other routes
+    app.get('*', (req, res) => {
+      res.sendFile(path.join(frontendBuildPath, 'index.html'));
+    });
+  }
   // Create HTTP server instance
   const server = app.listen(PORT, () => {
     console.log('Server is listening on http://localhost:' + PORT)
