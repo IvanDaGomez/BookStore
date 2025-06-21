@@ -37,7 +37,7 @@ const cropImageToAspectRatio = (file, aspectRatio) => {
         canvas.toBlob(
           (blob) => {
             if (blob) {
-              resolve(URL.createObjectURL(blob))
+              resolve(blob)
             } else {
               reject(new Error('Error al crear blob de imagen'))
             }

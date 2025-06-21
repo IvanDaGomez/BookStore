@@ -16,16 +16,16 @@ export default function AIMode({ croppedImages, setCroppedImages, form, setForm 
       if (croppedImages.length === 0 || !switchRef.current.checked) return 
       if (alreadyGenerated) return
       const formData = new FormData()
-      async function urlToBlob (blobUrl) {
-        const response = await fetch(blobUrl)
-        const blob = await response.blob()
-        return blob
-      }
-      const blobImage = await urlToBlob(croppedImages[0])
-      const fixedBlob = new Blob([blobImage], { type: 'image/png' })
-      console.log('Imagen Blob:', fixedBlob)
+      // async function urlToBlob (blobUrl) {
+      //   const response = await fetch(blobUrl)
+      //   const blob = await response.blob()
+      //   return blob
+      // }
+      // const blobImage = await urlToBlob(croppedImages[0])
+      // const fixedBlob = new Blob([blobImage], { type: 'image/png' })
+      // console.log('Imagen Blob:', fixedBlob)
       // Iterar sobre las imágenes en formato Blob y agregarlas al FormData
-      formData.append('image', fixedBlob, `image.png`)
+      formData.append('image', croppedImages[0].blob, `image.png`)
       inputGenerating()
       const url = `${BACKEND_URL}/api/books/ai/aiMode`
       const response = await axios.post(url, formData, { withCredentials: true, headers: { 'Content-Type': 'multipart/form-data' } })
