@@ -1,8 +1,12 @@
-import express from 'express';
-import { templates, DataType } from '../assets/email/htmlTemplates.js';
-import { mockEmailData } from './mockEmailData.js';
+import express from 'express'
+import { templates, DataType } from '../assets/email/htmlTemplates.js'
+import { mockEmailData } from './mockEmailData.js'
 
-export function seeEmailTemplate (req: express.Request, res: express.Response, next: express.NextFunction){
+export function seeEmailTemplate (
+  req: express.Request,
+  res: express.Response,
+  next: express.NextFunction
+) {
   try {
     const { template } = req.params
     if (!template) {
@@ -13,11 +17,14 @@ export function seeEmailTemplate (req: express.Request, res: express.Response, n
     if (!templateFound) {
       throw new Error('Template not found')
     }
-    const templateContent = templateFound(mockEmailData as Required<DataType>);
-    
+    const templateContent = templateFound(
+      mockEmailData as Required<DataType>,
+      true
+    )
+
     res.json({
-      content : templateContent
-    });
+      content: templateContent
+    })
   } catch (error) {
     next(error)
   }

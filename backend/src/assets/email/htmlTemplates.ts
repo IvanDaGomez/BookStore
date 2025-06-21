@@ -80,10 +80,8 @@ const styles = `
                 `
 const footer = `                
   <div class='footer'>
-    <p>Si no te registraste en ${
-      process.env.BRAND_NAME
-    }, ignora este correo o contáctanos para informarnos.</p>
-    <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en responder a este correo o <a href="mailto:support@meridianbookstore.com">contactarnos aquí</a>.</p>
+    <p>Si no te registraste en ${process.env.BRAND_NAME}, ignora este correo o contáctanos para informarnos.</p>
+    <p>Si tienes alguna pregunta o necesitas ayuda, no dudes en responder a este correo o <a href="mailto:${process.env.SUPPORT_EMAIL}">contactarnos aquí</a>.</p>
     <p>Gracias por ser parte de nuestra comunidad!</p>
     <p>Para más información, pregunta a nuestro equipo de soporte o <a target='_blank' href="${process.env.FRONTEND_URL}/contacto">contáctanos</a></p>
   </div>
@@ -91,22 +89,22 @@ const footer = `
 let logoMeridian = 'cid:logo@meridian'
 logoMeridian = '/logo.png'
 type DataType = {
-    book?: Partial<BookObjectType>
-    user?: UserInfoType | Partial<UserInfoType>
-    seller?: Partial<UserInfoType>
-    transaction?: Partial<TransactionObjectType>
-    shipping_details?: ShippingDetailsType
-    metadata?: {
-      guia?: string
-      validation_code?: number
-      validation_link?: string
-      barcode?: Barcode
-      date_of_expiration?: string,
-      pregunta?: string
-      respuesta?: string
-    }
+  book?: Partial<BookObjectType>
+  user?: UserInfoType | Partial<UserInfoType>
+  seller?: Partial<UserInfoType>
+  transaction?: Partial<TransactionObjectType>
+  shipping_details?: ShippingDetailsType
+  metadata?: {
+    guia?: string
+    validation_code?: number
+    validation_link?: string
+    barcode?: Barcode
+    date_of_expiration?: string
+    pregunta?: string
+    respuesta?: string
   }
-const thankEmailTemplate = (data: DataType) => {
+}
+const thankEmailTemplate = (data: DataType, seeEmailTemplate = false) => {
   return `
         <html>
             <head>
@@ -117,18 +115,24 @@ const thankEmailTemplate = (data: DataType) => {
             <body>
             <div class="container">
               <div class='header'>
-                <img src='${logoMeridian}' alt='Logo de ${
-                  process.env.BRAND_NAME
-                }' title='Logo de ${process.env.BRAND_NAME}'/>
+                <img src='${
+                  seeEmailTemplate ? logoMeridian : 'cid:logo@meridian'
+                }' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${
+    process.env.BRAND_NAME
+  }'/>
               </div>
               <h1>¡Gracias por unirte a Meridian!</h1>
-              <p>Hola <strong>${data.user?.nombre ?? 'amante de libros'}</strong>,</p>
+              <p>Hola <strong>${
+                data.user?.nombre ?? 'amante de libros'
+              }</strong>,</p>
               <p>Nos emociona que hayas decidido ser parte de nuestra comunidad de amantes de los libros.</p>
               <p>En Meridian, creemos en el poder de los libros para inspirar, educar y entretener.</p>
               <p>En nuestro catálogo podrás encontrar todos los libros que necesites, en un solo lugar.</p>
               <p>Como miembro nuevo, tendrás acceso a todo el catálogo de libros, noticias y colecciones que sabemos que te encantarán.</p>
               <p>Para comenzar a explorar:</p>
-              <a target='_blank' href="${process.env.FRONTEND_URL}/para-ti"><button class='button'>Explora nuestra colección</button></a>
+              <a target='_blank' href="${
+                process.env.FRONTEND_URL
+              }/para-ti"><button class='button'>Explora nuestra colección</button></a>
               ${footer}
 
             </div>
@@ -136,7 +140,7 @@ const thankEmailTemplate = (data: DataType) => {
         </html>
         `
 }
-const bookPublishedTemplate = (data: DataType) => {
+const bookPublishedTemplate = (data: DataType, seeEmailTemplate = false) => {
   return `
         <html>
             <head>
@@ -147,9 +151,11 @@ const bookPublishedTemplate = (data: DataType) => {
             <body>
             <div class="container">
               <div class='header'>
-                <img src='${logoMeridian}' alt='Logo de ${
-                  process.env.BRAND_NAME
-                }' title='Logo de ${process.env.BRAND_NAME}'/>
+                <img src='${
+                  seeEmailTemplate ? logoMeridian : 'cid:logo@meridian'
+                }' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${
+    process.env.BRAND_NAME
+  }'/>
               </div>
               <h1>Tu libro ha sido publicado con éxito!</h1>
               <p>Hola <strong>${data.book?.vendedor ?? ''}</strong>,</p>
@@ -159,44 +165,44 @@ const bookPublishedTemplate = (data: DataType) => {
               <p>Estamos emocionados de compartir tu publicación con nuestros amantes de libros!. Tu libro ya se puede buscar y está listo para ser vendido.</p>
               <p>Puedes ver tu libro aquí:</p>
               <a target='_blank' href="${process.env.FRONTEND_URL}/libros/${
-                data.book?.id ?? ''
-              }"><div class='button'>Ver libro</div></a>
+    data.book?.id ?? ''
+  }"><div class='button'>Ver libro</div></a>
               ${footer}
       
             </div>
             </body>
         </html>
         `
-    // case 'newQuestion': {
-    //   return `
-    //   <html>
-    //         <head>
-    //         <style>
-    //             ${styles}
-    //         </style>
-    //         </head>
-    //         <body>
-    //           <div class='container'>
-    //             <div class='header'>
-    //               <img src='${logoMeridian}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
-    //             </div>
-    //             <h1>Tienes una nueva pregunta!</h1>
-    //             <p>Hola <strong>${data.vendedor}</strong>,</p>
-    //             <p>Un usuario tiene una pregunta sobre tu libro:</p>
-    //             <blockquote>
-    //               <p>${data.pregunta}</p>
-    //             </blockquote>
-    //             <p>Puedes responder a esta pregunta haciendo clic en el siguiente enlace:</p>
-    //             <p><a href="${process.env.FRONTEND_URL}/notificaciones/${data.id}">Responder pregunta</a></p>
-    //             <p>Si tienes otras preguntas o necesitas asistencia, puedes responder a este correo o contactarnos <a href="mailto:support@meridianbookstore.com">aquí</a>.</p>
-    //           </div>
+  // case 'newQuestion': {
+  //   return `
+  //   <html>
+  //         <head>
+  //         <style>
+  //             ${styles}
+  //         </style>
+  //         </head>
+  //         <body>
+  //           <div class='container'>
+  //             <div class='header'>
+  //               <img src='${logoMeridian}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
+  //             </div>
+  //             <h1>Tienes una nueva pregunta!</h1>
+  //             <p>Hola <strong>${data.vendedor}</strong>,</p>
+  //             <p>Un usuario tiene una pregunta sobre tu libro:</p>
+  //             <blockquote>
+  //               <p>${data.pregunta}</p>
+  //             </blockquote>
+  //             <p>Puedes responder a esta pregunta haciendo clic en el siguiente enlace:</p>
+  //             <p><a href="${process.env.FRONTEND_URL}/notificaciones/${data.id}">Responder pregunta</a></p>
+  //             <p>Si tienes otras preguntas o necesitas asistencia, puedes responder a este correo o contactarnos <a href="mailto:support@meridianbookstore.com">aquí</a>.</p>
+  //           </div>
 
-    //         </body>
-    //     </html>
-    //   `
-    // }
+  //         </body>
+  //     </html>
+  //   `
+  // }
 }
-const validationEmailTemplate = (data: DataType) => {
+const validationEmailTemplate = (data: DataType, seeEmailTemplate = false) => {
   return `
       <html>
             <head>
@@ -207,16 +213,18 @@ const validationEmailTemplate = (data: DataType) => {
             <body>
               <div class='container'>
                 <div class='header'>
-                  <img src='${logoMeridian}' alt='Logo de ${
-                    process.env.BRAND_NAME
-                  }' title='Logo de ${process.env.BRAND_NAME}'/>
+                  <img src='${
+                    seeEmailTemplate ? logoMeridian : 'cid:logo@meridian'
+                  }' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${
+    process.env.BRAND_NAME
+  }'/>
                 </div>
                 <h1>Valida tu correo electrónico!</h1>
                 <p>Hola <strong>${data.user?.nombre ?? ''}</strong>,</p>
-                <p>Gracias por registrarte en ${process.env.BRAND_NAME}! Para completar tu registro, por favor valida tu correo electrónico con ayuda del siguiente código:</p>
-                <h2><strong>${
-                  data.metadata?.validation_code
-                }</strong></h2>
+                <p>Gracias por registrarte en ${
+                  process.env.BRAND_NAME
+                }! Para completar tu registro, por favor valida tu correo electrónico con ayuda del siguiente código:</p>
+                <h2><strong>${data.metadata?.validation_code}</strong></h2>
                 <p>Atentamente,</p>
                 <p>El equipo de ${process.env.BRAND_NAME}</p>
                 <hr/>
@@ -227,7 +235,7 @@ const validationEmailTemplate = (data: DataType) => {
       `
 }
 
-const changePasswordTemplate = (data: DataType) => {
+const changePasswordTemplate = (data: DataType, seeEmailTemplate = false) => {
   return `
       <html>
           <head>
@@ -238,9 +246,11 @@ const changePasswordTemplate = (data: DataType) => {
           <body>
               <div class='container'> 
                 <div class='header'>
-                  <img src='${logoMeridian}' alt='Logo de ${
-                    process.env.BRAND_NAME
-                  }' title='Logo de ${process.env.BRAND_NAME}'/>
+                  <img src='${
+                    seeEmailTemplate ? logoMeridian : 'cid:logo@meridian'
+                  }' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${
+    process.env.BRAND_NAME
+  }'/>
                 </div>
                 <h1>Solicitud para Cambiar Contraseña</h1>
                 <p>Hola <strong>${data.user?.nombre ?? ''}</strong>,</p>
@@ -252,7 +262,11 @@ const changePasswordTemplate = (data: DataType) => {
                 <p>Este código es válido por 15 minutos.</p>
                 <hr/>
                 <p>
-                  ${process.env.BRAND_NAME} nunca enviará un correo electrónico en el que solicite que se revele o verifique una contraseña, una tarjeta de crédito o un número de cuenta bancaria. Si recibe un correo electrónico sospechoso con un enlace para actualizar la información de la cuenta, no haga clic en el enlace. En su lugar, reporte el correo electrónico a ${process.env.BRAND_NAME} para que se investigue.
+                  ${
+                    process.env.BRAND_NAME
+                  } nunca enviará un correo electrónico en el que solicite que se revele o verifique una contraseña, una tarjeta de crédito o un número de cuenta bancaria. Si recibe un correo electrónico sospechoso con un enlace para actualizar la información de la cuenta, no haga clic en el enlace. En su lugar, reporte el correo electrónico a ${
+    process.env.BRAND_NAME
+  } para que se investigue.
                 </p>
                 <hr/>
                 ${footer}
@@ -261,7 +275,7 @@ const changePasswordTemplate = (data: DataType) => {
       </html>
       `
 }
-const paymentDoneBillTemplate = (data: DataType) => {
+const paymentDoneBillTemplate = (data: DataType, seeEmailTemplate = false) => {
   return `
     <html>
       <head>
@@ -302,7 +316,11 @@ const paymentDoneBillTemplate = (data: DataType) => {
       <body>
         <div class="container">
           <div class='header'>
-            <img src='${logoMeridian}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
+            <img src='${
+              seeEmailTemplate ? logoMeridian : 'cid:logo@meridian'
+            }' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${
+    process.env.BRAND_NAME
+  }'/>
           </div>
           <main>
             <h1>¡Pago realizado!</h1>
@@ -324,22 +342,32 @@ const paymentDoneBillTemplate = (data: DataType) => {
               </div>
               <div class="row">
                 <span><strong>Fecha:</strong></span>
-                <span>${data.transaction?.response?.date_created ? new Date(data.transaction.response.date_created).toLocaleString('es-CO', {
-                  weekday: 'long',
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                  hour: '2-digit',
-                  minute: '2-digit'
-                }) : new Date().toLocaleString('es-CO')}</span>
+                <span>${
+                  data.transaction?.response?.date_created
+                    ? new Date(
+                        data.transaction.response.date_created
+                      ).toLocaleString('es-CO', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                      })
+                    : new Date().toLocaleString('es-CO')
+                }</span>
               </div>
               <div class="row">
                 <span><strong>Método de pago:</strong></span>
-                <span>${data.transaction?.response?.payment_method_id ?? 'N/A'}</span>
+                <span>${
+                  data.transaction?.response?.payment_method_id ?? 'N/A'
+                }</span>
               </div>
               <div class="row total">
                 <span>Total pagado:</span>
-                <span>$${data.transaction?.response?.transaction_amount ?? 'N/A'}</span>
+                <span>$${
+                  data.transaction?.response?.transaction_amount ?? 'N/A'
+                }</span>
               </div>
             </div>
             <p>¡Gracias por confiar en ${process.env.BRAND_NAME}!</p>
@@ -350,7 +378,7 @@ const paymentDoneBillTemplate = (data: DataType) => {
     </html>
   `
 }
-const paymentDoneThankTemplate = (data: DataType) => {
+const paymentDoneThankTemplate = (data: DataType, seeEmailTemplate = false) => {
   return `
     <html>
       <head>
@@ -391,12 +419,18 @@ const paymentDoneThankTemplate = (data: DataType) => {
       <body>
         <div class="container">
           <div class='header'>
-            <img src='${logoMeridian}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
+            <img src='${
+              seeEmailTemplate ? logoMeridian : 'cid:logo@meridian'
+            }' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${
+    process.env.BRAND_NAME
+  }'/>
           </div>
           <main>
             <h1>¡Gracias por tu Compra!</h1>
             <p>Hola${data.user?.nombre ? `, ${data.user.nombre}` : ''}:</p>
-            <p>Queremos agradecerte por realizar tu compra con ${process.env.BRAND_NAME}. Tu pago ha sido confirmado.</p>
+            <p>Queremos agradecerte por realizar tu compra con ${
+              process.env.BRAND_NAME
+            }. Tu pago ha sido confirmado.</p>
             <div class="thank-summary">
               <h2>Resumen de tu Pedido</h2>
               <div class="row">
@@ -413,22 +447,32 @@ const paymentDoneThankTemplate = (data: DataType) => {
               </div>
               <div class="row">
                 <span><strong>Fecha:</strong></span>
-                <span>${data.transaction?.response?.date_created ? new Date(data.transaction.response.date_created).toLocaleString('es-CO', {
-                  weekday: 'long',
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                  hour: '2-digit',
-                  minute: '2-digit'
-                }) : new Date().toLocaleString('es-CO')}</span>
+                <span>${
+                  data.transaction?.response?.date_created
+                    ? new Date(
+                        data.transaction.response.date_created
+                      ).toLocaleString('es-CO', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                      })
+                    : new Date().toLocaleString('es-CO')
+                }</span>
               </div>
               <div class="row">
                 <span><strong>Método de pago:</strong></span>
-                <span>${data.transaction?.response?.payment_method_id ?? 'N/A'}</span>
+                <span>${
+                  data.transaction?.response?.payment_method_id ?? 'N/A'
+                }</span>
               </div>
               <div class="row total">
                 <span><strong>Total pagado:</strong></span>
-                <span>$${data.transaction?.response?.transaction_amount ?? 'N/A'}</span>
+                <span>$${
+                  data.transaction?.response?.transaction_amount ?? 'N/A'
+                }</span>
               </div>
             </div>
             <p>Pronto recibirás más información sobre tu pedido.</p>
@@ -442,7 +486,7 @@ const paymentDoneThankTemplate = (data: DataType) => {
     </html>
     `
 }
-const bookSoldTemplate = (data: DataType) => {
+const bookSoldTemplate = (data: DataType, seeEmailTemplate = false) => {
   return `
     <html>
       <head>
@@ -475,12 +519,20 @@ const bookSoldTemplate = (data: DataType) => {
       <body>
         <div class="container">
           <div class='header'>
-            <img src='${logoMeridian}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
+            <img src='${
+              seeEmailTemplate ? logoMeridian : 'cid:logo@meridian'
+            }' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${
+    process.env.BRAND_NAME
+  }'/>
           </div>
           <main>
             <h1>¡Tu libro se ha vendido!</h1>
             <p>Hola${data.user?.nombre ? `, ${data.user.nombre}` : ''}:</p>
-            <p>Nos complace informarte que tu libro <strong>${data.book?.titulo ?? 'N/A'}</strong> ha sido vendido exitosamente en ${process.env.BRAND_NAME}.</p>
+            <p>Nos complace informarte que tu libro <strong>${
+              data.book?.titulo ?? 'N/A'
+            }</strong> ha sido vendido exitosamente en ${
+    process.env.BRAND_NAME
+  }.</p>
             <div class="sold-summary">
               <h2>Detalles de la Venta</h2>
               <div class="row">
@@ -493,14 +545,20 @@ const bookSoldTemplate = (data: DataType) => {
               </div>
               <div class="row">
                 <span><strong>Fecha de la compra:</strong></span>
-                <span>${data.transaction?.response?.date_created ? new Date(data.transaction.response.date_created).toLocaleString('es-CO', {
-                  weekday: 'long',
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                  hour: '2-digit',
-                  minute: '2-digit'
-                }) : new Date().toLocaleString('es-CO')}</span>
+                <span>${
+                  data.transaction?.response?.date_created
+                    ? new Date(
+                        data.transaction.response.date_created
+                      ).toLocaleString('es-CO', {
+                        weekday: 'long',
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                      })
+                    : new Date().toLocaleString('es-CO')
+                }</span>
               </div>
               <div class="row">
                 <span><strong>Libro vendido:</strong></span>
@@ -516,7 +574,10 @@ const bookSoldTemplate = (data: DataType) => {
     </html>
   `
 }
-const efectyPendingPaymentTemplate = (data: DataType) => {
+const efectyPendingPaymentTemplate = (
+  data: DataType,
+  seeEmailTemplate = false
+) => {
   return `
     <html>
       <head>
@@ -557,10 +618,16 @@ const efectyPendingPaymentTemplate = (data: DataType) => {
       <body>
         <div class="container">
           <div class='header'>
-            <img src='${logoMeridian}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
+            <img src='${
+              seeEmailTemplate ? logoMeridian : 'cid:logo@meridian'
+            }' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${
+    process.env.BRAND_NAME
+  }'/>
           </div>
           <main>
-            <h1>¡Gracias por tu compra${data?.user?.nombre ? `, ${data.user.nombre}` : ''}!</h1>
+            <h1>¡Gracias por tu compra${
+              data?.user?.nombre ? `, ${data.user.nombre}` : ''
+            }!</h1>
             <p>Para completar tu pedido, realiza el pago en cualquier sucursal de <strong>Efecty</strong> antes de la fecha de vencimiento.</p>
             <div class="efecty-summary">
               <h2>Detalles de Pago en Efecty</h2>
@@ -574,20 +641,25 @@ const efectyPendingPaymentTemplate = (data: DataType) => {
                 <span><strong>Vencimiento:</strong></span>
                 <span>${
                   data.metadata?.date_of_expiration
-                    ? new Date(data.metadata.date_of_expiration).toLocaleString('es-CO', {
-                        weekday: 'long',
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit'
-                      })
+                    ? new Date(data.metadata.date_of_expiration).toLocaleString(
+                        'es-CO',
+                        {
+                          weekday: 'long',
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric',
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        }
+                      )
                     : 'N/A'
                 }</span>
               </div>
               <div class="row total">
                 <span><strong>Monto a pagar:</strong></span>
-                <span>$${data.transaction?.response?.transaction_amount ?? 'N/A'}</span>
+                <span>$${
+                  data.transaction?.response?.transaction_amount ?? 'N/A'
+                }</span>
               </div>
             </div>
             <p>Indica al operador de Efecty que deseas realizar un pago y proporciona el código de pago junto con el monto exacto.</p>
@@ -599,7 +671,7 @@ const efectyPendingPaymentTemplate = (data: DataType) => {
     </html>
   `
 }
-const messageQuestionTemplate = (data: DataType) => {
+const messageQuestionTemplate = (data: DataType, seeEmailTemplate = false) => {
   return `
     <html>
       <head>
@@ -633,19 +705,27 @@ const messageQuestionTemplate = (data: DataType) => {
       <body>
         <div class="container">
           <div class='header'>
-            <img src='${logoMeridian}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
+            <img src='${
+              seeEmailTemplate ? logoMeridian : 'cid:logo@meridian'
+            }' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${
+    process.env.BRAND_NAME
+  }'/>
           </div>
           <main>
             <h1>¡Tienes un nuevo mensaje!</h1>
             <p>Hola ${data.user?.nombre ?? ''}:</p>
-            <p>Has recibido una nueva pregunta de un usuario interesado en tu libro <a href=${process.env.FRONTEND_URL}/libros/${data?.book?.id}>"${data.book?.titulo}".</a></p>
+            <p>Has recibido una nueva pregunta de un usuario interesado en tu libro <a href=${
+              process.env.FRONTEND_URL
+            }/libros/${data?.book?.id}>"${data.book?.titulo}".</a></p>
             <table class="question-table">
               <tr>
                 <th>Pregunta</th>
                 <td>${data.metadata?.pregunta ?? 'N/A'}</td>
               </tr>
             </table>
-            <p>Para responder a este mensaje, por favor visita tus notificaciones en ${process.env.BRAND_NAME}.</p>
+            <p>Para responder a este mensaje, por favor visita tus notificaciones en ${
+              process.env.BRAND_NAME
+            }.</p>
             <p>Si necesitas ayuda con el proceso de pago o tienes alguna pregunta, no dudes en contactarnos.</p>
           </main>
           ${footer}
@@ -654,7 +734,7 @@ const messageQuestionTemplate = (data: DataType) => {
     </html>
   `
 }
-const messageResponseTemplate = (data: DataType) => {
+const messageResponseTemplate = (data: DataType, seeEmailTemplate = false) => {
   return `
     <html>
       <head>
@@ -688,12 +768,18 @@ const messageResponseTemplate = (data: DataType) => {
       <body>
         <div class="container">
           <div class='header'>
-            <img src='${logoMeridian}' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${process.env.BRAND_NAME}'/>
+            <img src='${
+              seeEmailTemplate ? logoMeridian : 'cid:logo@meridian'
+            }' alt='Logo de ${process.env.BRAND_NAME}' title='Logo de ${
+    process.env.BRAND_NAME
+  }'/>
           </div>
           <main>
             <h1>¡Tienes una nueva respuesta!</h1>
             <p>Hola ${data.user?.nombre ?? ''}:</p>
-            <p>Has recibido una respuesta a tu pregunta sobre el libro <a href=${process.env.FRONTEND_URL}/libros/${data?.book?.id}>"${data.book?.titulo}".</a></p>
+            <p>Has recibido una respuesta a tu pregunta sobre el libro <a href=${
+              process.env.FRONTEND_URL
+            }/libros/${data?.book?.id}>"${data.book?.titulo}".</a></p>
             <table class="question-table">
               <tr>
                 <th>Tu pregunta</th>
@@ -704,7 +790,9 @@ const messageResponseTemplate = (data: DataType) => {
                 <td>${data.metadata?.respuesta ?? 'N/A'}</td>
               </tr>
             </table>
-            <p>Para ver más detalles, visita tus notificaciones en ${process.env.BRAND_NAME}.</p>
+            <p>Para ver más detalles, visita tus notificaciones en ${
+              process.env.BRAND_NAME
+            }.</p>
             <p>Si necesitas ayuda o tienes alguna pregunta, no dudes en contactarnos.</p>
           </main>
           ${footer}
@@ -713,17 +801,30 @@ const messageResponseTemplate = (data: DataType) => {
     </html>
   `
 }
-const templates = [ thankEmailTemplate, bookPublishedTemplate, 
-  validationEmailTemplate, changePasswordTemplate,
-paymentDoneBillTemplate, paymentDoneThankTemplate,
-bookSoldTemplate, efectyPendingPaymentTemplate,
-messageQuestionTemplate, messageResponseTemplate
+const templates = [
+  thankEmailTemplate,
+  bookPublishedTemplate,
+  validationEmailTemplate,
+  changePasswordTemplate,
+  paymentDoneBillTemplate,
+  paymentDoneThankTemplate,
+  bookSoldTemplate,
+  efectyPendingPaymentTemplate,
+  messageQuestionTemplate,
+  messageResponseTemplate
 ]
 
-export { templates, 
-  thankEmailTemplate, bookPublishedTemplate, 
-  validationEmailTemplate, changePasswordTemplate,
-  paymentDoneBillTemplate, paymentDoneThankTemplate,
-  bookSoldTemplate, efectyPendingPaymentTemplate,
-  messageQuestionTemplate, messageResponseTemplate, 
-DataType}
+export {
+  templates,
+  thankEmailTemplate,
+  bookPublishedTemplate,
+  validationEmailTemplate,
+  changePasswordTemplate,
+  paymentDoneBillTemplate,
+  paymentDoneThankTemplate,
+  bookSoldTemplate,
+  efectyPendingPaymentTemplate,
+  messageQuestionTemplate,
+  messageResponseTemplate,
+  DataType
+}

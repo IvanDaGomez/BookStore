@@ -78,6 +78,8 @@ export default function Perfil ({ user, navigate }) {
         <div>
           <h2>{user.nombre}</h2>
           <h3>{user.correo}</h3>
+          <h3>{user?.rol === 'vendedor' ? 'Vendedor verificado' : user?.rol === 'admin' ? 'Administrador' : 'Comprador'}</h3>
+          <h4>{user.estado_cuenta}</h4>
           <button onClick={() => navigate('/usuarios/editarUsuario')}>
             Editar perfil
           </button>
