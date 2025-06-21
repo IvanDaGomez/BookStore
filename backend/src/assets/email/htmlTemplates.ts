@@ -86,8 +86,7 @@ const footer = `
     <p>Para más información, pregunta a nuestro equipo de soporte o <a target='_blank' href="${process.env.FRONTEND_URL}/contacto">contáctanos</a></p>
   </div>
 `
-let logoMeridian = 'cid:logo@meridian'
-logoMeridian = '/logo.png'
+let logoMeridian = '/logo.png'
 type DataType = {
   book?: Partial<BookObjectType>
   user?: UserInfoType | Partial<UserInfoType>
