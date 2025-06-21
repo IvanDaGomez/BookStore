@@ -3,11 +3,6 @@ import express from 'express'
 import { ImageType } from '../../types/objects'
 import { bookObject } from '../../models/books/bookObject.js'
 import saveOptimizedImages from '../../assets/saveOptimizedImages.js'
-import { sendEmail } from '../../assets/email/sendEmail.js'
-import { IUsersModel } from '../../types/models'
-import { createEmail } from '../../assets/email/htmlEmails.js'
-import { sendNotification } from '../../assets/notifications/sendNotification.js'
-import { createNotification } from '../../assets/notifications/createNotification.js'
 /**
  * Prepares and formats the book data for creation by parsing and transforming
  * specific fields from the incoming request. This function ensures that numeric
@@ -42,17 +37,12 @@ async function prepareCreateBookData (
     data.keywords = []
   }
   data.id = crypto.randomUUID()
-    if (req.file) {
-  
-      data.foto_perfil = req.file.filename as ImageType
-      
-      
-    }
+
   if (req.files)
-    data.images = (req.files as Express.Multer.File[]).map(
-      file => `${file.filename}`
+    data.images = (req.files as Express.MulterS3.File[]).map(
+      file => `${file.location}`
     ) as ImageType[]
-    await saveOptimizedImages(data.images)
+  await saveOptimizedImages(data.images)
   return data as BookObjectType
 }
 
@@ -74,8 +64,8 @@ async function prepareUpdateBookData (
   }
 
   if (req.files) {
-    data.images = (req.files as Express.Multer.File[]).map(
-      file => `${file.filename}`
+    data.images = (req.files as Express.MulterS3.File[]).map(
+      file => `${file.location}`
     ) as BookObjectType['images']
     await saveOptimizedImages(data.images)
   }
@@ -83,7 +73,9 @@ async function prepareUpdateBookData (
 }
 
 function filterData (data: BookObjectType): BookObjectType {
-  const allowedFields = Object.keys(bookObject({}, true)) as (keyof BookObjectType)[]
+  const allowedFields = Object.keys(
+    bookObject({}, true)
+  ) as (keyof BookObjectType)[]
 
   let filteredData: Partial<
     Record<keyof BookObjectType, BookObjectType[keyof BookObjectType]>

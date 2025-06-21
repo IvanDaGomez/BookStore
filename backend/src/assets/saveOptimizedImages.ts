@@ -8,9 +8,9 @@ function optimizeImage(path: string, widthSize: number, quality: number, outputP
     .webp( { quality })
     .toFile(outputPath, (err, info) => {
       if (err) {
-        throw new Error(`Error al optimizar la imagen: ${err.message}`);
+        return Promise.reject(err);
       }
-      })
+    });
 }
 
 export default async function saveOptimizedImages(imagePaths: string[]): Promise<void> {

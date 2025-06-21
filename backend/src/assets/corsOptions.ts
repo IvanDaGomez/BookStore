@@ -11,7 +11,9 @@ const whitelist: string[] = [
   'localhost:5173',
   'https://www.googleapis.com/auth/gmail.send',
   'https://cbbc-2800-e2-7280-24a-446c-a467-dc81-f31d.ngrok-free.app',
-  'http://cbbc-2800-e2-7280-24a-446c-a467-dc81-f31d.ngrok-free.app'
+  'http://cbbc-2800-e2-7280-24a-446c-a467-dc81-f31d.ngrok-free.app',
+  'http://bookstore-frontend-ivan.s3-website-sa-east-1.amazonaws.com/',
+  'https://bookstore-frontend-ivan.s3-website-sa-east-1.amazonaws.com/'
 ]
 
 export const corsOptions: CorsOptions = {

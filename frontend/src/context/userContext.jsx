@@ -9,21 +9,25 @@ const UserProvider = ({ children }) => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    async function fetchUser () {
+    async function fetchUser() {
       try {
         const url = `${BACKEND_URL}/api/users/userSession`
         const response = await axios.post(url, null, {
           withCredentials: true
         })
         if (response.data.error) {
-          console.error('Error in the server:', response.data.error)
+          if (import.meta.env.VITE_ENVIRONMENT === 'development') {
+            console.error('Error in the server:', response.data.error)
+          }
           setUser(null) // En caso de error, usuario no autenticado
           return
         }
         
         setUser(response.data)
       } catch (error) {
-        console.error('Error fetching user data:', error)
+        if (import.meta.env.VITE_ENVIRONMENT === 'development') {
+          console.error('Error fetching user data:', error)
+        }
         // console.error('Error fetching user data:', error)
         setUser(null) // En caso de error, usuario no autenticado
         if (error.response && error.response.status === 403 && window.location.pathname !== '/popUp/banned') {

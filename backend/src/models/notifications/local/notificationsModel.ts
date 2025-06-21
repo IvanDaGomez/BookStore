@@ -30,7 +30,6 @@ export class NotificationsModel {
     const userNotifications = allNotifications.filter(
       notification => notification.user_id === userId
     )
-    console.log('allNotifications', allNotifications)
     return userNotifications
   }
 
