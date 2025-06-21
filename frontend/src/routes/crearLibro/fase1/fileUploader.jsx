@@ -18,8 +18,9 @@ export default function FileUploader ({
   const handleFileChange = async (e) => {
     const files = Array.from(e.target.files)
     const croppedFiles = await Promise.all(files.map(async (file) => {
-      const croppedURL = await cropImageToAspectRatio(file, 2 / 3)
-      return { url: croppedURL, type: file.type } // Guardar URL y tipo de archivo
+      const blob = await cropImageToAspectRatio(file, 2 / 3)
+      const url = URL.createObjectURL(blob)
+      return { blob, url, type: file.type } // Guardar URL y tipo de archivo
     }))
 
     if (selectedFiles.length + files.length > 5) {
