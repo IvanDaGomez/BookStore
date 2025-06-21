@@ -23,7 +23,7 @@ export default function HowToUploadDropdown () {
                 </svg>
               </div>
               <p>Toma tu foto con buena luz y colócala en fondo blanco</p>
-              <img src='/subir.png' alt='Como subir tus libros?' />
+              <img src='/subir.png' alt='¿Como subir tus libros?' />
             </div>
   
           </div>}
