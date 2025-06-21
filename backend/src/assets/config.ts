@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url'
 import { Payment, MercadoPagoConfig, Preference } from 'mercadopago'
 import { S3Client } from '@aws-sdk/client-s3'
 import multerS3 from 'multer-s3'
+import { getContentTypeByExtension } from './getContentTypeByExtension.js'
 const __filename = fileURLToPath(import.meta.url)
 const assetsDir = path.dirname(__filename)
 const __dirname = path.join(assetsDir, '..', '..')
@@ -43,6 +44,10 @@ const upload = multer({
   storage: multerS3({
     s3: s3,
     bucket: process.env.AWS_S3_BUCKET_NAME ?? '',
+    contentType: (req, file, cb) => {
+      cb(null, getContentTypeByExtension(file.originalname))
+    },
+
     metadata: function (req, file, cb) {
       cb(null, { fieldName: file.fieldname })
     },

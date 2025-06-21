@@ -5,13 +5,13 @@ async function sendOpenAIRequest (imageUrl: string): Promise<object | null> {
   const GPTContext =
     'Eres un asistente de IA que extrae información de portadas de libros. Tu tarea es analizar la imagen y extraer información relevante sobre el libro. Proporciona la información en formato JSON.'
   const prompt = `
-    Extrae la información de la portada del libro en la siguiente URL: ${imageUrl}. 
+    Extrae la información de la portada del libro en la URL adjunta, aqui tambien está: ${imageUrl}. 
     Devuelve la información en formato JSON. 
     Incluye: 
     {
       titulo,
       autor,
-      descripcion: string (max 500 tokens),
+      descripcion: string (max 300 tokens),
       genero,
       edicion,
       idioma,
@@ -20,7 +20,18 @@ async function sendOpenAIRequest (imageUrl: string): Promise<object | null> {
       precio: number (peso colombiano)
     }
   `
-  console.log('Sending prompt to OpenAI:', prompt)
+  const content = [
+    {
+      type: 'image_url',
+      image_url: {
+        url: imageUrl
+      }
+    },
+    {
+      type: 'text',
+      text: prompt
+    }
+  ]
   // Call OpenAI API (use the chat endpoint for GPT-3.5 turbo)
   const response = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
@@ -29,10 +40,10 @@ async function sendOpenAIRequest (imageUrl: string): Promise<object | null> {
       Authorization: `Bearer ${process.env.OPENAI_API_KEY}` // Ensure API key is passed correctly
     },
     body: JSON.stringify({
-      model: 'gpt-3.5-turbo',
+      model: 'gpt-4o',
       messages: [
         { role: 'system', content: GPTContext },
-        { role: 'user', content: prompt }
+        { role: 'user', content }
       ],
       max_tokens: 800,
       temperature: 0.5

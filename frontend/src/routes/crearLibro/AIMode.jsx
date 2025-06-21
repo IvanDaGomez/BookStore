@@ -22,8 +22,10 @@ export default function AIMode({ croppedImages, setCroppedImages, form, setForm 
         return blob
       }
       const blobImage = await urlToBlob(croppedImages[0])
+      const fixedBlob = new Blob([blobImage], { type: 'image/png' })
+      console.log('Imagen Blob:', fixedBlob)
       // Iterar sobre las imágenes en formato Blob y agregarlas al FormData
-      formData.append('image', blobImage, `image.png`)
+      formData.append('image', fixedBlob, `image.png`)
       inputGenerating()
       const url = `${BACKEND_URL}/api/books/ai/aiMode`
       const response = await axios.post(url, formData, { withCredentials: true, headers: { 'Content-Type': 'multipart/form-data' } })
