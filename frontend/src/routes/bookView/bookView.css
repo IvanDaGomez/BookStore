@@ -155,7 +155,7 @@
   background: var(--using4);
   color: var(--using1);
 }
-.bookViewContainer .libroContenedor .comprarContainer  .botonInverso, .botonInverso{
+.bookViewContainer .libroContenedor .comprarContainer  .botonInverso{
   border: 2px solid var(--using4);
   color: var(--using4);
   background: var(--using1);

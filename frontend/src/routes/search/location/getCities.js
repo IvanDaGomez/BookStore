@@ -1,11 +1,7 @@
-import { useEffect, useState } from "react"
+
 import axios from "axios"
-export default function useGetCities (selectedDepartment) {
-  const [cities, setCities] = useState([])
+export default async function getCities (selectedDepartment) {
 
-
-  useEffect(() => {
-    async function fetchCities () {
       if (selectedDepartment) {
         try {
         
@@ -22,16 +18,13 @@ export default function useGetCities (selectedDepartment) {
           }
         })
         const citiesArray = Array.from(cities).sort((a, b) => a.localeCompare(b))
-        setCities(citiesArray)
+        console.log(citiesArray)
+        return citiesArray
 
 
         } catch (error) {
           console.error("Error fetching cities:", error)
         }
       }
-    }
-    fetchCities()
-  }, [selectedDepartment])
 
-  return cities
 }

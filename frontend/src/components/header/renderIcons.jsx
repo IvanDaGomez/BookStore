@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import { renderProfilePhoto } from "../../assets/renderProfilePhoto";
+import AddCircleIcon from "../../assets/icons/addCircle.jsx";
 
 export default function RenderIcons({
   user,
@@ -105,7 +106,6 @@ export default function RenderIcons({
               />
             </svg>
           ) : (
-            
             <img src={renderProfilePhoto(user.foto_perfil ?? '')} alt="Foto" />
           )}
         </div>
@@ -116,12 +116,28 @@ export default function RenderIcons({
           </button>
         </Link>
       )}
+      {(user) && (
+        isMobile ? (
+          <Link to={`/libros/crear`} style={{ all: "unset" }}>
+            <button className="flex botonInverso" style={{padding: "0"}}>
+              <AddCircleIcon />
+            </button>
+          </Link>
+        ) : (
+          <Link to={`/libros/crear`} style={{ all: "inherit" }}>
+            <button className="botonInverso flex" style={{paddingBlock: "2px"}}>
+              <AddCircleIcon />
+              Publicar
+            </button>
+          </Link>
+        ))}
       {isMobile && (
         <div className="hamburger" onClick={handleMenuClick}>
           <svg xmlns="http://www.w3.org/2000/svg"viewBox="0 0 24 24"width={24}height={24}color="#000000"fill="none"><path d="M4 5L20 5"stroke="currentColor"strokeWidth="1.5"strokeLinecap="round"strokeLinejoin="round"/><path d="M4 12L20 12"stroke="currentColor"strokeWidth="1.5"strokeLinecap="round"strokeLinejoin="round"/><path d="M4 19L20 19"stroke="currentColor"strokeWidth="1.5"strokeLinecap="round"strokeLinejoin="round"/>
           </svg>
         </div>
       )}
+      
     </>
   );
 }

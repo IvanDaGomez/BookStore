@@ -203,7 +203,28 @@ input:focus{
 .accent {
   color: var(--using4) !important;
 }
-
+.botonInverso{
+  border: 2px solid var(--using7);
+  color: var(--using7);
+  background: var(--using1);
+  cursor: pointer;
+  svg{
+    color: var(--using7);
+    path{
+      stroke: var(--using7)
+    }
+  }
+  &:hover{
+    color: var(--using1);
+    background: var(--using7);
+    svg{
+      color: var(--using1);
+      path{
+        stroke: var(--using1)
+      }
+    }
+  }
+}
 /*----------------------------------SCROLLBAR-----------------------------------------------*/
 
 

@@ -216,7 +216,7 @@ const MakeSmallCard = ({ element, index }) => {
       <div className='sectionElement'>
 
         <div className='imageElementContainer' style={{ backgroundImage: `url(${renderProfilePhoto(element.images[0])})`, backgroundRepeat: 'no-repeat' }}>
-          {(element.oferta)
+          {(element.oferta && element.oferta != 0)
             ? <div className='bookLabel'>
               {Math.ceil(((1 - element.oferta / element.precio) * 100).toFixed(2) / 5) * 5 + '%'}
             </div>
@@ -224,8 +224,8 @@ const MakeSmallCard = ({ element, index }) => {
         </div>
           <div className="sectionElementTextDiv">
         <h2>{reduceText(element.titulo, 33)}</h2>
-        
-        {(element.oferta) ? <h2 className='red'>${element.oferta.toLocaleString('es-CO')}</h2> : <h2 className='red'>${element.precio.toLocaleString('es-CO')}</h2>}
+
+        {(element.oferta && element.oferta != 0) ? <h2 className='red'>${element.oferta.toLocaleString('es-CO')}</h2> : <h2 className='red'>${element.precio.toLocaleString('es-CO')}</h2>}
         </div>
 
 

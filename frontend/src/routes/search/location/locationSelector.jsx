@@ -1,21 +1,33 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import getLocation from "../../../assets/getLocation"
 import DepartmentData from "./departmentData"
 import CityData from "./cityData"
+import getCities   from "./getCities.js"
+import { isObjectEmpty } from "../../../assets/isObjectEmpty"
 export default function LocationSelector ({ setFiltros, filtros }) {
   const [popUpLocation, setPopUpLocation] = useState(false)
   const [selectedDepartment, setSelectedDepartment] = useState(null)
   const [selectedCity, setSelectedCity] = useState(null)
+  const [cities, setCities] = useState([])
+  useEffect(() => {
+    if (!isObjectEmpty(selectedDepartment)) {
+      getCities(selectedDepartment).then((data) => {
+        setCities(data)
+      })
+    }
+  }, [selectedDepartment])
   const handleSetLocation = async () => {
     document.querySelector('.getLocation').innerText = "Cargando..."
     const locationData = await getLocation()
-    const city = locationData?.ciudad.split(" ")[locationData?.ciudad.split(" ").length - 1]
+    
+    const allCities = await getCities(locationData?.departamento)
+    const city = allCities.find((city) => locationData?.ciudad.toLowerCase().includes(city.toLowerCase()))
     setFiltros((prev) => {
       
       return {
         ...prev,
-        ciudad: city ? [city] : [locationData?.ciudad],
+        ciudad: [city],
         departamento: [locationData?.departamento]
       }
     })
@@ -59,9 +71,10 @@ export default function LocationSelector ({ setFiltros, filtros }) {
         <DepartmentData setSelectedDepartment={setSelectedDepartment} />
         </>:
         <CityData selectedDepartment={selectedDepartment} 
-        setSelectedCity={setSelectedCity} 
-        setPopUpLocation={setPopUpLocation}
-        setFiltros={setFiltros}
+          setSelectedCity={setSelectedCity} 
+          setPopUpLocation={setPopUpLocation}
+              setFiltros={setFiltros}
+              cities={cities}
         />
         }
 
