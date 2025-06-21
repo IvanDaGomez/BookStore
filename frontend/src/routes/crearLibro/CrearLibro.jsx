@@ -17,14 +17,31 @@ import useSendForm from './useSendForm.js'
 import { cambiarEspacioAGuiones } from '../../assets/agregarMas.js'
 import { useReturnIfNoUser } from '../../assets/useReturnIfNoUser.js'
 import { BACKEND_URL } from '../../assets/config.js'
+import Loader from '../../components/loader/loader.jsx'
 
 export default function CrearLibro () {
   const navigate = useNavigate()
   const { user, loading } = useContext(UserContext)
   useReturnIfNoUser(user, loading)
-  const [form, setForm] = useState({})
+  const [form, setForm] = useState({
+    titulo: '',
+    autor: '',
+    precio: 0,
+    oferta: null,
+    keywords: [],
+    descripcion: '',
+    estado: 'Nuevo',
+    genero: 'Ficción',
+    edicion: '',
+    idioma: 'Español',
+    tapa: 'Tapa blanda',
+    edad: '',
+    images: [],
+    formato: 'Físico',
+    isbn: ''
+  })
   const [fase, setFase] = useState(1)
-
+  const [sending, setSending] = useState(false)
   // Recuperar datos de localStorage en el primer render
   useEffect(() => {
     const storedForm = localStorage.getItem('form')
@@ -122,7 +139,9 @@ export default function CrearLibro () {
     setFase,
     actualizar,
     libro,
-    navigate
+    navigate,
+    sending,
+    setSending
   })
 
   const [meanPrice, setMeanPrice] = useState(null)
@@ -159,7 +178,7 @@ export default function CrearLibro () {
   return (
     <>
       <Header />
-
+      { sending && <Loader/>}
       <div className='crearLibroDiv'>
         <div className='warning'>
           Solo aceptamos libros en buen estado. <span>Publicar réplicas o falsificaciones </span>

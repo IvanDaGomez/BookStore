@@ -11,7 +11,7 @@ async function sendOpenAIRequest (imageUrl: string): Promise<object | null> {
     {
       titulo,
       autor,
-      descripcion: string (max 300 tokens),
+      descripcion: string (max 400 tokens),
       genero,
       edicion,
       idioma,

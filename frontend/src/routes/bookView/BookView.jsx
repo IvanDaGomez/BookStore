@@ -21,7 +21,6 @@ export default function BookView () {
   
   const [actualImage, setActualImage] = useState('')
   const { libro, loading, error } = useFetchActualBook(bookId, null , setActualImage)
- 
 
   const { user } = useContext(UserContext)
 

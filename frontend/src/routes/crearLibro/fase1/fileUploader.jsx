@@ -20,7 +20,7 @@ export default function FileUploader ({
     const croppedFiles = await Promise.all(files.map(async (file) => {
       const blob = await cropImageToAspectRatio(file, 2 / 3)
       const url = URL.createObjectURL(blob)
-      return { blob, url, type: file.type } // Guardar URL y tipo de archivo
+      return { blob, url, type: "image/webp" } // Guardar URL y tipo de archivo
     }))
 
     if (selectedFiles.length + files.length > 5) {

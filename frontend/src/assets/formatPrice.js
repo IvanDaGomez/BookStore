@@ -5,6 +5,7 @@ export function formatPrice(number) {
   if (typeof number !== 'number') {
     number = parseInt(number, 10)
   }
+  number = Math.round(number / 1000) * 1000; // Redondear al millar más cercano
   // Convertir a número y formatear con puntos después de cada tres dígitos
   const formattedValue = new Intl.NumberFormat('es-CO', {
     style: 'decimal',

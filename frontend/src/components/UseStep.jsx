@@ -1,5 +1,7 @@
 /* eslint-disable react/prop-types */
 
+import React from "react"
+
 export default function UseStep ({ currentStep, titulos }) {
   const steps = titulos
 
@@ -14,17 +16,16 @@ export default function UseStep ({ currentStep, titulos }) {
         )) */}
       </div>
       {steps.map((step, index) => (
-        <>
+        <React.Fragment key={index}>
           <div
-            key={index} className={`step-item ${
-              (currentStep >= index + 1) ? 'active' : ''}`}
+             className={`step-item ${(currentStep >= index + 1) ? 'active' : ''}`}
           >
             {index + 1}
           </div>
           {index < steps.length - 1 && (
-            <div key={(index + 1 + steps.length)} className={`step-line ${currentStep > index + 1 ? 'active' : ''}`} />
+            <div className={`step-line ${currentStep > index + 1 ? 'active' : ''}`} />
           )}
-        </>
+        </React.Fragment>
       ))}
     </div>
 

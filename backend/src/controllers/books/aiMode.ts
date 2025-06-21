@@ -20,7 +20,6 @@ export const AIMode = async (
     */
 
     const file = req.file as Express.MulterS3.File | undefined
-    console.log('Received file:', file)
     if (!file) {
       return res.status(400).json({ error: 'No file uploaded' })
     }

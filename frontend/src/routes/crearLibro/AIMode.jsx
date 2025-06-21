@@ -14,6 +14,7 @@ export default function AIMode({ croppedImages, setCroppedImages, form, setForm 
   async function handleAIMode() {
     try {
       if (croppedImages.length === 0 || !switchRef.current.checked) return 
+      
       if (alreadyGenerated) return
       const formData = new FormData()
       // async function urlToBlob (blobUrl) {
@@ -25,9 +26,10 @@ export default function AIMode({ croppedImages, setCroppedImages, form, setForm 
       // const fixedBlob = new Blob([blobImage], { type: 'image/png' })
       // console.log('Imagen Blob:', fixedBlob)
       // Iterar sobre las imágenes en formato Blob y agregarlas al FormData
-      formData.append('image', croppedImages[0].blob, `image.png`)
+      formData.append('image', croppedImages[0].blob, `image.webp`)
       inputGenerating()
       const url = `${BACKEND_URL}/api/books/ai/aiMode`
+      
       const response = await axios.post(url, formData, { withCredentials: true, headers: { 'Content-Type': 'multipart/form-data' } })
       if (response.data.error) {
         console.error('Error en la respuesta:', response.data.error)
@@ -48,9 +50,16 @@ export default function AIMode({ croppedImages, setCroppedImages, form, setForm 
       setForm(newForm)
       setCroppedImages(croppedImages)
       setAlreadyGenerated(true)
-      console.log('Nuevo formulario:', newForm)
+      if (import.meta.env.VITE_NODE_ENV === 'development') {
+        console.log('Datos generados por IA:', data)
+        console.log('Nuevo formulario:', newForm)
+      }
+      
     } catch (error) {
-      console.error('Error en la respuesta', error)
+      if (import.meta.env.VITE_NODE_ENV === 'development') {
+        console.error('Error en la respuesta', error)
+      }
+      setAlreadyGenerated(false)
     }
   }
   useEffect(() => {

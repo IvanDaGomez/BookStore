@@ -3,6 +3,7 @@ import { toast } from 'react-toastify'
 import axios from 'axios'
 import { reduceText } from './reduceText'
 import { BACKEND_URL } from './config'
+import { renderProfilePhoto } from './renderProfilePhoto'
 function SimpleNotification (notification) {
   const { title, created_in } = notification
 
@@ -62,7 +63,7 @@ function DetailedNotification (notification) {
         {metadata.photo && (
           <>
             <img
-              src={`${BACKEND_URL}/uploads/${metadata.photo}`}
+              src={renderProfilePhoto(metadata.photo)}
               alt='Notification'
               className='notification-photo'
             />

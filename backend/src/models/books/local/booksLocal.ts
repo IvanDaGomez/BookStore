@@ -48,14 +48,24 @@ class BooksModel {
     }
 
     const queryWords = changeToArray(query)
-
+    if (query === 'Nuevo') {
+      return books
+        .filter(book => book.disponibilidad === 'Disponible')
+        .sort((a, b) => {
+          return (
+            new Date(b.fecha_publicacion).getTime() -
+            new Date(a.fecha_publicacion).getTime()
+          )
+        })
+        .slice(0, l)
+    }
     // Calculamos los scores y filtramos directamente los que no cumplen el umbral
     const booksWithScores = books
-      .map(book => {
-        const score = calculateMatchScore(book, queryWords, query)
-        return score >= queryWords.length * 0.7 ? { book, score } : null
-      })
-      .filter(item => item !== null)
+      .map(book => ({
+        book,
+        score: calculateMatchScore(book, queryWords, query)
+      }))
+      .filter(({ score }) => score >= queryWords.length * 0.7)
 
     // Ordenamos antes de filtrar por cantidad
     const filterdBooks: Partial<BookObjectType>[] = booksWithScores

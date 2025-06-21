@@ -1,5 +1,5 @@
 import { useRef, useState } from "react"
-import { IMAGES_URL } from "../../assets/config"
+import { renderProfilePhoto } from "../../assets/renderProfilePhoto"
 
 /* eslint-disable react/prop-types */
 export default function ImagesCell({ libro, setActualImage, actualImage }) {
@@ -59,14 +59,12 @@ export default function ImagesCell({ libro, setActualImage, actualImage }) {
                   className='imageElement'
                   key={index}
                   onClick={() => {
-                    // Construir la URL completa para cada imagen
-                    const imageUrl = image ? `${IMAGES_URL}/uploads/${image}` : ''
-                    setActualImage(imageUrl) // Establecer la URL de la imagen actual
+                    setActualImage(renderProfilePhoto(image)) // Establecer la URL de la imagen actual
                   }}
                 >
                   <img
                     loading='lazy'
-                    src={`${IMAGES_URL}/uploads/${image}`} // Usar la URL completa para mostrar la imagen
+                    src={renderProfilePhoto(image)} // Usar la URL completa para mostrar la imagen
                     alt={libro.title}
                     title={libro.title}
                   />
@@ -81,7 +79,7 @@ export default function ImagesCell({ libro, setActualImage, actualImage }) {
           >
             {libro.images && libro.images.length > 0 && (
               <img
-                src={actualImage}
+                src={renderProfilePhoto(actualImage)}
                 alt={libro.titulo}
                 title={libro.titulo}
                 onMouseMove={moverMouse}

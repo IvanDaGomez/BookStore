@@ -220,19 +220,20 @@
   max-height: 6em;
   resize: none;
 }
-.messageInputContainer .send{
+.send{
   width: 40px;
-  
+  height: 40px;
   aspect-ratio: 1 / 1;
   background-color: var(--using4);
   border-radius: 50%;
   color: var(--using1);
   display: flex;
+  padding: 2px;
   justify-content: center;
   align-items: center;
   cursor: pointer;
 }
-.messageInputContainer .send img{
+.send img{
   height: 50%;
   aspect-ratio: 1 / 1;
   z-index: 1;

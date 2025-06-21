@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { BACKEND_URL } from './config';
+import { renderProfilePhoto } from "./renderProfilePhoto";
 
 export default function useFetchActualBook (bookId, externalSet = null, setActualImage = null) {
   const [libro, setLibro] = useState({});
@@ -28,9 +29,7 @@ export default function useFetchActualBook (bookId, externalSet = null, setActua
           externalSet(book);
         }
         if (setActualImage) {
-          const imageUrl = book.images && book.images[0] 
-            ? `${BACKEND_URL}/uploads/${book.images[0]}` 
-            : '';
+          const imageUrl = renderProfilePhoto(book?.images[0] ?? '')
           setActualImage(imageUrl);
         }
       } catch (error) {

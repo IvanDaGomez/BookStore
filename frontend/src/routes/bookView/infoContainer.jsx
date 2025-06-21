@@ -1,3 +1,5 @@
+import { isObjectEmpty } from "../../assets/isObjectEmpty";
+
 /* eslint-disable react/prop-types */
 export default function InfoContainer({ libro }) {
   // Function to calculate the difference in weeks between two dates
@@ -28,7 +30,7 @@ export default function InfoContainer({ libro }) {
     libro.edicion && `Edición: ${libro.edicion}`,
     libro.tapa && `Tapa: ${libro.tapa}`,
     libro.idioma && `Idioma: ${libro.idioma}`,
-    libro.ubicacion && `Ubicación: ${libro?.ubicacion?.ciudad || 'No encontrada'}`,
+    isObjectEmpty(libro.ubicacion) && `Ubicación: ${libro?.ubicacion?.ciudad || 'No encontrada'}`,
     formattedFechaPublicacion && `Publicado: ${formattedFechaPublicacion}`,
     libro.edad && `Edad recomendada: ${libro.edad}`,
   ].filter(Boolean);

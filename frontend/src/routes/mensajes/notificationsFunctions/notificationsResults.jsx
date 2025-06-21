@@ -18,8 +18,8 @@ export default function NotificationsResults ({
               <div
                 key={notification.id}
                 className={`conversationSpecific 
-                                ${activeNotification && activeNotification.id === notification.id ? 'active' : ''}
-                                ${!notification.read && activeNotification.id !== notification.id ? 'unread' : ''}`}
+                                ${activeNotification && activeNotification?.id === notification?.id ? 'active' : ''}
+                                ${!notification.read && activeNotification?.id !== notification?.id ? 'unread' : ''}`}
                 onClick={() => setActiveNotification(notification)}>
                 <div className='conversationSpecificTitleAndMessage'>
                   <h2>{notification.type && reduceText(notification.title, 40)}</h2>

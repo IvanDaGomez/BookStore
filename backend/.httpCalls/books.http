@@ -3,8 +3,9 @@ GET http://localhost:3030/api/books
 
 ### Get all review books
 GET http://localhost:3030/api/books/review
-
-### 
+### Get books by query
+GET http://localhost:3030/api/books/query?q=Nuevo&l=12
+### Create a new book
 POST http://localhost:3030/api/books
 
 Content-Type: application/json
