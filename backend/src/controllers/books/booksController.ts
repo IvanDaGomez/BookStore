@@ -220,9 +220,11 @@ export class BooksController {
 
       const validated = validateBook(data)
       if (!validated.success) {
+        if (validated.error.errors && process.env.NODE_ENV === 'development') {
+          console.dir(validated.error.errors, { depth: null })
+        }
         return res.status(400).json({ error: validated.error })
       }
-
       // Recibe el usuario para actualizar sus librosIds
       const user = await this.UsersModel.getUserById(data.id_vendedor)
 
@@ -230,6 +232,7 @@ export class BooksController {
       if (user.rol === 'usuario') {
         user.rol = 'vendedor'
       }
+
       await this.UsersModel.updateUser(user.id, {
         libros_ids: [...(user.libros_ids ?? []), data.id],
         rol: user.rol
@@ -239,7 +242,7 @@ export class BooksController {
       await sendNotification(
         createNotification(notificationData, 'bookPublished')
       )
-
+      console.log('Book created:', book)
       const correo = await this.UsersModel.getEmailById(data.id_vendedor)
 
       await sendEmail(
@@ -272,82 +275,98 @@ export class BooksController {
         book_id: ID
       }
       console.log(data)
-      if (!data.pregunta || !data.tipo) return res.status(400).json({ error: 'No se proporcionó mensaje o tipo' })
+      if (!data.pregunta || !data.tipo)
+        return res
+          .status(400)
+          .json({ error: 'No se proporcionó mensaje o tipo' })
       const existingBook = await this.BooksModel.getBookById(data.book_id)
-      const existingMessages = existingBook.mensajes ??[]
+      const existingMessages = existingBook.mensajes ?? []
       const messagesArray = existingMessages ?? []
       if (data.tipo === 'pregunta') {
-          messagesArray.push({
-            pregunta: data.pregunta,
-            respuesta: undefined,
-            sender_id: data.sender_id
-          })
-
+        messagesArray.push({
+          pregunta: data.pregunta,
+          respuesta: undefined,
+          sender_id: data.sender_id
+        })
       } else if (data.tipo === 'respuesta' && data.pregunta) {
         const message = messagesArray.find(
           item => item.pregunta === data.pregunta
         )
         console.log('A')
-        if (!message) 
+        if (!message)
           return res.status(400).json({ error: 'No se encontró la pregunta' })
         message['respuesta'] = data.respuesta
-
       }
 
       const seller = await this.UsersModel.getEmailById(
-        existingBook.id_vendedor)
-      const buyer = await this.UsersModel.getEmailById(
-        data.sender_id)
+        existingBook.id_vendedor
+      )
+      const buyer = await this.UsersModel.getEmailById(data.sender_id)
 
       if (data.tipo === 'respuesta') {
         Promise.all([
           sendEmail(
             buyer.correo,
             `El vendedor ${seller.nombre} te ha respondido tu mensaje sobre el libro ${existingBook.titulo}`,
-            createEmail({
-              book: existingBook,
-              seller: seller,
-              user: buyer,
-              metadata: {
-                pregunta: data.pregunta,
-                respuesta: data.respuesta
-              }
-            }, 'messageResponse')
+            createEmail(
+              {
+                book: existingBook,
+                seller: seller,
+                user: buyer,
+                metadata: {
+                  pregunta: data.pregunta,
+                  respuesta: data.respuesta
+                }
+              },
+              'messageResponse'
+            )
           ),
-          sendNotification(createNotification({
-            ...existingBook,
-            id_vendedor: existingBook.id_vendedor,
-            metadata: {
-              book_id: existingBook.id,
-              pregunta: data.pregunta,
-              respuesta: data.respuesta,
-            }
-          }, 'messageResponse'))  
+          sendNotification(
+            createNotification(
+              {
+                ...existingBook,
+                id_vendedor: existingBook.id_vendedor,
+                metadata: {
+                  book_id: existingBook.id,
+                  pregunta: data.pregunta,
+                  respuesta: data.respuesta
+                }
+              },
+              'messageResponse'
+            )
+          )
         ])
-      }
-      else if (data.tipo === 'pregunta') {
+      } else if (data.tipo === 'pregunta') {
         Promise.all([
           sendEmail(
-          seller.correo,
-          `El usuario ${buyer.nombre} te ha enviado una pregunta sobre tu libro ${existingBook.titulo}`,
-            createEmail({
-            book: existingBook,
-            seller: seller,
-            user: buyer,
-            metadata: {
-              pregunta: data.pregunta
-            }
-          }, 'messageQuestion')
+            seller.correo,
+            `El usuario ${buyer.nombre} te ha enviado una pregunta sobre tu libro ${existingBook.titulo}`,
+            createEmail(
+              {
+                book: existingBook,
+                seller: seller,
+                user: buyer,
+                metadata: {
+                  pregunta: data.pregunta
+                }
+              },
+              'messageQuestion'
+            )
           ),
-          sendNotification(createNotification({
-            ...existingBook,
-            // seller,
-            metadata: {
-              book_id: existingBook.id,
-              book_title: existingBook.titulo,
-              pregunta: data.pregunta
-            }
-          }, 'messageQuestion'))
+          sendNotification(
+            createNotification(
+              {
+                ...existingBook,
+                // seller,
+                metadata: {
+                  book_id: existingBook.id,
+                  book_title: existingBook.titulo,
+                  pregunta: data.pregunta
+                }
+              },
+              'messageQuestion'
+            )
+          )
         ])
       }
 

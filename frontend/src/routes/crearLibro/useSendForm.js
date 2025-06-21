@@ -10,10 +10,13 @@ export default function useSendForm ({
   setFase,
   actualizar,
   libro,
-  navigate
+  navigate,
+  sending = false,
+  setSending
 }) {
   useEffect(() => {
-    if (fase === 4 && user && user.id && user.nombre) {
+    if (fase === 4 && user && user.id && user.nombre && !sending) {
+      setSending(true)
       const enviarForm = async () => {
         const formData = new FormData() // Crear una nueva instancia de FormData
 
@@ -74,7 +77,10 @@ export default function useSendForm ({
           navigate('/popUp/exitoCreandoLibro')
         } catch (error) {
           console.error('Error al enviar los datos:', error)
+        } finally {
+          setSending(false)
         }
+        
       }
 
       if (fase === 4) enviarForm()

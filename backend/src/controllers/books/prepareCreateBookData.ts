@@ -38,11 +38,15 @@ async function prepareCreateBookData (
   }
   data.id = crypto.randomUUID()
 
-  if (req.files)
-    data.images = (req.files as Express.MulterS3.File[]).map(
-      file => `${file.location}`
-    ) as ImageType[]
-  await saveOptimizedImages(data.images)
+  if (req.files) {
+    data.images = (req.files as Express.MulterS3.File[]).map(file => {
+      const path = file.filename || file.location
+      const endpoint = path.split('amazonaws.com')[1] // Extract the path after the S3 bucket URL
+      const imagePath = process.env.IMAGES_URL + endpoint // Construct the full image URL
+      return imagePath
+    }) as BookObjectType['images']
+    //await saveOptimizedImages(data.images)
+  }
   return data as BookObjectType
 }
 
@@ -64,10 +68,13 @@ async function prepareUpdateBookData (
   }
 
   if (req.files) {
-    data.images = (req.files as Express.MulterS3.File[]).map(
-      file => `${file.location}`
-    ) as BookObjectType['images']
-    await saveOptimizedImages(data.images)
+    data.images = (req.files as Express.MulterS3.File[]).map(file => {
+      const path = file.filename || file.location
+      const endpoint = path.split('amazonaws.com')[1] // Extract the path after the S3 bucket URL
+      const imagePath = process.env.IMAGES_URL + endpoint // Construct the full image URL
+      return imagePath
+    }) as BookObjectType['images']
+    //await saveOptimizedImages(data.images)
   }
   return bookObject(data, true) as BookObjectType
 }

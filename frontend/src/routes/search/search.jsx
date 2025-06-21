@@ -5,7 +5,7 @@ import SideInfo from '../../components/sideInfo.jsx'
 import Footer from '../../components/footer/footer.jsx'
 import Header from '../../components/header/header.jsx'
 import { useEffect, useState, useRef, useContext } from 'react'
-import { cambiarGuionesAEspacio } from '../../assets/agregarMas.js'
+import { cambiarEspacioAGuiones, cambiarGuionesAEspacio } from '../../assets/agregarMas.js'
 import { MakeCard, MakeCollectionCard, MakeOneFrCard, MakeUserCard } from '../../assets/makeCard.jsx'
 import { ToastContainer } from 'react-toastify'
 import { UserContext } from '../../context/userContext.jsx'
@@ -52,7 +52,7 @@ export default function Search () {
         if (query && query.trim() && Object.values(queryParams).every(val => !val)) {
           const validKinds = ['books', 'collections', 'users'];
           const searchKind = validKinds.includes(sk) ? sk : 'books';
-          const response = await fetch(`${BACKEND_URL}/api/${searchKind}/query?q=${query}`, {
+          const response = await fetch(`${BACKEND_URL}/api/${searchKind}/query?q=${cambiarEspacioAGuiones(query)}`, {
             method: 'GET',
             credentials: 'include' // Enviar las cookies
           })

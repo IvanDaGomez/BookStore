@@ -129,7 +129,10 @@ export const createApp = ({
       next: express.NextFunction
     ): void => {
       if (!res.headersSent) {
-        res.json({
+        if (process.env.NODE_ENV === 'development') {
+          console.error('Error:', err.message)
+        }
+        res.status(500).json({
           error:
             process.env.NODE_ENV === 'production'
               ? 'Internal Server Error'

@@ -51,13 +51,8 @@ export default function Fase1 ({ form, setForm, setFase, fase }) {
   }
 
   useEffect(() => {
-    document.querySelector('#titulo').value = form.titulo || ''
-    document.querySelector('#descripcion').value = form.descripcion || ''
-    document.querySelector('#autor').value = form.autor || ''
-    document.querySelector('#isbn').value = form.isbn || ''
-
     setCroppedImages(form.images ?? [])
-  }, [form.titulo, form.descripcion, form.images, form.autor, form.isbn])
+  }, [form.images])
 
 
   const handleKeyPress = (event) => {
@@ -119,6 +114,8 @@ export default function Fase1 ({ form, setForm, setFase, fase }) {
             type='text'
             name='titulo'
             placeholder='Título de tu libro'
+            value={form.titulo ?? ''}
+  onChange={(e) => setForm({ ...form, titulo: e.target.value })}
             required
           />
         </div>
@@ -129,6 +126,8 @@ export default function Fase1 ({ form, setForm, setFase, fase }) {
             type='text'
             name='autor'
             placeholder='Autor de tu libro'
+            value={form.autor ?? ''}
+            onChange={(e) => setForm({ ...form, autor: e.target.value })}
             required
 
           />
@@ -150,6 +149,8 @@ export default function Fase1 ({ form, setForm, setFase, fase }) {
             type='text'
             name='isbn'
             placeholder='ISBN de tu libro'
+            value={form.isbn ?? ''}
+            onChange={(e) => setForm({ ...form, isbn: e.target.value })}
             required
 
           />
@@ -173,6 +174,8 @@ export default function Fase1 ({ form, setForm, setFase, fase }) {
             maxLength='2000'
             placeholder='Cuéntanos más de tu libro...'
             name='descripcion'
+            value={form.descripcion ?? ''}
+            onChange={(e) => setForm({ ...form, descripcion: e.target.value })}
             required
             rows='6'
           />

@@ -28,22 +28,17 @@ const cropImageToAspectRatio = (file, aspectRatio) => {
           sw = width
           sh = height
         }
+        const fixedWidth = 600
+        const fixedHeight = 900 // porque 600 * (3/2)
+        canvas.width = fixedWidth
+        canvas.height = fixedHeight
 
-        canvas.width = width
-        canvas.height = height
-
-        ctx.drawImage(img, sx, sy, sw, sh, 0, 0, width, height)
+        ctx.drawImage(img, sx, sy, sw, sh, 0, 0, fixedWidth, fixedHeight)
         // La URL no es permanente
-        canvas.toBlob(
-          (blob) => {
-            if (blob) {
-              resolve(blob)
-            } else {
-              reject(new Error('Error al crear blob de imagen'))
-            }
-          },
-          file.type
-        )
+        canvas.toBlob(blob => {
+          if (blob) resolve(blob)
+          else reject(new Error('No se pudo generar WebP'))
+        }, 'image/webp', 0.8)
       }
     }
     reader.onerror = (err) => reject(err)

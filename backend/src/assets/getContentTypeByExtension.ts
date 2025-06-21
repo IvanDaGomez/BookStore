@@ -11,6 +11,8 @@ function getContentTypeByExtension (filename: string): string {
       return 'image/jpeg'
     case '.gif':
       return 'image/gif'
+    case '.webp':
+      return 'image/webp'
     default:
       return 'application/octet-stream'
   }

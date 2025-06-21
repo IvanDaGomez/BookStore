@@ -14,7 +14,7 @@ import RenderBottomText from './makeCard/renderBottomText.jsx'
 import { necesitasIniciarSesion } from './jsxConstants.jsx'
 import { randBackground } from './randBackground.js'
 import axios from 'axios'
-import { BACKEND_URL } from './config'
+import { BACKEND_URL, IMAGES_URL } from './config'
 export const PriceTitleRender = ({ element }) => {
 
   if (!element?.precio) return null
@@ -32,7 +32,7 @@ export const PriceTitleRender = ({ element }) => {
         </h2></>}
   </>)
 }
-const MakeCard = ({ element, index, user = '', callback = () => {}, wordLimit = 25 }) => {
+const MakeCard = ({ element, index, user = '', callback = () => {}, wordLimit = 40 }) => {
   // Aplicar la clase "favoritoActivo" después de renderizar las tarjetas
   useEffect(() => {
     if (user && user.favoritos) {
@@ -65,7 +65,7 @@ const MakeCard = ({ element, index, user = '', callback = () => {}, wordLimit = 
       }}
         
         >
-        <div className='imageElementContainer' style={{ backgroundImage: `url(${BACKEND_URL}/uploads/${element.images[0]})`, backgroundRepeat: 'no-repeat' }}>
+        <div className='imageElementContainer' style={{ backgroundImage: `url(${renderProfilePhoto(element.images[0])})`, backgroundRepeat: 'no-repeat' }}>
           <RenderImageHeader element={element}/>
         </div>
         <RenderMidText element={element} wordLimit={wordLimit}/>
@@ -124,7 +124,6 @@ const MakeOneFrCard = ({ element, index, user = '' }) => {
           </div>
 
           <div className='soldBy'>
-            {console.log(element)}
             Vendido por <span onClick={() => window.location.href = `/usuarios/${element.id_vendedor}`} className='accent'>{element.vendedor}</span>
           </div>
 
@@ -163,7 +162,8 @@ const MakeUpdateCard = ({ element, index }) => {
     <Link key={index} to={`/libros/${element.id}`}>
       <div className='sectionElement' style={{ filter: `opacity(${element.disponibilidad === 'Vendido' ? '0.6' : '1'})` }}>
 
-        <div className='imageElementContainer' style={{ backgroundImage: `url(${BACKEND_URL}/uploads/${element.images[0]})`, backgroundRepeat: 'no-repeat' }}>
+        <div className='imageElementContainer' style={{
+          backgroundImage: `url(${renderProfilePhoto(element.images[0])})`, backgroundRepeat: 'no-repeat' }}>
           {(element.disponibilidad === 'Vendido')
             && (
               <div
@@ -215,7 +215,7 @@ const MakeSmallCard = ({ element, index }) => {
     <Link key={index} style={{ width: '100%', height: '100%' }} to={`${window.location.origin}/libros/${element.id}`}>
       <div className='sectionElement'>
 
-        <div className='imageElementContainer' style={{ backgroundImage: `url(${BACKEND_URL}/uploads/${element.images[0]})`, backgroundRepeat: 'no-repeat' }}>
+        <div className='imageElementContainer' style={{ backgroundImage: `url(${renderProfilePhoto(element.images[0])})`, backgroundRepeat: 'no-repeat' }}>
           {(element.oferta)
             ? <div className='bookLabel'>
               {Math.ceil(((1 - element.oferta / element.precio) * 100).toFixed(2) / 5) * 5 + '%'}

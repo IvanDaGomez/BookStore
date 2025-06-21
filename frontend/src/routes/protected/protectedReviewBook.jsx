@@ -7,6 +7,8 @@ import axios from 'axios'
 import { useReturnIfNoUser } from '../../assets/useReturnIfNoUser'
 import './protectedReview.css'
 import { BACKEND_URL } from '../../assets/config'
+import { renderProfilePhoto } from '../../assets/renderProfilePhoto'
+import { isObjectEmpty } from '../../assets/isObjectEmpty'
 export default function ProtectedReviewBook () {
   const { user, loading } = useContext(UserContext)
   const [books, setBooks] = useState([])
@@ -18,21 +20,15 @@ export default function ProtectedReviewBook () {
       if (!user) return
 
       try {
-        const response = await fetch(`${BACKEND_URL}/api/books/review`)
+        const response = await axios.get(`${BACKEND_URL}/api/books/review`)
 
-        if (!response.ok) {
-          throw new Error('Failed to fetch books')
-        }
-
-        const data = await response.json()
-
-        if (data.error) {
-          console.error(data.error)
+        if (response.data.error) {
+          console.error(response.data.error)
           return
         }
 
-        setBooks(data)
-        setCurrentBook(data[0] || null)
+        setBooks(response.data)
+        setCurrentBook(response.data[0] ?? null)
       } catch (error) {
         console.error('Error fetching books:', error)
       }
@@ -113,7 +109,7 @@ export default function ProtectedReviewBook () {
         user_id: book.id_vendedor,
         action_url: `${window.location.origin}/libros/${book.id}`,
         metadata: {
-          photo: book.images?.[0] || 'default.png',
+          photo: book.images?.[0] || 'default.jpg',
           book_title: book.titulo,
           book_id: book.id
         }
@@ -159,7 +155,10 @@ export default function ProtectedReviewBook () {
               currentBook.edicion && `Edición: ${currentBook.edicion}`,
               currentBook.tapa && `Tapa: ${currentBook.tapa}`,
               currentBook.idioma && `Idioma: ${currentBook.idioma}`,
-              currentBook.ubicacion && `Ubicación: ${currentBook.ubicacion}`,
+              isObjectEmpty(currentBook.ubicacion) && `Ubicación: 
+                                        Ciudad: ${currentBook.ubicacion.ciudad},
+                                        Departamento: ${currentBook.ubicacion.departamento},
+                                        País: ${currentBook.ubicacion.pais}`,
               currentBook.fecha_publicacion &&
               `Publicado: ${new Date(currentBook.fecha_publicacion).toLocaleDateString('es-ES', {
                 day: 'numeric',
@@ -184,7 +183,7 @@ export default function ProtectedReviewBook () {
               {currentBook.images?.map((image, index) => (
                 <img
                   key={index}
-                  src={`${BACKEND_URL}/uploads/${image || 'default.jpg'}`}
+                  src={renderProfilePhoto(image)}
                   alt='Portada del libro'
                 />
               ))}

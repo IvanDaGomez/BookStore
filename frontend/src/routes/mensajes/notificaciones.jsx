@@ -16,13 +16,14 @@ import useMarkNotificationAsRead from './notificationsFunctions/useMarkNotificat
 import useUpdateBreakpoint from '../../assets/useUpdateBreakPoint.js'
 import NotificationsResults from './notificationsFunctions/notificationsResults.jsx'
 import { useReturnIfNoUser } from '../../assets/useReturnIfNoUser.js'
+import { isObjectEmpty } from '../../assets/isObjectEmpty.js'
 
 export default function Notificaciones () {
 
   const { user, loading } = useContext(UserContext)
   useReturnIfNoUser(user, loading, false)
   const [notifications, , filteredNotifications, setFilteredNotifications] = useFetchNotifications(user)
-  const [activeNotification, setActiveNotification] = useState({})
+  const [activeNotification, setActiveNotification] = useState(null)
 
   // ----------------------------------------LÓGICA DE NOTIFICACIONES------------------------------------//
   const { notificationId } = useParams()
@@ -38,9 +39,9 @@ export default function Notificaciones () {
 
   // slide when a notification is active or not
   useEffect(() => {
-    if (activeNotification && isMobile) {
+    if (!isObjectEmpty(activeNotification) && isMobile) {
       document.querySelector('.messagesContainer').style.transform = 'translateX(-100vw)'
-    } else if (!activeNotification && isMobile) {
+    } else if (isObjectEmpty(activeNotification) && isMobile) {
       document.querySelector('.messagesContainer').style.transform = 'translateX(0)'
     }
   }, [activeNotification])
@@ -71,7 +72,7 @@ export default function Notificaciones () {
               onClick={() => setActiveNotification(null)}
               style={{ transform: 'rotate(180deg)' }} xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width={25} height={25} color='#000000' fill='none'><path d='M9.00005 6C9.00005 6 15 10.4189 15 12C15 13.5812 9 18 9 18' stroke='currentColor' strokeWidth='1.5' strokeLinecap='round' strokeLinejoin='round' /></svg>
           </div>
-          {(activeNotification && Object.keys(activeNotification).length !== 0) &&
+          {(activeNotification && !isObjectEmpty(activeNotification)) &&
             <div className='messagesViewContainer'>
               <div className='otherMessage' style={{ padding: '5px 10px ', border: 'none' }}>{DetailedNotification(activeNotification)}</div>
             </div>}

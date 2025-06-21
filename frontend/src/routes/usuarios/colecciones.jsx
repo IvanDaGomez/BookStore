@@ -84,15 +84,7 @@ export default function Colecciones ({ user, permisos }) {
     setErrors([])
 
     const formData = new FormData()
-    async function urlToBlob (blobUrl) {
-      const response = await fetch(blobUrl)
-      const blob = await response.blob()
-      return blob
-    }
-    if (Object.keys(croppedImage).length !== 0) {
-      const blob = await urlToBlob(croppedImage.url)
-      formData.append('images', blob, 'imagenPerfil.png') // Append new image
-    }
+    formData.append('images', croppedImage.blob, 'imagenPerfil.webp')
     if (data) {
       for (const [key, value] of Object.entries(data || {})) {
         formData.append(key, value)
@@ -141,8 +133,8 @@ export default function Colecciones ({ user, permisos }) {
   async function handleImageChange (e) {
     const file = e.target.files[0]
     const crop = async () => {
-      const croppedURL = await cropImageToAspectRatio(file, 21 / 9)
-      return { url: croppedURL, type: file.type } // Guardar URL y tipo de archivo
+      const blob = await cropImageToAspectRatio(file, 21 / 9)
+      return { blob, url: URL.createObjectURL(blob), type: file.type } // Guardar URL y tipo de archivo
     }
     const croppedFile = await crop()
 

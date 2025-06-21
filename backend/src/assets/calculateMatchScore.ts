@@ -1,6 +1,23 @@
 import { levenshteinDistance } from './levenshteinDistance.js'
 import { changeToArray } from './changeToArray.js'
-export const calculateMatchScore = (infoObject: object, queryWords: string[], query: string): number => {
+const FIELD_WEIGHTS: Record<string, number> = {
+  titulo: 5,
+  autor: 3,
+  keywords: 2,
+  descripcion: 1,
+  genero: 1,
+  idioma: 1,
+  edad: 1,
+  edicion: 1,
+  isbn: 2
+  // Puedes ajustar según tu contexto
+}
+
+export const calculateMatchScore = (
+  infoObject: object,
+  queryWords: string[],
+  query: string
+): number => {
   /**
    * Calcula el puntaje de coincidencia entre un objeto y una consulta.
    * El puntaje se basa en la distancia de Levenshtein entre las palabras de la consulta y los valores del objeto.
@@ -16,35 +33,41 @@ export const calculateMatchScore = (infoObject: object, queryWords: string[], qu
    * const score = calculateMatchScore(infoObject, queryWords, query);
    * console.log(score); // Output: 2
    */
-  
+
   const queryWordsArray = changeToArray(queryWords)
-  const valueElements = Object.values(infoObject)
-  const stringValueWords: string[] = []
+  const tolerance: number = query.length > 3 ? 2 : 0
 
-  let score: number = 0
-  const tolerance: number = query.length > 3 ? 2 : 0 // Tolerancia de letras equivocadas
+  let totalScore = 0
+  const matchedWords = new Set<string>()
 
-  valueElements.forEach((element) => {
-    if (typeof element === 'string') {
-      stringValueWords.push(...changeToArray(element))
-    } else if (Array.isArray(element)) {
-      element.forEach((word) => {
-        stringValueWords.push(...changeToArray(word))
-      })
-    }
-  })
+  for (const [key, value] of Object.entries(infoObject)) {
+    const weight = FIELD_WEIGHTS[key as string] ?? 0.5 // Campos no especificados valen poco
 
-  const matchedWords: Set<string> = new Set() // Usamos un Set para evitar duplicados
+    const wordsToMatch: string[] = []
 
-  for (const queryWord of queryWordsArray) {
-    stringValueWords.forEach(word => {
-      const distance: number = levenshteinDistance(word.toLowerCase(), queryWord.toLowerCase())
-      if (distance <= tolerance && !matchedWords.has(word)) {
-        score += 1 // Incrementa el score si la distancia está dentro del umbral de tolerancia
-        matchedWords.add(word) // Agrega la palabra al Set
+    if (typeof value === 'string') {
+      wordsToMatch.push(...changeToArray(value))
+    } else if (Array.isArray(value)) {
+      for (const item of value) {
+        if (typeof item === 'string') {
+          wordsToMatch.push(...changeToArray(item))
+        }
       }
-    })
+    }
+
+    for (const queryWord of queryWordsArray) {
+      for (const word of wordsToMatch) {
+        const distance = levenshteinDistance(
+          word.toLowerCase(),
+          queryWord.toLowerCase()
+        )
+        if (distance <= tolerance && !matchedWords.has(word)) {
+          totalScore += weight
+          matchedWords.add(word)
+        }
+      }
+    }
   }
 
-  return score
+  return totalScore
 }
