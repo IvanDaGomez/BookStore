@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --c .js,.jsx,.ts,.tsx",
-    "deploy": "vite build && aws s3 sync ./dist s3://bookstore-frontend-ivan/",
+    "deploy": "vite build && aws s3 sync ./dist s3://www.meridianlib.com/",
     "preview": "vite preview",
     "fixLint": "npx standard --fix",
     "previewPhone": "ngrok http 5173"

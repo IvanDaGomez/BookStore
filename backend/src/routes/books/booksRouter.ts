@@ -33,7 +33,7 @@ export const createBooksRouter = ({
   booksRouter.post(
     '/ai/aiMode',
     upload.single('image'),
-    AIMode as RequestHandler
+    AIMode as RequestHandler 
   )
   booksRouter.post('/generateDescription', generateResponse as RequestHandler)
   booksRouter.post(

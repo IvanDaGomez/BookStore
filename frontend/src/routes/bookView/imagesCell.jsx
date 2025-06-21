@@ -1,11 +1,11 @@
 import { useRef, useState } from "react"
-import { BACKEND_URL } from "../../assets/config"
+import { IMAGES_URL } from "../../assets/config"
 
 /* eslint-disable react/prop-types */
 export default function ImagesCell({ libro, setActualImage, actualImage }) {
     const zoomConst = 3 // Aumento del zoom
-   const actualImageRef = useRef(null)
-   const [isZoomed, setIsZoomed] = useState(false)
+    const actualImageRef = useRef(null)
+    const [isZoomed, setIsZoomed] = useState(false)
     const handleZoom = () => {
       const imagenDentro = actualImageRef.current.querySelector('img')
       if (isZoomed) {
@@ -60,13 +60,13 @@ export default function ImagesCell({ libro, setActualImage, actualImage }) {
                   key={index}
                   onClick={() => {
                     // Construir la URL completa para cada imagen
-                    const imageUrl = image ? `${BACKEND_URL}/uploads/${image}` : ''
+                    const imageUrl = image ? `${IMAGES_URL}/uploads/${image}` : ''
                     setActualImage(imageUrl) // Establecer la URL de la imagen actual
                   }}
                 >
                   <img
                     loading='lazy'
-                    src={`${BACKEND_URL}/uploads/${image}`} // Usar la URL completa para mostrar la imagen
+                    src={`${IMAGES_URL}/uploads/${image}`} // Usar la URL completa para mostrar la imagen
                     alt={libro.title}
                     title={libro.title}
                   />

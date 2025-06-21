@@ -12,7 +12,7 @@ import { userObject } from '../../models/users/userObject.js'
 
 async function checkEmailExists (email: string) {
   const correo = await UsersModel.getUserByEmail(email)
-  
+
   if (correo?.correo) {
     throw new Error('El correo ya existe')
   }
@@ -34,12 +34,10 @@ async function processUserUpdate (
   userId: ID,
   req: express.Request
 ) {
-  const file: Express.Multer.File | undefined = req.file
-  if (req.file) {
-
-    data.foto_perfil = req.file.filename as ImageType
+  const file: Express.MulterS3.File | undefined = req.file
+  if (file) {
+    data.foto_perfil = file.location as ImageType
     await saveOptimizedImages([data.foto_perfil])
-    
   }
 
   if (data.correo) {
@@ -72,7 +70,9 @@ async function updateUserFavorites (
 function filterAllowedFields (
   data: Partial<UserInfoType>
 ): Partial<UserInfoType> {
-  const allowedFields: (keyof UserInfoType)[] = Object.keys(userObject({}, true)) as (keyof UserInfoType)[]
+  const allowedFields: (keyof UserInfoType)[] = Object.keys(
+    userObject({}, true)
+  ) as (keyof UserInfoType)[]
   const filteredData: Partial<UserInfoType> = {}
 
   allowedFields.forEach(key => {

@@ -1,9 +1,13 @@
 import multer from 'multer'
 import path from 'node:path'
 import pkg from 'pg'
+import dotenv from 'dotenv'
+dotenv.config()
 const { Pool } = pkg
 import { fileURLToPath } from 'node:url'
 import { Payment, MercadoPagoConfig, Preference } from 'mercadopago'
+import { S3Client } from '@aws-sdk/client-s3'
+import multerS3 from 'multer-s3'
 const __filename = fileURLToPath(import.meta.url)
 const assetsDir = path.dirname(__filename)
 const __dirname = path.join(assetsDir, '..', '..')
@@ -26,26 +30,39 @@ const pool = new Pool({
 const SALT_ROUNDS: number = 10
 // Crear el directorio de subida si no existe
 // Configurar Multer para guardar en una carpeta 'uploads' y con nombre único
-const uploadsPath = path.join(__dirname, 'uploads')
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, uploadsPath)
+const s3 = new S3Client({
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID ?? '',
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY ?? ''
   },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9)
-    cb(null, uniqueSuffix + path.extname(file.originalname)) // Nombre único
-  }
+  region: process.env.AWS_REGION ?? 'us-east-1'
 })
-const PORT: number = parseInt(process.env.PORT ?? '3030', 10)
+
 // Limitar el tamaño del archivo a 5 MB
 const upload = multer({
-  storage,
+  storage: multerS3({
+    s3: s3,
+    bucket: process.env.AWS_S3_BUCKET_NAME ?? '',
+    metadata: function (req, file, cb) {
+      cb(null, { fieldName: file.fieldname })
+    },
+    key: function (req, file, cb) {
+      cb(
+        null,
+        `uploads/${
+          Date.now() + '-' + Math.round(Math.random() * 1e9)
+        }${path.extname(file.originalname)}`
+      ) // Nombre único
+    }
+  }),
   limits: { fileSize: 5 * 1024 * 1024 } // 5 MB
 })
 
 const client = new MercadoPagoConfig({
   accessToken: process.env.MERCADOPAGO_ACCESS_TOKEN ?? ''
 })
+const PORT: number = parseInt(process.env.PORT ?? '3030', 10)
+
 const preference = new Preference(client)
 const payment = new Payment(client)
-export { SALT_ROUNDS, upload, pool, PORT, __dirname, payment, preference }
+export { SALT_ROUNDS, upload, pool, s3, PORT, __dirname, payment, preference }

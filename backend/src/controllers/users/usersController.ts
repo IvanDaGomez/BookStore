@@ -310,9 +310,9 @@ export class UsersController {
     console.log(req.body)
     try {
       const userId = req.params.user_id as ID
-      
+
       const { accion, book_id } = req.body as { accion: string; book_id: ID }
-      
+
       if (!accion) {
         return res.status(400).json({ error: 'Acción no proporcionada' })
       }
@@ -374,11 +374,9 @@ export class UsersController {
       validated: string
     } = req.body
     if (!data || !data.nombre || !data.correo) {
-      return res
-        .status(400)
-        .json({
-          error: 'No se proporcionaron todos los campos: nombre or correo'
-        })
+      return res.status(400).json({
+        error: 'No se proporcionaron todos los campos: nombre or correo'
+      })
     }
     if (data.validated === 'true') {
       // Si el usuario ya está validado, no se envía el correo
@@ -532,15 +530,15 @@ export class UsersController {
 
       const id = decodedToken.id
       const lastPassword = await this.UsersModel.getPassword(id)
-    
+
       const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS)
-      const isSamePassword = await bcrypt.compare(
-        password,
-        lastPassword)
+      const isSamePassword = await bcrypt.compare(password, lastPassword)
       if (isSamePassword) {
         return res
           .status(400)
-          .json({ error: 'La nueva contraseña no puede ser igual a la anterior' })
+          .json({
+            error: 'La nueva contraseña no puede ser igual a la anterior'
+          })
       }
       // Actualizar la contraseña (el hash se realiza en el modelo)
       await this.UsersModel.updateUser(id, { contraseña: hashedPassword })

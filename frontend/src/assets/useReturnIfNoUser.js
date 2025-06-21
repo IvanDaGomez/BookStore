@@ -11,7 +11,6 @@ export function useReturnIfNoUser (user, loading, admin = false) {
   const navigate = useNavigate()
 
   useEffect(() => {
-
     if (!loading && !user) {
       
       navigate(`/popUp/noUser`)
@@ -21,5 +20,5 @@ export function useReturnIfNoUser (user, loading, admin = false) {
       navigate(`/popUp/noAdmin`)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, name])
+  }, [user, loading, admin])
 }

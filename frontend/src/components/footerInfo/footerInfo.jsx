@@ -29,9 +29,6 @@ export default function FooterInfo () {
       {contact()}
       {email()}
       {developedBy()}
-      
-      
-      
       </>
     }
       

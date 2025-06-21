@@ -20,7 +20,7 @@ import { corsOptions } from './assets/corsOptions.js'
 import { statsHandler } from './middlewares/statsHandler.js'
 import { Server } from 'http'
 import { seeEmailTemplate } from './middlewares/seeEmailTemplate.js'
-import { rateLimitter } from './middlewares/rateLimitter.js'
+//import { rateLimitter } from './middlewares/rateLimitter.js'
 
 dotenv.config()
 // import { handleStats } from './assets/handleStats.js'
@@ -62,59 +62,98 @@ export const createApp = ({
   // // Middleware para trackear las solicitudes
   app.use(handleStats)
 
-  app.use(rateLimitter)
+  //app.use(rateLimitter)
   // // habilitar req.body
   app.use(express.urlencoded({ extended: true }))
   // Habilitar respuestas solo en json
-  app.use(express.json()) 
+  app.use(express.json())
 
+  // Archivos estáticos para uploads y optimized
+  // const uploadsDir = path.join(__dirname, 'uploads')
+  // const optimizedDir = path.join(__dirname, 'optimized')
+  app.get('/test', (_, res) => {
+    res.send('Hello world')
+  })
+  // Serve static files from AWS S3 using a proxy route
+  app.get('/uploads/*', (req, res) => {
+    const s3Key = req.path.replace(/^\/uploads\//, '')
+    const s3Url = `https://${process.env.AWS_S3_BUCKET_NAME}/uploads/${s3Key}`
+    res.redirect(s3Url)
+  })
 
-  // // Archivos estáticos para uploads y optimized
-  const uploadsDir = path.join(__dirname, 'uploads')
-  const optimizedDir = path.join(__dirname, 'optimized') 
-  app.use('/uploads', express.static(uploadsDir))
-  app.use('/optimized', express.static(optimizedDir))
-
+  app.get('/optimized/*', (req, res) => {
+    const s3Key = req.path.replace(/^\/optimized\//, '')
+    const s3Url = `https://${process.env.AWS_S3_BUCKET_NAME}/optimized/${s3Key}`
+    res.redirect(s3Url)
+  })
 
   app.use('/api/books', createBooksRouter({ BooksModel, UsersModel }))
-  app.use('/api/users', createUsersRouter({ UsersModel, TransactionsModel, BooksModel }))
-  app.use('/api/messages', createMessagesRouter({ MessagesModel, ConversationsModel }))
-  app.use('/api/conversations', createConversationsRouter({ ConversationsModel, UsersModel }))
-  app.use('/api/notifications', createNotificationsRouter({ NotificationsModel, UsersModel }))
-  app.use('/api/collections', createCollectionsRouter({ CollectionsModel, BooksModel }))
+  app.use(
+    '/api/users',
+    createUsersRouter({ UsersModel, TransactionsModel, BooksModel })
+  )
+  app.use(
+    '/api/messages',
+    createMessagesRouter({ MessagesModel, ConversationsModel })
+  )
+  app.use(
+    '/api/conversations',
+    createConversationsRouter({ ConversationsModel, UsersModel })
+  )
+  app.use(
+    '/api/notifications',
+    createNotificationsRouter({ NotificationsModel, UsersModel })
+  )
+  app.use(
+    '/api/collections',
+    createCollectionsRouter({ CollectionsModel, BooksModel })
+  )
   app.use('/api/emails', createEmailsRouter({ EmailsModel }))
-  app.use('/api/transactions', createTransactionsRouter({ TransactionsModel, UsersModel, BooksModel }))
+  app.use(
+    '/api/transactions',
+    createTransactionsRouter({ TransactionsModel, UsersModel, BooksModel })
+  )
 
   app.get('/api/stats', statsHandler)
   app.get('/api/emailTemplate/:template', seeEmailTemplate)
-  const swaggerDoc = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'swagger.json'), 'utf-8'))
+  const swaggerDoc = JSON.parse(
+    fs.readFileSync(path.join(__dirname, 'data', 'swagger.json'), 'utf-8')
+  )
   app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDoc))
   // // Middleware para manejar errores
-  app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction): void => {
-
-    if (!res.headersSent) {
-
-      res.json({
-        error: process.env.NODE_ENV === 'production' ? 'Internal Server Error' : err.message,
-        stack: process.env.NODE_ENV === 'production' ? undefined : err.stack, // Include stack trace in development
-      });
+  app.use(
+    (
+      err: Error,
+      req: express.Request,
+      res: express.Response,
+      next: express.NextFunction
+    ): void => {
+      if (!res.headersSent) {
+        res.json({
+          error:
+            process.env.NODE_ENV === 'production'
+              ? 'Internal Server Error'
+              : err.message,
+          stack: process.env.NODE_ENV === 'production' ? undefined : err.stack // Include stack trace in development
+        })
+      }
     }
-  }); 
-  if (process.env.NODE_ENV !== 'development') {
-    // Serve the frontend build files in production
-    const frontendBuildPath = path.join(__dirname, '..', 'frontend', 'dist');
-    app.use(express.static(frontendBuildPath));
+  )
+  // if (process.env.NODE_ENV !== 'development') {
+  //   // Serve the frontend build files in production
+  //   const frontendBuildPath = path.join(__dirname, '..', 'frontend', 'dist');
+  //   app.use(express.static(frontendBuildPath));
 
-    // Serve the index.html file for all other routes
-    app.get('*', (req, res) => {
-      res.sendFile(path.join(frontendBuildPath, 'index.html'));
-    });
-  }
+  //   // Serve the index.html file for all other routes
+  //   app.get('*', (req, res) => {
+  //     res.sendFile(path.join(frontendBuildPath, 'index.html'));
+  //   });
+  // }
   // Create HTTP server instance
   const server = app.listen(PORT, () => {
-    console.log('Server is listening on http://localhost:' + PORT)
+    const url = `${process.env.BACKEND_URL || 'http://localhost'}:${PORT}`
+    console.log(`Backend is running at ${url}`)
   })
-
 
   return server
 }
