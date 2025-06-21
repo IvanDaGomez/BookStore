@@ -89,7 +89,7 @@ export default function Filters ({ query, queryParams }) {
     const values = Object.values(obj)
     const fullArray = []
     for (let i = 0; i < values.length; i++) {
-
+      console.log(values)
       fullArray.push(...values[i])
     }
     return fullArray

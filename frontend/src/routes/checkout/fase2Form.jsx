@@ -1,12 +1,34 @@
 import { useEffect, useState } from "react";
 import { options } from "../../assets/options";
-import useGetDepartments from "../search/location/useGetDepartments";
-import useGetCities from "../search/location/useGetCities";
+
+import getCities from "../search/location/getCities";
+import { isObjectEmpty } from "../../assets/isObjectEmpty";
+import getDepartments from "../search/location/getDepartments";
 
 export default function Fase2Form (form, errors = null) {
   const [departamento, setDepartamento] = useState('')
-  const departamentos = useGetDepartments()
-  const cities = useGetCities(departamento)
+  const [departamentos, setDepartamentos] = useState([])
+  useEffect(() => {
+    if (isObjectEmpty(departamentos)) {
+      getDepartments().then((data) => {
+        setDepartamentos(data)
+      }
+      ).catch((error) => {
+        console.error('Error fetching departments:', error)
+      })
+    }
+  }, [departamentos])
+
+    // Obtenemos las ciudades del departamento seleccionado
+  const [cities, setCities] = useState([])
+    useEffect(() => {
+      if (departamento) {
+        getCities(departamento).then((data) => {
+          setCities(data)
+        })
+      }
+    }, [departamento])
+
     useEffect(() => {
       // Actualizamos los valores de los campos con los datos de form
       document.querySelector('#nombres').value = form.first_name || ''

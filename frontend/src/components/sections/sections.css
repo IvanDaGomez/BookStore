@@ -13,7 +13,7 @@
   justify-content: start;
   overflow-x: auto;
   gap: var(--margin-xsmall);
-  /* gap:var(--margin-small); */
+  padding: var(--padding-xsmall);
   align-items: stretch; /* Asegúrate de que todos los elementos tengan la misma altura */
   min-height: calc(var(--font-size-large) * 4);
   margin: var(--padding-medium);
@@ -31,17 +31,17 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  flex-shrink: 0;
   align-items: center;
 
   min-height: 100%;
-
+  width: 25ch;
   min-width: 25ch;
   max-width: 25ch;
   background: var(--using1);
   padding: var(--padding-xsmall);
   cursor: pointer;
   color:var(--using3);
-  /* padding: 5px; */
   
 }
 .sectionElement.placeholder {
