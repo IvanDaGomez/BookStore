@@ -13,11 +13,7 @@ export default function Fase1 ({ form, setForm, setFase, fase }) {
   
   const [croppedImages, setCroppedImages] = useState([])
   const [errors, setErrors] = useState([])
-  const [additionalInfo, setAdditionalInfo] = useState(null)
   // ---------------------------------------------FUNCION PARA ELIMINAR UNA IMAGEN EN LA LISTA
-
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -106,13 +102,6 @@ export default function Fase1 ({ form, setForm, setFase, fase }) {
     document.querySelector('#descripcion').value = data.description
   }
 
-  useEffect(() => {
-    if (additionalInfo) {
-      document.querySelector('#titulo').value = additionalInfo.title || '',
-      document.querySelector('#autor').value = additionalInfo.author || ''
-    }
-    
-  }, [additionalInfo])
   return (
     <>
       <AIMode croppedImages={croppedImages} setCroppedImages={setCroppedImages} setForm={setForm} form={form}/>
@@ -121,7 +110,7 @@ export default function Fase1 ({ form, setForm, setFase, fase }) {
         <HowToUploadDropdown />
 
         
-        <FileUploader croppedImages={croppedImages} setCroppedImages={setCroppedImages} setAdditionalInfo={setAdditionalInfo} />
+        <FileUploader croppedImages={croppedImages} setCroppedImages={setCroppedImages} />
         <div className='inputCrear'>
           <label htmlFor='titulo'>Título *</label>
           <input

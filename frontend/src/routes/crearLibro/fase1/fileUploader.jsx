@@ -1,13 +1,11 @@
 /* eslint-disable react/prop-types */
 import { toast } from "react-toastify"
-import { predictInfo } from "../predictTitleAndDescription"
 import { cropImageToAspectRatio } from "../../../assets/cropImageToAspectRatio"
 import { useState } from "react"
 
 export default function FileUploader ({
   croppedImages,
-  setCroppedImages,
-  setAdditionalInfo
+  setCroppedImages
 }) {
   const [selectedFiles, setSelectedFiles] = useState([])
   
@@ -27,10 +25,6 @@ export default function FileUploader ({
     if (selectedFiles.length + files.length > 5) {
       toast.error('No puedes subir más de 5 fotos.')
       return
-    }
-    if (croppedImages.length === 0) {
-      const predictedInfo = await predictInfo(files[0])
-      setAdditionalInfo(predictedInfo)
     }
     
     setSelectedFiles((prevFiles) => [...prevFiles, ...files]) // Añadir archivos originales
