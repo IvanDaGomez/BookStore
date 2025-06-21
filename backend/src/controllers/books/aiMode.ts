@@ -20,13 +20,15 @@ export const AIMode = async (
     */
 
     const file = req.file as Express.MulterS3.File | undefined
+    console.log('Received file:', file)
     if (!file) {
       return res.status(400).json({ error: 'No file uploaded' })
     }
     const path = file.filename || file.location
-    const endpoint = path.split('amazonaws.com/')[1] // Extract the path after the S3 bucket URL
-    const imagePath = process.env.IMAGES_URL + '/' + endpoint // Construct the full image URL
+    const endpoint = path.split('amazonaws.com')[1] // Extract the path after the S3 bucket URL
+    const imagePath = process.env.IMAGES_URL + endpoint // Construct the full image URL
     //const imageUrl = `${req.protocol}://${req.get('host')}/uploads/${path}`
+    console.log('Image path:', imagePath)
     const data = await sendOpenAIRequest(imagePath)
     if (!data) {
       return res.status(500).json({ error: 'No data received from OpenAI' })
