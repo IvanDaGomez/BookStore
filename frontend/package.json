@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:dev": "NODE_ENV=development vite",
+    "dev:prod": "NODE_ENV=production vite",
     "build": "vite build",
     "lint": "eslint . --c .js,.jsx,.ts,.tsx",
-    "deploy": "vite build && aws s3 sync ./dist s3://www.meridianlib.com/",
+    "deploy": "vite build && aws s3 sync ./dist s3://www.meridianlib.com/ --delete",
     "preview": "vite preview",
     "fixLint": "npx standard --fix",
     "previewPhone": "ngrok http 5173"

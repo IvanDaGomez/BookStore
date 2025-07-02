@@ -1,6 +1,5 @@
-import { CorsOptions } from "cors"
-import { PORT } from "./config.js"
-
+import { CorsOptions } from 'cors'
+import { PORT } from './config.js'
 
 const whitelist: string[] = [
   `http://localhost:${PORT}`,
@@ -13,7 +12,10 @@ const whitelist: string[] = [
   'https://cbbc-2800-e2-7280-24a-446c-a467-dc81-f31d.ngrok-free.app',
   'http://cbbc-2800-e2-7280-24a-446c-a467-dc81-f31d.ngrok-free.app',
   'http://bookstore-frontend-ivan.s3-website-sa-east-1.amazonaws.com/',
-  'https://bookstore-frontend-ivan.s3-website-sa-east-1.amazonaws.com/'
+  'https://bookstore-frontend-ivan.s3-website-sa-east-1.amazonaws.com/',
+  'https://api.meridianlib.com',
+  'https://meridianlib.com',
+  'https://www.meridianlib.com'
 ]
 
 export const corsOptions: CorsOptions = {

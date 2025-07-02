@@ -79,14 +79,13 @@ export const handleSubmit = async ({
       return
     }
     // Si no hay una pagina anterior, redirigir a inicio, si si redirigir a la pagina que estaba
-    if (!document.referrer || !document.referrer.includes(window.location.hostname)) {
-      window.location.href = '/'
-      return
-    }
-    window.history.back()
+    window.location.href = document.referrer || '/'
+
   } catch (error) {
-    console.error('Error al enviar la solicitud:', error)
+    setLoading(false)
+    document.body.style.cursor = 'auto'
+    console.error('Error al enviar la solicitud:', error.response.data.error)
     // También puedes agregar el error de catch a los errores
-    setErrors((prevErrors) => [...prevErrors, 'Error de conexión: ' + error.data])
+    setErrors((prevErrors) => [...prevErrors, 'Error de conexión: ' + error.response.data.error])
   }
 }

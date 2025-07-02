@@ -534,11 +534,9 @@ export class UsersController {
       const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS)
       const isSamePassword = await bcrypt.compare(password, lastPassword)
       if (isSamePassword) {
-        return res
-          .status(400)
-          .json({
-            error: 'La nueva contraseña no puede ser igual a la anterior'
-          })
+        return res.status(400).json({
+          error: 'La nueva contraseña no puede ser igual a la anterior'
+        })
       }
       // Actualizar la contraseña (el hash se realiza en el modelo)
       await this.UsersModel.updateUser(id, { contraseña: hashedPassword })

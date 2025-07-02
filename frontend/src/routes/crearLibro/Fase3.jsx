@@ -56,16 +56,14 @@ export default function Fase3 ({ form, setForm, fase, setFase, meanPrice }) {
     }
   }
 
-  function setKeyword (event) {
-    if (event.key !== 'Enter') return
-
-    event.preventDefault()
-    // Si hay 4 palabras clave me deja añadir una más
-    if (event.target.value && keywords.length <= 4) {
-      setKeywords([...keywords, event.target.value])
-      event.target.value = ''
-    }
+  function handleKeywordInput(event) {
+    const value = event.target.value.trim()
+    if (!value || keywords.length >= 5) return
+  
+    setKeywords([...keywords, value])
+    event.target.value = ''
   }
+  
   function handleDeleteKeyword (index) {
     setKeywords((prevKeywords) => prevKeywords.filter((_, i) => i !== index))
   }
@@ -104,7 +102,13 @@ export default function Fase3 ({ form, setForm, fase, setFase, meanPrice }) {
             type='text'
             name='keywords'
             placeholder='Presiona Enter para agregar la palabra'
-            onKeyDown={setKeyword}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                event.preventDefault() // Previene el envío del formulario
+                handleKeywordInput(event) // Llama a la función para agregar la palabra clave
+              }
+            }}
+            onBlur={handleKeywordInput}
           />
           {(keywords.length !== 0)
             ? <div className='keywordWrapper'>

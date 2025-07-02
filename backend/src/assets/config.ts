@@ -16,7 +16,7 @@ const __dirname = path.join(assetsDir, '..', '..')
 const POSTGRESQL_PORT = process.env.POSTGRESQL_PORT
   ? parseInt(process.env.POSTGRESQL_PORT, 10)
   : 5432
-
+console.log(process.env.POSTGRESQL_PASSWORD)
 const pool = new Pool({
   user: process.env.POSTGRESQL_USERNAME ?? '',
   host: process.env.POSTGRESQL_HOST ?? 'localhost',

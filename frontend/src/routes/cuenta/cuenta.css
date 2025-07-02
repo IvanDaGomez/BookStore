@@ -151,17 +151,16 @@
   background: var(--using1);
   margin: var(--margin-medium) auto;
   padding: var(--padding-large);
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  place-items: center;
+  gap: var(--padding-large);
 }
 
 .account-dashboard .main-content .userInfo img{
-  height: 100px;
+  width: 100%;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
-  margin-right: 20px;
 }
 
 .account-dashboard .main-content .userInfo div{
@@ -169,13 +168,13 @@
   justify-content: flex-start;
   align-items: start;
   flex-direction: column;
+  width: 100%;
 }
 .account-dashboard .main-content .userExtraInfo svg{
   color: #009EE3;
 }
 .account-dashboard .main-content .userInfo button{
-  width: 15rem;
-  font-size: var(--font-size-medium);
+  width: min(100%, 300px);
   padding: var(--padding-small);
   margin: var(--margin-small) 0;
 }
@@ -194,23 +193,30 @@
 
 .account-dashboard .main-content .userExtraInfo .box{
   width: min(100%, 800px);
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  place-items: center;
+  gap: var(--padding-large);
   cursor: pointer;
-  border-bottom: 1px solid var(--using2);
+  border-bottom: none;
   padding: var(--padding-large);
 }
-.account-dashboard .main-content .userExtraInfo .box:last-of-type{
-  border-bottom: none;
-}
+
 .account-dashboard .main-content .userExtraInfo .box .iconContainer svg{
-  height:60%;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
 }
-.account-dashboard .main-content .userExtraInfo .box .iconContainer{
-  width: 100px;
-  height: 100%;
-  margin-right: 20px;
+
+.account-dashboard .main-content .userExtraInfo .box .boxDescription{
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: start;
+  flex-direction: column;
+  *{
+    text-align: left;
+  }
 }
 .account-dashboard .main-content .container{
   background: var(--using1);

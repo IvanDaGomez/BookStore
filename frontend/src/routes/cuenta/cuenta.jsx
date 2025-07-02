@@ -87,7 +87,6 @@ export default function Cuenta () {
         return <Perfil user={user} navigate={navigate} />
       case 'Mi balance':
         return <Balance user={user} setUser={setUser} />
-
       case 'Estadísticas':
         return <Stats user={user} />
       case 'Preferencias del comprador':

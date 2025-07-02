@@ -13,11 +13,12 @@
     "updateDataBase": "tsc && node dist/assets/updateDB.ts",
     "document": "node src/assets/swagger.js",
     "build": "tsc",
-    "deploy": "tsc && rsync -avz --exclude 'node_modules' --exclude 'exclude/' --exclude 'src/' --exclude '.git' --exclude '.env' -e 'ssh -i ~/Documents/Ivan/claves/bookstore-backend-ivan.pem' . ubuntu@ec2-18-230-70-131.sa-east-1.compute.amazonaws.com:~/app",
-    "connect": "ssh -i '~/Documents/Ivan/claves/bookstore-backend-ivan.pem'ubuntu@ec2-18-230-70-131.sa-east-1.compute.amazonaws.com",
-    "seed": "tsc && node dist/assets/seed.js",
+    "start": "node dist/createServer/createServerPostgreSQL.js",
+    "deploy": "tsc && rsync -avz --exclude 'node_modules' --exclude 'exclude/' --exclude 'src/' --exclude '.git' --exclude '.env' -e 'ssh -i ~/Documents/Ivan/claves/bookstore-backend-ivan.pem' . ubuntu@ec2-54-94-3-107.sa-east-1.compute.amazonaws.com:~/app",
+    "connect": "ssh -i 'bookstore-backend-ivan.pem' ubuntu@ec2-54-94-3-107.sa-east-1.compute.amazonaws.com",
+    "seed": "node dist/assets/seed.js",
     "testEmail": "tsc && node dist/assets/email/sendTryEmail.js",
-    "sendExistingImages": "aws s3 sync ./uploads/ s3://www.meridianlib.com/uploads/ && aws s3 sync ./optimized/ s3://www.meridianlib.com/optimized/"
+    "sendExistingImages": "aws s3 sync ./exclude/uploads/ s3://www.meridianlib.com/uploads/ && aws s3 sync ./exclude/optimized/ s3://www.meridianlib.com/optimized/"
   },
   "author": "Ivan Gomez",
   "license": "ISC",

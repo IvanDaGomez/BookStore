@@ -16,6 +16,7 @@ import RelatedBooks from './relatedBooks.jsx'
 import InfoContainer from './infoContainer.jsx'
 import BuyContainer from './buyContainer.jsx'
 import QuestionsBookView from './questionsBookView.jsx'
+import Loader from '../../components/loader/loader.jsx'
 export default function BookView () {
   const { bookId } = useParams()
   
@@ -34,7 +35,9 @@ export default function BookView () {
   useHandleHashChange()
 
   if (loading) {
-    return <><Header/><Footer/></>
+    return <><Header />
+      <Loader />
+      <Footer /></>
   }
   if (error) {
     return <ErrorPage />
