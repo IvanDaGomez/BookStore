@@ -1,7 +1,7 @@
 /*----------------------------------------Usuario----------------------------*/
 
 .userPageContainer{
-  width:min(1200px, calc(100vw - 10px));
+  width: min(calc(100vw - var(--padding-medium) * 2), 1000px);
   display: flex;
   justify-content: center;
   align-items: start;

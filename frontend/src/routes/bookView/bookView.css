@@ -192,10 +192,9 @@
 }
 
 .bookViewContainer .extraBookViewContainer{
-  width: min(calc(100vw - 10px), 1000px);
+  width: min(calc(100vw - var(--padding-medium) * 2), 1000px);
   margin: auto;
-  
-  border-radius: var(--border-radius);;
+  border-radius: var(--border-radius);
   display: flex;
   justify-content: center;
   align-items: center;

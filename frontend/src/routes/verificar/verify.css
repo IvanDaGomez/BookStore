@@ -6,7 +6,7 @@
   left:50%;
   transform: translate(-50%, -50%);
   width: min(500px, 60vw);
-  height: 60vh;
+  height: 60dvh;
   padding: var(--padding-large);
   border-radius: var(--border-radius);
   box-shadow: 0 0 5px var(--using3);

@@ -331,7 +331,7 @@
 }
 
 .account-dashboard .main-content .cobrarContainer{
-  width: min(calc(100vw - 10px), 1000px);
+  width: min(calc(100vw - var(--padding-medium) * 2), 1000px);
   margin: var(--margin-medium) auto;
   padding: 20px;
   background: white;

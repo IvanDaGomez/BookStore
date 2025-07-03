@@ -2,7 +2,7 @@
 
 .sectionMessagesContainer{
   z-index: 2;
-  width:min(1000px, calc(100vw - 10px));
+  width: min(calc(100vw - var(--padding-medium) * 2), 1000px);
   border-bottom: 1px solid var(--using2);
   display: flex;
   justify-content: flex-start;
@@ -48,7 +48,7 @@
 
 .messagesContainer{
   width:min(1000px, calc(100vw));
-  height: calc(100vh - 180px);
+  height: calc(100dvh - 180px);
   border: 1px solid var(--using2);
   border-top: none;
   margin: 0 auto 10px auto;

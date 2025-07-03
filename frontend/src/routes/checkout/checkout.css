@@ -8,10 +8,10 @@
   flex-direction: column;
   margin: var(--margin-large) auto;
   padding: 20px;
-  width:min(1000px, calc(100vw - 10px));
+  width:min(1000px, calc(100vw - var(--padding-medium) * 2));
   background: var(--using1);
   border: 1px solid var(--using4);
-  border-radius: var(--border-radius);;
+  border-radius: var(--border-radius);
 }
 .checkoutContainer .cardContainer{
   width:100%;

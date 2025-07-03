@@ -344,7 +344,7 @@ color: var(--using6);
 .sideInfo{
   position: fixed;
   right: -44px;
-  bottom:20vh;
+  bottom:20dvh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -650,7 +650,7 @@ color: var(--using6);
 
 .success-container {
   position: fixed;
-  inset: 50vh 50vw;
+  inset: 50dvh 50vw;
   transform: translate(-50%,-50%);
   z-index: 1200;
   display: flex;

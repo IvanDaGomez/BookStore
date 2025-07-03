@@ -452,7 +452,7 @@ header .pestañas{
   justify-content: center;
   font-size: var(--font-size-medium);
   width:100vw;
-  height:10vh;
+  height:10cvh;
   background: var(--using5);
   filter: brightness(0.9);
   color:var(--using1);

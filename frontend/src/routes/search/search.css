@@ -87,7 +87,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 
 .resultadosContainer .separar{
-  width: min(1000px, calc(100vw - 2 * var(--margin-large)));
+  width: min(calc(100vw - var(--padding-medium) * 2), 1000px);
   margin: auto;
   display: flex;
   align-items: center;
@@ -150,7 +150,7 @@ input[type="number"]::-webkit-inner-spin-button {
 }
 @media only screen and (max-width: 734px) {
   .resultadosContainer .resultados .cardContainer.oneFr{
-    width: calc(100vw - 2 * var(--margin-medium));
+    width: min(calc(100vw - var(--padding-medium) * 2), 1000px);
     margin: 0;
   }
   
@@ -276,8 +276,8 @@ resultadosContainer .sectionElement.userElement {
   border: var(--border-width) solid var(--using2);
   border-radius: var(--border-radius);
   background: var(--using1);
-  width: min(1000px, calc(100vw - 2 * var(--margin-large)));
-  height: min(800px, calc(100vh - 2 * var(--margin-large)));
+  width: min(calc(100vw - var(--padding-medium) * 2), 1000px);
+  height: min(800px, calc(100dvh - 2 * var(--margin-large)));
   z-index: 10000;
   &::before{
     content: "";
