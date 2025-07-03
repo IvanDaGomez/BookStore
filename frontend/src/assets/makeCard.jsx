@@ -15,6 +15,7 @@ import { necesitasIniciarSesion } from './jsxConstants.jsx'
 import { randBackground } from './randBackground.js'
 import axios from 'axios'
 import { BACKEND_URL, IMAGES_URL } from './config'
+import LazyBackground from './lazyBackground.jsx'
 export const PriceTitleRender = ({ element }) => {
 
   if (!element?.precio) return null
@@ -64,10 +65,15 @@ const MakeCard = ({ element, index, user = '', callback = () => {}, wordLimit = 
         style={{ filter: `opacity(${element.disponibilidad === 'Vendido' ? '0.6' : '1'})`,  width: `${width}px`
       }}
         
-        >
-        <div className='imageElementContainer' style={{ backgroundImage: `url(${renderProfilePhoto(element.images[0])})`, backgroundRepeat: 'no-repeat' }}>
+      >
+        <LazyBackground
+          className='imageElementContainer'
+          imageUrl={renderProfilePhoto(element.images[0])}
+          content={<RenderImageHeader element={element}/>}
+        />
+        {/* <div className='imageElementContainer' style={{ backgroundImage: `url(${renderProfilePhoto(element.images[0])})`, backgroundRepeat: 'no-repeat' }}>
           <RenderImageHeader element={element}/>
-        </div>
+        </div> */}
         <RenderMidText element={element} wordLimit={wordLimit}/>
         <RenderBottomText element={element} user={user} callback={callback}/>
       </div>
@@ -90,7 +96,7 @@ const MakeCardPlaceHolder = ({ l }) => {
   ))}</>)
 }
 const MakeOneFrCard = ({ element, index, user = '' }) => {
-  const navigate = useNavigate()
+
   return (
     <Link key={element.id} to={`/libros/${element.id}`} className='oneFr'>
       <div className='cardContainer oneFr' style={{/* background: randBackground(), */filter: `opacity(${element.disponibilidad === 'Vendido' ? '0.6' : '1'})` }}>
@@ -100,6 +106,7 @@ const MakeOneFrCard = ({ element, index, user = '' }) => {
           <img
             src={renderProfilePhoto(element?.images ? element.images[0] : '')}
             alt={element.titulo}
+            loading='lazy'
             title={element.titulo}
           />
         </div>
@@ -162,7 +169,22 @@ const MakeUpdateCard = ({ element, index }) => {
     <Link key={index} to={`/libros/${element.id}`}>
       <div className='sectionElement' style={{ filter: `opacity(${element.disponibilidad === 'Vendido' ? '0.6' : '1'})` }}>
 
-        <div className='imageElementContainer' style={{
+        
+        <LazyBackground
+          className='imageElementContainer'
+          imageUrl={renderProfilePhoto(element.images[0])}
+          content={(element.disponibilidad === 'Vendido')
+            && (
+              <div
+                className='bookLabel'
+                style={{ background: 'red' }}
+              >
+                Vendido
+              </div>
+            )}
+        />
+
+        {/* <div className='imageElementContainer' style={{
           backgroundImage: `url(${renderProfilePhoto(element.images[0])})`, backgroundRepeat: 'no-repeat' }}>
           {(element.disponibilidad === 'Vendido')
             && (
@@ -173,7 +195,7 @@ const MakeUpdateCard = ({ element, index }) => {
                 Vendido
               </div>
               )}
-        </div>
+        </div> */}
 
         <div>
           <RenderMidText element={element}/>
@@ -215,17 +237,20 @@ const MakeSmallCard = ({ element, index }) => {
     <Link key={index} style={{ width: '100%', height: '100%' }} to={`${window.location.origin}/libros/${element.id}`}>
       <div className='sectionElement'>
 
-        <div className='imageElementContainer' style={{ backgroundImage: `url(${renderProfilePhoto(element.images[0])})`, backgroundRepeat: 'no-repeat' }}>
-          {(element.oferta && element.oferta != 0)
+        <LazyBackground
+          className='imageElementContainer'
+          imageUrl={renderProfilePhoto(element.images[0])}
+          content={(element.oferta && element.oferta != 0)
             ? <div className='bookLabel'>
               {Math.ceil(((1 - element.oferta / element.precio) * 100).toFixed(2) / 5) * 5 + '%'}
             </div>
             : <div style={{ padding: 'calc(10px + 1rem)' }} />}
-        </div>
-          <div className="sectionElementTextDiv">
-        <h2>{reduceText(element.titulo, 33)}</h2>
+        />
+        
+        <div className="sectionElementTextDiv">
+          <h2>{reduceText(element.titulo, 33)}</h2>
 
-        {(element.oferta && element.oferta != 0) ? <h2 className='red'>${element.oferta.toLocaleString('es-CO')}</h2> : <h2 className='red'>${element.precio.toLocaleString('es-CO')}</h2>}
+          {(element.oferta && element.oferta != 0) ? <h2 className='red'>${element.oferta.toLocaleString('es-CO')}</h2> : <h2 className='red'>${element.precio.toLocaleString('es-CO')}</h2>}
         </div>
 
 
@@ -259,7 +284,7 @@ const MakeCollectionCard = ({ element, index }) => {
         <h2>{element.nombre}</h2>
         <div className='imageElementCollectionContainer'>
           {images.map((img, i) => (
-              <img src={renderProfilePhoto(img)} key={i} alt='' />
+              <img src={renderProfilePhoto(img)} key={i} loading='lazy' />
           ))}
         </div>
         
@@ -272,10 +297,7 @@ const MakeCollectionCard = ({ element, index }) => {
 }
 
 const MakeUserCard = ({ element, index, user, setElement, setUser }) => {
-  const [following, setFollowing] = useState(false)
-  async function handleFollow() {
 
-  }
   return (
     <Link key={index} to={`/usuarios/${element.id}`}>
       <div className="sectionElement userElement" >
@@ -283,6 +305,7 @@ const MakeUserCard = ({ element, index, user, setElement, setUser }) => {
           <img
             src={renderProfilePhoto(element.foto_perfil)}
             alt="Foto de perfil"
+            loading='lazy'
           />
         </div>
         <div className="sectionElementTextDiv" >

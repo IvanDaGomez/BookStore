@@ -31,7 +31,7 @@ export default function useFetchSaga(libro){
           return
         }
 
-        setSagaLibros(booksResponse.data)
+        setSagaLibros(booksResponse.data.filter(book => book !== null))
       } catch  {
         // console.error('Error en el servidor')
       }

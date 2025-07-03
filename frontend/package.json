@@ -9,7 +9,7 @@
     "dev:prod": "NODE_ENV=production vite",
     "build": "vite build",
     "lint": "eslint . --c .js,.jsx,.ts,.tsx",
-    "deploy": "vite build && aws s3 sync ./dist s3://www.meridianlib.com/ --delete",
+    "deploy": "vite build && aws s3 sync ./dist s3://www.meridianlib.com/ --exclude 'uploads/*' --exclude 'optimized/*' --delete",
     "preview": "vite preview",
     "fixLint": "npx standard --fix",
     "previewPhone": "ngrok http 5173"

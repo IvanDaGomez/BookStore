@@ -52,42 +52,43 @@ export default function ImagesCell({ libro, setActualImage, actualImage }) {
   return (
     <>
     <div className='imagesContainer'>
-          <div className='imagesVariable'>
-            {libro.images &&
-              libro.images.map((image, index) => (
-                <div
-                  className='imageElement'
-                  key={index}
-                  onClick={() => {
-                    setActualImage(renderProfilePhoto(image)) // Establecer la URL de la imagen actual
-                  }}
-                >
-                  <img
-                    loading='lazy'
-                    src={renderProfilePhoto(image)} // Usar la URL completa para mostrar la imagen
-                    alt={libro.title}
-                    title={libro.title}
-                  />
-                </div>
-              ))}
-          </div>
-
-          <div
-            className='actualImage'
-            ref={actualImageRef}
-            style={{ cursor: !isZoomed ? 'zoom-in' : 'zoom-out' }}
-          >
-            {libro.images && libro.images.length > 0 && (
-              <img
-                src={renderProfilePhoto(actualImage)}
-                alt={libro.titulo}
-                title={libro.titulo}
-                onMouseMove={moverMouse}
-                onClick={handleZoom}
-              />
-            )}
-          </div>
+        <div className='imagesVariable'>
+          {libro.images &&
+            libro.images.map((image, index) => (
+              <div
+                className='imageElement'
+                key={index}
+                onClick={() => {
+                  setActualImage(renderProfilePhoto(image)) // Establecer la URL de la imagen actual
+                }}
+              >
+                <img
+                  loading='lazy'
+                  src={renderProfilePhoto(image)} // Usar la URL completa para mostrar la imagen
+                  alt={libro.title}
+                  title={libro.title}
+                />
+              </div>
+            ))}
         </div>
+
+        <div
+          className='actualImage'
+          ref={actualImageRef}
+          style={{ cursor: !isZoomed ? 'zoom-in' : 'zoom-out' }}
+        >
+          {libro.images && libro.images.length > 0 && (
+            <img
+              src={renderProfilePhoto(actualImage)}
+              alt={libro.titulo}
+            title={libro.titulo}
+            loading="lazy"
+              onMouseMove={moverMouse}
+              onClick={handleZoom}
+            />
+          )}
+        </div>
+      </div>
     </>
   )
 }

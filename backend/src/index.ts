@@ -133,10 +133,10 @@ export const createApp = ({
           console.error('Error:', err.message)
         }
         res.status(500).json({
-          error:
-            process.env.NODE_ENV === 'production'
-              ? 'Internal Server Error'
-              : err.message,
+          error: err.message,
+          // process.env.NODE_ENV === 'production'
+          //   ? 'Internal Server Error'
+          //   : err.message,
           stack: process.env.NODE_ENV === 'production' ? undefined : err.stack // Include stack trace in development
         })
       }

@@ -53,21 +53,17 @@ export default function Login () {
             setLoading={setLoading}
           />
           <div className='alternativasLogin'>
-            <GoogleOAuthProvider clientId='116098868999-7vlh6uf4e7c7ctsif1kl8nnsqvrk7831.apps.googleusercontent.com'>
-              <GoogleLogin callback={(userData) =>handleGoogleSubmit({ userData, setLoading, setErrors})} />
+            <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+              <GoogleLogin callback={(userData) =>handleGoogleSubmit({ userData, setLoading, setErrors })} />
             </GoogleOAuthProvider>
             {/* Logo de Facebook */}
             <LoginSocialFacebook
-              appId='2114886455594411'
+              appId={import.meta.env.VITE_FACEBOOK_APP_ID}
               onResolve={res => handleFacebookSubmit(res, setErrors, setLoading)}
               onReject={(error) => console.error(error)}
             >
               <img loading='lazy' src='/facebook-logo.svg' alt='Facebook logo' title='Facebook logo' />
             </LoginSocialFacebook>
-
-            {/* <div>{/*Logo de Amazon
-            <img loading="lazy" src="/amazon-logo.svg" alt="Amazon logo" title='Amazon logo'/>
-            </div> */}
           </div>
           {!isRegister && (
             <div className='forgot-password'>

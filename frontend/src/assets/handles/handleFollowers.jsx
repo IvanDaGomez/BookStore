@@ -24,5 +24,6 @@ export async function handleFollowers ({ e, usuario, user, setUser, setUsuario =
       setUser(response.data.user)
     } catch (error) {
       console.error('Error:', error)
+      toast.error('Error al seguir al usuario, intenta de nuevo')
     }
   }

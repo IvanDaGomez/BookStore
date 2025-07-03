@@ -2,16 +2,17 @@ import { toast } from "react-toastify"
 // import { createNotification } from "../../assets/createNotification"
 import axios from "axios"
 import { BACKEND_URL } from "../../assets/config"
+import { necesitasIniciarSesion } from "../../assets/jsxConstants"
 export   async function handleSubmitPregunta (libro, user) {
     const inputPregunta = document.querySelector('.inputPregunta')
 
     if (!inputPregunta.value) {
       return
     }
-    // if (!user) {
-    //   toast.error('Necesitas iniciar sesión para hacer preguntas')
-    //   return
-    // }
+    if (!user) {
+      toast.error(necesitasIniciarSesion)
+      return
+    }
     if (!libro) return
     const url = `${BACKEND_URL}/api/books/questionBook`
     const body = {
