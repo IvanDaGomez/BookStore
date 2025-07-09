@@ -153,7 +153,7 @@ export const createApp = ({
   //   });
   // }
   // Create HTTP server instance
-  const server = app.listen(PORT, () => {
+  const server = app.listen(PORT, '0.0.0.0', () => {
     const url = `${process.env.BACKEND_URL || 'http://localhost'}:${PORT}`
     console.log(`Backend is running at ${url}`)
   })

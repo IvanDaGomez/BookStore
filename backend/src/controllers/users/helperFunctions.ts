@@ -34,7 +34,7 @@ async function processUserUpdate (
   userId: ID,
   req: express.Request
 ) {
-  const file: Express.MulterS3.File | undefined = req.file
+  const file: Express.MulterS3.File | undefined = req.file as Express.MulterS3.File | undefined
   if (file) {
     data.foto_perfil = file.location as ImageType
     await saveOptimizedImages([data.foto_perfil])
